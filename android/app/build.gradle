@@ -1,0 +1,21 @@
+plugins {
+    id "com.android.application"
+}
+
+android {
+    namespace "org.ebible.reader"
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "org.ebible.reader"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "0.1"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+}

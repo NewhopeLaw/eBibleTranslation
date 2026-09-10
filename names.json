@@ -1,0 +1,30 @@
+{
+  "_comment": "Standard English spellings of proper names, so all books agree. Hebrew/Greek forms -> fixed English spelling. Grows as the project proceeds.",
+  "names": {
+    "אדם": "Adam", "חוה": "Eve", "קין": "Cain", "הבל": "Abel", "שת": "Seth",
+    "נח": "Noah", "שם": "Shem", "חם": "Ham", "יפת": "Japheth",
+    "אברהם / אברם": "Abraham / Abram", "שרה / שרי": "Sarah / Sarai",
+    "יצחק": "Isaac", "רבקה": "Rebekah", "יעקב": "Jacob", "עשו": "Esau",
+    "ישראל": "Israel", "יוסף": "Joseph", "יהודה": "Judah", "משה": "Moses",
+    "אהרן": "Aaron", "מרים": "Miriam", "יהושע": "Joshua", "דוד": "David",
+    "שלמה": "Solomon", "שאול (המלך)": "Saul", "שמואל": "Samuel",
+    "אליהו": "Elijah", "אלישע": "Elisha", "ישעיהו": "Isaiah",
+    "ירמיהו": "Jeremiah", "יחזקאל": "Ezekiel", "דניאל": "Daniel",
+    "עזרא": "Ezra", "נחמיה": "Nehemiah", "אסתר": "Esther", "איוב": "Job",
+    "רות": "Ruth", "בעז": "Boaz", "נעמי": "Naomi",
+    "ירושלם / ירושלים": "Jerusalem", "מצרים": "Egypt", "פרעה": "Pharaoh",
+    "בבל": "Babylon", "אשור": "Assyria", "כנען": "Canaan", "ציון": "Zion",
+    "עדן": "Eden", "פרת": "Euphrates", "חדקל": "Tigris",
+    "Ἰησοῦς": "Jesus", "Μαρία / Μαριάμ": "Mary", "Ἰωσήφ": "Joseph",
+    "Ἰωάννης": "John", "Πέτρος": "Peter", "Σίμων": "Simon",
+    "Παῦλος": "Paul", "Ἀνδρέας": "Andrew", "Ἰάκωβος": "James",
+    "Ματθαῖος": "Matthew", "Θωμᾶς": "Thomas", "Φίλιππος": "Philip",
+    "Βαρναβᾶς": "Barnabas", "Τιμόθεος": "Timothy", "Τίτος": "Titus",
+    "Στέφανος": "Stephen", "Λουκᾶς": "Luke", "Μᾶρκος": "Mark",
+    "Ἡρῴδης": "Herod", "Πιλᾶτος": "Pilate", "Καϊάφας": "Caiaphas",
+    "Ἱεροσόλυμα / Ἰερουσαλήμ": "Jerusalem", "Γαλιλαία": "Galilee",
+    "Ναζαρέτ": "Nazareth", "Βηθλέεμ": "Bethlehem", "Καφαρναούμ": "Capernaum",
+    "Ἰορδάνης": "the Jordan", "Σαμάρεια": "Samaria", "Δαμασκός": "Damascus",
+    "Ῥώμη": "Rome", "Κόρινθος": "Corinth", "Ἔφεσος": "Ephesus"
+  }
+}

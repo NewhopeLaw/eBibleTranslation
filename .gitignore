@@ -1,0 +1,17 @@
+# cloned source repositories — re-fetch with the commands in README.md
+sources/morphhb/
+sources/byzantine-majority-text/
+sources/SBLGNT/
+
+# transient logs (translate.jsonl and verify_report.md ARE tracked)
+logs/pull_*.log
+logs/gen_run.log
+logs/gen_redo*.log
+nohup.out
+
+# python / android build junk
+__pycache__/
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
