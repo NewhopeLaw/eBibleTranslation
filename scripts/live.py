@@ -450,7 +450,8 @@ function applySnapshot(s){
   $('start').disabled = s.running; $('stop').disabled = !s.running;
   if (s.error) { raw = 'ERROR: ' + s.error; }
   cur = s.current || (cur && raw ? cur : (s.last || null));   // finished chapter stays comparable
-  if (cur) { if (s.current || !raw) raw = cur.text; $('cur').textContent = cur.book+' '+cur.chapter; $('vv').textContent = cur.verses; }
+  if (cur) { if (s.current || !raw) raw = cur.text; $('cur').textContent = cur.book+' '+cur.chapter; $('vv').textContent = cur.verses;
+    if (!s.running) { $('tok').textContent = cur.tokens; const r = s.recent[0]; if (r && r.book === cur.book && r.chapter === cur.chapter) { $('el').textContent = r.seconds + 's'; $('tps').textContent = r.tps || '—'; } } }
   else if (!s.error && !raw) { $('cur').textContent = '—'; }
   $('prog').textContent = s.bible_done + ' / ' + s.bible_total;
   $('bar').firstElementChild.style.width = (100*s.bible_done/Math.max(1,s.bible_total)).toFixed(2)+'%';
