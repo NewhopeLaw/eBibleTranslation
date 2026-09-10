@@ -18,7 +18,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 import translate as T                       # noqa: E402
-from books import BOOKS, slug               # noqa: E402
+from books import BOOKS, LANGS, MIXED, slug, verse_lang   # noqa: E402
 
 PORT = 8766
 ROOT = T.ROOT
@@ -54,6 +54,23 @@ def publish(ev: dict):
                 dead.append(q)
         for q in dead:
             SUBS.remove(q)
+
+
+NAME2META = {m["name"]: m for m in BOOKS.values()}
+_norm_cache = {}
+
+
+def source_verses(book_name, ch):
+    """[{v, text, lang}] of the original-language chapter (comparison view)."""
+    meta = NAME2META.get(book_name)
+    if not meta:
+        return []
+    key = slug(meta["name"])
+    if key not in _norm_cache:
+        f = ROOT / "sources" / "normalized" / f"{meta['num']:02d}_{key}.json"
+        _norm_cache[key] = json.loads(f.read_text(encoding="utf-8"))["chapters"] if f.exists() else {}
+    return [{"v": v["v"], "text": v["text"], "lang": verse_lang(meta, v)}
+            for v in _norm_cache[key].get(str(ch), [])]
 
 
 def chapter_counts():
@@ -99,9 +116,10 @@ def on_event(ev: dict):
     if kind == "start":
         if STOP.is_set():
             raise StopRun()
+        ev["src"] = source_verses(ev["book"], ev["chapter"])
         with LOCK:
             STATE["current"] = {"book": ev["book"], "chapter": ev["chapter"],
-                                "verses": ev["verses"], "lang": ev["lang"],
+                                "verses": ev["verses"], "lang": ev["lang"], "src": ev["src"],
                                 "started": time.time(), "text": "", "tokens": 0}
             STATE["status"] = f"translating {ev['book']} {ev['chapter']}"
     elif kind == "retry":
@@ -194,7 +212,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         if self.path in ("/", "/index.html"):
-            body = PAGE.encode("utf-8")
+            body = PAGE.replace("__LANGS__", json.dumps({**LANGS, "mixed": MIXED})).encode("utf-8")
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.send_header("Content-Length", str(len(body)))
@@ -299,7 +317,24 @@ aside h3 { font-size:12px; text-transform:uppercase; letter-spacing:.06em; color
 #books { display:grid; grid-template-columns:1fr 1fr; gap:2px 8px; margin-top:.3rem; }
 #books div { display:flex; justify-content:space-between; color:var(--muted); }
 #books div.full { color:var(--ok); } #books div.part { color:var(--fg); }
-@media (max-width:760px) { aside { display:none; } }
+.tabs { display:flex; gap:.25rem; margin-left:auto; }
+.tabs span { padding:.15rem .6rem; border:1px solid var(--border); border-radius:999px;
+  cursor:pointer; color:var(--muted); font-size:12px; user-select:none; }
+.tabs span.on { background:var(--card); color:var(--fg); border-color:var(--accent); }
+#text.par { max-width:none; white-space:normal; }
+.orig { font-family:"SBL Hebrew","Ezra SIL","Taamey Frank CLM","Times New Roman",serif; line-height:1.95; }
+.orig.greek { font-family:"Gentium Plus","SBL Greek","Palatino Linotype","Times New Roman",serif; }
+.orig[dir=rtl] { text-align:right; }
+.lt { font:600 10px system-ui,sans-serif; color:var(--muted); text-transform:uppercase;
+  letter-spacing:.05em; margin:0 .3em; vertical-align:.5em; }
+p.ov { margin:0 0 .5em; }
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:0 1.6rem; align-items:start; }
+.grid > div { padding:.4rem 0; border-bottom:1px solid var(--border); }
+.grid .e { white-space:pre-wrap; }
+.grid .e.todo { color:var(--muted); }
+.grid .e.active { background:var(--hl); border-radius:6px; padding-left:.4rem; }
+.grid .notes { grid-column:1 / -1; }
+@media (max-width:760px) { aside { display:none; } .grid { grid-template-columns:1fr; } .grid .o { border-bottom:0; padding-bottom:.1rem; } }
 </style></head><body>
 <header>
   <span class="brand"><b>eBible</b> live translation · <span id="model"></span></span>
@@ -321,6 +356,7 @@ aside h3 { font-size:12px; text-transform:uppercase; letter-spacing:.06em; color
   <span>Book <b id="bprog">—</b></span>
   <span>Bible <b id="prog">—</b></span>
   <span id="bar"><i></i></span>
+  <span class="tabs" id="tabs"><span data-v="en">English</span><span data-v="orig" id="origTab">Original</span><span data-v="par">Side by side</span></span>
 </div>
 <div class="layout">
   <div id="text"><span class="empty">Pick a book (or leave "All books") and press Start. Text appears here as the model writes it.</span></div>
@@ -333,19 +369,64 @@ aside h3 { font-size:12px; text-transform:uppercase; letter-spacing:.06em; color
 </div>
 <script>
 const $ = id => document.getElementById(id);
+const LANGS = __LANGS__;
 let S = null, raw = '', pending = false, cur = null, ticker = null;
 
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+let view = localStorage.getItem('liveView') || 'par', lastActive = null;
+function setView(v){ view = v; localStorage.setItem('liveView', v); lastActive = null; render(); }
+document.querySelectorAll('#tabs span').forEach(t => t.onclick = () => setView(t.dataset.v));
+
+function parseVerses(text){           // {vs: {n: english}, notes, n: verse being written}
+  const vs = {}, notesL = []; let n = null, inNotes = false;
+  for (const line of text.split('\n')) {
+    if (line.trim() === '---') { inNotes = true; continue; }
+    if (inNotes) { notesL.push(line); continue; }
+    const m = line.trim().match(/^\[(\d+)\]\s*(.*)$/);
+    if (m) { n = +m[1]; vs[n] = m[2]; }
+    else if (n !== null && line.trim()) vs[n] += '\n' + line.trim();
+  }
+  return {vs, notes: notesL.join('\n').trim(), n};
+}
+
 function render(){
   pending = false;
   const box = $('text');
+  const src = cur && cur.src && cur.src.length ? cur.src : null;
+  const v = src ? view : 'en';
+  const L = LANGS[(cur && cur.lang) || 'hbo'] || LANGS.hbo;
+  const rtl = L.dir === 'rtl', ocls = 'orig ' + L.script.toLowerCase();
+  const mixed = cur && cur.lang === 'mixed';
+  const tag = s => mixed ? `<span class="lt">${LANGS[s.lang].name}</span>` : '';
+  document.querySelectorAll('#tabs span').forEach(t => t.classList.toggle('on', t.dataset.v === v));
+  $('origTab').textContent = cur ? L.name : 'Original';
+  box.className = v === 'par' ? 'par' : '';
+  const caret = S && S.running && cur ? '<span class="caret"></span>' : '';
+  if (v === 'orig') {
+    box.innerHTML = src.map(s => `<p class="ov ${ocls}" dir="${rtl?'rtl':'ltr'}"><sup>${s.v}</sup>${tag(s)}${esc(s.text)}</p>`).join('');
+    return;
+  }
+  if (v === 'par') {
+    const {vs, notes, n} = parseVerses(raw);
+    let html = '<div class="grid">';
+    for (const s of src) {
+      const e = vs[s.v];
+      const cls = e === undefined ? 'e todo' : (s.v === n && S && S.running ? 'e active' : 'e');
+      html += `<div class="o ${ocls}" dir="${rtl?'rtl':'ltr'}"><sup>${s.v}</sup>${tag(s)}${esc(s.text)}</div>
+        <div class="${cls}" id="row-${s.v}"><sup>${s.v}</sup>${e === undefined ? '…' : esc(e) + (s.v === n ? caret : '')}</div>`;
+    }
+    if (notes) html += `<div class="notes">${esc(notes)}</div>`;
+    box.innerHTML = html + '</div>';
+    if (n !== lastActive) { lastActive = n; const r = document.getElementById('row-' + n); if (r) r.scrollIntoView({block:'center', behavior:'smooth'}); }
+    return;
+  }
   const atBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 80;
   let html = esc(raw).replace(/^\[(\d+)\]\s*/gm, '<sup>$1</sup>');
   const i = html.indexOf('\n---');
   if (i >= 0) html = html.slice(0, i) + '<div class="notes">' + html.slice(i) + '</div>';
   if (!raw) html = '<span class="empty">' + (S && S.running ? 'Waiting for the model…' :
     'Pick a book (or leave "All books") and press Start. Text appears here as the model writes it.') + '</span>';
-  box.innerHTML = html + (S && S.running && cur ? '<span class="caret"></span>' : '');
+  box.innerHTML = html + caret;
   if (atBottom) box.scrollTop = box.scrollHeight;
 }
 function schedule(){ if (!pending){ pending = true; requestAnimationFrame(render); } }
@@ -390,7 +471,7 @@ function connect(){
     const m = JSON.parse(e.data);
     if (m.type === 'snapshot') applySnapshot(m);
     else if (m.type === 'token') { raw += m.t; if (cur) cur.tokens++; schedule(); }
-    else if (m.type === 'start') { raw = ''; cur = {book:m.book, chapter:m.chapter, verses:m.verses, started:Date.now()/1000, tokens:0};
+    else if (m.type === 'start') { raw = ''; lastActive = null; cur = {book:m.book, chapter:m.chapter, verses:m.verses, lang:m.lang, src:m.src, started:Date.now()/1000, tokens:0};
       $('cur').textContent = m.book+' '+m.chapter; $('vv').textContent = m.verses; $('pill').textContent = 'translating '+m.book+' '+m.chapter; $('pill').className='pill run'; schedule(); }
     else if (m.type === 'retry') { raw += '\n\n--- retry: missing '+JSON.stringify(m.missing)+' extra '+JSON.stringify(m.extra)+' ---\n\n'; schedule(); }
     else if (m.type === 'done' || m.type === 'skip' || m.type === 'run') refresh();

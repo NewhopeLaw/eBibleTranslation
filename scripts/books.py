@@ -95,3 +95,34 @@ def is_aramaic(code: str, chapter: int, verse: int) -> bool:
 def slug(name: str) -> str:
     """File-system-safe book name: '1 Samuel' -> '1_Samuel'."""
     return name.replace(" ", "_")
+
+
+# --- Original languages -------------------------------------------------
+# One table for the whole pipeline: the driver labels prompts with it, the
+# reader and live dashboard render with it. Codes are ISO 639-3 as used in the
+# normalized sources (OT verses carry "lang": "arc" in the Aramaic sections:
+# Daniel 2:4-7:28, Ezra 4:8-6:18 and 7:12-26, Jeremiah 10:11; NT is all Greek).
+LANGS = {
+    "hbo": {"name": "Hebrew",  "dir": "rtl", "script": "Hebrew",
+            "source": "Westminster Leningrad Codex"},
+    "arc": {"name": "Aramaic", "dir": "rtl", "script": "Hebrew",
+            "source": "Westminster Leningrad Codex"},
+    "grc": {"name": "Greek",   "dir": "ltr", "script": "Greek",
+            "source": "SBLGNT"},
+}
+MIXED = {"name": "Hebrew / Aramaic", "dir": "rtl", "script": "Hebrew"}
+
+
+def verse_lang(meta, verse) -> str:
+    """Language code of one normalized verse record."""
+    return "grc" if meta["testament"] == "NT" else verse.get("lang", "hbo")
+
+
+def chapter_lang(meta, verses) -> str:
+    """'hbo' | 'arc' | 'grc' | 'mixed' for a list of normalized verses."""
+    langs = {verse_lang(meta, v) for v in verses}
+    return next(iter(langs)) if len(langs) == 1 else "mixed"
+
+
+def lang_info(code) -> dict:
+    return MIXED if code == "mixed" else LANGS[code]

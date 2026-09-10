@@ -22,7 +22,7 @@ import urllib.request
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from books import BOOKS, slug
+from books import BOOKS, LANGS, chapter_lang, lang_info, slug
 
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))
@@ -33,7 +33,7 @@ LOG_PATH = ROOT / "logs" / "translate.jsonl"
 SUP = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
 VERSE_RE = re.compile(r"^\[(\d+)\]\s*(.*)$")
 
-LANG_NAME = {"hbo": "Hebrew", "arc": "Aramaic", "grc": "Greek"}
+LANG_NAME = {code: info["name"] for code, info in LANGS.items()}
 
 # Optional live hooks (set by scripts/live.py). When on_token is set the model
 # is called with stream=True and every token is passed to it as it arrives;
@@ -61,16 +61,9 @@ def build_system_prompt() -> str:
             + "\n\nPROPER NAMES (use these English spellings)\n" + fmt(names["names"]))
 
 
-def chapter_lang(book_meta, verses) -> str:
-    if book_meta["testament"] == "NT":
-        return "grc"
-    langs = {v.get("lang", "hbo") for v in verses}
-    return "arc" if langs == {"arc"} else ("hbo" if langs == {"hbo"} else "mixed")
-
-
 def build_user_prompt(meta, ch, verses, prev_english):
     lang = chapter_lang(meta, verses)
-    lang_label = LANG_NAME.get(lang, "Hebrew with an Aramaic section")
+    lang_label = "Hebrew with an Aramaic section" if lang == "mixed" else LANG_NAME[lang]
     lines = [f"Book: {meta['name']} — chapter {ch}. Source language: {lang_label}.", ""]
     if prev_english:
         lines += [f"YOUR TRANSLATION OF THE PREVIOUS CHAPTER (for continuity of tone and recurring phrases — do not re-output it):",
@@ -186,7 +179,7 @@ def translate_chapter(meta, ch, verses, prev_english, system, force=False):
     expected = [v["v"] for v in verses]
     user = build_user_prompt(meta, ch, verses, prev_english)
     emit(type="start", book=meta["name"], chapter=int(ch), verses=len(expected),
-         lang=LANG_NAME.get(chapter_lang(meta, verses), "Hebrew + Aramaic"))
+         lang=chapter_lang(meta, verses))
     t0 = time.time()
     raw, resp = call_model(system, user)
     parsed, notes, missing, extra = parse_output(raw, expected)

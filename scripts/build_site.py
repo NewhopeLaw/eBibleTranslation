@@ -17,7 +17,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from books import BOOKS, slug
+from books import BOOKS, LANGS, MIXED, chapter_lang, slug, verse_lang
 
 ROOT = Path(__file__).resolve().parent.parent
 JSON_DIR = ROOT / "output" / "json"
@@ -92,6 +92,7 @@ nav#books a.missing { color:var(--muted); opacity:.4; pointer-events:none; }
   border-radius:7px; text-decoration:none; color:var(--fg); }
 .chnav a.on { background:var(--accent); color:#fff; border-color:var(--accent); }
 h2 { font-size:1.65em; font-weight:normal; margin:.3rem 0 .4rem; }
+h2 .lang { font:13px system-ui,sans-serif; color:var(--muted); margin-left:.6rem; vertical-align:middle; }
 sup.v { color:var(--accent); font:600 .58em system-ui,sans-serif;
   margin:0 .18em 0 .05em; user-select:none; vertical-align:.55em; }
 p.vv { margin:0 0 1.05em; text-align:justify; hyphens:auto; }
@@ -115,6 +116,27 @@ mark { background:var(--hl); color:inherit; border-radius:3px; padding:0 .1em; }
 .flash { animation:flash 2.5s; }
 @keyframes flash { 0%,55% { background:var(--hl); } 100% { background:transparent; } }
 .empty { color:var(--muted); font:15px system-ui,sans-serif; margin-top:2rem; }
+main.wide { max-width:66rem; }
+.tabs { display:flex; gap:.3rem; font:14px system-ui,sans-serif; margin:-.8rem 0 1.3rem; }
+.tabs a { padding:.25rem .75rem; border:1px solid var(--border); border-radius:999px;
+  cursor:pointer; color:var(--muted); user-select:none; }
+.tabs a:hover { border-color:var(--accent); }
+.tabs a.on { background:var(--card); color:var(--fg); border-color:var(--accent); }
+.orig { font-family:"SBL Hebrew","Ezra SIL","Taamey Frank CLM","Times New Roman",serif;
+  line-height:1.95; }
+.orig.greek { font-family:"Gentium Plus","SBL Greek","Palatino Linotype","Times New Roman",serif; }
+.lt { font:600 10px system-ui,sans-serif; color:var(--muted); text-transform:uppercase;
+  letter-spacing:.05em; margin:0 .3em; vertical-align:.5em; user-select:none; }
+.orig[dir=rtl] { text-align:right; }
+.orig sup.v { vertical-align:.7em; }
+p.ov { margin:0 0 .6em; }
+.par { display:grid; grid-template-columns:1fr 1fr; gap:0 1.6rem; align-items:start; }
+.par > div { padding:.45rem 0; border-bottom:1px solid var(--border); }
+.par .e { white-space:pre-wrap; }
+@media (max-width:760px){
+  .par { grid-template-columns:1fr; }
+  .par .o { border-bottom:0; padding-bottom:.1rem; }
+}
 @media (max-width:760px){
   nav#books { display:none }
   select#bookSel { display:block }
@@ -139,6 +161,7 @@ mark { background:var(--hl); color:inherit; border-radius:3px; padding:0 .1em; }
 <script>
 const DATA = __DATA__;
 const ORDER = __ORDER__;
+const LANGS = __LANGS__;
 const ABBREV = __ABBREV__;
 const SUP = "⁰¹²³⁴⁵⁶⁷⁸⁹";
 const $ = s => document.querySelector(s);
@@ -184,18 +207,44 @@ function neighbours(book, ch) {
 
 function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
 
+/* ---------- language view: en | orig | par ---------- */
+let view = localStorage.getItem("view") || "en";
+function setView(v){ view = v; localStorage.setItem("view", v); route(); }
+const vtag = (src, n) => src._lang ? `<span class="lt">${LANGS[src._lang[n]].name}</span>` : "";
+
 function renderChapter(book, ch, highlightVerse) {
   const chData = DATA[book] && DATA[book][ch];
   const main = $("#main");
   navRender(book);
   if (!chData) { main.innerHTML = `<p class="empty">${disp(book)} ${ch} has not been translated yet.</p>`; return; }
   const chs = chapterList(book);
-  let html = `<h2>${disp(book)} ${ch}</h2>`;
+  let html = `<h2>${disp(book)} ${ch}${chData.lang ? ` <small class="lang">${LANGS[chData.lang].name}</small>` : ""}</h2>`;
   html += `<div class="chnav">` + chs.map(c =>
     `<a href="#${book}/${c}" class="${c==ch?'on':''}">${c}</a>`).join("") + `</div>`;
+  const src = chData.src, lang = chData.lang || "hbo", L = LANGS[lang];
+  const rtl = L.dir === "rtl", ocls = "orig " + L.script.toLowerCase();
+  const v = src ? view : "en";
+  if (src) html += `<div class="tabs">
+    <a class="${v==='en'?'on':''}" onclick="setView('en')">English</a>
+    <a class="${v==='orig'?'on':''}" onclick="setView('orig')">${L.name}</a>
+    <a class="${v==='par'?'on':''}" onclick="setView('par')">Side by side</a></div>`;
+  main.className = v === "par" ? "wide" : "";
+  const nums = Object.keys(v === "en" ? chData.verses : src).filter(k => k !== "_lang").map(Number).sort((a,b)=>a-b);
+  if (v === "orig") {
+    for (const n of nums)
+      html += `<p class="ov ${ocls}" dir="${rtl?'rtl':'ltr'}" id="v-${book}-${ch}-${n}"><sup class="v">${n}</sup>${vtag(src,n)}${esc(src[n])}</p>`;
+  } else if (v === "par") {
+    html += `<div class="par">`;
+    for (const n of nums) {
+      const e = chData.verses[n];
+      html += `<div class="o ${ocls}" dir="${rtl?'rtl':'ltr'}"><sup class="v">${n}</sup>${vtag(src,n)}${esc(src[n])}</div>
+        <div class="e" id="v-${book}-${ch}-${n}"><sup class="v">${n}</sup>${e ? esc(e).replace(/\\n\\n/g,"\\n").trim() : "<i style='color:var(--muted)'>—</i>"}</div>`;
+    }
+    html += `</div>`;
+  }
   let para = [];
   const flush = () => { if (para.length) { html += `<p class="vv">${para.join(" ")}</p>`; para = []; } };
-  for (const n of Object.keys(chData.verses).map(Number).sort((a,b)=>a-b)) {
+  for (const n of (v === "en" ? nums : [])) {
     const t = chData.verses[n];
     const vid = `v-${book}-${ch}-${n}`;
     if (t.includes("\\n")) {
@@ -296,17 +345,42 @@ route();
 """
 
 
+NORM_DIR = ROOT / "sources" / "normalized"
+BY_SLUG = {slug(m["name"]): m for m in BOOKS.values()}
+_norm_cache = {}
+
+
+def source_chapter(book_key, ch):
+    """Original-language verses {n: text} and language code for one chapter."""
+    meta = BY_SLUG.get(book_key)
+    if not meta:
+        return None, None
+    if book_key not in _norm_cache:
+        f = NORM_DIR / f"{meta['num']:02d}_{book_key}.json"
+        _norm_cache[book_key] = json.loads(f.read_text(encoding="utf-8"))["chapters"] if f.exists() else {}
+    verses = _norm_cache[book_key].get(str(ch))
+    if not verses:
+        return None, None
+    lang = chapter_lang(meta, verses)
+    src = {str(v["v"]): v["text"] for v in verses}
+    if lang == "mixed":      # per-verse tags only where a chapter switches language
+        src["_lang"] = {str(v["v"]): verse_lang(meta, v) for v in verses}
+    return src, lang
+
+
 def main():
     data = {}
     for f in sorted(JSON_DIR.glob("*.json")):
         d = json.loads(f.read_text(encoding="utf-8"))
         book_key = slug(d["book"])
+        src, lang = source_chapter(book_key, d["chapter"])
         data.setdefault(book_key, {})[str(d["chapter"])] = {
-            "verses": d["verses"], "notes": d.get("notes", "")}
+            "verses": d["verses"], "notes": d.get("notes", ""), "src": src, "lang": lang}
     SITE.mkdir(exist_ok=True)
     page = (PAGE
             .replace("__DATA__", json.dumps(data, ensure_ascii=False))
             .replace("__ORDER__", json.dumps(ORDER))
+            .replace("__LANGS__", json.dumps({**LANGS, "mixed": MIXED}))
             .replace("__ABBREV__", json.dumps(
                 {k: v.replace(" ", "_") for k, v in ABBREV.items()})))
     out = SITE / "index.html"

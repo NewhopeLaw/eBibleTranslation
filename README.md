@@ -41,7 +41,25 @@ scripts/translate.py  --all          the whole Bible, canonical order
 scripts/verify.py     [Gen [1-3]]    flag missing/dup verses, untranslated text,
                                      truncation, name inconsistencies
 scripts/build_site.py                rebuild site/index.html reader
+scripts/live.py                      live dashboard on :8766 — same driver,
+                                     tokens stream to the browser as they arrive
 ```
+
+### Original languages
+
+One table, `LANGS` in `scripts/books.py`, describes the three source languages
+(code, name, writing direction, script, source edition) and two helpers,
+`verse_lang` / `chapter_lang`, classify normalized verses: `hbo`, `arc`, `grc`,
+or `mixed` for chapters that switch (Daniel 2, Ezra 4, 6, 7, Jeremiah 10). Everything that
+labels or renders original text goes through it:
+
+- `translate.py` names the source language in each prompt from it;
+- `build_site.py` embeds the original verses of every translated chapter and
+  gives the reader three tabs — **English**, **Hebrew / Aramaic / Greek**, and
+  **Side by side** — with right-to-left layout for Hebrew script and a small
+  per-verse tag wherever a chapter mixes Hebrew and Aramaic;
+- `live.py` shows the same three tabs while a chapter is being translated, so
+  each English verse appears next to its source as the model writes it.
 
 Conventions live in `prompts/system_prompt.txt`; fixed renderings in
 `glossary.json`; proper-name spellings in `names.json`. Chapter memory: each
