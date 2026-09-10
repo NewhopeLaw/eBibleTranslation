@@ -112,11 +112,11 @@ LANGS = {
 }
 MIXED = {"name": "Hebrew / Aramaic", "dir": "rtl", "script": "Hebrew"}
 
-# Second Old Testament source: the Septuagint (Greek, ~3rd-2nd c. BCE), read
-# alongside the Hebrew. Verses carry it as "lxx" in the normalized JSON
-# (scripts/add_lxx.py); the prompt offers it for consultation, the reader and
-# dashboard show it as its own tab and Compare row. Not a translation base:
-# the Hebrew stays primary except where the notes say otherwise.
+# Reference witness for the Old Testament: the Septuagint (Greek, ~3rd-2nd c.
+# BCE). NOT a source: wherever Hebrew/Aramaic exists it alone is translated.
+# Verses carry the Greek as "lxx" in the normalized JSON (scripts/add_lxx.py);
+# the prompt appends it as a clearly marked reference block, the reader and
+# dashboard show it as its own tab and Compare row for comparison.
 LXX = {"name": "Septuagint", "short": "LXX", "dir": "ltr", "script": "Greek",
        "source": "Swete, The Old Testament in Greek (1901-1909), First1KGreek edition, CC BY-SA 4.0"}
 

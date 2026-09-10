@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Add the Septuagint as a second source to the normalized Old Testament.
+"""Attach the Septuagint to the normalized Old Testament as a reference witness
+(never a translation source where the Hebrew exists).
 
 Reads Swete's Septuagint (First1KGreek TEI, CC BY-SA 4.0) from sources/lxx/
 and writes each verse's Greek into sources/normalized/<NN>_<Book>.json as

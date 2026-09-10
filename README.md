@@ -11,21 +11,26 @@ translations are consulted at any stage.
 | Hebrew/Aramaic OT | Westminster Leningrad Codex via [openscriptures/morphhb](https://github.com/openscriptures/morphhb) | Base text public domain; morphology CC BY 4.0 |
 | Greek NT (primary) | [SBLGNT](https://github.com/LogosBible/SBLGNT) critical text | CC BY 4.0 |
 | Greek NT (consulted) | [Robinson–Pierpont Byzantine](https://github.com/byztxt/byzantine-majority-text) | Public domain |
-| Greek OT (consulted) | Septuagint, Swete's edition (1901–1909) via [First1KGreek](https://github.com/OpenGreekAndLatin/First1KGreek/tree/master/data/tlg0527) | CC BY-SA 4.0 |
+| Greek OT (reference only) | Septuagint, Swete's edition (1901–1909) via [First1KGreek](https://github.com/OpenGreekAndLatin/First1KGreek/tree/master/data/tlg0527) | CC BY-SA 4.0 |
 
-**The Septuagint as a second source.** `scripts/add_lxx.py --fetch` downloads
-Swete's Greek Old Testament (37 books; Ecclesiastes is not in the corpus) and
-writes each verse's Greek into the normalized JSON as `lxx` beside the Hebrew,
-aligned by chapter and verse with the standard block mappings where the Greek
-numbering diverges (Psalms, Jeremiah, Ezra–Nehemiah as 2 Esdras, Daniel in
-Theodotion's version); about 96 % of Old Testament verses align. The prompt
-then carries the Greek under the Hebrew as a consultation column: the model
-translates the Hebrew and may weigh the Greek at an ambiguous, rare or damaged
-reading, saying so in the notes. The reader and dashboard show it as a
-**Septuagint** tab and as an **LXX** row in Compare. `consult_lxx: false` in
-`config.json` drops it from prompts (and `num_ctx` can go back to 16384).
-Swete's text comes from corrected page scans and still carries occasional
-artefacts; treat it as a witness, not an edition.
+**The Septuagint is a reference, not a source.** Wherever the Hebrew or
+Aramaic exists it is the only text being translated. `scripts/add_lxx.py
+--fetch` downloads Swete's Greek Old Testament (37 books; Ecclesiastes is not
+in the corpus) and writes each verse's Greek into the normalized JSON as
+`lxx` beside the Hebrew, aligned by chapter and verse with the standard block
+mappings where the Greek numbering diverges (Psalms, Jeremiah, Ezra–Nehemiah
+as 2 Esdras, Daniel in Theodotion's version); about 96 % of Old Testament
+verses align. The prompt appends it after the source text in a block marked
+*reference only, not source text*: the model may consult it at a genuinely
+ambiguous, rare or damaged Hebrew reading and must say so in the notes if it
+follows the Greek; it must not translate from it or let its wording shape a
+clear Hebrew verse. The reader and dashboard show it as a **Septuagint** tab
+and as an **LXX** row in Compare, for the reader's comparison. `consult_lxx:
+false` in `config.json` drops it from prompts (and `num_ctx` can go back to
+16384). Swete's text comes from corrected page scans and still carries
+occasional artefacts; treat it as a witness, not an edition. It would become
+source material only for books that have no Hebrew, which this project does
+not yet include.
 
 The Greek base text is **SBLGNT**, with the Byzantine text available for
 consultation at divergences. The OT keeps Masoretic chapter/verse divisions

@@ -97,11 +97,16 @@ def build_user_prompt(meta, ch, verses, prev_translation, lang):
         tag = " [Aramaic]" if src_lang == "mixed" and v.get("lang") == "arc" else ""
         lines.append(f"{v['v']}.{tag} {v['text']}")
     if CONFIG.get("consult_lxx", True) and any(v.get("lxx") for v in verses):
-        lines += ["", "SEPTUAGINT (the ancient Greek version of the same chapter, for consultation only). "
-                  "Translate the Hebrew/Aramaic above. Use the Greek to weigh a genuinely ambiguous, rare, "
-                  "or damaged Hebrew reading; if you follow the Greek against the Hebrew, say so in the "
-                  "notes. Greek verse numbering may differ slightly; a missing number means no aligned verse:"]
+        lines += ["", "=== REFERENCE ONLY — NOT SOURCE TEXT ===",
+                  "Below is the Septuagint, the ancient Greek version of this chapter. It is a reference "
+                  "witness, not the text you are translating. The SOURCE TEXT above is the only basis of "
+                  "the translation. Do not translate from the Greek, and do not let its wording, word "
+                  "order, or additions shape your rendering where the Hebrew/Aramaic is clear. Consult it "
+                  "only at a genuinely ambiguous, rare, or damaged reading in the Hebrew, and if you then "
+                  "follow the Greek against the Hebrew, say so in the notes. Verse numbering may differ; "
+                  "a missing number means no aligned verse.", ""]
         lines += [f"{v['v']}. {v['lxx']}" for v in verses if v.get("lxx")]
+        lines += ["", "=== END OF REFERENCE. Translate the SOURCE TEXT. ==="]
     return "\n".join(lines)
 
 
