@@ -39,6 +39,7 @@ STATE = {
     "running": False, "model": T.CONFIG["model"], "status": "idle",
     "current": None,        # {book, chapter, verses, lang, started, text, tokens}
     "recent": [],           # last finished chapters, newest first
+    "last": None,           # the most recently finished chapter (same shape as current)
     "error": None,
 }
 
@@ -136,6 +137,7 @@ def on_event(ev: dict):
             rec["tps"] = round(ev["tokens"] / ev["seconds"], 1) if ev.get("tokens") and ev["seconds"] else None
             STATE["recent"].insert(0, rec)
             del STATE["recent"][40:]
+            STATE["last"] = STATE["current"]     # keeps the comparison viewable after the run
             STATE["current"] = None
     publish(ev)
 
@@ -432,7 +434,7 @@ function render(){
 function schedule(){ if (!pending){ pending = true; requestAnimationFrame(render); } }
 
 function tick(){
-  if (!cur) return;
+  if (!cur || !(S && S.running)) return;
   const el = (Date.now()/1000 - cur.started);
   $('el').textContent = el < 60 ? el.toFixed(0)+'s' : Math.floor(el/60)+'m '+Math.floor(el%60)+'s';
   $('tok').textContent = cur.tokens;
@@ -447,8 +449,8 @@ function applySnapshot(s){
   pill.className = 'pill' + (s.running ? ' run' : (s.error ? ' err' : ''));
   $('start').disabled = s.running; $('stop').disabled = !s.running;
   if (s.error) { raw = 'ERROR: ' + s.error; }
-  cur = s.current;
-  if (cur) { raw = cur.text; $('cur').textContent = cur.book+' '+cur.chapter; $('vv').textContent = cur.verses; }
+  cur = s.current || (cur && raw ? cur : (s.last || null));   // finished chapter stays comparable
+  if (cur) { if (s.current || !raw) raw = cur.text; $('cur').textContent = cur.book+' '+cur.chapter; $('vv').textContent = cur.verses; }
   else if (!s.error && !raw) { $('cur').textContent = '—'; }
   $('prog').textContent = s.bible_done + ' / ' + s.bible_total;
   $('bar').firstElementChild.style.width = (100*s.bible_done/Math.max(1,s.bible_total)).toFixed(2)+'%';

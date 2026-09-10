@@ -27,3 +27,4 @@
 {"ts": "2026-09-10T07:26:57", "book": "Genesis", "chapter": 23, "model": "qwen3:32b", "seconds": 115.3, "attempts": 1, "prompt_tokens": 5875, "output_tokens": 870, "missing": [], "extra": []}
 {"ts": "2026-09-10T07:48:10", "book": "Genesis", "chapter": 20, "model": "qwen3:32b", "seconds": 21.4, "attempts": 1, "prompt_tokens": 5072, "output_tokens": 717, "missing": [], "extra": []}
 {"ts": "2026-09-10T07:55:05", "book": "Genesis", "chapter": 23, "model": "qwen3:32b", "seconds": 21.7, "attempts": 1, "prompt_tokens": 5064, "output_tokens": 848, "missing": [], "extra": []}
+{"ts": "2026-09-10T07:57:43", "book": "Genesis", "chapter": 24, "model": "qwen3:32b", "seconds": 55.6, "attempts": 1, "prompt_tokens": 12128, "output_tokens": 2679, "missing": [], "extra": []}

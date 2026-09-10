@@ -1,20 +1,20 @@
 # Verification report
-Chapters checked: 23
+Chapters checked: 24
 Flags: 37
 
-- NAME? 'Abraham' (86x) vs 'Abram' (63x) — same person/place spelled two ways?
-- NAME? 'Abram' (63x) vs 'Aram' (3x) — same person/place spelled two ways?
+- NAME? 'Abraham' (98x) vs 'Abram' (63x) — same person/place spelled two ways?
+- NAME? 'Abram' (63x) vs 'Aram' (4x) — same person/place spelled two ways?
 - NAME? 'Adah' (3x) vs 'Admah' (3x) — same person/place spelled two ways?
 - NAME? 'Ammonites' (1x) vs 'Amorites' (3x) — same person/place spelled two ways?
 - NAME? 'Amorite' (2x) vs 'Amorites' (3x) — same person/place spelled two ways?
 - NAME? 'Amorites' (3x) vs 'Arkites' (1x) — same person/place spelled two ways?
 - NAME? 'Amorites' (3x) vs 'Horites' (1x) — same person/place spelled two ways?
 - NAME? 'Arabah' (1x) vs 'Arba' (1x) — same person/place spelled two ways?
-- NAME? 'Bethel' (4x) vs 'Bethuel' (2x) — same person/place spelled two ways?
+- NAME? 'Bethel' (4x) vs 'Bethuel' (6x) — same person/place spelled two ways?
 - NAME? 'Cain' (18x) vs 'Cainan' (5x) — same person/place spelled two ways?
 - NAME? 'Cain' (18x) vs 'Can' (1x) — same person/place spelled two ways?
 - NAME? 'Cainan' (5x) vs 'Canaan' (14x) — same person/place spelled two ways?
-- NAME? 'Canaanite' (2x) vs 'Canaanites' (3x) — same person/place spelled two ways?
+- NAME? 'Canaanite' (2x) vs 'Canaanites' (5x) — same person/place spelled two ways?
 - NAME? 'Egyptian' (3x) vs 'Egyptians' (2x) — same person/place spelled two ways?
 - NAME? 'Enoch' (9x) vs 'Enosh' (6x) — same person/place spelled two ways?
 - NAME? 'Girgashite' (1x) vs 'Girgashites' (1x) — same person/place spelled two ways?
@@ -30,7 +30,7 @@ Flags: 37
 - NAME? 'King' (1x) vs 'Kings' (1x) — same person/place spelled two ways?
 - NAME? 'Methuselah' (5x) vs 'Methushael' (2x) — same person/place spelled two ways?
 - NAME? 'Naamah' (1x) vs 'Raamah' (2x) — same person/place spelled two ways?
-- NAME? 'Sarah' (31x) vs 'Sarai' (17x) — same person/place spelled two ways?
+- NAME? 'Sarah' (33x) vs 'Sarai' (17x) — same person/place spelled two ways?
 - NAME? 'Say' (1x) vs 'Stay' (1x) — same person/place spelled two ways?
 - NAME? 'Sea' (1x) vs 'Seas' (1x) — same person/place spelled two ways?
 - NAME? 'Sea' (1x) vs 'Seba' (1x) — same person/place spelled two ways?
