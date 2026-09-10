@@ -300,10 +300,10 @@ def main():
 
     langs = parse_targets(args.lang)
     systems = {lang: build_system_prompt(lang) for lang in langs}
-    if args.all:      # book by book, every language for that book before the next
-        jobs = [(code, None, lang) for code in sorted(BOOKS, key=lambda c: BOOKS[c]["num"]) for lang in langs]
-    else:
-        jobs = [(args.book, args.chapters, lang) for lang in langs]
+    books = sorted(BOOKS, key=lambda c: BOOKS[c]["num"])
+    # language-major: the whole request in the first language before the next
+    jobs = [(code, None if args.all else args.chapters, lang)
+            for lang in langs for code in (books if args.all else [args.book])]
     i, wait = 0, 15
     while i < len(jobs):
         code, chapters, lang = jobs[i]

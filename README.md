@@ -117,8 +117,9 @@ labels or renders original text goes through it:
 
 **Keep going until Stop.** In the dashboard choose *All books* and a target
 (or *All languages*) and press Start: the run works book by book through the
-whole Bible — with *All languages*, every language for a book before the next
-book — skipping chapters that exist, and treats any failure (Ollama restarted,
+whole Bible — with *All languages*, the whole Bible in English first, then
+Chinese, Spanish, Japanese, Thai — skipping chapters that exist, and treats
+any failure (Ollama restarted,
 a bad response) as a pause: it reports, waits with backoff, and retries the
 same book until it goes through. Only Stop, or the end of the Bible, ends it.
 The same behaviour from the terminal is `translate.py --all --lang all

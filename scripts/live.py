@@ -191,19 +191,19 @@ def on_event(ev: dict):
 
 def worker(book, chapters, all_books, force, lang):
     """One run. A whole-Bible run keeps going until Stop: every chapter of
-    every book (and, with lang == "all", every target language, book by
-    book), skipping what exists; a failure (Ollama down, bad output) is
-    reported, waited out and retried rather than ending the run."""
+    every book (and, with lang == "all", the whole Bible in each target
+    language in turn, English first), skipping what exists; a failure (Ollama
+    down, bad output) is reported, waited out and retried rather than ending
+    the run."""
     T.on_token, T.on_event = on_token, on_event
     langs = list(TARGETS) if lang == "all" else [lang]
     systems = {}
     try:
         for lg in langs:
             systems[lg] = T.build_system_prompt(lg)
-        if all_books:
-            jobs = [(code, lg) for code in sorted(BOOKS, key=lambda c: BOOKS[c]["num"]) for lg in langs]
-        else:
-            jobs = [(book, lg) for lg in langs]
+        books = sorted(BOOKS, key=lambda c: BOOKS[c]["num"])
+        # language-major: finish the whole Bible in the first language before the next
+        jobs = [(code, lg) for lg in langs for code in (books if all_books else [book])]
         i, failures, wait = 0, 0, 15
         while i < len(jobs):
             if STOP.is_set():
