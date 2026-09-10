@@ -2,6 +2,7 @@
 sources/morphhb/
 sources/byzantine-majority-text/
 sources/SBLGNT/
+sources/lxx/
 
 # transient logs (translate.jsonl and verify_report.md ARE tracked)
 logs/pull_*.log

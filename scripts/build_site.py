@@ -252,28 +252,35 @@ function renderChapter(book, ch, highlightVerse) {
   const chs = chapterList(book);
   const src = chData.src, lang = chData.lang || "hbo", L = LANGS[lang];
   const rtl = L.dir === "rtl", ocls = "orig " + L.script.toLowerCase();
+  const lxx = src && src._lxx;
   let v = view;
   if (!src) v = "tr";
-  else if (!tr) v = "orig";
-  else if (v === "all" && avail.length < 2) v = "par";
-  let html = `<h2>${disp(book)} ${ch}<small class="lang">${L.name}${tr ? " → " + TARGETS[shown].name : ""}</small></h2>`;
+  else if (!tr) v = (v === "lxx" && lxx) ? "lxx" : "orig";
+  else if (v === "all" && avail.length < 2 && !lxx) v = "par";
+  if (v === "lxx" && !lxx) v = "orig";
+  let html = `<h2>${disp(book)} ${ch}<small class="lang">${L.name}${lxx ? " + Septuagint" : ""}${tr ? " → " + TARGETS[shown].name : ""}</small></h2>`;
   html += `<div class="chnav">` + chs.map(c =>
     `<a href="#${book}/${c}" class="${c==ch?'on':''} ${trOf(book,c)[tl]?'':'untr'}">${c}</a>`).join("") + `</div>`;
   if (src) {
-    html += `<div class="tabs"><a class="${v==='orig'?'on':''}" onclick="setView('orig')">${L.name}</a><span class="sep"></span>`;
+    html += `<div class="tabs"><a class="${v==='orig'?'on':''}" onclick="setView('orig')">${L.name}</a>`;
+    if (lxx) html += `<a class="${v==='lxx'?'on':''}" onclick="setView('lxx')" title="Swete's Septuagint">Septuagint</a>`;
+    html += `<span class="sep"></span>`;
     for (const t of haveTargets)
       html += `<a class="${v==='tr'&&shown===t?'on':''} ${trs[t]?'':'off'}" onclick="setTl('${t}');setView('tr')">${TARGETS[t].native}</a>`;
     html += `<span class="sep"></span><a class="${v==='par'?'on':''} ${tr?'':'off'}" onclick="setView('par')">Side by side</a>`;
-    html += `<a class="${v==='all'?'on':''} ${avail.length>1?'':'off'}" onclick="setView('all')">Compare</a></div>`;
+    html += `<a class="${v==='all'?'on':''} ${(avail.length + (lxx?1:0))>1?'':'off'}" onclick="setView('all')">Compare</a></div>`;
   }
   main.className = (v === "par" || v === "all") ? "wide" : "";
-  main.setAttribute("lang", v === "orig" ? "" : (shown || "en"));
-  if (!tr) html += `<p class="empty" style="margin:0 0 1.2rem">Not translated yet${src ? ` — showing the ${L.name}.` : "."}</p>`;
-  if (!tr && v !== "orig") { main.innerHTML = html; return; }
-  const nums = Object.keys(v === "tr" ? trs[shown].verses : src).filter(k => k !== "_lang").map(Number).sort((a,b)=>a-b);
+  main.setAttribute("lang", (v === "orig" || v === "lxx") ? "" : (shown || "en"));
+  if (!tr) html += `<p class="empty" style="margin:0 0 1.2rem">Not translated yet${src ? ` — showing the ${v === "lxx" ? "Septuagint" : L.name}.` : "."}</p>`;
+  if (!tr && v !== "orig" && v !== "lxx" && v !== "all") { main.innerHTML = html; return; }
+  const nums = Object.keys(v === "tr" ? trs[shown].verses : src).filter(k => !k.startsWith("_")).map(Number).sort((a,b)=>a-b);
   if (v === "orig") {
     for (const n of nums)
       html += `<p class="ov ${ocls}" dir="${rtl?'rtl':'ltr'}" id="v-${book}-${ch}-${n}"><sup class="v">${n}</sup>${vtag(src,n)}${esc(src[n])}</p>`;
+  } else if (v === "lxx") {
+    for (const n of nums)
+      html += `<p class="ov orig greek" id="v-${book}-${ch}-${n}"><sup class="v">${n}</sup>${lxx[n] ? esc(lxx[n]) : "<i style='color:var(--muted)'>— no aligned verse</i>"}</p>`;
   } else if (v === "par") {
     html += `<div class="par">`;
     for (const n of nums) {
@@ -285,6 +292,7 @@ function renderChapter(book, ch, highlightVerse) {
   } else if (v === "all") {
     for (const n of nums) {
       html += `<div class="cmp" id="v-${book}-${ch}-${n}"><div class="row"><span class="lab">${L.name} ${n}</span><span class="txt ${ocls}" dir="${rtl?'rtl':'ltr'}">${vtag(src,n)}${esc(src[n])}</span></div>`;
+      if (lxx && lxx[n]) html += `<div class="row"><span class="lab">LXX</span><span class="txt orig greek">${esc(lxx[n])}</span></div>`;
       for (const t of avail) {
         const e = trs[t].verses[n];
         html += `<div class="row"><span class="lab">${TARGETS[t].native}</span><span class="txt" lang="${t}">${e ? flat(e) : "<i style='color:var(--muted)'>—</i>"}</span></div>`;
@@ -416,6 +424,9 @@ def source_chapter(book_key, ch):
     src = {str(v["v"]): v["text"] for v in verses}
     if lang == "mixed":      # per-verse tags only where a chapter switches language
         src["_lang"] = {str(v["v"]): verse_lang(meta, v) for v in verses}
+    lxx = {str(v["v"]): v["lxx"] for v in verses if v.get("lxx")}
+    if lxx:
+        src["_lxx"] = lxx    # Septuagint column, Greek, same verse numbers
     return src, lang
 
 

@@ -11,6 +11,21 @@ translations are consulted at any stage.
 | Hebrew/Aramaic OT | Westminster Leningrad Codex via [openscriptures/morphhb](https://github.com/openscriptures/morphhb) | Base text public domain; morphology CC BY 4.0 |
 | Greek NT (primary) | [SBLGNT](https://github.com/LogosBible/SBLGNT) critical text | CC BY 4.0 |
 | Greek NT (consulted) | [Robinson–Pierpont Byzantine](https://github.com/byztxt/byzantine-majority-text) | Public domain |
+| Greek OT (consulted) | Septuagint, Swete's edition (1901–1909) via [First1KGreek](https://github.com/OpenGreekAndLatin/First1KGreek/tree/master/data/tlg0527) | CC BY-SA 4.0 |
+
+**The Septuagint as a second source.** `scripts/add_lxx.py --fetch` downloads
+Swete's Greek Old Testament (37 books; Ecclesiastes is not in the corpus) and
+writes each verse's Greek into the normalized JSON as `lxx` beside the Hebrew,
+aligned by chapter and verse with the standard block mappings where the Greek
+numbering diverges (Psalms, Jeremiah, Ezra–Nehemiah as 2 Esdras, Daniel in
+Theodotion's version); about 96 % of Old Testament verses align. The prompt
+then carries the Greek under the Hebrew as a consultation column: the model
+translates the Hebrew and may weigh the Greek at an ambiguous, rare or damaged
+reading, saying so in the notes. The reader and dashboard show it as a
+**Septuagint** tab and as an **LXX** row in Compare. `consult_lxx: false` in
+`config.json` drops it from prompts (and `num_ctx` can go back to 16384).
+Swete's text comes from corrected page scans and still carries occasional
+artefacts; treat it as a witness, not an edition.
 
 The Greek base text is **SBLGNT**, with the Byzantine text available for
 consultation at divergences. The OT keeps Masoretic chapter/verse divisions
@@ -39,6 +54,9 @@ scripts/normalize.py  [books...]        sources -> sources/normalized/*.json
 scripts/translate.py  Gen 1-3           translate chapters into English (resumes; --force to redo)
 scripts/translate.py  Gen 1-3 --lang zh ... into Chinese (es, ja, th; a comma list; or all)
 scripts/translate.py  --all [--lang all] the whole Bible, canonical order
+scripts/translate.py  --all --lang all --keep-going   ...and never stop on an error:
+                                        wait, retry, resume — until done or Ctrl-C
+scripts/add_lxx.py    [--fetch]         attach the Septuagint to the normalized OT
 scripts/verify.py     [--lang zh] [Gen [1-3]]  flag missing/dup verses, untranslated
                                         text, truncation, name inconsistencies
 scripts/build_site.py                   rebuild site/index.html reader
@@ -86,11 +104,20 @@ labels or renders original text goes through it:
   layout for Hebrew script and a per-verse tag wherever a chapter mixes Hebrew
   and Aramaic. A header menu picks the translation language for reading,
   search and progress counts. Untranslated chapters show the original;
-- `live.py` shows the same three tabs while a chapter is being translated, so
-  each English verse appears next to its source as the model writes it. While
-  idle it is a browser too: pick a book in the sidebar or the Run box, step
-  through chapters with ◀ ▶ (or arrow keys) or the chapter strip, and read the
+- `live.py` shows the same tabs while a chapter is being translated, so each
+  verse appears next to its source as the model writes it. While idle it is a
+  browser too: pick a book in the sidebar or the Run box, step through
+  chapters with ◀ ▶ (or arrow keys) or the chapter strip, and read the
   original alongside any translation that already exists.
+
+**Keep going until Stop.** In the dashboard choose *All books* and a target
+(or *All languages*) and press Start: the run works book by book through the
+whole Bible — with *All languages*, every language for a book before the next
+book — skipping chapters that exist, and treats any failure (Ollama restarted,
+a bad response) as a pause: it reports, waits with backoff, and retries the
+same book until it goes through. Only Stop, or the end of the Bible, ends it.
+The same behaviour from the terminal is `translate.py --all --lang all
+--keep-going`.
 
 Chapter memory: each prompt includes the previous chapter's translation for
 continuity. Logs in `logs/translate.jsonl` (timing + token counts per chapter,

@@ -112,6 +112,14 @@ LANGS = {
 }
 MIXED = {"name": "Hebrew / Aramaic", "dir": "rtl", "script": "Hebrew"}
 
+# Second Old Testament source: the Septuagint (Greek, ~3rd-2nd c. BCE), read
+# alongside the Hebrew. Verses carry it as "lxx" in the normalized JSON
+# (scripts/add_lxx.py); the prompt offers it for consultation, the reader and
+# dashboard show it as its own tab and Compare row. Not a translation base:
+# the Hebrew stays primary except where the notes say otherwise.
+LXX = {"name": "Septuagint", "short": "LXX", "dir": "ltr", "script": "Greek",
+       "source": "Swete, The Old Testament in Greek (1901-1909), First1KGreek edition, CC BY-SA 4.0"}
+
 
 def verse_lang(meta, verse) -> str:
     """Language code of one normalized verse record."""

@@ -75,7 +75,7 @@ def source_verses(book_name, ch):
     meta = NAME2META.get(book_name)
     if not meta:
         return []
-    return [{"v": v["v"], "text": v["text"], "lang": verse_lang(meta, v)}
+    return [{"v": v["v"], "text": v["text"], "lang": verse_lang(meta, v), **({"lxx": v["lxx"]} if v.get("lxx") else {})}
             for v in norm_chapters(meta).get(str(ch), [])]
 
 
@@ -151,20 +151,45 @@ def on_event(ev: dict):
 
 
 def worker(book, chapters, all_books, force, lang):
+    """One run. A whole-Bible run keeps going until Stop: every chapter of
+    every book (and, with lang == "all", every target language, book by
+    book), skipping what exists; a failure (Ollama down, bad output) is
+    reported, waited out and retried rather than ending the run."""
     T.on_token, T.on_event = on_token, on_event
+    langs = list(TARGETS) if lang == "all" else [lang]
+    systems = {}
     try:
-        system = T.build_system_prompt(lang)
+        for lg in langs:
+            systems[lg] = T.build_system_prompt(lg)
         if all_books:
-            for code in sorted(BOOKS, key=lambda c: BOOKS[c]["num"]):
-                if STOP.is_set():
-                    raise StopRun()
-                T.run_book(code, None, system, force, lang)
+            jobs = [(code, lg) for code in sorted(BOOKS, key=lambda c: BOOKS[c]["num"]) for lg in langs]
         else:
-            T.run_book(book, chapters or None, system, force, lang)
+            jobs = [(book, lg) for lg in langs]
+        i, failures, wait = 0, 0, 15
+        while i < len(jobs):
+            if STOP.is_set():
+                raise StopRun()
+            code, lg = jobs[i]
+            try:
+                T.run_book(code, None if all_books else (chapters or None), systems[lg], force, lg)
+                i, failures, wait = i + 1, 0, 15
+            except StopRun:
+                raise
+            except Exception as e:               # noqa: BLE001 — keep going, resume skips finished chapters
+                failures += 1
+                msg = f"{BOOKS[code]['name']} [{lg}]: {type(e).__name__}: {e} — retry {failures} in {wait}s"
+                print("run error:", msg, file=sys.stderr)
+                with LOCK:
+                    STATE["status"] = "retrying"
+                    STATE["current"] = None
+                publish({"type": "warn", "message": msg})
+                if STOP.wait(wait):
+                    raise StopRun()
+                wait = min(wait * 2, 300)
         final = "finished"
     except StopRun:
         final = "stopped"
-    except Exception as e:                       # noqa: BLE001
+    except Exception as e:                       # noqa: BLE001 — only setup failures land here
         final = "error"
         with LOCK:
             STATE["error"] = f"{type(e).__name__}: {e}"
@@ -187,7 +212,7 @@ def start_run(req: dict) -> str | None:
         all_books = book in ("", "ALL")
         if not all_books and book not in BOOKS:
             return f"unknown book {book!r}"
-        if lang not in TARGETS:
+        if lang != "all" and lang not in TARGETS:
             return f"unknown target language {lang!r}"
         STOP.clear()
         STATE.update(running=True, status="starting", error=None, current=None, target=lang)
@@ -472,9 +497,9 @@ function schedule(){ if (!pending){ pending = true; requestAnimationFrame(render
 function setView(v){ view = v; localStorage.setItem('liveView', v); lastActive = null; render(); }
 function setTl(t){ tl = t; localStorage.setItem('liveTl', t); $('lang').value = t; $('tlname').textContent = TARGETS[t].name;
   if (S && !S.running) refresh(); if (browsing) browse(); else render(); }
-$('lang').innerHTML = TCODES.map(t => `<option value="${t}">${TARGETS[t].native}</option>`).join('');
+$('lang').innerHTML = TCODES.map(t => `<option value="${t}">${TARGETS[t].native}</option>`).join('') + '<option value="all">All languages</option>';
 $('lang').value = tl; $('tlname').textContent = TARGETS[tl].name;
-$('lang').onchange = () => setTl($('lang').value);
+$('lang').onchange = () => { if ($('lang').value !== 'all') setTl($('lang').value); };
 
 function textFrom(t){ return t ? Object.keys(t.verses).map(Number).sort((a,b)=>a-b).map(n => '[' + n + '] ' + t.verses[n]).join(NL) + (t.notes ? NL + '---' + NL + t.notes : '') : ''; }
 function parseVerses(text){           // {vs: {n: text}, notes, n: verse being written}
@@ -490,7 +515,10 @@ function parseVerses(text){           // {vs: {n: text}, notes, n: verse being w
 }
 
 function renderTabs(v, avail, L){
-  let html = `<span data-v="orig" class="${v==='orig'?'on':''}">${cur ? L.name : 'Original'}</span><i class="sep"></i>`;
+  const hasLxx = cur && cur.src && cur.src.some(s => s.lxx);
+  let html = `<span data-v="orig" class="${v==='orig'?'on':''}">${cur ? L.name : 'Original'}</span>`;
+  if (hasLxx) html += `<span data-v="lxx" class="${v==='lxx'?'on':''}" title="Swete's Septuagint">Septuagint</span>`;
+  html += `<i class="sep"></i>`;
   for (const t of TCODES) html += `<span data-v="tr" data-t="${t}" class="${v==='tr'&&tl===t?'on':''} ${avail.includes(t)?'':'off'}">${TARGETS[t].native}</span>`;
   html += `<i class="sep"></i><span data-v="par" class="${v==='par'?'on':''} ${avail.includes(tl)?'':'off'}">Side by side</span>`;
   html += `<span data-v="all" class="${v==='all'?'on':''} ${avail.length>1?'':'off'}">Compare</span>`;
@@ -509,13 +537,15 @@ function render(){
   const mixed = cur && cur.lang === 'mixed';
   const tag = s => mixed ? `<span class="lt">${LANGS[s.lang].name}</span>` : '';
   const avail = TCODES.filter(t => texts[t] !== undefined && (texts[t] || (running && cur && cur.target === t)));
+  const hasLxx = !!(src && src.some(s => s.lxx));
   let v = view;
   if (!src) v = 'tr';
-  if (v === 'all' && avail.length < 2) v = avail.includes(tl) ? 'par' : 'orig';
-  if ((v === 'tr' || v === 'par') && !avail.includes(tl)) v = 'orig';
+  if (v === 'lxx' && !hasLxx) v = 'orig';
+  if (v === 'all' && avail.length + (hasLxx ? 1 : 0) < 2) v = avail.includes(tl) ? 'par' : 'orig';
+  if ((v === 'tr' || v === 'par') && !avail.includes(tl)) v = hasLxx && view === 'lxx' ? 'lxx' : 'orig';
   renderTabs(v, avail, L);
   box.className = (v === 'par' || v === 'all') ? '' : 'plain';
-  box.setAttribute('lang', v === 'orig' ? '' : tl);
+  box.setAttribute('lang', (v === 'orig' || v === 'lxx') ? '' : tl);
   const live = running && cur && cur.target === tl;
   const caret = live ? '<span class="caret"></span>' : '';
   const head = cur ? `<div class="chhead"><h2>${cur.book} ${cur.chapter}</h2><small>${L.name}${running ? ' → ' + TARGETS[cur.target].name + ' · translating' : (avail.length ? ' → ' + avail.map(t => TARGETS[t].native).join(' · ') : ' · not translated yet')}</small></div>` : '';
@@ -525,6 +555,10 @@ function render(){
   }
   if (v === 'orig') {
     box.innerHTML = head + src.map(s => `<p class="ov ${ocls}" dir="${rtl?'rtl':'ltr'}"><sup>${s.v}</sup>${tag(s)}${esc(s.text)}</p>`).join('');
+    return;
+  }
+  if (v === 'lxx') {
+    box.innerHTML = head + src.map(s => `<p class="ov orig greek"><sup>${s.v}</sup>${s.lxx ? esc(s.lxx) : '<i class="empty">— no aligned verse</i>'}</p>`).join('');
     return;
   }
   if (v === 'par') {
@@ -546,6 +580,7 @@ function render(){
     let html = head;
     for (const s of src) {
       html += `<div class="cmp" id="row-${s.v}"><div class="row"><span class="lab">${L.name} ${s.v}</span><span class="txt ${ocls}" dir="${rtl?'rtl':'ltr'}">${tag(s)}${esc(s.text)}</span></div>`;
+      if (s.lxx) html += `<div class="row"><span class="lab">LXX</span><span class="txt orig greek">${esc(s.lxx)}</span></div>`;
       for (const t of avail) {
         const e = parsed[t].vs[s.v], act = running && cur.target === t && parsed[t].n === s.v;
         html += `<div class="row"><span class="lab">${TARGETS[t].native}</span><span class="txt ${act?'active':''}" lang="${t}">${e === undefined ? '…' : esc(e) + (act ? '<span class="caret"></span>' : '')}</span></div>`;
@@ -674,6 +709,7 @@ function connect(){
       $('cur').textContent = m.book+' '+m.chapter; $('vv').textContent = m.verses; bookProgress(m.book);
       $('pill').textContent = 'translating '+m.book+' '+m.chapter+' → '+TARGETS[m.target].name; $('pill').className='pill run'; schedule(); }
     else if (m.type === 'retry') { if (cur) texts[cur.target] += NL + NL + '--- retry: missing '+JSON.stringify(m.missing)+' extra '+JSON.stringify(m.extra)+' ---' + NL + NL; schedule(); }
+    else if (m.type === 'warn') { $('pill').textContent = 'retrying'; $('pill').className = 'pill err'; $('pill').title = m.message; console.warn(m.message); }
     else if (m.type === 'done' || m.type === 'skip' || m.type === 'run') refresh();
   };
   es.onerror = () => { es.close(); setTimeout(connect, 2000); };

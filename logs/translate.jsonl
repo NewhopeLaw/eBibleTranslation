@@ -62,3 +62,5 @@
 {"ts": "2026-09-10T09:12:48", "book": "Genesis", "chapter": 32, "lang": "en", "model": "qwen3:32b", "seconds": 23.3, "attempts": 1, "prompt_tokens": 7041, "output_tokens": 1240, "missing": [], "extra": []}
 {"ts": "2026-09-10T09:13:13", "book": "Genesis", "chapter": 44, "lang": "en", "model": "qwen3:32b", "seconds": 24.6, "attempts": 1, "prompt_tokens": 6948, "output_tokens": 1325, "missing": [], "extra": []}
 {"ts": "2026-09-10T09:13:29", "book": "Philippians", "chapter": 2, "lang": "en", "model": "qwen3:32b", "seconds": 15.7, "attempts": 1, "prompt_tokens": 4837, "output_tokens": 854, "missing": [], "extra": []}
+{"ts": "2026-09-10T09:55:46", "book": "Exodus", "chapter": 2, "lang": "en", "model": "qwen3:32b", "seconds": 25.0, "attempts": 1, "prompt_tokens": 5921, "output_tokens": 960, "missing": [], "extra": []}
+{"ts": "2026-09-10T09:59:49", "book": "Leviticus", "chapter": 1, "lang": "en", "model": "qwen3:32b", "seconds": 14.6, "attempts": 1, "prompt_tokens": 4792, "output_tokens": 724, "missing": [], "extra": []}

@@ -96,6 +96,12 @@ def build_user_prompt(meta, ch, verses, prev_translation, lang):
     for v in verses:
         tag = " [Aramaic]" if src_lang == "mixed" and v.get("lang") == "arc" else ""
         lines.append(f"{v['v']}.{tag} {v['text']}")
+    if CONFIG.get("consult_lxx", True) and any(v.get("lxx") for v in verses):
+        lines += ["", "SEPTUAGINT (the ancient Greek version of the same chapter, for consultation only). "
+                  "Translate the Hebrew/Aramaic above. Use the Greek to weigh a genuinely ambiguous, rare, "
+                  "or damaged Hebrew reading; if you follow the Greek against the Hebrew, say so in the "
+                  "notes. Greek verse numbering may differ slightly; a missing number means no aligned verse:"]
+        lines += [f"{v['v']}. {v['lxx']}" for v in verses if v.get("lxx")]
     return "\n".join(lines)
 
 
@@ -280,17 +286,35 @@ def main():
     ap.add_argument("--force", action="store_true", help="retranslate existing chapters")
     ap.add_argument("--lang", default=CONFIG.get("target", DEFAULT_TARGET),
                     help="target language code(s): en, zh, es, ja, th, a comma list, or 'all'")
+    ap.add_argument("--keep-going", action="store_true",
+                    help="never give up: on any error wait and retry the same book (resume skips "
+                         "finished chapters) until everything requested is done or Ctrl-C")
     args = ap.parse_args()
+    if not (args.all or args.book):
+        ap.error("give a book code or --all")
 
-    for lang in parse_targets(args.lang):
-        system = build_system_prompt(lang)
-        if args.all:
-            for code in sorted(BOOKS, key=lambda c: BOOKS[c]["num"]):
-                run_book(code, None, system, args.force, lang)
-        elif args.book:
-            run_book(args.book, args.chapters, system, args.force, lang)
-        else:
-            ap.error("give a book code or --all")
+    langs = parse_targets(args.lang)
+    systems = {lang: build_system_prompt(lang) for lang in langs}
+    if args.all:      # book by book, every language for that book before the next
+        jobs = [(code, None, lang) for code in sorted(BOOKS, key=lambda c: BOOKS[c]["num"]) for lang in langs]
+    else:
+        jobs = [(args.book, args.chapters, lang) for lang in langs]
+    i, wait = 0, 15
+    while i < len(jobs):
+        code, chapters, lang = jobs[i]
+        try:
+            run_book(code, chapters, systems[lang], args.force, lang)
+            i, wait = i + 1, 15
+        except KeyboardInterrupt:
+            print("\nstopped", file=sys.stderr)
+            sys.exit(130)
+        except Exception as e:                   # noqa: BLE001
+            if not args.keep_going:
+                raise
+            print(f"  {BOOKS[code]['name']} [{lang}]: {type(e).__name__}: {e} — retrying in {wait}s",
+                  file=sys.stderr)
+            time.sleep(wait)
+            wait = min(wait * 2, 300)
 
 
 if __name__ == "__main__":

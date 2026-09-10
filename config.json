@@ -3,8 +3,9 @@
   "model": "qwen3:32b",
   "think": false,
   "temperature": 0.6,
-  "num_ctx": 16384,
+  "num_ctx": 24576,
   "max_prev_chars": 4000,
   "target": "en",
-  "_notes": "Ollama native chat API. qwen3:32b fits alongside the avatar's vLLM. For the full OT run, llama3.3:70b (needs ~43 GB — stop the nemoclaw2 vLLM first) is the recommended upgrade."
+  "consult_lxx": true,
+  "_notes": "Ollama native chat API. qwen3:32b fits alongside the avatar's vLLM. For the full OT run, llama3.3:70b (needs ~43 GB — stop the nemoclaw2 vLLM first) is the recommended upgrade. num_ctx 24576 leaves room for the Septuagint column in long OT chapters (~30 GB VRAM on the 5090 with qwen3:32b); set consult_lxx false to drop it and go back to 16384."
 }
