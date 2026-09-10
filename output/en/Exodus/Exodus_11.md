@@ -1,0 +1,10 @@
+# Exodus 11
+
+¹ The LORD said to Moses, "I will bring one more plague upon Pharaoh and upon Egypt after which he will let you go. And when he does let you go, he will drive you out entirely from the land. ² Speak now in the ears of the people, and let each person ask their neighbor and each woman from her neighbor for articles of silver and articles of gold." ³ The LORD gave the people favor in the eyes of the Egyptians, and even the man Moses was greatly esteemed in the land of Egypt, in the eyes of Pharaoh's servants and in the eyes of the people. ⁴ Moses said, "This is what the LORD says: At the stroke of midnight I will go into the heart of Egypt. ⁵ Every firstborn in the land of Egypt will die— from the firstborn of Pharaoh who sits on his throne down to the firstborn of the servant girl who is behind the mill, and every firstborn of the livestock. ⁶ A great outcry will rise throughout the whole land of Egypt, one that has never been like it, and there will never be another like it again. ⁷ But not a single dog will bark against any Israelite, whether among people or among livestock, so that you may know that the LORD makes a distinction between Egypt and Israel." ⁸ "Then all your servants will come to me and bow down to me, saying, 'Go, you and all your people who follow you.' Then I will go." Moses left Pharaoh in hot anger. ⁹ The LORD said to Moses, "Pharaoh will not listen to you, so that I may multiply my signs and wonders in the land of Egypt." ¹⁰ Moses and Aaron did all these signs and wonders before Pharaoh, and the LORD hardened Pharaoh's heart, and he did not let the Israelites go from his land.
+
+---
+
+Notes
+- v. 1: The phrase "כְּשַׁלְּחוֹ כָּלָה גָּרֵשׁ יְגָרֵשׁ אֶתְכֶם" is translated to convey the idea of Pharaoh casting them out entirely, not just "letting" them go.
+- v. 3: "גָּדוֹל מְאֹד" is rendered as "was greatly esteemed" to reflect the respect Moses had.
+- v. 9: "לְמַעַן רְבוֹת מוֹפְתַי" is translated as "so that I may multiply my signs and wonders" to reflect the divine intention clearly.
