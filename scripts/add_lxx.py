@@ -50,7 +50,7 @@ WORKS = {
 }
 
 SIGLA = re.compile(r"(?<![A-Za-z])[A-Z](?![A-Za-z])")     # lone manuscript letters (A, B, S...)
-BRACKETS = re.compile(r"[\[\]⟦⟧⌈⌉⌊⌋¶]")     # lacuna brackets, Swete's paragraph marks
+BRACKETS = re.compile(r"[\[\]⟦⟧⌈⌉⌊⌋¶]|§\s*\d*")   # lacuna brackets, paragraph and section marks
 SPACE_PUNCT = re.compile(r"\s+([,.;·:!?])")
 
 
