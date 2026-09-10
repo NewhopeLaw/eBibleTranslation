@@ -376,7 +376,8 @@ function applySnapshot(s){
     s.books.map(b => `<option value="${b.code}">${b.name} (${b.done}/${b.total})</option>`).join('');
   sel.value = keep || 'ALL';
   $('books').innerHTML = s.books.map(b => `<div class="${b.done>=b.total&&b.total?'full':(b.done?'part':'')}"><span>${b.name}</span><span>${b.done}/${b.total}</span></div>`).join('');
-  if (cur) { const b = s.books.find(x => x.name === cur.book); if (b) $('bprog').textContent = b.done+' / '+b.total; }
+  const bn = cur ? cur.book : (s.recent[0] ? s.recent[0].book : null);
+  if (bn) { const b = s.books.find(x => x.name === bn); if (b) $('bprog').textContent = b.done+' / '+b.total; }
   $('recent').innerHTML = s.recent.map(r =>
     `<div class="rec"><span>${r.book} ${r.chapter} <small>${r.got}/${r.expected} vv${r.attempts>1?' ·2 tries':''}</small></span>
      <span class="${r.status==='OK'?'ok':'warn'}">${r.status==='OK'?'OK':'WARN'} <small>${r.seconds}s${r.tps?' · '+r.tps+' t/s':''}</small></span></div>`).join('');
