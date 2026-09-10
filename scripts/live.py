@@ -6,7 +6,9 @@
 Runs the same driver as translate.py (same prompts, outputs, resume, logs)
 but streams every token from Ollama to a browser page as it is generated,
 with progress, tokens/sec and a log of finished chapters. Start/stop runs
-from the page. Pure standard library, no server beyond this one file.
+from the page in any target language; while idle the page is a browser for
+every chapter's original text and whatever translations exist.
+Pure standard library, no server beyond this one file.
 """
 import json
 import queue
@@ -15,10 +17,11 @@ import threading
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from urllib.parse import parse_qs
 
 sys.path.insert(0, str(Path(__file__).parent))
-import translate as T                       # noqa: E402
-from books import BOOKS, LANGS, MIXED, slug, verse_lang   # noqa: E402
+import translate as T                                                  # noqa: E402
+from books import BOOKS, DEFAULT_TARGET, LANGS, MIXED, TARGETS, slug, verse_lang   # noqa: E402
 
 PORT = 8766
 ROOT = T.ROOT
@@ -36,12 +39,14 @@ LOCK = threading.Lock()
 SUBS: list[queue.Queue] = []
 STOP = threading.Event()
 STATE = {
-    "running": False, "model": T.CONFIG["model"], "status": "idle",
-    "current": None,        # {book, chapter, verses, lang, started, text, tokens}
+    "running": False, "model": T.CONFIG["model"], "status": "idle", "target": None,
+    "current": None,        # {book, chapter, verses, lang, target, src, started, text, tokens}
     "recent": [],           # last finished chapters, newest first
     "last": None,           # the most recently finished chapter (same shape as current)
     "error": None,
 }
+NAME2META = {m["name"]: m for m in BOOKS.values()}
+_norm_cache = {}
 
 
 def publish(ev: dict):
@@ -57,8 +62,12 @@ def publish(ev: dict):
             SUBS.remove(q)
 
 
-NAME2META = {m["name"]: m for m in BOOKS.values()}
-_norm_cache = {}
+def norm_chapters(meta):
+    key = slug(meta["name"])
+    if key not in _norm_cache:
+        f = ROOT / "sources" / "normalized" / f"{meta['num']:02d}_{key}.json"
+        _norm_cache[key] = json.loads(f.read_text(encoding="utf-8"))["chapters"] if f.exists() else {}
+    return _norm_cache[key]
 
 
 def source_verses(book_name, ch):
@@ -66,37 +75,36 @@ def source_verses(book_name, ch):
     meta = NAME2META.get(book_name)
     if not meta:
         return []
-    key = slug(meta["name"])
-    if key not in _norm_cache:
-        f = ROOT / "sources" / "normalized" / f"{meta['num']:02d}_{key}.json"
-        _norm_cache[key] = json.loads(f.read_text(encoding="utf-8"))["chapters"] if f.exists() else {}
     return [{"v": v["v"], "text": v["text"], "lang": verse_lang(meta, v)}
-            for v in _norm_cache[key].get(str(ch), [])]
+            for v in norm_chapters(meta).get(str(ch), [])]
 
 
-def chapter_counts():
-    """{book name: (done, total)} from output/json vs sources/normalized."""
-    out = {}
-    for code, meta in BOOKS.items():
-        name = slug(meta["name"])
-        src = ROOT / "sources" / "normalized" / f"{meta['num']:02d}_{name}.json"
-        total = len(json.loads(src.read_text(encoding="utf-8"))["chapters"]) if src.exists() else 0
-        done = len(list((ROOT / "output" / "json").glob(f"{name}_*.json")))
-        out[code] = (done, total)
-    return out
+def translated_chapters(meta, lang):
+    name = slug(meta["name"])
+    return sorted(int(f.stem.rsplit("_", 1)[1]) for f in T.json_dir(lang).glob(f"{name}_*.json"))
 
 
-def snapshot():
-    counts = chapter_counts()
+def chapter_counts(lang):
+    """{code: (done, total)} for one target language."""
+    return {code: (len(translated_chapters(meta, lang)), len(norm_chapters(meta)))
+            for code, meta in BOOKS.items()}
+
+
+def snapshot(lang=DEFAULT_TARGET):
+    lang = lang if lang in TARGETS else DEFAULT_TARGET
+    counts = chapter_counts(lang)
     books = [{"code": c, "name": BOOKS[c]["name"], "num": BOOKS[c]["num"],
               "testament": BOOKS[c]["testament"], "done": counts[c][0], "total": counts[c][1]}
              for c in sorted(BOOKS, key=lambda c: BOOKS[c]["num"])]
     with LOCK:
         s = dict(STATE)
         s["current"] = dict(STATE["current"]) if STATE["current"] else None
+    s["lang"] = lang
     s["books"] = books
     s["bible_done"] = sum(b["done"] for b in books)
     s["bible_total"] = sum(b["total"] for b in books)
+    s["targets"] = {c: {"name": t["name"], "native": t["native"],
+                        "done": len(list(T.json_dir(c).glob("*.json")))} for c, t in TARGETS.items()}
     return s
 
 
@@ -119,10 +127,10 @@ def on_event(ev: dict):
             raise StopRun()
         ev["src"] = source_verses(ev["book"], ev["chapter"])
         with LOCK:
-            STATE["current"] = {"book": ev["book"], "chapter": ev["chapter"],
+            STATE["current"] = {"book": ev["book"], "chapter": ev["chapter"], "target": ev["target"],
                                 "verses": ev["verses"], "lang": ev["lang"], "src": ev["src"],
                                 "started": time.time(), "text": "", "tokens": 0}
-            STATE["status"] = f"translating {ev['book']} {ev['chapter']}"
+            STATE["status"] = f"translating {ev['book']} {ev['chapter']} → {TARGETS[ev['target']]['name']}"
     elif kind == "retry":
         with LOCK:
             cur = STATE["current"]
@@ -133,7 +141,7 @@ def on_event(ev: dict):
     elif kind == "done":
         with LOCK:
             rec = {k: ev[k] for k in ("book", "chapter", "got", "expected", "seconds",
-                                      "tokens", "attempts", "status")}
+                                      "tokens", "attempts", "status", "target")}
             rec["tps"] = round(ev["tokens"] / ev["seconds"], 1) if ev.get("tokens") and ev["seconds"] else None
             STATE["recent"].insert(0, rec)
             del STATE["recent"][40:]
@@ -142,17 +150,17 @@ def on_event(ev: dict):
     publish(ev)
 
 
-def worker(book, chapters, all_books, force):
+def worker(book, chapters, all_books, force, lang):
     T.on_token, T.on_event = on_token, on_event
     try:
-        system = T.build_system_prompt()
+        system = T.build_system_prompt(lang)
         if all_books:
             for code in sorted(BOOKS, key=lambda c: BOOKS[c]["num"]):
                 if STOP.is_set():
                     raise StopRun()
-                T.run_book(code, None, system, force)
+                T.run_book(code, None, system, force, lang)
         else:
-            T.run_book(book, chapters or None, system, force)
+            T.run_book(book, chapters or None, system, force, lang)
         final = "finished"
     except StopRun:
         final = "stopped"
@@ -175,20 +183,23 @@ def start_run(req: dict) -> str | None:
         if STATE["running"]:
             return "already running"
         book = req.get("book") or ""
+        lang = req.get("lang") or DEFAULT_TARGET
         all_books = book in ("", "ALL")
         if not all_books and book not in BOOKS:
             return f"unknown book {book!r}"
+        if lang not in TARGETS:
+            return f"unknown target language {lang!r}"
         STOP.clear()
-        STATE.update(running=True, status="starting", error=None, current=None)
+        STATE.update(running=True, status="starting", error=None, current=None, target=lang)
     threading.Thread(target=worker, daemon=True,
                      args=(book, (req.get("chapters") or "").strip(), all_books,
-                           bool(req.get("force")))).start()
+                           bool(req.get("force")), lang)).start()
     publish({"type": "run", "status": "starting"})
     return None
 
 
-def chapter_payload(code, ch):
-    """Source + any existing translation of one chapter, for browsing."""
+def chapter_payload(code, ch, lang):
+    """Source + every existing translation of one chapter, for browsing."""
     meta = BOOKS.get(code)
     if not meta:
         return None
@@ -196,15 +207,18 @@ def chapter_payload(code, ch):
     if not src:
         return None
     langs = {s["lang"] for s in src}
-    lang = next(iter(langs)) if len(langs) == 1 else "mixed"
     name = slug(meta["name"])
-    jp = ROOT / "output" / "json" / f"{name}_{int(ch):02d}.json"
-    tr = json.loads(jp.read_text(encoding="utf-8")) if jp.exists() else None
-    chapters = sorted(_norm_cache[name], key=int)
-    translated = sorted((int(f.stem.rsplit("_", 1)[1]) for f in (ROOT / "output" / "json").glob(f"{name}_*.json")))
-    return {"code": code, "book": meta["name"], "chapter": int(ch), "chapters": chapters, "translated": translated,
-            "lang": lang, "src": src, "verses": len(src),
-            "english": tr["verses"] if tr else None, "notes": tr["notes"] if tr else ""}
+    translations = {}
+    for t in TARGETS:
+        jp = T.json_dir(t) / f"{name}_{int(ch):02d}.json"
+        if jp.exists():
+            d = json.loads(jp.read_text(encoding="utf-8"))
+            translations[t] = {"verses": d["verses"], "notes": d.get("notes", "")}
+    return {"code": code, "book": meta["name"], "chapter": int(ch),
+            "chapters": sorted(norm_chapters(meta), key=int),
+            "translated": translated_chapters(meta, lang if lang in TARGETS else DEFAULT_TARGET),
+            "lang": next(iter(langs)) if len(langs) == 1 else "mixed",
+            "src": src, "verses": len(src), "translations": translations}
 
 
 def rebuild_site() -> str:
@@ -232,25 +246,35 @@ class Handler(BaseHTTPRequestHandler):
         n = int(self.headers.get("Content-Length") or 0)
         return json.loads(self.rfile.read(n) or b"{}")
 
+    def _query(self):
+        return {k: v[0] for k, v in parse_qs(self.path.split("?", 1)[1]).items()} if "?" in self.path else {}
+
     def do_GET(self):
-        if self.path in ("/", "/index.html"):
-            body = PAGE.replace("__LANGS__", json.dumps({**LANGS, "mixed": MIXED})).encode("utf-8")
+        path = self.path.split("?", 1)[0]
+        q = self._query()
+        if path in ("/", "/index.html"):
+            body = (PAGE.replace("__LANGS__", json.dumps({**LANGS, "mixed": MIXED}, ensure_ascii=False))
+                        .replace("__TARGETS__", json.dumps({c: {"name": t["name"], "native": t["native"]}
+                                                            for c, t in TARGETS.items()}, ensure_ascii=False))
+                        .replace("__DEFAULT__", DEFAULT_TARGET)).encode("utf-8")
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.send_header("Content-Length", str(len(body)))
             self.end_headers()
             self.wfile.write(body)
-        elif self.path == "/state":
-            self._json(snapshot())
-        elif self.path.startswith("/source?"):
-            from urllib.parse import parse_qs
-            q = parse_qs(self.path.split("?", 1)[1])
-            p = chapter_payload(q.get("book", [""])[0], q.get("ch", ["1"])[0])
+        elif path == "/state":
+            self._json(snapshot(q.get("lang", DEFAULT_TARGET)))
+        elif path == "/source":
+            p = chapter_payload(q.get("book", ""), q.get("ch", "1"), q.get("lang", DEFAULT_TARGET))
             self._json(p or {"error": "no such chapter"}, 200 if p else 404)
-        elif self.path == "/events":
-            self.sse()
+        elif path == "/events":
+            self.sse(q.get("lang", DEFAULT_TARGET))
         else:
             self._json({"error": "not found"}, 404)
+
+    def do_HEAD(self):
+        self.send_response(200)
+        self.end_headers()
 
     def do_POST(self):
         if self.path == "/start":
@@ -264,7 +288,7 @@ class Handler(BaseHTTPRequestHandler):
         else:
             self._json({"error": "not found"}, 404)
 
-    def sse(self):
+    def sse(self, lang):
         q: queue.Queue = queue.Queue(maxsize=5000)
         with LOCK:
             SUBS.append(q)
@@ -274,7 +298,7 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header("Cache-Control", "no-cache")
             self.send_header("X-Accel-Buffering", "no")
             self.end_headers()
-            self._send("data: " + json.dumps({"type": "snapshot", **snapshot()}, ensure_ascii=False))
+            self._send("data: " + json.dumps({"type": "snapshot", **snapshot(lang)}, ensure_ascii=False))
             while True:
                 try:
                     self._send("data: " + q.get(timeout=15))
@@ -336,11 +360,12 @@ label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); fo
 .stat.wide { flex:1; min-width:12rem; justify-content:center; }
 #bar { height:6px; background:var(--border); border-radius:3px; overflow:hidden; margin-top:.25rem; }
 #bar i { display:block; height:100%; width:0; background:var(--accent); transition:width .4s; }
-.tabs { display:flex; gap:.25rem; align-self:center; margin-left:auto; }
+.tabs { display:flex; flex-wrap:wrap; gap:.25rem; align-self:center; margin-left:auto; align-items:center; }
 .tabs span { padding:.3rem .7rem; border:1px solid var(--border); border-radius:999px; cursor:pointer;
   color:var(--muted); font-size:12px; user-select:none; background:var(--card); }
 .tabs span.on { color:var(--fg); border-color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent); }
 .tabs span.off { opacity:.4; cursor:default; }
+.tabs i.sep { width:1px; height:1.1rem; background:var(--border); margin:0 .2rem; }
 #strip { display:flex; flex-wrap:wrap; gap:.22rem; padding:.45rem .9rem; border-bottom:1px solid var(--border);
   background:var(--soft); align-items:center; }
 #strip .lbl { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin-right:.4rem; }
@@ -369,10 +394,19 @@ p.ov { margin:0 0 .5em; white-space:normal; }
 .grid .e.todo { color:var(--muted); }
 .grid .e.active { background:var(--hl); }
 .grid .notes { grid-column:1 / -1; }
+.cmp { border-bottom:1px solid var(--border); padding:.5rem 0; white-space:normal; }
+.cmp .row { display:grid; grid-template-columns:5.5rem 1fr; gap:.6rem; padding:.12rem 0; align-items:baseline; }
+.cmp .row .lab { font:600 11px system-ui,sans-serif; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; text-align:right; }
+.cmp .row .txt { white-space:pre-wrap; } .cmp .row .txt.active { background:var(--hl); border-radius:6px; }
+[lang="zh"], [lang="ja"] { font-family:Georgia, "Noto Serif CJK SC", "Noto Serif CJK JP", "Source Han Serif", "Yu Mincho", "MS Mincho", "SimSun", "Songti SC", serif; line-height:1.9; }
+[lang="th"] { font-family:"Noto Serif Thai", "Leelawadee UI", "Tahoma", sans-serif; line-height:2; }
 .chhead { display:flex; align-items:baseline; gap:.7rem; margin-bottom:.9rem; white-space:normal; }
 .chhead h2 { font:400 24px Georgia, serif; } .chhead small { color:var(--muted); font:13px system-ui; }
 aside { width:290px; flex:none; border-left:1px solid var(--border); overflow:auto; padding:.7rem .8rem; font-size:13px; background:var(--card); }
 aside h3 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:.5rem 0 .35rem; }
+.tg { display:flex; flex-wrap:wrap; gap:.25rem; margin-bottom:.4rem; }
+.tg span { font-size:11px; padding:.1rem .5rem; border-radius:999px; border:1px solid var(--border); color:var(--muted); cursor:pointer; }
+.tg span.on { border-color:var(--accent); color:var(--fg); }
 .rec { padding:.3rem .45rem; border-radius:6px; display:flex; justify-content:space-between; gap:.5rem; cursor:pointer; }
 .rec:hover { background:var(--soft); }
 .rec .ok { color:var(--ok); } .rec .warn { color:var(--warn); } .rec small { color:var(--muted); }
@@ -392,6 +426,7 @@ aside h3 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color
     <button class="icon" id="prev" title="previous chapter (←)">&#9664;</button>
     <input id="ch" placeholder="ch / 1-3">
     <button class="icon" id="next" title="next chapter (→)">&#9654;</button>
+    <select id="lang" title="target language"></select>
     <label class="chk"><input type="checkbox" id="force"> force</label>
     <button class="primary" id="start">Start</button>
     <button class="stop" id="stop" disabled>Stop</button>
@@ -408,13 +443,15 @@ aside h3 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color
   <div class="stat"><small>Tokens</small><b id="tok">—</b></div>
   <div class="stat"><small>Speed</small><b><span id="tps">—</span> <span style="font-weight:400;font-size:11px;color:var(--muted)">tok/s</span></b></div>
   <div class="stat"><small>Book</small><b id="bprog">—</b></div>
-  <div class="stat wide"><small>Bible <span id="prog"></span></small><div id="bar"><i></i></div></div>
-  <span class="tabs" id="tabs"><span data-v="en">English</span><span data-v="orig" id="origTab">Original</span><span data-v="par">Side by side</span></span>
+  <div class="stat wide"><small><span id="tlname">English</span> <span id="prog"></span></small><div id="bar"><i></i></div></div>
+  <span class="tabs" id="tabs"></span>
 </div>
 <div id="strip" hidden></div>
 <div class="layout">
   <div id="text" class="plain"></div>
   <aside>
+    <h3>Translations</h3>
+    <div class="tg" id="targets"></div>
     <h3>This session</h3>
     <div id="recent"><div class="empty" style="font-size:12px;padding:.2rem .45rem">Nothing translated yet.</div></div>
     <h3 style="margin-top:.9rem">Books · translated / total</h3>
@@ -423,19 +460,26 @@ aside h3 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color
 </div>
 <script>
 const $ = id => document.getElementById(id);
-const LANGS = __LANGS__;
+const LANGS = __LANGS__, TARGETS = __TARGETS__, TCODES = Object.keys(TARGETS);
 const NL = String.fromCharCode(10);
-let S = null, raw = '', pending = false, cur = null, browsing = null, lastActive = null, translatedSet = new Set();
-let view = localStorage.getItem('liveView') || 'par';
+let S = null, cur = null, browsing = null, lastActive = null, translatedSet = new Set(), pending = false, browseSeq = 0;
+let texts = {};                                   // {target code: "[1] ...\n[2] ..." text} for the chapter on screen
+let tl = localStorage.getItem('liveTl'); if (!TARGETS[tl]) tl = '__DEFAULT__';
+let view = localStorage.getItem('liveView') || 'par';   // tr | orig | par | all
 
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function schedule(){ if (!pending){ pending = true; requestAnimationFrame(render); } }
 function setView(v){ view = v; localStorage.setItem('liveView', v); lastActive = null; render(); }
-document.querySelectorAll('#tabs span').forEach(t => t.onclick = () => { if (!t.classList.contains('off')) setView(t.dataset.v); });
+function setTl(t){ tl = t; localStorage.setItem('liveTl', t); $('lang').value = t; $('tlname').textContent = TARGETS[t].name;
+  if (S && !S.running) refresh(); if (browsing) browse(); else render(); }
+$('lang').innerHTML = TCODES.map(t => `<option value="${t}">${TARGETS[t].native}</option>`).join('');
+$('lang').value = tl; $('tlname').textContent = TARGETS[tl].name;
+$('lang').onchange = () => setTl($('lang').value);
 
-function parseVerses(text){           // {vs: {n: english}, notes, n: verse being written}
+function textFrom(t){ return t ? Object.keys(t.verses).map(Number).sort((a,b)=>a-b).map(n => '[' + n + '] ' + t.verses[n]).join(NL) + (t.notes ? NL + '---' + NL + t.notes : '') : ''; }
+function parseVerses(text){           // {vs: {n: text}, notes, n: verse being written}
   const vs = {}, notesL = []; let n = null, inNotes = false;
-  for (const line of text.split(NL)) {
+  for (const line of (text || '').split(NL)) {
     if (line.trim() === '---') { inNotes = true; continue; }
     if (inNotes) { notesL.push(line); continue; }
     const m = line.trim().match(/^\[(\d+)\]\s*(.*)$/);
@@ -445,28 +489,38 @@ function parseVerses(text){           // {vs: {n: english}, notes, n: verse bein
   return {vs, notes: notesL.join(NL).trim(), n};
 }
 
+function renderTabs(v, avail, L){
+  let html = `<span data-v="orig" class="${v==='orig'?'on':''}">${cur ? L.name : 'Original'}</span><i class="sep"></i>`;
+  for (const t of TCODES) html += `<span data-v="tr" data-t="${t}" class="${v==='tr'&&tl===t?'on':''} ${avail.includes(t)?'':'off'}">${TARGETS[t].native}</span>`;
+  html += `<i class="sep"></i><span data-v="par" class="${v==='par'?'on':''} ${avail.includes(tl)?'':'off'}">Side by side</span>`;
+  html += `<span data-v="all" class="${v==='all'?'on':''} ${avail.length>1?'':'off'}">Compare</span>`;
+  $('tabs').innerHTML = html;
+  $('tabs').querySelectorAll('span').forEach(t => t.onclick = () => { if (t.classList.contains('off')) return;
+    if (t.dataset.t) { setTl(t.dataset.t); } setView(t.dataset.v); });
+}
+
 function render(){
   pending = false;
   const box = $('text');
   const running = !!(S && S.running);
   const src = cur && cur.src && cur.src.length ? cur.src : null;
-  const hasEn = running || !!raw;
-  let v = src ? view : 'en';
-  if (!hasEn && v !== 'orig') v = 'orig';                 // nothing English to show yet
   const L = LANGS[(cur && cur.lang) || 'hbo'] || LANGS.hbo;
   const rtl = L.dir === 'rtl', ocls = 'orig ' + L.script.toLowerCase();
   const mixed = cur && cur.lang === 'mixed';
   const tag = s => mixed ? `<span class="lt">${LANGS[s.lang].name}</span>` : '';
-  document.querySelectorAll('#tabs span').forEach(t => {
-    t.classList.toggle('on', t.dataset.v === v);
-    t.classList.toggle('off', !src ? t.dataset.v !== 'en' : (!hasEn && t.dataset.v !== 'orig'));
-  });
-  $('origTab').textContent = cur ? L.name : 'Original';
-  box.className = v === 'par' ? '' : 'plain';
-  const caret = running && cur ? '<span class="caret"></span>' : '';
-  const head = cur ? `<div class="chhead"><h2>${cur.book} ${cur.chapter}</h2><small>${L.name}${running ? ' · translating' : (raw ? '' : ' · not translated yet')}</small></div>` : '';
+  const avail = TCODES.filter(t => texts[t] !== undefined && (texts[t] || (running && cur && cur.target === t)));
+  let v = view;
+  if (!src) v = 'tr';
+  if (v === 'all' && avail.length < 2) v = avail.includes(tl) ? 'par' : 'orig';
+  if ((v === 'tr' || v === 'par') && !avail.includes(tl)) v = 'orig';
+  renderTabs(v, avail, L);
+  box.className = (v === 'par' || v === 'all') ? '' : 'plain';
+  box.setAttribute('lang', v === 'orig' ? '' : tl);
+  const live = running && cur && cur.target === tl;
+  const caret = live ? '<span class="caret"></span>' : '';
+  const head = cur ? `<div class="chhead"><h2>${cur.book} ${cur.chapter}</h2><small>${L.name}${running ? ' → ' + TARGETS[cur.target].name + ' · translating' : (avail.length ? ' → ' + avail.map(t => TARGETS[t].native).join(' · ') : ' · not translated yet')}</small></div>` : '';
   if (!cur) {
-    box.innerHTML = `<div class="empty"><h3>Nothing selected</h3>Pick a book in the list on the right (or the Run box) to read its original text, or press Start to begin translating. Text appears here as the model writes it.</div>`;
+    box.innerHTML = `<div class="empty"><h3>Nothing selected</h3>Pick a book in the list on the right (or the Run box) to read its original text and any translations, or choose a target language and press Start. Text appears here as the model writes it.</div>`;
     return;
   }
   if (v === 'orig') {
@@ -474,26 +528,42 @@ function render(){
     return;
   }
   if (v === 'par') {
-    const {vs, notes, n} = parseVerses(raw);
+    const {vs, notes, n} = parseVerses(texts[tl]);
     let html = head + '<div class="grid">';
     for (const s of src) {
       const e = vs[s.v];
-      const cls = e === undefined ? 'e todo' : (s.v === n && running ? 'e active' : 'e');
+      const cls = e === undefined ? 'e todo' : (s.v === n && live ? 'e active' : 'e');
       html += `<div class="o ${ocls}" dir="${rtl?'rtl':'ltr'}"><sup>${s.v}</sup>${tag(s)}${esc(s.text)}</div>
         <div class="${cls}" id="row-${s.v}"><sup>${s.v}</sup>${e === undefined ? '…' : esc(e) + (s.v === n ? caret : '')}</div>`;
     }
     if (notes) html += `<div class="notes">${esc(notes)}</div>`;
     box.innerHTML = html + '</div>';
-    if (running && n !== lastActive) { lastActive = n; const r = document.getElementById('row-' + n); if (r) r.scrollIntoView({block:'center', behavior:'smooth'}); }
+    if (live && n !== lastActive) { lastActive = n; const r = document.getElementById('row-' + n); if (r) r.scrollIntoView({block:'center', behavior:'smooth'}); }
+    return;
+  }
+  if (v === 'all') {
+    const parsed = {}; for (const t of avail) parsed[t] = parseVerses(texts[t]);
+    let html = head;
+    for (const s of src) {
+      html += `<div class="cmp" id="row-${s.v}"><div class="row"><span class="lab">${L.name} ${s.v}</span><span class="txt ${ocls}" dir="${rtl?'rtl':'ltr'}">${tag(s)}${esc(s.text)}</span></div>`;
+      for (const t of avail) {
+        const e = parsed[t].vs[s.v], act = running && cur.target === t && parsed[t].n === s.v;
+        html += `<div class="row"><span class="lab">${TARGETS[t].native}</span><span class="txt ${act?'active':''}" lang="${t}">${e === undefined ? '…' : esc(e) + (act ? '<span class="caret"></span>' : '')}</span></div>`;
+      }
+      html += '</div>';
+    }
+    box.innerHTML = html;
+    if (running && cur) { const n = parsed[cur.target] && parsed[cur.target].n; if (n !== lastActive) { lastActive = n; const r = document.getElementById('row-' + n); if (r) r.scrollIntoView({block:'center', behavior:'smooth'}); } }
     return;
   }
   const atBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 80;
+  const raw = texts[tl] || '';
   let html = esc(raw).replace(/^\[(\d+)\]\s*/gm, '<sup>$1</sup>');
   const i = html.indexOf(NL + '---');
   if (i >= 0) html = html.slice(0, i) + '<div class="notes">' + html.slice(i + 4).trim() + '</div>';
   if (!raw) html = '<span class="empty">Waiting for the model…</span>';
   box.innerHTML = head + html + caret;
-  if (running && atBottom) box.scrollTop = box.scrollHeight;
+  if (live && atBottom) box.scrollTop = box.scrollHeight;
 }
 
 function tick(){
@@ -503,7 +573,6 @@ function tick(){
   $('tok').textContent = cur.tokens;
   $('tps').textContent = el > 1 ? (cur.tokens/el).toFixed(1) : '—';
 }
-
 function bookProgress(name){ const b = S && S.books.find(x => x.name === name || x.code === name); if (b) $('bprog').textContent = b.done + ' / ' + b.total; }
 
 function applySnapshot(s){
@@ -514,9 +583,9 @@ function applySnapshot(s){
   pill.className = 'pill' + (s.running ? ' run' : (s.error ? ' err' : ''));
   $('start').disabled = s.running; $('stop').disabled = !s.running;
   $('prev').disabled = s.running; $('next').disabled = s.running;
-  if (s.error) raw = 'ERROR: ' + s.error;
-  if (s.current) { cur = s.current; raw = cur.text; browsing = null; $('strip').hidden = true; }
-  else if (!cur && s.last) { cur = s.last; raw = cur.text; }
+  if (s.current) { cur = s.current; texts = {[cur.target]: cur.text}; if (cur.target !== tl) setTl(cur.target); browsing = null; $('strip').hidden = true; }
+  else if (!cur && s.last) { cur = s.last; texts = {[cur.target]: cur.text}; }
+  if (s.error) texts[tl] = 'ERROR: ' + s.error;
   if (cur) {
     $('cur').textContent = cur.book + ' ' + cur.chapter; $('vv').textContent = cur.verses; bookProgress(cur.book);
     if (!s.running && cur.started) { $('tok').textContent = cur.tokens; const r = s.recent[0];
@@ -524,6 +593,8 @@ function applySnapshot(s){
   }
   $('prog').textContent = s.bible_done + ' / ' + s.bible_total + ' chapters';
   $('bar').firstElementChild.style.width = (100*s.bible_done/Math.max(1,s.bible_total)).toFixed(2)+'%';
+  $('targets').innerHTML = TCODES.map(t => `<span data-t="${t}" class="${t===tl?'on':''}" title="${TARGETS[t].name}">${TARGETS[t].native} ${s.targets[t].done}</span>`).join('');
+  $('targets').querySelectorAll('span').forEach(x => x.onclick = () => setTl(x.dataset.t));
   const sel = $('book'), keep = sel.value;
   sel.innerHTML = '<option value="ALL">All books (canonical order)</option>' +
     s.books.map(b => `<option value="${b.code}">${b.name} (${b.done}/${b.total})</option>`).join('');
@@ -538,33 +609,33 @@ function applySnapshot(s){
   $('books').innerHTML = html;
   document.querySelectorAll('#books .bk').forEach(d => d.onclick = () => { if (S.running) return; $('book').value = d.dataset.code; $('ch').value = '1'; browse(); });
   if (s.recent.length) $('recent').innerHTML = s.recent.map(r =>
-    `<div class="rec" data-b="${r.book}" data-c="${r.chapter}"><span>${r.book} ${r.chapter} <small>${r.got}/${r.expected} vv${r.attempts>1?' · 2 tries':''}</small></span>
+    `<div class="rec" data-b="${r.book}" data-c="${r.chapter}" data-t="${r.target}"><span>${r.book} ${r.chapter} <small>${TARGETS[r.target].native} · ${r.got}/${r.expected} vv${r.attempts>1?' · 2 tries':''}</small></span>
      <span class="${r.status==='OK'?'ok':'warn'}">${r.status==='OK'?'OK':'WARN'} <small>${r.seconds}s${r.tps?' · '+r.tps+' t/s':''}</small></span></div>`).join('');
   document.querySelectorAll('#recent .rec').forEach(d => d.onclick = () => { if (S.running) return;
-    const b = S.books.find(x => x.name === d.dataset.b); if (b) { $('book').value = b.code; $('ch').value = d.dataset.c; browse(); } });
+    const b = S.books.find(x => x.name === d.dataset.b); if (b) { $('book').value = b.code; $('ch').value = d.dataset.c; if (d.dataset.t !== tl) setTl(d.dataset.t); else browse(); } });
   if (!s.running && !s.current && !browsing && !cur) browse();
   schedule(); tick();
 }
 
-/* ---------- browse mode: any chapter's original (and translation) while idle ---------- */
+/* ---------- browse mode: any chapter's original + translations while idle ---------- */
 async function browse(){
   if (S && S.running) return;
   const code = $('book').value; if (code === 'ALL') { $('strip').hidden = true; return; }
   const ch = parseInt(($('ch').value || '1').split('-')[0], 10) || 1;
-  const r = await fetch(`/source?book=${encodeURIComponent(code)}&ch=${ch}`);
-  if (!r.ok) return;
+  const seq = ++browseSeq;
+  const r = await fetch(`/source?book=${encodeURIComponent(code)}&ch=${ch}&lang=${tl}`);
+  if (!r.ok || seq !== browseSeq || (S && S.running)) return;   // superseded, or a run began meanwhile
   const d = await r.json();
   browsing = {code, chapter: d.chapter, chapters: d.chapters};
   translatedSet = new Set((d.translated || []).map(String));
-  cur = {book: d.book, chapter: d.chapter, verses: d.verses, lang: d.lang, src: d.src, started: 0, tokens: 0};
-  raw = d.english ? Object.keys(d.english).map(Number).sort((a,b)=>a-b).map(n => '[' + n + '] ' + d.english[n]).join(NL)
-                    + (d.notes ? NL + '---' + NL + d.notes : '') : '';
+  cur = {book: d.book, chapter: d.chapter, verses: d.verses, lang: d.lang, src: d.src, target: tl, started: 0, tokens: 0};
+  texts = {}; for (const t of TCODES) if (d.translations[t]) texts[t] = textFrom(d.translations[t]);
   lastActive = null;
   $('cur').textContent = d.book + ' ' + d.chapter; $('vv').textContent = d.verses;
   $('el').textContent = '—'; $('tok').textContent = '—'; $('tps').textContent = '—';
   bookProgress(code);
   const strip = $('strip'); strip.hidden = false;
-  strip.innerHTML = `<span class="lbl">${d.book}</span>` + d.chapters.map(c =>
+  strip.innerHTML = `<span class="lbl">${d.book} · ${TARGETS[tl].native}</span>` + d.chapters.map(c =>
     `<a class="${+c === d.chapter ? 'on' : (translatedSet.has(String(c)) ? 'tr' : '')}" data-c="${c}">${c}</a>`).join('');
   strip.querySelectorAll('a').forEach(a => a.onclick = () => { $('ch').value = a.dataset.c; browse(); });
   const i = d.chapters.indexOf(String(d.chapter));
@@ -591,27 +662,29 @@ document.addEventListener('keydown', e => {
 
 /* ---------- live stream ---------- */
 function connect(){
-  const es = new EventSource('/events');
+  const es = new EventSource('/events?lang=' + tl);
   es.onmessage = e => {
     const m = JSON.parse(e.data);
     if (m.type === 'snapshot') applySnapshot(m);
-    else if (m.type === 'token') { raw += m.t; if (cur) cur.tokens++; schedule(); }
-    else if (m.type === 'start') { raw = ''; lastActive = null; browsing = null; $('strip').hidden = true;
-      cur = {book:m.book, chapter:m.chapter, verses:m.verses, lang:m.lang, src:m.src, started:Date.now()/1000, tokens:0};
+    else if (m.type === 'token') { if (cur) { texts[cur.target] = (texts[cur.target] || '') + m.t; cur.tokens++; } schedule(); }
+    else if (m.type === 'start') { lastActive = null; browsing = null; $('strip').hidden = true;
+      if (m.target !== tl) setTl(m.target);
+      cur = {book:m.book, chapter:m.chapter, verses:m.verses, lang:m.lang, src:m.src, target:m.target, started:Date.now()/1000, tokens:0};
+      texts = {[m.target]: ''};
       $('cur').textContent = m.book+' '+m.chapter; $('vv').textContent = m.verses; bookProgress(m.book);
-      $('pill').textContent = 'translating '+m.book+' '+m.chapter; $('pill').className='pill run'; schedule(); }
-    else if (m.type === 'retry') { raw += NL + NL + '--- retry: missing '+JSON.stringify(m.missing)+' extra '+JSON.stringify(m.extra)+' ---' + NL + NL; schedule(); }
+      $('pill').textContent = 'translating '+m.book+' '+m.chapter+' → '+TARGETS[m.target].name; $('pill').className='pill run'; schedule(); }
+    else if (m.type === 'retry') { if (cur) texts[cur.target] += NL + NL + '--- retry: missing '+JSON.stringify(m.missing)+' extra '+JSON.stringify(m.extra)+' ---' + NL + NL; schedule(); }
     else if (m.type === 'done' || m.type === 'skip' || m.type === 'run') refresh();
   };
   es.onerror = () => { es.close(); setTimeout(connect, 2000); };
 }
-async function refresh(){ applySnapshot(await (await fetch('/state')).json()); }
+async function refresh(){ applySnapshot(await (await fetch('/state?lang=' + tl)).json()); }
 async function post(path, body){ const r = await fetch(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body||{})}); return r.json(); }
 
 $('start').onclick = async () => {
-  const r = await post('/start', {book:$('book').value, chapters:$('ch').value, force:$('force').checked});
+  const r = await post('/start', {book:$('book').value, chapters:$('ch').value, force:$('force').checked, lang:$('lang').value});
   if (!r.ok) { alert(r.error); return; }
-  raw = ''; browsing = null; $('strip').hidden = true; schedule(); refresh();
+  browsing = null; $('strip').hidden = true; schedule(); refresh();
 };
 $('stop').onclick = () => post('/stop');
 $('rebuild').onclick = async () => { const r = await post('/rebuild'); alert(r.output || 'rebuilt'); };
@@ -624,7 +697,8 @@ connect();
 def main():
     srv = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
     srv.daemon_threads = True
-    print(f"live dashboard: http://localhost:{PORT}  (model {T.CONFIG['model']}, Ctrl-C to quit)")
+    print(f"live dashboard: http://localhost:{PORT}  (model {T.CONFIG['model']}, "
+          f"targets {', '.join(TARGETS)}, Ctrl-C to quit)")
     try:
         srv.serve_forever()
     except KeyboardInterrupt:

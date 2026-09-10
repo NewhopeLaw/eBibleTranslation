@@ -2,16 +2,17 @@
 """Translation driver.
 
 Usage:
-  translate.py Gen            all chapters of Genesis
-  translate.py Gen 1-3        chapters 1-3
-  translate.py Gen 5          chapter 5 only
-  translate.py --all          every book, canonical order
+  translate.py Gen                 all chapters of Genesis (into English)
+  translate.py Gen 1-3             chapters 1-3
+  translate.py Gen 5 --lang zh     chapter 5 into Chinese
+  translate.py --all --lang en,es  the whole Bible, canonical order, two targets
+  translate.py --all --lang all    every target language
 
 Skips chapters whose output already exists (resume); --force retranslates.
-Writes:
-  output/<Book>/<Book>_<NN>.md      readable chapter (superscript verse numbers)
-  output/json/<Book>_<NN>.json      sidecar {verses, notes, raw} for verify.py
-  logs/translate.jsonl              one line per chapter: timing + token counts
+Writes, per target language <lang>:
+  output/<lang>/<Book>/<Book>_<NN>.md   readable chapter (superscript verse numbers)
+  output/<lang>/json/<Book>_<NN>.json   sidecar {verses, notes, raw} for verify.py
+  logs/translate.jsonl                  one line per chapter: timing + token counts
 """
 import argparse
 import json
@@ -22,12 +23,11 @@ import urllib.request
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from books import BOOKS, LANGS, chapter_lang, lang_info, slug
+from books import BOOKS, DEFAULT_TARGET, LANGS, TARGETS, chapter_lang, parse_targets, slug
 
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))
 NORM_DIR = ROOT / "sources" / "normalized"
-OUT_DIR = ROOT / "output"
 LOG_PATH = ROOT / "logs" / "translate.jsonl"
 
 SUP = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
@@ -47,30 +47,54 @@ def emit(**ev):
         on_event(ev)
 
 
-def build_system_prompt() -> str:
-    base = (ROOT / "prompts" / "system_prompt.txt").read_text(encoding="utf-8")
-    glossary = json.loads((ROOT / "glossary.json").read_text(encoding="utf-8"))
-    names = json.loads((ROOT / "names.json").read_text(encoding="utf-8"))
+# ---------------------------------------------------------------- targets
+def out_dir(lang):
+    return ROOT / "output" / lang
+
+
+def json_dir(lang):
+    return ROOT / "output" / lang / "json"
+
+
+def target_files(lang):
+    return {"rules": ROOT / "prompts" / "targets" / f"{lang}.txt",
+            "glossary": ROOT / "targets" / lang / "glossary.json",
+            "names": ROOT / "targets" / lang / "names.json"}
+
+
+def build_system_prompt(lang=DEFAULT_TARGET) -> str:
+    if lang not in TARGETS:
+        raise SystemExit(f"unknown target language {lang!r}")
+    files = target_files(lang)
+    missing = [str(p) for p in files.values() if not p.exists()]
+    if missing:
+        raise SystemExit("target files missing: " + ", ".join(missing))
+    core = (ROOT / "prompts" / "system_prompt.txt").read_text(encoding="utf-8")
+    rules = files["rules"].read_text(encoding="utf-8").strip()
+    glossary = json.loads(files["glossary"].read_text(encoding="utf-8"))
+    names = json.loads(files["names"].read_text(encoding="utf-8"))
 
     def fmt(d):
         return "\n".join(f"- {k} -> {v}" for k, v in d.items() if not k.startswith("_"))
 
-    return (base
+    return (core.replace("{LANGUAGE}", TARGETS[lang]["name"]).replace("{TARGET_RULES}", rules)
             + "\n\nGLOSSARY — Hebrew/Aramaic\n" + fmt(glossary["hebrew"])
             + "\n\nGLOSSARY — Greek\n" + fmt(glossary["greek"])
-            + "\n\nPROPER NAMES (use these English spellings)\n" + fmt(names["names"]))
+            + f"\n\nPROPER NAMES (use these {TARGETS[lang]['name']} spellings)\n" + fmt(names["names"]))
 
 
-def build_user_prompt(meta, ch, verses, prev_english):
-    lang = chapter_lang(meta, verses)
-    lang_label = "Hebrew with an Aramaic section" if lang == "mixed" else LANG_NAME[lang]
-    lines = [f"Book: {meta['name']} — chapter {ch}. Source language: {lang_label}.", ""]
-    if prev_english:
-        lines += [f"YOUR TRANSLATION OF THE PREVIOUS CHAPTER (for continuity of tone and recurring phrases — do not re-output it):",
-                  prev_english, ""]
+# ------------------------------------------------------------------ prompt
+def build_user_prompt(meta, ch, verses, prev_translation, lang):
+    src_lang = chapter_lang(meta, verses)
+    lang_label = "Hebrew with an Aramaic section" if src_lang == "mixed" else LANG_NAME[src_lang]
+    lines = [f"Book: {meta['name']} — chapter {ch}. Source language: {lang_label}. "
+             f"Target language: {TARGETS[lang]['name']}.", ""]
+    if prev_translation:
+        lines += ["YOUR TRANSLATION OF THE PREVIOUS CHAPTER (for continuity of tone and recurring phrases — do not re-output it):",
+                  prev_translation, ""]
     lines.append(f"SOURCE TEXT ({meta['name']} {ch}, {len(verses)} verses — translate ALL {len(verses)}):")
     for v in verses:
-        tag = " [Aramaic]" if lang == "mixed" and v.get("lang") == "arc" else ""
+        tag = " [Aramaic]" if src_lang == "mixed" and v.get("lang") == "arc" else ""
         lines.append(f"{v['v']}.{tag} {v['text']}")
     return "\n".join(lines)
 
@@ -167,19 +191,19 @@ def render_md(meta, ch, verses, notes):
     return "\n".join(out)
 
 
-def translate_chapter(meta, ch, verses, prev_english, system, force=False):
+def translate_chapter(meta, ch, verses, prev_translation, system, force=False, lang=DEFAULT_TARGET):
     name = slug(meta["name"])
-    md_path = OUT_DIR / name / f"{name}_{int(ch):02d}.md"
-    json_path = OUT_DIR / "json" / f"{name}_{int(ch):02d}.json"
+    md_path = out_dir(lang) / name / f"{name}_{int(ch):02d}.md"
+    json_path = json_dir(lang) / f"{name}_{int(ch):02d}.json"
     if md_path.exists() and not force:
-        print(f"  {meta['name']} {ch}: exists, skipping")
-        emit(type="skip", book=meta["name"], chapter=int(ch))
+        print(f"  {meta['name']} {ch} [{lang}]: exists, skipping")
+        emit(type="skip", book=meta["name"], chapter=int(ch), target=lang)
         return json.loads(json_path.read_text(encoding="utf-8"))["verses"] if json_path.exists() else None
 
     expected = [v["v"] for v in verses]
-    user = build_user_prompt(meta, ch, verses, prev_english)
+    user = build_user_prompt(meta, ch, verses, prev_translation, lang)
     emit(type="start", book=meta["name"], chapter=int(ch), verses=len(expected),
-         lang=chapter_lang(meta, verses))
+         lang=chapter_lang(meta, verses), target=lang)
     t0 = time.time()
     raw, resp = call_model(system, user)
     parsed, notes, missing, extra = parse_output(raw, expected)
@@ -191,7 +215,7 @@ def translate_chapter(meta, ch, verses, prev_english, system, force=False):
                + (f"unexpected verse numbers {extra}. " if extra else "")
                + "Output the COMPLETE chapter again, every verse from "
                f"{expected[0]} to {expected[-1]}, same format.")
-        emit(type="retry", book=meta["name"], chapter=int(ch), missing=missing, extra=extra)
+        emit(type="retry", book=meta["name"], chapter=int(ch), missing=missing, extra=extra, target=lang)
         raw, resp = call_model(system, user + "\n\n" + fix)
         parsed, notes, missing, extra = parse_output(raw, expected)
         attempts = 2
@@ -201,7 +225,7 @@ def translate_chapter(meta, ch, verses, prev_english, system, force=False):
     json_path.parent.mkdir(parents=True, exist_ok=True)
     md_path.write_text(render_md(meta, ch, parsed, notes), encoding="utf-8")
     json_path.write_text(json.dumps(
-        {"book": meta["name"], "chapter": int(ch),
+        {"book": meta["name"], "chapter": int(ch), "lang": lang,
          "verses": {str(k): v for k, v in sorted(parsed.items())},
          "notes": notes, "raw": raw}, ensure_ascii=False, indent=1), encoding="utf-8")
 
@@ -209,18 +233,18 @@ def translate_chapter(meta, ch, verses, prev_english, system, force=False):
     with LOG_PATH.open("a", encoding="utf-8") as f:
         f.write(json.dumps({
             "ts": time.strftime("%Y-%m-%dT%H:%M:%S"), "book": meta["name"], "chapter": int(ch),
-            "model": CONFIG["model"], "seconds": round(dt, 1), "attempts": attempts,
+            "lang": lang, "model": CONFIG["model"], "seconds": round(dt, 1), "attempts": attempts,
             "prompt_tokens": resp.get("prompt_eval_count"), "output_tokens": resp.get("eval_count"),
             "missing": missing, "extra": extra}) + "\n")
     status = "OK" if not (missing or extra) else f"WARN missing={missing} extra={extra}"
-    print(f"  {meta['name']} {ch}: {len(parsed)}/{len(expected)} vv, {dt:.0f}s, "
+    print(f"  {meta['name']} {ch} [{lang}]: {len(parsed)}/{len(expected)} vv, {dt:.0f}s, "
           f"{resp.get('eval_count')} tokens out [{status}]")
     emit(type="done", book=meta["name"], chapter=int(ch), got=len(parsed), expected=len(expected),
-         seconds=round(dt, 1), tokens=resp.get("eval_count"), attempts=attempts, status=status)
+         seconds=round(dt, 1), tokens=resp.get("eval_count"), attempts=attempts, status=status, target=lang)
     return parsed
 
 
-def prev_chapter_english(parsed_verses):
+def prev_chapter_text(parsed_verses):
     if not parsed_verses:
         return None
     text = "\n".join(f"[{n}] {t}" for n, t in sorted(parsed_verses.items()))
@@ -228,7 +252,7 @@ def prev_chapter_english(parsed_verses):
     return text[-limit:] if len(text) > limit else text
 
 
-def run_book(code, chapters_arg, system, force):
+def run_book(code, chapters_arg, system, force, lang=DEFAULT_TARGET):
     meta = BOOKS[code]
     src = json.loads((NORM_DIR / f"{meta['num']:02d}_{slug(meta['name'])}.json").read_text(encoding="utf-8"))
     all_ch = sorted(src["chapters"], key=int)
@@ -240,11 +264,11 @@ def run_book(code, chapters_arg, system, force):
             wanted = [chapters_arg]
     else:
         wanted = all_ch
-    print(f"{meta['name']}: chapters {wanted[0]}-{wanted[-1]}")
+    print(f"{meta['name']} [{lang}]: chapters {wanted[0]}-{wanted[-1]}")
     prev = None
     for ch in wanted:
-        parsed = translate_chapter(meta, ch, src["chapters"][ch], prev_chapter_english(prev),
-                                   system, force)
+        parsed = translate_chapter(meta, ch, src["chapters"][ch], prev_chapter_text(prev),
+                                   system, force, lang)
         prev = parsed
 
 
@@ -254,16 +278,19 @@ def main():
     ap.add_argument("chapters", nargs="?", help="chapter or range, e.g. 1-3")
     ap.add_argument("--all", action="store_true", help="translate every book in order")
     ap.add_argument("--force", action="store_true", help="retranslate existing chapters")
+    ap.add_argument("--lang", default=CONFIG.get("target", DEFAULT_TARGET),
+                    help="target language code(s): en, zh, es, ja, th, a comma list, or 'all'")
     args = ap.parse_args()
 
-    system = build_system_prompt()
-    if args.all:
-        for code in sorted(BOOKS, key=lambda c: BOOKS[c]["num"]):
-            run_book(code, None, system, args.force)
-    elif args.book:
-        run_book(args.book, args.chapters, system, args.force)
-    else:
-        ap.error("give a book code or --all")
+    for lang in parse_targets(args.lang):
+        system = build_system_prompt(lang)
+        if args.all:
+            for code in sorted(BOOKS, key=lambda c: BOOKS[c]["num"]):
+                run_book(code, None, system, args.force, lang)
+        elif args.book:
+            run_book(args.book, args.chapters, system, args.force, lang)
+        else:
+            ap.error("give a book code or --all")
 
 
 if __name__ == "__main__":

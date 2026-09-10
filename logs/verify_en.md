@@ -1,0 +1,106 @@
+# Verification report — English (en)
+Chapters checked: 53
+Flags: 102
+
+- Genesis 30:36: SHORT — 39 chars vs 60 source (possible truncation)
+- Genesis 32:33: SHORT — 48 chars vs 87 source (possible truncation)
+- Genesis 35:28: SHORT — 23 chars vs 33 source (possible truncation)
+- Genesis 44:18: SHORT — 65 chars vs 87 source (possible truncation)
+- Philippians 2:7: SHORT — 83 chars vs 107 source (possible truncation)
+- Philippians 2:16: SHORT — 87 chars vs 109 source (possible truncation)
+- NAME? 'Egyptian' (1x) vs 'Egyptians' (2x) — same person/place spelled two ways?
+- NAME? 'Abel' (9x) vs 'Adbeel' (1x) — same person/place spelled two ways?
+- NAME? 'Abel' (9x) vs 'Ashbel' (1x) — same person/place spelled two ways?
+- NAME? 'Abraham' (133x) vs 'Abram' (63x) — same person/place spelled two ways?
+- NAME? 'Abram' (63x) vs 'Aram' (8x) — same person/place spelled two ways?
+- NAME? 'Adah' (8x) vs 'Admah' (3x) — same person/place spelled two ways?
+- NAME? 'Adah' (8x) vs 'Avidah' (1x) — same person/place spelled two ways?
+- NAME? 'Alva' (1x) vs 'Alvan' (1x) — same person/place spelled two ways?
+- NAME? 'Ammonites' (1x) vs 'Amorites' (4x) — same person/place spelled two ways?
+- NAME? 'Amorite' (2x) vs 'Amorites' (4x) — same person/place spelled two ways?
+- NAME? 'Amorites' (4x) vs 'Arkites' (1x) — same person/place spelled two ways?
+- NAME? 'Amorites' (4x) vs 'Horites' (4x) — same person/place spelled two ways?
+- NAME? 'Arabah' (1x) vs 'Arba' (2x) — same person/place spelled two ways?
+- NAME? 'Basemath' (1x) vs 'Basmath' (5x) — same person/place spelled two ways?
+- NAME? 'Becher' (1x) vs 'Beer' (11x) — same person/place spelled two ways?
+- NAME? 'Beer' (11x) vs 'Beeri' (1x) — same person/place spelled two ways?
+- NAME? 'Bera' (1x) vs 'Beriah' (2x) — same person/place spelled two ways?
+- NAME? 'Bered' (1x) vs 'Sered' (1x) — same person/place spelled two ways?
+- NAME? 'Bethel' (13x) vs 'Bethuel' (9x) — same person/place spelled two ways?
+- NAME? 'Bilhah' (8x) vs 'Bilhan' (1x) — same person/place spelled two ways?
+- NAME? 'Bless' (2x) vs 'Blessed' (3x) — same person/place spelled two ways?
+- NAME? 'Bury' (3x) vs 'Buy' (1x) — same person/place spelled two ways?
+- NAME? 'Cain' (18x) vs 'Cainan' (5x) — same person/place spelled two ways?
+- NAME? 'Cain' (18x) vs 'Can' (2x) — same person/place spelled two ways?
+- NAME? 'Cainan' (5x) vs 'Canaan' (45x) — same person/place spelled two ways?
+- NAME? 'Canaanite' (4x) vs 'Canaanites' (7x) — same person/place spelled two ways?
+- NAME? 'Dedan' (3x) vs 'Medan' (1x) — same person/place spelled two ways?
+- NAME? 'Dishan' (4x) vs 'Dishon' (3x) — same person/place spelled two ways?
+- NAME? 'Dishon' (3x) vs 'Pishon' (1x) — same person/place spelled two ways?
+- NAME? 'Dotan' (2x) vs 'Lotan' (3x) — same person/place spelled two ways?
+- NAME? 'Egyptian' (8x) vs 'Egyptians' (9x) — same person/place spelled two ways?
+- NAME? 'Elah' (1x) vs 'Eldaah' (1x) — same person/place spelled two ways?
+- NAME? 'Enoch' (9x) vs 'Enosh' (6x) — same person/place spelled two ways?
+- NAME? 'Ephah' (1x) vs 'Ephrath' (4x) — same person/place spelled two ways?
+- NAME? 'Eve' (2x) vs 'Even' (1x) — same person/place spelled two ways?
+- NAME? 'Father' (1x) vs 'Gather' (2x) — same person/place spelled two ways?
+- NAME? 'Gaham' (1x) vs 'Gatam' (3x) — same person/place spelled two ways?
+- NAME? 'Gather' (2x) vs 'Gether' (1x) — same person/place spelled two ways?
+- NAME? 'Gera' (1x) vs 'Gerar' (8x) — same person/place spelled two ways?
+- NAME? 'Girgashite' (1x) vs 'Girgashites' (1x) — same person/place spelled two ways?
+- NAME? 'Hadad' (3x) vs 'Hadar' (1x) — same person/place spelled two ways?
+- NAME? 'Hadar' (1x) vs 'Hagar' (13x) — same person/place spelled two ways?
+- NAME? 'Haran' (12x) vs 'Paran' (1x) — same person/place spelled two ways?
+- NAME? 'Have' (4x) vs 'Heaven' (5x) — same person/place spelled two ways?
+- NAME? 'Hebrew' (4x) vs 'Hebrews' (2x) — same person/place spelled two ways?
+- NAME? 'Hebron' (5x) vs 'Hermon' (1x) — same person/place spelled two ways?
+- NAME? 'Hebron' (5x) vs 'Hezron' (2x) — same person/place spelled two ways?
+- NAME? 'Hermon' (1x) vs 'Hezron' (2x) — same person/place spelled two ways?
+- NAME? 'Hittite' (10x) vs 'Hittites' (7x) — same person/place spelled two ways?
+- NAME? 'Hittites' (7x) vs 'Hivites' (1x) — same person/place spelled two ways?
+- NAME? 'Hivite' (1x) vs 'Hivites' (1x) — same person/place spelled two ways?
+- NAME? 'Horite' (2x) vs 'Horites' (4x) — same person/place spelled two ways?
+- NAME? 'Hupham' (1x) vs 'Husham' (2x) — same person/place spelled two ways?
+- NAME? 'Husham' (2x) vs 'Hushim' (1x) — same person/place spelled two ways?
+- NAME? 'Ishmaelites' (5x) vs 'Israelites' (2x) — same person/place spelled two ways?
+- NAME? 'Jabal' (1x) vs 'Jubal' (1x) — same person/place spelled two ways?
+- NAME? 'Jahleel' (1x) vs 'Jahzeel' (1x) — same person/place spelled two ways?
+- NAME? 'Jebusite' (1x) vs 'Jebusites' (1x) — same person/place spelled two ways?
+- NAME? 'Jemuel' (1x) vs 'Kemuel' (1x) — same person/place spelled two ways?
+- NAME? 'Jerah' (1x) vs 'Serah' (1x) — same person/place spelled two ways?
+- NAME? 'Jerah' (1x) vs 'Terah' (9x) — same person/place spelled two ways?
+- NAME? 'Jerah' (1x) vs 'Zerah' (5x) — same person/place spelled two ways?
+- NAME? 'Jubal' (1x) vs 'Tubal' (3x) — same person/place spelled two ways?
+- NAME? 'King' (2x) vs 'Kings' (1x) — same person/place spelled two ways?
+- NAME? 'Later' (2x) vs 'Water' (1x) — same person/place spelled two ways?
+- NAME? 'Lie' (2x) vs 'Like' (1x) — same person/place spelled two ways?
+- NAME? 'Lie' (2x) vs 'Live' (1x) — same person/place spelled two ways?
+- NAME? 'Methuselah' (5x) vs 'Methushael' (2x) — same person/place spelled two ways?
+- NAME? 'Midianite' (1x) vs 'Midianites' (1x) — same person/place spelled two ways?
+- NAME? 'Naamah' (1x) vs 'Naaman' (1x) — same person/place spelled two ways?
+- NAME? 'Naamah' (1x) vs 'Raamah' (2x) — same person/place spelled two ways?
+- NAME? 'Nebaioth' (2x) vs 'Nebayoth' (1x) — same person/place spelled two ways?
+- NAME? 'Padan' (4x) vs 'Paddan' (7x) — same person/place spelled two ways?
+- NAME? 'Padan' (4x) vs 'Paran' (1x) — same person/place spelled two ways?
+- NAME? 'Perizzite' (2x) vs 'Perizzites' (1x) — same person/place spelled two ways?
+- NAME? 'Potiphar' (4x) vs 'Potiphera' (2x) — same person/place spelled two ways?
+- NAME? 'Sarah' (36x) vs 'Sarai' (17x) — same person/place spelled two ways?
+- NAME? 'Sarah' (36x) vs 'Serah' (1x) — same person/place spelled two ways?
+- NAME? 'Say' (4x) vs 'Stay' (4x) — same person/place spelled two ways?
+- NAME? 'Seba' (1x) vs 'Sheba' (5x) — same person/place spelled two ways?
+- NAME? 'Serah' (1x) vs 'Terah' (9x) — same person/place spelled two ways?
+- NAME? 'Serah' (1x) vs 'Zerah' (5x) — same person/place spelled two ways?
+- NAME? 'Set' (1x) vs 'Seth' (7x) — same person/place spelled two ways?
+- NAME? 'Shimron' (1x) vs 'Simon' (4x) — same person/place spelled two ways?
+- NAME? 'Shinab' (1x) vs 'Shinar' (4x) — same person/place spelled two ways?
+- NAME? 'Shua' (2x) vs 'Shuah' (1x) — same person/place spelled two ways?
+- NAME? 'Sidon' (3x) vs 'Simon' (4x) — same person/place spelled two ways?
+- NAME? 'Simeon' (5x) vs 'Simon' (4x) — same person/place spelled two ways?
+- NAME? 'Tebah' (1x) vs 'Terah' (9x) — same person/place spelled two ways?
+- NAME? 'Tema' (1x) vs 'Teman' (3x) — same person/place spelled two ways?
+- NAME? 'Terah' (9x) vs 'Zerah' (5x) — same person/place spelled two ways?
+- NAME? 'Timna' (3x) vs 'Timnah' (2x) — same person/place spelled two ways?
+- NAME? 'Whatever' (1x) vs 'Whoever' (3x) — same person/place spelled two ways?
+- NAME? 'Whenever' (1x) vs 'Whoever' (3x) — same person/place spelled two ways?
+- NAME? 'Zillah' (3x) vs 'Zilpah' (7x) — same person/place spelled two ways?
+- NAME? 'Zoar' (7x) vs 'Zohar' (3x) — same person/place spelled two ways?

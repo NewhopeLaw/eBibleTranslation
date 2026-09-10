@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Build a self-contained HTML reader for the translation.
 
-Reads every translated chapter in output/json/ and writes site/index.html:
-  - reading view: chapter text with superscript verse numbers, translator's
-    notes, prev/next chapter buttons, adjustable text size (persisted)
-  - full-text search over the English (results link to verses)
+Embeds the original text of every chapter (Hebrew / Aramaic / Greek) and every
+translation found under output/<lang>/json/, and writes site/index.html:
+  - reading view per target language, with superscript verse numbers,
+    translator's notes, prev/next chapter, adjustable text size (persisted)
+  - tabs per chapter: original | each translation | side by side | compare
+  - full-text search over the selected translation
   - reference finder ("Genesis 2:7", "gen 2", "1 sam 3:10")
   - works on phone screens (book menu collapses into a dropdown)
 
@@ -17,13 +19,15 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from books import BOOKS, LANGS, MIXED, chapter_lang, slug, verse_lang
+from books import BOOKS, LANGS, MIXED, TARGETS, chapter_lang, slug, verse_lang
 
 ROOT = Path(__file__).resolve().parent.parent
-JSON_DIR = ROOT / "output" / "json"
+OUT_ROOT = ROOT / "output"
+NORM_DIR = ROOT / "sources" / "normalized"
 SITE = ROOT / "site"
 
 ORDER = {slug(m["name"]): m["num"] for m in BOOKS.values()}
+BY_SLUG = {slug(m["name"]): m for m in BOOKS.values()}
 ABBREV = {
     "gen": "Genesis", "ex": "Exodus", "exod": "Exodus", "lev": "Leviticus",
     "num": "Numbers", "deut": "Deuteronomy", "dt": "Deuteronomy",
@@ -44,7 +48,7 @@ ABBREV = {
     "1jn": "1 John", "2jn": "2 John", "3jn": "3 John", "rev": "Revelation",
 }
 
-PAGE = """<!DOCTYPE html>
+PAGE = r"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -75,8 +79,9 @@ button.fs { cursor:pointer; width:2.2rem; }
 button.fs:hover { border-color:var(--accent); }
 select#bookSel { max-width:11rem; display:none; }
 main { max-width:42rem; margin:0 auto; padding:1.4rem 1.2rem 5rem; }
+main.wide { max-width:66rem; }
 .layout { display:flex; }
-nav#books { width:200px; flex:none; padding:1rem .6rem; font:14px system-ui,sans-serif;
+nav#books { width:210px; flex:none; padding:1rem .6rem; font:14px system-ui,sans-serif;
   border-right:1px solid var(--border); height:calc(100vh - 58px);
   overflow-y:auto; position:sticky; top:58px; }
 nav#books a { display:block; padding:.15rem .55rem; color:var(--fg);
@@ -89,13 +94,12 @@ nav#books a.missing { color:var(--muted); opacity:.4; pointer-events:none; }
 nav#books a.untr { color:var(--muted); }
 nav#books a .ct { float:right; font-size:11px; color:var(--muted); margin-top:.15rem; }
 nav#books a.on .ct { color:#fff; opacity:.85; }
-.chnav a.untr { color:var(--muted); border-style:dashed; }
-.tabs a.off { opacity:.45; cursor:default; }
 .chnav { font:14px system-ui,sans-serif; margin:.9rem 0 1.6rem;
   display:flex; flex-wrap:wrap; gap:.3rem; }
 .chnav a { padding:.22rem .6rem; border:1px solid var(--border);
   border-radius:7px; text-decoration:none; color:var(--fg); }
 .chnav a.on { background:var(--accent); color:#fff; border-color:var(--accent); }
+.chnav a.untr { color:var(--muted); border-style:dashed; }
 h2 { font-size:1.65em; font-weight:normal; margin:.3rem 0 .4rem; }
 h2 .lang { font:13px system-ui,sans-serif; color:var(--muted); margin-left:.6rem; vertical-align:middle; }
 sup.v { color:var(--accent); font:600 .58em system-ui,sans-serif;
@@ -121,28 +125,32 @@ mark { background:var(--hl); color:inherit; border-radius:3px; padding:0 .1em; }
 .flash { animation:flash 2.5s; }
 @keyframes flash { 0%,55% { background:var(--hl); } 100% { background:transparent; } }
 .empty { color:var(--muted); font:15px system-ui,sans-serif; margin-top:2rem; }
-main.wide { max-width:66rem; }
-.tabs { display:flex; gap:.3rem; font:14px system-ui,sans-serif; margin:-.8rem 0 1.3rem; }
+.tabs { display:flex; flex-wrap:wrap; gap:.3rem; font:14px system-ui,sans-serif; margin:-.8rem 0 1.3rem; align-items:center; }
 .tabs a { padding:.25rem .75rem; border:1px solid var(--border); border-radius:999px;
   cursor:pointer; color:var(--muted); user-select:none; }
 .tabs a:hover { border-color:var(--accent); }
 .tabs a.on { background:var(--card); color:var(--fg); border-color:var(--accent); }
-.orig { font-family:"SBL Hebrew","Ezra SIL","Taamey Frank CLM","Times New Roman",serif;
-  line-height:1.95; }
+.tabs a.off { opacity:.4; cursor:default; pointer-events:none; }
+.tabs .sep { width:1px; height:1.2rem; background:var(--border); margin:0 .3rem; }
+.orig { font-family:"SBL Hebrew","Ezra SIL","Taamey Frank CLM","Times New Roman",serif; line-height:1.95; }
 .orig.greek { font-family:"Gentium Plus","SBL Greek","Palatino Linotype","Times New Roman",serif; }
-.lt { font:600 10px system-ui,sans-serif; color:var(--muted); text-transform:uppercase;
-  letter-spacing:.05em; margin:0 .3em; vertical-align:.5em; user-select:none; }
 .orig[dir=rtl] { text-align:right; }
 .orig sup.v { vertical-align:.7em; }
+.lt { font:600 10px system-ui,sans-serif; color:var(--muted); text-transform:uppercase;
+  letter-spacing:.05em; margin:0 .3em; vertical-align:.5em; user-select:none; }
 p.ov { margin:0 0 .6em; }
 .par { display:grid; grid-template-columns:1fr 1fr; gap:0 1.6rem; align-items:start; }
 .par > div { padding:.45rem 0; border-bottom:1px solid var(--border); }
 .par .e { white-space:pre-wrap; }
+.cmp { border-bottom:1px solid var(--border); padding:.6rem 0 .5rem; }
+.cmp .row { display:grid; grid-template-columns:5.5rem 1fr; gap:.6rem; padding:.15rem 0; align-items:baseline; }
+.cmp .row .lab { font:600 11px system-ui,sans-serif; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; text-align:right; }
+.cmp .row .txt { white-space:pre-wrap; }
+[lang="zh"], [lang="ja"] { font-family:Georgia, "Noto Serif CJK SC", "Noto Serif CJK JP", "Source Han Serif", "Yu Mincho", "MS Mincho", "SimSun", "Songti SC", serif; line-height:1.95; }
+[lang="th"] { font-family:"Noto Serif Thai", "Leelawadee UI", "Tahoma", sans-serif; line-height:2; }
 @media (max-width:760px){
   .par { grid-template-columns:1fr; }
   .par .o { border-bottom:0; padding-bottom:.1rem; }
-}
-@media (max-width:760px){
   nav#books { display:none }
   select#bookSel { display:block }
   header .brand { display:none }
@@ -154,6 +162,7 @@ p.ov { margin:0 0 .6em; }
 <header>
   <span class="brand">eBible — from the Hebrew, Aramaic &amp; Greek</span>
   <select id="bookSel"></select>
+  <select id="tlSel" title="Translation language"></select>
   <input id="ref" placeholder="Go to: Genesis 2:7">
   <input id="q" placeholder="Search the text…">
   <button class="fs" id="fsMinus" title="Smaller text">A−</button>
@@ -167,15 +176,29 @@ p.ov { margin:0 0 .6em; }
 const DATA = __DATA__;
 const ORDER = __ORDER__;
 const LANGS = __LANGS__;
+const TARGETS = __TARGETS__;          // {code: {name, native}} in canonical order
 const ABBREV = __ABBREV__;
-const SUP = "⁰¹²³⁴⁵⁶⁷⁸⁹";
 const $ = s => document.querySelector(s);
 const disp = b => b.replace(/_/g," ");
 
 const allBooks = Object.keys(ORDER).sort((a,b) => ORDER[a]-ORDER[b]);
-const srcBooks = allBooks.filter(b => DATA[b]);                      // navigable
-const translated = (b, c) => !!(DATA[b] && DATA[b][c] && DATA[b][c].verses);
-const haveBooks = srcBooks.filter(b => Object.values(DATA[b]).some(c => c.verses));
+const srcBooks = allBooks.filter(b => DATA[b]);                          // navigable
+const chapterList = book => Object.keys(DATA[book]).map(Number).sort((a,b)=>a-b);
+const trOf = (b, c) => (DATA[b] && DATA[b][c] && DATA[b][c].tr) || {};
+const haveTargets = Object.keys(TARGETS).filter(t => srcBooks.some(b => Object.values(DATA[b]).some(c => c.tr && c.tr[t])));
+const booksWith = t => srcBooks.filter(b => Object.values(DATA[b]).some(c => c.tr && c.tr[t]));
+
+/* ---------- translation language + view (persisted) ---------- */
+let tl = localStorage.getItem("tl");
+if (!haveTargets.includes(tl)) tl = haveTargets[0] || "en";
+let view = localStorage.getItem("view") || "tr";   // tr | orig | par | all
+function setView(v){ view = v; localStorage.setItem("view", v); route(); }
+function setTl(t){ tl = t; localStorage.setItem("tl", t); $("#tlSel").value = t; if (view === "orig") view = "tr"; route(); }
+const tlSel = $("#tlSel");
+tlSel.innerHTML = haveTargets.map(t => `<option value="${t}">${TARGETS[t].native}</option>`).join("");
+tlSel.value = tl;
+tlSel.addEventListener("change", e => setTl(e.target.value));
+if (haveTargets.length < 2) tlSel.style.display = "none";
 
 /* ---------- text size ---------- */
 let fs = +(localStorage.getItem("fs") || 18);
@@ -190,18 +213,17 @@ function navRender(current) {
   for (const b of allBooks) {
     const t = ORDER[b] <= 39 ? "Old Testament" : "New Testament";
     if (t !== lastT) { html += `<div class="t">${t}</div>`; lastT = t; }
-    const nch = DATA[b] ? Object.keys(DATA[b]).length : 0, ntr = DATA[b] ? Object.values(DATA[b]).filter(c => c.verses).length : 0;
+    const nch = DATA[b] ? Object.keys(DATA[b]).length : 0;
+    const ntr = DATA[b] ? Object.values(DATA[b]).filter(c => c.tr && c.tr[tl]).length : 0;
     const ct = ntr && ntr < nch ? `<span class="ct">${ntr}/${nch}</span>` : (ntr ? `<span class="ct">✓</span>` : "");
     html += `<a href="#${b}/1" class="${DATA[b]?(ntr?'':'untr'):'missing'} ${b===current?'on':''}">${disp(b)}${ct}</a>`;
   }
   $("#books").innerHTML = html;
   const sel = $("#bookSel");
   sel.innerHTML = srcBooks.map(b =>
-    `<option value="${b}" ${b===current?'selected':''}>${disp(b)}${haveBooks.includes(b)?'':' ·'}</option>`).join("");
+    `<option value="${b}" ${b===current?'selected':''}>${disp(b)}</option>`).join("");
 }
 $("#bookSel").addEventListener("change", e => location.hash = `#${e.target.value}/1`);
-
-function chapterList(book){ return Object.keys(DATA[book]).map(Number).sort((a,b)=>a-b); }
 
 function neighbours(book, ch) {
   const chs = chapterList(book);
@@ -215,60 +237,77 @@ function neighbours(book, ch) {
 }
 
 function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
-
-/* ---------- language view: en | orig | par ---------- */
-let view = localStorage.getItem("view") || "en";
-function setView(v){ view = v; localStorage.setItem("view", v); route(); }
 const vtag = (src, n) => src._lang ? `<span class="lt">${LANGS[src._lang[n]].name}</span>` : "";
+const flat = t => esc(t).replace(/\n\n/g,"\n").trim();
 
 function renderChapter(book, ch, highlightVerse) {
   const chData = DATA[book] && DATA[book][ch];
   const main = $("#main");
   navRender(book);
   if (!chData) { main.innerHTML = `<p class="empty">${disp(book)} ${ch} is not in the source texts.</p>`; return; }
-  const tr = !!chData.verses;
+  const trs = chData.tr || {};
+  const avail = Object.keys(TARGETS).filter(t => trs[t]);
+  const shown = trs[tl] ? tl : avail[0];              // fall back to any translation this chapter has
+  const tr = !!shown;
   const chs = chapterList(book);
-  let html = `<h2>${disp(book)} ${ch}${chData.lang ? ` <small class="lang">${LANGS[chData.lang].name}</small>` : ""}</h2>`;
-  html += `<div class="chnav">` + chs.map(c =>
-    `<a href="#${book}/${c}" class="${c==ch?'on':''} ${translated(book,c)?'':'untr'}">${c}</a>`).join("") + `</div>`;
   const src = chData.src, lang = chData.lang || "hbo", L = LANGS[lang];
   const rtl = L.dir === "rtl", ocls = "orig " + L.script.toLowerCase();
-  const v = src ? (tr ? view : "orig") : "en";   // untranslated: only the original exists
-  if (src) html += `<div class="tabs">
-    <a class="${v==='en'?'on':''} ${tr?'':'off'}" onclick="setView('en')">English</a>
-    <a class="${v==='orig'?'on':''}" onclick="setView('orig')">${L.name}</a>
-    <a class="${v==='par'?'on':''} ${tr?'':'off'}" onclick="setView('par')">Side by side</a></div>`;
-  main.className = v === "par" ? "wide" : "";
+  let v = view;
+  if (!src) v = "tr";
+  else if (!tr) v = "orig";
+  else if (v === "all" && avail.length < 2) v = "par";
+  let html = `<h2>${disp(book)} ${ch}<small class="lang">${L.name}${tr ? " → " + TARGETS[shown].name : ""}</small></h2>`;
+  html += `<div class="chnav">` + chs.map(c =>
+    `<a href="#${book}/${c}" class="${c==ch?'on':''} ${trOf(book,c)[tl]?'':'untr'}">${c}</a>`).join("") + `</div>`;
+  if (src) {
+    html += `<div class="tabs"><a class="${v==='orig'?'on':''}" onclick="setView('orig')">${L.name}</a><span class="sep"></span>`;
+    for (const t of haveTargets)
+      html += `<a class="${v==='tr'&&shown===t?'on':''} ${trs[t]?'':'off'}" onclick="setTl('${t}');setView('tr')">${TARGETS[t].native}</a>`;
+    html += `<span class="sep"></span><a class="${v==='par'?'on':''} ${tr?'':'off'}" onclick="setView('par')">Side by side</a>`;
+    html += `<a class="${v==='all'?'on':''} ${avail.length>1?'':'off'}" onclick="setView('all')">Compare</a></div>`;
+  }
+  main.className = (v === "par" || v === "all") ? "wide" : "";
+  main.setAttribute("lang", v === "orig" ? "" : (shown || "en"));
   if (!tr) html += `<p class="empty" style="margin:0 0 1.2rem">Not translated yet${src ? ` — showing the ${L.name}.` : "."}</p>`;
-  if (!tr && v === "en") { main.innerHTML = html; return; }
-  const nums = Object.keys(v === "en" ? chData.verses : src).filter(k => k !== "_lang").map(Number).sort((a,b)=>a-b);
+  if (!tr && v !== "orig") { main.innerHTML = html; return; }
+  const nums = Object.keys(v === "tr" ? trs[shown].verses : src).filter(k => k !== "_lang").map(Number).sort((a,b)=>a-b);
   if (v === "orig") {
     for (const n of nums)
       html += `<p class="ov ${ocls}" dir="${rtl?'rtl':'ltr'}" id="v-${book}-${ch}-${n}"><sup class="v">${n}</sup>${vtag(src,n)}${esc(src[n])}</p>`;
   } else if (v === "par") {
     html += `<div class="par">`;
     for (const n of nums) {
-      const e = tr ? chData.verses[n] : undefined;
+      const e = trs[shown].verses[n];
       html += `<div class="o ${ocls}" dir="${rtl?'rtl':'ltr'}"><sup class="v">${n}</sup>${vtag(src,n)}${esc(src[n])}</div>
-        <div class="e" id="v-${book}-${ch}-${n}"><sup class="v">${n}</sup>${e ? esc(e).replace(/\\n\\n/g,"\\n").trim() : "<i style='color:var(--muted)'>—</i>"}</div>`;
+        <div class="e" lang="${shown}" id="v-${book}-${ch}-${n}"><sup class="v">${n}</sup>${e ? flat(e) : "<i style='color:var(--muted)'>—</i>"}</div>`;
     }
     html += `</div>`;
-  }
-  let para = [];
-  const flush = () => { if (para.length) { html += `<p class="vv">${para.join(" ")}</p>`; para = []; } };
-  for (const n of (v === "en" ? nums : [])) {
-    const t = chData.verses[n];
-    const vid = `v-${book}-${ch}-${n}`;
-    if (t.includes("\\n")) {
-      flush();
-      html += `<div class="poetry" id="${vid}"><sup class="v">${n}</sup>${esc(t).replace(/\\n\\n/g,"\\n").trimEnd()}</div>`;
-    } else {
-      para.push(`<span id="${vid}"><sup class="v">${n}</sup>${esc(t)}</span>`);
+  } else if (v === "all") {
+    for (const n of nums) {
+      html += `<div class="cmp" id="v-${book}-${ch}-${n}"><div class="row"><span class="lab">${L.name} ${n}</span><span class="txt ${ocls}" dir="${rtl?'rtl':'ltr'}">${vtag(src,n)}${esc(src[n])}</span></div>`;
+      for (const t of avail) {
+        const e = trs[t].verses[n];
+        html += `<div class="row"><span class="lab">${TARGETS[t].native}</span><span class="txt" lang="${t}">${e ? flat(e) : "<i style='color:var(--muted)'>—</i>"}</span></div>`;
+      }
+      html += `</div>`;
     }
-  }
-  flush();
-  if (chData.notes) {
-    html += `<div class="notes">${esc(chData.notes).replace(/^Notes:?/i,"<b>Translator's notes</b>").replace(/\\n/g,"<br>")}</div>`;
+  } else {
+    let para = [];
+    const flush = () => { if (para.length) { html += `<p class="vv">${para.join(" ")}</p>`; para = []; } };
+    for (const n of nums) {
+      const t = trs[shown].verses[n];
+      const vid = `v-${book}-${ch}-${n}`;
+      if (t.includes("\n")) {
+        flush();
+        html += `<div class="poetry" id="${vid}"><sup class="v">${n}</sup>${esc(t).replace(/\n\n/g,"\n").trimEnd()}</div>`;
+      } else {
+        para.push(`<span id="${vid}"><sup class="v">${n}</sup>${esc(t)}</span>`);
+      }
+    }
+    flush();
+    if (trs[shown].notes) {
+      html += `<div class="notes">${esc(trs[shown].notes).replace(/^Notes:?/i,"<b>Translator's notes</b>").replace(/\n/g,"<br>")}</div>`;
+    }
   }
   const {prev, next} = neighbours(book, ch);
   html += `<div class="pn">
@@ -284,11 +323,11 @@ function renderChapter(book, ch, highlightVerse) {
 
 /* ---------- reference finder ---------- */
 function goRef(input) {
-  const m = input.trim().toLowerCase().match(/^([1-3]?\\s*[a-z ]+?)\\s*(\\d+)?(?::(\\d+))?$/);
+  const m = input.trim().toLowerCase().match(/^([1-3]?\s*[a-z ]+?)\s*(\d+)?(?::(\d+))?$/);
   if (!m) return false;
-  let book = ABBREV[m[1].replace(/\\s+/g,"")];
+  let book = ABBREV[m[1].replace(/\s+/g,"")];
   if (!book) {
-    const t = m[1].trim().replace(/\\s+/g,"_").toLowerCase();
+    const t = m[1].trim().replace(/\s+/g,"_").toLowerCase();
     book = allBooks.find(b => b.toLowerCase().startsWith(t));
   }
   if (!book) return false;
@@ -296,25 +335,27 @@ function goRef(input) {
   return true;
 }
 
-/* ---------- search ---------- */
+/* ---------- search (in the selected translation) ---------- */
 function search(q) {
   navRender(null);
   q = q.trim();
   const main = $("#main");
+  main.className = ""; main.setAttribute("lang", tl);
   if (q.length < 2) { main.innerHTML = `<p class="empty">Type at least two characters.</p>`; return; }
-  const rx = new RegExp(q.replace(/[.*+?^${}()|[\\]\\\\]/g,"\\\\$&"), "gi");
+  const rx = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"), "gi");
   const hits = [];
   outer:
-  for (const book of haveBooks) {
+  for (const book of booksWith(tl)) {
     for (const ch of chapterList(book)) {
-      if (!translated(book, ch)) continue;
-      for (const [v, t] of Object.entries(DATA[book][ch].verses)) {
+      const t = trOf(book, ch)[tl];
+      if (!t) continue;
+      for (const [v, s] of Object.entries(t.verses)) {
         rx.lastIndex = 0;
-        if (rx.test(t)) { hits.push({book, ch, v, t}); if (hits.length >= 200) break outer; }
+        if (rx.test(s)) { hits.push({book, ch, v, t:s}); if (hits.length >= 200) break outer; }
       }
     }
   }
-  let html = `<h2>Search: “${esc(q)}”</h2><div id="results">`;
+  let html = `<h2>Search: “${esc(q)}”<small class="lang">${TARGETS[tl].name}</small></h2><div id="results">`;
   html += `<p class="empty">${hits.length}${hits.length>=200?"+":""} verse${hits.length===1?"":"s"} found.</p>`;
   for (const h of hits) {
     rx.lastIndex = 0;
@@ -328,7 +369,7 @@ function search(q) {
 /* ---------- routing ---------- */
 function route() {
   const h = decodeURIComponent(location.hash.slice(1));
-  if (!h) { if (haveBooks[0]) location.hash = `#${haveBooks[0]}/1`; return; }
+  if (!h) { const b = booksWith(tl)[0] || srcBooks[0]; if (b) location.hash = `#${b}/1`; return; }
   const [book, ch, v] = h.split("/");
   $("#q").value = "";
   renderChapter(book, ch, v ? +v : null);
@@ -343,7 +384,7 @@ $("#q").addEventListener("input", e => {
   deb = setTimeout(() => val.trim() ? search(val) : route(), 250);
 });
 document.addEventListener("keydown", e => {
-  if (e.target.tagName === "INPUT") return;
+  if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
   const h = location.hash.slice(1).split("/");
   if (h.length < 2 || !DATA[h[0]]) return;
   const {prev, next} = neighbours(h[0], h[1]);
@@ -357,9 +398,6 @@ route();
 </html>
 """
 
-
-NORM_DIR = ROOT / "sources" / "normalized"
-BY_SLUG = {slug(m["name"]): m for m in BOOKS.values()}
 _norm_cache = {}
 
 
@@ -383,7 +421,7 @@ def source_chapter(book_key, ch):
 
 def main():
     data = {}
-    # every chapter of every book: original text always, translation when present
+    # every chapter of every book: original text always, translations when present
     for meta in sorted(BOOKS.values(), key=lambda m: m["num"]):
         key = slug(meta["name"])
         f = NORM_DIR / f"{meta['num']:02d}_{key}.json"
@@ -391,26 +429,28 @@ def main():
             continue
         for ch in sorted(json.loads(f.read_text(encoding="utf-8"))["chapters"], key=int):
             src, lang = source_chapter(key, ch)
-            data.setdefault(key, {})[str(ch)] = {"verses": None, "notes": "", "src": src, "lang": lang}
-    ntr = 0
-    for f in sorted(JSON_DIR.glob("*.json")):
-        d = json.loads(f.read_text(encoding="utf-8"))
-        book_key = slug(d["book"])
-        entry = data.setdefault(book_key, {}).setdefault(str(d["chapter"]), {"src": None, "lang": None})
-        entry["verses"], entry["notes"] = d["verses"], d.get("notes", "")
-        ntr += 1
+            data.setdefault(key, {})[str(ch)] = {"src": src, "lang": lang, "tr": {}}
+    counts = {}
+    for code in TARGETS:
+        for f in sorted((OUT_ROOT / code / "json").glob("*.json")):
+            d = json.loads(f.read_text(encoding="utf-8"))
+            entry = data.setdefault(slug(d["book"]), {}).setdefault(str(d["chapter"]), {"src": None, "lang": None, "tr": {}})
+            entry["tr"][code] = {"verses": d["verses"], "notes": d.get("notes", "")}
+            counts[code] = counts.get(code, 0) + 1
     SITE.mkdir(exist_ok=True)
     page = (PAGE
             .replace("__DATA__", json.dumps(data, ensure_ascii=False))
             .replace("__ORDER__", json.dumps(ORDER))
             .replace("__LANGS__", json.dumps({**LANGS, "mixed": MIXED}))
+            .replace("__TARGETS__", json.dumps({c: {"name": t["name"], "native": t["native"]} for c, t in TARGETS.items()}, ensure_ascii=False))
             .replace("__ABBREV__", json.dumps(
                 {k: v.replace(" ", "_") for k, v in ABBREV.items()})))
     out = SITE / "index.html"
     out.write_text(page, encoding="utf-8")
     nch = sum(len(v) for v in data.values())
-    print(f"site built: {out} ({len(data)} books, {nch} chapters of original text, "
-          f"{ntr} translated, {out.stat().st_size // 1024} KB)")
+    tr = ", ".join(f"{c}={n}" for c, n in counts.items()) or "none"
+    print(f"site built: {out} ({len(data)} books, {nch} chapters of original text; "
+          f"translated chapters: {tr}; {out.stat().st_size // 1024} KB)")
 
 
 if __name__ == "__main__":

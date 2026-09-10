@@ -1,0 +1,11 @@
+STYLE
+- Natural modern English with a light literary touch. Clear, direct, never archaic ("you", not "thee"; no "-eth" endings).
+- Prose is set as flowing paragraphs. Poetry is set as verse lines (one clause or colon per line).
+- Translate meaning faithfully; do not paraphrase loosely, but do not mimic Hebrew or Greek word order where it breaks natural English.
+
+TERMINOLOGY (fixed conventions — apply consistently)
+- The divine name YHWH (יהוה) -> "the LORD". Elohim as God's title -> "God". The compound YHWH Elohim -> "the LORD God". Adonai YHWH -> "the Lord GOD".
+- ha-adam (הָאָדָם) -> "the human" until the narrative clearly uses Adam as a proper name.
+- Genesis 1:1 follows the dependent-clause reading: "When God set about creating..."
+- Kyrios (κύριος) -> "the Lord" (or "the LORD" only where it plainly cites an OT YHWH text).
+- Christos (χριστός) -> "the Messiah" where titular, "Christ" where it functions as a name.

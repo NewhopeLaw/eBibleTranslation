@@ -126,3 +126,32 @@ def chapter_lang(meta, verses) -> str:
 
 def lang_info(code) -> dict:
     return MIXED if code == "mixed" else LANGS[code]
+
+
+# --- Target languages ---------------------------------------------------
+# Each target has its own prompt rules (prompts/targets/<code>.txt), glossary
+# and name table (targets/<code>/), and output tree (output/<code>/). `latin`
+# says whether the verifier's capitalised-name consistency check applies.
+# `ratio` is the verifier's truncation floor: translation length / source length
+# (source measured without vowel points and accents), below which a verse is
+# flagged SHORT. Latin-script prose runs ~2x the consonantal Hebrew; Chinese
+# and Japanese ~0.5x; Thai ~1.5x.
+TARGETS = {
+    "en": {"name": "English",  "native": "English", "latin": True,  "ratio": 0.8},
+    "zh": {"name": "Chinese",  "native": "中文",     "latin": False, "ratio": 0.2, "note": "Simplified script"},
+    "es": {"name": "Spanish",  "native": "Español", "latin": True,  "ratio": 0.8},
+    "ja": {"name": "Japanese", "native": "日本語",   "latin": False, "ratio": 0.25},
+    "th": {"name": "Thai",     "native": "ไทย",     "latin": False, "ratio": 0.6},
+}
+DEFAULT_TARGET = "en"
+
+
+def parse_targets(arg) -> list:
+    """'en' | 'en,zh' | 'all' -> ordered list of target codes."""
+    if not arg or arg == "all":
+        return list(TARGETS) if arg == "all" else [DEFAULT_TARGET]
+    codes = [c.strip() for c in arg.split(",") if c.strip()]
+    bad = [c for c in codes if c not in TARGETS]
+    if bad:
+        raise SystemExit(f"unknown target language(s) {bad}; known: {', '.join(TARGETS)}")
+    return codes

@@ -2,20 +2,23 @@
 """Verification pass: check translated chapters against the source.
 
 Usage:
-  verify.py            check everything in output/json/
-  verify.py Gen        check one book
-  verify.py Gen 1-3    check a chapter range
+  verify.py                    check everything in output/en/json/
+  verify.py Gen                check one book
+  verify.py Gen 1-3            check a chapter range
+  verify.py --lang zh [Gen]    another target language ('all' for every one)
 
 Checks (flags, never auto-fixes):
   - verse count mismatch, missing or duplicated verse numbers
   - empty verses
-  - untranslated source-script (Hebrew/Greek) characters in the English
-  - suspicious length ratio (English far shorter than source = possible truncation)
+  - untranslated source-script (Hebrew/Greek) characters in the translation
+  - suspicious length ratio (translation far shorter than source = possible
+    truncation; the threshold is looser for CJK/Thai, which are denser)
   - proper-name spelling inconsistencies across chapters (near-duplicate
-    capitalized tokens, e.g. Rebekah/Rebecca)
+    capitalised tokens, e.g. Rebekah/Rebecca) — Latin-script targets only
 
-Writes logs/verify_report.md and prints a summary. Exit code 1 if any flags.
+Writes logs/verify_<lang>.md and prints a summary. Exit code 1 if any flags.
 """
+import argparse
 import difflib
 import json
 import re
@@ -24,24 +27,29 @@ from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from books import BOOKS, slug
+from books import BOOKS, DEFAULT_TARGET, TARGETS, parse_targets, slug
 
 ROOT = Path(__file__).resolve().parent.parent
 NORM_DIR = ROOT / "sources" / "normalized"
-JSON_DIR = ROOT / "output" / "json"
-REPORT = ROOT / "logs" / "verify_report.md"
 
 HEBREW = re.compile(r"[֐-׿]")
 GREEK = re.compile(r"[Ͱ-Ͽἀ-῿]")
-CAP_TOKEN = re.compile(r"\b[A-Z][a-z]{2,}\b")
+MARKS = re.compile(r"[֑-ׇ̀-ͯ]")   # Hebrew points/accents, Greek combining marks
+CAP_TOKEN = re.compile(r"\b[A-ZÁÉÍÓÚÑ][a-záéíóúñ]{2,}\b")
 
-# Common sentence-initial words that are not proper names.
+# Common sentence-initial words that are not proper names (English + Spanish).
 STOP = {"The", "And", "But", "Then", "When", "Now", "For", "God", "Lord",
         "You", "Your", "They", "She", "His", "Her", "Him", "Its", "This",
         "That", "There", "These", "Those", "Let", "May", "All", "Who",
         "What", "Why", "How", "From", "Into", "After", "Before", "While",
         "Notes", "Chapter", "Yes", "See", "Look", "Listen", "Take", "Come",
-        "Because", "Since", "Every", "Each", "Here", "Where", "With"}
+        "Because", "Since", "Every", "Each", "Here", "Where", "With",
+        "Los", "Las", "Una", "Uno", "Pero", "Entonces", "Cuando", "Ahora",
+        "Dios", "Señor", "Ustedes", "Ellos", "Ellas", "Ella", "Este", "Esta",
+        "Estos", "Estas", "Aquel", "Porque", "Pues", "Para", "Por", "Con",
+        "Sin", "Sobre", "Desde", "Hasta", "Todo", "Toda", "Todos", "Todas",
+        "Que", "Qué", "Quién", "Cómo", "Dónde", "Así", "Sea", "Sean", "Haya",
+        "Notas", "Capítulo", "Miren", "Mira", "Vengan", "Ven", "Escuchen"}
 
 
 def load_source(code):
@@ -50,7 +58,7 @@ def load_source(code):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def check_chapter(code, ch, out, src_verses, flags):
+def check_chapter(code, ch, out, src_verses, flags, ratio):
     ref = f"{BOOKS[code]['name']} {ch}"
     expected = [v["v"] for v in src_verses]
     got = sorted(int(k) for k in out["verses"])
@@ -65,7 +73,7 @@ def check_chapter(code, ch, out, src_verses, flags):
         dups = [n for n, c in Counter(got).items() if c > 1]
         flags.append(f"{ref}: DUPLICATED verse numbers {dups}")
 
-    src_by_num = {v["v"]: v["text"] for v in src_verses}
+    src_by_num = {v["v"]: MARKS.sub("", v["text"]) for v in src_verses}   # consonantal length
     for n in got:
         text = out["verses"][str(n)]
         if not text.strip():
@@ -74,7 +82,7 @@ def check_chapter(code, ch, out, src_verses, flags):
         if HEBREW.search(text) or GREEK.search(text):
             flags.append(f"{ref}:{n}: UNTRANSLATED source characters remain")
         src = src_by_num.get(n)
-        if src and len(text) < 0.5 * len(src) and len(src) > 60:
+        if src and len(text) < ratio * len(src) and len(src) > 30:
             flags.append(f"{ref}:{n}: SHORT — {len(text)} chars vs {len(src)} source "
                          f"(possible truncation)")
 
@@ -100,11 +108,12 @@ def check_names(names, flags):
                              "same person/place spelled two ways?")
 
 
-def main():
-    book_arg = sys.argv[1] if len(sys.argv) > 1 else None
-    ch_arg = sys.argv[2] if len(sys.argv) > 2 else None
+def verify_lang(lang, book_arg, ch_arg):
+    json_dir = ROOT / "output" / lang / "json"
+    report = ROOT / "logs" / f"verify_{lang}.md"
+    latin = TARGETS[lang]["latin"]
 
-    files = sorted(JSON_DIR.glob("*.json"))
+    files = sorted(json_dir.glob("*.json"))
     if book_arg:
         name = slug(BOOKS[book_arg]["name"])
         files = [f for f in files if f.stem.rsplit("_", 1)[0] == name]
@@ -116,8 +125,8 @@ def main():
                 keep = {int(ch_arg)}
             files = [f for f in files if int(f.stem.rsplit("_", 1)[1]) in keep]
     if not files:
-        print("nothing to verify")
-        return
+        print(f"[{lang}] nothing to verify")
+        return 0
 
     flags, per_book = [], {}
     for f in files:
@@ -125,22 +134,33 @@ def main():
         code = next(c for c, m in BOOKS.items() if m["name"] == out["book"])
         src = load_source(code)
         src_verses = src["chapters"][str(out["chapter"])]
-        check_chapter(code, out["chapter"], out, src_verses, flags)
+        check_chapter(code, out["chapter"], out, src_verses, flags, TARGETS[lang]["ratio"])
         per_book.setdefault(code, []).append(out)
 
-    for code, outs in per_book.items():
-        check_names(name_inventory(outs), flags)
+    if latin:
+        for code, outs in per_book.items():
+            check_names(name_inventory(outs), flags)
 
-    REPORT.parent.mkdir(exist_ok=True)
-    lines = [f"# Verification report", f"Chapters checked: {len(files)}",
-             f"Flags: {len(flags)}", ""]
+    report.parent.mkdir(exist_ok=True)
+    lines = [f"# Verification report — {TARGETS[lang]['name']} ({lang})",
+             f"Chapters checked: {len(files)}", f"Flags: {len(flags)}", ""]
     lines += [f"- {fl}" for fl in flags] or ["All checks passed."]
-    REPORT.write_text("\n".join(lines) + "\n")
+    report.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
-    print(f"{len(files)} chapters checked, {len(flags)} flags -> {REPORT}")
+    print(f"[{lang}] {len(files)} chapters checked, {len(flags)} flags -> {report}")
     for fl in flags:
         print(" ", fl)
-    sys.exit(1 if flags else 0)
+    return len(flags)
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("book", nargs="?")
+    ap.add_argument("chapters", nargs="?")
+    ap.add_argument("--lang", default=DEFAULT_TARGET, help="target code, comma list, or 'all'")
+    args = ap.parse_args()
+    total = sum(verify_lang(lang, args.book, args.chapters) for lang in parse_targets(args.lang))
+    sys.exit(1 if total else 0)
 
 
 if __name__ == "__main__":

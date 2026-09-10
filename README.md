@@ -35,15 +35,38 @@ the Tailscale shared-folder options (~5× faster there).
 ## Pipeline
 
 ```
-scripts/normalize.py  [books...]     sources -> sources/normalized/*.json
-scripts/translate.py  Gen 1-3        translate chapters (resumes; --force to redo)
-scripts/translate.py  --all          the whole Bible, canonical order
-scripts/verify.py     [Gen [1-3]]    flag missing/dup verses, untranslated text,
-                                     truncation, name inconsistencies
-scripts/build_site.py                rebuild site/index.html reader
-scripts/live.py                      live dashboard on :8766 — same driver,
-                                     tokens stream to the browser as they arrive
+scripts/normalize.py  [books...]        sources -> sources/normalized/*.json
+scripts/translate.py  Gen 1-3           translate chapters into English (resumes; --force to redo)
+scripts/translate.py  Gen 1-3 --lang zh ... into Chinese (es, ja, th; a comma list; or all)
+scripts/translate.py  --all [--lang all] the whole Bible, canonical order
+scripts/verify.py     [--lang zh] [Gen [1-3]]  flag missing/dup verses, untranslated
+                                        text, truncation, name inconsistencies
+scripts/build_site.py                   rebuild site/index.html reader
+scripts/live.py                         live dashboard on :8766 — same driver,
+                                        tokens stream to the browser as they arrive
 ```
+
+### Target languages
+
+The pipeline translates into several languages from the same sources; each
+target is fully independent (its own run, outputs, verifier report) and is
+described once in `TARGETS` in `scripts/books.py`:
+
+| code | language | prompt rules | glossary + names | output |
+|---|---|---|---|---|
+| `en` | English | `prompts/targets/en.txt` | `targets/en/` | `output/en/` |
+| `zh` | Chinese (Simplified) | `prompts/targets/zh.txt` | `targets/zh/` | `output/zh/` |
+| `es` | Spanish | `prompts/targets/es.txt` | `targets/es/` | `output/es/` |
+| `ja` | Japanese | `prompts/targets/ja.txt` | `targets/ja/` | `output/ja/` |
+| `th` | Thai | `prompts/targets/th.txt` | `targets/th/` | `output/th/` |
+
+`prompts/system_prompt.txt` is the language-neutral core (the absolute rules,
+the notes format, the output shape); the per-target file supplies STYLE and
+TERMINOLOGY in that language (how YHWH, Elohim, Kyrios, Christos are rendered,
+register, punctuation). Glossaries and name tables are seeded with the divine
+names and the most frequent people and places and grow as each translation
+proceeds. To add a language: one line in `TARGETS`, one rules file, one
+glossary, one name table.
 
 ### Original languages
 
@@ -56,20 +79,22 @@ labels or renders original text goes through it:
 - `translate.py` names the source language in each prompt from it;
 - `build_site.py` embeds the original text of all 1,189 chapters (about 7 MB,
   still one offline file), so every book and chapter is navigable before it is
-  translated; translated chapters get three tabs — **English**,
-  **Hebrew / Aramaic / Greek**, and **Side by side** — with right-to-left
+  translated; each chapter gets a tab row — **Hebrew / Aramaic / Greek**, one
+  tab per translation that exists (English, 中文, Español, 日本語, ไทย),
+  **Side by side** (original next to the selected translation) and
+  **Compare** (every translation under each verse) — with right-to-left
   layout for Hebrew script and a per-verse tag wherever a chapter mixes Hebrew
-  and Aramaic. Untranslated chapters show the original with a note;
+  and Aramaic. A header menu picks the translation language for reading,
+  search and progress counts. Untranslated chapters show the original;
 - `live.py` shows the same three tabs while a chapter is being translated, so
   each English verse appears next to its source as the model writes it. While
   idle it is a browser too: pick a book in the sidebar or the Run box, step
   through chapters with ◀ ▶ (or arrow keys) or the chapter strip, and read the
   original alongside any translation that already exists.
 
-Conventions live in `prompts/system_prompt.txt`; fixed renderings in
-`glossary.json`; proper-name spellings in `names.json`. Chapter memory: each
-prompt includes the previous chapter's English for continuity. Logs in
-`logs/translate.jsonl` (timing + token counts per chapter).
+Chapter memory: each prompt includes the previous chapter's translation for
+continuity. Logs in `logs/translate.jsonl` (timing + token counts per chapter,
+with the target language); verifier reports in `logs/verify_<lang>.md`.
 
 ## Reader / search (site/index.html)
 
