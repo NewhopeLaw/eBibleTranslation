@@ -538,6 +538,7 @@ function render(){
   const tag = s => mixed ? `<span class="lt">${LANGS[s.lang].name}</span>` : '';
   const avail = TCODES.filter(t => texts[t] !== undefined && (texts[t] || (running && cur && cur.target === t)));
   const hasLxx = !!(src && src.some(s => s.lxx));
+  $('strip').hidden = running || !browsing;        // the chapter strip is a browse-mode control
   let v = view;
   if (!src) v = 'tr';
   if (v === 'lxx' && !hasLxx) v = 'orig';
