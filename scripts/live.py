@@ -43,6 +43,7 @@ STATE = {
     "current": None,        # {book, chapter, verses, lang, target, src, started, text, tokens}
     "recent": [],           # last finished chapters, newest first
     "last": None,           # the most recently finished chapter (same shape as current)
+    "session": {"chapters": 0, "tokens": 0, "seconds": 0.0},   # since this server started
     "error": None,
 }
 NAME2META = {m["name"]: m for m in BOOKS.values()}
@@ -90,6 +91,33 @@ def chapter_counts(lang):
             for code, meta in BOOKS.items()}
 
 
+_life = {"mtime": None, "data": None}
+
+
+def lifetime():
+    """Totals over every chapter ever logged in logs/translate.jsonl."""
+    p = T.LOG_PATH
+    if not p.exists():
+        return {"chapters": 0, "output_tokens": 0, "prompt_tokens": 0, "seconds": 0, "tps": None, "by_lang": {}}
+    m = p.stat().st_mtime
+    if _life["mtime"] != m:
+        d = {"chapters": 0, "output_tokens": 0, "prompt_tokens": 0, "seconds": 0.0, "by_lang": {}}
+        for line in p.read_text(encoding="utf-8", errors="replace").splitlines():
+            try:
+                r = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            lg = r.get("lang", "en")
+            d["chapters"] += 1
+            d["output_tokens"] += r.get("output_tokens") or 0
+            d["prompt_tokens"] += r.get("prompt_tokens") or 0
+            d["seconds"] += r.get("seconds") or 0
+            d["by_lang"][lg] = d["by_lang"].get(lg, 0) + 1
+        d["tps"] = round(d["output_tokens"] / d["seconds"], 1) if d["seconds"] else None
+        _life.update(mtime=m, data=d)
+    return _life["data"]
+
+
 def snapshot(lang=DEFAULT_TARGET):
     lang = lang if lang in TARGETS else DEFAULT_TARGET
     counts = chapter_counts(lang)
@@ -105,6 +133,9 @@ def snapshot(lang=DEFAULT_TARGET):
     s["bible_total"] = sum(b["total"] for b in books)
     s["targets"] = {c: {"name": t["name"], "native": t["native"],
                         "done": len(list(T.json_dir(c).glob("*.json")))} for c, t in TARGETS.items()}
+    s["lifetime"] = lifetime()
+    ss = s["session"]
+    ss["tps"] = round(ss["tokens"] / ss["seconds"], 1) if ss["seconds"] else None
     return s
 
 
@@ -149,6 +180,10 @@ def on_event(ev: dict):
             rec["tps"] = round(ev["tokens"] / ev["seconds"], 1) if ev.get("tokens") and ev["seconds"] else None
             STATE["recent"].insert(0, rec)
             del STATE["recent"][40:]
+            ss = STATE["session"]
+            ss["chapters"] += 1
+            ss["tokens"] += ev.get("tokens") or 0
+            ss["seconds"] += ev["seconds"]
             STATE["last"] = STATE["current"]     # keeps the comparison viewable after the run
             STATE["current"] = None
     publish(ev)
@@ -395,6 +430,10 @@ label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); fo
 .tabs span.on { color:var(--fg); border-color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent); }
 .tabs span.off { opacity:.4; cursor:default; }
 .tabs i.sep { width:1px; height:1.1rem; background:var(--border); margin:0 .2rem; }
+#totals { display:flex; flex-wrap:wrap; gap:.3rem 2rem; padding:.3rem .9rem; border-bottom:1px solid var(--border);
+  font-size:12px; color:var(--muted); background:var(--card); }
+#totals small { font-size:10px; text-transform:uppercase; letter-spacing:.06em; margin-right:.5rem; }
+#totals b { color:var(--fg); font-variant-numeric:tabular-nums; font-weight:600; }
 #strip { display:flex; flex-wrap:wrap; gap:.22rem; padding:.45rem .9rem; border-bottom:1px solid var(--border);
   background:var(--soft); align-items:center; }
 #strip a.on { animation:none; }
@@ -476,6 +515,10 @@ aside h3 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color
   <div class="stat"><small>Book</small><b id="bprog">—</b></div>
   <div class="stat wide"><small><span id="tlname">English</span> <span id="prog"></span></small><div id="bar"><i></i></div></div>
   <span class="tabs" id="tabs"></span>
+</div>
+<div id="totals">
+  <span><small>Session</small><b id="ss_ch">0</b> chapters · <b id="ss_tok">0</b> tokens · <b id="ss_time">0s</b> · <b id="ss_tps">—</b> tok/s</span>
+  <span><small>Lifetime</small><b id="lt_ch">0</b> chapters · <b id="lt_tok">0</b> tokens out · <b id="lt_ptok">0</b> in · <b id="lt_time">0s</b> · <b id="lt_tps">—</b> tok/s avg</span>
 </div>
 <div id="strip" hidden></div>
 <div class="layout">
@@ -616,6 +659,15 @@ function tick(){
   $('tps').textContent = el > 1 ? (cur.tokens/el).toFixed(1) : '—';
 }
 function bookProgress(name){ const b = S && S.books.find(x => x.name === name || x.code === name); if (b) $('bprog').textContent = b.done + ' / ' + b.total; }
+const fmtN = n => n >= 1e6 ? (n/1e6).toFixed(2) + 'M' : n >= 1e4 ? (n/1e3).toFixed(0) + 'k' : String(n || 0);
+const fmtT = s => { s = Math.round(s || 0); const h = Math.floor(s/3600), m = Math.floor(s%3600/60); return h ? `${h}h ${m}m` : m ? `${m}m ${s%60}s` : `${s}s`; };
+function totals(s){
+  const ss = s.session, lt = s.lifetime;
+  $('ss_ch').textContent = ss.chapters; $('ss_tok').textContent = fmtN(ss.tokens); $('ss_time').textContent = fmtT(ss.seconds); $('ss_tps').textContent = ss.tps || '—';
+  $('lt_ch').textContent = lt.chapters; $('lt_tok').textContent = fmtN(lt.output_tokens); $('lt_ptok').textContent = fmtN(lt.prompt_tokens);
+  $('lt_time').textContent = fmtT(lt.seconds); $('lt_tps').textContent = lt.tps || '—';
+  $('lt_ch').title = Object.entries(lt.by_lang || {}).map(([k,v]) => `${TARGETS[k] ? TARGETS[k].native : k}: ${v}`).join(' · ');
+}
 
 function applySnapshot(s){
   S = s;
@@ -633,6 +685,7 @@ function applySnapshot(s){
     if (!s.running && cur.started) { $('tok').textContent = cur.tokens; const r = s.recent[0];
       if (r && r.book === cur.book && r.chapter === cur.chapter) { $('el').textContent = r.seconds + 's'; $('tps').textContent = r.tps || '—'; } }
   }
+  totals(s);
   $('prog').textContent = s.bible_done + ' / ' + s.bible_total + ' chapters';
   $('bar').firstElementChild.style.width = (100*s.bible_done/Math.max(1,s.bible_total)).toFixed(2)+'%';
   $('targets').innerHTML = TCODES.map(t => `<span data-t="${t}" class="${t===tl?'on':''}" title="${TARGETS[t].name}">${TARGETS[t].native} ${s.targets[t].done}</span>`).join('');
