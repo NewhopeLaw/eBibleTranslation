@@ -47,7 +47,7 @@ STOP = {"The", "And", "But", "Then", "When", "Now", "For", "God", "Lord",
 def load_source(code):
     meta = BOOKS[code]
     path = NORM_DIR / f"{meta['num']:02d}_{slug(meta['name'])}.json"
-    return json.loads(path.read_text())
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def check_chapter(code, ch, out, src_verses, flags):
@@ -121,7 +121,7 @@ def main():
 
     flags, per_book = [], {}
     for f in files:
-        out = json.loads(f.read_text())
+        out = json.loads(f.read_text(encoding="utf-8"))
         code = next(c for c, m in BOOKS.items() if m["name"] == out["book"])
         src = load_source(code)
         src_verses = src["chapters"][str(out["chapter"])]

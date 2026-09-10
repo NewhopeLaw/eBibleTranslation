@@ -25,7 +25,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from books import BOOKS, slug
 
 ROOT = Path(__file__).resolve().parent.parent
-CONFIG = json.loads((ROOT / "config.json").read_text())
+CONFIG = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))
 NORM_DIR = ROOT / "sources" / "normalized"
 OUT_DIR = ROOT / "output"
 LOG_PATH = ROOT / "logs" / "translate.jsonl"
@@ -35,11 +35,22 @@ VERSE_RE = re.compile(r"^\[(\d+)\]\s*(.*)$")
 
 LANG_NAME = {"hbo": "Hebrew", "arc": "Aramaic", "grc": "Greek"}
 
+# Optional live hooks (set by scripts/live.py). When on_token is set the model
+# is called with stream=True and every token is passed to it as it arrives;
+# on_event receives dicts describing chapter start/retry/done/skip.
+on_token = None
+on_event = None
+
+
+def emit(**ev):
+    if on_event:
+        on_event(ev)
+
 
 def build_system_prompt() -> str:
-    base = (ROOT / "prompts" / "system_prompt.txt").read_text()
-    glossary = json.loads((ROOT / "glossary.json").read_text())
-    names = json.loads((ROOT / "names.json").read_text())
+    base = (ROOT / "prompts" / "system_prompt.txt").read_text(encoding="utf-8")
+    glossary = json.loads((ROOT / "glossary.json").read_text(encoding="utf-8"))
+    names = json.loads((ROOT / "names.json").read_text(encoding="utf-8"))
 
     def fmt(d):
         return "\n".join(f"- {k} -> {v}" for k, v in d.items() if not k.startswith("_"))
@@ -74,7 +85,7 @@ def build_user_prompt(meta, ch, verses, prev_english):
 def call_model(system, user):
     payload = {
         "model": CONFIG["model"],
-        "stream": False,
+        "stream": on_token is not None,
         "think": CONFIG.get("think", False),
         "options": {"num_ctx": CONFIG["num_ctx"], "temperature": CONFIG["temperature"]},
         "messages": [{"role": "system", "content": system},
@@ -86,8 +97,19 @@ def call_model(system, user):
     for attempt in range(3):
         try:
             with urllib.request.urlopen(req, timeout=3600) as r:
-                resp = json.loads(r.read())
-            return resp["message"]["content"], resp
+                if on_token is None:
+                    resp = json.loads(r.read())
+                    return resp["message"]["content"], resp
+                parts, resp = [], {}
+                for line in r:                       # NDJSON, one chunk per line
+                    chunk = json.loads(line)
+                    tok = chunk.get("message", {}).get("content", "")
+                    if tok:
+                        parts.append(tok)
+                        on_token(tok)
+                    if chunk.get("done"):
+                        resp = chunk
+                return "".join(parts), resp
         except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as e:
             last_err = e
             print(f"    api error ({e}), retry {attempt + 1}/3 in 15s", file=sys.stderr)
@@ -158,10 +180,13 @@ def translate_chapter(meta, ch, verses, prev_english, system, force=False):
     json_path = OUT_DIR / "json" / f"{name}_{int(ch):02d}.json"
     if md_path.exists() and not force:
         print(f"  {meta['name']} {ch}: exists, skipping")
-        return json.loads(json_path.read_text())["verses"] if json_path.exists() else None
+        emit(type="skip", book=meta["name"], chapter=int(ch))
+        return json.loads(json_path.read_text(encoding="utf-8"))["verses"] if json_path.exists() else None
 
     expected = [v["v"] for v in verses]
     user = build_user_prompt(meta, ch, verses, prev_english)
+    emit(type="start", book=meta["name"], chapter=int(ch), verses=len(expected),
+         lang=LANG_NAME.get(chapter_lang(meta, verses), "Hebrew + Aramaic"))
     t0 = time.time()
     raw, resp = call_model(system, user)
     parsed, notes, missing, extra = parse_output(raw, expected)
@@ -173,6 +198,7 @@ def translate_chapter(meta, ch, verses, prev_english, system, force=False):
                + (f"unexpected verse numbers {extra}. " if extra else "")
                + "Output the COMPLETE chapter again, every verse from "
                f"{expected[0]} to {expected[-1]}, same format.")
+        emit(type="retry", book=meta["name"], chapter=int(ch), missing=missing, extra=extra)
         raw, resp = call_model(system, user + "\n\n" + fix)
         parsed, notes, missing, extra = parse_output(raw, expected)
         attempts = 2
@@ -187,7 +213,7 @@ def translate_chapter(meta, ch, verses, prev_english, system, force=False):
          "notes": notes, "raw": raw}, ensure_ascii=False, indent=1), encoding="utf-8")
 
     LOG_PATH.parent.mkdir(exist_ok=True)
-    with LOG_PATH.open("a") as f:
+    with LOG_PATH.open("a", encoding="utf-8") as f:
         f.write(json.dumps({
             "ts": time.strftime("%Y-%m-%dT%H:%M:%S"), "book": meta["name"], "chapter": int(ch),
             "model": CONFIG["model"], "seconds": round(dt, 1), "attempts": attempts,
@@ -196,6 +222,8 @@ def translate_chapter(meta, ch, verses, prev_english, system, force=False):
     status = "OK" if not (missing or extra) else f"WARN missing={missing} extra={extra}"
     print(f"  {meta['name']} {ch}: {len(parsed)}/{len(expected)} vv, {dt:.0f}s, "
           f"{resp.get('eval_count')} tokens out [{status}]")
+    emit(type="done", book=meta["name"], chapter=int(ch), got=len(parsed), expected=len(expected),
+         seconds=round(dt, 1), tokens=resp.get("eval_count"), attempts=attempts, status=status)
     return parsed
 
 
@@ -209,7 +237,7 @@ def prev_chapter_english(parsed_verses):
 
 def run_book(code, chapters_arg, system, force):
     meta = BOOKS[code]
-    src = json.loads((NORM_DIR / f"{meta['num']:02d}_{slug(meta['name'])}.json").read_text())
+    src = json.loads((NORM_DIR / f"{meta['num']:02d}_{slug(meta['name'])}.json").read_text(encoding="utf-8"))
     all_ch = sorted(src["chapters"], key=int)
     if chapters_arg:
         if "-" in chapters_arg:

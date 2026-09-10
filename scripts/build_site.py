@@ -299,7 +299,7 @@ route();
 def main():
     data = {}
     for f in sorted(JSON_DIR.glob("*.json")):
-        d = json.loads(f.read_text())
+        d = json.loads(f.read_text(encoding="utf-8"))
         book_key = slug(d["book"])
         data.setdefault(book_key, {})[str(d["chapter"])] = {
             "verses": d["verses"], "notes": d.get("notes", "")}
