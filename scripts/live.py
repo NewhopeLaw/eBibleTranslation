@@ -126,9 +126,13 @@ def on_event(ev: dict):
         if STOP.is_set():
             raise StopRun()
         ev["src"] = source_verses(ev["book"], ev["chapter"])
+        meta = NAME2META[ev["book"]]
+        ev["chapters"] = sorted(norm_chapters(meta), key=int)          # for the chapter strip
+        ev["translated"] = translated_chapters(meta, ev["target"])
         with LOCK:
             STATE["current"] = {"book": ev["book"], "chapter": ev["chapter"], "target": ev["target"],
                                 "verses": ev["verses"], "lang": ev["lang"], "src": ev["src"],
+                                "chapters": ev["chapters"], "translated": ev["translated"],
                                 "started": time.time(), "text": "", "tokens": 0}
             STATE["status"] = f"translating {ev['book']} {ev['chapter']} → {TARGETS[ev['target']]['name']}"
     elif kind == "retry":
@@ -393,6 +397,8 @@ label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); fo
 .tabs i.sep { width:1px; height:1.1rem; background:var(--border); margin:0 .2rem; }
 #strip { display:flex; flex-wrap:wrap; gap:.22rem; padding:.45rem .9rem; border-bottom:1px solid var(--border);
   background:var(--soft); align-items:center; }
+#strip a.on { animation:none; }
+#strip a.on.live { animation:pulse 1.4s infinite; }
 #strip .lbl { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin-right:.4rem; }
 #strip a { font-size:12px; min-width:1.9rem; text-align:center; padding:.1rem .35rem; border:1px dashed var(--border);
   border-radius:6px; cursor:pointer; color:var(--muted); }
@@ -538,7 +544,7 @@ function render(){
   const tag = s => mixed ? `<span class="lt">${LANGS[s.lang].name}</span>` : '';
   const avail = TCODES.filter(t => texts[t] !== undefined && (texts[t] || (running && cur && cur.target === t)));
   const hasLxx = !!(src && src.some(s => s.lxx));
-  $('strip').hidden = running || !browsing;        // the chapter strip is a browse-mode control
+  $('strip').hidden = !browsing && !(running && cur && cur.chapters);
   let v = view;
   if (!src) v = 'tr';
   if (v === 'lxx' && !hasLxx) v = 'orig';
@@ -619,7 +625,7 @@ function applySnapshot(s){
   pill.className = 'pill' + (s.running ? ' run' : (s.error ? ' err' : ''));
   $('start').disabled = s.running; $('stop').disabled = !s.running;
   $('prev').disabled = s.running; $('next').disabled = s.running;
-  if (s.current) { cur = s.current; texts = {[cur.target]: cur.text}; if (cur.target !== tl) setTl(cur.target); browsing = null; $('strip').hidden = true; }
+  if (s.current) { cur = s.current; texts = {[cur.target]: cur.text}; if (cur.target !== tl) setTl(cur.target); browsing = null; runStrip(cur); }
   else if (!cur && s.last) { cur = s.last; texts = {[cur.target]: cur.text}; }
   if (s.error) texts[tl] = 'ERROR: ' + s.error;
   if (cur) {
@@ -653,6 +659,16 @@ function applySnapshot(s){
   schedule(); tick();
 }
 
+/* ---------- chapter strip: browse control when idle, progress display during a run ---------- */
+function renderStrip(book, target, chapters, current, doneSet, clickable){
+  const strip = $('strip'); strip.hidden = false;
+  strip.innerHTML = `<span class="lbl">${book} · ${TARGETS[target].native}</span>` + chapters.map(c =>
+    `<a class="${+c === +current ? 'on' : (doneSet.has(String(c)) ? 'tr' : '')}" data-c="${c}">${c}</a>`).join('');
+  if (clickable) strip.querySelectorAll('a').forEach(a => a.onclick = () => { $('ch').value = a.dataset.c; browse(); });
+  const on = strip.querySelector('a.on'); if (on) { if (!clickable) on.classList.add('live'); on.scrollIntoView({block:'nearest', inline:'nearest'}); }
+}
+function runStrip(c){ if (c && c.chapters) renderStrip(c.book, c.target, c.chapters.map(String), c.chapter, new Set((c.translated || []).map(String)), false); }
+
 /* ---------- browse mode: any chapter's original + translations while idle ---------- */
 async function browse(){
   if (S && S.running) return;
@@ -670,10 +686,7 @@ async function browse(){
   $('cur').textContent = d.book + ' ' + d.chapter; $('vv').textContent = d.verses;
   $('el').textContent = '—'; $('tok').textContent = '—'; $('tps').textContent = '—';
   bookProgress(code);
-  const strip = $('strip'); strip.hidden = false;
-  strip.innerHTML = `<span class="lbl">${d.book} · ${TARGETS[tl].native}</span>` + d.chapters.map(c =>
-    `<a class="${+c === d.chapter ? 'on' : (translatedSet.has(String(c)) ? 'tr' : '')}" data-c="${c}">${c}</a>`).join('');
-  strip.querySelectorAll('a').forEach(a => a.onclick = () => { $('ch').value = a.dataset.c; browse(); });
+  renderStrip(d.book, tl, d.chapters, d.chapter, translatedSet, true);
   const i = d.chapters.indexOf(String(d.chapter));
   $('prev').disabled = i <= 0; $('next').disabled = i >= d.chapters.length - 1;
   document.querySelectorAll('#books .bk').forEach(b => b.classList.toggle('on', b.dataset.code === code));
@@ -703,15 +716,17 @@ function connect(){
     const m = JSON.parse(e.data);
     if (m.type === 'snapshot') applySnapshot(m);
     else if (m.type === 'token') { if (cur) { texts[cur.target] = (texts[cur.target] || '') + m.t; cur.tokens++; } schedule(); }
-    else if (m.type === 'start') { lastActive = null; browsing = null; $('strip').hidden = true;
+    else if (m.type === 'start') { lastActive = null; browsing = null;
       if (m.target !== tl) setTl(m.target);
-      cur = {book:m.book, chapter:m.chapter, verses:m.verses, lang:m.lang, src:m.src, target:m.target, started:Date.now()/1000, tokens:0};
-      texts = {[m.target]: ''};
+      cur = {book:m.book, chapter:m.chapter, verses:m.verses, lang:m.lang, src:m.src, target:m.target,
+             chapters:m.chapters, translated:m.translated, started:Date.now()/1000, tokens:0};
+      texts = {[m.target]: ''}; runStrip(cur);
       $('cur').textContent = m.book+' '+m.chapter; $('vv').textContent = m.verses; bookProgress(m.book);
       $('pill').textContent = 'translating '+m.book+' '+m.chapter+' → '+TARGETS[m.target].name; $('pill').className='pill run'; schedule(); }
     else if (m.type === 'retry') { if (cur) texts[cur.target] += NL + NL + '--- retry: missing '+JSON.stringify(m.missing)+' extra '+JSON.stringify(m.extra)+' ---' + NL + NL; schedule(); }
     else if (m.type === 'warn') { $('pill').textContent = 'retrying'; $('pill').className = 'pill err'; $('pill').title = m.message; console.warn(m.message); }
-    else if (m.type === 'done' || m.type === 'skip' || m.type === 'run') refresh();
+    else if (m.type === 'done' || m.type === 'skip') { const a = $('strip').querySelector(`a[data-c="${m.chapter}"]`); if (a && cur && cur.book === m.book) { a.classList.remove('on'); a.classList.add('tr'); } refresh(); }
+    else if (m.type === 'run') refresh();
   };
   es.onerror = () => { es.close(); setTimeout(connect, 2000); };
 }
@@ -721,7 +736,7 @@ async function post(path, body){ const r = await fetch(path,{method:'POST',heade
 $('start').onclick = async () => {
   const r = await post('/start', {book:$('book').value, chapters:$('ch').value, force:$('force').checked, lang:$('lang').value});
   if (!r.ok) { alert(r.error); return; }
-  browsing = null; $('strip').hidden = true; schedule(); refresh();
+  browsing = null; schedule(); refresh();
 };
 $('stop').onclick = () => post('/stop');
 $('rebuild').onclick = async () => { const r = await post('/rebuild'); alert(r.output || 'rebuilt'); };
