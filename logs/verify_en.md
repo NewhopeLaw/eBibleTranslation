@@ -1,13 +1,9 @@
 # Verification report — English (en)
 Chapters checked: 53
-Flags: 102
+Flags: 97
 
-- Genesis 30:36: SHORT — 39 chars vs 60 source (possible truncation)
-- Genesis 32:33: SHORT — 48 chars vs 87 source (possible truncation)
 - Genesis 35:28: SHORT — 23 chars vs 33 source (possible truncation)
-- Genesis 44:18: SHORT — 65 chars vs 87 source (possible truncation)
-- Philippians 2:7: SHORT — 83 chars vs 107 source (possible truncation)
-- Philippians 2:16: SHORT — 87 chars vs 109 source (possible truncation)
+- Philippians 2:29: SHORT — 63 chars vs 83 source (possible truncation)
 - NAME? 'Egyptian' (1x) vs 'Egyptians' (2x) — same person/place spelled two ways?
 - NAME? 'Abel' (9x) vs 'Adbeel' (1x) — same person/place spelled two ways?
 - NAME? 'Abel' (9x) vs 'Ashbel' (1x) — same person/place spelled two ways?
@@ -27,12 +23,12 @@ Flags: 102
 - NAME? 'Bera' (1x) vs 'Beriah' (2x) — same person/place spelled two ways?
 - NAME? 'Bered' (1x) vs 'Sered' (1x) — same person/place spelled two ways?
 - NAME? 'Bethel' (13x) vs 'Bethuel' (9x) — same person/place spelled two ways?
-- NAME? 'Bilhah' (8x) vs 'Bilhan' (1x) — same person/place spelled two ways?
+- NAME? 'Bilhah' (9x) vs 'Bilhan' (1x) — same person/place spelled two ways?
 - NAME? 'Bless' (2x) vs 'Blessed' (3x) — same person/place spelled two ways?
 - NAME? 'Bury' (3x) vs 'Buy' (1x) — same person/place spelled two ways?
 - NAME? 'Cain' (18x) vs 'Cainan' (5x) — same person/place spelled two ways?
 - NAME? 'Cain' (18x) vs 'Can' (2x) — same person/place spelled two ways?
-- NAME? 'Cainan' (5x) vs 'Canaan' (45x) — same person/place spelled two ways?
+- NAME? 'Cainan' (5x) vs 'Canaan' (46x) — same person/place spelled two ways?
 - NAME? 'Canaanite' (4x) vs 'Canaanites' (7x) — same person/place spelled two ways?
 - NAME? 'Dedan' (3x) vs 'Medan' (1x) — same person/place spelled two ways?
 - NAME? 'Dishan' (4x) vs 'Dishon' (3x) — same person/place spelled two ways?
@@ -42,7 +38,6 @@ Flags: 102
 - NAME? 'Elah' (1x) vs 'Eldaah' (1x) — same person/place spelled two ways?
 - NAME? 'Enoch' (9x) vs 'Enosh' (6x) — same person/place spelled two ways?
 - NAME? 'Ephah' (1x) vs 'Ephrath' (4x) — same person/place spelled two ways?
-- NAME? 'Eve' (2x) vs 'Even' (1x) — same person/place spelled two ways?
 - NAME? 'Father' (1x) vs 'Gather' (2x) — same person/place spelled two ways?
 - NAME? 'Gaham' (1x) vs 'Gatam' (3x) — same person/place spelled two ways?
 - NAME? 'Gather' (2x) vs 'Gether' (1x) — same person/place spelled two ways?
@@ -86,7 +81,7 @@ Flags: 102
 - NAME? 'Potiphar' (4x) vs 'Potiphera' (2x) — same person/place spelled two ways?
 - NAME? 'Sarah' (36x) vs 'Sarai' (17x) — same person/place spelled two ways?
 - NAME? 'Sarah' (36x) vs 'Serah' (1x) — same person/place spelled two ways?
-- NAME? 'Say' (4x) vs 'Stay' (4x) — same person/place spelled two ways?
+- NAME? 'Say' (3x) vs 'Stay' (4x) — same person/place spelled two ways?
 - NAME? 'Seba' (1x) vs 'Sheba' (5x) — same person/place spelled two ways?
 - NAME? 'Serah' (1x) vs 'Terah' (9x) — same person/place spelled two ways?
 - NAME? 'Serah' (1x) vs 'Zerah' (5x) — same person/place spelled two ways?
@@ -100,7 +95,7 @@ Flags: 102
 - NAME? 'Tema' (1x) vs 'Teman' (3x) — same person/place spelled two ways?
 - NAME? 'Terah' (9x) vs 'Zerah' (5x) — same person/place spelled two ways?
 - NAME? 'Timna' (3x) vs 'Timnah' (2x) — same person/place spelled two ways?
-- NAME? 'Whatever' (1x) vs 'Whoever' (3x) — same person/place spelled two ways?
-- NAME? 'Whenever' (1x) vs 'Whoever' (3x) — same person/place spelled two ways?
+- NAME? 'Whatever' (1x) vs 'Whoever' (4x) — same person/place spelled two ways?
+- NAME? 'Whenever' (1x) vs 'Whoever' (4x) — same person/place spelled two ways?
 - NAME? 'Zillah' (3x) vs 'Zilpah' (7x) — same person/place spelled two ways?
 - NAME? 'Zoar' (7x) vs 'Zohar' (3x) — same person/place spelled two ways?

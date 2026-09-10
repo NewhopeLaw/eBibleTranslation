@@ -58,3 +58,7 @@
 {"ts": "2026-09-10T08:27:12", "book": "Genesis", "chapter": 50, "model": "qwen3:32b", "seconds": 21.6, "attempts": 1, "prompt_tokens": 7117, "output_tokens": 1077, "missing": [], "extra": []}
 {"ts": "2026-09-10T08:27:26", "book": "Exodus", "chapter": 1, "model": "qwen3:32b", "seconds": 13.9, "attempts": 1, "prompt_tokens": 4929, "output_tokens": 706, "missing": [], "extra": []}
 {"ts": "2026-09-10T09:09:18", "book": "Genesis", "chapter": 1, "lang": "zh", "model": "qwen3:32b", "seconds": 26.7, "attempts": 1, "prompt_tokens": 6452, "output_tokens": 1129, "missing": [], "extra": []}
+{"ts": "2026-09-10T09:12:25", "book": "Genesis", "chapter": 30, "lang": "en", "model": "qwen3:32b", "seconds": 30.6, "attempts": 1, "prompt_tokens": 8183, "output_tokens": 1682, "missing": [], "extra": []}
+{"ts": "2026-09-10T09:12:48", "book": "Genesis", "chapter": 32, "lang": "en", "model": "qwen3:32b", "seconds": 23.3, "attempts": 1, "prompt_tokens": 7041, "output_tokens": 1240, "missing": [], "extra": []}
+{"ts": "2026-09-10T09:13:13", "book": "Genesis", "chapter": 44, "lang": "en", "model": "qwen3:32b", "seconds": 24.6, "attempts": 1, "prompt_tokens": 6948, "output_tokens": 1325, "missing": [], "extra": []}
+{"ts": "2026-09-10T09:13:29", "book": "Philippians", "chapter": 2, "lang": "en", "model": "qwen3:32b", "seconds": 15.7, "attempts": 1, "prompt_tokens": 4837, "output_tokens": 854, "missing": [], "extra": []}
