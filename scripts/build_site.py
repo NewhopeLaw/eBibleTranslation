@@ -86,6 +86,11 @@ nav#books a.on { background:var(--accent); color:#fff; }
 nav#books .t { margin:.7rem 0 .25rem; font-weight:600; color:var(--muted);
   font-size:12px; text-transform:uppercase; letter-spacing:.06em; }
 nav#books a.missing { color:var(--muted); opacity:.4; pointer-events:none; }
+nav#books a.untr { color:var(--muted); }
+nav#books a .ct { float:right; font-size:11px; color:var(--muted); margin-top:.15rem; }
+nav#books a.on .ct { color:#fff; opacity:.85; }
+.chnav a.untr { color:var(--muted); border-style:dashed; }
+.tabs a.off { opacity:.45; cursor:default; }
 .chnav { font:14px system-ui,sans-serif; margin:.9rem 0 1.6rem;
   display:flex; flex-wrap:wrap; gap:.3rem; }
 .chnav a { padding:.22rem .6rem; border:1px solid var(--border);
@@ -168,7 +173,9 @@ const $ = s => document.querySelector(s);
 const disp = b => b.replace(/_/g," ");
 
 const allBooks = Object.keys(ORDER).sort((a,b) => ORDER[a]-ORDER[b]);
-const haveBooks = allBooks.filter(b => DATA[b]);
+const srcBooks = allBooks.filter(b => DATA[b]);                      // navigable
+const translated = (b, c) => !!(DATA[b] && DATA[b][c] && DATA[b][c].verses);
+const haveBooks = srcBooks.filter(b => Object.values(DATA[b]).some(c => c.verses));
 
 /* ---------- text size ---------- */
 let fs = +(localStorage.getItem("fs") || 18);
@@ -183,12 +190,14 @@ function navRender(current) {
   for (const b of allBooks) {
     const t = ORDER[b] <= 39 ? "Old Testament" : "New Testament";
     if (t !== lastT) { html += `<div class="t">${t}</div>`; lastT = t; }
-    html += `<a href="#${b}/1" class="${DATA[b]?'':'missing'} ${b===current?'on':''}">${disp(b)}</a>`;
+    const nch = DATA[b] ? Object.keys(DATA[b]).length : 0, ntr = DATA[b] ? Object.values(DATA[b]).filter(c => c.verses).length : 0;
+    const ct = ntr && ntr < nch ? `<span class="ct">${ntr}/${nch}</span>` : (ntr ? `<span class="ct">✓</span>` : "");
+    html += `<a href="#${b}/1" class="${DATA[b]?(ntr?'':'untr'):'missing'} ${b===current?'on':''}">${disp(b)}${ct}</a>`;
   }
   $("#books").innerHTML = html;
   const sel = $("#bookSel");
-  sel.innerHTML = haveBooks.map(b =>
-    `<option value="${b}" ${b===current?'selected':''}>${disp(b)}</option>`).join("");
+  sel.innerHTML = srcBooks.map(b =>
+    `<option value="${b}" ${b===current?'selected':''}>${disp(b)}${haveBooks.includes(b)?'':' ·'}</option>`).join("");
 }
 $("#bookSel").addEventListener("change", e => location.hash = `#${e.target.value}/1`);
 
@@ -199,9 +208,9 @@ function neighbours(book, ch) {
   const i = chs.indexOf(+ch);
   let prev = i > 0 ? {b:book, c:chs[i-1]} : null;
   let next = i < chs.length-1 ? {b:book, c:chs[i+1]} : null;
-  const bi = haveBooks.indexOf(book);
-  if (!prev && bi > 0) { const pb = haveBooks[bi-1]; prev = {b:pb, c:chapterList(pb).at(-1)}; }
-  if (!next && bi < haveBooks.length-1) { const nb = haveBooks[bi+1]; next = {b:nb, c:chapterList(nb)[0]}; }
+  const bi = srcBooks.indexOf(book);
+  if (!prev && bi > 0) { const pb = srcBooks[bi-1]; prev = {b:pb, c:chapterList(pb).at(-1)}; }
+  if (!next && bi < srcBooks.length-1) { const nb = srcBooks[bi+1]; next = {b:nb, c:chapterList(nb)[0]}; }
   return {prev, next};
 }
 
@@ -216,19 +225,22 @@ function renderChapter(book, ch, highlightVerse) {
   const chData = DATA[book] && DATA[book][ch];
   const main = $("#main");
   navRender(book);
-  if (!chData) { main.innerHTML = `<p class="empty">${disp(book)} ${ch} has not been translated yet.</p>`; return; }
+  if (!chData) { main.innerHTML = `<p class="empty">${disp(book)} ${ch} is not in the source texts.</p>`; return; }
+  const tr = !!chData.verses;
   const chs = chapterList(book);
   let html = `<h2>${disp(book)} ${ch}${chData.lang ? ` <small class="lang">${LANGS[chData.lang].name}</small>` : ""}</h2>`;
   html += `<div class="chnav">` + chs.map(c =>
-    `<a href="#${book}/${c}" class="${c==ch?'on':''}">${c}</a>`).join("") + `</div>`;
+    `<a href="#${book}/${c}" class="${c==ch?'on':''} ${translated(book,c)?'':'untr'}">${c}</a>`).join("") + `</div>`;
   const src = chData.src, lang = chData.lang || "hbo", L = LANGS[lang];
   const rtl = L.dir === "rtl", ocls = "orig " + L.script.toLowerCase();
-  const v = src ? view : "en";
+  const v = src ? (tr ? view : "orig") : "en";   // untranslated: only the original exists
   if (src) html += `<div class="tabs">
-    <a class="${v==='en'?'on':''}" onclick="setView('en')">English</a>
+    <a class="${v==='en'?'on':''} ${tr?'':'off'}" onclick="setView('en')">English</a>
     <a class="${v==='orig'?'on':''}" onclick="setView('orig')">${L.name}</a>
-    <a class="${v==='par'?'on':''}" onclick="setView('par')">Side by side</a></div>`;
+    <a class="${v==='par'?'on':''} ${tr?'':'off'}" onclick="setView('par')">Side by side</a></div>`;
   main.className = v === "par" ? "wide" : "";
+  if (!tr) html += `<p class="empty" style="margin:0 0 1.2rem">Not translated yet${src ? ` — showing the ${L.name}.` : "."}</p>`;
+  if (!tr && v === "en") { main.innerHTML = html; return; }
   const nums = Object.keys(v === "en" ? chData.verses : src).filter(k => k !== "_lang").map(Number).sort((a,b)=>a-b);
   if (v === "orig") {
     for (const n of nums)
@@ -236,7 +248,7 @@ function renderChapter(book, ch, highlightVerse) {
   } else if (v === "par") {
     html += `<div class="par">`;
     for (const n of nums) {
-      const e = chData.verses[n];
+      const e = tr ? chData.verses[n] : undefined;
       html += `<div class="o ${ocls}" dir="${rtl?'rtl':'ltr'}"><sup class="v">${n}</sup>${vtag(src,n)}${esc(src[n])}</div>
         <div class="e" id="v-${book}-${ch}-${n}"><sup class="v">${n}</sup>${e ? esc(e).replace(/\\n\\n/g,"\\n").trim() : "<i style='color:var(--muted)'>—</i>"}</div>`;
     }
@@ -295,6 +307,7 @@ function search(q) {
   outer:
   for (const book of haveBooks) {
     for (const ch of chapterList(book)) {
+      if (!translated(book, ch)) continue;
       for (const [v, t] of Object.entries(DATA[book][ch].verses)) {
         rx.lastIndex = 0;
         if (rx.test(t)) { hits.push({book, ch, v, t}); if (hits.length >= 200) break outer; }
@@ -370,12 +383,22 @@ def source_chapter(book_key, ch):
 
 def main():
     data = {}
+    # every chapter of every book: original text always, translation when present
+    for meta in sorted(BOOKS.values(), key=lambda m: m["num"]):
+        key = slug(meta["name"])
+        f = NORM_DIR / f"{meta['num']:02d}_{key}.json"
+        if not f.exists():
+            continue
+        for ch in sorted(json.loads(f.read_text(encoding="utf-8"))["chapters"], key=int):
+            src, lang = source_chapter(key, ch)
+            data.setdefault(key, {})[str(ch)] = {"verses": None, "notes": "", "src": src, "lang": lang}
+    ntr = 0
     for f in sorted(JSON_DIR.glob("*.json")):
         d = json.loads(f.read_text(encoding="utf-8"))
         book_key = slug(d["book"])
-        src, lang = source_chapter(book_key, d["chapter"])
-        data.setdefault(book_key, {})[str(d["chapter"])] = {
-            "verses": d["verses"], "notes": d.get("notes", ""), "src": src, "lang": lang}
+        entry = data.setdefault(book_key, {}).setdefault(str(d["chapter"]), {"src": None, "lang": None})
+        entry["verses"], entry["notes"] = d["verses"], d.get("notes", "")
+        ntr += 1
     SITE.mkdir(exist_ok=True)
     page = (PAGE
             .replace("__DATA__", json.dumps(data, ensure_ascii=False))
@@ -386,7 +409,8 @@ def main():
     out = SITE / "index.html"
     out.write_text(page, encoding="utf-8")
     nch = sum(len(v) for v in data.values())
-    print(f"site built: {out} ({len(data)} books, {nch} chapters embedded)")
+    print(f"site built: {out} ({len(data)} books, {nch} chapters of original text, "
+          f"{ntr} translated, {out.stat().st_size // 1024} KB)")
 
 
 if __name__ == "__main__":

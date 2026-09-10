@@ -54,12 +54,17 @@ or `mixed` for chapters that switch (Daniel 2, Ezra 4, 6, 7, Jeremiah 10). Every
 labels or renders original text goes through it:
 
 - `translate.py` names the source language in each prompt from it;
-- `build_site.py` embeds the original verses of every translated chapter and
-  gives the reader three tabs — **English**, **Hebrew / Aramaic / Greek**, and
-  **Side by side** — with right-to-left layout for Hebrew script and a small
-  per-verse tag wherever a chapter mixes Hebrew and Aramaic;
+- `build_site.py` embeds the original text of all 1,189 chapters (about 7 MB,
+  still one offline file), so every book and chapter is navigable before it is
+  translated; translated chapters get three tabs — **English**,
+  **Hebrew / Aramaic / Greek**, and **Side by side** — with right-to-left
+  layout for Hebrew script and a per-verse tag wherever a chapter mixes Hebrew
+  and Aramaic. Untranslated chapters show the original with a note;
 - `live.py` shows the same three tabs while a chapter is being translated, so
-  each English verse appears next to its source as the model writes it.
+  each English verse appears next to its source as the model writes it. While
+  idle it is a browser too: pick a book in the sidebar or the Run box, step
+  through chapters with ◀ ▶ (or arrow keys) or the chapter strip, and read the
+  original alongside any translation that already exists.
 
 Conventions live in `prompts/system_prompt.txt`; fixed renderings in
 `glossary.json`; proper-name spellings in `names.json`. Chapter memory: each

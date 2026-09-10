@@ -89,7 +89,7 @@ def chapter_counts():
 def snapshot():
     counts = chapter_counts()
     books = [{"code": c, "name": BOOKS[c]["name"], "num": BOOKS[c]["num"],
-              "done": counts[c][0], "total": counts[c][1]}
+              "testament": BOOKS[c]["testament"], "done": counts[c][0], "total": counts[c][1]}
              for c in sorted(BOOKS, key=lambda c: BOOKS[c]["num"])]
     with LOCK:
         s = dict(STATE)
@@ -187,6 +187,26 @@ def start_run(req: dict) -> str | None:
     return None
 
 
+def chapter_payload(code, ch):
+    """Source + any existing translation of one chapter, for browsing."""
+    meta = BOOKS.get(code)
+    if not meta:
+        return None
+    src = source_verses(meta["name"], ch)
+    if not src:
+        return None
+    langs = {s["lang"] for s in src}
+    lang = next(iter(langs)) if len(langs) == 1 else "mixed"
+    name = slug(meta["name"])
+    jp = ROOT / "output" / "json" / f"{name}_{int(ch):02d}.json"
+    tr = json.loads(jp.read_text(encoding="utf-8")) if jp.exists() else None
+    chapters = sorted(_norm_cache[name], key=int)
+    translated = sorted((int(f.stem.rsplit("_", 1)[1]) for f in (ROOT / "output" / "json").glob(f"{name}_*.json")))
+    return {"code": code, "book": meta["name"], "chapter": int(ch), "chapters": chapters, "translated": translated,
+            "lang": lang, "src": src, "verses": len(src),
+            "english": tr["verses"] if tr else None, "notes": tr["notes"] if tr else ""}
+
+
 def rebuild_site() -> str:
     import subprocess
     r = subprocess.run([sys.executable, str(ROOT / "scripts" / "build_site.py")],
@@ -222,6 +242,11 @@ class Handler(BaseHTTPRequestHandler):
             self.wfile.write(body)
         elif self.path == "/state":
             self._json(snapshot())
+        elif self.path.startswith("/source?"):
+            from urllib.parse import parse_qs
+            q = parse_qs(self.path.split("?", 1)[1])
+            p = chapter_payload(q.get("book", [""])[0], q.get("ch", ["1"])[0])
+            self._json(p or {"error": "no such chapter"}, 200 if p else 404)
         elif self.path == "/events":
             self.sse()
         else:
@@ -273,173 +298,213 @@ PAGE = r"""<!DOCTYPE html>
 <title>eBible — live translation</title>
 <style>
 :root { --bg:#faf8f4; --fg:#22201c; --muted:#7a736a; --accent:#7c5cbf; --ok:#2f8f5b;
-        --warn:#c2782a; --err:#c23a3a; --card:#fff; --border:#e4ded4; --hl:#f3e8b8; }
+        --warn:#c2782a; --err:#c23a3a; --card:#fff; --border:#e4ded4; --hl:#f3e8b8; --soft:#f1ede6; }
 @media (prefers-color-scheme: dark) {
   :root { --bg:#181614; --fg:#e8e4dd; --muted:#948d82; --accent:#a98ee6; --ok:#5fbf8b;
-          --warn:#e09a4a; --err:#e06060; --card:#221f1c; --border:#37322c; --hl:#4a4020; }
+          --warn:#e09a4a; --err:#e06060; --card:#221f1c; --border:#37322c; --hl:#4a4020; --soft:#1f1c19; }
 }
 * { box-sizing:border-box; margin:0; }
-body { background:var(--bg); color:var(--fg); font:15px/1.5 system-ui, sans-serif;
+body { background:var(--bg); color:var(--fg); font:14px/1.5 system-ui, sans-serif;
   display:flex; flex-direction:column; height:100vh; }
-header { display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; padding:.6rem .9rem;
+header { display:flex; flex-wrap:wrap; gap:.6rem 1rem; align-items:center; padding:.55rem .9rem;
   border-bottom:1px solid var(--border); background:var(--card); }
-header .brand { font-style:italic; color:var(--muted); margin-right:auto; }
-header .brand b { color:var(--fg); font-style:normal; }
-select, input, button { font:14px system-ui, sans-serif; padding:.4rem .6rem;
-  border:1px solid var(--border); border-radius:8px; background:var(--bg); color:var(--fg); }
-input#ch { width:6rem; } label { color:var(--muted); font-size:13px; }
-button { cursor:pointer; } button:hover { border-color:var(--accent); }
-button.primary { background:var(--accent); color:#fff; border-color:var(--accent); }
-button:disabled { opacity:.45; cursor:default; }
+.brand { display:flex; align-items:center; gap:.5rem; margin-right:auto; }
+.brand b { font:600 17px Georgia, serif; } .brand span.sub { color:var(--muted); font-style:italic; }
 .pill { padding:.15rem .6rem; border-radius:999px; font-size:12px; font-weight:600;
-  background:var(--border); color:var(--muted); }
-.pill.run { background:var(--accent); color:#fff; animation:pulse 1.4s infinite; }
-.pill.err { background:var(--err); color:#fff; }
+  background:var(--soft); color:var(--muted); border:1px solid var(--border); white-space:nowrap; }
+.pill.run { background:var(--accent); color:#fff; border-color:var(--accent); animation:pulse 1.4s infinite; }
+.pill.err { background:var(--err); color:#fff; border-color:var(--err); }
 @keyframes pulse { 50% { opacity:.55; } }
-#stats { display:flex; flex-wrap:wrap; gap:1.2rem; padding:.5rem .9rem; font-size:13px;
-  color:var(--muted); border-bottom:1px solid var(--border); align-items:center; }
-#stats b { color:var(--fg); font-size:15px; font-variant-numeric:tabular-nums; }
-#bar { flex:1; min-width:10rem; height:8px; background:var(--border); border-radius:4px; overflow:hidden; }
+.group { display:flex; align-items:center; gap:.35rem; padding:.25rem .4rem; border:1px solid var(--border);
+  border-radius:10px; background:var(--bg); }
+.group .lbl { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 .25rem; }
+select, input, button { font:13px system-ui, sans-serif; padding:.38rem .55rem; border:1px solid var(--border);
+  border-radius:8px; background:var(--card); color:var(--fg); }
+select { max-width:12rem; } input#ch { width:5.2rem; text-align:center; }
+button { cursor:pointer; } button:hover:not(:disabled) { border-color:var(--accent); }
+button.icon { width:2rem; padding:.38rem 0; }
+button.primary { background:var(--accent); color:#fff; border-color:var(--accent); font-weight:600; }
+button.stop { color:var(--err); }
+button:disabled { opacity:.4; cursor:default; }
+label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); font-size:12px; }
+#stats { display:flex; flex-wrap:wrap; gap:.4rem .5rem; padding:.5rem .9rem; align-items:stretch;
+  border-bottom:1px solid var(--border); }
+.stat { display:flex; flex-direction:column; min-width:5.4rem; padding:.3rem .65rem; border-radius:8px; background:var(--card);
+  border:1px solid var(--border); }
+.stat small { font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); }
+.stat b { font-size:15px; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.stat.wide { flex:1; min-width:12rem; justify-content:center; }
+#bar { height:6px; background:var(--border); border-radius:3px; overflow:hidden; margin-top:.25rem; }
 #bar i { display:block; height:100%; width:0; background:var(--accent); transition:width .4s; }
+.tabs { display:flex; gap:.25rem; align-self:center; margin-left:auto; }
+.tabs span { padding:.3rem .7rem; border:1px solid var(--border); border-radius:999px; cursor:pointer;
+  color:var(--muted); font-size:12px; user-select:none; background:var(--card); }
+.tabs span.on { color:var(--fg); border-color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent); }
+.tabs span.off { opacity:.4; cursor:default; }
+#strip { display:flex; flex-wrap:wrap; gap:.22rem; padding:.45rem .9rem; border-bottom:1px solid var(--border);
+  background:var(--soft); align-items:center; }
+#strip .lbl { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin-right:.4rem; }
+#strip a { font-size:12px; min-width:1.9rem; text-align:center; padding:.1rem .35rem; border:1px dashed var(--border);
+  border-radius:6px; cursor:pointer; color:var(--muted); }
+#strip a.tr { color:var(--fg); border-style:solid; background:var(--card); }
+#strip a.on { background:var(--accent); color:#fff; border-color:var(--accent); }
 .layout { display:flex; flex:1; min-height:0; }
-#text { flex:1; overflow:auto; padding:1.2rem 1.4rem 4rem; max-width:52rem;
-  font:18px/1.75 Georgia, "Times New Roman", serif; white-space:pre-wrap; }
-#text sup { color:var(--accent); font:600 11px system-ui; margin-right:.15rem; }
+#text { flex:1; overflow:auto; padding:1.2rem 1.6rem 4rem; font:17px/1.7 Georgia, "Times New Roman", serif; white-space:pre-wrap; }
+#text.plain { max-width:54rem; }
+#text sup { color:var(--accent); font:600 11px system-ui; margin-right:.2rem; }
 #text .caret { display:inline-block; width:.5em; height:1em; background:var(--accent);
   vertical-align:-.15em; animation:pulse .8s infinite; margin-left:2px; }
-#text .empty { color:var(--muted); font:15px system-ui; }
-#text .notes { color:var(--muted); font-size:15px; }
-aside { width:300px; flex:none; border-left:1px solid var(--border); overflow:auto;
-  padding:.8rem; font-size:13px; }
-aside h3 { font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:.4rem 0; }
-.rec { padding:.35rem .5rem; border-radius:6px; display:flex; justify-content:space-between; gap:.5rem; }
-.rec:nth-child(odd) { background:var(--card); }
-.rec .ok { color:var(--ok); } .rec .warn { color:var(--warn); }
-.rec small { color:var(--muted); }
-#books { display:grid; grid-template-columns:1fr 1fr; gap:2px 8px; margin-top:.3rem; }
-#books div { display:flex; justify-content:space-between; color:var(--muted); }
-#books div.full { color:var(--ok); } #books div.part { color:var(--fg); }
-.tabs { display:flex; gap:.25rem; margin-left:auto; }
-.tabs span { padding:.15rem .6rem; border:1px solid var(--border); border-radius:999px;
-  cursor:pointer; color:var(--muted); font-size:12px; user-select:none; }
-.tabs span.on { background:var(--card); color:var(--fg); border-color:var(--accent); }
-#text.par { max-width:none; white-space:normal; }
-.orig { font-family:"SBL Hebrew","Ezra SIL","Taamey Frank CLM","Times New Roman",serif; line-height:1.95; }
-.orig.greek { font-family:"Gentium Plus","SBL Greek","Palatino Linotype","Times New Roman",serif; }
+.empty { color:var(--muted); font:15px system-ui; white-space:normal; }
+.empty h3 { font:600 18px Georgia, serif; color:var(--fg); margin-bottom:.4rem; }
+.notes { color:var(--muted); font-size:14px; margin-top:1.2rem; padding:.8rem 1rem; background:var(--card);
+  border:1px solid var(--border); border-radius:10px; white-space:pre-wrap; }
+.orig { font-family:"SBL Hebrew","Ezra SIL","Taamey Frank CLM","Times New Roman",serif; font-size:1.12em; line-height:2; }
+.orig.greek { font-family:"Gentium Plus","SBL Greek","Palatino Linotype","Times New Roman",serif; font-size:1.05em; }
 .orig[dir=rtl] { text-align:right; }
-.lt { font:600 10px system-ui,sans-serif; color:var(--muted); text-transform:uppercase;
-  letter-spacing:.05em; margin:0 .3em; vertical-align:.5em; }
-p.ov { margin:0 0 .5em; }
-.grid { display:grid; grid-template-columns:1fr 1fr; gap:0 1.6rem; align-items:start; }
-.grid > div { padding:.4rem 0; border-bottom:1px solid var(--border); }
-.grid .e { white-space:pre-wrap; }
+.lt { font:600 10px system-ui,sans-serif; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin:0 .3em; vertical-align:.5em; }
+p.ov { margin:0 0 .5em; white-space:normal; }
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:0 2rem; align-items:start; white-space:normal; }
+.grid > div { padding:.5rem .3rem; border-bottom:1px solid var(--border); }
+.grid .e { white-space:pre-wrap; border-radius:6px; }
 .grid .e.todo { color:var(--muted); }
-.grid .e.active { background:var(--hl); border-radius:6px; padding-left:.4rem; }
+.grid .e.active { background:var(--hl); }
 .grid .notes { grid-column:1 / -1; }
-@media (max-width:760px) { aside { display:none; } .grid { grid-template-columns:1fr; } .grid .o { border-bottom:0; padding-bottom:.1rem; } }
+.chhead { display:flex; align-items:baseline; gap:.7rem; margin-bottom:.9rem; white-space:normal; }
+.chhead h2 { font:400 24px Georgia, serif; } .chhead small { color:var(--muted); font:13px system-ui; }
+aside { width:290px; flex:none; border-left:1px solid var(--border); overflow:auto; padding:.7rem .8rem; font-size:13px; background:var(--card); }
+aside h3 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:.5rem 0 .35rem; }
+.rec { padding:.3rem .45rem; border-radius:6px; display:flex; justify-content:space-between; gap:.5rem; cursor:pointer; }
+.rec:hover { background:var(--soft); }
+.rec .ok { color:var(--ok); } .rec .warn { color:var(--warn); } .rec small { color:var(--muted); }
+.bk { display:grid; grid-template-columns:1fr 3.2rem 2.6rem; align-items:center; gap:.4rem; padding:.16rem .45rem; border-radius:6px; cursor:pointer; color:var(--muted); }
+.bk:hover { background:var(--soft); } .bk.on { background:var(--accent); color:#fff; }
+.bk.part { color:var(--fg); } .bk.full { color:var(--ok); }
+.bk .b { height:5px; background:var(--border); border-radius:3px; overflow:hidden; }
+.bk .b i { display:block; height:100%; background:var(--accent); } .bk.full .b i { background:var(--ok); }
+.bk.on .b i { background:#fff; }
+.bk .ct { text-align:right; font-variant-numeric:tabular-nums; font-size:11px; }
+@media (max-width:820px) { aside { display:none; } .grid { grid-template-columns:1fr; } .grid .o { border-bottom:0; padding-bottom:.1rem; } }
 </style></head><body>
 <header>
-  <span class="brand"><b>eBible</b> live translation · <span id="model"></span></span>
-  <span class="pill" id="pill">idle</span>
-  <select id="book"><option value="ALL">All books (canonical order)</option></select>
-  <input id="ch" placeholder="chapters 1-3">
-  <label><input type="checkbox" id="force"> force</label>
-  <button class="primary" id="start">Start</button>
-  <button id="stop" disabled>Stop</button>
-  <button id="rebuild" title="rebuild site/index.html reader">Rebuild reader</button>
-  <a href="http://localhost:8765" target="_blank"><button>Open reader</button></a>
+  <div class="brand"><b>eBible</b><span class="sub">live translation</span><span class="pill" id="pill">idle</span><span class="pill" id="model"></span></div>
+  <div class="group"><span class="lbl">Run</span>
+    <select id="book"><option value="ALL">All books (canonical order)</option></select>
+    <button class="icon" id="prev" title="previous chapter (←)">&#9664;</button>
+    <input id="ch" placeholder="ch / 1-3">
+    <button class="icon" id="next" title="next chapter (→)">&#9654;</button>
+    <label class="chk"><input type="checkbox" id="force"> force</label>
+    <button class="primary" id="start">Start</button>
+    <button class="stop" id="stop" disabled>Stop</button>
+  </div>
+  <div class="group"><span class="lbl">Reader</span>
+    <button id="rebuild" title="rebuild site/index.html">Rebuild</button>
+    <a href="http://localhost:8765" target="_blank"><button>Open</button></a>
+  </div>
 </header>
 <div id="stats">
-  <span>Chapter <b id="cur">—</b></span>
-  <span>Verses <b id="vv">—</b></span>
-  <span>Elapsed <b id="el">0s</b></span>
-  <span>Tokens <b id="tok">0</b></span>
-  <span>Speed <b id="tps">—</b> tok/s</span>
-  <span>Book <b id="bprog">—</b></span>
-  <span>Bible <b id="prog">—</b></span>
-  <span id="bar"><i></i></span>
+  <div class="stat"><small>Chapter</small><b id="cur">—</b></div>
+  <div class="stat"><small>Verses</small><b id="vv">—</b></div>
+  <div class="stat"><small>Elapsed</small><b id="el">—</b></div>
+  <div class="stat"><small>Tokens</small><b id="tok">—</b></div>
+  <div class="stat"><small>Speed</small><b><span id="tps">—</span> <span style="font-weight:400;font-size:11px;color:var(--muted)">tok/s</span></b></div>
+  <div class="stat"><small>Book</small><b id="bprog">—</b></div>
+  <div class="stat wide"><small>Bible <span id="prog"></span></small><div id="bar"><i></i></div></div>
   <span class="tabs" id="tabs"><span data-v="en">English</span><span data-v="orig" id="origTab">Original</span><span data-v="par">Side by side</span></span>
 </div>
+<div id="strip" hidden></div>
 <div class="layout">
-  <div id="text"><span class="empty">Pick a book (or leave "All books") and press Start. Text appears here as the model writes it.</span></div>
+  <div id="text" class="plain"></div>
   <aside>
-    <h3>Finished this session</h3>
-    <div id="recent"></div>
-    <h3 style="margin-top:1rem">Books (done/total)</h3>
+    <h3>This session</h3>
+    <div id="recent"><div class="empty" style="font-size:12px;padding:.2rem .45rem">Nothing translated yet.</div></div>
+    <h3 style="margin-top:.9rem">Books · translated / total</h3>
     <div id="books"></div>
   </aside>
 </div>
 <script>
 const $ = id => document.getElementById(id);
 const LANGS = __LANGS__;
-let S = null, raw = '', pending = false, cur = null, ticker = null;
+const NL = String.fromCharCode(10);
+let S = null, raw = '', pending = false, cur = null, browsing = null, lastActive = null, translatedSet = new Set();
+let view = localStorage.getItem('liveView') || 'par';
 
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-let view = localStorage.getItem('liveView') || 'par', lastActive = null;
+function schedule(){ if (!pending){ pending = true; requestAnimationFrame(render); } }
 function setView(v){ view = v; localStorage.setItem('liveView', v); lastActive = null; render(); }
-document.querySelectorAll('#tabs span').forEach(t => t.onclick = () => setView(t.dataset.v));
+document.querySelectorAll('#tabs span').forEach(t => t.onclick = () => { if (!t.classList.contains('off')) setView(t.dataset.v); });
 
 function parseVerses(text){           // {vs: {n: english}, notes, n: verse being written}
   const vs = {}, notesL = []; let n = null, inNotes = false;
-  for (const line of text.split('\n')) {
+  for (const line of text.split(NL)) {
     if (line.trim() === '---') { inNotes = true; continue; }
     if (inNotes) { notesL.push(line); continue; }
     const m = line.trim().match(/^\[(\d+)\]\s*(.*)$/);
     if (m) { n = +m[1]; vs[n] = m[2]; }
-    else if (n !== null && line.trim()) vs[n] += '\n' + line.trim();
+    else if (n !== null && line.trim()) vs[n] += NL + line.trim();
   }
-  return {vs, notes: notesL.join('\n').trim(), n};
+  return {vs, notes: notesL.join(NL).trim(), n};
 }
 
 function render(){
   pending = false;
   const box = $('text');
+  const running = !!(S && S.running);
   const src = cur && cur.src && cur.src.length ? cur.src : null;
-  const v = src ? view : 'en';
+  const hasEn = running || !!raw;
+  let v = src ? view : 'en';
+  if (!hasEn && v !== 'orig') v = 'orig';                 // nothing English to show yet
   const L = LANGS[(cur && cur.lang) || 'hbo'] || LANGS.hbo;
   const rtl = L.dir === 'rtl', ocls = 'orig ' + L.script.toLowerCase();
   const mixed = cur && cur.lang === 'mixed';
   const tag = s => mixed ? `<span class="lt">${LANGS[s.lang].name}</span>` : '';
-  document.querySelectorAll('#tabs span').forEach(t => t.classList.toggle('on', t.dataset.v === v));
+  document.querySelectorAll('#tabs span').forEach(t => {
+    t.classList.toggle('on', t.dataset.v === v);
+    t.classList.toggle('off', !src ? t.dataset.v !== 'en' : (!hasEn && t.dataset.v !== 'orig'));
+  });
   $('origTab').textContent = cur ? L.name : 'Original';
-  box.className = v === 'par' ? 'par' : '';
-  const caret = S && S.running && cur ? '<span class="caret"></span>' : '';
+  box.className = v === 'par' ? '' : 'plain';
+  const caret = running && cur ? '<span class="caret"></span>' : '';
+  const head = cur ? `<div class="chhead"><h2>${cur.book} ${cur.chapter}</h2><small>${L.name}${running ? ' · translating' : (raw ? '' : ' · not translated yet')}</small></div>` : '';
+  if (!cur) {
+    box.innerHTML = `<div class="empty"><h3>Nothing selected</h3>Pick a book in the list on the right (or the Run box) to read its original text, or press Start to begin translating. Text appears here as the model writes it.</div>`;
+    return;
+  }
   if (v === 'orig') {
-    box.innerHTML = src.map(s => `<p class="ov ${ocls}" dir="${rtl?'rtl':'ltr'}"><sup>${s.v}</sup>${tag(s)}${esc(s.text)}</p>`).join('');
+    box.innerHTML = head + src.map(s => `<p class="ov ${ocls}" dir="${rtl?'rtl':'ltr'}"><sup>${s.v}</sup>${tag(s)}${esc(s.text)}</p>`).join('');
     return;
   }
   if (v === 'par') {
     const {vs, notes, n} = parseVerses(raw);
-    let html = '<div class="grid">';
+    let html = head + '<div class="grid">';
     for (const s of src) {
       const e = vs[s.v];
-      const cls = e === undefined ? 'e todo' : (s.v === n && S && S.running ? 'e active' : 'e');
+      const cls = e === undefined ? 'e todo' : (s.v === n && running ? 'e active' : 'e');
       html += `<div class="o ${ocls}" dir="${rtl?'rtl':'ltr'}"><sup>${s.v}</sup>${tag(s)}${esc(s.text)}</div>
         <div class="${cls}" id="row-${s.v}"><sup>${s.v}</sup>${e === undefined ? '…' : esc(e) + (s.v === n ? caret : '')}</div>`;
     }
     if (notes) html += `<div class="notes">${esc(notes)}</div>`;
     box.innerHTML = html + '</div>';
-    if (n !== lastActive) { lastActive = n; const r = document.getElementById('row-' + n); if (r) r.scrollIntoView({block:'center', behavior:'smooth'}); }
+    if (running && n !== lastActive) { lastActive = n; const r = document.getElementById('row-' + n); if (r) r.scrollIntoView({block:'center', behavior:'smooth'}); }
     return;
   }
   const atBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 80;
   let html = esc(raw).replace(/^\[(\d+)\]\s*/gm, '<sup>$1</sup>');
-  const i = html.indexOf('\n---');
-  if (i >= 0) html = html.slice(0, i) + '<div class="notes">' + html.slice(i) + '</div>';
-  if (!raw) html = '<span class="empty">' + (S && S.running ? 'Waiting for the model…' :
-    'Pick a book (or leave "All books") and press Start. Text appears here as the model writes it.') + '</span>';
-  box.innerHTML = html + caret;
-  if (atBottom) box.scrollTop = box.scrollHeight;
+  const i = html.indexOf(NL + '---');
+  if (i >= 0) html = html.slice(0, i) + '<div class="notes">' + html.slice(i + 4).trim() + '</div>';
+  if (!raw) html = '<span class="empty">Waiting for the model…</span>';
+  box.innerHTML = head + html + caret;
+  if (running && atBottom) box.scrollTop = box.scrollHeight;
 }
-function schedule(){ if (!pending){ pending = true; requestAnimationFrame(render); } }
 
 function tick(){
-  if (!cur || !(S && S.running)) return;
+  if (!cur || !(S && S.running) || !cur.started) return;
   const el = (Date.now()/1000 - cur.started);
   $('el').textContent = el < 60 ? el.toFixed(0)+'s' : Math.floor(el/60)+'m '+Math.floor(el%60)+'s';
   $('tok').textContent = cur.tokens;
   $('tps').textContent = el > 1 ? (cur.tokens/el).toFixed(1) : '—';
 }
+
+function bookProgress(name){ const b = S && S.books.find(x => x.name === name || x.code === name); if (b) $('bprog').textContent = b.done + ' / ' + b.total; }
 
 function applySnapshot(s){
   S = s;
@@ -448,35 +513,94 @@ function applySnapshot(s){
   pill.textContent = s.running ? s.status : (s.error ? 'error' : s.status);
   pill.className = 'pill' + (s.running ? ' run' : (s.error ? ' err' : ''));
   $('start').disabled = s.running; $('stop').disabled = !s.running;
-  if (s.error) { raw = 'ERROR: ' + s.error; }
-  cur = s.current || (cur && raw ? cur : (s.last || null));   // finished chapter stays comparable
-  if (cur) { if (s.current || !raw) raw = cur.text; $('cur').textContent = cur.book+' '+cur.chapter; $('vv').textContent = cur.verses;
-    if (!s.running) { $('tok').textContent = cur.tokens; const r = s.recent[0]; if (r && r.book === cur.book && r.chapter === cur.chapter) { $('el').textContent = r.seconds + 's'; $('tps').textContent = r.tps || '—'; } } }
-  else if (!s.error && !raw) { $('cur').textContent = '—'; }
-  $('prog').textContent = s.bible_done + ' / ' + s.bible_total;
+  $('prev').disabled = s.running; $('next').disabled = s.running;
+  if (s.error) raw = 'ERROR: ' + s.error;
+  if (s.current) { cur = s.current; raw = cur.text; browsing = null; $('strip').hidden = true; }
+  else if (!cur && s.last) { cur = s.last; raw = cur.text; }
+  if (cur) {
+    $('cur').textContent = cur.book + ' ' + cur.chapter; $('vv').textContent = cur.verses; bookProgress(cur.book);
+    if (!s.running && cur.started) { $('tok').textContent = cur.tokens; const r = s.recent[0];
+      if (r && r.book === cur.book && r.chapter === cur.chapter) { $('el').textContent = r.seconds + 's'; $('tps').textContent = r.tps || '—'; } }
+  }
+  $('prog').textContent = s.bible_done + ' / ' + s.bible_total + ' chapters';
   $('bar').firstElementChild.style.width = (100*s.bible_done/Math.max(1,s.bible_total)).toFixed(2)+'%';
   const sel = $('book'), keep = sel.value;
   sel.innerHTML = '<option value="ALL">All books (canonical order)</option>' +
     s.books.map(b => `<option value="${b.code}">${b.name} (${b.done}/${b.total})</option>`).join('');
   sel.value = keep || 'ALL';
-  $('books').innerHTML = s.books.map(b => `<div class="${b.done>=b.total&&b.total?'full':(b.done?'part':'')}"><span>${b.name}</span><span>${b.done}/${b.total}</span></div>`).join('');
-  const bn = cur ? cur.book : (s.recent[0] ? s.recent[0].book : null);
-  if (bn) { const b = s.books.find(x => x.name === bn); if (b) $('bprog').textContent = b.done+' / '+b.total; }
-  $('recent').innerHTML = s.recent.map(r =>
-    `<div class="rec"><span>${r.book} ${r.chapter} <small>${r.got}/${r.expected} vv${r.attempts>1?' ·2 tries':''}</small></span>
+  const curCode = browsing ? browsing.code : (cur ? (s.books.find(x => x.name === cur.book) || {}).code : null);
+  let html = '', lastT = '';
+  for (const b of s.books) {
+    if (b.testament !== lastT) { html += `<h3>${b.testament === 'OT' ? 'Old Testament' : 'New Testament'}</h3>`; lastT = b.testament; }
+    const cls = b.code === curCode ? 'on' : (b.total && b.done >= b.total ? 'full' : (b.done ? 'part' : ''));
+    html += `<div class="bk ${cls}" data-code="${b.code}"><span>${b.name}</span><span class="b"><i style="width:${b.total?100*b.done/b.total:0}%"></i></span><span class="ct">${b.done}/${b.total}</span></div>`;
+  }
+  $('books').innerHTML = html;
+  document.querySelectorAll('#books .bk').forEach(d => d.onclick = () => { if (S.running) return; $('book').value = d.dataset.code; $('ch').value = '1'; browse(); });
+  if (s.recent.length) $('recent').innerHTML = s.recent.map(r =>
+    `<div class="rec" data-b="${r.book}" data-c="${r.chapter}"><span>${r.book} ${r.chapter} <small>${r.got}/${r.expected} vv${r.attempts>1?' · 2 tries':''}</small></span>
      <span class="${r.status==='OK'?'ok':'warn'}">${r.status==='OK'?'OK':'WARN'} <small>${r.seconds}s${r.tps?' · '+r.tps+' t/s':''}</small></span></div>`).join('');
+  document.querySelectorAll('#recent .rec').forEach(d => d.onclick = () => { if (S.running) return;
+    const b = S.books.find(x => x.name === d.dataset.b); if (b) { $('book').value = b.code; $('ch').value = d.dataset.c; browse(); } });
+  if (!s.running && !s.current && !browsing && !cur) browse();
   schedule(); tick();
 }
 
+/* ---------- browse mode: any chapter's original (and translation) while idle ---------- */
+async function browse(){
+  if (S && S.running) return;
+  const code = $('book').value; if (code === 'ALL') { $('strip').hidden = true; return; }
+  const ch = parseInt(($('ch').value || '1').split('-')[0], 10) || 1;
+  const r = await fetch(`/source?book=${encodeURIComponent(code)}&ch=${ch}`);
+  if (!r.ok) return;
+  const d = await r.json();
+  browsing = {code, chapter: d.chapter, chapters: d.chapters};
+  translatedSet = new Set((d.translated || []).map(String));
+  cur = {book: d.book, chapter: d.chapter, verses: d.verses, lang: d.lang, src: d.src, started: 0, tokens: 0};
+  raw = d.english ? Object.keys(d.english).map(Number).sort((a,b)=>a-b).map(n => '[' + n + '] ' + d.english[n]).join(NL)
+                    + (d.notes ? NL + '---' + NL + d.notes : '') : '';
+  lastActive = null;
+  $('cur').textContent = d.book + ' ' + d.chapter; $('vv').textContent = d.verses;
+  $('el').textContent = '—'; $('tok').textContent = '—'; $('tps').textContent = '—';
+  bookProgress(code);
+  const strip = $('strip'); strip.hidden = false;
+  strip.innerHTML = `<span class="lbl">${d.book}</span>` + d.chapters.map(c =>
+    `<a class="${+c === d.chapter ? 'on' : (translatedSet.has(String(c)) ? 'tr' : '')}" data-c="${c}">${c}</a>`).join('');
+  strip.querySelectorAll('a').forEach(a => a.onclick = () => { $('ch').value = a.dataset.c; browse(); });
+  const i = d.chapters.indexOf(String(d.chapter));
+  $('prev').disabled = i <= 0; $('next').disabled = i >= d.chapters.length - 1;
+  document.querySelectorAll('#books .bk').forEach(b => b.classList.toggle('on', b.dataset.code === code));
+  $('text').scrollTop = 0;
+  schedule();
+}
+function step(dir){
+  if (S && S.running) return;
+  if (!browsing) return browse();
+  const i = browsing.chapters.indexOf(String(browsing.chapter)) + dir;
+  if (i < 0 || i >= browsing.chapters.length) return;
+  $('ch').value = browsing.chapters[i]; browse();
+}
+$('prev').onclick = () => step(-1);
+$('next').onclick = () => step(1);
+$('book').onchange = () => { $('ch').value = ''; browse(); };
+$('ch').onchange = browse;
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || (S && S.running)) return;
+  if (e.key === 'ArrowLeft') step(-1); if (e.key === 'ArrowRight') step(1);
+});
+
+/* ---------- live stream ---------- */
 function connect(){
   const es = new EventSource('/events');
   es.onmessage = e => {
     const m = JSON.parse(e.data);
     if (m.type === 'snapshot') applySnapshot(m);
     else if (m.type === 'token') { raw += m.t; if (cur) cur.tokens++; schedule(); }
-    else if (m.type === 'start') { raw = ''; lastActive = null; cur = {book:m.book, chapter:m.chapter, verses:m.verses, lang:m.lang, src:m.src, started:Date.now()/1000, tokens:0};
-      $('cur').textContent = m.book+' '+m.chapter; $('vv').textContent = m.verses; $('pill').textContent = 'translating '+m.book+' '+m.chapter; $('pill').className='pill run'; schedule(); }
-    else if (m.type === 'retry') { raw += '\n\n--- retry: missing '+JSON.stringify(m.missing)+' extra '+JSON.stringify(m.extra)+' ---\n\n'; schedule(); }
+    else if (m.type === 'start') { raw = ''; lastActive = null; browsing = null; $('strip').hidden = true;
+      cur = {book:m.book, chapter:m.chapter, verses:m.verses, lang:m.lang, src:m.src, started:Date.now()/1000, tokens:0};
+      $('cur').textContent = m.book+' '+m.chapter; $('vv').textContent = m.verses; bookProgress(m.book);
+      $('pill').textContent = 'translating '+m.book+' '+m.chapter; $('pill').className='pill run'; schedule(); }
+    else if (m.type === 'retry') { raw += NL + NL + '--- retry: missing '+JSON.stringify(m.missing)+' extra '+JSON.stringify(m.extra)+' ---' + NL + NL; schedule(); }
     else if (m.type === 'done' || m.type === 'skip' || m.type === 'run') refresh();
   };
   es.onerror = () => { es.close(); setTimeout(connect, 2000); };
@@ -486,11 +610,12 @@ async function post(path, body){ const r = await fetch(path,{method:'POST',heade
 
 $('start').onclick = async () => {
   const r = await post('/start', {book:$('book').value, chapters:$('ch').value, force:$('force').checked});
-  if (!r.ok) alert(r.error); raw=''; schedule(); refresh();
+  if (!r.ok) { alert(r.error); return; }
+  raw = ''; browsing = null; $('strip').hidden = true; schedule(); refresh();
 };
 $('stop').onclick = () => post('/stop');
 $('rebuild').onclick = async () => { const r = await post('/rebuild'); alert(r.output || 'rebuilt'); };
-ticker = setInterval(tick, 500);
+setInterval(tick, 500);
 connect();
 </script></body></html>
 """
