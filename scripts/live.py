@@ -254,7 +254,9 @@ def start_run(req: dict) -> str | None:
         if lang != "all" and lang not in TARGETS:
             return f"unknown target language {lang!r}"
         STOP.clear()
-        STATE.update(running=True, status="starting", error=None, current=None, target=lang)
+        STATE.update(running=True, status="starting", error=None, current=None, target=lang,
+                     run={"book": "all books" if all_books else book, "chapters": req.get("chapters") or "",
+                          "lang": "all languages" if lang == "all" else TARGETS[lang]["name"]})
     threading.Thread(target=worker, daemon=True,
                      args=(book, (req.get("chapters") or "").strip(), all_books,
                            bool(req.get("force")), lang)).start()
@@ -675,9 +677,11 @@ function applySnapshot(s){
   const pill = $('pill');
   pill.textContent = s.running ? s.status : (s.error ? 'error' : s.status);
   pill.className = 'pill' + (s.running ? ' run' : (s.error ? ' err' : ''));
+  pill.title = s.run ? `run: ${s.run.book} ${s.run.chapters} → ${s.run.lang}` : '';
   $('start').disabled = s.running; $('stop').disabled = !s.running;
   $('prev').disabled = s.running; $('next').disabled = s.running;
-  if (s.current) { cur = s.current; texts = {[cur.target]: cur.text}; if (cur.target !== tl) setTl(cur.target); browsing = null; runStrip(cur); }
+  if (s.current) { cur = s.current; texts = {[cur.target]: cur.text}; if (cur.target !== tl) setTl(cur.target); browsing = null; runStrip(cur);
+    if (view === 'orig' || view === 'lxx') { view = 'par'; localStorage.setItem('liveView', view); } }
   else if (!cur && s.last) { cur = s.last; texts = {[cur.target]: cur.text}; }
   if (s.error) texts[tl] = 'ERROR: ' + s.error;
   if (cur) {
@@ -771,6 +775,7 @@ function connect(){
     else if (m.type === 'token') { if (cur) { texts[cur.target] = (texts[cur.target] || '') + m.t; cur.tokens++; } schedule(); }
     else if (m.type === 'start') { lastActive = null; browsing = null;
       if (m.target !== tl) setTl(m.target);
+      if (view === 'orig' || view === 'lxx') setView('par');      // always watch the text arrive
       cur = {book:m.book, chapter:m.chapter, verses:m.verses, lang:m.lang, src:m.src, target:m.target,
              chapters:m.chapters, translated:m.translated, started:Date.now()/1000, tokens:0};
       texts = {[m.target]: ''}; runStrip(cur);
