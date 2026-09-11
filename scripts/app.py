@@ -9,9 +9,8 @@ Runs live.py's server in-process (same driver, outputs, logs) and shows it in
 a native window (pywebview on top of the system WebView2) instead of a browser
 tab. If a dashboard is already listening on the port, the window simply
 attaches to it. Closing the window stops the server it started; if a
-translation is running it asks first. Hiding the dashboard's side panel turns
-the same window into the reader (site/index.html); the tab at the edge brings
-the translation back.
+translation is running it asks first. The dashboard's read / translate toggle
+turns the same window into the reader (site/index.html) and back.
 
 --reader shows only the reader: one offline HTML file, no server at all.
 

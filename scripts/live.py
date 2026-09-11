@@ -584,8 +584,8 @@ label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); fo
 .layout.left #handle { margin-left:0; border-left:0; border-right:1px solid var(--border); }
 .layout.left #text { margin-right:auto; }
 .layout.closed aside { display:none; }
-#reader { flex:1; min-width:0; border:0; background:var(--bg); }   /* the offline reader, shown while the panel is hidden */
-.layout.closed #text { display:none; }
+#reader { flex:1; min-width:0; border:0; background:var(--bg); }   /* the offline reader: read mode fills the layout with it */
+.layout.reading #text, .layout.reading aside, .layout.reading #handle { display:none; }
 .phead { display:flex; justify-content:flex-end; gap:.25rem; margin:-.2rem 0 .1rem; }
 .phead button { font-size:12px; padding:.15rem .45rem; color:var(--muted); }
 #text { flex:1; overflow:auto; padding:1.2rem 1.6rem 4rem; font:17px/1.7 Georgia, "Times New Roman", serif; white-space:pre-wrap; }
@@ -651,7 +651,7 @@ aside h3 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color
     <button class="primary" id="start">Start</button>
     <button class="stop" id="stop" disabled>Stop</button>
   </div>
-  <div class="group" id="mode" title="read: the window becomes the reader (rebuilt when translations are newer) · translate: the live dashboard">
+  <div class="group" id="mode" title="read: the window becomes the reader (rebuilt when translations are newer) · translate: the live dashboard, with the side panel">
     <span data-m="read">read</span><span data-m="translate" class="on">translate</span>
   </div>
 </header>
@@ -675,7 +675,7 @@ aside h3 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color
   <iframe id="reader" title="eBible reader" hidden></iframe>
   <div id="handle" title="Hide / show the panel">&#9666;</div>
   <aside>
-    <div class="phead"><button id="dock" title="Move the panel to the other side">&#8644; move</button><button id="hide" title="Hide the panel and read: the window becomes the reader (the tab at the edge brings the translation back)">&#215; read</button></div>
+    <div class="phead"><button id="dock" title="Move the panel to the other side">&#8644; move</button><button id="hide" title="Hide the panel so the translation gets the whole width (the tab at the edge brings it back)">&#215; hide</button></div>
     <h3>Translations</h3>
     <div class="tg" id="targets"></div>
     <h3>This session</h3>
@@ -692,18 +692,24 @@ let S = null, cur = null, browsing = null, lastActive = null, translatedSet = ne
 let texts = {};                                   // {target code: "[1] ...\n[2] ..." text} for the chapter on screen
 let tl = localStorage.getItem('liveTl'); if (!TARGETS[tl]) tl = '__DEFAULT__';
 let view = localStorage.getItem('liveView') || 'par';   // tr | orig | par | all
-let panel = {side: 'right', open: true};              // the Translations / Books panel
+let panel = {side: 'right', open: true};              // the Translations / Books panel: docked side, shown or collapsed
+let mode = localStorage.getItem('liveMode') === 'read' ? 'read' : 'translate';   // read: the reader fills the window
 try { panel = {...panel, ...JSON.parse(localStorage.getItem('livePanel') || '{}')}; } catch (e) {}
 function applyPanel(){
   $('layout').classList.toggle('left', panel.side === 'left');
   $('layout').classList.toggle('closed', !panel.open);
   const towardsPanel = panel.side === 'left' ? '\u25c2' : '\u25b8';       // arrow points where the panel hides
   $('handle').innerHTML = panel.open ? towardsPanel : (panel.side === 'left' ? '\u25b8' : '\u25c2');
-  $('handle').title = panel.open ? 'Hide the panel and read' : 'Back to the translation';
-  $('reader').hidden = panel.open;
-  if (!panel.open) showReader();
-  $('mode').querySelectorAll('span').forEach(x => x.classList.toggle('on', (x.dataset.m === 'read') !== panel.open));
+  $('handle').title = panel.open ? 'Hide the panel: the translation gets the whole width' : 'Show the panel';
   localStorage.setItem('livePanel', JSON.stringify(panel));
+}
+function applyMode(){
+  const reading = mode === 'read';
+  $('layout').classList.toggle('reading', reading);
+  $('reader').hidden = !reading;
+  if (reading) showReader();
+  $('mode').querySelectorAll('span').forEach(x => x.classList.toggle('on', x.dataset.m === mode));
+  localStorage.setItem('liveMode', mode);
 }
 async function showReader(){                       // loaded once and kept; reloaded when translations are newer
   const rd = $('reader');
@@ -711,8 +717,9 @@ async function showReader(){                       // loaded once and kept; relo
   try { if ((await (await fetch('/reader-stale')).json()).stale) rd.contentWindow.location.reload(); } catch (e) {}
 }
 $('handle').onclick = () => { panel.open = !panel.open; applyPanel(); };
-$('mode').querySelectorAll('span').forEach(x => x.onclick = () => { panel.open = x.dataset.m === 'translate'; applyPanel(); });
+$('mode').querySelectorAll('span').forEach(x => x.onclick = () => { mode = x.dataset.m; applyMode(); });
 $('hide').onclick = () => { panel.open = false; applyPanel(); };
+applyMode();
 $('dock').onclick = () => { panel.side = panel.side === 'left' ? 'right' : 'left'; applyPanel(); };
 applyPanel();
 
