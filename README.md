@@ -70,10 +70,13 @@ scripts/live.py                         live dashboard on :8766 — same driver,
 ```
 
 `start_dashboard.cmd` (double-click, or the "eBible dashboard" Desktop shortcut)
-starts `live.py` in its own minimized console window and opens
-<http://localhost:8766> — no Claude Code or IDE needed. If the dashboard is
-already up it just opens the tab; close the console window (or Ctrl-C in it)
-to stop the server.
+runs `scripts/app.py`: the dashboard as a desktop app in its own window, no
+browser, console, Claude Code or IDE needed. It serves `live.py` in-process
+(or attaches to a dashboard already on :8766, e.g. one started with
+`python scripts\live.py`) and shows it with pywebview (`pip install pywebview`,
+uses the system WebView2; without it Edge's app mode is used). Closing the
+window stops the server it started — it asks first if a translation is
+running. Output from a windowless start goes to `logs/app.log`.
 
 ### Target languages
 

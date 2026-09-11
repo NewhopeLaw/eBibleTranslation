@@ -10,11 +10,15 @@ from the page in any target language; while idle the page is a browser for
 every chapter's original text and whatever translations exist.
 Pure standard library, no server beyond this one file.
 """
+import hashlib
 import json
 import queue
+import re
 import sys
 import threading
 import time
+import urllib.error
+import urllib.request
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs
@@ -295,6 +299,91 @@ def rebuild_site() -> str:
     return (r.stdout + r.stderr).strip()
 
 
+# --------------------------------------------------------------- alignment
+# Word alignment for the Side by side view: the page sends the word lists of
+# one verse (original + translation), the model answers with index pairs.
+# Cached per verse under logs/align/<lang>/, keyed by a hash of the words, so
+# each verse costs one short model call ever. Same model and num_ctx as the
+# translation run so Ollama never reloads the model for it.
+ALIGN_LOCK = threading.Lock()
+ALIGN_SYSTEM = """You align the words of a Bible verse in its original language with the words of a translation of it.
+You get two numbered word lists. Reply with JSON only, of the form {"pairs": [[s, t], ...]}, where s is a source word number and t is the number of a translation word that renders it (or part of it).
+Link every word that has a counterpart. A source word may link to several translation words and a translation word to several source words. Leave out words with no counterpart: articles, particles, object markers, conjunctions rendered by punctuation, helper words the translation added. Use only numbers that appear in the lists."""
+
+
+def align_path(lang, book, ch):
+    return ROOT / "logs" / "align" / lang / f"{slug(book)}_{int(ch):02d}.json"
+
+
+def _parse_pairs(content, ns, nt):
+    try:
+        data = json.loads(content)
+    except json.JSONDecodeError:
+        m = re.search(r"\{.*\}", content, re.S)
+        try:
+            data = json.loads(m.group(0)) if m else {}
+        except json.JSONDecodeError:
+            data = {}
+    raw = data.get("pairs", data.get("alignment", [])) if isinstance(data, dict) else data
+    pairs, seen = [], set()
+    for pr in raw or []:
+        if not isinstance(pr, (list, tuple)) or len(pr) != 2:
+            continue
+        try:
+            a, b = (int(re.sub(r"\D", "", str(x)) or 0) for x in pr)
+        except ValueError:
+            continue
+        if 1 <= a <= ns and 1 <= b <= nt and (a, b) not in seen:
+            seen.add((a, b))
+            pairs.append([a, b])
+    return pairs
+
+
+def align_verse(req):
+    """-> (payload, http status). Reads the cache, else asks the model."""
+    book, lang = req.get("book"), req.get("lang")
+    src, tgt = req.get("src") or [], req.get("tgt") or []
+    try:
+        ch, v = int(req.get("chapter")), int(req.get("v"))
+    except (TypeError, ValueError):
+        return {"error": "bad chapter/verse"}, 400
+    if book not in NAME2META or lang not in TARGETS:
+        return {"error": "unknown book or language"}, 400
+    if not src or not tgt or len(src) > 200 or len(tgt) > 400 or not all(isinstance(w, str) for w in src + tgt):
+        return {"error": "bad word lists"}, 400
+    names = {l["name"] for l in LANGS.values()}
+    slang = req.get("slang") if req.get("slang") in names else ("Greek" if NAME2META[book]["testament"] == "NT" else "Hebrew")
+    h = hashlib.sha1(json.dumps([src, tgt], ensure_ascii=False).encode("utf-8")).hexdigest()[:12]
+    path = align_path(lang, book, ch)
+    with ALIGN_LOCK:                       # one model call at a time; cache file consistent
+        cache = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+        e = cache.get(str(v))
+        if e and e.get("h") == h:
+            return {"pairs": e["pairs"], "cached": True}, 200
+        user = (f"{book} {ch}:{v}\n\nSource ({slang}):\n"
+                + "\n".join(f"s{i} {w}" for i, w in enumerate(src, 1))
+                + f"\n\nTranslation ({TARGETS[lang]['name']}):\n"
+                + "\n".join(f"t{i} {w}" for i, w in enumerate(tgt, 1))
+                + '\n\nReply with JSON only: {"pairs": [[s, t], ...]} using the numbers.')
+        payload = {"model": T.CONFIG["model"], "stream": False, "think": False, "format": "json",
+                   "options": {"num_ctx": T.CONFIG["num_ctx"], "temperature": 0},
+                   "messages": [{"role": "system", "content": ALIGN_SYSTEM},
+                                {"role": "user", "content": user}]}
+        rq = urllib.request.Request(T.CONFIG["api_url"], data=json.dumps(payload).encode("utf-8"),
+                                    headers={"Content-Type": "application/json"})
+        t0 = time.time()
+        try:
+            with urllib.request.urlopen(rq, timeout=1800) as r:      # may queue behind a running chapter
+                resp = json.loads(r.read())
+        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as ex:
+            return {"error": f"model call failed: {ex}"}, 502
+        pairs = _parse_pairs(resp.get("message", {}).get("content", ""), len(src), len(tgt))
+        cache[str(v)] = {"h": h, "pairs": pairs, "model": T.CONFIG["model"], "seconds": round(time.time() - t0, 1)}
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(cache, ensure_ascii=False), encoding="utf-8")
+        return {"pairs": pairs, "cached": False, "seconds": cache[str(v)]["seconds"]}, 200
+
+
 # ------------------------------------------------------------------ server
 class Handler(BaseHTTPRequestHandler):
     def log_message(self, fmt, *args):       # quiet; keep errors only
@@ -336,6 +425,9 @@ class Handler(BaseHTTPRequestHandler):
             self._json(p or {"error": "no such chapter"}, 200 if p else 404)
         elif path == "/events":
             self.sse(q.get("lang", DEFAULT_TARGET))
+        elif path == "/favicon.ico":
+            self.send_response(204)
+            self.end_headers()
         else:
             self._json({"error": "not found"}, 404)
 
@@ -352,6 +444,9 @@ class Handler(BaseHTTPRequestHandler):
             self._json({"ok": True})
         elif self.path == "/rebuild":
             self._json({"ok": True, "output": rebuild_site()})
+        elif self.path == "/align":
+            payload, code = align_verse(self._body())
+            self._json(payload, code)
         else:
             self._json({"error": "not found"}, 404)
 
@@ -466,6 +561,12 @@ p.ov { margin:0 0 .5em; white-space:normal; }
 .grid .e { white-space:pre-wrap; border-radius:6px; }
 .grid .e.todo { color:var(--muted); }
 .grid .e.active { background:var(--hl); }
+#text .w { cursor:pointer; border-radius:3px; transition:background .12s; }
+#text .w:hover, #text .w.hov { background:var(--soft); box-shadow:0 0 0 2px var(--soft); }
+#text .w.link { background:var(--hl); box-shadow:0 0 0 2px var(--hl); }
+#text .w.sel { background:var(--accent); color:#fff; box-shadow:0 0 0 2px var(--accent); }
+.chhead .astat { margin-left:auto; font-style:italic; }
+.chhead .astat.busy { color:var(--accent); animation:pulse 1.4s infinite; }
 .grid .notes { grid-column:1 / -1; }
 .cmp { border-bottom:1px solid var(--border); padding:.5rem 0; white-space:normal; }
 .cmp .row { display:grid; grid-template-columns:5.5rem 1fr; gap:.6rem; padding:.12rem 0; align-items:baseline; }
@@ -545,6 +646,73 @@ let tl = localStorage.getItem('liveTl'); if (!TARGETS[tl]) tl = '__DEFAULT__';
 let view = localStorage.getItem('liveView') || 'par';   // tr | orig | par | all
 
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* ---------- word alignment (Side by side): click a word, its counterparts light up ---------- */
+const SEG = (typeof Intl !== 'undefined' && Intl.Segmenter) ? new Intl.Segmenter(undefined, {granularity:'word'}) : null;
+const WRE = /[\p{L}\p{M}\p{N}]+(?:['’][\p{L}\p{M}\p{N}]+)*/gu;
+const segCache = new Map();
+function segs(text, useSeg){                 // -> [{t, w}], w = is a word. Source: regex (Hebrew splits at maqaf); targets: Intl.Segmenter (zh/ja/th)
+  const ck = (useSeg ? '1' : '0') + text; if (segCache.has(ck)) return segCache.get(ck);
+  const out = [];
+  if (useSeg && SEG) { for (const s of SEG.segment(text)) out.push({t: s.segment, w: !!s.isWordLike}); }
+  else { let i = 0; for (const m of text.matchAll(WRE)) { if (m.index > i) out.push({t: text.slice(i, m.index), w:false}); out.push({t: m[0], w:true}); i = m.index + m[0].length; }
+         if (i < text.length) out.push({t: text.slice(i), w:false}); }
+  if (segCache.size > 3000) segCache.clear();
+  segCache.set(ck, out); return out;
+}
+function wrap(text, side, v, useSeg){ let i = 0; return segs(text, useSeg).map(x => x.w ? `<span class="w" data-k="${side}:${v}:${++i}">${esc(x.t)}</span>` : esc(x.t)).join(''); }
+function wordsOf(text, useSeg){ return segs(text, useSeg).filter(x => x.w).map(x => x.t); }
+let sel = null, hov = null, alignStatus = '', statusKey = '';   // sel/hov: {side:'s'|'t', v, i}
+const aligned = {}, aligning = new Set();       // chapKey|v -> [[s,t],...]
+function chapKey(){ return cur ? `${cur.book}|${cur.chapter}|${tl}` : ''; }
+function alignKey(v){ return chapKey() + '|' + v; }
+function setAlignStatus(s, busy){ alignStatus = s; statusKey = chapKey(); const el = $('astat'); if (el) { el.textContent = s || 'click a word to see its counterpart'; el.className = 'astat' + (busy ? ' busy' : ''); } }
+function paint(){
+  const box = $('text');
+  box.querySelectorAll('.w.sel,.w.link,.w.hov').forEach(x => x.classList.remove('sel','link','hov'));
+  if (sel && sel.ck !== chapKey()) sel = null;
+  const mark = (p, self, other) => {
+    const me = box.querySelector(`.w[data-k="${p.side}:${p.v}:${p.i}"]`); if (me) me.classList.add(self);
+    const pairs = aligned[alignKey(p.v)]; if (!pairs) return;
+    const os = p.side === 's' ? 't' : 's';
+    for (const [a, b] of pairs) { const mine = p.side === 's' ? a : b, theirs = p.side === 's' ? b : a;
+      if (mine === p.i) { const o = box.querySelector(`.w[data-k="${os}:${p.v}:${theirs}"]`); if (o) o.classList.add(other); } }
+  };
+  if (hov) mark(hov, 'hov', 'hov');
+  if (sel) mark(sel, 'sel', 'link');
+}
+async function ensureAlign(v){
+  const key = alignKey(v); if (aligned[key] || aligning.has(key)) return;
+  const s = cur.src.find(x => x.v === v), {vs, n} = parseVerses(texts[tl]), e = vs[v];
+  if (!s || e === undefined) return;
+  const running = !!(S && S.running);
+  if (running && !browsing && cur.target === tl && n === v) { setAlignStatus(`verse ${v} is still being written`); return; }
+  aligning.add(key);
+  setAlignStatus(`aligning verse ${v}` + (running ? ' (waits for the running translation)' : '') + '…', true);
+  try {
+    const r = await post('/align', {book: cur.book, chapter: cur.chapter, v, lang: tl, slang: (LANGS[s.lang] || {}).name,
+                                    src: wordsOf(s.text, false), tgt: wordsOf(e, true)});
+    if (!r.pairs) throw new Error(r.error || 'no alignment');
+    aligned[key] = r.pairs;
+    setAlignStatus(r.pairs.length ? (r.cached ? '' : `verse ${v} aligned in ${r.seconds}s`) : `no word links found for verse ${v}`);
+    paint();
+  } catch (err) { setAlignStatus('alignment failed: ' + err.message); }
+  finally { aligning.delete(key); }
+}
+$('text').addEventListener('click', e => {
+  const w = e.target.closest('.w');
+  if (!w) { if (sel) { sel = null; paint(); } return; }
+  const [side, v, i] = w.dataset.k.split(':');
+  if (sel && sel.side === side && sel.v === +v && sel.i === +i) { sel = null; paint(); return; }
+  sel = {side, v:+v, i:+i, ck: chapKey()}; paint(); ensureAlign(+v);
+});
+$('text').addEventListener('mouseover', e => {
+  const w = e.target.closest('.w'); if (!w) return;
+  const [side, v, i] = w.dataset.k.split(':');
+  if (!aligned[alignKey(+v)]) return;
+  hov = {side, v:+v, i:+i}; paint();
+});
+$('text').addEventListener('mouseout', e => { if (hov && e.target.closest('.w')) { hov = null; paint(); } });
 function schedule(){ if (!pending){ pending = true; requestAnimationFrame(render); } }
 function setView(v){ view = v; localStorage.setItem('liveView', v); lastActive = null; render(); }
 function setTl(t){ tl = t; localStorage.setItem('liveTl', t); $('lang').value = t; $('tlname').textContent = TARGETS[t].name;
@@ -601,7 +769,9 @@ function render(){
   box.setAttribute('lang', (v === 'orig' || v === 'lxx') ? '' : tl);
   const live = running && cur && cur.target === tl;
   const caret = live ? '<span class="caret"></span>' : '';
-  const head = cur ? `<div class="chhead"><h2>${cur.book} ${cur.chapter}</h2><small>${L.name}${running ? ' → ' + TARGETS[cur.target].name + ' · translating' : (avail.length ? ' → ' + avail.map(t => TARGETS[t].native).join(' · ') : ' · not translated yet')}</small></div>` : '';
+  if (alignStatus && statusKey !== chapKey()) alignStatus = '';   // status belongs to another chapter/language
+  const astat = v === 'par' ? `<small class="astat${aligning.size ? ' busy' : ''}" id="astat">${esc(alignStatus || 'click a word to see its counterpart')}</small>` : '';
+  const head = cur ? `<div class="chhead"><h2>${cur.book} ${cur.chapter}</h2><small>${L.name}${running ? ' → ' + TARGETS[cur.target].name + ' · translating' : (avail.length ? ' → ' + avail.map(t => TARGETS[t].native).join(' · ') : ' · not translated yet')}</small>${astat}</div>` : '';
   if (!cur) {
     box.innerHTML = `<div class="empty"><h3>Nothing selected</h3>Pick a book in the list on the right (or the Run box) to read its original text and any translations, or choose a target language and press Start. Text appears here as the model writes it.</div>`;
     return;
@@ -618,13 +788,14 @@ function render(){
     const {vs, notes, n} = parseVerses(texts[tl]);
     let html = head + '<div class="grid">';
     for (const s of src) {
-      const e = vs[s.v];
-      const cls = e === undefined ? 'e todo' : (s.v === n && live ? 'e active' : 'e');
-      html += `<div class="o ${ocls}" dir="${rtl?'rtl':'ltr'}"><sup>${s.v}</sup>${tag(s)}${esc(s.text)}</div>
-        <div class="${cls}" id="row-${s.v}"><sup>${s.v}</sup>${e === undefined ? '…' : esc(e) + (s.v === n ? caret : '')}</div>`;
+      const e = vs[s.v], writing = live && s.v === n;
+      const cls = e === undefined ? 'e todo' : (writing ? 'e active' : 'e');
+      html += `<div class="o ${ocls}" dir="${rtl?'rtl':'ltr'}"><sup>${s.v}</sup>${tag(s)}${wrap(s.text, 's', s.v, false)}</div>
+        <div class="${cls}" id="row-${s.v}"><sup>${s.v}</sup>${e === undefined ? '…' : (writing ? esc(e) + caret : wrap(e, 't', s.v, true))}</div>`;
     }
     if (notes) html += `<div class="notes">${esc(notes)}</div>`;
     box.innerHTML = html + '</div>';
+    paint();
     if (live && n !== lastActive) { lastActive = n; const r = document.getElementById('row-' + n); if (r) r.scrollIntoView({block:'center', behavior:'smooth'}); }
     return;
   }
