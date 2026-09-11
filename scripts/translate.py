@@ -33,6 +33,78 @@ LOG_PATH = ROOT / "logs" / "translate.jsonl"
 SUP = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
 VERSE_RE = re.compile(r"^\[(\d+)\]\s*(.*)$")
 
+# Degenerate-repetition guard. A model can fall into "and barley, and meal,
+# and roasted grain, and barley, and meal, ..." and never stop (2 Sam 17:28,
+# whose Hebrew itself lists roasted grain twice, did exactly that). A stretch
+# of text is a loop when its tail is one unit repeated back to back at least
+# LOOP_MIN_REPEATS times, and the repeated stretch is at least LOOP_MIN_SPAN
+# characters long — long enough that genuine scriptural refrains ("holy,
+# holy, holy", "precept upon precept, precept upon precept") stay clear of it.
+LOOP_MIN_REPEATS = 4
+LOOP_MIN_SPAN = 150
+LOOP_MAX_UNIT = 400
+LOOP_WINDOW = LOOP_MAX_UNIT * LOOP_MIN_REPEATS + 200
+
+
+class LoopError(Exception):
+    """The model's output fell into a repeating loop; carries the unit."""
+
+    def __init__(self, unit, text):
+        super().__init__(f"output loops on {unit!r}")
+        self.unit, self.text = unit, text
+
+
+def loop_period(text):
+    """Length of the unit the tail of `text` repeats, or 0 if it is not a
+    degenerate loop. Checks every unit length up to LOOP_MAX_UNIT against the
+    last LOOP_WINDOW characters, so it is cheap enough to run while streaming."""
+    tail = text[-LOOP_WINDOW:]
+    n = len(tail)
+    for p in range(2, min(LOOP_MAX_UNIT, n // LOOP_MIN_REPEATS) + 1):
+        unit = tail[-p:]
+        if not unit.strip():
+            continue
+        reps = 1
+        while reps * p + p <= n and tail[-(reps + 1) * p:-reps * p] == unit:
+            reps += 1
+        if reps >= LOOP_MIN_REPEATS and reps * p >= LOOP_MIN_SPAN:
+            return p
+    return 0
+
+
+def loop_start(text, p):
+    """Index where the period-p repetition at the end of `text` sets in."""
+    k = len(text) - 1
+    while k - p >= 0 and text[k - p] == text[k]:
+        k -= 1
+    return k - p + 1
+
+
+def find_loop(text):
+    """The unit `text` trails off repeating (its first pass, so it reads as
+    the model first wrote it), or None if the text is not looping."""
+    p = loop_period(text)
+    if not p:
+        return None
+    k0 = loop_start(text, p)
+    return text[k0:k0 + p]
+
+
+def loop_verse(raw, unit):
+    """Verse number in whose text the loop sets in, or '?'."""
+    head = raw[:loop_start(raw, len(unit))]
+    nums = [int(m.group(1)) for m in re.finditer(r"^\[(\d+)\]", head, re.M)]
+    return nums[-1] if nums else "?"
+
+
+def trim_loop(text, unit):
+    """Cut a looping verse back to where the repetition sets in, keeping one
+    pass of the repeated unit."""
+    p = len(unit)
+    k0 = loop_start(text, p)
+    return text[:k0 + p].rstrip(" ,;:") + " […]"
+
+
 LANG_NAME = {code: info["name"] for code, info in LANGS.items()}
 
 # Optional live hooks (set by scripts/live.py). When on_token is set the model
@@ -110,12 +182,30 @@ def build_user_prompt(meta, ch, verses, prev_translation, lang):
     return "\n".join(lines)
 
 
-def call_model(system, user):
+def model_options(extra=None):
+    """Ollama sampling options: num_ctx/temperature from config, plus any of
+    repeat_penalty, repeat_last_n, presence_penalty, frequency_penalty, seed
+    and num_predict that config sets. num_predict defaults to a ceiling well
+    above the longest chapter, so a runaway generation cannot fill the
+    context even when nothing else stops it."""
+    opts = {"num_ctx": CONFIG["num_ctx"], "temperature": CONFIG["temperature"],
+            "num_predict": CONFIG.get("num_predict", 8192)}
+    for k in ("repeat_penalty", "repeat_last_n", "presence_penalty", "frequency_penalty", "seed"):
+        if k in CONFIG:
+            opts[k] = CONFIG[k]
+    opts.update(extra or {})
+    return opts
+
+
+def call_model(system, user, options=None):
+    """Call the model. Raises LoopError as soon as the output is seen to be
+    looping: mid-stream when streaming (the connection is dropped, which makes
+    Ollama stop generating), otherwise once the reply is in."""
     payload = {
         "model": CONFIG["model"],
         "stream": on_token is not None,
         "think": CONFIG.get("think", False),
-        "options": {"num_ctx": CONFIG["num_ctx"], "temperature": CONFIG["temperature"]},
+        "options": model_options(options),
         "messages": [{"role": "system", "content": system},
                      {"role": "user", "content": user}],
     }
@@ -127,17 +217,32 @@ def call_model(system, user):
             with urllib.request.urlopen(req, timeout=3600) as r:
                 if on_token is None:
                     resp = json.loads(r.read())
-                    return resp["message"]["content"], resp
-                parts, resp = [], {}
+                    text = resp["message"]["content"]
+                    unit = find_loop(text)
+                    if unit:
+                        raise LoopError(unit, text)
+                    return text, resp
+                parts, resp, since_check = [], {}, 0
                 for line in r:                       # NDJSON, one chunk per line
                     chunk = json.loads(line)
                     tok = chunk.get("message", {}).get("content", "")
                     if tok:
                         parts.append(tok)
                         on_token(tok)
+                        since_check += len(tok)
+                        if since_check >= 64:        # look for a loop every ~64 chars
+                            since_check = 0
+                            text = "".join(parts)
+                            unit = find_loop(text)
+                            if unit:
+                                raise LoopError(unit, text)   # closes the connection
                     if chunk.get("done"):
                         resp = chunk
-                return "".join(parts), resp
+                text = "".join(parts)
+                unit = find_loop(text)
+                if unit:
+                    raise LoopError(unit, text)
+                return text, resp
         except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as e:
             last_err = e
             print(f"    api error ({e}), retry {attempt + 1}/3 in 15s", file=sys.stderr)
@@ -216,21 +321,56 @@ def translate_chapter(meta, ch, verses, prev_translation, system, force=False, l
     emit(type="start", book=meta["name"], chapter=int(ch), verses=len(expected),
          lang=chapter_lang(meta, verses), target=lang)
     t0 = time.time()
-    raw, resp = call_model(system, user)
-    parsed, notes, missing, extra = parse_output(raw, expected)
-
-    attempts = 1
-    if missing or extra:
-        fix = (f"Your translation of {meta['name']} {ch} had a problem: "
-               + (f"missing verses {missing}. " if missing else "")
-               + (f"unexpected verse numbers {extra}. " if extra else "")
-               + "Output the COMPLETE chapter again, every verse from "
-               f"{expected[0]} to {expected[-1]}, same format.")
-        emit(type="retry", book=meta["name"], chapter=int(ch), missing=missing, extra=extra, target=lang)
-        raw, resp = call_model(system, user + "\n\n" + fix)
+    max_attempts = CONFIG.get("max_attempts", 3)
+    attempts, fix, options, looped = 0, "", None, None
+    best = None                      # (score, raw, resp, parsed, notes, missing, extra, loop)
+    while attempts < max_attempts:
+        attempts += 1
+        try:
+            raw, resp = call_model(system, user + ("\n\n" + fix if fix else ""), options)
+            loop = None
+        except LoopError as e:
+            raw, resp, loop = e.text, {}, e.unit
         parsed, notes, missing, extra = parse_output(raw, expected)
-        attempts = 2
-
+        if loop is None:
+            # a loop the guard could not cut short (e.g. num_predict hit first)
+            loop = next((u for t in parsed.values() for u in [find_loop(t)] if u), None)
+        problems = (len(missing) + len(extra), 1 if loop else 0)
+        if best is None or problems < best[0]:
+            best = (problems, raw, resp, parsed, notes, missing, extra, loop)
+        if problems == (0, 0):
+            break
+        if attempts >= max_attempts:
+            break
+        if loop:
+            at = loop_verse(raw, loop)
+            looped = loop
+            fix = (f"Your translation of {meta['name']} {ch} broke off: at verse {at} it fell into "
+                   f"repeating the same words over and over ({loop.strip()[:80]!r}). Translate the "
+                   f"chapter again from the start. Render each word of the source once, in order; when "
+                   f"a list ends, move on to the next verse. Every verse from {expected[0]} to "
+                   f"{expected[-1]}, same format.")
+            # stronger anti-repeat sampling for the retry only
+            options = dict(CONFIG.get("loop_retry_options",
+                                      {"repeat_penalty": 1.15, "presence_penalty": 1.0}))
+        else:
+            fix = (f"Your translation of {meta['name']} {ch} had a problem: "
+                   + (f"missing verses {missing}. " if missing else "")
+                   + (f"unexpected verse numbers {extra}. " if extra else "")
+                   + "Output the COMPLETE chapter again, every verse from "
+                   f"{expected[0]} to {expected[-1]}, same format.")
+        print(f"    {meta['name']} {ch} [{lang}]: attempt {attempts} "
+              + (f"looped on {loop.strip()[:60]!r}" if loop else f"missing={missing} extra={extra}")
+              + f", retrying ({attempts + 1}/{max_attempts})", file=sys.stderr)
+        emit(type="retry", book=meta["name"], chapter=int(ch), missing=missing, extra=extra,
+             loop=(loop.strip()[:80] if loop else None), attempt=attempts, target=lang)
+    _, raw, resp, parsed, notes, missing, extra, loop = best
+    if loop:
+        # keep the chapter (resume would otherwise never move on) but cut the
+        # looping verse back to its first pass, so the file stays readable
+        for n, t in list(parsed.items()):
+            if find_loop(t):
+                parsed[n] = trim_loop(t, loop)
     dt = time.time() - t0
     md_path.parent.mkdir(parents=True, exist_ok=True)
     json_path.parent.mkdir(parents=True, exist_ok=True)
@@ -246,8 +386,10 @@ def translate_chapter(meta, ch, verses, prev_translation, system, force=False, l
             "ts": time.strftime("%Y-%m-%dT%H:%M:%S"), "book": meta["name"], "chapter": int(ch),
             "lang": lang, "model": CONFIG["model"], "seconds": round(dt, 1), "attempts": attempts,
             "prompt_tokens": resp.get("prompt_eval_count"), "output_tokens": resp.get("eval_count"),
-            "missing": missing, "extra": extra}) + "\n")
-    status = "OK" if not (missing or extra) else f"WARN missing={missing} extra={extra}"
+            "missing": missing, "extra": extra, "loop": (loop.strip()[:80] if loop else None)}) + "\n")
+    status = "OK" if not (missing or extra or loop) else (
+        "WARN " + (f"missing={missing} extra={extra} " if missing or extra else "")
+        + (f"loop={loop.strip()[:40]!r}" if loop else "")).strip()
     print(f"  {meta['name']} {ch} [{lang}]: {len(parsed)}/{len(expected)} vv, {dt:.0f}s, "
           f"{resp.get('eval_count')} tokens out [{status}]")
     emit(type="done", book=meta["name"], chapter=int(ch), got=len(parsed), expected=len(expected),

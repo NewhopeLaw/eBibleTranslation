@@ -125,6 +125,24 @@ same book until it goes through. Only Stop, or the end of the Bible, ends it.
 The same behaviour from the terminal is `translate.py --all --lang all
 --keep-going`.
 
+**Loop guard.** A model can fall into repeating itself and never stop —
+2 Samuel 17:28, whose Hebrew lists roasted grain twice, produced "and barley,
+and meal, and roasted grain, and barley, and meal, and roasted grain, …" until
+the context filled. The driver now watches the output as it streams: the moment
+the tail is one stretch of text repeated back to back four or more times (at
+least 150 characters, so refrains like "holy, holy, holy" pass), it drops the
+connection, which makes Ollama stop, and retranslates the chapter with a note
+about where it looped and stronger anti-repeat sampling
+(`loop_retry_options` in `config.json`; default `repeat_penalty` 1.15,
+`presence_penalty` 1.0). Up to `max_attempts` (default 3) tries cover loops and
+missing/extra verses alike; the best attempt is kept, a still-looping verse is
+cut back to its first pass and marked `[…]`, and the chapter is logged with
+`"loop"` and a WARN status so `verify.py` (which flags `LOOP` on any such verse)
+and the dashboard show it. `num_predict` (default 8192 tokens, about three
+times the longest chapter) caps a runaway that nothing else stops. Optional
+`repeat_penalty`, `repeat_last_n`, `presence_penalty`, `frequency_penalty` and
+`seed` in `config.json` are passed through to every call.
+
 Chapter memory: each prompt includes the previous chapter's translation for
 continuity. Logs in `logs/translate.jsonl` (timing + token counts per chapter,
 with the target language); verifier reports in `logs/verify_<lang>.md`.

@@ -171,8 +171,9 @@ def on_event(ev: dict):
             cur = STATE["current"]
             if cur:
                 cur["text"] += "\n\n--- retry: " + (
+                    f"looped on {ev['loop']!r} " if ev.get("loop") else "") + (
                     f"missing {ev['missing']} " if ev["missing"] else "") + (
-                    f"extra {ev['extra']}" if ev["extra"] else "") + " ---\n\n"
+                    f"extra {ev['extra']}" if ev["extra"] else "") + "---\n\n"
     elif kind == "done":
         with LOCK:
             rec = {k: ev[k] for k in ("book", "chapter", "got", "expected", "seconds",
@@ -781,7 +782,7 @@ function connect(){
       texts = {[m.target]: ''}; runStrip(cur);
       $('cur').textContent = m.book+' '+m.chapter; $('vv').textContent = m.verses; bookProgress(m.book);
       $('pill').textContent = 'translating '+m.book+' '+m.chapter+' → '+TARGETS[m.target].name; $('pill').className='pill run'; schedule(); }
-    else if (m.type === 'retry') { if (cur) texts[cur.target] += NL + NL + '--- retry: missing '+JSON.stringify(m.missing)+' extra '+JSON.stringify(m.extra)+' ---' + NL + NL; schedule(); }
+    else if (m.type === 'retry') { if (cur) texts[cur.target] += NL + NL + '--- retry: ' + (m.loop ? 'looped on '+JSON.stringify(m.loop)+' ' : '') + (m.missing && m.missing.length ? 'missing '+JSON.stringify(m.missing)+' ' : '') + (m.extra && m.extra.length ? 'extra '+JSON.stringify(m.extra)+' ' : '') + '---' + NL + NL; schedule(); }
     else if (m.type === 'warn') { $('pill').textContent = 'retrying'; $('pill').className = 'pill err'; $('pill').title = m.message; console.warn(m.message); }
     else if (m.type === 'done' || m.type === 'skip') { const a = $('strip').querySelector(`a[data-c="${m.chapter}"]`); if (a && cur && cur.book === m.book) { a.classList.remove('on'); a.classList.add('tr'); } refresh(); }
     else if (m.type === 'run') refresh();
