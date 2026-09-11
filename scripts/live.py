@@ -542,6 +542,16 @@ label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); fo
 #strip a.tr { color:var(--fg); border-style:solid; background:var(--card); }
 #strip a.on { background:var(--accent); color:#fff; border-color:var(--accent); }
 .layout { display:flex; flex:1; min-height:0; }
+.layout.left { flex-direction:row-reverse; }
+#handle { flex:none; width:14px; display:flex; align-items:center; justify-content:center; cursor:pointer;
+  background:var(--card); border-left:1px solid var(--border); color:var(--muted); font:11px system-ui; user-select:none; }
+#handle:hover { background:var(--soft); color:var(--fg); }
+.layout #handle { margin-left:auto; }                  /* spare width (capped plain view) goes to the far side of the text */
+.layout.left #handle { margin-left:0; border-left:0; border-right:1px solid var(--border); }
+.layout.left #text { margin-right:auto; }
+.layout.closed aside { display:none; }
+.phead { display:flex; justify-content:flex-end; gap:.25rem; margin:-.2rem 0 .1rem; }
+.phead button { font-size:12px; padding:.15rem .45rem; color:var(--muted); }
 #text { flex:1; overflow:auto; padding:1.2rem 1.6rem 4rem; font:17px/1.7 Georgia, "Times New Roman", serif; white-space:pre-wrap; }
 #text.plain { max-width:54rem; }
 #text sup { color:var(--accent); font:600 11px system-ui; margin-right:.2rem; }
@@ -576,7 +586,7 @@ p.ov { margin:0 0 .5em; white-space:normal; }
 [lang="th"] { font-family:"Noto Serif Thai", "Leelawadee UI", "Tahoma", sans-serif; line-height:2; }
 .chhead { display:flex; align-items:baseline; gap:.7rem; margin-bottom:.9rem; white-space:normal; }
 .chhead h2 { font:400 24px Georgia, serif; } .chhead small { color:var(--muted); font:13px system-ui; }
-aside { width:290px; flex:none; border-left:1px solid var(--border); overflow:auto; padding:.7rem .8rem; font-size:13px; background:var(--card); }
+aside { width:290px; flex:none; border-left:0; overflow:auto; padding:.7rem .8rem; font-size:13px; background:var(--card); }
 aside h3 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:.5rem 0 .35rem; }
 .tg { display:flex; flex-wrap:wrap; gap:.25rem; margin-bottom:.4rem; }
 .tg span { font-size:11px; padding:.1rem .5rem; border-radius:999px; border:1px solid var(--border); color:var(--muted); cursor:pointer; }
@@ -591,7 +601,7 @@ aside h3 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color
 .bk .b i { display:block; height:100%; background:var(--accent); } .bk.full .b i { background:var(--ok); }
 .bk.on .b i { background:#fff; }
 .bk .ct { text-align:right; font-variant-numeric:tabular-nums; font-size:11px; }
-@media (max-width:820px) { aside { display:none; } .grid { grid-template-columns:1fr; } .grid .o { border-bottom:0; padding-bottom:.1rem; } }
+@media (max-width:820px) { aside, #handle { display:none; } .grid { grid-template-columns:1fr; } .grid .o { border-bottom:0; padding-bottom:.1rem; } }
 </style></head><body>
 <header>
   <div class="brand"><b>eBible</b><span class="sub">live translation</span><span class="pill" id="pill">idle</span><span class="pill" id="model"></span></div>
@@ -625,9 +635,11 @@ aside h3 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color
   <span><small>Lifetime</small><b id="lt_ch">0</b> chapters · <b id="lt_tok">0</b> tokens out · <b id="lt_ptok">0</b> in · <b id="lt_time">0s</b> · <b id="lt_tps">—</b> tok/s avg</span>
 </div>
 <div id="strip" hidden></div>
-<div class="layout">
+<div class="layout" id="layout">
   <div id="text" class="plain"></div>
+  <div id="handle" title="Hide / show the panel">&#9666;</div>
   <aside>
+    <div class="phead"><button id="dock" title="Move the panel to the other side">&#8644; move</button><button id="hide" title="Hide the panel (the tab at the edge brings it back)">&#215; hide</button></div>
     <h3>Translations</h3>
     <div class="tg" id="targets"></div>
     <h3>This session</h3>
@@ -644,6 +656,20 @@ let S = null, cur = null, browsing = null, lastActive = null, translatedSet = ne
 let texts = {};                                   // {target code: "[1] ...\n[2] ..." text} for the chapter on screen
 let tl = localStorage.getItem('liveTl'); if (!TARGETS[tl]) tl = '__DEFAULT__';
 let view = localStorage.getItem('liveView') || 'par';   // tr | orig | par | all
+let panel = {side: 'right', open: true};              // the Translations / Books panel
+try { panel = {...panel, ...JSON.parse(localStorage.getItem('livePanel') || '{}')}; } catch (e) {}
+function applyPanel(){
+  $('layout').classList.toggle('left', panel.side === 'left');
+  $('layout').classList.toggle('closed', !panel.open);
+  const towardsPanel = panel.side === 'left' ? '\u25c2' : '\u25b8';       // arrow points where the panel hides
+  $('handle').innerHTML = panel.open ? towardsPanel : (panel.side === 'left' ? '\u25b8' : '\u25c2');
+  $('handle').title = panel.open ? 'Hide the panel' : 'Show the panel';
+  localStorage.setItem('livePanel', JSON.stringify(panel));
+}
+$('handle').onclick = () => { panel.open = !panel.open; applyPanel(); };
+$('hide').onclick = () => { panel.open = false; applyPanel(); };
+$('dock').onclick = () => { panel.side = panel.side === 'left' ? 'right' : 'left'; applyPanel(); };
+applyPanel();
 
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
