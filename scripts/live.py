@@ -586,7 +586,7 @@ label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); fo
 .layout.closed aside { display:none; }
 #reader { flex:1; min-width:0; border:0; background:var(--bg); }   /* the offline reader: read mode fills the layout with it */
 .layout.reading #text, .layout.reading aside, .layout.reading #handle { display:none; }
-body.reading #stats, body.reading #totals, body.reading #strip { display:none; }   /* read mode: no translation indicators */
+body.reading #stats, body.reading #totals, body.reading #strip, body.reading #run { display:none; }   /* read mode: no run controls or indicators */
 .phead { display:flex; justify-content:flex-end; gap:.25rem; margin:-.2rem 0 .1rem; }
 .phead button { font-size:12px; padding:.15rem .45rem; color:var(--muted); }
 #text { flex:1; overflow:auto; padding:1.2rem 1.6rem 4rem; font:17px/1.7 Georgia, "Times New Roman", serif; white-space:pre-wrap; }
@@ -642,7 +642,7 @@ aside h3 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color
 </style></head><body>
 <header>
   <div class="brand"><b>eBible</b><span class="sub">live translation</span><span class="pill" id="pill">idle</span><span class="pill" id="model"></span></div>
-  <div class="group"><span class="lbl">Run</span>
+  <div class="group" id="run"><span class="lbl">Run</span>
     <select id="book"><option value="ALL">All books (canonical order)</option></select>
     <button class="icon" id="prev" title="previous chapter (←)">&#9664;</button>
     <input id="ch" placeholder="ch / 1-3">
