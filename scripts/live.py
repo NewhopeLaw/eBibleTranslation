@@ -640,6 +640,16 @@ aside h3 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color
 .bk.on .b i { background:#fff; }
 .bk .ct { text-align:right; font-variant-numeric:tabular-nums; font-size:11px; }
 @media (max-width:820px) { aside, #handle { display:none; } .grid { grid-template-columns:1fr; } .grid .o { border-bottom:0; padding-bottom:.1rem; } }
+/* mobile preview: the content area becomes a 390x844 phone screen (scaled to fit), so the reader's own
+   responsive rules fire as on a phone; the dashboard view gets its narrow-layout rules by class */
+body.mobile .layout { flex:none; width:410px; height:864px; margin:.6rem auto 0; border:10px solid #15130f; border-radius:30px;   /* 390 x 844 inside the bezel */
+  box-shadow:0 0 0 1px #3a352e, 0 12px 40px rgba(0,0,0,.35); overflow:hidden; background:var(--bg); transform-origin:top center; }
+body.mobile .layout aside, body.mobile .layout #handle { display:none; }
+body.mobile .grid { grid-template-columns:1fr; } body.mobile .grid .o { border-bottom:0; padding-bottom:.1rem; }
+body.mobile #text.plain { max-width:none; } body.mobile #text { padding:.9rem 1rem 3rem; }
+#device { gap:.15rem; padding:.2rem; border-radius:999px; }
+#device span { padding:.3rem .8rem; border-radius:999px; cursor:pointer; color:var(--muted); font-size:13px; }
+#device span.on { background:var(--accent); color:#fff; }
 </style></head><body>
 <header>
   <div class="brand"><b>eBible</b><span class="sub">live translation</span><span class="pill" id="pill">idle</span><span class="pill" id="model"></span></div>
@@ -655,6 +665,9 @@ aside h3 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color
   </div>
   <div class="group" id="mode" title="read: the window becomes the reader (rebuilt when translations are newer) · translate: the live dashboard, with the side panel">
     <span data-m="read">read</span><span data-m="translate" class="on">translate</span>
+  </div>
+  <div class="group" id="device" title="mobile: preview the screen at phone size (390 x 844) for UI testing">
+    <span data-d="pc" class="on">PC</span><span data-d="mobile">mobile</span>
   </div>
 </header>
 <div id="stats">
@@ -713,7 +726,21 @@ function applyMode(){
   if (reading) showReader();
   $('mode').querySelectorAll('span').forEach(x => x.classList.toggle('on', x.dataset.m === mode));
   localStorage.setItem('liveMode', mode);
+  applyDevice();
 }
+let device = localStorage.getItem('liveDevice') === 'mobile' ? 'mobile' : 'pc';   // PC | mobile preview of the content area
+function applyDevice(){
+  const mobile = device === 'mobile', lay = $('layout');
+  document.body.classList.toggle('mobile', mobile);
+  if (mobile) {                                          // scale the phone down when the window is too short for it
+    const room = window.innerHeight - lay.offsetTop - 12;
+    lay.style.transform = `scale(${Math.min(1, room / 864).toFixed(3)})`;
+  } else lay.style.transform = '';
+  $('device').querySelectorAll('span').forEach(x => x.classList.toggle('on', x.dataset.d === device));
+  localStorage.setItem('liveDevice', device);
+}
+$('device').querySelectorAll('span').forEach(x => x.onclick = () => { device = x.dataset.d; applyDevice(); });
+window.addEventListener('resize', () => { if (device === 'mobile') applyDevice(); });
 async function showReader(){                       // loaded once and kept; reloaded when translations are newer
   const rd = $('reader');
   if (!rd.src) { rd.src = '/reader'; return; }
