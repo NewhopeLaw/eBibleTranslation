@@ -428,6 +428,17 @@ class Handler(BaseHTTPRequestHandler):
         elif path == "/favicon.ico":
             self.send_response(204)
             self.end_headers()
+        elif path in ("/reader", "/compare"):          # the offline reader, served as-is (Rebuild shows up on reload)
+            f = ROOT / "site" / ("index.html" if path == "/reader" else "compare.html")
+            if not f.exists():
+                self._json({"error": f"{f.name} not built yet — press Rebuild"}, 404)
+                return
+            body = f.read_bytes()
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
         else:
             self._json({"error": "not found"}, 404)
 
@@ -617,7 +628,7 @@ aside h3 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color
   </div>
   <div class="group"><span class="lbl">Reader</span>
     <button id="rebuild" title="rebuild site/index.html">Rebuild</button>
-    <a href="http://localhost:8765" target="_blank"><button>Open</button></a>
+    <button id="open" title="open the reader (site/index.html)">Open</button>
   </div>
 </header>
 <div id="stats">
@@ -996,6 +1007,8 @@ $('start').onclick = async () => {
 };
 $('stop').onclick = () => post('/stop');
 $('rebuild').onclick = async () => { const r = await post('/rebuild'); alert(r.output || 'rebuilt'); };
+$('open').onclick = () => { if (window.pywebview && pywebview.api) pywebview.api.open_reader();   // desktop app: own window
+                            else window.open('/reader', '_blank'); };                                // browser: new tab
 setInterval(tick, 500);
 connect();
 </script></body></html>

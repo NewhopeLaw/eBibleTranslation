@@ -13,6 +13,9 @@ translations are consulted at any stage.
 | Greek NT (consulted) | [Robinson–Pierpont Byzantine](https://github.com/byztxt/byzantine-majority-text) | Public domain |
 | Greek OT (reference only) | Septuagint, Swete's edition (1901–1909) via [First1KGreek](https://github.com/OpenGreekAndLatin/First1KGreek/tree/master/data/tlg0527) | CC BY-SA 4.0 |
 
+License texts, copyright and public-domain notices for each source, with the
+upstream snapshots they were verified against, are recorded in [LEGAL.md](LEGAL.md).
+
 **The Septuagint is a reference, not a source.** Wherever the Hebrew or
 Aramaic exists it is the only text being translated. `scripts/add_lxx.py
 --fetch` downloads Swete's Greek Old Testament (37 books; Ecclesiastes is not
@@ -77,6 +80,9 @@ browser, console, Claude Code or IDE needed. It serves `live.py` in-process
 uses the system WebView2; without it Edge's app mode is used). Closing the
 window stops the server it started — it asks first if a translation is
 running. Output from a windowless start goes to `logs/app.log`.
+The dashboard's **Open** button shows the reader in a second window;
+`start_reader.cmd` (or `pythonw scriptspp.py --reader`) opens just the
+reader, standalone — no server, it is one offline file.
 
 ### Target languages
 
@@ -161,7 +167,8 @@ with the target language); verifier reports in `logs/verify_<lang>.md`.
 `scripts/build_site.py` embeds every translated chapter into a single
 self-contained HTML file — full-text search, a reference finder
 ("Genesis 2:7", "1 sam 3:10"), and a chapter reader. No server, no network:
-open the file in any browser.
+open the file in any browser, or as its own window with `start_reader.cmd`
+(the dashboard also serves it at <http://localhost:8766/reader>).
 
 ### Android app (planned)
 
