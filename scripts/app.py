@@ -114,7 +114,7 @@ def run_fallback(url, keep_serving):
 def main():
     if "--reader" in sys.argv[1:]:
         if not READER.exists():
-            print(f"no reader yet: {READER} — run scripts/build_site.py (or Rebuild in the dashboard)")
+            print(f"no reader yet: {READER} — run scripts/build_site.py (or switch the dashboard to read)")
             return
         if not run_reader_window():
             run_fallback(READER.as_uri(), keep_serving=False)

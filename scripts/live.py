@@ -292,11 +292,27 @@ def chapter_payload(code, ch, lang):
             "src": src, "verses": len(src), "translations": translations}
 
 
+REBUILD_LOCK = threading.Lock()
+
+
 def rebuild_site() -> str:
     import subprocess
-    r = subprocess.run([sys.executable, str(ROOT / "scripts" / "build_site.py")],
-                       capture_output=True, text=True, encoding="utf-8", errors="replace")
+    with REBUILD_LOCK:
+        r = subprocess.run([sys.executable, str(ROOT / "scripts" / "build_site.py")],
+                           capture_output=True, text=True, encoding="utf-8", errors="replace")
     return (r.stdout + r.stderr).strip()
+
+
+def reader_stale() -> bool:
+    """site/index.html missing, or older than any translation, source or the builder."""
+    out = ROOT / "site" / "index.html"
+    if not out.exists():
+        return True
+    built = out.stat().st_mtime
+    newest = (ROOT / "scripts" / "build_site.py").stat().st_mtime
+    for f in list((ROOT / "output").glob("*/json/*.json")) + list((ROOT / "sources" / "normalized").glob("*.json")):
+        newest = max(newest, f.stat().st_mtime)
+    return newest > built
 
 
 # --------------------------------------------------------------- alignment
@@ -428,10 +444,14 @@ class Handler(BaseHTTPRequestHandler):
         elif path == "/favicon.ico":
             self.send_response(204)
             self.end_headers()
-        elif path in ("/reader", "/compare"):          # the offline reader, served as-is (Rebuild shows up on reload)
+        elif path == "/reader-stale":
+            self._json({"stale": reader_stale()})
+        elif path in ("/reader", "/compare"):          # the offline reader; rebuilt first when translations are newer
+            if path == "/reader" and reader_stale():
+                print("reader: " + rebuild_site())
             f = ROOT / "site" / ("index.html" if path == "/reader" else "compare.html")
             if not f.exists():
-                self._json({"error": f"{f.name} not built yet — press Rebuild"}, 404)
+                self._json({"error": f"{f.name} could not be built — see the console"}, 404)
                 return
             body = f.read_bytes()
             self.send_response(200)
@@ -514,6 +534,9 @@ header { display:flex; flex-wrap:wrap; gap:.6rem 1rem; align-items:center; paddi
 @keyframes pulse { 50% { opacity:.55; } }
 .group { display:flex; align-items:center; gap:.35rem; padding:.25rem .4rem; border:1px solid var(--border);
   border-radius:10px; background:var(--bg); }
+#mode { gap:.15rem; padding:.2rem; border-radius:999px; }
+#mode span { padding:.3rem .8rem; border-radius:999px; cursor:pointer; color:var(--muted); font-size:13px; }
+#mode span.on { background:var(--accent); color:#fff; }
 .group .lbl { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 .25rem; }
 select, input, button { font:13px system-ui, sans-serif; padding:.38rem .55rem; border:1px solid var(--border);
   border-radius:8px; background:var(--card); color:var(--fg); }
@@ -628,9 +651,8 @@ aside h3 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color
     <button class="primary" id="start">Start</button>
     <button class="stop" id="stop" disabled>Stop</button>
   </div>
-  <div class="group"><span class="lbl">Reader</span>
-    <button id="rebuild" title="rebuild site/index.html">Rebuild</button>
-    <button id="open" title="the window becomes the reader (site/index.html); the tab at the edge brings the translation back">Open</button>
+  <div class="group" id="mode" title="read: the window becomes the reader (rebuilt when translations are newer) · translate: the live dashboard">
+    <span data-m="read">read</span><span data-m="translate" class="on">translate</span>
   </div>
 </header>
 <div id="stats">
@@ -678,13 +700,18 @@ function applyPanel(){
   const towardsPanel = panel.side === 'left' ? '\u25c2' : '\u25b8';       // arrow points where the panel hides
   $('handle').innerHTML = panel.open ? towardsPanel : (panel.side === 'left' ? '\u25b8' : '\u25c2');
   $('handle').title = panel.open ? 'Hide the panel and read' : 'Back to the translation';
-  const rd = $('reader');
-  if (!panel.open && !rd.src) rd.src = '/reader';                       // loaded once, on first use; stays loaded
-  rd.hidden = panel.open;
-  $('open').textContent = panel.open ? 'Open' : 'Translation';
+  $('reader').hidden = panel.open;
+  if (!panel.open) showReader();
+  $('mode').querySelectorAll('span').forEach(x => x.classList.toggle('on', (x.dataset.m === 'read') !== panel.open));
   localStorage.setItem('livePanel', JSON.stringify(panel));
 }
+async function showReader(){                       // loaded once and kept; reloaded when translations are newer
+  const rd = $('reader');
+  if (!rd.src) { rd.src = '/reader'; return; }
+  try { if ((await (await fetch('/reader-stale')).json()).stale) rd.contentWindow.location.reload(); } catch (e) {}
+}
 $('handle').onclick = () => { panel.open = !panel.open; applyPanel(); };
+$('mode').querySelectorAll('span').forEach(x => x.onclick = () => { panel.open = x.dataset.m === 'translate'; applyPanel(); });
 $('hide').onclick = () => { panel.open = false; applyPanel(); };
 $('dock').onclick = () => { panel.side = panel.side === 'left' ? 'right' : 'left'; applyPanel(); };
 applyPanel();
@@ -1013,9 +1040,6 @@ $('start').onclick = async () => {
   browsing = null; schedule(); refresh();
 };
 $('stop').onclick = () => post('/stop');
-$('rebuild').onclick = async () => { const r = await post('/rebuild'); alert(r.output || 'rebuilt');
-  if ($('reader').src) $('reader').contentWindow.location.reload(); };
-$('open').onclick = () => { panel.open = !panel.open; applyPanel(); };      // reader fills the window; again = back
 setInterval(tick, 500);
 connect();
 </script></body></html>
