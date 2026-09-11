@@ -80,9 +80,10 @@ browser, console, Claude Code or IDE needed. It serves `live.py` in-process
 uses the system WebView2; without it Edge's app mode is used). Closing the
 window stops the server it started — it asks first if a translation is
 running. Output from a windowless start goes to `logs/app.log`.
-The dashboard's **Open** button shows the reader in a second window;
-`start_reader.cmd` (or `pythonw scriptspp.py --reader`) opens just the
-reader, standalone — no server, it is one offline file.
+The dashboard's **Open** button (or hiding the side panel with its tab or
+*read* button) turns the window into the reader; the tab at the edge brings
+the translation back. `start_reader.cmd` (or `pythonw scriptspp.py
+--reader`) opens just the reader — no server, it is one offline file.
 
 ### Target languages
 

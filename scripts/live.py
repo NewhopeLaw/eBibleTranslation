@@ -561,6 +561,8 @@ label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); fo
 .layout.left #handle { margin-left:0; border-left:0; border-right:1px solid var(--border); }
 .layout.left #text { margin-right:auto; }
 .layout.closed aside { display:none; }
+#reader { flex:1; min-width:0; border:0; background:var(--bg); }   /* the offline reader, shown while the panel is hidden */
+.layout.closed #text { display:none; }
 .phead { display:flex; justify-content:flex-end; gap:.25rem; margin:-.2rem 0 .1rem; }
 .phead button { font-size:12px; padding:.15rem .45rem; color:var(--muted); }
 #text { flex:1; overflow:auto; padding:1.2rem 1.6rem 4rem; font:17px/1.7 Georgia, "Times New Roman", serif; white-space:pre-wrap; }
@@ -628,7 +630,7 @@ aside h3 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color
   </div>
   <div class="group"><span class="lbl">Reader</span>
     <button id="rebuild" title="rebuild site/index.html">Rebuild</button>
-    <button id="open" title="open the reader (site/index.html)">Open</button>
+    <button id="open" title="the window becomes the reader (site/index.html); the tab at the edge brings the translation back">Open</button>
   </div>
 </header>
 <div id="stats">
@@ -648,9 +650,10 @@ aside h3 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color
 <div id="strip" hidden></div>
 <div class="layout" id="layout">
   <div id="text" class="plain"></div>
+  <iframe id="reader" title="eBible reader" hidden></iframe>
   <div id="handle" title="Hide / show the panel">&#9666;</div>
   <aside>
-    <div class="phead"><button id="dock" title="Move the panel to the other side">&#8644; move</button><button id="hide" title="Hide the panel (the tab at the edge brings it back)">&#215; hide</button></div>
+    <div class="phead"><button id="dock" title="Move the panel to the other side">&#8644; move</button><button id="hide" title="Hide the panel and read: the window becomes the reader (the tab at the edge brings the translation back)">&#215; read</button></div>
     <h3>Translations</h3>
     <div class="tg" id="targets"></div>
     <h3>This session</h3>
@@ -674,7 +677,11 @@ function applyPanel(){
   $('layout').classList.toggle('closed', !panel.open);
   const towardsPanel = panel.side === 'left' ? '\u25c2' : '\u25b8';       // arrow points where the panel hides
   $('handle').innerHTML = panel.open ? towardsPanel : (panel.side === 'left' ? '\u25b8' : '\u25c2');
-  $('handle').title = panel.open ? 'Hide the panel' : 'Show the panel';
+  $('handle').title = panel.open ? 'Hide the panel and read' : 'Back to the translation';
+  const rd = $('reader');
+  if (!panel.open && !rd.src) rd.src = '/reader';                       // loaded once, on first use; stays loaded
+  rd.hidden = panel.open;
+  $('open').textContent = panel.open ? 'Open' : 'Translation';
   localStorage.setItem('livePanel', JSON.stringify(panel));
 }
 $('handle').onclick = () => { panel.open = !panel.open; applyPanel(); };
@@ -1006,9 +1013,9 @@ $('start').onclick = async () => {
   browsing = null; schedule(); refresh();
 };
 $('stop').onclick = () => post('/stop');
-$('rebuild').onclick = async () => { const r = await post('/rebuild'); alert(r.output || 'rebuilt'); };
-$('open').onclick = () => { if (window.pywebview && pywebview.api) pywebview.api.open_reader();   // desktop app: own window
-                            else window.open('/reader', '_blank'); };                                // browser: new tab
+$('rebuild').onclick = async () => { const r = await post('/rebuild'); alert(r.output || 'rebuilt');
+  if ($('reader').src) $('reader').contentWindow.location.reload(); };
+$('open').onclick = () => { panel.open = !panel.open; applyPanel(); };      // reader fills the window; again = back
 setInterval(tick, 500);
 connect();
 </script></body></html>

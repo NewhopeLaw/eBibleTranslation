@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
-"""eBible as a desktop app: the live dashboard and the reader in their own windows.
+"""eBible as a desktop app: the live dashboard (with the reader built in) in its own window.
 
     pythonw scripts/app.py            # dashboard window (start_dashboard.cmd / Desktop shortcut)
-    pythonw scripts/app.py --reader   # reader window only (start_reader.cmd)
+    pythonw scripts/app.py --reader   # reader only, no server (start_reader.cmd)
     python  scripts/app.py            # same, with a console for log output
 
 Runs live.py's server in-process (same driver, outputs, logs) and shows it in
 a native window (pywebview on top of the system WebView2) instead of a browser
 tab. If a dashboard is already listening on the port, the window simply
 attaches to it. Closing the window stops the server it started; if a
-translation is running it asks first. The dashboard's Open button opens the
-reader (site/index.html) in a second window.
+translation is running it asks first. Hiding the dashboard's side panel turns
+the same window into the reader (site/index.html); the tab at the edge brings
+the translation back.
 
 --reader shows only the reader: one offline HTML file, no server at all.
 
@@ -39,7 +40,7 @@ URL = f"http://127.0.0.1:{live.PORT}/"
 TITLE = "eBible — live translation"
 READER = ROOT / "site" / "index.html"
 READER_TITLE = "eBible — reader"
-reader_win = None
+STORAGE = str(ROOT / "logs" / "webview")   # private_mode would wipe the page's remembered view/language on every start
 
 
 def port_in_use() -> bool:
@@ -59,43 +60,12 @@ def start_server():
     return srv
 
 
-def reader_url() -> str:
-    return READER.as_uri() if READER.exists() else URL + "reader"
-
-
-def open_reader():
-    """Show the reader window; reuse it if it is already open."""
-    global reader_win
-    import webview
-    if reader_win is not None:
-        try:
-            reader_win.restore()
-            return
-        except Exception:                       # noqa: BLE001 — window already gone
-            reader_win = None
-    reader_win = webview.create_window(READER_TITLE, reader_url(), width=1200, height=860,
-                                       min_size=(640, 480), text_select=True)
-
-    def closed():
-        global reader_win
-        reader_win = None
-    reader_win.events.closed += closed
-
-
-class Api:
-    """Called from the dashboard page as window.pywebview.api.<name>()."""
-
-    def open_reader(self):
-        open_reader()
-
-
 def run_window(srv) -> bool:
     try:
         import webview
     except ImportError:
         return False
-    win = webview.create_window(TITLE, URL, width=1320, height=880, min_size=(760, 520),
-                                text_select=True, js_api=Api())
+    win = webview.create_window(TITLE, URL, width=1320, height=880, min_size=(760, 520), text_select=True)
 
     def closing():
         if srv is not None and live.STATE["running"]:
@@ -106,16 +76,10 @@ def run_window(srv) -> bool:
             if not ok:
                 return False
         live.STOP.set()
-        if reader_win is not None:              # the reader window goes with the dashboard
-            try:
-                reader_win.destroy()
-            except Exception:                   # noqa: BLE001
-                pass
         return True
 
     win.events.closing += closing
-    # private_mode would wipe the page's remembered view/language on every start
-    webview.start(private_mode=False, storage_path=str(ROOT / "logs" / "webview"))
+    webview.start(private_mode=False, storage_path=STORAGE)
     return True
 
 
@@ -124,8 +88,8 @@ def run_reader_window() -> bool:
         import webview
     except ImportError:
         return False
-    open_reader()
-    webview.start(private_mode=False, storage_path=str(ROOT / "logs" / "webview"))
+    webview.create_window(READER_TITLE, READER.as_uri(), width=1200, height=860, min_size=(640, 480), text_select=True)
+    webview.start(private_mode=False, storage_path=STORAGE)
     return True
 
 
@@ -153,7 +117,7 @@ def main():
             print(f"no reader yet: {READER} — run scripts/build_site.py (or Rebuild in the dashboard)")
             return
         if not run_reader_window():
-            run_fallback(reader_url(), keep_serving=False)
+            run_fallback(READER.as_uri(), keep_serving=False)
         return
     srv = start_server()
     try:

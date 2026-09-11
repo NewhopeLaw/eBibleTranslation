@@ -81,6 +81,11 @@ select#bookSel { max-width:11rem; display:none; }
 main { max-width:42rem; margin:0 auto; padding:1.4rem 1.2rem 5rem; }
 main.wide { max-width:66rem; }
 .layout { display:flex; }
+footer#credits { border-top:1px solid var(--border); margin-top:2rem; padding:1.2rem 1.2rem 2rem; color:var(--muted);
+  font:12px/1.55 system-ui, sans-serif; }
+footer#credits h2 { font:600 12px system-ui, sans-serif; text-transform:uppercase; letter-spacing:.06em; margin:0 0 .5rem; }
+footer#credits p { margin:0 0 .45rem; max-width:66rem; } footer#credits a { color:inherit; }
+header .sources { margin-left:auto; font:12px system-ui, sans-serif; color:var(--muted); cursor:pointer; background:none; border:0; text-decoration:underline; }
 nav#books { width:210px; flex:none; padding:1rem .6rem; font:14px system-ui,sans-serif;
   border-right:1px solid var(--border); height:calc(100vh - 58px);
   overflow-y:auto; position:sticky; top:58px; }
@@ -167,11 +172,29 @@ p.ov { margin:0 0 .6em; }
   <input id="q" placeholder="Search the text…">
   <button class="fs" id="fsMinus" title="Smaller text">A−</button>
   <button class="fs" id="fsPlus" title="Larger text">A+</button>
+  <button class="sources" id="sources" title="Source texts, licenses and attributions">Sources &amp; licenses</button>
 </header>
 <div class="layout">
 <nav id="books"></nav>
 <main id="main"></main>
 </div>
+<footer id="credits">
+  <h2>Source texts, licenses and attributions</h2>
+  <p><b>Hebrew and Aramaic text:</b> Westminster Leningrad Codex (public domain), from the Open Scriptures Hebrew Bible —
+    “Original work of the Open Scriptures Hebrew Bible available at <a href="https://github.com/openscriptures/morphhb">https://github.com/openscriptures/morphhb</a>”
+    (lemma and morphology data <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>; the verse text is public domain).</p>
+  <p><b>Greek New Testament:</b> The SBL Greek New Testament, copyright 2010 Society of Biblical Literature and Logos Bible Software,
+    licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, <a href="https://github.com/LogosBible/SBLGNT">https://github.com/LogosBible/SBLGNT</a>.
+    Modified: critical sigla removed.</p>
+  <p><b>Byzantine text consulted:</b> Robinson–Pierpont Byzantine Majority Text (2018), public domain,
+    <a href="https://github.com/byztxt/byzantine-majority-text">https://github.com/byztxt/byzantine-majority-text</a>.</p>
+  <p><b>Septuagint (reference only, not translated):</b> H. B. Swete, <i>The Old Testament in Greek according to the Septuagint</i>
+    (Cambridge, 1887–1909; public domain); digital edition by the Open Greek and Latin project, University of Leipzig, 2015,
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>,
+    <a href="https://github.com/OpenGreekAndLatin/First1KGreek">https://github.com/OpenGreekAndLatin/First1KGreek</a> (data/tlg0527).</p>
+  <p><b>Translations:</b> produced from the Hebrew, Aramaic and Greek above by a local language model, checked and corrected by the project.
+    Full notes: LEGAL.md in the project repository.</p>
+</footer>
 <script>
 const DATA = __DATA__;
 const ORDER = __ORDER__;
@@ -400,6 +423,7 @@ document.addEventListener("keydown", e => {
   if (e.key === "ArrowRight" && next) location.hash = `#${next.b}/${next.c}`;
 });
 window.addEventListener("hashchange", route);
+$("#sources").onclick = () => $("#credits").scrollIntoView({behavior:"smooth", block:"start"});
 route();
 </script>
 </body>
