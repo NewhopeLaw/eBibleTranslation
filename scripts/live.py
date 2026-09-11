@@ -642,8 +642,10 @@ aside h3 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color
 @media (max-width:820px) { aside, #handle { display:none; } .grid { grid-template-columns:1fr; } .grid .o { border-bottom:0; padding-bottom:.1rem; } }
 /* mobile preview: the content area becomes a 390x844 phone screen (scaled to fit), so the reader's own
    responsive rules fire as on a phone; the dashboard view gets its narrow-layout rules by class */
-body.mobile .layout { flex:none; width:410px; height:864px; margin:.6rem auto 0; border:10px solid #15130f; border-radius:30px;   /* 390 x 844 inside the bezel */
+#app { display:flex; flex-direction:column; flex:1; min-height:0; }
+body.mobile #app { flex:none; width:410px; height:864px; margin:.6rem auto 0; border:10px solid #15130f; border-radius:30px;   /* 390 x 844 inside the bezel: header, stats and content */
   box-shadow:0 0 0 1px #3a352e, 0 12px 40px rgba(0,0,0,.35); overflow:hidden; background:var(--bg); transform-origin:top center; }
+body.mobile { background:var(--soft); }
 body.mobile .layout aside, body.mobile .layout #handle { display:none; }
 body.mobile .grid { grid-template-columns:1fr; } body.mobile .grid .o { border-bottom:0; padding-bottom:.1rem; }
 body.mobile #text.plain { max-width:none; } body.mobile #text { padding:.9rem 1rem 3rem; }
@@ -651,6 +653,7 @@ body.mobile #text.plain { max-width:none; } body.mobile #text { padding:.9rem 1r
 #device span { padding:.3rem .8rem; border-radius:999px; cursor:pointer; color:var(--muted); font-size:13px; }
 #device span.on { background:var(--accent); color:#fff; }
 </style></head><body>
+<div id="app">
 <header>
   <div class="brand"><b>eBible</b><span class="sub">live translation</span><span class="pill" id="pill">idle</span><span class="pill" id="model"></span></div>
   <div class="group" id="run"><span class="lbl">Run</span>
@@ -699,6 +702,7 @@ body.mobile #text.plain { max-width:none; } body.mobile #text { padding:.9rem 1r
     <div id="books"></div>
   </aside>
 </div>
+</div>
 <script>
 const $ = id => document.getElementById(id);
 const LANGS = __LANGS__, TARGETS = __TARGETS__, TCODES = Object.keys(TARGETS);
@@ -730,12 +734,11 @@ function applyMode(){
 }
 let device = localStorage.getItem('liveDevice') === 'mobile' ? 'mobile' : 'pc';   // PC | mobile preview of the content area
 function applyDevice(){
-  const mobile = device === 'mobile', lay = $('layout');
+  const mobile = device === 'mobile', app = $('app');
   document.body.classList.toggle('mobile', mobile);
   if (mobile) {                                          // scale the phone down when the window is too short for it
-    const room = window.innerHeight - lay.offsetTop - 12;
-    lay.style.transform = `scale(${Math.min(1, room / 864).toFixed(3)})`;
-  } else lay.style.transform = '';
+    app.style.transform = `scale(${Math.min(1, (window.innerHeight - 20) / 864).toFixed(3)})`;
+  } else app.style.transform = '';
   $('device').querySelectorAll('span').forEach(x => x.classList.toggle('on', x.dataset.d === device));
   localStorage.setItem('liveDevice', device);
 }
