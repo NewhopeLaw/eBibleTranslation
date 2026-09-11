@@ -11,6 +11,8 @@ Checks (flags, never auto-fixes):
   - verse count mismatch, missing or duplicated verse numbers
   - empty verses
   - untranslated source-script (Hebrew/Greek) characters in the translation
+  - a verse that trails off repeating the same words (a model loop, e.g.
+    "and barley, and meal, and roasted grain, and barley, ...")
   - suspicious length ratio (translation far shorter than source = possible
     truncation; the threshold is looser for CJK/Thai, which are denser)
   - proper-name spelling inconsistencies across chapters (near-duplicate
@@ -28,6 +30,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from books import BOOKS, DEFAULT_TARGET, TARGETS, parse_targets, slug
+from translate import find_loop
 
 ROOT = Path(__file__).resolve().parent.parent
 NORM_DIR = ROOT / "sources" / "normalized"
@@ -81,6 +84,9 @@ def check_chapter(code, ch, out, src_verses, flags, ratio):
             continue
         if HEBREW.search(text) or GREEK.search(text):
             flags.append(f"{ref}:{n}: UNTRANSLATED source characters remain")
+        unit = find_loop(text)
+        if unit:
+            flags.append(f"{ref}:{n}: LOOP — repeats {unit.strip()[:60]!r} over and over")
         src = src_by_num.get(n)
         if src and len(text) < ratio * len(src) and len(src) > 30:
             flags.append(f"{ref}:{n}: SHORT — {len(text)} chars vs {len(src)} source "
