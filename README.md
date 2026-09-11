@@ -69,6 +69,12 @@ scripts/live.py                         live dashboard on :8766 — same driver,
                                         tokens stream to the browser as they arrive
 ```
 
+`start_dashboard.cmd` (double-click, or the "eBible dashboard" Desktop shortcut)
+starts `live.py` in its own minimized console window and opens
+<http://localhost:8766> — no Claude Code or IDE needed. If the dashboard is
+already up it just opens the tab; close the console window (or Ctrl-C in it)
+to stop the server.
+
 ### Target languages
 
 The pipeline translates into several languages from the same sources; each
