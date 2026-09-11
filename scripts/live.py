@@ -586,6 +586,7 @@ label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); fo
 .layout.closed aside { display:none; }
 #reader { flex:1; min-width:0; border:0; background:var(--bg); }   /* the offline reader: read mode fills the layout with it */
 .layout.reading #text, .layout.reading aside, .layout.reading #handle { display:none; }
+body.reading #stats, body.reading #totals, body.reading #strip { display:none; }   /* read mode: no translation indicators */
 .phead { display:flex; justify-content:flex-end; gap:.25rem; margin:-.2rem 0 .1rem; }
 .phead button { font-size:12px; padding:.15rem .45rem; color:var(--muted); }
 #text { flex:1; overflow:auto; padding:1.2rem 1.6rem 4rem; font:17px/1.7 Georgia, "Times New Roman", serif; white-space:pre-wrap; }
@@ -706,6 +707,7 @@ function applyPanel(){
 function applyMode(){
   const reading = mode === 'read';
   $('layout').classList.toggle('reading', reading);
+  document.body.classList.toggle('reading', reading);
   $('reader').hidden = !reading;
   if (reading) showReader();
   $('mode').querySelectorAll('span').forEach(x => x.classList.toggle('on', x.dataset.m === mode));
