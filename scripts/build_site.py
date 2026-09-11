@@ -74,7 +74,8 @@ input, select, button.fs { font:14px system-ui, sans-serif; padding:.45rem .6rem
   border:1px solid var(--border); border-radius:8px;
   background:var(--card); color:var(--fg); }
 input:focus { outline:2px solid var(--accent); border-color:transparent; }
-#ref { width:11rem; } #q { width:13rem; }
+#ref { width:9rem; } #q { width:13rem; }
+.goto { display:flex; align-items:center; gap:.4rem; font:12px system-ui, sans-serif; color:var(--muted); white-space:nowrap; }
 button.fs { cursor:pointer; width:2.2rem; }
 button.fs:hover { border-color:var(--accent); }
 select#bookSel { max-width:11rem; display:none; }
@@ -168,7 +169,7 @@ p.ov { margin:0 0 .6em; }
   <span class="brand">eBible — from the Hebrew, Aramaic &amp; Greek</span>
   <select id="bookSel"></select>
   <select id="tlSel" title="Translation language"></select>
-  <input id="ref" placeholder="Go to: Genesis 2:7">
+  <label class="goto" title="Type a reference: Genesis 2:7, 1 Sam 3, Ps 23 — the page follows as you type"><span>Go to</span><input id="ref" placeholder="Genesis 2:7"></label>
   <input id="q" placeholder="Search the text…">
   <button class="fs" id="fsMinus" title="Smaller text">A−</button>
   <button class="fs" id="fsPlus" title="Larger text">A+</button>
@@ -405,9 +406,16 @@ function route() {
   $("#q").value = "";
   renderChapter(book, ch, v ? +v : null);
 }
-$("#ref").addEventListener("keydown", e => {
-  if (e.key === "Enter" && goRef(e.target.value)) e.target.value = "";
+let refDeb;                                   // the page follows the reference as it is typed; Enter is optional
+$("#ref").addEventListener("input", e => {
+  clearTimeout(refDeb);
+  const val = e.target.value;
+  refDeb = setTimeout(() => { if (val.trim()) goRef(val); }, 350);
 });
+$("#ref").addEventListener("keydown", e => {
+  if (e.key === "Enter") { clearTimeout(refDeb); if (goRef(e.target.value)) e.target.value = ""; }
+});
+$("#ref").addEventListener("blur", e => { e.target.value = ""; });
 let deb;
 $("#q").addEventListener("input", e => {
   clearTimeout(deb);
