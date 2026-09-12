@@ -20,6 +20,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from books import BOOKS, LANGS, MIXED, TARGETS, chapter_lang, slug, verse_lang
+import readaloud as RA
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT_ROOT = ROOT / "output"
@@ -168,6 +169,7 @@ ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
   header .brand { display:none }
   #q { width:9rem } #ref { width:8rem }
 }
+__READALOUD_CSS__
 </style>
 </head>
 <body>
@@ -442,6 +444,7 @@ document.addEventListener("keydown", e => {
 window.addEventListener("hashchange", route);
 $("#sources").onclick = () => $("#credits").scrollIntoView({behavior:"smooth", block:"start"});
 route();
+__READALOUD_JS__
 </script>
 </body>
 </html>
@@ -496,7 +499,9 @@ def main():
             .replace("__LANGS__", json.dumps({**LANGS, "mixed": MIXED}))
             .replace("__TARGETS__", json.dumps({c: {"name": t["name"], "native": t["native"], "dir": t.get("dir", "ltr")} for c, t in TARGETS.items()}, ensure_ascii=False))
             .replace("__ABBREV__", json.dumps(
-                {k: v.replace(" ", "_") for k, v in ABBREV.items()})))
+                {k: v.replace(" ", "_") for k, v in ABBREV.items()}))
+            .replace("__READALOUD_CSS__", RA.CSS)
+            .replace("__READALOUD_JS__", RA.js('main', '.par .o, .par .e, .cmp .row .txt, p.ov, .poetry, .vv span, .hit, .notes')))
     out = SITE / "index.html"
     out.write_text(page, encoding="utf-8")
     nch = sum(len(v) for v in data.values())

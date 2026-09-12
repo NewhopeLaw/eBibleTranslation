@@ -26,6 +26,7 @@ from urllib.parse import parse_qs
 sys.path.insert(0, str(Path(__file__).parent))
 import translate as T                                                  # noqa: E402
 from books import BOOKS, DEFAULT_TARGET, LANGS, MIXED, TARGETS, slug, verse_lang   # noqa: E402
+import readaloud as RA                                                 # noqa: E402
 
 PORT = 8766
 ROOT = T.ROOT
@@ -428,7 +429,9 @@ class Handler(BaseHTTPRequestHandler):
             body = (PAGE.replace("__LANGS__", json.dumps({**LANGS, "mixed": MIXED}, ensure_ascii=False))
                         .replace("__TARGETS__", json.dumps({c: {"name": t["name"], "native": t["native"], "dir": t.get("dir", "ltr")}
                                                             for c, t in TARGETS.items()}, ensure_ascii=False))
-                        .replace("__DEFAULT__", DEFAULT_TARGET)).encode("utf-8")
+                        .replace("__DEFAULT__", DEFAULT_TARGET)
+                        .replace("__READALOUD_CSS__", RA.CSS)
+                        .replace("__READALOUD_JS__", RA.js('#text', '.grid .o, .grid .e, .cmp .row .txt, p.ov, .notes, #text'))).encode("utf-8")
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.send_header("Content-Length", str(len(body)))
@@ -658,6 +661,7 @@ body.mobile #text.plain { max-width:none; } body.mobile #text { padding:.9rem 1r
 #device { gap:.15rem; padding:.2rem; border-radius:999px; }
 #device span { padding:.3rem .8rem; border-radius:999px; cursor:pointer; color:var(--muted); font-size:13px; }
 #device span.on { background:var(--accent); color:#fff; }
+__READALOUD_CSS__
 </style></head><body>
 <div id="app">
 <header>
@@ -1095,6 +1099,7 @@ $('start').onclick = async () => {
 $('stop').onclick = () => post('/stop');
 setInterval(tick, 500);
 connect();
+__READALOUD_JS__
 </script></body></html>
 """
 
