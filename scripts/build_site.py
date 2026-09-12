@@ -154,6 +154,11 @@ main.inter .orig .w[data-m]::before { content:attr(data-m); display:block; font:
 #wpop .meaning { color:var(--muted); font-size:12px; margin-top:.35rem; max-height:9em; overflow:auto; }
 #wpop .acts { margin-top:.5rem; } #wpop .acts a { margin-right:.9rem; cursor:pointer; color:var(--accent); text-decoration:underline; }
 #wpop .pre { color:var(--muted); font-size:12px; }
+#wpop .ours { border-top:1px solid var(--border); margin-top:.55rem; padding-top:.5rem; }
+#wpop .ours h5 { font:600 10px system-ui,sans-serif; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 .3rem; }
+#wpop .sense { margin:0 0 .3rem; } #wpop .sense b { font-weight:600; } #wpop .sense i { color:var(--muted); font-style:normal; font-size:11px; }
+#wpop .sense a, #wpop .idiom a { color:var(--accent); cursor:pointer; margin-left:.3em; }
+#wpop .idiom, #wpop .near, #wpop .usage, #wpop .cav { font-size:12px; color:var(--muted); margin-top:.3rem; }
 .tabs a.tool { border-style:dashed; }
 .gs { display:grid; grid-template-columns:repeat(auto-fill,minmax(11rem,1fr)); gap:.5rem .8rem; margin:.6rem 0 1rem; font:13px system-ui,sans-serif; }
 .gs label { display:flex; flex-direction:column; gap:.2rem; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.05em; }
@@ -386,6 +391,18 @@ function loadJs(src){ return _loaded[src] || (_loaded[src] = new Promise((ok, no
 const morphLoad = book => MORPH[disp(book)] ? Promise.resolve() : loadJs(`morph/${book}.js`);
 const lexLoad = () => typeof LEX !== "undefined" ? Promise.resolve() : loadJs("morph/lex.js");
 const concLoad = () => typeof CONC !== "undefined" ? Promise.resolve() : loadJs("morph/conc.js");
+const lexxLoad = () => typeof LEXX !== "undefined" ? Promise.resolve() : loadJs("morph/lexx.js");
+const refLink = r => { const m = r.match(/^(.+?) (\d+):(\d+)$/); return m ? `<a onclick="hidePop();location.hash='#${m[1].replace(/ /g, "_")}/${m[2]}/${m[3]}'">${r}</a>` : esc(r); };
+function oursHtml(tag){                                  // our own entry, written by the model from the concordance
+  const e = typeof LEXX !== "undefined" ? LEXX[tag] : null; if (!e) return "";
+  let h = `<div class="ours"><h5>This project's entry <span style="text-transform:none;font-weight:400">· written by the model from ${e.count} occurrence${e.count === 1 ? "" : "s"}</span></h5>`;
+  for (const s of e.senses || []) h += `<div class="sense"><b>${esc(s.sense)}</b> — ${esc(s.definition)} ${(s.refs || []).map(refLink).join(" ")}</div>`;
+  if (e.usage) h += `<div class="usage">${esc(e.usage)}</div>`;
+  for (const i of e.idioms || []) h += `<div class="idiom"><span class="orig">${esc(i.phrase)}</span> — ${esc(i.meaning)} ${(i.refs || []).map(refLink).join(" ")}</div>`;
+  if ((e.near || []).length) h += `<div class="near">compare ${e.near.map(n => `<span class="orig">${esc(n.word)}</span> (${esc(n.difference)})`).join("; ")}</div>`;
+  if (e.note) h += `<div class="cav">${esc(e.note)}</div>`;
+  return h + `</div>`;
+}
 const WRE = /[\p{L}\p{M}\p{N}]+(?:['\u2019][\p{L}\p{M}\p{N}]+)*/gu;   // same tokenizer as build_morph.py
 const attr = t => esc(t).replace(/"/g, "&quot;");
 function wrapSrc(text, book, ch, v){                     // words as spans; gloss + code attached when the book's tags are loaded
@@ -412,7 +429,7 @@ let wsel = null;
 function hidePop(){ wpop.hidden = true; if (wsel) { wsel.classList.remove("sel"); wsel = null; } }
 async function showPop(el){
   const [book, ch, v, i] = el.dataset.k.split("/");
-  await morphLoad(book); await lexLoad();
+  await morphLoad(book); await lexLoad(); await lexxLoad().catch(() => {});
   const m = MORPH[disp(book)], d = m && m[ch] && m[ch][v] && m[ch][v][i];
   if (wsel) wsel.classList.remove("sel"); wsel = el; el.classList.add("sel");
   let html = `<div class="hw"><span class="orig">${esc(el.textContent)}</span>`;
@@ -427,6 +444,7 @@ async function showPop(el){
     const extra = (d[0].match(TAGRE) || []).filter(t => t !== root && LEX[t]);
     if (extra.length) html += `<div class="pre">with: ${extra.map(t => `${esc(LEX[t][0])} <i>${esc(LEX[t][3])}</i>`).join(", ")}</div>`;
     if (e && e[4]) html += `<div class="meaning">${esc(e[4])}</div>`;
+    html += oursHtml(root);
     html += `<div class="acts"><a onclick="showConc('${root}')">all occurrences</a><a onclick="gsOpen('${root}', '${attr(d[1])}')">this form elsewhere</a><a onclick="hidePop()">close</a></div>`;
   }
   wpop.innerHTML = html; wpop.hidden = false;

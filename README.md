@@ -112,6 +112,18 @@ and in the Torah, matched by the rare lexemes they share. In the reader: click
 a verse number for its cross-references and parallels; the *parallels* tab
 lays the chapter out in columns beside the books it parallels.
 
+### Our own lexicon
+
+`scripts/build_lexicon.py` writes a lexicon of its own: for each lexeme the
+concordance supplies a sample of occurrences spread across the canon, with the
+form and parsing in each, and the model writes the entry — senses with anchor
+verses, how the usage shifts, idioms, near-synonyms, what is uncertain. No
+published dictionary is supplied to it. Entries append to
+`targets/lexicon/entries.jsonl` (resumable; `--limit`, `--tag`, `--min-count`)
+and `--pack` writes `site/morph/lexx.js`, shown in the reader's word popup
+under *This project's entry*. Roughly 7 s per lexeme: about 8 GPU hours for the
+3,861 lexemes occurring ten times or more, 33 hours for all 16,967.
+
 ### Target languages
 
 The pipeline translates into several languages from the same sources; each
