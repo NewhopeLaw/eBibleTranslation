@@ -74,6 +74,10 @@ def jobs():
                     [sys.executable, str(S / "translate_lexicon.py"), "--lang", code]))
     out.append(("rebuild", "rebuild every layer and the reader page", 0, 1,
                 [sys.executable, str(S / "build_all.py")]))
+    total_left = sum(max(0, t - d) for _, _, d, t, _ in out if t)
+    out.append(("queue", "every unfinished job, one after another",
+                0 if total_left else 1, 1 if total_left else 1,
+                [sys.executable, str(S / "work.py")]))
     return out
 
 

@@ -331,6 +331,117 @@ LAYERS = [
 ]
 
 
+WORKERS: dict = {}                      # job name -> Popen, for the jobs this dashboard started
+
+
+def work_jobs():
+    """The queue's job table: {name: (what, done, total, command)}."""
+    import importlib
+    try:
+        w = importlib.import_module("work")
+        importlib.reload(w)
+        return {name: (what, done, total, cmd) for name, what, done, total, cmd in w.jobs()}
+    except Exception as e:                                  # noqa: BLE001
+        print(f"work queue unavailable: {e}")
+        return {}
+
+
+# A job can also have been started from a terminal or by start_work.cmd. The
+# dashboard finds those by looking at what the running python processes are, so
+# the buttons can stop them too — the point of the buttons is to free the GPU.
+SCRIPT_JOB = {"build_lexemes.py": "lexemes", "build_lexicon.py": "lexicon", "build_domains.py": "domains",
+              "build_themes.py": "themes", "build_index.py": "search-index"}
+_scan = {"at": 0.0, "found": {}}
+
+
+def foreign_jobs():
+    """{job name: [pid, ...]} for our jobs running outside this dashboard."""
+    import subprocess
+    if time.time() - _scan["at"] < 5:
+        return _scan["found"]
+    found = {}
+    try:
+        r = subprocess.run(["powershell", "-NoProfile", "-Command",
+                            "Get-CimInstance Win32_Process -Filter \"Name like 'python%'\" | "
+                            "Select-Object ProcessId,CommandLine | ConvertTo-Json -Compress"],
+                           capture_output=True, text=True, timeout=20)
+        data = json.loads(r.stdout or "[]")
+        if isinstance(data, dict):
+            data = [data]
+    except Exception:                                        # noqa: BLE001 — discovery is best effort
+        data = []
+    mine = {proc.pid for proc in WORKERS.values() if proc.poll() is None}
+    for row in data:
+        cmd = (row.get("CommandLine") or "")
+        pid = row.get("ProcessId")
+        if not pid or pid in mine or "eBibleTranslation" not in cmd:
+            continue
+        job = None
+        for script, name in SCRIPT_JOB.items():
+            if script in cmd:
+                job = name
+                break
+        if "build_theology.py" in cmd:
+            job = "trajectories" if "--trajectories" in cmd else "book-arguments"
+        elif "translate_lexicon.py" in cmd:
+            m = re.search(r"--lang\s+(\S+)", cmd)
+            job = f"lexicon-{m.group(1)}" if m else None
+        elif "work.py" in cmd and "--only" not in cmd and "--list" not in cmd:
+            job = "queue"
+        if job:
+            found.setdefault(job, []).append(pid)
+    _scan.update(at=time.time(), found=found)
+    return found
+
+
+def worker_running(job):
+    proc = WORKERS.get(job)
+    if proc is not None and proc.poll() is None:
+        return True
+    return bool(foreign_jobs().get(job))
+
+
+def work_start(job):
+    """Run one job in its own process, so it can be stopped on its own."""
+    import subprocess
+    if worker_running(job):
+        return "already running"
+    table = work_jobs()
+    if job not in table:
+        return f"unknown job {job!r}"
+    cmd = table[job][3]
+    log = ROOT / "logs" / f"job_{job}.log"
+    log.parent.mkdir(exist_ok=True)
+    fh = open(log, "a", encoding="utf-8", buffering=1)
+    flags = getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0)
+    WORKERS[job] = subprocess.Popen(cmd, cwd=str(ROOT), stdout=fh, stderr=fh, creationflags=flags)
+    print(f"job {job}: started (pid {WORKERS[job].pid}) -> {log.name}")
+    return None
+
+
+def work_stop(job=None):
+    """Stop one job, or every job — whether this dashboard started it or not."""
+    import subprocess
+    stopped = []
+    for name, proc in list(WORKERS.items()):
+        if job and name != job:
+            continue
+        if proc.poll() is None:
+            subprocess.run(["taskkill", "/PID", str(proc.pid), "/T", "/F"], capture_output=True)
+            stopped.append(name)
+        WORKERS.pop(name, None)
+    for name, pids in foreign_jobs().items():              # started from a terminal or start_work.cmd
+        if job and name != job:
+            continue
+        for pid in pids:
+            subprocess.run(["taskkill", "/PID", str(pid), "/T", "/F"], capture_output=True)
+            stopped.append(name)
+    _scan["at"] = 0.0
+    if stopped:
+        print(f"jobs stopped: {', '.join(sorted(set(stopped)))}")
+    return sorted(set(stopped))
+
+
 def work_progress():
     """Every layer, in order from the smallest unit of language to the largest."""
     import importlib
@@ -341,14 +452,8 @@ def work_progress():
             manifest = json.loads(f.read_text(encoding="utf-8"))
         except json.JSONDecodeError:
             manifest = {}
-    jobs = {}
-    try:
-        w = importlib.import_module("work")
-        importlib.reload(w)
-        for name, what, done, total, _ in w.jobs():
-            jobs[name] = (done, total)
-    except Exception:                                       # noqa: BLE001 — the panel is optional
-        pass
+    table = work_jobs()
+    jobs = {name: (v[1], v[2]) for name, v in table.items()}
     tr_done = sum(d for n, (d, t) in jobs.items() if n.startswith("lexicon-"))
     tr_total = sum(t for n, (d, t) in jobs.items() if n.startswith("lexicon-")) or 1
     jobs["lexicon-translations"] = (tr_done, tr_total)
@@ -362,11 +467,16 @@ def work_progress():
                 done, total = jobs.get(job[4:], (0, 0))
             elif m:
                 done = total = m.get("count", 0)
+            jobname = job[4:] if job and job.startswith("job:") else None
             entries.append({"key": key, "what": what, "done": done, "total": total,
                             "unit": m.get("unit", ""), "count": m.get("count", 0),
-                            "built": m.get("built"), "running": bool(job) and 0 < done < total})
+                            "built": m.get("built"), "job": jobname,
+                            "running": bool(jobname) and worker_running(jobname),
+                            "mine": bool(jobname) and jobname in WORKERS and WORKERS[jobname].poll() is None,
+                            "startable": bool(jobname) and jobname in table})
         out.append({"group": gkey, "label": glabel, "items": entries})
-    return {"groups": out, "now": time.time()}
+    running = [i["key"] for g in out for i in g["items"] if i["running"]]
+    return {"groups": out, "now": time.time(), "anyrunning": bool(running), "running": running}
 
 
 REBUILD_LOCK = threading.Lock()
@@ -567,6 +677,11 @@ class Handler(BaseHTTPRequestHandler):
         elif self.path == "/stop":
             STOP.set()
             self._json({"ok": True})
+        elif self.path == "/work/start":
+            err = work_start((self._body().get("job") or "").strip())
+            self._json({"ok": err is None, "error": err}, 409 if err else 200)
+        elif self.path == "/work/stop":
+            self._json({"ok": True, "stopped": work_stop((self._body().get("job") or "").strip() or None)})
         elif self.path == "/rebuild":
             self._json({"ok": True, "output": rebuild_site()})
         elif self.path == "/align":
@@ -651,6 +766,15 @@ label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); fo
 #work .j.full .b i { background:var(--ok); }
 #work .j.run b { color:var(--accent); } #work .j.run .b i { animation:pulse 1.4s infinite; }
 #work .j.none { opacity:.45; }
+#work .j button { font:11px system-ui,sans-serif; line-height:1; padding:.15rem .3rem; min-width:1.3rem; border:1px solid var(--border);
+  border-radius:5px; background:var(--card); color:var(--muted); cursor:pointer; }
+#work .j button:hover { border-color:var(--accent); color:var(--fg); }
+#work .j button.on { background:var(--err); border-color:var(--err); color:#fff; }
+#work .hd { display:flex; align-items:center; gap:.5rem; padding:0 0 .2rem; }
+#work .hd b { font-size:11px; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); font-weight:600; }
+#work .hd button { font:11px system-ui,sans-serif; padding:.15rem .5rem; border:1px solid var(--border); border-radius:6px;
+  background:var(--card); color:var(--fg); cursor:pointer; }
+#work .hd button.stopall { color:var(--err); border-color:var(--err); }
 body.reading #work { display:none; }
 #stats { display:flex; flex-wrap:wrap; gap:.4rem .5rem; padding:.5rem .9rem; align-items:stretch;
   border-bottom:1px solid var(--border); }
@@ -1071,16 +1195,29 @@ async function workBar(){
   const groups = (w.groups || []).filter(g => g.items.some(i => i.done || i.count));
   if (!groups.length) { el.hidden = true; return; }
   el.hidden = false;
-  el.innerHTML = groups.map(g => `<div class="grp"><span class="gl">${esc(g.label)}</span>` + g.items.map(it => {
+  const anyrun = !!w.anyrunning;
+  el.innerHTML = `<div class="hd"><b>Model work</b>${anyrun ? `<button class="stopall" onclick="workStop()">stop all — free the GPU</button>`
+      : `<button onclick="workStart('queue')" title="run every unfinished job, one after another">run the queue</button>`}
+      <span style="font-size:11px">${anyrun ? "using the GPU now" : "idle"}</span></div>`
+    + groups.map(g => `<div class="grp"><span class="gl">${esc(g.label)}</span>` + g.items.map(it => {
     const total = it.total || it.count || 0, done = it.done || it.count || 0;
     const pct = total ? Math.min(100, 100 * done / total) : 0;
     const cls = !done ? 'none' : (it.running ? 'run' : (done >= total ? 'full' : ''));
     const num = it.running || done < total ? `<b>${fmtN(done)}</b>/${fmtN(total)}` : `<b>${fmtN(done)}</b>`;
     const tip = `${it.what}${it.unit ? ' — ' + fmtN(it.count) + ' ' + it.unit : ''}${it.built ? ' · ' + fmtAge(it.built) : ''}${it.running ? ' · running now' : ''}`;
-    return `<span class="j ${cls}" title="${esc(tip)}">${esc(it.key.replace(/-/g, ' '))} <span class="b"><i style="width:${pct.toFixed(1)}%"></i></span> ${num}</span>`;
+    const btn = it.startable ? (it.running
+        ? `<button class="on" title="stop this job" onclick="workStop('${it.job}')">\u25a0</button>`
+        : (done >= total ? "" : `<button title="start this job" onclick="workStart('${it.job}')">\u25b6</button>`)) : "";
+    return `<span class="j ${cls}" title="${esc(tip)}">${esc(it.key.replace(/-/g, ' '))} <span class="b"><i style="width:${pct.toFixed(1)}%"></i></span> ${num}${btn}</span>`;
   }).join('') + `</div>`).join('');
 }
-setInterval(workBar, 20000);
+async function workStart(job){
+  const r = await post('/work/start', {job: job === 'queue' ? 'queue' : job});
+  if (!r.ok) alert(r.error || 'could not start');
+  setTimeout(workBar, 700);
+}
+async function workStop(job){ await post('/work/stop', job ? {job} : {}); setTimeout(workBar, 700); }
+setInterval(workBar, 8000);
 workBar();
 
 function totals(s){

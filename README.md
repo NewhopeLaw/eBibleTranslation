@@ -237,6 +237,17 @@ The reader's tabs run in the same order as the layers: the texts first, then
 interlinear and grammar search (words), fields of meaning, themes, and last the
 notes on a verse — parallels, places, chronology.
 
+### Starting and stopping the model work from the dashboard
+
+The work bar has a start button on every unfinished job and a stop button on
+every running one, with **stop all — free the GPU** in its header. Stopping
+kills the process tree, so the model call goes with it and the GPU is yours
+again; the job resumes from where it stopped when you start it next.
+
+It also finds jobs started outside the dashboard — from `start_work.cmd` or a
+terminal — by looking at what the running python processes are, so those can be
+stopped from the same buttons. Each job's output goes to `logs/job_<name>.log`.
+
 ### Long model jobs (the work queue)
 
 The jobs that need the GPU for hours — writing the lexicon, sorting every
