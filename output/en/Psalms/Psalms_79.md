@@ -1,0 +1,10 @@
+# Psalms 79
+
+¹ A psalm of Asaph. Foreign nations have come into your inheritance, they have defiled your holy temple, they have made Jerusalem a place of waste. ² They have given the bodies of your servants to be food for the birds of the sky, the flesh of your faithful ones to the beasts of the earth. ³ They have poured out their blood like water around Jerusalem, and there is no one to bury them. ⁴ We have become a disgrace to our neighbors, a laughingstock and a taunt to those around us. ⁵ How long, O LORD, will you be angry forever? Will your fire of jealousy burn on and on? ⁶ Pour out your wrath upon the nations who do not know you, and upon the kingdoms who have not called on your name. ⁷ For they have devoured Jacob and laid waste to his dwelling. ⁸ Do not remember against us the sins of our ancestors. Let your mercy come quickly to meet us, for we are brought very low. ⁹ Help us, O God our savior, for the sake of the glory of your name. Deliver us and forgive our sins for the sake of your name. ¹⁰ Let not the nations say, "Where is their God?" Let the nations see the vengeance for the blood of your servants that has been shed. ¹¹ Let the groaning of the prisoner come before you, according to the greatness of your power, rescue those doomed to death. ¹² Repay our neighbors sevenfold into their laps the shame they have heaped upon you, O Lord. ¹³ But we are your people, the flock of your pasture. We will give thanks to you forever; from generation to generation we will proclaim your praise.
+
+---
+
+Notes
+- v. 1: "a place of waste" ( Heb. עִיִּים) reflects the plural form used in the original, but it is rendered as a singular concept here for clarity.
+- v. 10: "the vengeance for the blood of your servants that has been shed" — the Hebrew phrase is elliptical and context-dependent, and the translation aims to preserve the poetic and liturgical tone.
+- v. 11: "those doomed to death" ( Heb. בְּנֵי תְמוּתָֽה) is a rare expression, possibly referring to those condemned or in perilous circumstances, and is interpreted accordingly.

@@ -1,0 +1,9 @@
+# 1 Timothy 2
+
+¹ First of all, then, I urge that requests, prayers, intercessions, and thanksgivings be made for everyone, ² for kings and for all who are in positions of authority, so that we may lead a quiet and peaceful life in all godliness and reverence. ³ This is good and acceptable in the sight of our Savior God, ⁴ who wants all people to be saved and to come to the knowledge of the truth. ⁵ For there is one God, and one mediator between God and humankind, the man Christ Jesus, ⁶ who gave himself as a ransom for all, at the appointed times— ⁷ for which I have been appointed a herald and an apostle— I am telling the truth, I am not lying— a teacher of the Gentiles in faith and truth. ⁸ I desire, then, that men pray in every place, lifting up holy hands without anger or argument. ⁹ Likewise, women are to dress in respectable clothing, with modesty and self-control, not with elaborate braiding or gold or pearls or costly attire, ¹⁰ but with what is appropriate for women who profess godliness— through good works. ¹¹ Let a woman learn in quietness with full submission. ¹² I do not permit a woman to teach or to exercise authority over a man, but to remain in quietness. ¹³ For Adam was formed first, then Eve; ¹⁴ and Adam was not deceived, but the woman was deceived and became a transgressor. ¹⁵ But she will be saved through childbearing, if they continue in faith and love and holiness, with self-control.
+
+---
+
+Notes
+- v. 14: The phrase "ἐξαπατηθεῖσα ἐν παραβάσει γέγονεν" is translated to capture the sequence of events: "was deceived and became a transgressor."
+- v. 15: "σωθήσεται διὰ τῆς τεκνογονίας" is rendered as "will be saved through childbearing," reflecting the literal meaning, though the exact interpretation of "childbearing" as a means of salvation is a matter of theological debate.

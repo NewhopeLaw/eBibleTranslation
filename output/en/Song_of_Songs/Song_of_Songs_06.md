@@ -1,0 +1,10 @@
+# Song of Songs 6
+
+¹ Where has your beloved gone, you most beautiful among women? Where did he turn, that we may seek him with you? ² My beloved has descended to his garden, to the beds of spices, to graze in the gardens and to gather lilies. ³ I am my beloved's, and my beloved is mine, the one who pastures among the lilies. ⁴ How beautiful you are, my beloved! How pleasant, how delightful, like Jerusalem, how awesome, like flags displayed! ⁵ Turn your eyes away from me, for they have overwhelmed me. Your hair is like a flock of goats descending from the hills of Gilead. ⁶ Your teeth are like a flock of shorn ewes that came up from the washing, all of them with twins, not one barren among them. ⁷ Your cheeks are like halves of a pomegranate behind your veil. ⁸ There are sixty queens and eighty concubines and countless virgins. ⁹ Only one is my dove, my perfect one, the only one to her mother, the favorite of the one who bore her. The daughters have seen her and declared her blessed, the queens and concubines and praised her. ¹⁰ Who is this who shines like the dawn, beautiful as the moon, pure as the sun, awesome as an army with banners? ¹¹ I went down into the garden of nuts to look at the beds of the stream, to see whether the vine had budded, whether the pomegranates had bloomed. ¹² My soul did not know it. They set me in chariots, on a people of noble rank.
+
+---
+
+Notes
+- v. 10: "awesome as an army with banners" — the Hebrew term נִדְגָּלוֹת (niddaglot) is plural feminine, meaning "banners" or "flags displayed," and is best rendered here by context as "army with banners."
+- v. 11: "I went down into the garden of nuts" — the Hebrew is גִּנַּת אֱגוֹז (ginnat egoz), literally "nut garden"; "garden of nuts" is used to preserve the literal and poetic imagery.
+- v. 12: "my soul did not know it" — the Hebrew says "my soul did not know," followed by the poetic phrase about being placed in chariots, which is left as a poetic and enigmatic statement without further explanation.

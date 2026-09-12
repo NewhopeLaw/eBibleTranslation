@@ -1,0 +1,9 @@
+# Psalms 19
+
+¹ For the music director. A psalm of David. ² The heavens declare the glory of God; the vault proclaims the work of his hands. ³ One day tells another, and one night tells the next what is known. ⁴ There are no words, there are no utterances, yet their voice is not unheard. ⁵ Their message has gone out into all the earth, and their words to the ends of the world. The sun has placed its tent among them. ⁶ And it is like a bridegroom coming from his wedding canopy, rejoicing like a warrior running his course. ⁷ From the end of the heavens is its rising, and its reaching is to the ends of the heavens. There is no one who hides from its heat. ⁸ The teaching of the LORD is perfect, restoring the soul. The testimony of the LORD is trustworthy, making the simple wise. ⁹ The commandments of the LORD are right, giving joy to the heart. The instruction of the LORD is clear, lighting the eyes. ¹⁰ The fear of the LORD is pure, enduring forever. The judgments of the LORD are true, altogether righteous. ¹¹ They are more desirable than gold, more than much fine gold; and sweeter than honey, yes, than the drippings of the honeycomb. ¹² Indeed, by keeping them your servant is warned, and in keeping them there is a great reward. ¹³ Who can know their faults? Cleanse me from my hidden faults, ¹⁴ and keep your servant from willful sin, that they may not rule over me. Then I will be blameless, and cleansed from great iniquity. ¹⁵ May the words of my mouth and the meditation of my heart be acceptable in your sight, LORD, my rock and my redeemer.
+
+---
+
+Notes
+- v. 11: "than the drippings of the honeycomb" — the Hebrew uses נֹפֶת צוּפִֽים (nō·p̄eṯ ṣō·p̄îm), often translated as "honeycomb," but the comparative "than" is retained for poetic emphasis.
+- v. 15: "acceptable in your sight" — the Hebrew uses לְרָצֹון (lə·rā·ṣō·w·n), meaning "for acceptance" or "for favor."

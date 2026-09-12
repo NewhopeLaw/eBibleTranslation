@@ -1,0 +1,10 @@
+# Lamentations 5
+
+¹ Remember, O LORD, what has happened to us. Look and see our humiliation. ² Our inheritance has been given to strangers, our homes to foreigners. ³ We have become orphans with no father, our mothers like widows. ⁴ We drank water for silver, firewood was bought at a price. ⁵ We were chased with a yoke on our necks, we toiled, yet found no rest. ⁶ Egypt gave its hand, Assyria brought us bread in full measure. ⁷ Our fathers sinned, and they are no more; we have borne their sins. ⁸ Slaves have ruled over us, and no one to deliver us from their grip. ⁹ We were fed with our own lives, we were like wild beasts in the desert for our bread. ¹⁰ Our skin burned like a furnace, consumed by the heat of hunger. ¹¹ Women in Zion were put to shame, virgins in the cities of Judah. ¹² The leaders were hanged, the faces of the elders were not honored. ¹³ The chosen ones carried grief, and the young men fell from the tree. ¹⁴ The elders sat in silence at the gates, the young men abandoned their music. ¹⁵ The joy of our hearts has turned to mourning, our dancing into lament. ¹⁶ The crown of our head has fallen. Oh, how we have sinned! ¹⁷ Because of this our heart is faint, because of this our eyes are darkened. ¹⁸ On Mount Zion, now desolate, foxes prowl through it. ¹⁹ You, O LORD, will dwell forever. Your throne is eternal, generation after generation. ²⁰ Why have you forgotten us forever? Why have you abandoned us for so many days? ²¹ Return to us, O LORD, and we will return. Renew our days as they were in times past. ²² For you have utterly rejected us, you have been angry with us beyond measure.
+
+---
+
+Notes
+- v. 19: The phrase “You, O LORD, will dwell forever” reflects the Hebrew לְעוֹלָם תֵּשֵׁב, where “dwell” is rendered to match the poetic tone and the context of divine permanence.
+- v. 21: "Renew our days as they were in times past" translates חַדֵּשׁ יָמֵינוּ כְּקֶֽדֶם, where "renew" is chosen to reflect the idea of restoration rather than a literal "change."
+- v. 22: The phrase “you have been angry with us beyond measure” reflects the Hebrew עַד־מְאֹֽד, which is idiomatic for an overwhelming or excessive level of anger.

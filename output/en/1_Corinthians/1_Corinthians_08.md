@@ -1,0 +1,10 @@
+# 1 Corinthians 8
+
+¹ About the food that has been offered to idols, we know that all of us have knowledge. Knowledge puffs up, but love builds up. ² If anyone thinks they have knowledge, they do not yet know as they ought to know. ³ But if anyone loves God, this person is known by Him. ⁴ So about the food that has been offered to idols, we know that no idol is real in the world, and that there is no God but One. ⁵ For although there are so-called gods, whether in heaven or on earth, as indeed there are many gods and many lords, ⁶ yet for us there is one God, the Father, from whom are all things, and for whom we exist; and one Lord, Jesus Christ, through whom are all things, and through whom we exist. ⁷ But not everyone has knowledge. Some, because of their long-standing habit, still eat food offered to idols, and their consciences, being weak, are defiled. ⁸ In any case, food will not bring us into relationship with God. For whether we eat or do not eat, we are not the better, nor are we the worse. ⁹ But be careful that your freedom does not become a stumbling block to the weak. ¹⁰ For if someone sees you, a person with knowledge, sitting at a meal in an idol's temple, will not the weak conscience of that person be emboldened to eat food offered to idols? ¹¹ But the weak one perishes in your knowledge, the brother for whom Christ died. ¹² Thus, by sinning against the brothers and wounding their weak conscience in Christ, you sin against Christ. ¹³ Therefore, if my eating meat causes my brother to stumble, I will never eat meat again, so that I do not cause my brother to stumble.
+
+---
+
+Notes
+- v. 6: The rendering of "one God, the Father" and "one Lord, Jesus Christ" follows the structure of the Greek, emphasizing the distinct roles of Father and Son in the unity of the Godhead.
+- v. 10: The phrase "weak conscience" reflects the Greek *συνείδησις ἀσθενοῦς*, which denotes the condition of someone with a fragile or unformed moral discernment.
+- v. 13: The translation of "I will never eat meat again" reflects the Greek *οὐ μὴ φάγω κρέας εἰς τὸν αἰῶνα*, which is a strong, deliberate statement of abstinence.

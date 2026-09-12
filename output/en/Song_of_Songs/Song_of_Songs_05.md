@@ -1,0 +1,12 @@
+# Song of Songs 5
+
+¹ I entered my garden, my sister, my bride. I gathered my myrrh with my spices, I ate my honeycomb with my honey, I drank my wine with my milk. Eat, companions, drink, and be drunk, my beloveds. ² I was asleep, yet my heart was awake. The voice of my beloved was knocking: "Open to me, my sister, my beloved, my dove, my perfect one. My head is drenched with dew, my locks with the drops of night." ³ I undressed my robe—how can I put it on again? I washed my feet—how can I soil them? ⁴ My beloved thrust his hand through the opening, and my entrails stirred for him. ⁵ I rose to open for my beloved. My hands dripped with myrrh, my fingers with flowing myrrh, upon the handles of the lock. ⁶ I opened to my beloved, but my beloved had vanished. My soul went out with his word. I sought him, but did not find him. I called him, but he did not answer me. ⁷ The watchmen found me, circling the city. They beat me, wounded me; they stripped my veil from me, the guards at the walls. ⁸ I swear to you, daughters of Jerusalem, if you find my beloved, what will you tell him? That I am faint with love. ⁹ What is your beloved different from another beloved, O fairest among women? What is your beloved different from another beloved, that you have sworn us so? ¹⁰ My beloved is fair and ruddy, distinguished among ten thousand. ¹¹ His head is gold and fine gold, his locks are black like a raven. ¹² His eyes are doves, flowing beside streams of water, washed in milk, resting on fullness. ¹³ His cheeks are like beds of spices, mounds of sweet herbs. His lips are lilies, dripping flowing myrrh. ¹⁴ His hands are rods of gold, inlaid with topaz. His belly is a block of ivory, set upon a pedestal of sapphire. ¹⁵ His legs are pillars of marble, set upon bases of gold. His appearance is like Lebanon, chosen like cedars. ¹⁶ His mouth is sweetness, all of him is desirable. This is my beloved, this is my companion, daughters of Jerusalem.
+
+---
+
+Notes
+- v. 2: "my locks with the drops of night" reflects the poetic imagery of dewfall during the night.
+- v. 8: "O fairest among women" is a paraphrase of "the beautiful among women" to maintain the poetic tone.
+- v. 11: "fine gold" is used for פז, which can mean fine gold or gold dust, depending on context.
+- v. 14: "topaz" is used for תַּרְשִׁישׁ, although this term is often debated (it could refer to a type of shell or a gemstone).
+- v. 15: "chosen like cedars" reflects the elevated status often associated with cedars in Hebrew poetic imagery.

@@ -1,0 +1,10 @@
+# 1 Corinthians 5
+
+¹ I hear that there is immorality among you, and such immorality that one of you has his father's wife. ² And you are puffed up, rather than being grieved, so that you would remove from among you the one who is doing this. ³ For I, although absent in body, am with you in spirit, and I have already judged the one who has done this, just as if I were present. ⁴ In the name of our Lord Jesus, when you are gathered together along with my spirit and the power of our Lord Jesus, ⁵ you are to hand this man over to Satan for the destruction of the flesh, so that the spirit may be saved in the day of the Lord. ⁶ Your boasting is not good. Do you not know that a little leaven leavens the whole batch of dough? ⁷ Cleanse out the old leaven, so that you may be a new lump, as you are in fact unleavened. For our Passover has been sacrificed: Christ, ⁸ so that we celebrate the festival, not with the old leaven, nor with the leaven of malice and wickedness, but with the unleavened bread of sincerity and truth. ⁹ I wrote to you in my letter not to associate with sexually immoral people. ¹⁰ I did not mean the immoral of this world, or the greedy and swindlers or idolaters, for otherwise you would have to go out of the world. ¹¹ But now I write to you not to associate with anyone who is called a brother, if he is a sexually immoral person, or greedy, or an idolater, or a slanderer, or a drunkard, or a swindler—such a person you are even not to eat with. ¹² For what do I have to do with judging those outside? Are you not to judge those inside? ¹³ But those outside, God judges. Therefore, remove the evil person from among yourselves.
+
+---
+
+Notes
+- v. 5: "the destruction of the flesh" is a translation of "ὄλεθρον τῆς σαρκός," a phrase that may imply physical suffering or death, but without a direct equivalent in English, "destruction of the flesh" is retained.
+- v. 6: "leaven" is used as a metaphor for sin, following the common biblical idiom.
+- v. 7: "old leaven" and "new lump" are retained as direct translations to preserve the metaphorical contrast.

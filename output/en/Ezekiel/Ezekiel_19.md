@@ -1,0 +1,9 @@
+# Ezekiel 19
+
+¹ Take up a lamentation for the leaders of Israel. ² Say, “What was your mother like, O lioness, that lay among lions, gave birth to cubs in the midst of lions? ³ One of her cubs became a lion, learning to tear and to devour people. ⁴ The nations heard of him; in their pride they captured him and led him off to Egypt in a cage. ⁵ When she saw that her hope was gone, her expectation lost, she took another of her cubs and made him a lion. ⁶ He prowled among lions, became a lion himself, learning to tear and to devour people. ⁷ He devastated widows and cities, and the land and all in it were silenced by the sound of his roar. ⁸ The surrounding nations closed in on him, cast their nets over him, and in their pride they captured him. ⁹ They put him in a cage and led him to the king of Babylon, brought him into prison, so that his voice would no longer be heard on the hills of Israel. ¹⁰ Your mother was like a vine planted by water, bearing fruit and flourishing with many branches. ¹¹ She had strong branches, like rods for rulers, and her height towered above the trees. In her many branches, she was seen as magnificent. ¹² But she was uprooted in anger, cast to the ground, and the scorching wind dried up her fruit. Her branches were stripped and withered, consumed by fire. ¹³ Now she is planted in the desert, in a dry and thirsty land. ¹⁴ Fire came out from her chosen branches and devoured her. There was no strong rod left in her to rule—she is a lament and becomes a lament.
+
+---
+
+Notes
+- v. 10: The metaphor of the vine is consistent with the broader poetic structure, which alternates between the lioness and the vine to depict the rise and fall of Israel's leadership.
+- v. 13: “dry and thirsty land” reflects the Hebrew phrase describing a barren and desolate place, used to emphasize the downfall of the vine.

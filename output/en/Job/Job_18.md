@@ -1,0 +1,11 @@
+# Job 18
+
+¹ Then Bildad the Shuhite answered and said: ² How long will you keep this up? How much longer will you spout such nonsense? Speak, and then we will respond. ³ Why are we treated like dumb beasts in your eyes? Why must we be locked away like animals? ⁴ The one who devours himself in his anger—will the land be abandoned on his account? Will a rock be uprooted from its place? ⁵ The light of the wicked will go out, and the flame of their lamp will not continue. ⁶ Their light becomes darkness in their dwelling, and their lamp is snuffed out over them. ⁷ His own steps will entangle him, and his own counsel will fall on him. ⁸ For he is caught in a net of his own making, and he walks on a snare he has set. ⁹ He lays hold of his own feet in a trap, and the snares are strong above him. ¹⁰ His rope is hidden in the earth, and his trap is upon the path. ¹¹ He is surrounded by sorrows, and he is scattered beneath his feet. ¹² He is hungry in his affliction, and a violent drought consumes his side. ¹³ He devours the flesh of his own bones; death consumes his firstborn. ¹⁴ He is torn from his tent by his trust, and the destroyer sets him in a wasteland. ¹⁵ His dwelling becomes desolate, and no one sows on his field. ¹⁶ From beneath his roots, they dry up; from above, his harvest is cut off. ¹⁷ His memory is blotted out from the earth, and his name is not known outside. ¹⁸ He is driven from light into darkness, and from the land he is uprooted. ¹⁹ He has no son or heir among his people, nor any survivor in his generations. ²⁰ The last will groan over him, and the first will be seized with dread. ²¹ These are the dwellings of the wicked, and this is a place where no one knows God.
+
+---
+
+Notes  
+- v. 3: "treated like dumb beasts" reflects the Hebrew phrase "nechshavnu kabeema," which literally means "we are counted as beasts."  
+- v. 17: "outside" is a contextual rendering of "penei chutz," which can mean "in the open" or "outside" in this context.  
+- v. 19: "his generations" is a contextual translation of "mego'ro," which refers to descendants or lineage.  
+- v. 21: "place where no one knows God" renders "mekom lo yada' el," which is a direct statement about a location devoid of divine knowledge or presence.

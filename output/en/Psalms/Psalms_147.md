@@ -1,0 +1,11 @@
+# Psalms 147
+
+¹ Praise the LORD, for it is good to sing praises to our God, for it is pleasant and beautiful to praise. ² The LORD builds Jerusalem, and gathers the dispersed of Israel. ³ The one who heals the brokenhearted and binds up their wounds. ⁴ The one who counts the number of the stars and calls them all by name. ⁵ Great is our LORD, and abundant in power; His understanding is beyond measure. ⁶ The LORD upholds the humble, but casts the wicked to the ground. ⁷ Sing praises to the LORD with thanksgiving; play music to our God with the lyre. ⁸ The one who covers the heavens with clouds, who prepares rain for the earth, who causes the grass to sprout on the mountains, ⁹ who gives food to the beasts, and to the young ravens that cry out. ¹⁰ He does not delight in the strength of the horse, nor take pleasure in the legs of the man. ¹¹ The LORD takes pleasure in those who fear Him, in those who hope in His steadfast love. ¹² Praise Jerusalem, O LORD; extol Your God, O Zion. ¹³ For He has strengthened the bars of your gates, He has blessed your children within you. ¹⁴ He has set your boundary in peace; He satisfies you with the finest of the wheat. ¹⁵ He sends forth His command to the earth; His word runs swiftly. ¹⁶ He scatters snow like wool, and frost like ashes. ¹⁷ He hurls down His hailstones like pieces of lead; who can stand before His cold? ¹⁸ He sends His word and melts them; He causes His wind to blow, and the waters flow. ¹⁹ He declares His words to Jacob, His statutes and His judgments to Israel. ²⁰ He has not done so for every nation, and His judgments they do not know. Praise the LORD!
+
+---
+
+Notes
+- v. 9: "the young ravens that cry out" renders עַצְּבוֹתָם as "young ravens" based on context and parallelism, while preserving the sense of "those that cry out."
+- v. 12: "extol Your God, O Zion" reflects the poetic parallelism between Jerusalem and Zion, with "Zion" personified.
+- v. 16: "frost like ashes" is a natural rendering of כְּפוֹר כָּאֵפֶר, where "ash" (אֵפֶר) can also mean "ashen dust" or "powder."
+- v. 19: "His statutes and His judgments" distinguishes between חֻקָּיו (His statutes) and מִשְׁפָּטָיו (His judgments), maintaining the nuance in the Hebrew terms.

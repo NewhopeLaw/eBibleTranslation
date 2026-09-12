@@ -1,0 +1,8 @@
+# Joshua 16
+
+¹ The lot fell to the descendants of Joseph from the Jordan at Jericho, east of Jericho toward the desert, rising from Jericho through the hill to Bethel. ² From Bethel, the boundary went out to Luz, and passed over to the border of the Archites, at Ataroth. ³ From there it descended to the south toward the border of the Japhletites, as far as the border of Beth-horon the Lower, and its exits were to the west. ⁴ The descendants of Joseph—Manasseh and Ephraim—inherited the land. ⁵ The territory of the descendants of Ephraim according to their clans was as follows: from the east, Ataroth and Adar, as far as Beth-horon the Upper. ⁶ The boundary turned westward to Michmash, from the north, and the boundary circled toward Taanath-shiloh, and passed through from the east of Janoah. ⁷ From Janoah, it went down to Ataroth, Naarah, and touched Jericho, and it exited to the Jordan. ⁸ From Tappuah, the boundary went westward along the stream of Canah, and its exits were to the west. This was the inheritance of the tribe of the descendants of Ephraim according to their clans. ⁹ The cities set apart to the descendants of Ephraim were among the inheritance of the descendants of Manasseh—all these cities and their surrounding villages. ¹⁰ The Canaanite who lived in Gazer was not driven out by them, and the Canaanite continued to dwell in the heart of Ephraim to this very day, and it became a place of forced labor.
+
+---
+
+Notes
+- v. 10: The phrase "masobed" is a rare term, likely meaning "a place of forced labor" based on contextual and etymological analysis. The Septuagint adds a longer account involving Pharaoh, but the Hebrew is brief and does not include this detail.

@@ -1,0 +1,10 @@
+# Ezekiel 15
+
+¹ Then the word of the LORD came to me, saying: ² "Son of man, what is the vine tree compared to all the trees of the forest? Is it more valuable than the other trees of the woodland? ³ Are they going to take wood from it to make a tool? Or take a peg from it to hang any object on? ⁴ It is given to the fire to be consumed; its two ends are burned by the fire, and its middle is charred. Is it useful for any work? ⁵ Even if it is whole and unbroken, it cannot be used for any work. Even if fire consumes it and chars it, is it still useful for any work?" ⁶ Therefore, thus says the Lord GOD: "Just as the vine tree among the trees of the forest is given to the fire to be consumed, so I will give the residents of Jerusalem to the fire. ⁷ I will set my face against them. They will come out from the fire, but the fire will devour them. Then you will know that I am the LORD when I set my face against them. ⁸ I will make the land desolate, because they have acted treacherously," says the Lord GOD.
+
+---
+
+Notes  
+- v. 3: "tool" renders "לִמְלָאכָה" (lit. "for work"), which is contextually best as a tool or implement, not a general "work."  
+- v. 4: "middle is charred" captures "תוֹכוֹ נָחָר" — the core is burned through.  
+- v. 6: "residents of Jerusalem" is a natural rendering of "יֹשְׁבֵי יְרוּשָׁלִָֽם."

@@ -1,0 +1,8 @@
+# Psalms 91
+
+¹ The one who dwells in the shelter of the Most High, who abides in the shadow of the Almighty, will find refuge. ² I say to the LORD, “My refuge and my fortress, my God, in whom I trust.” ³ For he will deliver you from the trap of the hunter, from the deadly plague. ⁴ He will cover you with his feathers; under his wings you will find refuge. His faithfulness is a shield and a buckler. ⁵ You need not fear the terror of the night, the arrow that flies by day. ⁶ You need not fear the plague that walks in darkness, the disaster that strikes at midday. ⁷ A thousand may fall at your side, ten thousand at your right hand—but it will not come near you. ⁸ You will only look with your eyes and see the reward of the wicked. ⁹ For you, O LORD, are my refuge, the Most High is my dwelling place. ¹⁰ No evil shall befall you, no plague come near your tent. ¹¹ For to his angels he will give a command concerning you, to guard you in all your ways. ¹² On their hands they will bear you up, so that you will never strike your foot against a stone. ¹³ You will tread upon the lion and the serpent; you will trample the great lion and the dragon. ¹⁴ Because he has loved me, I will rescue him; I will protect him, for he knows my name. ¹⁵ When he calls to me, I will answer him; I will be with him in trouble, I will deliver him and honor him. ¹⁶ With long life I will satisfy him, and show him my salvation.
+
+---
+
+Notes
+- v. 13: "great lion and the dragon" — the Hebrew uses תַּנִּין (tannin), often associated with a mythic sea serpent or dragon; "great lion" is a poetic parallel to the serpent, not a literal animal.

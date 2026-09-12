@@ -1,0 +1,8 @@
+# Isaiah 35
+
+¹ Let the desert and the parched land rejoice, and let the wilderness and the dry plain be glad. Let it blossom like the crocus. ² Let it burst into bloom and be glad, the riverbanks of the Jordan. The glory of the Lebanon is given to it, the splendor of Carmel and Sharon. They will see the glory of the LORD, the splendor of our God. ³ Strengthen the weak hands and steady the trembling knees. Say to those with anxious hearts, "Take courage, do not fear. Here is your God, the One who brings justice, who comes to save you." ⁴ Then the eyes of the blind will be opened, and the ears of the deaf will be unstopped. ⁵ Then the lame will leap like a deer, and the tongue of the mute will sing. For water will break forth in the desert, and streams in the dry land. ⁶ The parched ground will become a pool, and the thirsty land springs of water. In the meadow of reeds and rushes, the resting place of birds will be found. ⁷ A highway will be there, a road, and it will be called the Holy Way. The unclean will not pass over it, and fools will not wander there. ⁸ No lion will be there, nor any fierce beast. They will not be found there, but the ransomed will walk. ⁹ The redeemed of the LORD will return, coming to Zion with singing, with joy everlasting on their heads. Joy and gladness will overtake them, and they will escape sorrow and sighing. ¹⁰ And sorrow and sighing will flee away.
+
+---
+
+Notes
+- v. 10: The reference to sorrow and sighing fleeing away is a poetic conclusion to the chapter, echoing the earlier mention of joy and gladness overtaking the redeemed. The phrase is intentionally parallel to the opening of the chapter, which speaks of the desert and dry land rejoicing.

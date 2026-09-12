@@ -1,0 +1,10 @@
+# Psalms 135
+
+¹ Praise the LORD. Praise the name of the LORD. Praise, you servants of the LORD. ² Those who stand in the house of the LORD, in the courtyards of the house of our God. ³ Praise the LORD, for the LORD is good. Sing to his name, for it is pleasant. ⁴ For the LORD chose Jacob for himself, and Israel as his special possession. ⁵ For I know that the LORD is great, and our Lord is greater than all the gods. ⁶ Whatever the LORD desires, he does in the heavens and on the earth, in the seas and in all the deep. ⁷ He raises up clouds from the ends of the earth, makes lightning for the rain, and brings out the winds from his storehouses. ⁸ He struck the firstborn of Egypt, from man to beast. ⁹ He sent signs and wonders in your midst, Egypt, to Pharaoh and all his servants. ¹⁰ He struck down many nations and killed mighty kings: ¹¹ Sihon, king of the Amorites, and Og, king of Bashan, and all the kingdoms of Canaan. ¹² And he gave their land as an inheritance, an inheritance to Israel, his people. ¹³ The name of the LORD endures forever. The memory of the LORD lasts through all generations. ¹⁴ For the LORD judges his people, and for his servants he shows compassion. ¹⁵ The idols of the nations are silver and gold, the work of human hands. ¹⁶ They have mouths, but cannot speak. They have eyes, but cannot see. ¹⁷ They have ears, but cannot hear, nor is there breath in their mouths. ¹⁸ Let them become like those who made them, all who trust in them. ¹⁹ House of Israel, bless the LORD. House of Aaron, bless the LORD. ²⁰ House of Levi, bless the LORD. All who fear the LORD, bless the LORD. ²¹ Blessed be the LORD from Zion, the one who dwells in Jerusalem. Praise the LORD.
+
+---
+
+Notes
+- v. 1: "Praise the LORD" is a translation of הַלְלוּ יָהּ, commonly rendered "Hallelujah." The form is consistent with the psalm’s liturgical tone.
+- v. 15: "Idols" is a contextual interpretation of עֲצַבֵּי הַגּוֹיִם. The term is not explicitly "idols" in Hebrew but is clear in context.
+- v. 18: "Let them become like those who made them" reflects the imperative form in the Hebrew, though it may also be read as a declarative statement.

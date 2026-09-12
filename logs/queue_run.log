@@ -1,0 +1,19 @@
+lexemes: starting — grow our own lexeme inventory from every word form in the text (289/80894 done)
+lexemes: finished in 0 min (exit 1)
+lexicon: starting — write a lexicon entry for every lexeme, from its occurrences (263/10684 done)
+lexicon: finished in 0 min (exit 1)
+domains: starting — sort every lexeme into this project's fields of meaning (1040/16967 done)
+domains: finished in 0 min (exit 1)
+themes: starting — read every chapter and say what it is about (197/1189 done)
+themes: finished in 0 min (exit 1)
+book-arguments: starting — say what each book argues, from its chapter themes (1/66 done)
+book arguments: 1 done, 4 ready (1 books still being read chapter by chapter)
+  Exodus: 5 sections, 5 concerns [1/4, 14s each]
+  Leviticus: 8 sections, 5 concerns [2/4, 19s each]
+book-arguments: finished in 1 min (exit 1)
+trajectories: starting — trace how each theme develops across the canon (2/300 done)
+trajectories: finished in 0 min (exit 1)
+lexicon-zh: starting — translate the lexicon into Chinese (3/263 done)
+lexicon-zh: finished in 0 min (exit 1)
+lexicon-es: starting — translate the lexicon into Spanish (0/263 done)
+^C

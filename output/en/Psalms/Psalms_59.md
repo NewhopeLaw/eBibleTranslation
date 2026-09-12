@@ -1,0 +1,12 @@
+# Psalms 59
+
+¹ For the Chief Musician. Do not destroy. A maskil of David, when he sent word to Saul and the house of Saul sought to kill him. ² Deliver me from my enemies, God. Rescue me from those who rise up against me. ³ Deliver me from evildoers, and save me from men of blood. ⁴ For behold, they lie in wait for my life. They gather against me, strong men, though I have done no wrong, nor have I sinned, O LORD. ⁵ Without guilt they run and set ambushes. Wake up to meet me, and see! ⁶ And you, O LORD God of hosts, God of Israel, rouse yourself to punish all the nations. Do not show mercy to any evildoers. Selah. ⁷ They return at evening. They growl like a dog, and circle the city. ⁸ Behold, they speak with their mouths. A sword is in their lips. For who hears? ⁹ And you, O LORD, laugh at them. You mock all the nations. ¹⁰ My strength I will guard to you, for you are my God, my place of refuge. ¹¹ My God, his steadfast love will go before me. My God will show me in my enemies. ¹² Do not destroy them, lest they forget your law. Scatter them by your power, and bring them down, O my Defender, LORD. ¹³ Their sin is in their mouths, the talk of their lips. Let them be caught in their pride. Let them be punished by their deception and falsehood. ¹⁴ Consume them in wrath, destroy them, so that they may not exist. Let them know that God rules over Jacob, to the ends of the earth. Selah. ¹⁵ They return at evening. They growl like a dog, and circle the city. ¹⁶ They are scattered to eat. If they are satisfied, they will growl. ¹⁷ But I will sing of your strength, and I will rejoice in your steadfast love at morning, for you have been my place of refuge, my shelter in the day of distress. ¹⁸ My strength, to you I will sing. For you are my God, my place of refuge, my steadfast love.
+
+---
+
+Notes
+- v. 1: The phrase "when he sent word to Saul and the house of Saul sought to kill him" is a historical title, explained in the context of 1 Samuel 19.
+- v. 6: "Selah" is retained as is, since its function and meaning are unclear but it is a fixed feature in the text.
+- v. 12: "Defender" is used for מָגִנֵּנוּ to convey protection, consistent with the root meaning.
+- v. 14: "Consume them in wrath, destroy them" reflects the poetic parallelism of the Hebrew, with כַּלֵּה repeated.
+- v. 17-18: The repetition of "my place of refuge" and "my steadfast love" reflects the psalmist's emphasis on divine loyalty and protection.

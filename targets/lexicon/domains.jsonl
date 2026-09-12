@@ -78,3 +78,1003 @@
 {"tag": "H3947G", "domains": ["giving and taking"]}
 {"tag": "H1571", "domains": ["conjunction and connection"]}
 {"tag": "H8147", "domains": ["numbers and counting"]}
+{"tag": "H4872", "domains": ["proper name: person"]}
+{"tag": "H3548", "domains": ["priesthood and temple"]}
+{"tag": "H4100", "domains": ["pronoun and reference"]}
+{"tag": "H0428", "domains": ["pronoun and reference"]}
+{"tag": "H0859A", "domains": ["pronoun and reference"]}
+{"tag": "H6213H", "domains": ["making and destroying"]}
+{"tag": "H3651C", "domains": ["similarity and difference"]}
+{"tag": "H9031", "domains": ["pronoun and reference"]}
+{"tag": "H3027G", "domains": ["the body"]}
+{"tag": "H0408", "domains": ["other"]}
+{"tag": "H0518A", "domains": ["conjunction and connection"]}
+{"tag": "H0310A", "domains": ["place and position"]}
+{"tag": "G2192", "domains": ["possession and belonging"]}
+{"tag": "G4314", "domains": ["place and position"]}
+{"tag": "H7971G", "domains": ["carrying and sending"]}
+{"tag": "G2443", "domains": ["conjunction and connection"]}
+{"tag": "G1223", "domains": ["place and position"]}
+{"tag": "H1004M", "domains": ["houses and building"]}
+{"tag": "G1096", "domains": ["existence and being"]}
+{"tag": "H3389", "domains": ["proper name: place"]}
+{"tag": "G0575", "domains": ["place and position"]}
+{"tag": "H4714G", "domains": ["proper name: place"]}
+{"tag": "H7725G", "domains": ["movement: coming and going"]}
+{"tag": "G2064", "domains": ["movement: coming and going"]}
+{"tag": "H3318G", "domains": ["movement: coming and going"]}
+{"tag": "G2962G", "domains": ["God and the divine"]}
+{"tag": "G0235", "domains": ["conjunction and connection"]}
+{"tag": "H5927G", "domains": ["movement: rising and falling"]}
+{"tag": "H2063", "domains": ["pronoun and reference"]}
+{"tag": "H3820A", "domains": ["the body"]}
+{"tag": "H9036", "domains": ["pronoun and reference"]}
+{"tag": "H3967", "domains": ["numbers and counting"]}
+{"tag": "H3027H", "domains": ["possession and belonging"]}
+{"tag": "H3541", "domains": ["similarity and difference"]}
+{"tag": "H4325G", "domains": ["water and rivers"]}
+{"tag": "H0582", "domains": ["family and kinship"]}
+{"tag": "G4160G", "domains": ["making and destroying"]}
+{"tag": "G5101", "domains": ["pronoun and reference"]}
+{"tag": "H0935P", "domains": ["movement: coming and going"]}
+{"tag": "H1471A", "domains": ["nations and peoples"]}
+{"tag": "H1992", "domains": ["pronoun and reference"]}
+{"tag": "G0444", "domains": ["family and kinship"]}
+{"tag": "H0376I", "domains": ["family and kinship"]}
+{"tag": "H1323G", "domains": ["family and kinship"]}
+{"tag": "H0120G", "domains": ["family and kinship"]}
+{"tag": "G5100", "domains": ["pronoun and reference"]}
+{"tag": "G5547", "domains": ["proper name: other"]}
+{"tag": "H0834D", "domains": ["conjunction and connection"]}
+{"tag": "H5221", "domains": ["war and weapons"]}
+{"tag": "G5613", "domains": ["conjunction and connection"]}
+{"tag": "H5674A", "domains": ["movement: coming and going"]}
+{"tag": "H1419A", "domains": ["size and quantity"]}
+{"tag": "H3205", "domains": ["birth and childhood"]}
+{"tag": "H0505G", "domains": ["numbers and counting"]}
+{"tag": "H6680", "domains": ["law and command"]}
+{"tag": "G3767", "domains": ["conjunction and connection"]}
+{"tag": "H5750", "domains": ["time and seasons"]}
+{"tag": "H9034", "domains": ["pronoun and reference"]}
+{"tag": "G2596", "domains": ["conjunction and connection"]}
+{"tag": "H5869A", "domains": ["the body"]}
+{"tag": "G3326", "domains": ["conjunction and connection"]}
+{"tag": "G3754H", "domains": ["conjunction and connection"]}
+{"tag": "H4672", "domains": ["seeking and finding"]}
+{"tag": "H5975G", "domains": ["existence and being"]}
+{"tag": "H2022G", "domains": ["mountains and terrain"]}
+{"tag": "H0802H", "domains": ["family and kinship"]}
+{"tag": "H0136", "domains": ["God and the divine"]}
+{"tag": "H6258", "domains": ["time and seasons"]}
+{"tag": "H7969", "domains": ["numbers and counting"]}
+{"tag": "G0191", "domains": ["speech and language"]}
+{"tag": "H4310", "domains": ["pronoun and reference"]}
+{"tag": "H7227A", "domains": ["size and quantity"]}
+{"tag": "H8064", "domains": ["weather and sky"]}
+{"tag": "H8269", "domains": ["kingship and rule"]}
+{"tag": "H8432", "domains": ["place and position"]}
+{"tag": "H6944G", "domains": ["purity and defilement"]}
+{"tag": "H2719", "domains": ["war and weapons"]}
+{"tag": "H6440H", "domains": ["the body"]}
+{"tag": "G3962", "domains": ["family and kinship"]}
+{"tag": "G1325", "domains": ["giving and taking"]}
+{"tag": "H4994", "domains": ["grammatical particle"]}
+{"tag": "H4725", "domains": ["place and position"]}
+{"tag": "H4196", "domains": ["priesthood and temple", "worship and sacrifice"]}
+{"tag": "H1004Q", "domains": ["houses and building", "priesthood and temple"]}
+{"tag": "H7586G", "domains": ["proper name: person"]}
+{"tag": "H5414H", "domains": ["giving and taking"]}
+{"tag": "H7651", "domains": ["numbers and counting"]}
+{"tag": "H3701G", "domains": ["metals and minerals", "trade and money"]}
+{"tag": "H2091", "domains": ["metals and minerals"]}
+{"tag": "G2250", "domains": ["time and seasons"]}
+{"tag": "H5769G", "domains": ["time and seasons"]}
+{"tag": "H2896A", "domains": ["other"]}
+{"tag": "H0996G", "domains": ["place and position"]}
+{"tag": "H3381", "domains": ["movement: coming and going", "death and burial"]}
+{"tag": "H1129", "domains": ["houses and building", "crafts and tools"]}
+{"tag": "H6965B", "domains": ["movement: rising and falling"]}
+{"tag": "H0784", "domains": ["fire and light"]}
+{"tag": "H5002", "domains": ["speech and language"]}
+{"tag": "G1487G", "domains": ["conjunction and connection"]}
+{"tag": "G5207", "domains": ["family and kinship"]}
+{"tag": "G4151G", "domains": ["spirits and the unseen"]}
+{"tag": "H5046", "domains": ["speech and language"]}
+{"tag": "G4183", "domains": ["size and quantity"]}
+{"tag": "H7121G", "domains": ["speech and language"]}
+{"tag": "H0251G", "domains": ["family and kinship"]}
+{"tag": "H1818", "domains": ["purity and defilement"]}
+{"tag": "H0595", "domains": ["pronoun and reference"]}
+{"tag": "H3290", "domains": ["proper name: person"]}
+{"tag": "H8179G", "domains": ["houses and building"]}
+{"tag": "H4427A", "domains": ["kingship and rule"]}
+{"tag": "H0175", "domains": ["proper name: person"]}
+{"tag": "H1768", "domains": ["pronoun and reference"]}
+{"tag": "H2568", "domains": ["numbers and counting"]}
+{"tag": "G2228", "domains": ["conjunction and connection"]}
+{"tag": "G0080", "domains": ["family and kinship"]}
+{"tag": "G1520", "domains": ["numbers and counting"]}
+{"tag": "G1492H", "domains": ["speech and language"]}
+{"tag": "H6240", "domains": ["numbers and counting"]}
+{"tag": "H6963A", "domains": ["sound and silence"]}
+{"tag": "H9032", "domains": ["pronoun and reference"]}
+{"tag": "H0113", "domains": ["God and the divine", "kingship and rule"]}
+{"tag": "H0168G", "domains": ["houses and building"]}
+{"tag": "G4012", "domains": ["conjunction and connection"]}
+{"tag": "H1288", "domains": ["worship and sacrifice"]}
+{"tag": "G1437", "domains": ["conjunction and connection"]}
+{"tag": "H1980I", "domains": ["movement: coming and going"]}
+{"tag": "H1870G", "domains": ["other"]}
+{"tag": "G3056", "domains": ["speech and language", "knowledge and learning"]}
+{"tag": "H6310G", "domains": ["speech and language", "the body"]}
+{"tag": "H3627", "domains": ["crafts and tools", "making and destroying"]}
+{"tag": "H0802G", "domains": ["family and kinship"]}
+{"tag": "H3220G", "domains": ["water and rivers"]}
+{"tag": "H0176A", "domains": ["conjunction and connection"]}
+{"tag": "H4421", "domains": ["war and weapons"]}
+{"tag": "G1438", "domains": ["pronoun and reference"]}
+{"tag": "H0702", "domains": ["numbers and counting"]}
+{"tag": "H2005", "domains": ["grammatical particle"]}
+{"tag": "H6242", "domains": ["numbers and counting"]}
+{"tag": "H6030B", "domains": ["speech and language"]}
+{"tag": "H5030", "domains": ["other"]}
+{"tag": "H3069", "domains": ["God and the divine"]}
+{"tag": "H4940", "domains": ["family and kinship"]}
+{"tag": "H3966", "domains": ["size and quantity"]}
+{"tag": "H7704G", "domains": ["land and territory"]}
+{"tag": "H6256", "domains": ["time and seasons"]}
+{"tag": "H1697I", "domains": ["speech and language"]}
+{"tag": "G2980", "domains": ["speech and language"]}
+{"tag": "H8010", "domains": ["proper name: person"]}
+{"tag": "H3881", "domains": ["proper name: people or nation", "priesthood and temple"]}
+{"tag": "H5930A", "domains": ["worship and sacrifice"]}
+{"tag": "H6430G", "domains": ["proper name: people or nation"]}
+{"tag": "H5439G", "domains": ["place and position"]}
+{"tag": "H6635B", "domains": ["God and the divine"]}
+{"tag": "H1285", "domains": ["covenant and oath"]}
+{"tag": "H0859D", "domains": ["pronoun and reference"]}
+{"tag": "H7218A", "domains": ["the body"]}
+{"tag": "H2421", "domains": ["other"]}
+{"tag": "H0341", "domains": ["hatred and enmity"]}
+{"tag": "G6063", "domains": ["knowledge and learning"]}
+{"tag": "H5307G", "domains": ["other"]}
+{"tag": "H7760A", "domains": ["carrying and sending"]}
+{"tag": "H9035", "domains": ["pronoun and reference"]}
+{"tag": "H4616", "domains": ["conjunction and connection"]}
+{"tag": "G3772", "domains": ["other"]}
+{"tag": "H6629G", "domains": ["animals"]}
+{"tag": "H1320", "domains": ["the body"]}
+{"tag": "H4057B", "domains": ["land and territory"]}
+{"tag": "H7563", "domains": ["justice and judgement"]}
+{"tag": "H3318H", "domains": ["movement: coming and going", "carrying and sending"]}
+{"tag": "H0894", "domains": ["proper name: place"]}
+{"tag": "G3101", "domains": ["other"]}
+{"tag": "H0068G", "domains": ["metals and minerals"]}
+{"tag": "H2320G", "domains": ["time and seasons"]}
+{"tag": "G2983", "domains": ["giving and taking"]}
+{"tag": "H3824", "domains": ["the body"]}
+{"tag": "H4390", "domains": ["size and quantity"]}
+{"tag": "H0520A", "domains": ["weights and measures"]}
+{"tag": "H5315G", "domains": ["the body"]}
+{"tag": "H2617A", "domains": ["love and loyalty"]}
+{"tag": "H7272", "domains": ["the body"]}
+{"tag": "H2416A", "domains": ["existence and being"]}
+{"tag": "G3173", "domains": ["size and quantity"]}
+{"tag": "G1565", "domains": ["pronoun and reference"]}
+{"tag": "H8478G", "domains": ["place and position"]}
+{"tag": "H7760H", "domains": ["carrying and sending"]}
+{"tag": "H5288", "domains": ["family and kinship"]}
+{"tag": "G4102G", "domains": ["other"]}
+{"tag": "H2398", "domains": ["sin and guilt"]}
+{"tag": "G4100", "domains": ["other"]}
+{"tag": "H3915", "domains": ["time and seasons"]}
+{"tag": "H2142", "domains": ["other"]}
+{"tag": "G0611", "domains": ["speech and language"]}
+{"tag": "G3762", "domains": ["other"]}
+{"tag": "H7235A", "domains": ["size and quantity"]}
+{"tag": "G3686", "domains": ["speech and language"]}
+{"tag": "H0639G", "domains": ["the body", "emotion: anger"]}
+{"tag": "H1245", "domains": ["seeking and finding"]}
+{"tag": "H3789", "domains": ["writing and records"]}
+{"tag": "H7121H", "domains": ["speech and language"]}
+{"tag": "H5159", "domains": ["possession and belonging"]}
+{"tag": "H3899H", "domains": ["food and drink"]}
+{"tag": "H0517", "domains": ["family and kinship"]}
+{"tag": "H5375H", "domains": ["carrying and sending"]}
+{"tag": "H3117L", "domains": ["time and seasons"]}
+{"tag": "H8451", "domains": ["law and command"]}
+{"tag": "G1097", "domains": ["knowledge and learning"]}
+{"tag": "H8354", "domains": ["food and drink"]}
+{"tag": "H7307G", "domains": ["spirits and the unseen"]}
+{"tag": "H4941G", "domains": ["justice and judgement"]}
+{"tag": "H8337", "domains": ["numbers and counting"]}
+{"tag": "H0899B", "domains": ["clothing and adornment"]}
+{"tag": "H4264", "domains": ["other"]}
+{"tag": "G1831", "domains": ["movement: coming and going"]}
+{"tag": "H1242", "domains": ["time and seasons"]}
+{"tag": "H5186", "domains": ["movement: rising and falling"]}
+{"tag": "H5337", "domains": ["help and rescue"]}
+{"tag": "G5037", "domains": ["conjunction and connection"]}
+{"tag": "H5869H", "domains": ["the body"]}
+{"tag": "H3130G", "domains": ["proper name: person"]}
+{"tag": "G1410", "domains": ["ability and power"]}
+{"tag": "H5315H", "domains": ["the body"]}
+{"tag": "G3779", "domains": ["similarity and difference"]}
+{"tag": "G2309", "domains": ["desire and longing"]}
+{"tag": "H6662", "domains": ["other"]}
+{"tag": "H3372G", "domains": ["emotion: fear"]}
+{"tag": "H0410G", "domains": ["God and the divine"]}
+{"tag": "H3467", "domains": ["help and rescue"]}
+{"tag": "H3091G", "domains": ["proper name: person"]}
+{"tag": "H8199", "domains": ["justice and judgement"]}
+{"tag": "H8104G", "domains": ["keeping and guarding"]}
+{"tag": "H0727", "domains": ["houses and building"]}
+{"tag": "H2388G", "domains": ["ability and power"]}
+{"tag": "H0622", "domains": ["carrying and sending"]}
+{"tag": "H3519", "domains": ["other"]}
+{"tag": "G2400", "domains": ["speech and language"]}
+{"tag": "H0127G", "domains": ["land and territory"]}
+{"tag": "H7130G", "domains": ["place and position"]}
+{"tag": "H0157G", "domains": ["love and loyalty"]}
+{"tag": "H8478H", "domains": ["place and position"]}
+{"tag": "H5800A", "domains": ["other"]}
+{"tag": "H3201", "domains": ["ability and power"]}
+{"tag": "H8081", "domains": ["food and drink"]}
+{"tag": "G3551", "domains": ["law and command"]}
+{"tag": "G1525", "domains": ["movement: coming and going"]}
+{"tag": "H0929", "domains": ["animals"]}
+{"tag": "H7311A", "domains": ["other"]}
+{"tag": "H3423H", "domains": ["possession and belonging"]}
+{"tag": "G3844", "domains": ["grammatical particle"]}
+{"tag": "G1125", "domains": ["writing and records"]}
+{"tag": "H7453", "domains": ["family and kinship"]}
+{"tag": "H0776H", "domains": ["land and territory"]}
+{"tag": "H4639G", "domains": ["work and rest"]}
+{"tag": "H7650", "domains": ["covenant and oath"]}
+{"tag": "H0006", "domains": ["death and burial"]}
+{"tag": "G2889", "domains": ["other"]}
+{"tag": "H1241", "domains": ["animals"]}
+{"tag": "H4294H", "domains": ["family and kinship"]}
+{"tag": "H3383", "domains": ["proper name: place"]}
+{"tag": "G2531", "domains": ["grammatical particle"]}
+{"tag": "H4687", "domains": ["law and command"]}
+{"tag": "H5771G", "domains": ["sin and guilt"]}
+{"tag": "H4430", "domains": ["kingship and rule"]}
+{"tag": "H7451H", "domains": ["truth and falsehood"]}
+{"tag": "H1121L", "domains": ["family and kinship"]}
+{"tag": "H7218H", "domains": ["other"]}
+{"tag": "H2233H", "domains": ["family and kinship"]}
+{"tag": "H4503G", "domains": ["worship and sacrifice"]}
+{"tag": "H6235", "domains": ["numbers and counting"]}
+{"tag": "H0085", "domains": ["proper name: person"]}
+{"tag": "G2147", "domains": ["seeking and finding"]}
+{"tag": "G3303", "domains": ["grammatical particle"]}
+{"tag": "G5495", "domains": ["other"]}
+{"tag": "H6965I", "domains": ["numbers and counting"]}
+{"tag": "H0669G", "domains": ["proper name: person"]}
+{"tag": "G3793", "domains": ["other"]}
+{"tag": "H7812", "domains": ["worship and sacrifice"]}
+{"tag": "H7970", "domains": ["numbers and counting"]}
+{"tag": "H0977", "domains": ["other"]}
+{"tag": "H3898A", "domains": ["war and weapons"]}
+{"tag": "G0266", "domains": ["sin and guilt"]}
+{"tag": "G5259G", "domains": ["grammatical particle"]}
+{"tag": "H7592", "domains": ["speech and language"]}
+{"tag": "H0995", "domains": ["knowledge and learning"]}
+{"tag": "H2403B", "domains": ["sin and guilt"]}
+{"tag": "H7126H", "domains": ["worship and sacrifice"]}
+{"tag": "G2041", "domains": ["work and rest"]}
+{"tag": "H4399", "domains": ["work and rest"]}
+{"tag": "H7462B", "domains": ["farming and herding"]}
+{"tag": "H2026", "domains": ["death and burial"]}
+{"tag": "H1755", "domains": ["other"]}
+{"tag": "H4124G", "domains": ["proper name: place"]}
+{"tag": "G1093G", "domains": ["land and territory"]}
+{"tag": "H0312", "domains": ["other"]}
+{"tag": "G0032G", "domains": ["spirits and the unseen"]}
+{"tag": "H4941H", "domains": ["justice and judgement"]}
+{"tag": "G0302", "domains": ["grammatical particle"]}
+{"tag": "G1391", "domains": ["God and the divine"]}
+{"tag": "H6607", "domains": ["place and position"]}
+{"tag": "H2351", "domains": ["place and position"]}
+{"tag": "H1875", "domains": ["seeking and finding"]}
+{"tag": "H7965G", "domains": ["peace and alliance"]}
+{"tag": "H2572", "domains": ["numbers and counting"]}
+{"tag": "H2077", "domains": ["worship and sacrifice"]}
+{"tag": "H2930A", "domains": ["purity and defilement"]}
+{"tag": "G4172", "domains": ["cities and villages"]}
+{"tag": "H8104H", "domains": ["keeping and guarding"]}
+{"tag": "H0389", "domains": ["grammatical particle"]}
+{"tag": "G0932", "domains": ["kingship and rule"]}
+{"tag": "G0435G", "domains": ["proper name: person"]}
+{"tag": "G1484", "domains": ["nations and peoples"]}
+{"tag": "H1368", "domains": ["war and weapons"]}
+{"tag": "H5127", "domains": ["movement: coming and going"]}
+{"tag": "G0040G", "domains": ["purity and defilement"]}
+{"tag": "G5119", "domains": ["time and seasons"]}
+{"tag": "H1144G", "domains": ["proper name: person"]}
+{"tag": "H6666", "domains": ["justice and judgement"]}
+{"tag": "H7451C", "domains": ["other"]}
+{"tag": "H5647H", "domains": ["worship and sacrifice"]}
+{"tag": "G3972G", "domains": ["proper name: person"]}
+{"tag": "H8145", "domains": ["numbers and counting"]}
+{"tag": "H0352A", "domains": ["animals"]}
+{"tag": "H5869I", "domains": ["the body"]}
+{"tag": "G4074G", "domains": ["proper name: person"]}
+{"tag": "G2588", "domains": ["the body"]}
+{"tag": "H1870L", "domains": ["movement: coming and going"]}
+{"tag": "H4194", "domains": ["death and burial"]}
+{"tag": "H8055", "domains": ["emotion: joy"]}
+{"tag": "H6726", "domains": ["proper name: place"]}
+{"tag": "G0243", "domains": ["other"]}
+{"tag": "G5228", "domains": ["grammatical particle"]}
+{"tag": "H5927H", "domains": ["movement: rising and falling"]}
+{"tag": "H2451", "domains": ["wisdom and folly"]}
+{"tag": "G5485", "domains": ["gift and reward"]}
+{"tag": "H6086G", "domains": ["plants and trees"]}
+{"tag": "H3680", "domains": ["other"]}
+{"tag": "H4150I", "domains": ["worship and sacrifice"]}
+{"tag": "G2476", "domains": ["existence and being"]}
+{"tag": "H5048", "domains": ["place and position"]}
+{"tag": "H5060", "domains": ["carrying and sending"]}
+{"tag": "H6828G", "domains": ["direction"]}
+{"tag": "H0518B", "domains": ["conjunction and connection"]}
+{"tag": "H0804G", "domains": ["proper name: people or nation"]}
+{"tag": "H7230", "domains": ["size and quantity"]}
+{"tag": "H5712", "domains": ["other"]}
+{"tag": "H1366G", "domains": ["place and position"]}
+{"tag": "H7451I", "domains": ["sin and guilt"]}
+{"tag": "H5493G", "domains": ["other"]}
+{"tag": "H7665", "domains": ["making and destroying"]}
+{"tag": "H7843", "domains": ["making and destroying"]}
+{"tag": "H5265", "domains": ["movement: coming and going"]}
+{"tag": "H8130", "domains": ["hatred and enmity"]}
+{"tag": "G4198", "domains": ["movement: coming and going"]}
+{"tag": "G4561", "domains": ["the body"]}
+{"tag": "H2416E", "domains": ["other"]}
+{"tag": "H7307H", "domains": ["spirits and the unseen"]}
+{"tag": "H1870K", "domains": ["movement: coming and going"]}
+{"tag": "H2691A", "domains": ["houses and building"]}
+{"tag": "G2193", "domains": ["grammatical particle"]}
+{"tag": "G3568", "domains": ["time and seasons"]}
+{"tag": "H6635A", "domains": ["war and weapons"]}
+{"tag": "G3748", "domains": ["grammatical particle"]}
+{"tag": "H6086H", "domains": ["plants and trees"]}
+{"tag": "H7291", "domains": ["movement: coming and going"]}
+{"tag": "H2583", "domains": ["other"]}
+{"tag": "G4396", "domains": ["God and the divine"]}
+{"tag": "G0025", "domains": ["love and loyalty"]}
+{"tag": "H5117", "domains": ["work and rest"]}
+{"tag": "H3644G", "domains": ["similarity and difference"]}
+{"tag": "G4983", "domains": ["the body"]}
+{"tag": "H3196", "domains": ["food and drink"]}
+{"tag": "H3709G", "domains": ["the body"]}
+{"tag": "H3097G", "domains": ["proper name: person"]}
+{"tag": "G2992", "domains": ["nations and peoples"]}
+{"tag": "G1453", "domains": ["movement: rising and falling"]}
+{"tag": "G3761", "domains": ["conjunction and connection"]}
+{"tag": "H4605", "domains": ["place and position"]}
+{"tag": "H1008G", "domains": ["proper name: place"]}
+{"tag": "H5178A", "domains": ["metals and minerals"]}
+{"tag": "H4908", "domains": ["priesthood and temple"]}
+{"tag": "G3825", "domains": ["time and seasons"]}
+{"tag": "H3426", "domains": ["existence and being"]}
+{"tag": "H2450", "domains": ["knowledge and learning"]}
+{"tag": "H8050G", "domains": ["proper name: person"]}
+{"tag": "G2564G", "domains": ["speech and language"]}
+{"tag": "G2198", "domains": ["other"]}
+{"tag": "H3772I", "domains": ["making and destroying"]}
+{"tag": "H3588B", "domains": ["conjunction and connection"]}
+{"tag": "H7626H", "domains": ["nations and peoples"]}
+{"tag": "H0705", "domains": ["numbers and counting"]}
+{"tag": "H6605A", "domains": ["other"]}
+{"tag": "H5483M", "domains": ["animals"]}
+{"tag": "H3414L", "domains": ["proper name: person"]}
+{"tag": "G2222", "domains": ["other"]}
+{"tag": "H6153", "domains": ["time and seasons"]}
+{"tag": "H0637", "domains": ["other"]}
+{"tag": "H6963H", "domains": ["sound and silence"]}
+{"tag": "H8121", "domains": ["weather and sky"]}
+{"tag": "H6437G", "domains": ["other"]}
+{"tag": "H2076", "domains": ["worship and sacrifice"]}
+{"tag": "H4557", "domains": ["numbers and counting"]}
+{"tag": "H6435", "domains": ["conjunction and connection"]}
+{"tag": "H7604", "domains": ["existence and being"]}
+{"tag": "H0251I", "domains": ["family and kinship"]}
+{"tag": "H0251H", "domains": ["family and kinship"]}
+{"tag": "H6912", "domains": ["death and burial"]}
+{"tag": "H8085H", "domains": ["speech and language"]}
+{"tag": "H6499", "domains": ["animals"]}
+{"tag": "H5375G", "domains": ["movement: rising and falling"]}
+{"tag": "G0649", "domains": ["carrying and sending"]}
+{"tag": "G1417", "domains": ["numbers and counting"]}
+{"tag": "G4413G", "domains": ["numbers and counting"]}
+{"tag": "G0991", "domains": ["speech and language"]}
+{"tag": "H5612H", "domains": ["writing and records"]}
+{"tag": "H5387A", "domains": ["kingship and rule"]}
+{"tag": "H5315I", "domains": ["other"]}
+{"tag": "H2346G", "domains": ["houses and building"]}
+{"tag": "H7931", "domains": ["movement: coming and going"]}
+{"tag": "G1401", "domains": ["government and officials"]}
+{"tag": "G4862", "domains": ["conjunction and connection"]}
+{"tag": "H5414I", "domains": ["giving and taking"]}
+{"tag": "H2205G", "domains": ["other"]}
+{"tag": "G0281", "domains": ["speech and language"]}
+{"tag": "G3498", "domains": ["death and burial"]}
+{"tag": "H6942G", "domains": ["worship and sacrifice"]}
+{"tag": "H0954", "domains": ["other"]}
+{"tag": "H7223G", "domains": ["numbers and counting"]}
+{"tag": "H6908", "domains": ["other"]}
+{"tag": "H6485A", "domains": ["keeping and guarding"]}
+{"tag": "H3581B", "domains": ["ability and power"]}
+{"tag": "H7993", "domains": ["carrying and sending"]}
+{"tag": "H2534", "domains": ["emotion: anger"]}
+{"tag": "H2677", "domains": ["numbers and counting"]}
+{"tag": "H3225G", "domains": ["direction"]}
+{"tag": "H3678G", "domains": ["kingship and rule"]}
+{"tag": "H6951", "domains": ["other"]}
+{"tag": "H2396G", "domains": ["proper name: person"]}
+{"tag": "G5456G", "domains": ["sound and silence"]}
+{"tag": "G3752", "domains": ["time and seasons"]}
+{"tag": "G1511", "domains": ["existence and being"]}
+{"tag": "H1060", "domains": ["numbers and counting"]}
+{"tag": "H0227A", "domains": ["time and seasons"]}
+{"tag": "G0749", "domains": ["priesthood and temple"]}
+{"tag": "H0216", "domains": ["fire and light"]}
+{"tag": "H3254G", "domains": ["movement: coming and going"]}
+{"tag": "H1984B", "domains": ["worship and sacrifice"]}
+{"tag": "H3920", "domains": ["carrying and sending"]}
+{"tag": "H0587", "domains": ["pronoun and reference"]}
+{"tag": "H2403H", "domains": ["sin and guilt", "worship and sacrifice"]}
+{"tag": "H0982", "domains": ["love and loyalty"]}
+{"tag": "H0758I", "domains": ["proper name: place"]}
+{"tag": "G2288", "domains": ["death and burial"]}
+{"tag": "H6529", "domains": ["plants and trees"]}
+{"tag": "H0241G", "domains": ["the body"]}
+{"tag": "H4519G", "domains": ["proper name: person"]}
+{"tag": "H6471", "domains": ["time and seasons"]}
+{"tag": "H6547J", "domains": ["proper name: person"]}
+{"tag": "G3860", "domains": ["carrying and sending"]}
+{"tag": "G1411", "domains": ["ability and power"]}
+{"tag": "G3306", "domains": ["other"]}
+{"tag": "H3190", "domains": ["truth and falsehood"]}
+{"tag": "H4467", "domains": ["kingship and rule"]}
+{"tag": "H8313", "domains": ["making and destroying"]}
+{"tag": "H1431", "domains": ["size and quantity"]}
+{"tag": "H8441", "domains": ["hatred and enmity"]}
+{"tag": "H6664G", "domains": ["justice and judgement"]}
+{"tag": "G2212", "domains": ["seeking and finding"]}
+{"tag": "G1135G", "domains": ["family and kinship"]}
+{"tag": "H0905H", "domains": ["size and quantity"]}
+{"tag": "H7393G", "domains": ["war and weapons"]}
+{"tag": "H5012", "domains": ["knowledge and learning"]}
+{"tag": "G0565", "domains": ["movement: coming and going"]}
+{"tag": "H0269", "domains": ["family and kinship"]}
+{"tag": "H1058", "domains": ["emotion: sorrow"]}
+{"tag": "H3034", "domains": ["worship and sacrifice"]}
+{"tag": "G0935", "domains": ["kingship and rule"]}
+{"tag": "G1577", "domains": ["other"]}
+{"tag": "G0026", "domains": ["love and loyalty"]}
+{"tag": "H8267", "domains": ["deceit and treachery"]}
+{"tag": "H3477G", "domains": ["truth and falsehood"]}
+{"tag": "G2398", "domains": ["possession and belonging"]}
+{"tag": "H7451B", "domains": ["emotion: sorrow"]}
+{"tag": "H1115", "domains": ["grammatical particle"]}
+{"tag": "H7126G", "domains": ["movement: coming and going"]}
+{"tag": "G2919", "domains": ["justice and judgement"]}
+{"tag": "H7676", "domains": ["other"]}
+{"tag": "H4054", "domains": ["farming and herding"]}
+{"tag": "H0053", "domains": ["proper name: person"]}
+{"tag": "H6083", "domains": ["other"]}
+{"tag": "H3847", "domains": ["clothing and adornment"]}
+{"tag": "H4397H", "domains": ["spirits and the unseen"]}
+{"tag": "H3372H", "domains": ["emotion: fear"]}
+{"tag": "H5982G", "domains": ["houses and building"]}
+{"tag": "G3745", "domains": ["grammatical particle"]}
+{"tag": "G0599", "domains": ["death and burial"]}
+{"tag": "H3671", "domains": ["animals"]}
+{"tag": "H8083", "domains": ["numbers and counting"]}
+{"tag": "H7535", "domains": ["grammatical particle"]}
+{"tag": "H0518H", "domains": ["grammatical particle"]}
+{"tag": "H2428A", "domains": ["war and weapons"]}
+{"tag": "H6918G", "domains": ["purity and defilement"]}
+{"tag": "H8111", "domains": ["proper name: place"]}
+{"tag": "H4481", "domains": ["grammatical particle"]}
+{"tag": "G3195", "domains": ["movement: coming and going"]}
+{"tag": "G3441", "domains": ["size and quantity"]}
+{"tag": "G0225", "domains": ["truth and falsehood"]}
+{"tag": "H3327", "domains": ["proper name: person"]}
+{"tag": "H7725H", "domains": ["movement: coming and going"]}
+{"tag": "G3650", "domains": ["size and quantity"]}
+{"tag": "G3870", "domains": ["help and rescue"]}
+{"tag": "H7992", "domains": ["numbers and counting"]}
+{"tag": "H5608A", "domains": ["speech and language"]}
+{"tag": "H3532", "domains": ["animals"]}
+{"tag": "G0450", "domains": ["speech and language"]}
+{"tag": "H2416C", "domains": ["animals"]}
+{"tag": "H7121I", "domains": ["speech and language"]}
+{"tag": "H5983", "domains": ["proper name: people or nation"]}
+{"tag": "H3498", "domains": ["other"]}
+{"tag": "G5610", "domains": ["time and seasons"]}
+{"tag": "H3615G", "domains": ["other"]}
+{"tag": "H6106G", "domains": ["other"]}
+{"tag": "H1157", "domains": ["grammatical particle"]}
+{"tag": "H6213I", "domains": ["worship and sacrifice"]}
+{"tag": "H0539", "domains": ["covenant and oath"]}
+{"tag": "G4982", "domains": ["help and rescue", "forgiveness and atonement"]}
+{"tag": "H2708", "domains": ["law and command"]}
+{"tag": "H8548", "domains": ["time and seasons"]}
+{"tag": "H4758", "domains": ["shape and appearance"]}
+{"tag": "H4397G", "domains": ["spirits and the unseen"]}
+{"tag": "H7999A", "domains": ["other"]}
+{"tag": "H5922", "domains": ["grammatical particle"]}
+{"tag": "G4459", "domains": ["grammatical particle"]}
+{"tag": "H7901G", "domains": ["other"]}
+{"tag": "H7911", "domains": ["other"]}
+{"tag": "H1116", "domains": ["worship and sacrifice"]}
+{"tag": "G3753", "domains": ["grammatical particle"]}
+{"tag": "G1849", "domains": ["kingship and rule"]}
+{"tag": "H7341", "domains": ["size and quantity"]}
+{"tag": "H7458", "domains": ["food and drink"]}
+{"tag": "H4592", "domains": ["size and quantity"]}
+{"tag": "H3722A", "domains": ["forgiveness and atonement"]}
+{"tag": "H8193G", "domains": ["speech and language"]}
+{"tag": "G3598", "domains": ["roads and travel"]}
+{"tag": "G0018", "domains": ["other"]}
+{"tag": "G1163", "domains": ["necessity and permission"]}
+{"tag": "H6440J", "domains": ["shape and appearance"]}
+{"tag": "H2706G", "domains": ["law and command"]}
+{"tag": "G2570G", "domains": ["other"]}
+{"tag": "G5087", "domains": ["other"]}
+{"tag": "G3788", "domains": ["other"]}
+{"tag": "G0240", "domains": ["love and loyalty"]}
+{"tag": "H5785", "domains": ["other"]}
+{"tag": "H7489A", "domains": ["other"]}
+{"tag": "H3282", "domains": ["grammatical particle"]}
+{"tag": "H3559H", "domains": ["covenant and oath"]}
+{"tag": "G5043", "domains": ["birth and childhood", "family and kinship"]}
+{"tag": "G0142", "domains": ["carrying and sending", "movement: rising and falling"]}
+{"tag": "H7637", "domains": ["numbers and counting"]}
+{"tag": "H3162B", "domains": ["family and kinship"]}
+{"tag": "H5307J", "domains": ["other"]}
+{"tag": "H5647G", "domains": ["worship and sacrifice"]}
+{"tag": "H7971H", "domains": ["carrying and sending"]}
+{"tag": "H8334", "domains": ["worship and sacrifice"]}
+{"tag": "H7646", "domains": ["food and drink"]}
+{"tag": "G1080", "domains": ["family and kinship"]}
+{"tag": "H5315J", "domains": ["the body"]}
+{"tag": "H2543", "domains": ["animals"]}
+{"tag": "H6440L", "domains": ["the body"]}
+{"tag": "G5330", "domains": ["proper name: people or nation"]}
+{"tag": "G0740", "domains": ["food and drink"]}
+{"tag": "G2087", "domains": ["similarity and difference"]}
+{"tag": "H0753", "domains": ["size and quantity"]}
+{"tag": "H7218I", "domains": ["the body"]}
+{"tag": "H2022H", "domains": ["mountains and terrain"]}
+{"tag": "H4422", "domains": ["help and rescue"]}
+{"tag": "H3499A", "domains": ["size and quantity"]}
+{"tag": "H0426", "domains": ["gods and idols"]}
+{"tag": "G5399", "domains": ["emotion: fear"]}
+{"tag": "G1321", "domains": ["knowledge and learning"]}
+{"tag": "G0129G", "domains": ["the body"]}
+{"tag": "H2015", "domains": ["other"]}
+{"tag": "H2889", "domains": ["purity and defilement"]}
+{"tag": "H8057", "domains": ["emotion: joy"]}
+{"tag": "H2181", "domains": ["sin and guilt"]}
+{"tag": "H2891", "domains": ["purity and defilement"]}
+{"tag": "G4043", "domains": ["movement: coming and going"]}
+{"tag": "G5117", "domains": ["place and position"]}
+{"tag": "G1799", "domains": ["place and position"]}
+{"tag": "H6588", "domains": ["sin and guilt"]}
+{"tag": "H0123G", "domains": ["proper name: place"]}
+{"tag": "H3956G", "domains": ["the body"]}
+{"tag": "G1135H", "domains": ["family and kinship"]}
+{"tag": "G1563", "domains": ["place and position"]}
+{"tag": "G4228", "domains": ["the body"]}
+{"tag": "G2089", "domains": ["time and seasons"]}
+{"tag": "G5315", "domains": ["food and drink"]}
+{"tag": "H1847", "domains": ["knowledge and learning"]}
+{"tag": "H2459", "domains": ["food and drink"]}
+{"tag": "H7097A", "domains": ["beginning and ending"]}
+{"tag": "H3754", "domains": ["farming and herding"]}
+{"tag": "H1616", "domains": ["nations and peoples"]}
+{"tag": "H7725I", "domains": ["movement: coming and going"]}
+{"tag": "H5797", "domains": ["other"]}
+{"tag": "H5462", "domains": ["carrying and sending"]}
+{"tag": "H3742", "domains": ["spirits and the unseen"]}
+{"tag": "H2734", "domains": ["emotion: anger"]}
+{"tag": "H7657", "domains": ["numbers and counting"]}
+{"tag": "H1366H", "domains": ["land and territory"]}
+{"tag": "H1121H", "domains": ["family and kinship"]}
+{"tag": "H3254H", "domains": ["making and destroying"]}
+{"tag": "H2428G", "domains": ["other"]}
+{"tag": "H2220", "domains": ["the body"]}
+{"tag": "H4438", "domains": ["kingship and rule"]}
+{"tag": "H0256G", "domains": ["proper name: person"]}
+{"tag": "G1343", "domains": ["justice and judgement"]}
+{"tag": "G2521", "domains": ["other"]}
+{"tag": "H2896B", "domains": ["other"]}
+{"tag": "H1568G", "domains": ["proper name: place"]}
+{"tag": "H8045", "domains": ["making and destroying"]}
+{"tag": "H3379G", "domains": ["proper name: person"]}
+{"tag": "G4098", "domains": ["other"]}
+{"tag": "G0622", "domains": ["making and destroying"]}
+{"tag": "G2491G", "domains": ["proper name: person"]}
+{"tag": "G2281", "domains": ["water and rivers"]}
+{"tag": "G3367", "domains": ["existence and being"]}
+{"tag": "G1515", "domains": ["peace and alliance"]}
+{"tag": "H3206", "domains": ["birth and childhood"]}
+{"tag": "H6098", "domains": ["thought and intention"]}
+{"tag": "H5104H", "domains": ["water and rivers"]}
+{"tag": "H3772H", "domains": ["covenant and oath"]}
+{"tag": "H8255", "domains": ["weights and measures"]}
+{"tag": "H6547H", "domains": ["proper name: person"]}
+{"tag": "H3559A", "domains": ["other"]}
+{"tag": "H1350A", "domains": ["forgiveness and atonement"]}
+{"tag": "H2931", "domains": ["purity and defilement"]}
+{"tag": "G0190", "domains": ["other"]}
+{"tag": "H6051", "domains": ["weather and sky"]}
+{"tag": "H0567", "domains": ["nations and peoples"]}
+{"tag": "H7323G", "domains": ["other"]}
+{"tag": "H5066G", "domains": ["other"]}
+{"tag": "H7891", "domains": ["music and song"]}
+{"tag": "H8002", "domains": ["peace and alliance"]}
+{"tag": "H5656H", "domains": ["worship and sacrifice"]}
+{"tag": "G3777", "domains": ["conjunction and connection"]}
+{"tag": "H7122G", "domains": ["movement: coming and going"]}
+{"tag": "H1817C", "domains": ["houses and building"]}
+{"tag": "H6285", "domains": ["place and position"]}
+{"tag": "G4137", "domains": ["other"]}
+{"tag": "G1487H", "domains": ["conjunction and connection"]}
+{"tag": "G2962H", "domains": ["kingship and rule"]}
+{"tag": "G2033", "domains": ["numbers and counting"]}
+{"tag": "H6440I", "domains": ["the body"]}
+{"tag": "H5927I", "domains": ["movement: rising and falling"]}
+{"tag": "G2112", "domains": ["time and seasons"]}
+{"tag": "G4334", "domains": ["worship and sacrifice"]}
+{"tag": "G0757", "domains": ["kingship and rule"]}
+{"tag": "G4336", "domains": ["worship and sacrifice"]}
+{"tag": "H7069", "domains": ["trade and money"]}
+{"tag": "H5493I", "domains": ["other"]}
+{"tag": "H6419", "domains": ["worship and sacrifice"]}
+{"tag": "H7350", "domains": ["size and quantity"]}
+{"tag": "G0165H", "domains": ["time and seasons"]}
+{"tag": "H2491A", "domains": ["death and burial"]}
+{"tag": "H6310I", "domains": ["speech and language"]}
+{"tag": "G3384", "domains": ["family and kinship"]}
+{"tag": "G3614G", "domains": ["houses and building"]}
+{"tag": "G5620", "domains": ["conjunction and connection"]}
+{"tag": "G2540", "domains": ["time and seasons"]}
+{"tag": "H2145", "domains": ["family and kinship"]}
+{"tag": "H7043", "domains": ["size and quantity"]}
+{"tag": "H1995A", "domains": ["other"]}
+{"tag": "H6311", "domains": ["place and position"]}
+{"tag": "H1980N", "domains": ["movement: coming and going"]}
+{"tag": "H7725O", "domains": ["other"]}
+{"tag": "H3809", "domains": ["other"]}
+{"tag": "H3606", "domains": ["size and quantity"]}
+{"tag": "H4910", "domains": ["kingship and rule"]}
+{"tag": "H5641", "domains": ["keeping and guarding"]}
+{"tag": "H1481A", "domains": ["movement: coming and going"]}
+{"tag": "H1696I", "domains": ["speech and language"]}
+{"tag": "H5826", "domains": ["help and rescue"]}
+{"tag": "G0305", "domains": ["movement: rising and falling"]}
+{"tag": "G3699", "domains": ["place and position"]}
+{"tag": "H2822", "domains": ["weather and sky"]}
+{"tag": "H3778", "domains": ["proper name: people or nation"]}
+{"tag": "H3667A", "domains": ["proper name: people or nation"]}
+{"tag": "H6031B", "domains": ["sin and guilt"]}
+{"tag": "H7819A", "domains": ["worship and sacrifice"]}
+{"tag": "H0518I", "domains": ["conjunction and connection"]}
+{"tag": "H4376", "domains": ["giving and taking"]}
+{"tag": "H1035G", "domains": ["proper name: place"]}
+{"tag": "H7133A", "domains": ["worship and sacrifice"]}
+{"tag": "H5782", "domains": ["movement: coming and going"]}
+{"tag": "G2597", "domains": ["movement: rising and falling"]}
+{"tag": "G1538", "domains": ["size and quantity"]}
+{"tag": "H7794", "domains": ["animals"]}
+{"tag": "H3289", "domains": ["thought and intention"]}
+{"tag": "H0214", "domains": ["possession and belonging"]}
+{"tag": "G1342", "domains": ["justice and judgement"]}
+{"tag": "G3992", "domains": ["carrying and sending"]}
+{"tag": "G5217", "domains": ["movement: coming and going"]}
+{"tag": "G1544", "domains": ["carrying and sending"]}
+{"tag": "G3475", "domains": ["proper name: person"]}
+{"tag": "H5437G", "domains": ["other"]}
+{"tag": "H5061", "domains": ["purity and defilement"]}
+{"tag": "H7392", "domains": ["movement: coming and going"]}
+{"tag": "H4931", "domains": ["keeping and guarding"]}
+{"tag": "H7892A", "domains": ["music and song"]}
+{"tag": "H3444", "domains": ["help and rescue"]}
+{"tag": "G4750", "domains": ["other"]}
+{"tag": "G4190", "domains": ["other"]}
+{"tag": "G0652", "domains": ["proper name: person"]}
+{"tag": "H3947H", "domains": ["giving and taking"]}
+{"tag": "H7138", "domains": ["place and position"]}
+{"tag": "H8104J", "domains": ["keeping and guarding"]}
+{"tag": "H6215G", "domains": ["proper name: person"]}
+{"tag": "H2603A", "domains": ["forgiveness and atonement"]}
+{"tag": "H5971K", "domains": ["nations and peoples"]}
+{"tag": "H6697H", "domains": ["mountains and terrain"]}
+{"tag": "H1486", "domains": ["possession and belonging"]}
+{"tag": "H8605", "domains": ["worship and sacrifice"]}
+{"tag": "H4735", "domains": ["animals"]}
+{"tag": "H1270", "domains": ["metals and minerals"]}
+{"tag": "H7198", "domains": ["war and weapons"]}
+{"tag": "H8641", "domains": ["gift and reward"]}
+{"tag": "H2114A", "domains": ["emotion: sorrow"]}
+{"tag": "H1168A", "domains": ["gods and idols"]}
+{"tag": "G0455", "domains": ["movement: coming and going"]}
+{"tag": "G5204", "domains": ["water and rivers"]}
+{"tag": "G3140", "domains": ["speech and language"]}
+{"tag": "G2419", "domains": ["proper name: place"]}
+{"tag": "H7725J", "domains": ["movement: coming and going"]}
+{"tag": "H3220H", "domains": ["other"]}
+{"tag": "H5324", "domains": ["other"]}
+{"tag": "H7161A", "domains": ["animals"]}
+{"tag": "H3027I", "domains": ["the body"]}
+{"tag": "H2490H", "domains": ["purity and defilement"]}
+{"tag": "H4720", "domains": ["priesthood and temple"]}
+{"tag": "H1870J", "domains": ["direction"]}
+{"tag": "H1697K", "domains": ["speech and language"]}
+{"tag": "H3092I", "domains": ["proper name: person"]}
+{"tag": "G0907", "domains": ["purity and defilement"]}
+{"tag": "G4383", "domains": ["the body"]}
+{"tag": "G3624G", "domains": ["houses and building"]}
+{"tag": "G1427", "domains": ["numbers and counting"]}
+{"tag": "H3117J", "domains": ["time and seasons"]}
+{"tag": "H5795", "domains": ["animals"]}
+{"tag": "H5437H", "domains": ["other"]}
+{"tag": "H3513G", "domains": ["other"]}
+{"tag": "H6041", "domains": ["poverty and wealth"]}
+{"tag": "H7023", "domains": ["houses and building"]}
+{"tag": "H3988A", "domains": ["other"]}
+{"tag": "H1540K", "domains": ["other"]}
+{"tag": "H5542", "domains": ["other"]}
+{"tag": "G5463", "domains": ["emotion: joy"]}
+{"tag": "G2776", "domains": ["the body"]}
+{"tag": "G0615", "domains": ["other"]}
+{"tag": "G4592", "domains": ["other"]}
+{"tag": "H5162G", "domains": ["other"]}
+{"tag": "H2781", "domains": ["hatred and enmity"]}
+{"tag": "H2654A", "domains": ["desire and longing"]}
+{"tag": "H7998", "domains": ["possession and belonging"]}
+{"tag": "H2199", "domains": ["speech and language"]}
+{"tag": "H3027J", "domains": ["the body"]}
+{"tag": "H4217H", "domains": ["direction"]}
+{"tag": "H0730", "domains": ["plants and trees"]}
+{"tag": "H1892", "domains": ["wisdom and folly"]}
+{"tag": "H1077", "domains": ["grammatical particle"]}
+{"tag": "G0011", "domains": ["proper name: person"]}
+{"tag": "G2098", "domains": ["speech and language"]}
+{"tag": "H7364", "domains": ["the body"]}
+{"tag": "H4069", "domains": ["speech and language"]}
+{"tag": "H3899G", "domains": ["food and drink"]}
+{"tag": "H0631", "domains": ["carrying and sending"]}
+{"tag": "H7782", "domains": ["sound and silence"]}
+{"tag": "G0906G", "domains": ["carrying and sending"]}
+{"tag": "G0863G", "domains": ["carrying and sending"]}
+{"tag": "H5775", "domains": ["birds"]}
+{"tag": "H5973B", "domains": ["place and position"]}
+{"tag": "H6381", "domains": ["emotion: joy"]}
+{"tag": "H2388H", "domains": ["ability and power"]}
+{"tag": "H7205", "domains": ["proper name: person"]}
+{"tag": "H7979", "domains": ["houses and building"]}
+{"tag": "H1934", "domains": ["existence and being"]}
+{"tag": "H0560", "domains": ["speech and language"]}
+{"tag": "G2411", "domains": ["priesthood and temple"]}
+{"tag": "G4095", "domains": ["food and drink"]}
+{"tag": "H3027K", "domains": ["the body"]}
+{"tag": "H4713", "domains": ["nations and peoples"]}
+{"tag": "H5707", "domains": ["justice and judgement"]}
+{"tag": "H5158A", "domains": ["water and rivers"]}
+{"tag": "H6869B", "domains": ["emotion: sorrow"]}
+{"tag": "H3684", "domains": ["wisdom and folly"]}
+{"tag": "G4442", "domains": ["fire and light"]}
+{"tag": "G5457", "domains": ["fire and light"]}
+{"tag": "G0154", "domains": ["speech and language"]}
+{"tag": "H7673A", "domains": ["other"]}
+{"tag": "H0376H", "domains": ["family and kinship"]}
+{"tag": "H2580", "domains": ["love and loyalty"]}
+{"tag": "H1293", "domains": ["gift and reward"]}
+{"tag": "H5045H", "domains": ["direction"]}
+{"tag": "H6186A", "domains": ["making and destroying"]}
+{"tag": "H6862C", "domains": ["hatred and enmity"]}
+{"tag": "H5027", "domains": ["other"]}
+{"tag": "H3885A", "domains": ["houses and building"]}
+{"tag": "H4886", "domains": ["priesthood and temple"]}
+{"tag": "H6921", "domains": ["direction"]}
+{"tag": "H5493H", "domains": ["movement: coming and going"]}
+{"tag": "H8210G", "domains": ["other"]}
+{"tag": "G0166", "domains": ["time and seasons"]}
+{"tag": "H3669A", "domains": ["proper name: people or nation"]}
+{"tag": "H4116A", "domains": ["movement: coming and going"]}
+{"tag": "H0884", "domains": ["proper name: place"]}
+{"tag": "H0270", "domains": ["possession and belonging"]}
+{"tag": "H8628", "domains": ["music and song"]}
+{"tag": "H0452G", "domains": ["proper name: person"]}
+{"tag": "G2474", "domains": ["proper name: people or nation"]}
+{"tag": "G5140", "domains": ["numbers and counting"]}
+{"tag": "H7093", "domains": ["beginning and ending"]}
+{"tag": "H3603H", "domains": ["weights and measures"]}
+{"tag": "H7495", "domains": ["health and disease"]}
+{"tag": "H6913", "domains": ["death and burial"]}
+{"tag": "H7378", "domains": ["justice and judgement"]}
+{"tag": "H1389I", "domains": ["mountains and terrain"]}
+{"tag": "H6566", "domains": ["making and destroying"]}
+{"tag": "H3802", "domains": ["the body"]}
+{"tag": "H3083H", "domains": ["proper name: person"]}
+{"tag": "G4487", "domains": ["speech and language"]}
+{"tag": "G4143", "domains": ["ships and the sea"]}
+{"tag": "G0071", "domains": ["movement: coming and going"]}
+{"tag": "G4521", "domains": ["other"]}
+{"tag": "G4103", "domains": ["truth and falsehood"]}
+{"tag": "H1540I", "domains": ["existence and being"]}
+{"tag": "H2506A", "domains": ["possession and belonging"]}
+{"tag": "H0272", "domains": ["possession and belonging"]}
+{"tag": "H0571G", "domains": ["truth and falsehood"]}
+{"tag": "H7451A", "domains": ["truth and falsehood"]}
+{"tag": "H7585", "domains": ["death and burial"]}
+{"tag": "H7611", "domains": ["beginning and ending"]}
+{"tag": "H0205G", "domains": ["sin and guilt"]}
+{"tag": "G2590", "domains": ["plants and trees"]}
+{"tag": "G1785", "domains": ["law and command"]}
+{"tag": "G5342", "domains": ["movement: coming and going"]}
+{"tag": "H8610", "domains": ["war and weapons"]}
+{"tag": "H1272", "domains": ["movement: coming and going"]}
+{"tag": "H7925", "domains": ["movement: rising and falling"]}
+{"tag": "H2472", "domains": ["other"]}
+{"tag": "H0953A", "domains": ["houses and building"]}
+{"tag": "H1197A", "domains": ["fire and light"]}
+{"tag": "H1397", "domains": ["other"]}
+{"tag": "H0801", "domains": ["worship and sacrifice"]}
+{"tag": "H5329", "domains": ["other"]}
+{"tag": "G5346", "domains": ["speech and language"]}
+{"tag": "G2068", "domains": ["food and drink"]}
+{"tag": "G1535", "domains": ["conjunction and connection"]}
+{"tag": "H7971K", "domains": ["movement: coming and going"]}
+{"tag": "H3947I", "domains": ["marriage and sex"]}
+{"tag": "H1835G", "domains": ["proper name: people or nation"]}
+{"tag": "H3373", "domains": ["emotion: fear"]}
+{"tag": "H4392", "domains": ["size and quantity"]}
+{"tag": "H5262", "domains": ["worship and sacrifice"]}
+{"tag": "H2896C", "domains": ["other"]}
+{"tag": "H0779", "domains": ["other"]}
+{"tag": "H8198", "domains": ["family and kinship"]}
+{"tag": "H4043", "domains": ["other"]}
+{"tag": "H5291", "domains": ["family and kinship"]}
+{"tag": "H7167", "domains": ["other"]}
+{"tag": "H8552", "domains": ["beginning and ending"]}
+{"tag": "H0499G", "domains": ["proper name: person"]}
+{"tag": "H5341", "domains": ["keeping and guarding"]}
+{"tag": "H3844G", "domains": ["proper name: place"]}
+{"tag": "H3925G", "domains": ["knowledge and learning"]}
+{"tag": "H0074", "domains": ["proper name: person"]}
+{"tag": "H6327A", "domains": ["other"]}
+{"tag": "H2282", "domains": ["festivals and sacred time"]}
+{"tag": "H3782", "domains": ["other"]}
+{"tag": "H1869", "domains": ["movement: coming and going"]}
+{"tag": "G2414", "domains": ["proper name: place"]}
+{"tag": "G1122", "domains": ["other"]}
+{"tag": "G1380", "domains": ["thought and intention"]}
+{"tag": "G3735", "domains": ["mountains and terrain"]}
+{"tag": "G1854", "domains": ["movement: coming and going"]}
+{"tag": "G2307", "domains": ["desire and longing"]}
+{"tag": "G2065", "domains": ["speech and language"]}
+{"tag": "H7919A", "domains": ["wisdom and folly"]}
+{"tag": "H0087", "domains": ["proper name: person"]}
+{"tag": "H0859C", "domains": ["pronoun and reference"]}
+{"tag": "H7379", "domains": ["hatred and enmity"]}
+{"tag": "H2275A", "domains": ["proper name: place"]}
+{"tag": "H0349A", "domains": ["speech and language"]}
+{"tag": "H0681", "domains": ["place and position"]}
+{"tag": "H0319", "domains": ["beginning and ending"]}
+{"tag": "H5715", "domains": ["law and command"]}
+{"tag": "H0034", "domains": ["poverty and wealth"]}
+{"tag": "H1369", "domains": ["other"]}
+{"tag": "G3571", "domains": ["time and seasons"]}
+{"tag": "G0027", "domains": ["love and loyalty"]}
+{"tag": "G1392", "domains": ["worship and sacrifice"]}
+{"tag": "G2362", "domains": ["kingship and rule"]}
+{"tag": "G1140", "domains": ["spirits and the unseen"]}
+{"tag": "G0040H", "domains": ["purity and defilement"]}
+{"tag": "H2555", "domains": ["justice and judgement"]}
+{"tag": "H1697O", "domains": ["writing and records"]}
+{"tag": "H5088", "domains": ["covenant and oath"]}
+{"tag": "H0441B", "domains": ["government and officials"]}
+{"tag": "H7004", "domains": ["worship and sacrifice"]}
+{"tag": "H1316", "domains": ["land and territory"]}
+{"tag": "H1109A", "domains": ["proper name: person"]}
+{"tag": "H5019", "domains": ["proper name: person"]}
+{"tag": "G4352", "domains": ["worship and sacrifice"]}
+{"tag": "G2235", "domains": ["time and seasons"]}
+{"tag": "G2440", "domains": ["clothing and adornment"]}
+{"tag": "G5602", "domains": ["place and position"]}
+{"tag": "G4245G", "domains": ["government and officials"]}
+{"tag": "G5225", "domains": ["existence and being"]}
+{"tag": "H8346", "domains": ["numbers and counting"]}
+{"tag": "H3001", "domains": ["death and burial"]}
+{"tag": "H3198", "domains": ["other"]}
+{"tag": "H3878", "domains": ["proper name: person"]}
+{"tag": "H6299", "domains": ["forgiveness and atonement"]}
+{"tag": "H5157", "domains": ["possession and belonging"]}
+{"tag": "H6999A", "domains": ["worship and sacrifice"]}
+{"tag": "G1138", "domains": ["proper name: person"]}
+{"tag": "G4863", "domains": ["movement: coming and going"]}
+{"tag": "G2784", "domains": ["speech and language"]}
+{"tag": "H5193", "domains": ["farming and herding"]}
+{"tag": "H8672", "domains": ["numbers and counting"]}
+{"tag": "H7381", "domains": ["other"]}
+{"tag": "H2308", "domains": ["other"]}
+{"tag": "H0734", "domains": ["other"]}
+{"tag": "H1097", "domains": ["other"]}
+{"tag": "H0477", "domains": ["proper name: person"]}
+{"tag": "H1836", "domains": ["other"]}
+{"tag": "H4782H", "domains": ["proper name: person"]}
+{"tag": "H0347", "domains": ["proper name: person"]}
+{"tag": "G5479", "domains": ["emotion: joy"]}
+{"tag": "G3037", "domains": ["metals and minerals"]}
+{"tag": "G1320", "domains": ["government and officials"]}
+{"tag": "G2334", "domains": ["speech and language"]}
+{"tag": "H7368", "domains": ["other"]}
+{"tag": "H1410G", "domains": ["proper name: person"]}
+{"tag": "H8549G", "domains": ["purity and defilement"]}
+{"tag": "H8416", "domains": ["worship and sacrifice"]}
+{"tag": "H6466", "domains": ["work and rest"]}
+{"tag": "H0134", "domains": ["houses and building"]}
+{"tag": "H8074G", "domains": ["other"]}
+{"tag": "H0433", "domains": ["God and the divine"]}
+{"tag": "H7703", "domains": ["other"]}
+{"tag": "H0609G", "domains": ["proper name: person"]}
+{"tag": "H0116", "domains": ["time and seasons"]}
+{"tag": "H4437", "domains": ["kingship and rule"]}
+{"tag": "H4210", "domains": ["music and song"]}
+{"tag": "G0782", "domains": ["speech and language"]}
+{"tag": "H2232", "domains": ["farming and herding"]}
+{"tag": "H7243", "domains": ["numbers and counting"]}
+{"tag": "H2962", "domains": ["time and seasons"]}
+{"tag": "H4284", "domains": ["thought and intention"]}
+{"tag": "H2505A", "domains": ["other"]}
+{"tag": "H0519", "domains": ["family and kinship"]}
+{"tag": "H7521", "domains": ["other"]}
+{"tag": "H0490", "domains": ["family and kinship"]}
+{"tag": "H4294G", "domains": ["nations and peoples"]}
+{"tag": "H7522", "domains": ["God and the divine"]}
+{"tag": "H5676H", "domains": ["place and position"]}
+{"tag": "H2389", "domains": ["size and quantity"]}
+{"tag": "H5553H", "domains": ["mountains and terrain"]}
+{"tag": "H3405G", "domains": ["proper name: place"]}
+{"tag": "H1964G", "domains": ["priesthood and temple"]}
+{"tag": "G1056G", "domains": ["proper name: place"]}
+{"tag": "G4864", "domains": ["priesthood and temple"]}
+{"tag": "G3366", "domains": ["conjunction and connection"]}
+{"tag": "G5108", "domains": ["similarity and difference"]}
+{"tag": "G1209", "domains": ["carrying and sending"]}
+{"tag": "G3319", "domains": ["place and position"]}
+{"tag": "G1905", "domains": ["speech and language"]}
+{"tag": "G5154", "domains": ["numbers and counting"]}
+{"tag": "H6817", "domains": ["speech and language"]}
+{"tag": "H2490C", "domains": ["purity and defilement", "beginning and ending"]}
+{"tag": "H6743B", "domains": ["health and disease"]}
+{"tag": "H4080H", "domains": ["proper name: people or nation"]}
+{"tag": "H1612", "domains": ["plants and trees"]}
+{"tag": "H5999", "domains": ["work and rest"]}
+{"tag": "H2372", "domains": ["speech and language"]}
+{"tag": "H8077A", "domains": ["other"]}
+{"tag": "H5080", "domains": ["carrying and sending"]}
+{"tag": "H0635", "domains": ["proper name: person"]}
+{"tag": "H1841H", "domains": ["proper name: person"]}
+{"tag": "G0435H", "domains": ["family and kinship", "marriage and sex"]}
+{"tag": "G0746", "domains": ["beginning and ending"]}
+{"tag": "H1692", "domains": ["love and loyalty"]}
+{"tag": "H6172", "domains": ["the body"]}
+{"tag": "H1581", "domains": ["animals"]}
+{"tag": "H9039", "domains": ["pronoun and reference"]}
+{"tag": "H3837A", "domains": ["proper name: person"]}
+{"tag": "H7965I", "domains": ["peace and alliance"]}
+{"tag": "H6485J", "domains": ["keeping and guarding"]}
+{"tag": "H3615H", "domains": ["other"]}
+{"tag": "H1706", "domains": ["food and drink"]}
+{"tag": "H3407", "domains": ["houses and building"]}
+{"tag": "H3707", "domains": ["other"]}
+{"tag": "H4791", "domains": ["other"]}

@@ -1,0 +1,9 @@
+# Proverbs 9
+
+¹ Wisdom built her house; she hewed out her seven pillars. ² She slaughtered her sacrifices, mixed her wine in a bowl, and prepared her table. ³ She sent out her maidens, calling from the tops of the high places, on the crossbeams of the rooftops: ⁴ “Let the simple turn this way,” she says to the one lacking understanding. ⁵ “Come, eat of my bread, and drink of the wine I have mixed. ⁶ Leave foolishness and live; walk in the way of understanding.” ⁷ One who rebukes a scoffer brings shame on himself, and one who corrects the wicked gets blamed. ⁸ Do not rebuke a scoffer, or he will hate you; rebuke a wise person, and he will love you. ⁹ Give wisdom to a wise person, and he will grow wiser; teach a righteous person, and he will gain more knowledge. ¹⁰ The beginning of wisdom is the fear of the LORD; knowledge of the holy ones is understanding. ¹¹ For by me your days will increase, and years of life will be added to you. ¹² If you have wisdom, it is for yourself; if you have foolishness, you bear it alone. ¹³ A foolish woman is clamorous, full of folly and without knowledge. ¹⁴ She sits at the door of her house, on a seat at the high places, ¹⁵ calling to those passing by, who keep to straight paths: ¹⁶ “Let the simple turn this way,” she says to the one lacking understanding. ¹⁷ “Stolen water tastes sweet, and hidden bread is delicious.” ¹⁸ But he does not know that the dead are there, in the depths of Sheol it lies in wait for him.
+
+---
+
+Notes
+- v. 12: The Hebrew text is ambiguous whether "if you are wise, you have gained for yourself" or "if you are wise, you have made yourself wise." The context of Proverbs suggests the former, but the latter is a possible reading.
+- v. 17: "Stolen water tastes sweet" is a direct translation of the Hebrew idiom. The Septuagint and some interpretations add a moralizing clause about long life, which is absent in the Hebrew text.

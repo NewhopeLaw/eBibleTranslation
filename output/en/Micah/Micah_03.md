@@ -1,0 +1,10 @@
+# Micah 3
+
+¹ Listen now, leaders of Jacob, and rulers of the house of Israel: Is it not for you to know justice? ² You hate what is good and love what is evil, tearing the skin from your people and the flesh from their bones. ³ They have devoured the flesh of my people, stripping the skin from them and breaking their bones, preparing them like meat in a pot, like flesh in a cauldron. ⁴ Then they will cry out to the LORD, but he will not answer them. He will hide his face from them at that time because of their wicked deeds. ⁵ So the LORD says about the prophets who mislead my people: They bite with their teeth, yet they proclaim peace, and yet there is no peace on their lips. They prepare war for them. ⁶ Therefore, night will come to you for vision, and darkness to you for divination. The sun will set on the prophets, and the day will be darkened over them. ⁷ The seers will be put to shame and the diviners will be mocked. All of them will be condemned, for there is no answer from God. ⁸ But as for me, I am filled with strength, with the Spirit of the LORD, with justice and might, to reveal Jacob’s guilt and Israel’s sin. ⁹ Listen to this, leaders of the house of Jacob, and rulers of the house of Israel, who twist justice and who distort all that is upright. ¹⁰ You build Zion with blood and Jerusalem with iniquity. ¹¹ Its rulers judge for a bribe, its priests teach for a price, its prophets predict for silver. Yet they say, “Is not the LORD in our midst? Disaster will not come upon us.” ¹² Therefore, because of you, Zion shall become a field, Jerusalem a ruin, and the hill of the house a thicket.
+
+---
+
+Notes
+- v. 3: "prepare them like meat in a pot, like flesh in a cauldron" — this vivid metaphor is rendered to preserve the original imagery of cruelty.
+- v. 5: "prepare war for them" — the Hebrew is ambiguous; the verb could mean "provoke war" or "declare war."
+- v. 11: "its rulers judge for a bribe" — reflects the Hebrew "בִּשְׁחַד יִשְׁפֹּטוּ" with a natural English equivalent.
