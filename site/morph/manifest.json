@@ -77,10 +77,24 @@
   "built": 1789189702.5611591
  },
  "themes": {
-  "count": 58,
+  "count": 192,
   "unit": "themes",
   "note": "what the chapters are about",
   "script": "build_themes.py",
-  "built": 1789190302.4622364
+  "built": 1789221269.676071
+ },
+ "book-arguments": {
+  "count": 1,
+  "unit": "books",
+  "note": "what each book argues",
+  "script": "build_theology.py",
+  "built": 1789221318.1744342
+ },
+ "trajectories": {
+  "count": 2,
+  "unit": "themes",
+  "note": "how a theme develops across the canon",
+  "script": "build_theology.py",
+  "built": 1789221318.1788366
  }
 }

@@ -317,6 +317,10 @@ LAYERS = [
     ("themes", "themes", [
         ("themes", "what the chapters are about", "job:themes"),
     ]),
+    ("arguments", "arguments", [
+        ("book-arguments", "what each book argues", "job:book-arguments"),
+        ("trajectories", "how a theme develops across the canon", "job:trajectories"),
+    ]),
     ("notes", "notes on a verse", [
         ("text-notes", "readings of the editions and the scribes", None),
         ("cross-references", "verses that speak to each other", None),

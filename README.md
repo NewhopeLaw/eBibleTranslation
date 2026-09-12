@@ -214,6 +214,29 @@ runs on serpent, ate, opened, cursed and a dozen more; and a single word like
 *good* serves creation, evaluation and law alike. The reader says so where the
 vocabulary is shown.
 
+### The rungs above themes
+
+`scripts/build_theology.py` adds the two layers that follow from themes, both
+built only from the layer below and citing it:
+
+- **What a book argues** (`--books`): the themes of a book's own chapters are
+  aggregated into its sections, its line of thought and what it keeps returning
+  to. 66 books, about 12 s each. Shown under the *themes* tab of any chapter of
+  that book.
+- **How a theme develops** (`--trajectories`): a theme's passages in canonical
+  order become a beginning, three to six stages, a culmination, and the places
+  where the passages pull against each other. About 24 s a theme. Shown on the
+  theme's own page.
+
+The tensions field is deliberate: a synthesis that cannot show where the text
+disagrees with itself is not worth reading. Both layers are labelled in the
+reader as readings rather than tagged facts, and no published theology,
+commentary or topical Bible is consulted.
+
+The reader's tabs run in the same order as the layers: the texts first, then
+interlinear and grammar search (words), fields of meaning, themes, and last the
+notes on a verse — parallels, places, chronology.
+
 ### Long model jobs (the work queue)
 
 The jobs that need the GPU for hours — writing the lexicon, sorting every
@@ -249,6 +272,7 @@ python scripts/build_all.py --fast      skip morphology and syntax (the slow two
 | chronology | `build_chronology.py` | our English text + hand-entered anchors | `chron.js` |
 | search index | `build_index.py` | every text | `idx_<lang>.js` |
 | themes | `build_themes.py` | the model, chapter by chapter | `themes.js` |
+| book arguments, theme trajectories | `build_theology.py` | the model over the themes | `theology.js` |
 | our lexicon | `build_lexicon.py` | the model over the concordance | `lexx.js` |
 | our lexicon, translated | `translate_lexicon.py --lang zh` | the model over our entries | `lexx_<lang>.js` |
 | fields of meaning | `build_domains.py` | the model over our glosses | `domains.js` |

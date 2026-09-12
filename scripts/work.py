@@ -60,6 +60,12 @@ def jobs():
     out.append(("themes", "read every chapter and say what it is about",
                 count_lines(ROOT / "targets" / "themes" / "chapters.jsonl"), 1189,
                 [sys.executable, str(S / "build_themes.py"), "--chapters", "--consolidate", "--pack"]))
+    out.append(("book-arguments", "say what each book argues, from its chapter themes",
+                count_lines(ROOT / "targets" / "themes" / "books.jsonl"), 66,
+                [sys.executable, str(S / "build_theology.py"), "--books", "--pack"]))
+    out.append(("trajectories", "trace how each theme develops across the canon",
+                count_lines(ROOT / "targets" / "themes" / "trajectories.jsonl"), 300,
+                [sys.executable, str(S / "build_theology.py"), "--trajectories", "--pack"]))
     for code in TARGETS:
         if code == "en":
             continue

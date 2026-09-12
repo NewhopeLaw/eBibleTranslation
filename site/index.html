@@ -112,6 +112,7 @@ main.inter .orig .w[data-m]::before { content:attr(data-m); display:block; font:
 #wpop .sense a, #wpop .idiom a { color:var(--accent); cursor:pointer; margin-left:.3em; }
 #wpop .idiom, #wpop .near, #wpop .usage, #wpop .cav { font-size:12px; color:var(--muted); margin-top:.3rem; }
 .tabs a.tool { border-style:dashed; }
+.tabs i.sep { width:1px; height:1.1rem; background:var(--border); margin:0 .35rem; align-self:center; }
 .gs { display:grid; grid-template-columns:repeat(auto-fill,minmax(11rem,1fr)); gap:.5rem .8rem; margin:.6rem 0 1rem; font:13px system-ui,sans-serif; }
 .gs label { display:flex; flex-direction:column; gap:.2rem; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.05em; }
 .gs select, .gs input { font:14px system-ui,sans-serif; padding:.35rem .5rem; border:1px solid var(--border); border-radius:8px; background:var(--card); color:var(--fg); }
@@ -166,6 +167,18 @@ sup.v { cursor:pointer; } sup.v:hover { text-decoration:underline; }
 .vocab { display:grid; grid-template-columns:repeat(auto-fill,minmax(12rem,1fr)); gap:.15rem .8rem; margin:.5rem 0 1rem; font-size:13px; }
 .vocab a { cursor:pointer; padding:.1rem .3rem; border-radius:5px; } .vocab a:hover { background:var(--soft); }
 .vocab a small { color:var(--muted); }
+.arg { margin:.6rem 0 1.2rem; font:14px/1.65 system-ui,sans-serif; }
+.arg .lead { padding:.6rem .8rem; background:var(--card); border:1px solid var(--border); border-radius:10px; }
+.arg h3 { font:600 11px system-ui,sans-serif; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:1.2rem 0 .35rem; }
+.arg .sec { display:grid; grid-template-columns:5.5rem 1fr; gap:.6rem; padding:.25rem .4rem; border-radius:6px; align-items:baseline; }
+.arg .sec:hover { background:var(--soft); } .arg .sec b { color:var(--accent); font:600 12px system-ui,sans-serif; cursor:pointer; }
+.arg .tags { display:flex; flex-wrap:wrap; gap:.3rem; margin-top:.4rem; }
+.arg .tags span { font-size:12px; padding:.1rem .5rem; border:1px solid var(--border); border-radius:999px; color:var(--muted); }
+.arg .stage { padding:.3rem .4rem; border-bottom:1px solid var(--border); }
+.arg .stage b { font:600 13px system-ui,sans-serif; } .arg .stage .r { color:var(--accent); font-size:12px; margin-left:.4rem; }
+.arg .tension { padding:.35rem .5rem; border-left:2px solid var(--warn); margin:.3rem 0; color:var(--fg); }
+.arg .tension .r { color:var(--muted); font-size:12px; }
+.arg .derived { color:var(--muted); font-size:12px; margin:.2rem 0 .8rem; }
 #vpop .pl { font-size:12px; } #vpop .pl a { color:var(--accent); cursor:pointer; margin-right:.6em; }
 #vpop .ap { font-size:12px; padding:.2rem .4rem; }
 #vpop .ap .rd { font-size:1.15em; } #vpop .ap .ed { color:var(--muted); }
@@ -258,6 +271,10 @@ ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
     The semantic-domain fields in those datasets are United Bible Societies material (Louw-Nida for Greek, the Semantic Dictionary of Biblical Hebrew for Hebrew),
     used by permission rather than licensed onward, so this project does not use them. The fields of meaning shown in the word popup are this project's own: the model sorts
     each lexeme by its usage and gloss into a list of fields written for this project (<code>scripts/build_domains.py</code>).</p>
+  <p><b>Book arguments and theme trajectories:</b> built by the model from the themes above and nothing else — a book's sections and line of thought from the themes
+    of its own chapters, a theme's development from its own passages in canonical order, including the places where those passages pull against each other. These are
+    readings, labelled as such in the reader, and they cite the layer they are built on so a reader can disagree at the step where they actually disagree. No published
+    theology, commentary or topical Bible is consulted.</p>
   <p><b>Themes:</b> the model reads each chapter and says what it is about, and those chapter themes are then folded into one list for the whole Bible. Nothing is
     taken from a systematic theology or a topical Bible, and every theme names the verses it came from. Themes are a reading, not a tagged fact, and they are kept
     apart from the data layers for that reason. The vocabulary shown with a theme is evidence about its passages, not a definition of it: one theme runs on many
@@ -336,11 +353,37 @@ function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
 
 /* ---------- themes: what the chapters are about, gathered across the canon ---------- */
 const themesLoad = () => typeof THEMES !== "undefined" ? Promise.resolve() : loadJs("morph/themes.js");
+const theolLoad = () => typeof BOOKARG !== "undefined" ? Promise.resolve() : loadJs("morph/theology.js");
+const DERIVED = "Built from the layer below it and citing what it is built on: a reading, not a tagged fact. Nothing here is taken from a published theology.";
+function bookArgHtml(book){
+  const a = typeof BOOKARG !== "undefined" ? BOOKARG[disp(book)] : null; if (!a) return "";
+  const [sections, argument, concerns] = a;
+  let h = `<div class="arg"><h3>What ${esc(disp(book))} is doing</h3><div class="derived">${esc(DERIVED)}</div>`;
+  if (argument) h += `<div class="lead">${esc(argument)}</div>`;
+  if ((concerns || []).length) h += `<div class="tags">${concerns.map(c => `<span>${esc(c)}</span>`).join("")}</div>`;
+  if ((sections || []).length) { h += `<h3>Its sections</h3>`;
+    h += sections.map(sc => `<div class="sec"><b onclick="location.hash='#${book}/${(String(sc.chapters).match(/\d+/) || [1])[0]}'">${esc(sc.chapters)}</b><span><b style="font-weight:600">${esc(sc.section)}</b> — ${esc(sc.what)}</span></div>`).join(""); }
+  return h + `</div>`;
+}
+function trajHtml(id){
+  const t = typeof TRAJ !== "undefined" ? TRAJ[id] : null; if (!t) return "";
+  const [beginning, stages, culmination, tensions, unresolved] = t;
+  let h = `<div class="arg"><h3>How it develops across the canon</h3><div class="derived">${esc(DERIVED)}</div>`;
+  if (beginning) h += `<div class="lead">${esc(beginning)}</div>`;
+  if ((stages || []).length) h += `<h3>Stages</h3>` + stages.map(st =>
+    `<div class="stage"><b>${esc(st.stage)}</b><span class="r">${esc(st.refs)}</span><div>${esc(st.what)}</div></div>`).join("");
+  if (culmination) h += `<h3>Where it comes to a head</h3><div>${esc(culmination)}</div>`;
+  if ((tensions || []).length) h += `<h3>Where the passages pull against each other</h3>` + tensions.map(tn =>
+    `<div class="tension">${esc(tn.tension)}<div class="r">${esc(tn.refs)}</div></div>`).join("");
+  if (unresolved) h += `<h3>Left open</h3><div>${esc(unresolved)}</div>`;
+  return h + `</div>`;
+}
 const BARR = `A theme is not a word. One theme runs on many unrelated words, and one word serves many themes — the caution James Barr pressed on word studies. The vocabulary below is what these passages happen to use, ranked by how much more often each word stands here than elsewhere. It is evidence about the passages, not a definition of the theme.`;
 async function renderThemes(book, ch, head){
   const main = $("#main");
   main.innerHTML = head + `<p class="empty">Loading themes…</p>`;
   try { await themesLoad(); } catch (e) { main.innerHTML = head + `<p class="empty">Themes are not built yet — run scripts/build_themes.py.</p>`; return; }
+  try { await theolLoad(); } catch (e) {}
   const here = (typeof CHTHEME !== "undefined" && CHTHEME[`${disp(book)}|${ch}`]) || [];
   let html = head + `<div class="thm">`;
   html += `<p class="empty" style="margin:0 0 .6rem">What the model found this chapter to be about, read chapter by chapter and then gathered across the whole Bible. This is a reading, not a tagged fact: every theme names the verses it came from, so it can be checked.</p>`;
@@ -352,14 +395,16 @@ async function renderThemes(book, ch, head){
       <div class="w">${esc(label && t && label !== t[0] ? "in this chapter: " + label : ((t && t[1]) || ""))}</div>
       ${t ? `<div class="w">${t[2].length} passage${t[2].length === 1 ? "" : "s"} in all</div>` : ""}</div>`;
   }
-  main.innerHTML = html + `</div>`;
+  main.innerHTML = html + `</div>` + bookArgHtml(book);
 }
 async function showTheme(id){
-  hidePop(); hideRefs(); await themesLoad(); await lexLoad(); navRender(null);
+  hidePop(); hideRefs(); await themesLoad(); await lexLoad(); await theolLoad().catch(() => {}); navRender(null);
   const t = THEMES[id]; if (!t) return;
   const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr");
   let html = `<h2>${esc(t[0])}<small class="lang">${t[2].length} passage${t[2].length === 1 ? "" : "s"} · a reading, not a tagged fact</small></h2>`;
   if (t[1]) html += `<p class="empty" style="margin:0 0 1rem">${esc(t[1])}</p>`;
+  html += trajHtml(id);
+  html += `<h3 style="font:600 11px system-ui,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:1.4rem 0 .3rem">The passages it was read from</h3>`;
   html += `<div class="thm">` + t[2].map(([b, c, vv]) => {
     const bb = b.replace(/ /g, "_");
     const [txt] = verseText(bb, c, (String(vv).match(/\d+/) || [1])[0]);
@@ -623,6 +668,16 @@ function domHtml(tag){                                   // our own fields of me
   const ds = DOMTAG[tag]; if (!ds || !ds.length) return "";
   return `<div class="dom">Fields of meaning: ${ds.map(d => `<a onclick="showDomain('${attr(d)}')">${esc(d)}</a>`).join(" · ")}</div>`;
 }
+async function browseFields(){                           // the fields of meaning, as a list to pick from
+  hidePop(); await domLoad().catch(() => {}); navRender(null);
+  const main = $("#main"); main.className = ""; main.setAttribute("dir", "ltr");
+  if (typeof DOMLIST === "undefined") { main.innerHTML = `<h2>Fields of meaning</h2><p class="empty">Not built yet — run scripts/build_domains.py.</p>`; return; }
+  const used = DOMLIST.filter(d => (DOMAINS[d] || []).length);
+  main.innerHTML = `<h2>Fields of meaning<small class="lang">${used.length} fields · this project's own grouping</small></h2>`
+    + `<p class="empty" style="margin:0 0 1rem">Each lexeme is sorted by its usage and gloss into fields written for this project. No published domain lexicon is used.</p>`
+    + `<div class="plist">` + used.map(d => `<a onclick="showDomain('${attr(d)}')">${esc(d)} <small>${(DOMAINS[d] || []).length} words</small></a>`).join("") + `</div>`;
+  window.scrollTo(0, 0);
+}
 async function showDomain(name){
   hidePop(); await domLoad(); await lexLoad(); navRender(null);
   const members = (DOMAINS[name] || []);
@@ -842,7 +897,16 @@ function renderChapter(book, ch, highlightVerse) {
     for (const t of haveTargets)
       html += `<a class="${v==='tr'&&shown===t?'on':''} ${trs[t]?'':'off'}" onclick="setTl('${t}');setView('tr')">${TARGETS[t].native}</a>`;
     html += `<span class="sep"></span><a class="${v==='par'?'on':''} ${tr?'':'off'}" onclick="setView('par')">Side by side</a>`;
-    html += `<a class="${v==='all'?'on':''} ${(avail.length + (lxx?1:0))>1?'':'off'}" onclick="setView('all')">Compare</a><a class="${v==='harm'?'on':''}" onclick="setView('harm')" title="this chapter beside its parallels elsewhere">parallels</a><a class="${v==='map'?'on':''}" onclick="setView('map')" title="the places this chapter mentions, on a map">places</a><a class="${v==='chron'?'on':''}" onclick="setView('chron')" title="the chronological statements in this chapter, and the dated anchors">chronology</a><a class="${v==='themes'?'on':''}" onclick="setView('themes')" title="what this chapter is about, and where else the Bible takes it up">themes</a><a class="tool ${inter?'on':''}" onclick="toggleInter()" title="gloss and parsing under every Hebrew / Greek word">interlinear</a><a class="tool" onclick="gsOpen()" title="find words by grammatical form">grammar search</a></div>`;
+    html += `<a class="${v==='all'?'on':''} ${(avail.length + (lxx?1:0))>1?'':'off'}" onclick="setView('all')">Compare</a>`;
+    // the analysis tabs, in the order the layers are built: words, then lexemes and meaning, then themes, then arguments, then notes on a verse
+    html += `<i class="sep" title="analysis"></i>`;
+    html += `<a class="tool ${inter?'on':''}" onclick="toggleInter()" title="words: gloss and parsing under every Hebrew or Greek word">interlinear</a>`;
+    html += `<a class="tool" onclick="gsOpen()" title="words: find words by grammatical form">grammar search</a>`;
+    html += `<a class="tool" onclick="browseFields()" title="meaning: the fields this project sorts its lexemes into">fields of meaning</a>`;
+    html += `<a class="tool ${v==='themes'?'on':''}" onclick="setView('themes')" title="themes: what this chapter is about, where else it is taken up, and what the book argues">themes</a>`;
+    html += `<a class="tool ${v==='harm'?'on':''}" onclick="setView('harm')" title="notes: this chapter beside the passages that share its wording">parallels</a>`;
+    html += `<a class="tool ${v==='map'?'on':''}" onclick="setView('map')" title="notes: the places this chapter mentions, on a map">places</a>`;
+    html += `<a class="tool ${v==='chron'?'on':''}" onclick="setView('chron')" title="notes: the chronological statements here, and the dated anchors">chronology</a></div>`;
   }
   main.className = ((v === "par" || v === "all" || v === "hl" || v === "harm" || v === "map" || v === "chron" || v === "themes") ? "wide" : "") + (inter && src && (v === "orig" || v === "par" || v === "all" || v === "hl") ? " inter" : "");
   if (src && !MORPH[disp(book)]) morphLoad(book).then(() => { if (location.hash.slice(1).split("/").slice(0, 2).join("/") === `${book}/${ch}`) route(); }).catch(() => {});
