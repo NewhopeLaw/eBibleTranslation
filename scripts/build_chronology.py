@@ -26,6 +26,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+import manifest                                       # noqa: E402
 from books import BOOKS, slug   # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -132,6 +133,7 @@ def main():
     kinds = {}
     for r in data:
         kinds[r[3]] = kinds.get(r[3], 0) + 1
+    manifest.record("chronology", len(data), "statements", "the chronology tab", "build_chronology.py")
     print(f"chronology: {len(data)} statements from the text ({', '.join(f'{k} {n}' for k, n in sorted(kinds.items()))}), "
           f"{len(ANCHORS)} externally attested anchors; {OUT.stat().st_size / 1000:.0f} KB")
 

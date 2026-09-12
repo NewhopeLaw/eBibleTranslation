@@ -27,6 +27,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 import translate as T                                    # noqa: E402  (same Ollama call, config, retries)
+import manifest                                       # noqa: E402
 from books import BOOKS, slug                            # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -148,6 +149,7 @@ def pack():
                 e = json.loads(line)
                 lex[e["tag"]] = {k: e[k] for k in ("headword", "gloss", "senses", "usage", "idioms", "near", "note", "count") if k in e}
     (MORPH / "lexx.js").write_text("LEXX=" + json.dumps(lex, ensure_ascii=False, separators=(",", ":")) + ";\n", encoding="utf-8")
+    manifest.record("lexicon", len(lex), "entries", "our own lexicon, written from the text", "build_lexicon.py")
     print(f"packed {len(lex)} entries -> site/morph/lexx.js")
     return lex
 

@@ -36,6 +36,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 import translate as T                                     # noqa: E402
+import manifest                                       # noqa: E402
 from books import BOOKS, slug                             # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -179,6 +180,7 @@ def pack(score=False):
     (MORPH / "lexemes.js").write_text(
         "LEXEME=" + json.dumps(lexeme, ensure_ascii=False, separators=(",", ":")) + ";\n"
         + "FORM2LEX=" + json.dumps(form2lex, ensure_ascii=False, separators=(",", ":")) + ";\n", encoding="utf-8")
+    manifest.record("lexeme-inventory", len(lexeme), "dictionary words", "our own lexeme inventory", "build_lexemes.py")
     print(f"lexemes: {len(lexeme)} dictionary words from {len(form2lex)} forms "
           f"({counters['he']} Hebrew/Aramaic, {counters['gr']} Greek) -> site/morph/lexemes.js")
     if score:

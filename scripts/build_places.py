@@ -26,6 +26,7 @@ from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+import manifest                                       # noqa: E402
 from books import BOOKS   # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -188,6 +189,7 @@ def main():
             + "VPLACES=" + json.dumps(verses, ensure_ascii=False, separators=(",", ":")) + ";\n"
             + "MAPSVG=" + json.dumps(mapsvg, separators=(",", ":")) + ";\n")
     OUT.write_text(body, encoding="utf-8")
+    manifest.record("places", len(places), "places", "the map and the places tab", "build_places.py")
     print(f"places: {len(places)} located, {len(verses)} verses with a place; "
           f"map {len(coast)} coast + {len(lakes)} lake + {len(rivers)} river paths; "
           f"{OUT.stat().st_size / 1e6:.2f} MB -> {OUT}")

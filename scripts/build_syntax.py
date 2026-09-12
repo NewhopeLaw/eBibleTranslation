@@ -29,6 +29,7 @@ from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+import manifest                                       # noqa: E402
 from books import BOOKS, slug   # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -98,6 +99,7 @@ def main():
     nh = emit(h_rows, h_ids, h_ref)
     (OUT / "domains.js").unlink(missing_ok=True)        # UBS domain data is not ours to redistribute
     size = sum(p.stat().st_size for p in OUT.glob("syn_*.js"))
+    manifest.record("clause-data", ng + nh, "words", "clause role, participants, glosses", "build_syntax.py")
     print(f"syntax: {ng} Greek words across {len(g_rows)} books, {nh} Hebrew words across {len(h_rows)} books "
           f"(role, class, antecedent, gloss); {size / 1e6:.1f} MB. Semantic domains deliberately excluded — see LEGAL.md")
 

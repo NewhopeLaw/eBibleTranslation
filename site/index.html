@@ -867,27 +867,64 @@ function goRef(input) {
 }
 
 /* ---------- search (in the selected translation) ---------- */
-function search(q) {
+const IDX = {};
+const idxLoad = name => IDX[name] ? Promise.resolve() : loadJs(`morph/idx_${name}.js`);
+const foldTerm = t => t.normalize("NFD").replace(/[\u0300-\u036f\u0591-\u05c7]/g, "").normalize("NFC").toLowerCase();
+function idxVerses(name, term){                          // -> verse ids for one term, or null when it is not indexed
+  const enc = IDX[name] && IDX[name][term]; if (!enc) return null;
+  const out = []; let p = 0;
+  for (const x of enc.split(".")) { p += parseInt(x, 16); out.push(p); }
+  return out;
+}
+const byNumBook = {}; for (const b in ORDER) byNumBook[ORDER[b]] = b;
+function idxCandidates(name, q){                         // verses holding every term of the query, or null to fall back
+  if (!IDX[name]) return null;
+  const words = q.split(/[^\p{L}\p{M}\p{N}]+/u).filter(Boolean).map(foldTerm);
+  if (!words.length) return null;
+  let acc = null;
+  for (const w of words) {
+    const got = idxVerses(name, w) || idxVerses(name, w.slice(0, 3)) || idxVerses(name, w.slice(0, 2));
+    if (!got) return IDX[name][w] === undefined && w.length > 3 ? null : [];   // a word the index knows is absent means no hits
+    const set = new Set(got);
+    acc = acc === null ? set : new Set([...acc].filter(v => set.has(v)));
+    if (!acc.size) break;
+  }
+  return acc ? [...acc].sort((a, b) => a - b) : [];
+}
+async function search(q) {
   navRender(null);
   q = q.trim();
   const main = $("#main");
   main.className = ""; main.setAttribute("lang", tl);
   if (q.length < 2) { main.innerHTML = `<p class="empty">Type at least two characters.</p>`; return; }
-  const rx = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"), "gi");
+  try { await idxLoad(tl); } catch (e) {}
+  const rx = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi");
   const hits = [];
-  outer:
-  for (const book of booksWith(tl)) {
-    for (const ch of chapterList(book)) {
-      const t = trOf(book, ch)[tl];
-      if (!t) continue;
-      for (const [v, s] of Object.entries(t.verses)) {
-        rx.lastIndex = 0;
-        if (rx.test(s)) { hits.push({book, ch, v, t:s}); if (hits.length >= 200) break outer; }
+  const cand = idxCandidates(tl, q);
+  if (cand) {
+    for (const id of cand) {
+      const book = byNumBook[Math.floor(id / 1000000)], ch = String(Math.floor(id / 1000) % 1000), v = String(id % 1000);
+      const t = book && trOf(book, ch)[tl];
+      const sv = t && t.verses[v];
+      if (!sv) continue;
+      rx.lastIndex = 0;
+      if (rx.test(sv)) { hits.push({book, ch, v, t: sv}); if (hits.length >= 500) break; }
+    }
+  } else {
+    outer:
+    for (const book of booksWith(tl)) {
+      for (const ch of chapterList(book)) {
+        const t = trOf(book, ch)[tl];
+        if (!t) continue;
+        for (const [v, sv] of Object.entries(t.verses)) {
+          rx.lastIndex = 0;
+          if (rx.test(sv)) { hits.push({book, ch, v, t: sv}); if (hits.length >= 200) break outer; }
+        }
       }
     }
   }
   let html = `<h2>Search: “${esc(q)}”<small class="lang">${TARGETS[tl].name}</small></h2><div id="results">`;
-  html += `<p class="empty">${hits.length}${hits.length>=200?"+":""} verse${hits.length===1?"":"s"} found.</p>`;
+  html += `<p class="empty">${hits.length}${hits.length >= 500 ? "+" : ""} verse${hits.length === 1 ? "" : "s"} found${cand ? "" : " · scanned, this text has no index yet"}.</p>`;
   for (const h of hits) {
     rx.lastIndex = 0;
     html += `<div class="hit" lang="${tl}" dir="${tdir(tl)}" onclick="location.hash='#${h.book}/${h.ch}/${h.v}'">

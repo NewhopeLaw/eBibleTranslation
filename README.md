@@ -181,6 +181,21 @@ day for the whole text, resumable throughout.
 whose members share the same reference tag (`logs/lexeme_report.md`). The
 reference is a yardstick only — nothing from it enters our inventory.
 
+### Search index
+
+`scripts/build_index.py` maps every word of every text to the verses it stands
+in: 1.69 million postings over the Hebrew, the Greek, the Septuagint and each
+translation, delta-encoded and loaded per language on demand. Vowel points and
+accents are folded, so a search matches what a reader types, and the languages
+that do not space their words are indexed by short character runs. The reader
+uses it to jump straight to the candidate verses, which takes about 10 ms
+instead of scanning the whole text; a language with no index yet falls back to
+scanning and says so.
+
+The postings are built in code, not by the model — a list of occurrences has to
+be exact. The model's part is the layer above: grouping the forms of a word so
+that a search for one form finds the others.
+
 ### Long model jobs (the work queue)
 
 The jobs that need the GPU for hours — writing the lexicon, sorting every
@@ -214,6 +229,7 @@ python scripts/build_all.py --fast      skip morphology and syntax (the slow two
 | clause roles, referents, domains | `build_syntax.py` | MACULA Greek (CC BY 4.0) | `syn_*.js`, `domains.js` |
 | places and the map | `build_places.py` | OpenBible.info + Natural Earth | `places.js` |
 | chronology | `build_chronology.py` | our English text + hand-entered anchors | `chron.js` |
+| search index | `build_index.py` | every text | `idx_<lang>.js` |
 | our lexicon | `build_lexicon.py` | the model over the concordance | `lexx.js` |
 | our lexicon, translated | `translate_lexicon.py --lang zh` | the model over our entries | `lexx_<lang>.js` |
 | fields of meaning | `build_domains.py` | the model over our glosses | `domains.js` |

@@ -21,6 +21,7 @@ STEPS = [
     ("Greek syntax and domains", "build_syntax.py", [], True),
     ("places and map", "build_places.py", [], False),
     ("chronology", "build_chronology.py", [], False),
+    ("search index", "build_index.py", [], False),
     ("lexicon (pack what exists)", "build_lexicon.py", ["--pack"], False),
     ("reader page", "build_site.py", [], False),
 ]

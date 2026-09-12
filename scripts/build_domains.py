@@ -26,6 +26,7 @@ from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+import manifest                                       # noqa: E402
 import translate as T                                    # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -101,6 +102,7 @@ def pack():
             + "DOMTAG=" + json.dumps(by_tag, ensure_ascii=False, separators=(",", ":")) + ";\n"
             + "DOMLIST=" + json.dumps(TAXONOMY, ensure_ascii=False, separators=(",", ":")) + ";\n")
     (MORPH / "domains.js").write_text(body, encoding="utf-8")
+    manifest.record("fields", len(by_tag), "lexemes sorted", "fields of meaning", "build_domains.py")
     print(f"packed {len(by_tag)} lexemes into {len(by_dom)} fields -> site/morph/domains.js")
 
 

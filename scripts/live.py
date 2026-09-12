@@ -293,6 +293,75 @@ def chapter_payload(code, ch, lang):
             "src": src, "verses": len(src), "translations": translations}
 
 
+# The study layers, smallest unit of language first: the written forms, then
+# words, then the dictionary words behind them, then meaning, then the notes
+# that hang off a verse. Each entry: key in the manifest or the work queue.
+LAYERS = [
+    ("forms", "letters and forms", [
+        ("lexeme-inventory", "word forms analysed", "job:lexemes"),
+    ]),
+    ("words", "words", [
+        ("morphology", "every word parsed and glossed", None),
+        ("clause-data", "each word's part in its clause", None),
+        ("search-index", "every word found in every verse", None),
+    ]),
+    ("lexemes", "lexemes", [
+        ("concordance", "every occurrence of every lexeme", None),
+        ("lexicon-brief", "the reference lexicon", None),
+        ("lexicon", "our own lexicon, written from the text", "job:lexicon"),
+    ]),
+    ("meaning", "meaning", [
+        ("fields", "lexemes sorted into fields of meaning", "job:domains"),
+        ("lexicon-translated", "our lexicon in the target languages", "job:lexicon-translations"),
+    ]),
+    ("notes", "notes on a verse", [
+        ("text-notes", "readings of the editions and the scribes", None),
+        ("cross-references", "verses that speak to each other", None),
+        ("parallels", "passages that share their wording", None),
+        ("places", "where it happens", None),
+        ("chronology", "what the text counts", None),
+    ]),
+]
+
+
+def work_progress():
+    """Every layer, in order from the smallest unit of language to the largest."""
+    import importlib
+    manifest = {}
+    f = ROOT / "site" / "morph" / "manifest.json"
+    if f.exists():
+        try:
+            manifest = json.loads(f.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            manifest = {}
+    jobs = {}
+    try:
+        w = importlib.import_module("work")
+        importlib.reload(w)
+        for name, what, done, total, _ in w.jobs():
+            jobs[name] = (done, total)
+    except Exception:                                       # noqa: BLE001 — the panel is optional
+        pass
+    tr_done = sum(d for n, (d, t) in jobs.items() if n.startswith("lexicon-"))
+    tr_total = sum(t for n, (d, t) in jobs.items() if n.startswith("lexicon-")) or 1
+    jobs["lexicon-translations"] = (tr_done, tr_total)
+    out = []
+    for gkey, glabel, items in LAYERS:
+        entries = []
+        for key, what, job in items:
+            m = manifest.get(key) or {}
+            done = total = 0
+            if job and job.startswith("job:"):
+                done, total = jobs.get(job[4:], (0, 0))
+            elif m:
+                done = total = m.get("count", 0)
+            entries.append({"key": key, "what": what, "done": done, "total": total,
+                            "unit": m.get("unit", ""), "count": m.get("count", 0),
+                            "built": m.get("built"), "running": bool(job) and 0 < done < total})
+        out.append({"group": gkey, "label": glabel, "items": entries})
+    return {"groups": out, "now": time.time()}
+
+
 REBUILD_LOCK = threading.Lock()
 
 
@@ -459,6 +528,8 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header("Cache-Control", "no-cache")
             self.end_headers()
             self.wfile.write(body)
+        elif path == "/work":
+            self._json(work_progress())
         elif path == "/reader-stale":
             self._json({"stale": reader_stale()})
         elif path in ("/reader", "/compare"):          # the offline reader; rebuilt first when translations are newer
@@ -563,6 +634,17 @@ button.primary { background:var(--accent); color:#fff; border-color:var(--accent
 button.stop { color:var(--err); }
 button:disabled { opacity:.4; cursor:default; }
 label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); font-size:12px; }
+#work { display:block; padding:.4rem .9rem .5rem; border-bottom:1px solid var(--border); background:var(--soft); font-size:12px; color:var(--muted); }
+#work .grp { display:flex; flex-wrap:wrap; align-items:center; gap:.25rem .8rem; padding:.1rem 0; }
+#work .gl { width:6.6rem; flex:none; font-size:10px; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); text-align:right; }
+#work .j { display:flex; align-items:center; gap:.3rem; }
+#work .j b { color:var(--fg); font-weight:600; font-variant-numeric:tabular-nums; }
+#work .j .b { width:3.6rem; height:5px; background:var(--border); border-radius:3px; overflow:hidden; }
+#work .j .b i { display:block; height:100%; background:var(--accent); transition:width .4s; }
+#work .j.full .b i { background:var(--ok); }
+#work .j.run b { color:var(--accent); } #work .j.run .b i { animation:pulse 1.4s infinite; }
+#work .j.none { opacity:.45; }
+body.reading #work { display:none; }
 #stats { display:flex; flex-wrap:wrap; gap:.4rem .5rem; padding:.5rem .9rem; align-items:stretch;
   border-bottom:1px solid var(--border); }
 .stat { display:flex; flex-direction:column; min-width:5.4rem; padding:.3rem .65rem; border-radius:8px; background:var(--card);
@@ -710,6 +792,7 @@ __READALOUD_CSS__
   <span><small>Session</small><b id="ss_ch">0</b> chapters · <b id="ss_tok">0</b> tokens · <b id="ss_time">0s</b> · <b id="ss_tps">—</b> tok/s</span>
   <span><small>Lifetime</small><b id="lt_ch">0</b> chapters · <b id="lt_tok">0</b> tokens out · <b id="lt_ptok">0</b> in · <b id="lt_time">0s</b> · <b id="lt_tps">—</b> tok/s avg</span>
 </div>
+<div id="work" hidden></div>
 <div id="strip" hidden></div>
 <div class="layout" id="layout">
   <div id="text" class="plain"></div>
@@ -972,6 +1055,27 @@ function tick(){
 function bookProgress(name){ const b = S && S.books.find(x => x.name === name || x.code === name); if (b) $('bprog').textContent = b.done + ' / ' + b.total; }
 const fmtN = n => n >= 1e6 ? (n/1e6).toFixed(2) + 'M' : n >= 1e4 ? (n/1e3).toFixed(0) + 'k' : String(n || 0);
 const fmtT = s => { s = Math.round(s || 0); const h = Math.floor(s/3600), m = Math.floor(s%3600/60); return h ? `${h}h ${m}m` : m ? `${m}m ${s%60}s` : `${s}s`; };
+const fmtAge = t => { if (!t) return ''; const m = (Date.now()/1000 - t)/60;
+  return m < 60 ? `built ${Math.round(m)} min ago` : (m < 1440 ? `built ${Math.round(m/60)} h ago` : `built ${Math.round(m/1440)} d ago`); };
+async function workBar(){
+  let w;
+  try { w = await (await fetch('/work')).json(); } catch (e) { return; }
+  const el = $('work');
+  const groups = (w.groups || []).filter(g => g.items.some(i => i.done || i.count));
+  if (!groups.length) { el.hidden = true; return; }
+  el.hidden = false;
+  el.innerHTML = groups.map(g => `<div class="grp"><span class="gl">${esc(g.label)}</span>` + g.items.map(it => {
+    const total = it.total || it.count || 0, done = it.done || it.count || 0;
+    const pct = total ? Math.min(100, 100 * done / total) : 0;
+    const cls = !done ? 'none' : (it.running ? 'run' : (done >= total ? 'full' : ''));
+    const num = it.running || done < total ? `<b>${fmtN(done)}</b>/${fmtN(total)}` : `<b>${fmtN(done)}</b>`;
+    const tip = `${it.what}${it.unit ? ' — ' + fmtN(it.count) + ' ' + it.unit : ''}${it.built ? ' · ' + fmtAge(it.built) : ''}${it.running ? ' · running now' : ''}`;
+    return `<span class="j ${cls}" title="${esc(tip)}">${esc(it.key.replace(/-/g, ' '))} <span class="b"><i style="width:${pct.toFixed(1)}%"></i></span> ${num}</span>`;
+  }).join('') + `</div>`).join('');
+}
+setInterval(workBar, 20000);
+workBar();
+
 function totals(s){
   const ss = s.session, lt = s.lifetime;
   $('ss_ch').textContent = ss.chapters; $('ss_tok').textContent = fmtN(ss.tokens); $('ss_time').textContent = fmtT(ss.seconds); $('ss_tps').textContent = ss.tps || '—';

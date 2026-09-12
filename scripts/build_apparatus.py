@@ -28,6 +28,7 @@ from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+import manifest                                       # noqa: E402
 from books import BOOKS, slug   # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -152,6 +153,7 @@ def main():
             f"APP[{json.dumps(NAME[ours])}]=" + json.dumps(out, ensure_ascii=False, separators=(",", ":")) + ";\n", encoding="utf-8")
     (OUT / "app_meta.js").write_text("APPED=" + json.dumps(EDNAME, ensure_ascii=False, separators=(",", ":")) + ";\n", encoding="utf-8")
     size = sum(p.stat().st_size for p in OUT.glob("app_*.js"))
+    manifest.record("text-notes", total, "notes", "editions and the scribal tradition", "build_apparatus.py")
     print(f"apparatus: {total} entries across {books} books, {size / 1e6:.1f} MB -> site/morph/app_*.js")
 
 

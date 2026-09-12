@@ -29,6 +29,7 @@ from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+import manifest                                       # noqa: E402
 from books import BOOKS, slug   # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -241,6 +242,9 @@ def main():
     (OUT / "conc.js").write_text(js("CONC", conc), encoding="utf-8")
     (ROOT / "logs" / "morph_report.md").write_text("\n".join(report) + "\n", encoding="utf-8")
     size = sum(p.stat().st_size for p in OUT.glob("*.js"))
+    manifest.record("morphology", totals[0], "words tagged", "word popup, interlinear, grammar search", "build_morph.py")
+    manifest.record("concordance", len(conc), "lexemes", "every occurrence of a word", "build_morph.py")
+    manifest.record("lexicon-brief", len(lex), "entries", "the brief reference lexicon", "build_morph.py")
     print(f"morphology: {totals[0]} tokens, {totals[0] - totals[1]} aligned ({100 * (totals[0] - totals[1]) / max(1, totals[0]):.2f}%), "
           f"{totals[2]} verses without tags; lexicon {len(lex)} entries, {len(morphx)} morphology codes, "
           f"concordance {len(conc)} lemmas; {size / 1e6:.1f} MB in {OUT}")

@@ -23,6 +23,7 @@ from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+import manifest                                       # noqa: E402
 from books import BOOKS, slug   # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -161,12 +162,15 @@ def build_parallels():
         report.append(f"- {setname}: {n} verses compared, {pairs} parallel links")
     (MORPH / "parallels.js").write_text("PAR=" + json.dumps(par, ensure_ascii=False, separators=(",", ":")) + ";\n", encoding="utf-8")
     (ROOT / "logs" / "parallels_report.md").write_text("\n".join(report) + "\n", encoding="utf-8")
+    manifest.record("parallels", sum(len(v) for ch in par.values() for v in ch.values()), "links",
+                    "passages that share their wording", "build_refs.py")
     return report
 
 
 def main():
     n, books = build_xrefs()
     print(f"cross-references: {n} links with positive votes across {books} books -> site/morph/xref_*.js")
+    manifest.record("cross-references", n, "links", "shown when a verse number is clicked", "build_refs.py")
     for line in build_parallels():
         print(line)
 
