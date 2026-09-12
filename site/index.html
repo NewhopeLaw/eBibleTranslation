@@ -156,6 +156,16 @@ sup.v { cursor:pointer; } sup.v:hover { text-decoration:underline; }
 .chron .anch .y { font-variant-numeric:tabular-nums; font-weight:600; }
 .chron .anch .basis { color:var(--muted); font-size:12px; }
 .chron .note { color:var(--muted); margin:.4rem 0 0; }
+.thm { margin:.8rem 0 1.4rem; font:14px/1.6 system-ui,sans-serif; }
+.thm .t { padding:.5rem .6rem; border-bottom:1px solid var(--border); }
+.thm .t b { font:600 15px system-ui,sans-serif; cursor:pointer; color:var(--fg); }
+.thm .t b:hover { color:var(--accent); }
+.thm .t .vv { color:var(--accent); font-size:12px; margin-left:.5rem; cursor:pointer; }
+.thm .t .w { color:var(--muted); font-size:13px; }
+.thm .cav { color:var(--muted); font-size:12px; margin:.5rem 0 1rem; padding:.5rem .7rem; border-left:2px solid var(--border); }
+.vocab { display:grid; grid-template-columns:repeat(auto-fill,minmax(12rem,1fr)); gap:.15rem .8rem; margin:.5rem 0 1rem; font-size:13px; }
+.vocab a { cursor:pointer; padding:.1rem .3rem; border-radius:5px; } .vocab a:hover { background:var(--soft); }
+.vocab a small { color:var(--muted); }
 #vpop .pl { font-size:12px; } #vpop .pl a { color:var(--accent); cursor:pointer; margin-right:.6em; }
 #vpop .ap { font-size:12px; padding:.2rem .4rem; }
 #vpop .ap .rd { font-size:1.15em; } #vpop .ap .ed { color:var(--muted); }
@@ -248,6 +258,10 @@ ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
     The semantic-domain fields in those datasets are United Bible Societies material (Louw-Nida for Greek, the Semantic Dictionary of Biblical Hebrew for Hebrew),
     used by permission rather than licensed onward, so this project does not use them. The fields of meaning shown in the word popup are this project's own: the model sorts
     each lexeme by its usage and gloss into a list of fields written for this project (<code>scripts/build_domains.py</code>).</p>
+  <p><b>Themes:</b> the model reads each chapter and says what it is about, and those chapter themes are then folded into one list for the whole Bible. Nothing is
+    taken from a systematic theology or a topical Bible, and every theme names the verses it came from. Themes are a reading, not a tagged fact, and they are kept
+    apart from the data layers for that reason. The vocabulary shown with a theme is evidence about its passages, not a definition of it: one theme runs on many
+    unrelated words, and one word serves many themes.</p>
   <p><b>Chronology:</b> the numbers are extracted from this project's own English translation by pattern, each shown with its verse; nothing is summed into a date.
     The anchor dates are entered by hand from Assyrian, Babylonian, Persian and Roman records and are marked as externally attested. No copyrighted chronology
     (Thiele, Finegan or any other) is used.</p>
@@ -319,6 +333,53 @@ function neighbours(book, ch) {
 }
 
 function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+
+/* ---------- themes: what the chapters are about, gathered across the canon ---------- */
+const themesLoad = () => typeof THEMES !== "undefined" ? Promise.resolve() : loadJs("morph/themes.js");
+const BARR = `A theme is not a word. One theme runs on many unrelated words, and one word serves many themes — the caution James Barr pressed on word studies. The vocabulary below is what these passages happen to use, ranked by how much more often each word stands here than elsewhere. It is evidence about the passages, not a definition of the theme.`;
+async function renderThemes(book, ch, head){
+  const main = $("#main");
+  main.innerHTML = head + `<p class="empty">Loading themes…</p>`;
+  try { await themesLoad(); } catch (e) { main.innerHTML = head + `<p class="empty">Themes are not built yet — run scripts/build_themes.py.</p>`; return; }
+  const here = (typeof CHTHEME !== "undefined" && CHTHEME[`${disp(book)}|${ch}`]) || [];
+  let html = head + `<div class="thm">`;
+  html += `<p class="empty" style="margin:0 0 .6rem">What the model found this chapter to be about, read chapter by chapter and then gathered across the whole Bible. This is a reading, not a tagged fact: every theme names the verses it came from, so it can be checked.</p>`;
+  if (!here.length) html += `<p class="empty">No themes recorded for ${disp(book)} ${ch} yet.</p>`;
+  for (const [id, verses, label] of here) {
+    const t = THEMES[id];
+    html += `<div class="t"><b onclick="showTheme('${id}')">${esc((t && t[0]) || label)}</b>
+      <span class="vv" onclick="location.hash='#${book}/${ch}${/^\d+$/.test(verses) ? "/" + verses : ""}'">${esc(verses || "")}</span>
+      <div class="w">${esc(label && t && label !== t[0] ? "in this chapter: " + label : ((t && t[1]) || ""))}</div>
+      ${t ? `<div class="w">${t[2].length} passage${t[2].length === 1 ? "" : "s"} in all</div>` : ""}</div>`;
+  }
+  main.innerHTML = html + `</div>`;
+}
+async function showTheme(id){
+  hidePop(); hideRefs(); await themesLoad(); await lexLoad(); navRender(null);
+  const t = THEMES[id]; if (!t) return;
+  const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr");
+  let html = `<h2>${esc(t[0])}<small class="lang">${t[2].length} passage${t[2].length === 1 ? "" : "s"} · a reading, not a tagged fact</small></h2>`;
+  if (t[1]) html += `<p class="empty" style="margin:0 0 1rem">${esc(t[1])}</p>`;
+  html += `<div class="thm">` + t[2].map(([b, c, vv]) => {
+    const bb = b.replace(/ /g, "_");
+    const [txt] = verseText(bb, c, (String(vv).match(/\d+/) || [1])[0]);
+    return `<div class="t"><b onclick="location.hash='#${bb}/${c}'">${esc(b)} ${c}${vv ? ":" + esc(String(vv)) : ""}</b>
+      <div class="w">${esc(String(txt).slice(0, 170))}</div></div>`;
+  }).join("") + `</div>`;
+  if ((t[3] || []).length) {
+    html += `<h3 style="font:600 11px system-ui,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:1.4rem 0 .3rem">The words these passages use</h3>`;
+    html += `<div class="thm"><div class="cav">${esc(BARR)}</div></div>`;
+    html += `<div class="vocab">` + t[3].map(([tag, head, gloss, lift, n]) =>
+      `<a onclick="showConc('${tag}')"><span class="orig">${esc(head)}</span> <small>${esc(gloss)} · ${n}× here, ${lift}× as often as elsewhere</small></a>`).join("") + `</div>`;
+  }
+  main.innerHTML = html;
+  window.scrollTo(0, 0);
+}
+function themeWordHtml(tag){                             // in the word popup: the themes this word turns up under
+  if (typeof THEMEWORD === "undefined") return "";
+  const ids = THEMEWORD[tag]; if (!ids || !ids.length) return "";
+  return `<div class="dom">Turns up under: ${ids.slice(0, 6).map(id => `<a onclick="showTheme('${id}')">${esc((THEMES[id] || ["?"])[0])}</a>`).join(" · ")}${ids.length > 6 ? ` and ${ids.length - 6} more` : ""}</div>`;
+}
 
 /* ---------- chronology: what the text counts, and the dates outside records fix ---------- */
 const chronLoad = () => typeof CHRON !== "undefined" ? Promise.resolve() : loadJs("morph/chron.js");
@@ -612,7 +673,7 @@ let wsel = null;
 function hidePop(){ wpop.hidden = true; if (wsel) { wsel.classList.remove("sel"); wsel = null; } }
 async function showPop(el){
   const [book, ch, v, i] = el.dataset.k.split("/");
-  await morphLoad(book); await lexLoad(); await Promise.all([lexxLoad().catch(() => {}), lexxtLoad(tl).catch(() => {}), synLoad(book).catch(() => {}), domLoad().catch(() => {}), lexemeLoad().catch(() => {})]);
+  await morphLoad(book); await lexLoad(); await Promise.all([lexxLoad().catch(() => {}), lexxtLoad(tl).catch(() => {}), synLoad(book).catch(() => {}), domLoad().catch(() => {}), lexemeLoad().catch(() => {}), themesLoad().catch(() => {})]);
   const m = MORPH[disp(book)], d = m && m[ch] && m[ch][v] && m[ch][v][i];
   if (wsel) wsel.classList.remove("sel"); wsel = el; el.classList.add("sel");
   let html = `<div class="hw"><span class="orig">${esc(el.textContent)}</span>`;
@@ -625,6 +686,7 @@ async function showPop(el){
     html += `<div class="parse">${esc(parseCode(d[1]))}<code>${esc(d[1])}</code></div>`;
     html += synHtml(book, ch, v, +i);
     html += domHtml(root);
+    html += themeWordHtml(root);
     html += oursLexeme(el.textContent);
     html += `<div>gloss: <b>${esc(d[2])}</b>${greek && d[3] && d[3] !== d[2] ? ` · <span class="tl">${esc(d[3])}</span>` : ""}</div>`;
     const extra = (d[0].match(TAGRE) || []).filter(t => t !== root && LEX[t]);
@@ -780,9 +842,9 @@ function renderChapter(book, ch, highlightVerse) {
     for (const t of haveTargets)
       html += `<a class="${v==='tr'&&shown===t?'on':''} ${trs[t]?'':'off'}" onclick="setTl('${t}');setView('tr')">${TARGETS[t].native}</a>`;
     html += `<span class="sep"></span><a class="${v==='par'?'on':''} ${tr?'':'off'}" onclick="setView('par')">Side by side</a>`;
-    html += `<a class="${v==='all'?'on':''} ${(avail.length + (lxx?1:0))>1?'':'off'}" onclick="setView('all')">Compare</a><a class="${v==='harm'?'on':''}" onclick="setView('harm')" title="this chapter beside its parallels elsewhere">parallels</a><a class="${v==='map'?'on':''}" onclick="setView('map')" title="the places this chapter mentions, on a map">places</a><a class="${v==='chron'?'on':''}" onclick="setView('chron')" title="the chronological statements in this chapter, and the dated anchors">chronology</a><a class="tool ${inter?'on':''}" onclick="toggleInter()" title="gloss and parsing under every Hebrew / Greek word">interlinear</a><a class="tool" onclick="gsOpen()" title="find words by grammatical form">grammar search</a></div>`;
+    html += `<a class="${v==='all'?'on':''} ${(avail.length + (lxx?1:0))>1?'':'off'}" onclick="setView('all')">Compare</a><a class="${v==='harm'?'on':''}" onclick="setView('harm')" title="this chapter beside its parallels elsewhere">parallels</a><a class="${v==='map'?'on':''}" onclick="setView('map')" title="the places this chapter mentions, on a map">places</a><a class="${v==='chron'?'on':''}" onclick="setView('chron')" title="the chronological statements in this chapter, and the dated anchors">chronology</a><a class="${v==='themes'?'on':''}" onclick="setView('themes')" title="what this chapter is about, and where else the Bible takes it up">themes</a><a class="tool ${inter?'on':''}" onclick="toggleInter()" title="gloss and parsing under every Hebrew / Greek word">interlinear</a><a class="tool" onclick="gsOpen()" title="find words by grammatical form">grammar search</a></div>`;
   }
-  main.className = ((v === "par" || v === "all" || v === "hl" || v === "harm" || v === "map" || v === "chron") ? "wide" : "") + (inter && src && (v === "orig" || v === "par" || v === "all" || v === "hl") ? " inter" : "");
+  main.className = ((v === "par" || v === "all" || v === "hl" || v === "harm" || v === "map" || v === "chron" || v === "themes") ? "wide" : "") + (inter && src && (v === "orig" || v === "par" || v === "all" || v === "hl") ? " inter" : "");
   if (src && !MORPH[disp(book)]) morphLoad(book).then(() => { if (location.hash.slice(1).split("/").slice(0, 2).join("/") === `${book}/${ch}`) route(); }).catch(() => {});
   main.setAttribute("lang", (v === "orig" || v === "lxx" || v === "hl") ? "" : (shown || "en"));
   main.setAttribute("dir", (v === "tr" && shown) ? tdir(shown) : "ltr");
@@ -790,6 +852,7 @@ function renderChapter(book, ch, highlightVerse) {
   if (v === "harm") { renderHarmony(book, ch, html, shown); return; }
   if (v === "map") { renderMap(book, ch, html); return; }
   if (v === "chron") { renderChron(book, ch, html); return; }
+  if (v === "themes") { renderThemes(book, ch, html); return; }
   if (!tr && v !== "orig" && v !== "lxx" && v !== "hl" && v !== "all") { main.innerHTML = html; return; }
   const nums = Object.keys(v === "tr" ? trs[shown].verses : src).filter(k => !k.startsWith("_")).map(Number).sort((a,b)=>a-b);
   if (v === "orig") {

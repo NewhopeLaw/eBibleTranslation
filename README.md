@@ -196,6 +196,24 @@ The postings are built in code, not by the model — a list of occurrences has t
 be exact. The model's part is the layer above: grouping the forms of a word so
 that a search for one form finds the others.
 
+### Themes
+
+The whole Bible is about 944,000 tokens and the model holds 40,960, so
+`scripts/build_themes.py` never asks it to read everything at once. It works
+bottom up, the way a reader does: each chapter (about 2,300 tokens) is read on
+its own and gives two to five themes with the verses that carry them; those
+several thousand labels are then folded into one canonical list in batches,
+each batch measured against the list so far; packing gathers every passage
+under its theme. Nothing comes from a systematic theology or a topical Bible.
+
+Each theme also carries the vocabulary its passages use, ranked by how much more
+often a word stands there than elsewhere, and each word carries the themes it
+turns up under. That is deliberate: it lets a reader see James Barr's point
+rather than take it on trust. A theme is not a word. *The temptation and fall*
+runs on serpent, ate, opened, cursed and a dozen more; and a single word like
+*good* serves creation, evaluation and law alike. The reader says so where the
+vocabulary is shown.
+
 ### Long model jobs (the work queue)
 
 The jobs that need the GPU for hours — writing the lexicon, sorting every
@@ -230,6 +248,7 @@ python scripts/build_all.py --fast      skip morphology and syntax (the slow two
 | places and the map | `build_places.py` | OpenBible.info + Natural Earth | `places.js` |
 | chronology | `build_chronology.py` | our English text + hand-entered anchors | `chron.js` |
 | search index | `build_index.py` | every text | `idx_<lang>.js` |
+| themes | `build_themes.py` | the model, chapter by chapter | `themes.js` |
 | our lexicon | `build_lexicon.py` | the model over the concordance | `lexx.js` |
 | our lexicon, translated | `translate_lexicon.py --lang zh` | the model over our entries | `lexx_<lang>.js` |
 | fields of meaning | `build_domains.py` | the model over our glosses | `domains.js` |

@@ -75,5 +75,12 @@
   "note": "passages that share their wording",
   "script": "build_refs.py",
   "built": 1789189702.5611591
+ },
+ "themes": {
+  "count": 58,
+  "unit": "themes",
+  "note": "what the chapters are about",
+  "script": "build_themes.py",
+  "built": 1789190302.4622364
  }
 }

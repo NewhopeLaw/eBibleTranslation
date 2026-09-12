@@ -57,6 +57,9 @@ def jobs():
          count_lines(LEX / "domains.jsonl"), lexeme_total(1),
          [sys.executable, str(S / "build_domains.py")]),
     ]
+    out.append(("themes", "read every chapter and say what it is about",
+                count_lines(ROOT / "targets" / "themes" / "chapters.jsonl"), 1189,
+                [sys.executable, str(S / "build_themes.py"), "--chapters", "--consolidate", "--pack"]))
     for code in TARGETS:
         if code == "en":
             continue

@@ -314,6 +314,9 @@ LAYERS = [
         ("fields", "lexemes sorted into fields of meaning", "job:domains"),
         ("lexicon-translated", "our lexicon in the target languages", "job:lexicon-translations"),
     ]),
+    ("themes", "themes", [
+        ("themes", "what the chapters are about", "job:themes"),
+    ]),
     ("notes", "notes on a verse", [
         ("text-notes", "readings of the editions and the scribes", None),
         ("cross-references", "verses that speak to each other", None),
