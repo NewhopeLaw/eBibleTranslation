@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 11 and earlier. What is worth carrying to a new phone is the
+     handful of settings the page keeps in local storage - text size, view,
+     language, and where the reader had got to. The compiled copies of the
+     page's own scripts are not: they are rebuilt on first open and would
+     otherwise be most of the backup. -->
+<full-backup-content>
+    <exclude domain="file" path="app_webview/Default/Code Cache" />
+    <exclude domain="file" path="app_webview/Default/HTTP Cache" />
+    <exclude domain="file" path="app_webview/Default/GPUCache" />
+</full-backup-content>

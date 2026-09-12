@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The same parchment and ink the page paints itself with, so the window
+     behind the WebView, the splash and the bars around it are one colour with
+     the text. The page's own light palette is the source of these values;
+     values-night holds its dark one. -->
+<resources>
+    <color name="page_bg">#faf8f4</color>
+    <color name="page_fg">#22201c</color>
+    <color name="page_muted">#7a736a</color>
+    <color name="page_accent">#7c5cbf</color>
+    <color name="page_border">#e4ded4</color>
+    <color name="icon_bg">#7c5cbf</color>
+    <color name="icon_page">#faf8f4</color>
+</resources>

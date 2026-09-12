@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The page's dark palette, so a phone in dark mode does not flash a white
+     card at the reader before the page has painted. The launcher icon keeps
+     its one colour in both modes: a launcher icon that changes with the theme
+     is harder to find, not easier. -->
+<resources>
+    <color name="page_bg">#181614</color>
+    <color name="page_fg">#e8e4dd</color>
+    <color name="page_muted">#948d82</color>
+    <color name="page_accent">#a98ee6</color>
+    <color name="page_border">#37322c</color>
+</resources>
