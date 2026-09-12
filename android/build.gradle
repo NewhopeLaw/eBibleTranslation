@@ -1,3 +1,5 @@
+// Android Gradle Plugin 8.7 is the first that compiles against API 35 without
+// complaint, and API 35 is the level Play asks of a new release.
 plugins {
-    id "com.android.application" version "8.5.2" apply false
+    id "com.android.application" version "8.7.2" apply false
 }
