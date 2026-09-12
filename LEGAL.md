@@ -187,9 +187,40 @@ those copies must carry attribution and remain available under CC BY-SA 4.0.
 The notice block below gives the attribution; the ShareAlike condition
 applies to the reproduced Greek, not to the translations.
 
-**Open item for audit.** `site/index.html` (built by `scripts/build_site.py`)
-does not yet display these attributions on the page. Until it does, this
-file and the README are the notices.
+**Decision (2026-09-11, project owner).** The Septuagint stays in the
+distributed product. Reasoning recorded for audit: Swete's edition is public
+domain; the First1KGreek files reproduce that text faithfully with verse
+markup and no editorial additions, and in the intended markets (United
+States and Asia) a faithful reproduction of a public-domain text is not
+regarded as creating a new copyright, so the ShareAlike condition is not
+considered to attach to the plain verse text. The attribution to the
+University of Leipzig / Open Greek and Latin project is given anyway, in
+this file and in the reader's footer. The project's general rule (inputs
+must be public domain or permissively licensed; no share-alike, non-
+commercial or unlicensed material is read or shipped) applies to everything
+else and to all future additions.
+
+The reader (`site/index.html`) displays these attributions in its footer,
+reached from the "Sources & licenses" link in its header.
+
+## 4a. Provenance rule for reference data and tools
+
+Adopted 2026-09-11 so the finished product can be given away without
+conditions beyond attribution:
+
+- Anything the pipeline reads or ships must be public domain or under a
+  permissive license (CC0, CC BY, MIT, Apache). Attribution is kept here and
+  in the reader footer.
+- No share-alike, non-commercial or no-derivatives material, and no
+  unlicensed copyrighted text, is used even for checking. (The Septuagint
+  decision above is the one recorded exception, on the grounds stated.)
+- Reference datasets that qualify for the planned concordance, lexicon and
+  commentary tools: Strong's numbering (1890, public domain); STEPBible data
+  from Tyndale House (CC BY 4.0: Hebrew and Greek lemma, Strong's number and
+  morphology per word, brief lexicons); Open Scriptures Hebrew Bible
+  morphology (CC BY 4.0); the public-domain originals of Brown-Driver-Briggs,
+  Thayer, Abbott-Smith and Matthew Henry, provided the digitization used is
+  itself public domain or CC BY. MorphGNT (CC BY-SA 3.0) does not qualify.
 
 ## 5. Model and tooling (not redistributed here)
 
