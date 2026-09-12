@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The WebView is not in this file on purpose. Inflating one throws on a
+     phone whose WebView is missing or mid-update, and an exception out of
+     setContentView leaves nowhere to show the reason; MainActivity therefore
+     builds it in code and puts it in the frame below, and the message here
+     stays available when it cannot.
+
+     Padding is left to the activity, which sets it from the real window
+     insets, so nothing here sits under the status bar or the gesture bar. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/page_bg">
+
+    <FrameLayout
+        android:id="@+id/web_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ScrollView
+        android:id="@+id/error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="32dp"
+            android:paddingBottom="32dp">
+
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/ic_mark_splash"
+                android:importantForAccessibility="no"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/error_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/error_title"
+                android:textColor="@color/page_fg"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:accessibilityHeading="true" />
+
+            <TextView
+                android:id="@+id/error_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/page_fg"
+                android:textSize="16sp"
+                android:lineSpacingMultiplier="1.3"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/error_retry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:minWidth="120dp"
+                android:minHeight="48dp"
+                android:text="@string/retry"
+                android:contentDescription="@string/retry_description" />
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

@@ -1,0 +1,15 @@
+# R8 has almost nothing of ours to shrink - one activity - but it does strip
+# the parts of the androidx libraries the app never calls, which is most of
+# them. Nothing here needs keeping by name: the app has no reflection and no
+# @JavascriptInterface, because the page and the shell talk one way only,
+# through evaluateJavascript.
+#
+# If a bridge is ever added, its class has to be kept whole:
+#   -keepclassmembers class org.ebible.reader.** {
+#       @android.webkit.JavascriptInterface <methods>;
+#   }
+
+# A crash report from Play is only worth reading with the line numbers in it;
+# the mapping file that goes with the build translates the rest.
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile
