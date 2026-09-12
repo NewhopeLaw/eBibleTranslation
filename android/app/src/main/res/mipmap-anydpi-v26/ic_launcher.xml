@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 8 and later: the launcher masks and animates the two layers
+     itself, so the icon is one drawing at every density rather than a set of
+     bitmaps to keep in step. -->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/icon_bg" />
+    <foreground android:drawable="@drawable/ic_mark_foreground" />
+    <monochrome android:drawable="@drawable/ic_mark_foreground" />
+</adaptive-icon>

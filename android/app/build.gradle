@@ -2,20 +2,82 @@ plugins {
     id "com.android.application"
 }
 
+// The release key never lives in the repository. When keystore.properties is
+// present (see keystore.properties.example) the release build is signed with
+// it; when it is absent the build still runs and simply produces an unsigned
+// artefact, so anyone can check out this folder and build a debug APK.
+def keystoreProps = new Properties()
+def keystoreFile = rootProject.file("keystore.properties")
+if (keystoreFile.exists()) keystoreFile.withInputStream { keystoreProps.load(it) }
+
 android {
     namespace "org.ebible.reader"
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "org.ebible.reader"
-        minSdk 24
-        targetSdk 34
+        minSdk 24            // Android 7.0: old enough to cover cheap and second-hand phones, new enough for a modern WebView
+        targetSdk 35
         versionCode 1
-        versionName "0.1"
+        versionName "1.0"
     }
+
+    signingConfigs {
+        release {
+            if (keystoreProps.containsKey("storeFile")) {
+                storeFile file(keystoreProps["storeFile"])
+                storePassword keystoreProps["storePassword"]
+                keyAlias keystoreProps["keyAlias"]
+                keyPassword keystoreProps["keyPassword"]
+            }
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            // There is very little of our own code to shrink, but R8 also
+            // strips the parts of the androidx libraries we never call, which
+            // is most of them.
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            if (keystoreProps.containsKey("storeFile")) signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        buildConfig = false     // nothing reads BuildConfig; the debuggable flag comes from ApplicationInfo instead
+    }
+
+    lint {
+        // A mistake in a wrapper this small is worth stopping for, and the
+        // release that goes to Play should not be the first place anyone reads
+        // the lint report.
+        abortOnError = true
+        checkReleaseBuilds = true
+    }
+}
+
+dependencies {
+    implementation "androidx.core:core:1.13.1"                  // window insets, edge to edge, system bar appearance
+    implementation "androidx.activity:activity:1.9.3"           // ComponentActivity and the back dispatcher the predictive gesture needs
+    implementation "androidx.core:core-splashscreen:1.0.1"      // the Android 12 splash, back to Android 7
+}
+
+// The page is the app. Building without it produces an APK that opens on an
+// error screen, which is a confusing thing to discover on a phone, so say it
+// here instead.
+def readerPage = file("src/main/assets/index.html")
+def checkAssets = tasks.register("checkAssets") {
+    doLast {
+        if (!readerPage.exists()) {
+            throw new GradleException("src/main/assets/index.html is missing - run ./sync_assets.sh first")
         }
     }
 }
+tasks.named("preBuild") { dependsOn checkAssets }

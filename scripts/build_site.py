@@ -53,47 +53,224 @@ PAGE = r"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- viewport-fit=cover so the bars can sit under a phone's rounded corners and
+     gesture bar; no maximum-scale, because pinching is how a reader who cannot
+     see the text at its set size makes it bigger. -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#faf8f4">
+<meta name="color-scheme" content="light dark">
 <title>eBible Translation</title>
 <style>
-:root { --bg:#faf8f4; --fg:#22201c; --muted:#7a736a; --accent:#7c5cbf;
-        --card:#ffffff; --border:#e4ded4; --hl:#f3e8b8; --fs:18px; }
+/* Skins. Every colour in the page comes from the tokens below, so choosing a
+   skin is setting data-theme on <html> and nothing else — no reload, no second
+   stylesheet. --border is the hairline between verses and cards, which carries
+   no meaning; --edge is the outline of a control, which a reader has to be able
+   to see, so it is held at 3:1 against the paper where --border is not. */
+:root {
+  --bg:#faf8f4; --fg:#22201c; --muted:#635c52; --accent:#654aa8; --on-accent:#ffffff;
+  --card:#ffffff; --border:#d7cfc2; --edge:#8a8176; --hl:#f6e7a6; --soft:#f0ece4;
+  --err:#ad2317; --warn:#7d5000; --scrim:rgba(28,22,14,.5); --shadow:rgba(44,34,18,.26);
+  --fs:18px; --lh:1.72; --barH:56px;
+}
+/* With no skin chosen the phone decides, which is what a reader expects the
+   first time the page opens. A chosen skin sets data-theme and wins here. */
 @media (prefers-color-scheme: dark) {
-  :root { --bg:#181614; --fg:#e8e4dd; --muted:#948d82; --accent:#a98ee6;
-          --card:#221f1c; --border:#37322c; --hl:#4a4020; }
+  :root:not([data-theme]) {
+    --bg:#181614; --fg:#eae6df; --muted:#a8a094; --accent:#bda5f2; --on-accent:#1c1230;
+    --card:#221f1c; --border:#413a32; --edge:#847b6f; --hl:#4f4320; --soft:#2b2723;
+    --err:#ff9d92; --warn:#e4b75f; --scrim:rgba(0,0,0,.62); --shadow:rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="light"] {
+  --bg:#faf8f4; --fg:#22201c; --muted:#635c52; --accent:#654aa8; --on-accent:#ffffff;
+  --card:#ffffff; --border:#d7cfc2; --edge:#8a8176; --hl:#f6e7a6; --soft:#f0ece4;
+  --err:#ad2317; --warn:#7d5000; --scrim:rgba(28,22,14,.5); --shadow:rgba(44,34,18,.26);
+}
+:root[data-theme="sepia"] {
+  --bg:#f3ead6; --fg:#33291b; --muted:#5f5340; --accent:#7a3d0e; --on-accent:#fff7e8;
+  --card:#fbf4e4; --border:#d4c5a4; --edge:#8a7b5e; --hl:#e9d692; --soft:#eae0c8;
+  --err:#98200f; --warn:#6d4600; --scrim:rgba(48,36,18,.5); --shadow:rgba(70,54,24,.28);
+}
+:root[data-theme="dark"] {
+  --bg:#181614; --fg:#eae6df; --muted:#a8a094; --accent:#bda5f2; --on-accent:#1c1230;
+  --card:#221f1c; --border:#413a32; --edge:#847b6f; --hl:#4f4320; --soft:#2b2723;
+  --err:#ff9d92; --warn:#e4b75f; --scrim:rgba(0,0,0,.62); --shadow:rgba(0,0,0,.6);
+}
+:root[data-theme="black"] {
+  --bg:#000000; --fg:#eaeaea; --muted:#a6a6a6; --accent:#c3a8ff; --on-accent:#150a28;
+  --card:#101010; --border:#3a3a3a; --edge:#767676; --hl:#4c4118; --soft:#1a1a1a;
+  --err:#ff9a90; --warn:#e2b75e; --scrim:rgba(0,0,0,.75); --shadow:rgba(0,0,0,.8);
+}
+:root[data-theme="contrast"] {
+  --bg:#ffffff; --fg:#000000; --muted:#2b2b2b; --accent:#3d1785; --on-accent:#ffffff;
+  --card:#ffffff; --border:#000000; --edge:#000000; --hl:#ffe74a; --soft:#ededed;
+  --err:#9b0000; --warn:#5d3600; --scrim:rgba(0,0,0,.6); --shadow:rgba(0,0,0,.4);
 }
 * { box-sizing:border-box; margin:0; }
 html { scroll-behavior:smooth; }
 body { background:var(--bg); color:var(--fg);
-  font:var(--fs)/1.72 Georgia, "Times New Roman", serif; }
-header { position:sticky; top:0; background:var(--bg); z-index:5;
-  border-bottom:1px solid var(--border); padding:.6rem .9rem;
-  display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; }
+  font:var(--fs)/var(--lh) Georgia, "Times New Roman", serif;
+  -webkit-text-size-adjust:100%; }
+/* A reader who has asked the system for less movement gets none of ours: the
+   trays appear where they would have slid to, and a verse jump does not glide. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior:auto; }
+  *, *::before, *::after { animation-duration:.001ms !important; animation-iteration-count:1 !important;
+    transition-duration:.001ms !important; }
+}
+:focus-visible { outline:3px solid var(--accent); outline-offset:2px; border-radius:5px; }
+/* The top bar is sticky rather than fixed so that hiding it shifts nothing
+   underneath it; the same trick carries the bottom bar down out of the way. */
+header { position:sticky; top:0; background:var(--bg); z-index:30;
+  border-bottom:1px solid var(--border); padding:.45rem .6rem;
+  padding-top:calc(.45rem + env(safe-area-inset-top));
+  display:flex; gap:.4rem; flex-wrap:wrap; align-items:center;
+  transition:transform .22s cubic-bezier(.2,0,0,1); }
+html.chrome-off header { transform:translateY(-115%); }
+html.chrome-off #tabbar { transform:translateY(115%); }
 header .brand { font-size:15px; font-style:italic; color:var(--muted);
   margin-right:auto; white-space:nowrap; }
 input, select, button.fs { font:14px system-ui, sans-serif; padding:.45rem .6rem;
-  border:1px solid var(--border); border-radius:8px;
+  min-height:44px; border:1px solid var(--edge); border-radius:10px;
   background:var(--card); color:var(--fg); }
-input:focus { outline:2px solid var(--accent); border-color:transparent; }
+input:focus { outline:3px solid var(--accent); outline-offset:1px; }
 #ref { width:9rem; } #q { width:13rem; }
 .goto { display:flex; align-items:center; gap:.4rem; font:12px system-ui, sans-serif; color:var(--muted); white-space:nowrap; }
-button.fs { cursor:pointer; width:2.2rem; }
+button.fs { cursor:pointer; min-width:2.6rem; }
 button.fs:hover:not(:disabled) { border-color:var(--accent); }
-button.fs:disabled { opacity:.3; cursor:default; }
-#back { font-size:16px; line-height:1; }
+button.fs:disabled { opacity:.35; cursor:default; }
 select#bookSel { max-width:11rem; display:none; }
+/* Icon buttons: 44px of tappable area whatever the glyph inside measures. */
+.ib { display:inline-flex; align-items:center; justify-content:center; flex:none;
+  min-width:44px; min-height:44px; padding:.35rem; border:1px solid transparent;
+  border-radius:12px; background:none; color:var(--fg); cursor:pointer; }
+.ib:hover:not(:disabled) { background:var(--soft); }
+.ib:disabled { opacity:.32; cursor:default; }
+.ib svg, #tabbar svg { fill:none; stroke:currentColor; stroke-width:1.85;
+  stroke-linecap:round; stroke-linejoin:round; }
+.ib svg { width:22px; height:22px; }
+/* The current reference, as a button: on a phone it is both the title and the
+   way into the navigation tray, which saves a row of chrome. */
+#title { display:none; flex:1 1 auto; min-width:0; min-height:44px; text-align:left;
+  background:none; border:1px solid transparent; border-radius:12px; color:var(--fg);
+  cursor:pointer; padding:.15rem .5rem; font:600 16px/1.2 system-ui,sans-serif; }
+#title:hover { background:var(--soft); }
+#title .main { display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#title .main::after { content:" \25BE"; color:var(--muted); font-size:.85em; }
+#title .sub { display:block; font:400 12px/1.35 system-ui,sans-serif; color:var(--muted);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 main { max-width:42rem; margin:0 auto; padding:1.4rem 1.2rem 5rem; }
 main.wide { max-width:66rem; }
 .layout { display:flex; }
+/* ---------- bottom bar: the actions a thumb can reach without moving ---------- */
+#tabbar { display:none; position:fixed; left:0; right:0; bottom:0; z-index:30;
+  background:var(--card); border-top:1px solid var(--border);
+  padding-bottom:env(safe-area-inset-bottom);
+  transition:transform .22s cubic-bezier(.2,0,0,1); }
+#tabbar .row { display:flex; }
+#tabbar button { flex:1 1 0; min-width:0; min-height:56px; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:.1rem; padding:.3rem .15rem; overflow:hidden;
+  background:none; border:0; color:var(--muted); cursor:pointer;
+  font:500 11px system-ui,sans-serif; }
+#tabbar button .ic { display:flex; align-items:center; justify-content:center; flex:none;
+  width:100%; max-width:56px; height:28px; border-radius:14px; }
+#tabbar button .lb { max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+#tabbar button svg { width:23px; height:23px; }
+#tabbar button[aria-expanded="true"] { color:var(--accent); font-weight:700; }
+#tabbar button[aria-expanded="true"] .ic { background:var(--hl); color:var(--fg); }
+/* ---------- trays ---------- */
+dialog.sheet { border:0; padding:0; margin:0; width:100%; max-width:none;
+  position:fixed; inset:auto 0 0 0; max-height:88vh; max-height:88dvh;
+  background:var(--card); color:var(--fg); border-radius:22px 22px 0 0;
+  box-shadow:0 -6px 34px var(--shadow); display:none; flex-direction:column; overflow:hidden; }
+dialog.sheet[open] { display:flex; animation:sheetin .24s cubic-bezier(.2,0,0,1); }
+dialog.sheet::backdrop { background:var(--scrim); }
+@keyframes sheetin { from { transform:translateY(100%); } }
+.sheet .grab { padding:.55rem 0 .15rem; display:flex; justify-content:center;
+  touch-action:none; cursor:grab; flex:none; }
+.sheet .grab i { width:36px; height:4px; border-radius:2px; background:var(--edge); display:block; }
+.sheet .sh { display:flex; align-items:center; gap:.4rem; padding:.1rem .6rem .4rem 1rem;
+  flex:none; touch-action:none; }
+.sheet .sh .st { flex:1; min-width:0; font:600 17px system-ui,sans-serif;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.sheet .bd { overflow-y:auto; overscroll-behavior:contain; flex:1 1 auto;
+  padding:0 1rem calc(1.4rem + env(safe-area-inset-bottom)); }
+.shead { margin:1.1rem 0 .35rem; font:600 11px system-ui,sans-serif; text-transform:uppercase;
+  letter-spacing:.07em; color:var(--muted); }
+.rowlist { display:flex; flex-direction:column; }
+.rowlist a, .rowlist button { display:flex; width:100%; align-items:center; gap:.6rem;
+  min-height:48px; padding:.5rem .7rem; border:0; border-radius:12px; background:none;
+  color:var(--fg); font:15px system-ui,sans-serif; text-align:left; cursor:pointer;
+  text-decoration:none; }
+.rowlist a:hover, .rowlist button:hover { background:var(--soft); }
+.rowlist .on { background:var(--hl); font-weight:700; }
+.rowlist .nm { flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.rowlist .ct { flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; text-align:end; font:12px system-ui,sans-serif; color:var(--muted); }
+.rowlist .tk { flex:none; font-weight:700; color:var(--accent); }
+.rowlist .missing { color:var(--muted); opacity:.5; pointer-events:none; }
+.chgrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(48px,1fr)); gap:.4rem; }
+.chgrid a { display:flex; align-items:center; justify-content:center; min-height:48px;
+  border:1px solid var(--edge); border-radius:12px; text-decoration:none; color:var(--fg);
+  font:15px system-ui,sans-serif; }
+.chgrid a.on { background:var(--accent); color:var(--on-accent); border-color:var(--accent); font-weight:700; }
+.chgrid a.untr { color:var(--muted); border-style:dashed; }
+.seg { display:flex; gap:.3rem; padding:.25rem; background:var(--soft); border-radius:14px; }
+.seg button { flex:1 1 0; min-width:0; min-height:44px; border:1px solid transparent;
+  border-radius:11px; background:none; color:var(--fg); cursor:pointer;
+  font:500 14px system-ui,sans-serif; }
+.seg button[aria-pressed="true"] { background:var(--card); border-color:var(--edge); font-weight:700; }
+.seg button:disabled { opacity:.4; cursor:default; }
+.seg .val { flex:0 0 5.5rem; display:flex; align-items:center; justify-content:center;
+  font:600 14px system-ui,sans-serif; font-variant-numeric:tabular-nums; }
+.skins { display:grid; grid-template-columns:repeat(auto-fill,minmax(9rem,1fr)); gap:.5rem; }
+.skins button { display:flex; align-items:center; gap:.55rem; min-height:52px; padding:.5rem .6rem;
+  border:1px solid var(--edge); border-radius:14px; background:var(--card); color:var(--fg);
+  font:14px system-ui,sans-serif; cursor:pointer; text-align:left; }
+.skins button[aria-pressed="true"] { border:2px solid var(--accent); font-weight:700; padding:calc(.5rem - 1px) calc(.6rem - 1px); }
+.skins .sw { width:26px; height:26px; border-radius:50%; flex:none; border:1px solid var(--edge); }
+.skins .tick { margin-left:auto; font-weight:700; color:var(--accent); }
+.tools { display:grid; grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr)); gap:.5rem; }
+.tools button { min-height:64px; display:flex; flex-direction:column; align-items:flex-start;
+  justify-content:center; gap:.1rem; padding:.6rem .7rem; border:1px solid var(--edge);
+  border-radius:14px; background:var(--card); color:var(--fg); cursor:pointer;
+  font:600 14px system-ui,sans-serif; text-align:left; }
+.tools button small { font:400 11.5px/1.3 system-ui,sans-serif; color:var(--muted); }
+.tools button[aria-pressed="true"] { border:2px solid var(--accent); background:var(--hl);
+  padding:calc(.6rem - 1px) calc(.7rem - 1px); }
+.tools button:disabled { opacity:.45; cursor:default; }
+.tools button:hover:not(:disabled) { background:var(--soft); }
+.sheet .hint { font:12.5px/1.5 system-ui,sans-serif; color:var(--muted); margin:.4rem 0 0; }
+.sheet .primary { display:flex; width:100%; align-items:center; justify-content:center;
+  min-height:52px; border:1px solid var(--accent); border-radius:14px; margin:.6rem 0 .2rem;
+  background:var(--accent); color:var(--on-accent); cursor:pointer; font:700 15px system-ui,sans-serif; }
+/* ---------- the magnifier's way back, and a place to say a file did not load ---------- */
+#zoomchip, #toast { position:fixed; left:50%; transform:translateX(-50%); z-index:36;
+  background:var(--card); color:var(--fg); border:1px solid var(--edge);
+  box-shadow:0 6px 22px var(--shadow); font:13px/1.45 system-ui,sans-serif; }
+#zoomchip { bottom:calc(var(--chipUp,14px) + env(safe-area-inset-bottom));
+  display:flex; align-items:center; gap:.5rem; padding:.35rem .4rem .35rem .9rem;
+  border-radius:999px; white-space:nowrap; }
+#zoomchip button { min-height:40px; padding:0 .95rem; border:0; border-radius:999px;
+  background:var(--accent); color:var(--on-accent); cursor:pointer; white-space:nowrap;
+  font:600 13px system-ui,sans-serif; }
+#toast { bottom:calc(var(--chipUp,14px) + env(safe-area-inset-bottom)); max-width:min(24rem,92vw);
+  padding:.7rem 1rem; border-radius:14px; }
+#zoomchip[hidden], #toast[hidden] { display:none; }
 footer#credits { border-top:1px solid var(--border); margin-top:2rem; padding:1.2rem 1.2rem 2rem; color:var(--muted);
   font:12px/1.55 system-ui, sans-serif; }
 footer#credits h2 { font:600 12px system-ui, sans-serif; text-transform:uppercase; letter-spacing:.06em; margin:0 0 .5rem; }
-footer#credits p { margin:0 0 .45rem; max-width:66rem; } footer#credits a { color:inherit; }
+footer#credits p { margin:0 0 .45rem; max-width:66rem; }
+/* The attributions carry bare URLs, which have no break in them and push a
+   narrow screen sideways unless they are allowed to break anywhere. */
+footer#credits a { color:inherit; } footer#credits, code { overflow-wrap:anywhere; }
 header .sources { margin-left:auto; font:12px system-ui, sans-serif; color:var(--muted); cursor:pointer; background:none; border:0; text-decoration:underline; }
+/* --barH is measured from the header, which wraps to two rows at some widths;
+   the sidebar used to assume it never did and lost its last book behind it. */
 nav#books { width:210px; flex:none; padding:1rem .6rem; font:14px system-ui,sans-serif;
-  border-right:1px solid var(--border); height:calc(100vh - 58px);
-  overflow-y:auto; position:sticky; top:58px; }
-nav#books a { display:block; padding:.15rem .55rem; color:var(--fg);
+  border-right:1px solid var(--border); height:calc(100vh - var(--barH));
+  overflow-y:auto; position:sticky; top:var(--barH); }
+nav#books a { display:block; padding:.35rem .55rem; color:var(--fg);
   text-decoration:none; border-radius:6px; }
 nav#books a:hover { background:var(--card); }
 nav#books a.on { background:var(--accent); color:#fff; }
@@ -105,9 +282,10 @@ nav#books a .ct { float:right; font-size:11px; color:var(--muted); margin-top:.1
 nav#books a.on .ct { color:#fff; opacity:.85; }
 .chnav { font:14px system-ui,sans-serif; margin:.9rem 0 1.6rem;
   display:flex; flex-wrap:wrap; gap:.3rem; }
-.chnav a { padding:.22rem .6rem; border:1px solid var(--border);
-  border-radius:7px; text-decoration:none; color:var(--fg); }
-.chnav a.on { background:var(--accent); color:#fff; border-color:var(--accent); }
+.chnav a { display:inline-flex; align-items:center; justify-content:center;
+  min-width:2.4rem; min-height:40px; padding:.22rem .6rem; border:1px solid var(--edge);
+  border-radius:9px; text-decoration:none; color:var(--fg); }
+.chnav a.on { background:var(--accent); color:var(--on-accent); border-color:var(--accent); font-weight:700; }
 .chnav a.untr { color:var(--muted); border-style:dashed; }
 h2 { font-size:1.65em; font-weight:normal; margin:.3rem 0 .4rem; }
 h2 .lang { font:13px system-ui,sans-serif; color:var(--muted); margin-left:.6rem; vertical-align:middle; }
@@ -119,11 +297,13 @@ p.vv { margin:0 0 1.05em; text-align:justify; hyphens:auto; }
   border:1px solid var(--border); border-radius:10px;
   font:14px/1.6 system-ui,sans-serif; color:var(--muted); }
 .notes b { color:var(--fg); }
-.pn { display:flex; justify-content:space-between; margin-top:2.6rem;
+/* Moving to the next chapter costs no reading space: it waits at the end of
+   the one being read, where a reader arrives anyway, and in the tray. */
+.pn { display:flex; justify-content:space-between; gap:.6rem; margin-top:2.6rem;
   font:15px system-ui,sans-serif; }
-.pn a { color:var(--accent); text-decoration:none; padding:.5rem .9rem;
-  border:1px solid var(--border); border-radius:9px; }
-.pn a:hover { border-color:var(--accent); }
+.pn a { display:inline-flex; align-items:center; min-height:48px; color:var(--accent);
+  text-decoration:none; padding:.5rem .9rem; border:1px solid var(--edge); border-radius:12px; }
+.pn a:hover { border-color:var(--accent); background:var(--soft); }
 .pn .off { visibility:hidden; }
 #results { font:15px/1.5 system-ui,sans-serif; }
 #results .hit { background:var(--card); border:1px solid var(--border);
@@ -135,13 +315,14 @@ mark { background:var(--hl); color:inherit; border-radius:3px; padding:0 .1em; }
 @keyframes flash { 0%,55% { background:var(--hl); } 100% { background:transparent; } }
 .empty { color:var(--muted); font:15px system-ui,sans-serif; margin-top:2rem; }
 .tabs { display:flex; flex-wrap:wrap; gap:.3rem; font:14px system-ui,sans-serif; margin:-.8rem 0 1.3rem; align-items:center; }
-.tabs a { padding:.25rem .75rem; border:1px solid var(--border); border-radius:999px;
-  cursor:pointer; color:var(--muted); user-select:none; }
-.tabs a:hover { border-color:var(--accent); }
-.tabs a.on { background:var(--card); color:var(--fg); border-color:var(--accent); }
-.tabs a.off { opacity:.4; cursor:default; pointer-events:none; }
+.tabs a { display:inline-flex; align-items:center; min-height:40px; padding:.25rem .8rem;
+  border:1px solid var(--edge); border-radius:999px;
+  cursor:pointer; color:var(--fg); user-select:none; }
+.tabs a:hover { border-color:var(--accent); background:var(--soft); }
+.tabs a.on { background:var(--accent); color:var(--on-accent); border-color:var(--accent); font-weight:600; }
+.tabs a.off { opacity:.45; cursor:default; pointer-events:none; }
 .tabs .sep { width:1px; height:1.2rem; background:var(--border); margin:0 .3rem; }
-.orig { font-family:"SBL Hebrew","Ezra SIL","Taamey Frank CLM","Times New Roman",serif; line-height:1.95; }
+.orig { font-family:"SBL Hebrew","Ezra SIL","Taamey Frank CLM","Times New Roman",serif; line-height:calc(var(--lh) * 1.134); }
 .orig.greek { font-family:"Gentium Plus","SBL Greek","Palatino Linotype","Times New Roman",serif; }
 .orig[dir=rtl] { text-align:right; }
 .orig sup.v { vertical-align:.7em; }
@@ -154,7 +335,8 @@ main.inter .orig .w[data-m]::before { content:attr(data-m); display:block; font:
 #wpop .hw { font-size:1.35em; } #wpop .hw .orig { font-size:1em; } #wpop .tl { color:var(--muted); margin-left:.4em; } #wpop .pos { color:var(--muted); font-size:11px; margin-left:.4em; }
 #wpop .parse { margin:.35rem 0; } #wpop .parse code { font:11px ui-monospace,Consolas,monospace; color:var(--accent); margin-left:.4em; }
 #wpop .meaning { color:var(--muted); font-size:12px; margin-top:.35rem; max-height:9em; overflow:auto; }
-#wpop .acts { margin-top:.5rem; } #wpop .acts a { margin-right:.9rem; cursor:pointer; color:var(--accent); text-decoration:underline; }
+#wpop .acts { margin-top:.5rem; display:flex; flex-wrap:wrap; gap:.2rem 1rem; }
+#wpop .acts a { display:inline-flex; align-items:center; min-height:44px; cursor:pointer; color:var(--accent); text-decoration:underline; }
 #wpop .pre { color:var(--muted); font-size:12px; }
 #wpop .syn { margin:.35rem 0; font-size:12px; } #wpop .syn b { color:var(--fg); font-weight:600; }
 #wpop .syn a { color:var(--accent); cursor:pointer; } #wpop .dom { font-size:12px; color:var(--muted); margin-top:.25rem; } #wpop .dom a { color:var(--accent); cursor:pointer; }
@@ -246,41 +428,159 @@ p.ov { margin:0 0 .6em; }
 .cmp .row { display:grid; grid-template-columns:5.5rem 1fr; gap:.6rem; padding:.15rem 0; align-items:baseline; }
 .cmp .row .lab { font:600 11px system-ui,sans-serif; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; text-align:right; }
 .cmp .row .txt { white-space:pre-wrap; }
-[lang="zh"], [lang="ja"] { font-family:Georgia, "Noto Serif CJK SC", "Noto Serif CJK JP", "Source Han Serif", "Yu Mincho", "MS Mincho", "SimSun", "Songti SC", serif; line-height:1.95; }
-[lang="th"] { font-family:"Noto Serif Thai", "Leelawadee UI", "Tahoma", sans-serif; line-height:2; }
-[lang="yue"], [lang="nan"], [lang="hak"] { font-family:Georgia, "Noto Serif CJK TC", "Source Han Serif TC", "PMingLiU", "Microsoft JhengHei", "Songti TC", serif; line-height:1.95; }
-[lang="ja-easy"] { font-family:Georgia, "Noto Serif CJK JP", "Source Han Serif", "Yu Mincho", "MS Mincho", serif; line-height:2.3; }
+/* Each script keeps the leading it needs, but as a multiple of the reader's
+   chosen line spacing rather than a fixed number, or the spacing control would
+   do nothing at all in Chinese, Thai, Korean or Persian. */
+[lang="zh"], [lang="ja"] { font-family:Georgia, "Noto Serif CJK SC", "Noto Serif CJK JP", "Source Han Serif", "Yu Mincho", "MS Mincho", "SimSun", "Songti SC", serif; line-height:calc(var(--lh) * 1.134); }
+[lang="th"] { font-family:"Noto Serif Thai", "Leelawadee UI", "Tahoma", sans-serif; line-height:calc(var(--lh) * 1.163); }
+[lang="yue"], [lang="nan"], [lang="hak"] { font-family:Georgia, "Noto Serif CJK TC", "Source Han Serif TC", "PMingLiU", "Microsoft JhengHei", "Songti TC", serif; line-height:calc(var(--lh) * 1.134); }
+[lang="ja-easy"] { font-family:Georgia, "Noto Serif CJK JP", "Source Han Serif", "Yu Mincho", "MS Mincho", serif; line-height:calc(var(--lh) * 1.337); }
 ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
-[lang="ko"] { font-family:"Noto Serif KR", "Batang", "Malgun Gothic", "Apple SD Gothic Neo", serif; line-height:1.9; }
-[lang="fa"] { font-family:"Vazirmatn", "Noto Naskh Arabic", "Tahoma", "Segoe UI", serif; line-height:2.1; font-size:1.06em; }
+[lang="ko"] { font-family:"Noto Serif KR", "Batang", "Malgun Gothic", "Apple SD Gothic Neo", serif; line-height:calc(var(--lh) * 1.105); }
+[lang="fa"] { font-family:"Vazirmatn", "Noto Naskh Arabic", "Tahoma", "Segoe UI", serif; line-height:calc(var(--lh) * 1.221); font-size:1.06em; }
 [dir="rtl"] { text-align:right; }
+/* ---------- what a phone shows, and what it does not ---------- */
 @media (max-width:760px){
   .par { grid-template-columns:1fr; }
   .par .o { border-bottom:0; padding-bottom:.1rem; }
   nav#books { display:none }
-  select#bookSel { display:block }
-  header .brand { display:none }
-  #q { width:9rem } #ref { width:8rem }
+  header .brand, header .goto, header .sources, header #bookSel, header #tlSel,
+  header #q, header #fsMinus, header #fsPlus, header #toolsBtn, header #gear { display:none }
+  #title { display:block }
+  #tabbar { display:block }
+  main { padding:1.1rem 1rem calc(6rem + env(safe-area-inset-bottom)); }
+  /* The bottom bar floats over the page, so the last thing on it needs room
+     to be read — the attributions were ending underneath the bar. */
+  footer#credits { padding-bottom:calc(5.5rem + env(safe-area-inset-bottom)); }
+  /* The chapter grid and the view tabs live in the trays on a phone; on the
+     page they were two rows of chrome above every chapter. The heading keeps
+     its reference — a reader scrolled halfway down wants to see where they
+     are — but drops the languages, which the bar above is already saying. */
+  .chnav, .tabs { display:none }
+  h2 { font-size:1.35em; }
+  main > h2 .lang { display:none }
+  /* Justified type on a narrow column opens rivers of white space. */
+  p.vv { text-align:start; }
+  /* Two-column rows meant for a wide screen stack instead of overflowing. */
+  .cmp .row, .chron .row, .chron .anch, .arg .sec, #vpop .r { grid-template-columns:1fr; gap:.1rem; }
+  .cmp .row .lab { text-align:start; }
+  .harm .vs { grid-template-columns:1fr !important; }
+  .harm .vs > div:empty { display:none }
+  /* Stacked, every passage already carries its own label, so the row of column
+     headings is a list of names above nothing. */
+  .harm.hdr { display:none }
+  #wpop, #vpop { left:8px !important; right:8px; width:auto; max-width:none; }
 }
+/* A finger is not a mouse pointer: the verse number stays the size it is set
+   in, and gains an invisible margin of target around it. */
+@media (pointer:coarse){
+  sup.v { position:relative; }
+  sup.v::before { content:""; position:absolute; inset:-14px -10px; }
+}
+/* On a tablet the header wraps to two rows and takes a tenth of the screen
+   with it. The strapline goes, the boxes narrow, and the sources link goes
+   too — the settings tray behind the gear already has it. */
+@media (max-width:1040px){
+  header .brand, header .sources { display:none }
+  #q { width:10rem } #ref { width:7rem }
+}
+/* On a wide screen the same tray is a dialog in the middle of the page: it is
+   the sheet's content that matters, not the gesture it arrived by. */
+@media (min-width:761px){
+  dialog.sheet { inset:0; margin:auto; width:min(34rem,92vw); max-height:82vh;
+    border-radius:18px; border:1px solid var(--border); }
+  dialog.sheet[open] { animation:none; }
+  .sheet .grab { display:none }
+  .sheet .sh { padding-top:.9rem }
+}
+/* Basic mode: the page is a book and nothing else. Every study layer is put
+   away, popups included, so that a mis-tap in the middle of a verse does
+   nothing at all. Advanced mode is one tap away and is remembered. */
+:root[data-mode="basic"] .adv { display:none !important; }
+:root[data-mode="basic"] sup.v { cursor:default; }
+:root[data-mode="basic"] sup.v:hover { text-decoration:none; }
+:root[data-mode="basic"] main .w { cursor:inherit; }
+:root[data-mode="basic"] main .w:hover { background:none; }
+/* The two inputs move between the header and a tray as the screen narrows, so
+   they are laid out by where they are rather than by a second copy of each. */
+#hdrSlot, #hdrSlot > #qWrap { display:contents; }
+#qslot #qWrap { display:block; margin:.2rem 0; }
+#refslot #gotoWrap { display:flex; flex-direction:column; align-items:stretch;
+  gap:.25rem; margin:.2rem 0 .6rem; font-size:11px; text-transform:uppercase; letter-spacing:.07em; }
+#refslot #ref, #qslot #q { width:100%; font-size:16px; min-height:52px; }
+@media (max-width:760px){ #zoomchip, #toast { --chipUp:74px; } }
 __READALOUD_CSS__
+/* readaloud.py is shared with the dashboard, where the menu is used with a
+   mouse; here a finger opens it by pressing and holding, and needs the room. */
+#ctx .it { min-height:48px; display:flex; flex-direction:column; justify-content:center; }
 </style>
+<script>
+/* The skin, the mode and the type size are put on the page before anything is
+   painted: a reader who chose the night skin should not be shown a white page
+   first while the rest of the script parses. */
+try {
+  var _s = localStorage.getItem("skin");
+  if (_s && _s !== "auto") document.documentElement.setAttribute("data-theme", _s);
+  var _m = localStorage.getItem("mode");
+  document.documentElement.setAttribute("data-mode",
+    _m === "advanced" ? "advanced" : _m === "basic" ? "basic"
+      : (localStorage.getItem("view") || localStorage.getItem("tl")) ? "advanced" : "basic");
+  var _f = localStorage.getItem("fs"); if (_f) document.documentElement.style.setProperty("--fs", _f + "px");
+  var _l = localStorage.getItem("lh"); if (_l) document.documentElement.style.setProperty("--lh", _l);
+} catch (e) {}
+</script>
 </head>
 <body>
 <header>
-  <button class="fs" id="back" title="Back to what you were looking at (Backspace)" disabled>&#8592;</button>
+  <button class="ib" id="back" aria-label="Back to what you were looking at" title="Back to what you were looking at (Backspace)" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <button id="title" aria-haspopup="dialog" aria-expanded="false" aria-controls="navSheet">
+    <span class="main" id="titleMain">eBible</span><span class="sub" id="titleSub"></span></button>
   <span class="brand">eBible — from the Hebrew, Aramaic &amp; Greek</span>
-  <select id="bookSel"></select>
-  <select id="tlSel" title="Translation language"></select>
-  <label class="goto" title="Type a reference: Genesis 2:7, 1 Sam 3, Ps 23 — the page follows as you type"><span>Go to</span><input id="ref" placeholder="Genesis 2:7"></label>
-  <input id="q" placeholder="Search the text…">
-  <button class="fs" id="fsMinus" title="Smaller text">A−</button>
-  <button class="fs" id="fsPlus" title="Larger text">A+</button>
+  <select id="bookSel" aria-label="Book"></select>
+  <select id="tlSel" title="Translation language" aria-label="Translation language"></select>
+  <span id="hdrSlot"><label class="goto" id="gotoWrap" title="Type a reference: Genesis 2:7, 1 Sam 3, Ps 23 — the page follows as you type"><span>Go to</span><input id="ref" placeholder="Genesis 2:7"></label><span id="qWrap"><input id="q" placeholder="Search the text…" aria-label="Search the text" type="search"></span></span>
+  <button class="fs" id="fsMinus" title="Smaller text" aria-label="Smaller text">A−</button>
+  <button class="fs" id="fsPlus" title="Larger text" aria-label="Larger text">A+</button>
+  <button class="ib adv" id="toolsBtn" aria-label="Tools and study views" title="Tools and study views" aria-haspopup="dialog" aria-expanded="false" aria-controls="toolsSheet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h5M13 7h7M4 17h9M17 17h3"/><circle cx="11" cy="7" r="2.2"/><circle cx="15" cy="17" r="2.2"/></svg></button>
+  <button class="ib" id="gear" aria-label="Display and reading settings" title="Display and reading settings" aria-haspopup="dialog" aria-expanded="false" aria-controls="setSheet"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6M18.4 18.4l-1.6-1.6M7.2 7.2L5.6 5.6"/></svg></button>
   <button class="sources" id="sources" title="Source texts, licenses and attributions">Sources &amp; licenses</button>
 </header>
 <div class="layout">
-<nav id="books"></nav>
+<nav id="books" aria-label="Books of the Bible"></nav>
 <main id="main"></main>
 </div>
+<nav id="tabbar" aria-label="Reader actions"><div class="row">
+  <button id="tbBooks" aria-haspopup="dialog" aria-expanded="false" aria-controls="navSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h6.5v14H4zM13.5 5.5H20v14h-6.5z"/></svg></span><span class="lb">Books</span></button>
+  <button id="tbSearch" aria-haspopup="dialog" aria-expanded="false" aria-controls="searchSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.6"/><path d="M16 16l4.4 4.4"/></svg></span><span class="lb">Search</span></button>
+  <button id="tbTools" class="adv" aria-haspopup="dialog" aria-expanded="false" aria-controls="toolsSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h5M13 7h7M4 17h9M17 17h3"/><circle cx="11" cy="7" r="2.2"/><circle cx="15" cy="17" r="2.2"/></svg></span><span class="lb">Tools</span></button>
+  <button id="tbDisp" aria-haspopup="dialog" aria-expanded="false" aria-controls="setSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 19l5-14 5 14M5.3 14.4h6.4M21 19v-6.6a2.6 2.6 0 0 0-5 -1M16 19a2.4 2.4 0 0 1 0-4.8h5"/></svg></span><span class="lb">Display</span></button>
+</div></nav>
+<dialog class="sheet" id="navSheet" aria-labelledby="navSheetT">
+  <div class="grab"><i></i></div>
+  <div class="sh"><span class="st" id="navSheetT">Go to</span>
+    <button class="ib" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="bd" id="navBody"><div id="refslot"></div><div id="navDyn"></div></div>
+</dialog>
+<dialog class="sheet" id="searchSheet" aria-labelledby="searchSheetT">
+  <div class="grab"><i></i></div>
+  <div class="sh"><span class="st" id="searchSheetT">Search the text</span>
+    <button class="ib" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="bd" id="searchBody"><div id="qslot"></div><div id="searchDyn"></div></div>
+</dialog>
+<dialog class="sheet" id="toolsSheet" aria-labelledby="toolsSheetT">
+  <div class="grab"><i></i></div>
+  <div class="sh"><span class="st" id="toolsSheetT">Tools</span>
+    <button class="ib" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="bd" id="toolsBody"><div id="toolsDyn"></div></div>
+</dialog>
+<dialog class="sheet" id="setSheet" aria-labelledby="setSheetT">
+  <div class="grab"><i></i></div>
+  <div class="sh"><span class="st" id="setSheetT">Display and reading</span>
+    <button class="ib" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="bd" id="setBody"><div id="setDyn"></div></div>
+</dialog>
+<div id="zoomchip" hidden><span id="zoomlvl" role="status"></span><button id="zoomreset" type="button">Reset</button></div>
+<div id="toast" hidden role="status"></div>
 <footer id="credits">
   <h2>Source texts, licenses and attributions</h2>
   <p><b>Hebrew and Aramaic text:</b> Westminster Leningrad Codex (public domain), from the Open Scriptures Hebrew Bible —
@@ -364,12 +664,56 @@ tlSel.value = tl;
 tlSel.addEventListener("change", e => setTl(e.target.value));
 if (haveTargets.length < 2) tlSel.style.display = "none";
 
-/* ---------- text size ---------- */
+/* ---------- skins: a set of colour tokens on <html>, remembered, no reload ----------
+   The swatch beside each name is drawn from that skin's own paper and accent,
+   so the list shows what it is offering rather than describing it. */
+const SKINS = [["auto", "Match phone", "", ""],
+               ["light", "Paper white", "#faf8f4", "#654aa8"],
+               ["sepia", "Sepia", "#f3ead6", "#7a3d0e"],
+               ["dark", "Dark", "#181614", "#bda5f2"],
+               ["black", "Night, true black", "#000000", "#c3a8ff"],
+               ["contrast", "High contrast", "#ffffff", "#3d1785"]];
+const SKINBAR = {light: "#faf8f4", sepia: "#f3ead6", dark: "#181614", black: "#000000", contrast: "#ffffff"};
+const prefersDark = matchMedia("(prefers-color-scheme: dark)");
+let skin = localStorage.getItem("skin") || "auto";
+if (!SKINS.some(s => s[0] === skin)) skin = "auto";
+function applySkin(){
+  const r = document.documentElement;
+  if (skin === "auto") r.removeAttribute("data-theme"); else r.setAttribute("data-theme", skin);
+  const m = document.querySelector('meta[name="theme-color"]');
+  if (m) m.content = SKINBAR[skin === "auto" ? (prefersDark.matches ? "dark" : "light") : skin];
+}
+function setSkin(s){ skin = s; localStorage.setItem("skin", s); applySkin(); redrawSheet(); }
+prefersDark.addEventListener("change", () => { if (skin === "auto") { applySkin(); redrawSheet(); } });
+applySkin();
+
+/* ---------- basic or advanced ----------
+   Basic mode is the book: a chapter, a language, the size of the type. Advanced
+   adds every layer this project has built on top of the text. A reader arriving
+   for the first time gets basic; anyone whose browser already remembers a view
+   or a language has been using the study tools, so they keep them. */
+let mode = localStorage.getItem("mode");
+if (mode !== "basic" && mode !== "advanced")
+  mode = (localStorage.getItem("view") || localStorage.getItem("tl")) ? "advanced" : "basic";
+const adv = () => mode === "advanced";
+function applyMode(){ document.documentElement.setAttribute("data-mode", mode); }
+function setMode(m){ mode = m; localStorage.setItem("mode", m); applyMode(); route(); redrawSheet(); }
+applyMode();
+
+/* ---------- text size and line spacing ---------- */
+const SPACING = [[1.5, "Tight"], [1.72, "Normal"], [1.95, "Roomy"], [2.2, "Loose"]];
 let fs = +(localStorage.getItem("fs") || 18);
-const applyFs = () => document.documentElement.style.setProperty("--fs", fs + "px");
-applyFs();
-$("#fsMinus").onclick = () => { fs = Math.max(14, fs - 1); localStorage.setItem("fs", fs); applyFs(); };
-$("#fsPlus").onclick  = () => { fs = Math.min(26, fs + 1); localStorage.setItem("fs", fs); applyFs(); };
+let lh = +(localStorage.getItem("lh") || 1.72);
+function applyType(){
+  const s = document.documentElement.style;
+  s.setProperty("--fs", fs + "px"); s.setProperty("--lh", String(lh));
+  $("#fsMinus").disabled = fs <= 14; $("#fsPlus").disabled = fs >= 30;
+}
+function fsStep(d){ fs = Math.min(30, Math.max(14, fs + d)); localStorage.setItem("fs", fs); applyType(); redrawSheet(); }
+function setLh(v){ lh = v; localStorage.setItem("lh", v); applyType(); redrawSheet(); }
+applyType();
+$("#fsMinus").onclick = () => fsStep(-1);
+$("#fsPlus").onclick  = () => fsStep(1);
 
 /* ---------- navigation ---------- */
 function navRender(current) {
@@ -648,6 +992,7 @@ function refRow(b, c, v, end, note){
 }
 async function showRefs(book, ch, v, ev){
   if (ev) ev.stopPropagation();
+  if (!adv()) return;                     // in basic mode a verse number is a verse number
   await Promise.all([xrefLoad(book).catch(() => {}), parLoad().catch(() => {}), placesLoad().catch(() => {}), appLoad(book).catch(() => {})]);
   const xr = ((XREF[disp(book)] || {})[ch] || {})[v] || [];
   const pr = typeof PAR !== "undefined" ? (((PAR[disp(book)] || {})[ch] || {})[v] || []) : [];
@@ -660,6 +1005,7 @@ async function showRefs(book, ch, v, ev){
   html += appHtml(book, ch, v, ((LANGS[(DATA[book] && DATA[book][ch] || {}).lang || "hbo"] || {}).script || "hebrew").toLowerCase());
   if (!pr.length && !xr.length && !((APP[disp(book)] || {})[ch] || {})[v]) html += `<p class="empty">No cross-references, parallels or text notes for this verse.</p>`;
   vpop.innerHTML = html; vpop.hidden = false;
+  reachable(vpop);
   const el = ev && ev.target, r = el ? el.getBoundingClientRect() : {left: 40, bottom: 80, top: 80};
   const W = vpop.offsetWidth, H = vpop.offsetHeight;
   let x = Math.min(r.left, window.innerWidth - W - 10), y = r.bottom + 6;
@@ -682,7 +1028,7 @@ async function renderHarmony(book, ch, head, shown){    // the chapter beside it
   if (!others.length) { main.innerHTML = head + `<p class="empty">No parallel passages found for ${disp(book)} ${ch}. Parallels are computed for the Gospels, for Samuel–Kings–Chronicles with Isaiah, Jeremiah, Psalms and Micah, and within the Torah.</p>`; return; }
   const cols = [disp(book), ...others];
   html += `<p class="empty" style="margin:0 0 .6rem">Verses sharing wording with ${others.join(", ")}. Percentages are shared vocabulary, weighted by how rare each word is.</p>`;
-  html += `<div class="harm" style="position:sticky;top:3.2rem;background:var(--bg);z-index:2;padding-top:.2rem"><div class="vs" style="grid-template-columns:repeat(${cols.length},1fr)">`
+  html += `<div class="harm hdr" style="position:sticky;top:var(--barH);background:var(--bg);z-index:2;padding-top:.2rem"><div class="vs" style="grid-template-columns:repeat(${cols.length},1fr)">`
     + cols.map(c => `<div class="lab" style="cursor:default">${c}</div>`).join("") + `</div></div>`;
   for (const n of nums) {
     const hits = P[n] || [];
@@ -726,6 +1072,9 @@ function domHtml(tag){                                   // our own fields of me
 }
 /* ---------- one entry point per layer, so the dashboard's work bar can open what a job produced ---------- */
 async function openView(key){
+  /* The dashboard opens a layer by name. Everything but the search box belongs
+     to advanced mode, so asking for one is asking to be in it. */
+  if (key !== "search-index" && !adv()) { mode = "advanced"; localStorage.setItem("mode", "advanced"); applyMode(); }
   const go = {
     "lexeme-inventory": browseLexemes, "concordance": browseLexemes,
     "lexicon": browseLexicon, "lexicon-brief": browseLexicon, "lexicon-translated": browseLexicon,
@@ -733,7 +1082,7 @@ async function openView(key){
     "book-arguments": browseArguments,
     "morphology": () => { if (!inter) toggleInter(); setView("orig"); },
     "clause-data": () => { if (!inter) toggleInter(); setView("orig"); },
-    "search-index": () => { $("#q").focus(); },
+    "search-index": () => focusSearch(),
     "text-notes": () => { setView("orig"); const sup = document.querySelector("main sup.v"); if (sup) sup.click(); },
     "cross-references": () => { setView("tr"); const sup = document.querySelector("main sup.v"); if (sup) sup.click(); },
     "parallels": () => setView("harm"), "places": () => setView("map"), "chronology": () => setView("chron"),
@@ -913,11 +1262,12 @@ async function showPop(el){
     html += `<div class="acts"><a onclick="showConc('${root}')">all occurrences</a><a onclick="gsOpen('${root}', '${attr(d[1])}')">this form elsewhere</a><a onclick="hidePop()">close</a></div>`;
   }
   wpop.innerHTML = html; wpop.hidden = false;
+  reachable(wpop);
   const r = el.getBoundingClientRect(), W = wpop.offsetWidth, H = wpop.offsetHeight;
   let x = Math.min(r.left, window.innerWidth - W - 10), y = r.bottom + 6; if (y + H > window.innerHeight - 8) y = Math.max(8, r.top - H - 6);
   wpop.style.left = Math.max(8, x) + "px"; wpop.style.top = y + "px";
 }
-document.addEventListener("click", e => { const w = e.target.closest("main .w"); if (w) { showPop(w); return; } if (!e.target.closest("#wpop")) hidePop(); });
+document.addEventListener("click", e => { const w = e.target.closest("main .w"); if (w && adv()) { showPop(w); return; } if (!e.target.closest("#wpop")) hidePop(); });
 document.addEventListener("keydown", e => { if (e.key === "Escape") hidePop(); });
 window.addEventListener("hashchange", hidePop);
 const byNum = {}; for (const b in ORDER) byNum[ORDER[b]] = b;
@@ -1045,14 +1395,27 @@ function renderChapter(book, ch, highlightVerse) {
   const rtl = L.dir === "rtl", ocls = "orig " + L.script.toLowerCase();
   const lxx = src && src._lxx;
   let v = view;
+  /* The analysis views read the original text, not the translation, so an
+     untranslated chapter is no reason to refuse them — the Gospels are exactly
+     where a reader wants the parallels, and they were unreachable there. */
+  const analysis = v === "themes" || v === "harm" || v === "map" || v === "chron";
   if (!src) v = "tr";
-  else if (!tr) v = ((v === "lxx" || v === "hl") && lxx) ? v : "orig";
+  else if (!tr && !analysis) v = ((v === "lxx" || v === "hl") && lxx) ? v : "orig";
   else if (v === "all" && avail.length < 2 && !lxx) v = "par";
   if ((v === "lxx" || v === "hl") && !lxx) v = "orig";
-  let html = `<h2>${disp(book)} ${ch}<small class="lang">${L.name}${lxx ? " + Septuagint" : ""}${tr ? " → " + TARGETS[shown].name : ""}</small></h2>`;
+  /* Basic mode is the book: the translation, or the text it was made from. */
+  if (!adv() && v !== "tr" && v !== "orig") v = tr ? "tr" : "orig";
+  /* The heading says what is actually on the screen rather than everything the
+     chapter has, because the bar repeats it and a reader in the Septuagint
+     should not be told they are reading Hebrew. */
+  const sub = v === "orig" ? L.name : v === "lxx" ? "Septuagint" : v === "hl" ? `${L.name} · Septuagint`
+    : v === "all" ? `${L.name}${lxx ? " + Septuagint" : ""} → ${avail.length} language${avail.length === 1 ? "" : "s"}`
+    : tr ? `${L.name} → ${TARGETS[shown].name}` : L.name;
+  setTitle(`${disp(book)} ${ch}`, sub);
+  let html = `<h2>${disp(book)} ${ch}<small class="lang">${esc(sub)}</small></h2>`;
   html += `<div class="chnav">` + chs.map(c =>
     `<a href="#${book}/${c}" class="${c==ch?'on':''} ${trOf(book,c)[tl]?'':'untr'}">${c}</a>`).join("") + `</div>`;
-  if (src) {
+  if (src && adv()) {
     html += `<div class="tabs"><a class="${v==='orig'?'on':''}" onclick="setView('orig')">${L.name}</a>`;
     if (lxx) html += `<a class="${v==='lxx'?'on':''}" onclick="setView('lxx')" title="Swete's Septuagint">Septuagint</a><a class="${v==='hl'?'on':''}" onclick="setView('hl')" title="Hebrew and the Septuagint side by side">Hebrew · Septuagint</a>`;
     html += `<span class="sep"></span>`;
@@ -1070,8 +1433,17 @@ function renderChapter(book, ch, highlightVerse) {
     html += `<a class="tool ${v==='map'?'on':''}" onclick="setView('map')" title="notes: the places this chapter mentions, on a map">places</a>`;
     html += `<a class="tool ${v==='chron'?'on':''}" onclick="setView('chron')" title="notes: the chronological statements here, and the dated anchors">chronology</a></div>`;
   }
-  main.className = ((v === "par" || v === "all" || v === "hl" || v === "harm" || v === "map" || v === "chron" || v === "themes") ? "wide" : "") + (inter && src && (v === "orig" || v === "par" || v === "all" || v === "hl") ? " inter" : "");
-  if (src && !MORPH[disp(book)]) morphLoad(book).then(() => { if (location.hash.slice(1).split("/").slice(0, 2).join("/") === `${book}/${ch}`) route(); }).catch(() => {});
+  main.className = ((v === "par" || v === "all" || v === "hl" || v === "harm" || v === "map" || v === "chron" || v === "themes") ? "wide" : "") + (inter && adv() && src && (v === "orig" || v === "par" || v === "all" || v === "hl") ? " inter" : "");
+  /* The word tags are a file per book, fetched the first time the book is
+     opened. Until it arrives the text reads normally with no glosses under it,
+     which is silent and puzzling in interlinear; and if it never arrives the
+     reader should be told rather than left staring at a view that never fills. */
+  if (src && !MORPH[disp(book)]) {
+    if (inter && adv()) html += `<p class="empty" role="status">Loading the word tags for ${disp(book)}…</p>`;
+    morphLoad(book)
+      .then(() => { if (location.hash.slice(1).split("/").slice(0, 2).join("/") === `${book}/${ch}`) route(); })
+      .catch(() => toast(`The word tags for ${disp(book)} could not be loaded, so there are no glosses or parsing here. The text itself is unaffected.`));
+  }
   main.setAttribute("lang", (v === "orig" || v === "lxx" || v === "hl") ? "" : (shown || "en"));
   main.setAttribute("dir", (v === "tr" && shown) ? tdir(shown) : "ltr");
   if (!tr) html += `<p class="empty" style="margin:0 0 1.2rem">Not translated yet${src ? ` — showing the ${v === "lxx" ? "Septuagint" : L.name}.` : "."}</p>`;
@@ -1223,6 +1595,329 @@ async function search(q) {
   main.innerHTML = html + "</div>";
 }
 
+/* ---------- the shell ----------
+   A phone has room for the text and very little else, so everything that is
+   not the text lives in a tray: navigation, search, the study views, and the
+   display settings. The trays are <dialog> elements opened modally, which is
+   where the scrim, the focus trap and Escape come from — none of that is worth
+   writing by hand. Each tray's contents are drawn fresh every time it opens,
+   so nothing in them can fall out of step with the page behind. */
+const SHEETS = {nav: $("#navSheet"), search: $("#searchSheet"), tools: $("#toolsSheet"), set: $("#setSheet")};
+const OPENERS = {nav: ["#tbBooks", "#title"], search: ["#tbSearch"], tools: ["#tbTools", "#toolsBtn"], set: ["#tbDisp", "#gear"]};
+const mqNarrow = matchMedia("(max-width:760px)");
+let openName = null, navBook = null, navPane = "chapters";
+function openSheet(name){
+  const d = SHEETS[name]; if (!d) return;
+  if (openName === name) { closeSheet(); return; }
+  if (openName) closeSheet();
+  if (name === "nav") { const b = location.hash.slice(1).split("/")[0]; if (DATA[b]) navBook = b; navPane = "chapters"; }
+  openName = name;
+  drawSheet(name);
+  const bd = d.querySelector(".bd"); if (bd) bd.scrollTop = 0;    // a tray opens at its top, wherever it was left
+  if (d.showModal) d.showModal(); else d.setAttribute("open", "");
+  d.style.transform = "";
+  showChrome(); markOpeners();
+  if (name === "search") { const q = $("#q"); if (q) { q.focus(); q.select(); } }
+}
+function closeSheet(){
+  if (!openName) return;
+  const d = SHEETS[openName]; openName = null;
+  if (d.close && d.open) d.close(); else d.removeAttribute("open");
+  markOpeners();
+}
+function markOpeners(){
+  for (const n in OPENERS) for (const s of OPENERS[n]) {
+    const el = $(s); if (el) el.setAttribute("aria-expanded", openName === n ? "true" : "false"); }
+}
+function drawSheet(n){ ({nav: drawNav, search: drawSearch, tools: drawTools, set: drawSettings})[n](); }
+function redrawSheet(){ if (openName) drawSheet(openName); }
+/* A tray is dragged down by its handle or its heading only. Starting a drag
+   anywhere in the contents would fight the list the reader is scrolling. */
+function dragToClose(d){
+  let y0 = null, dy = 0;
+  const down = e => { if (!mqNarrow.matches || e.target.closest("[data-close]")) return;
+    y0 = e.clientY; dy = 0; d.style.transition = "none";
+    try { e.currentTarget.setPointerCapture(e.pointerId); } catch (x) {} };
+  const move = e => { if (y0 === null) return; dy = Math.max(0, e.clientY - y0); d.style.transform = `translateY(${dy}px)`; };
+  const up = () => { if (y0 === null) return; y0 = null; d.style.transition = ""; d.style.transform = "";
+    if (dy > 80) closeSheet(); };
+  for (const el of d.querySelectorAll(".grab, .sh")) {
+    el.addEventListener("pointerdown", down); el.addEventListener("pointermove", move);
+    el.addEventListener("pointerup", up); el.addEventListener("pointercancel", up);
+  }
+}
+for (const n in SHEETS) {
+  const d = SHEETS[n];
+  d.addEventListener("close", () => { if (openName === n) { openName = null; markOpeners(); } });
+  d.addEventListener("click", e => { if (e.target === d) closeSheet(); });   // outside the sheet is the scrim
+  d.querySelector("[data-close]").onclick = closeSheet;
+  dragToClose(d);
+}
+for (const n in OPENERS) for (const s of OPENERS[n]) { const el = $(s); if (el) el.onclick = () => openSheet(n); }
+window.addEventListener("hashchange", closeSheet);
+/* A modal <dialog> closes itself on Escape; the fallback for a browser without
+   showModal() does not, and a tray that traps a keyboard would be worse than
+   no tray at all. */
+document.addEventListener("keydown", e => { if (e.key === "Escape" && openName) closeSheet(); });
+
+/* The reference box and the search box are one element each, moved between the
+   header and a tray as the screen changes, rather than copied into both — a
+   second copy would need its own listeners and its own state to keep in step. */
+function placeInputs(){
+  const narrow = mqNarrow.matches;
+  $(narrow ? "#refslot" : "#hdrSlot").appendChild($("#gotoWrap"));
+  $(narrow ? "#qslot" : "#hdrSlot").appendChild($("#qWrap"));
+}
+mqNarrow.addEventListener("change", () => { closeSheet(); placeInputs(); measureBar(); });
+placeInputs();
+function focusSearch(){ if (mqNarrow.matches) openSheet("search"); else { showChrome(); $("#q").focus(); } }
+
+/* ---------- the navigation tray ---------- */
+/* A chosen row is marked three ways over — a tint, bold, and a tick — because
+   one of them is colour, and colour on its own says nothing to some readers. */
+const row = (attrs, name, note, on) => `<button type="button" ${attrs} class="${on ? "on" : ""}"${on ? ' aria-current="true"' : ""}>`
+  + `<span class="nm">${name}</span><span class="ct">${note}</span>${on ? `<span class="tk" aria-hidden="true">&#10003;</span>` : ""}</button>`;
+function langRows(){
+  let h = "";
+  for (const t of haveTargets)
+    h += row(`data-lang="${t}"`, esc(TARGETS[t].native), esc(TARGETS[t].name), view !== "orig" && tl === t);
+  return h + row(`data-lang="__orig"`, "Original", "Hebrew, Aramaic, Greek", view === "orig");
+}
+function drawNav(){
+  const cur = location.hash.slice(1).split("/"), curBook = cur[0], curCh = cur[1];
+  if (!navBook || !DATA[navBook]) navBook = DATA[curBook] ? curBook : srcBooks[0];
+  $("#navSheetT").textContent = navPane === "books" ? "Choose a book" : disp(navBook);
+  let h = `<div class="seg" role="group" aria-label="Books or chapters">
+      <button type="button" data-pane="books" aria-pressed="${navPane === "books"}">Books</button>
+      <button type="button" data-pane="chapters" aria-pressed="${navPane === "chapters"}">Chapters</button></div>`;
+  if (navPane === "books") {
+    h += `<div class="rowlist">`;
+    let lastT = "";
+    for (const bk of allBooks) {
+      const t = ORDER[bk] <= 39 ? "Old Testament" : "New Testament";
+      if (t !== lastT) { h += `<div class="shead">${t}</div>`; lastT = t; }
+      const nch = DATA[bk] ? Object.keys(DATA[bk]).length : 0;
+      if (!nch) { h += `<button type="button" class="missing" disabled><span class="nm">${disp(bk)}</span><span class="ct">not in the source texts</span></button>`; continue; }
+      const ntr = Object.values(DATA[bk]).filter(c => c.tr && c.tr[tl]).length;
+      const note = !ntr ? `${nch} chapters, original only` : ntr < nch ? `${ntr} of ${nch} translated` : `${nch} chapter${nch === 1 ? "" : "s"}`;
+      h += row(`data-book="${bk}"`, disp(bk), note, bk === navBook);
+    }
+    h += `</div>`;
+  } else {
+    const chs = DATA[navBook] ? chapterList(navBook) : [];
+    h += `<div class="shead">${esc(disp(navBook))} &middot; ${chs.length} chapter${chs.length === 1 ? "" : "s"}</div>`;
+    h += `<div class="chgrid">` + chs.map(c =>
+      `<a href="#${navBook}/${c}" class="${navBook === curBook && c == curCh ? "on" : ""} ${trOf(navBook, c)[tl] ? "" : "untr"}"${navBook === curBook && c == curCh ? ' aria-current="page"' : ""}>${c}</a>`).join("") + `</div>`;
+    h += `<p class="hint">A dashed outline marks a chapter with no ${esc((TARGETS[tl] || {}).name || tl)} yet &mdash; the original is still there to read.</p>`;
+    const nb = neighbours(navBook, curBook === navBook ? curCh : chs[0]);
+    h += `<div class="shead">Move on</div><div class="rowlist">`;
+    if (nb.prev) h += `<a href="#${nb.prev.b}/${nb.prev.c}">&#8592; ${disp(nb.prev.b)} ${nb.prev.c}</a>`;
+    if (nb.next) h += `<a href="#${nb.next.b}/${nb.next.c}">${disp(nb.next.b)} ${nb.next.c} &#8594;</a>`;
+    h += `</div>`;
+  }
+  h += `<div class="shead">Reading language</div><div class="rowlist">${langRows()}</div>`;
+  const dyn = $("#navDyn");
+  dyn.innerHTML = h;
+  dyn.querySelectorAll("[data-pane]").forEach(el => el.onclick = () => { navPane = el.dataset.pane; drawNav(); });
+  dyn.querySelectorAll("[data-book]").forEach(el => el.onclick = () => { navBook = el.dataset.book; navPane = "chapters"; drawNav(); $("#navBody").scrollTop = 0; });
+  dyn.querySelectorAll("[data-lang]").forEach(el => el.onclick = () => {
+    const v = el.dataset.lang;
+    if (v === "__orig") setView("orig"); else setTl(v);
+    drawNav();
+  });
+  dyn.querySelectorAll("a[href]").forEach(a => a.addEventListener("click", closeSheet));
+}
+
+/* ---------- the search tray ---------- */
+function drawSearch(){
+  $("#searchDyn").innerHTML =
+    `<button type="button" class="primary" id="qGo">Show the results</button>
+     <p class="hint">Searching the ${esc((TARGETS[tl] || {}).name || tl)} text; two letters is enough. The results are drawn behind this tray as you type.</p>
+     <p class="hint">To jump straight to a reference instead, close this and tap the chapter name at the top: &ldquo;Genesis 2:7&rdquo;, &ldquo;1 Sam 3&rdquo;, &ldquo;Ps 23&rdquo;.</p>`;
+  $("#qGo").onclick = () => { const v = $("#q").value.trim(); if (v) search(v); closeSheet(); };
+}
+
+/* ---------- the tools tray: every view this project builds, in one place ---------- */
+function drawTools(){
+  const cur = location.hash.slice(1).split("/"), book = cur[0], ch = cur[1];
+  const d = DATA[book] && DATA[book][ch];
+  const src = d && d.src, lxx = src && src._lxx, trs = (d && d.tr) || {};
+  const avail = Object.keys(TARGETS).filter(t => trs[t]);
+  const L = src ? LANGS[d.lang || "hbo"] : null;
+  const B = (act, label, note, on, off) =>
+    `<button type="button" data-act="${act}" aria-pressed="${!!on}"${off ? " disabled" : ""}>${label}<small>${note}</small></button>`;
+  let h = "";
+  if (d) {
+    h += `<div class="shead">${esc(disp(book))} ${esc(ch)}</div><div class="tools">`;
+    h += B("v:tr", "Reading", "the translation on its own", view === "tr", !avail.length);
+    if (src) h += B("v:orig", esc(L.name), "the text it was made from", view === "orig", false);
+    if (lxx) h += B("v:lxx", "Septuagint", "the old Greek of this chapter", view === "lxx", false);
+    if (lxx) h += B("v:hl", "Hebrew &middot; Septuagint", "the two side by side", view === "hl", false);
+    h += B("v:par", "Side by side", "original and translation, verse by verse", view === "par", !src || !avail.length);
+    h += B("v:all", "Compare", "every language this chapter has", view === "all", (avail.length + (lxx ? 1 : 0)) < 2);
+    h += B("inter", "Interlinear", "gloss and parsing under each word", inter, !src);
+    h += B("v:themes", "Themes", "what this chapter is about", view === "themes", false);
+    h += B("v:harm", "Parallels", "passages that share its wording", view === "harm", false);
+    h += B("v:map", "Places", "where it happens, on a map", view === "map", false);
+    h += B("v:chron", "Chronology", "the numbers it states", view === "chron", false);
+    h += `</div>`;
+  }
+  h += `<div class="shead">Across the whole Bible</div><div class="tools">`;
+  h += B("gs", "Grammar search", "words by their form", false, false);
+  h += B("fields", "Fields of meaning", "this project&rsquo;s grouping of its words", false, false);
+  h += B("themes", "All themes", "gathered out of the chapters", false, false);
+  h += B("lexicon", "Our lexicon", "entries written from the text", false, false);
+  h += B("lexemes", "Lexeme inventory", "dictionary words grown from the forms", false, false);
+  h += B("args", "What each book argues", "a book&rsquo;s sections and line of thought", false, false);
+  h += B("sources", "Sources and licenses", "where every layer came from", false, false);
+  h += `</div><p class="hint">Everything here is a reading built on the text, and each page says what it was built from. Basic mode puts all of it away.</p>`;
+  const dyn = $("#toolsDyn");
+  dyn.innerHTML = h;
+  dyn.querySelectorAll("[data-act]").forEach(el => el.onclick = () => {
+    const a = el.dataset.act;
+    closeSheet();
+    if (a.startsWith("v:")) setView(a.slice(2));
+    else if (a === "inter") toggleInter();
+    else if (a === "gs") gsOpen();
+    else if (a === "fields") browseFields();
+    else if (a === "themes") browseThemes();
+    else if (a === "lexicon") browseLexicon();
+    else if (a === "lexemes") browseLexemes();
+    else if (a === "args") browseArguments();
+    else if (a === "sources") $("#credits").scrollIntoView({behavior: "smooth", block: "start"});
+  });
+}
+
+/* ---------- the display tray ---------- */
+function drawSettings(){
+  let h = `<div class="shead">How much of the reader you want</div>
+    <div class="seg" role="group" aria-label="Mode">
+      <button type="button" data-mode="basic" aria-pressed="${!adv()}">Just read</button>
+      <button type="button" data-mode="advanced" aria-pressed="${adv()}">Everything</button></div>
+    <p class="hint">${adv() ? "Every layer this project has built is switched on: the word tags, the lexicon, the themes, the maps and the rest."
+                            : "The book and nothing else: a chapter, a language, the size of the type. Tapping a word does nothing."}</p>`;
+  h += `<div class="shead">Skin</div><div class="skins" role="group" aria-label="Skin">`;
+  for (const [id, name, paper, ink] of SKINS) {
+    const on = skin === id;
+    const sw = id === "auto"
+      ? `background:linear-gradient(135deg,#faf8f4 0 50%,#181614 50% 100%)`
+      : `background:linear-gradient(135deg,${paper} 0 55%,${ink} 55% 100%)`;
+    h += `<button type="button" data-skin="${id}" aria-pressed="${on}"><span class="sw" style="${sw}"></span>${name}${on ? `<span class="tick" aria-hidden="true">&#10003;</span>` : ""}</button>`;
+  }
+  h += `</div>`;
+  h += `<div class="shead">Text size</div><div class="seg" role="group" aria-label="Text size">
+      <button type="button" data-fs="-1"${fs <= 14 ? " disabled" : ""} aria-label="Smaller text">A&minus;</button>
+      <span class="val" role="status">${fs} px</span>
+      <button type="button" data-fs="1"${fs >= 30 ? " disabled" : ""} aria-label="Larger text">A+</button></div>
+    <p class="hint">Pinching the page magnifies it as well, for as long as you need it; the reader offers a way back to normal size while it is magnified.</p>`;
+  h += `<div class="shead">Line spacing</div><div class="seg" role="group" aria-label="Line spacing">`
+    + SPACING.map(([v, n]) => `<button type="button" data-lh="${v}" aria-pressed="${Math.abs(lh - v) < .001}">${n}</button>`).join("") + `</div>`;
+  h += `<div class="shead">Reading language</div><div class="rowlist">${langRows()}</div>`;
+  h += `<div class="shead">Read aloud</div><p class="hint">${"speechSynthesis" in window
+      ? "Press and hold a verse (or right-click it) to have the device read it in its own language."
+      : "This browser has no speech voices, so nothing can be read aloud here."}</p>`;
+  h += `<div class="shead">About the text</div><div class="rowlist"><button type="button" id="setSrc"><span class="nm">Sources and licenses</span><span class="ct">what each layer came from</span></button></div>`;
+  const dyn = $("#setDyn");
+  dyn.innerHTML = h;
+  dyn.querySelectorAll("[data-mode]").forEach(el => el.onclick = () => setMode(el.dataset.mode));
+  dyn.querySelectorAll("[data-skin]").forEach(el => el.onclick = () => setSkin(el.dataset.skin));
+  dyn.querySelectorAll("[data-fs]").forEach(el => el.onclick = () => fsStep(+el.dataset.fs));
+  dyn.querySelectorAll("[data-lh]").forEach(el => el.onclick = () => setLh(+el.dataset.lh));
+  dyn.querySelectorAll("[data-lang]").forEach(el => el.onclick = () => {
+    const v = el.dataset.lang;
+    if (v === "__orig") setView("orig"); else setTl(v);
+    drawSettings();
+  });
+  $("#setSrc").onclick = () => { closeSheet(); $("#credits").scrollIntoView({behavior: "smooth", block: "start"}); };
+}
+
+/* ---------- the title in the bar, and the bars getting out of the way ---------- */
+function setTitle(main, sub){
+  $("#titleMain").textContent = main;
+  $("#titleSub").textContent = sub || "";
+  document.title = main ? main + " — eBible" : "eBible Translation";
+}
+function measureBar(){
+  document.documentElement.style.setProperty("--barH", ($("header").offsetHeight || 56) + "px");
+}
+addEventListener("resize", measureBar); measureBar();
+/* Reading is what the page is for. Once the reader is moving down a chapter
+   the bars slide away, and the first flick back up brings them back; they are
+   sticky, so nothing under them moves when they go. */
+let lastY = 0, chromeOff = false;
+function showChrome(){ if (chromeOff) { chromeOff = false; document.documentElement.classList.remove("chrome-off"); } }
+addEventListener("scroll", () => {
+  const y = Math.max(0, window.pageYOffset), d = y - lastY;
+  if (Math.abs(d) < 8) return;
+  lastY = y;
+  if (openName) return;
+  if (d > 0 && y > 120) { if (!chromeOff) { chromeOff = true; document.documentElement.classList.add("chrome-off"); } }
+  else showChrome();
+}, {passive: true});
+addEventListener("focusin", e => { if (e.target.closest && e.target.closest("header, #tabbar")) showChrome(); });
+
+/* ---------- the magnifier ----------
+   Pinching is the zoom of a reader who cannot see the text at its set size, so
+   the page never forbids it. Nothing in the platform releases a pinch again,
+   which leaves a magnified reader stranded; clamping the viewport for a single
+   frame makes the browser snap back, and the clamp is lifted immediately after,
+   so the page is never left unzoomable. */
+const vvp = window.visualViewport;
+function zoomWatch(){
+  const chip = $("#zoomchip"), s = (vvp && vvp.scale) || 1;
+  if (s > 1.05) {
+    $("#zoomlvl").textContent = "Magnified " + s.toFixed(1) + "×";
+    chip.hidden = false;
+    chip.style.left = (vvp.offsetLeft + vvp.width / 2) + "px";
+    chip.style.top = (vvp.offsetTop + vvp.height - chip.offsetHeight / s - 12) + "px";
+    chip.style.bottom = "auto";
+    chip.style.transform = `translateX(-50%) scale(${1 / s})`;
+    chip.style.transformOrigin = "bottom center";
+  } else { chip.hidden = true; chip.style.top = ""; chip.style.bottom = ""; chip.style.left = ""; chip.style.transform = ""; }
+}
+if (vvp) { vvp.addEventListener("resize", zoomWatch); vvp.addEventListener("scroll", zoomWatch); }
+$("#zoomreset").onclick = () => {
+  const m = document.querySelector('meta[name="viewport"]'), had = m.getAttribute("content");
+  m.setAttribute("content", had + ", maximum-scale=1");
+  setTimeout(() => { m.setAttribute("content", had); zoomWatch(); }, 80);
+  setTimeout(() => { if (vvp && vvp.scale > 1.05) $("#zoomlvl").textContent = "Still magnified — pinch inwards to go back"; }, 500);
+};
+
+/* A file that fails to load should say so rather than leave an empty view. */
+let toastT;
+function toast(msg){
+  const t = $("#toast"); t.textContent = msg; t.hidden = false;
+  t.style.marginBottom = $("#zoomchip").hidden ? "" : "3.4rem";   // never on top of the magnifier's way back
+  clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, 7000);
+}
+
+/* Two things every view needs and none of them should have to remember: its
+   links reachable from a keyboard — most of the reader's links are <a> with no
+   href, drawn into the page, which a keyboard cannot touch — and its heading
+   repeated in the bar, where it is the way back into the navigation tray. */
+/* A verse number is deliberately left out of this: a chapter of Psalms would
+   put a hundred and seventy-six stops between a keyboard and the end of it. */
+const CLICKABLE = "a:not([href]):not([tabindex]):not(.off), .hit:not([tabindex]), .r[onclick]:not([tabindex]),"
+  + " .thm .t b:not([tabindex]), .chron .row b:not([tabindex]), .arg .sec b:not([tabindex]), .harm .lab[onclick]:not([tabindex])";
+function reachable(root){
+  for (const el of root.querySelectorAll(CLICKABLE)) { el.tabIndex = 0; el.setAttribute("role", "button"); }
+}
+new MutationObserver(() => {
+  const m = $("#main");
+  reachable(m);
+  const h = m.querySelector("h2");
+  if (h) {
+    const c = h.cloneNode(true), sub = h.querySelector(".lang");
+    c.querySelectorAll(".lang").forEach(x => x.remove());
+    setTitle(c.textContent.trim(), sub ? sub.textContent.trim() : "");
+  }
+}).observe($("#main"), {childList: true, subtree: true});
+document.addEventListener("keydown", e => {
+  if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches('[role="button"][tabindex="0"]')) {
+    e.preventDefault(); e.target.click();
+  }
+});
+
 /* ---------- routing ---------- */
 function route() {
   const h = decodeURIComponent(location.hash.slice(1));
@@ -1251,7 +1946,12 @@ function trailPush(key, run){
   backSync();
 }
 function backSync(){ const b = $("#back"); if (b) b.disabled = TRAIL.length < 2; }
+/* An open tray is the first thing back should undo — it is what the reader is
+   looking at. The Android shell asks canGoBack() before it will leave the app,
+   so the two have to agree about what counts as somewhere to go back to. */
+function canGoBack(){ return !!openName || TRAIL.length > 1; }
 function goBack(){
+  if (openName) { closeSheet(); return; }
   if (TRAIL.length < 2) return;
   TRAIL.pop();                                                    // where we are now
   const p = TRAIL[TRAIL.length - 1];
@@ -1291,9 +1991,19 @@ $("#q").addEventListener("input", e => {
   const val = e.target.value;
   deb = setTimeout(() => val.trim() ? search(val) : route(), 250);
 });
+/* Enter is done searching: on a phone that means putting the tray away and
+   letting the reader see the hits it has been drawing behind it. */
+$("#q").addEventListener("keydown", e => {
+  if (e.key !== "Enter") return;
+  clearTimeout(deb);
+  const val = e.target.value.trim();
+  if (val) search(val);
+  if (openName === "search") closeSheet();
+});
 document.addEventListener("keydown", e => {
   if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
   if (e.key === "Backspace" || (e.altKey && e.key === "ArrowLeft")) { e.preventDefault(); goBack(); return; }
+  if (openName) return;                        // the arrows belong to the tray while one is open
   const h = location.hash.slice(1).split("/");
   if (h.length < 2 || !DATA[h[0]]) return;
   const {prev, next} = neighbours(h[0], h[1]);

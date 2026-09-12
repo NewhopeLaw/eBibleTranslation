@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The same theme against the dark Material parent, so a phone in dark
+         mode opens on the page's night background rather than a white flash.
+         Only the parent and the bar icons differ; the colours themselves come
+         from values-night/colors.xml. -->
+    <style name="Theme.EBible" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/page_bg</item>
+        <item name="android:colorAccent">@color/page_accent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>
