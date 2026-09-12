@@ -130,6 +130,21 @@ sup.v { cursor:pointer; } sup.v:hover { text-decoration:underline; }
 .harm .lab { font:600 11px system-ui,sans-serif; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.15rem; cursor:pointer; }
 .harm .lab:hover { color:var(--accent); } .harm .lab small { text-transform:none; letter-spacing:0; opacity:.7; }
 .harm .txt { white-space:pre-wrap; } .harm .txt.dim { color:var(--muted); }
+#map { width:100%; height:auto; background:var(--card); border:1px solid var(--border); border-radius:10px; touch-action:none; cursor:grab; }
+#map.drag { cursor:grabbing; }
+#map .coast { fill:none; stroke:var(--border); stroke-width:1.2; }
+#map .land { fill:var(--soft); }
+#map .water { fill:var(--bg); stroke:var(--border); stroke-width:.8; }
+#map .river { fill:none; stroke:var(--border); stroke-width:.7; opacity:.8; }
+#map .pin { fill:var(--accent); stroke:var(--card); stroke-width:1.2; cursor:pointer; }
+#map .pin.on { fill:var(--err); }
+#map .plab { font:10px system-ui,sans-serif; fill:var(--fg); pointer-events:none; paint-order:stroke; stroke:var(--bg); stroke-width:2.5px; }
+.mapbar { display:flex; flex-wrap:wrap; gap:.4rem; align-items:center; margin:.5rem 0; font:13px system-ui,sans-serif; color:var(--muted); }
+.mapbar button { font:13px system-ui,sans-serif; padding:.25rem .6rem; border:1px solid var(--border); border-radius:7px; background:var(--card); color:var(--fg); cursor:pointer; }
+.plist { display:grid; grid-template-columns:repeat(auto-fill,minmax(13rem,1fr)); gap:.2rem .8rem; margin:.6rem 0 1rem; font:13px system-ui,sans-serif; }
+.plist a { cursor:pointer; padding:.15rem .3rem; border-radius:5px; } .plist a:hover { background:var(--soft); }
+.plist a small { color:var(--muted); }
+#vpop .pl { font-size:12px; } #vpop .pl a { color:var(--accent); cursor:pointer; margin-right:.6em; }
 .lt { font:600 10px system-ui,sans-serif; color:var(--muted); text-transform:uppercase;
   letter-spacing:.05em; margin:0 .3em; vertical-align:.5em; user-select:none; }
 p.ov { margin:0 0 .6em; }
@@ -203,6 +218,9 @@ ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
   <p><b>Cross-references:</b> the <i>Treasury of Scripture Knowledge</i> (1830s, public domain) as extended and voted on by readers at
     <a href="https://www.openbible.info/labs/cross-references/">OpenBible.info</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
     Parallel passages are computed from the word tags above, not taken from any harmony.</p>
+  <p><b>Places and the map:</b> place identifications and coordinates from the <a href="https://www.openbible.info/geo/">OpenBible.info</a> Bible geocoding data,
+    <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> (the 2007 tab-delimited release; the newer dataset mixing in OpenStreetMap geometry is not used).
+    Coastlines, lakes and rivers from <a href="https://www.naturalearthdata.com/">Natural Earth</a>, public domain — drawn here as vectors, with no map service or tiles.</p>
   <p><b>Translations:</b> produced from the Hebrew, Aramaic and Greek above by a local language model, checked and corrected by the project.
     Full notes: LEGAL.md in the project repository.</p>
 </footer>
@@ -272,6 +290,90 @@ function neighbours(book, ch) {
 
 function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
 
+/* ---------- places: where the chapter happens, drawn offline (OpenBible.info CC BY 4.0 + Natural Earth, public domain) ---------- */
+const placesLoad = () => typeof PLACES !== "undefined" ? Promise.resolve() : loadJs("morph/places.js");
+const placesOf = (b, c, v) => (typeof VPLACES !== "undefined" && VPLACES[`${disp(b)}|${c}|${v}`]) || [];
+function chapterPlaces(book, ch){
+  const out = new Map(), src = (DATA[book] && DATA[book][ch] || {}).src || {};
+  for (const n of Object.keys(src).filter(k => !k.startsWith("_"))) for (const name of placesOf(book, ch, n)) {
+    if (!PLACES[name]) continue;
+    if (!out.has(name)) out.set(name, []);
+    out.get(name).push(+n);
+  }
+  return out;
+}
+let mapView = null;                                      // {x, y, k} pan and zoom
+function mapXY(name){ const p = PLACES[name], b = MAPSVG.box; return [(p[1] - b[0]) / (b[2] - b[0]) * MAPSVG.w, (b[3] - p[0]) / (b[3] - b[1]) * MAPSVG.h]; }
+function drawMap(names, focus){
+  const pts = names.map(n => mapXY(n));
+  let vb;
+  if (mapView) vb = mapView;
+  else if (pts.length) {                                 // frame the chapter's places with a margin
+    const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+    const pad = Math.max(60, (Math.max(...xs) - Math.min(...xs)) * .25, (Math.max(...ys) - Math.min(...ys)) * .25);
+    let x0 = Math.min(...xs) - pad, y0 = Math.min(...ys) - pad, x1 = Math.max(...xs) + pad, y1 = Math.max(...ys) + pad;
+    const w = Math.max(x1 - x0, (y1 - y0) * 1.6), h = w / 1.6;
+    vb = mapView = {x: (x0 + x1) / 2 - w / 2, y: (y0 + y1) / 2 - h / 2, w, h};
+  } else vb = mapView = {x: 0, y: 0, w: MAPSVG.w, h: MAPSVG.h};
+  const scale = MAPSVG.w / vb.w, lab = names.length <= 40 || scale > 2;
+  return `<svg id="map" viewBox="${vb.x.toFixed(1)} ${vb.y.toFixed(1)} ${vb.w.toFixed(1)} ${vb.h.toFixed(1)}" preserveAspectRatio="xMidYMid meet" style="aspect-ratio:1.6">
+    <g>${MAPSVG.coast.map(d => `<path class="coast" d="${d}"/>`).join("")}
+       ${MAPSVG.rivers.map(d => `<path class="river" d="${d}"/>`).join("")}
+       ${MAPSVG.lakes.map(d => `<path class="water" d="${d}"/>`).join("")}</g>
+    <g>${names.map((n, i) => { const [x, y] = pts[i]; const on = n === focus;
+      return `<circle class="pin ${on ? "on" : ""}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(on ? 5 : 3.5) / Math.sqrt(scale)}" data-p="${attr(n)}"><title>${esc(n)}</title></circle>`
+        + (lab ? `<text class="plab" x="${(x + 5 / Math.sqrt(scale)).toFixed(1)}" y="${(y + 3 / Math.sqrt(scale)).toFixed(1)}" style="font-size:${(10 / Math.sqrt(scale)).toFixed(1)}px">${esc(n)}</text>` : "");
+    }).join("")}</g></svg>`;
+}
+function mapControls(){
+  const svg = $("#map"); if (!svg) return;
+  const apply = () => { svg.setAttribute("viewBox", `${mapView.x.toFixed(1)} ${mapView.y.toFixed(1)} ${mapView.w.toFixed(1)} ${mapView.h.toFixed(1)}`); };
+  svg.onwheel = e => { e.preventDefault(); const r = svg.getBoundingClientRect();
+    const mx = mapView.x + (e.clientX - r.left) / r.width * mapView.w, my = mapView.y + (e.clientY - r.top) / r.height * mapView.h;
+    const k = e.deltaY > 0 ? 1.2 : 1 / 1.2; const w = Math.min(MAPSVG.w * 2, Math.max(30, mapView.w * k)), h = w / 1.6;
+    mapView = {x: mx - (mx - mapView.x) * (w / mapView.w), y: my - (my - mapView.y) * (h / mapView.h), w, h}; apply(); };
+  let drag = null;
+  svg.onpointerdown = e => { drag = {x: e.clientX, y: e.clientY, vx: mapView.x, vy: mapView.y}; svg.setPointerCapture(e.pointerId); svg.classList.add("drag"); };
+  svg.onpointermove = e => { if (!drag) return; const r = svg.getBoundingClientRect();
+    mapView.x = drag.vx - (e.clientX - drag.x) / r.width * mapView.w; mapView.y = drag.vy - (e.clientY - drag.y) / r.height * mapView.h; apply(); };
+  svg.onpointerup = svg.onpointercancel = () => { drag = null; svg.classList.remove("drag"); };
+  svg.addEventListener("click", e => { const c = e.target.closest(".pin"); if (c) showPlace(c.dataset.p); });
+}
+function showPlace(name, book, ch){
+  const p = PLACES[name]; if (!p) return;
+  const cur = location.hash.slice(1).split("/");
+  mapView = {x: mapXY(name)[0] - 90, y: mapXY(name)[1] - 56, w: 180, h: 112};
+  renderMapInto(book || cur[0], ch || cur[1], name);
+}
+async function renderMap(book, ch, head){
+  const main = $("#main");
+  main.innerHTML = head + `<p class="empty">Loading places…</p>`;
+  try { await placesLoad(); } catch (e) { main.innerHTML = head + `<p class="empty">Place data is not built — run scripts/build_places.py.</p>`; return; }
+  mapView = null;
+  renderMapInto(book, ch, null, head);
+}
+function renderMapInto(book, ch, focus, head){
+  const main = $("#main");
+  const found = chapterPlaces(book, ch);
+  const names = [...found.keys()];
+  head = head || main.dataset.head || "";
+  main.dataset.head = head;
+  if (!names.length) { main.innerHTML = head + `<p class="empty">No identified places in ${disp(book)} ${ch}. Place names come from the OpenBible.info geocoding data; many chapters mention none.</p>`; return; }
+  let html = head + `<div class="mapbar"><b style="color:var(--fg)">${names.length} place${names.length === 1 ? "" : "s"}</b> in ${disp(book)} ${ch}
+      <button onclick="mapView=null;renderMapInto('${book}',${ch},null)">fit</button>
+      <button onclick="mapView={x:0,y:0,w:MAPSVG.w,h:MAPSVG.h};renderMapInto('${book}',${ch},null)">whole map</button>
+      <span>scroll to zoom, drag to pan</span></div>`;
+  html += drawMap(names, focus);
+  html += `<div class="plist">` + names.sort().map(n => {
+    const vs = found.get(n), p = PLACES[n];
+    return `<a onclick="showPlace('${attr(n)}','${book}',${ch})">${esc(n)} <small>${vs.slice(0, 4).join(", ")}${vs.length > 4 ? "…" : ""}${p[3] ? " · " + esc(p[3]) : ""}</small></a>`;
+  }).join("") + `</div>`;
+  const f = focus && PLACES[focus];
+  if (f) html += `<p class="empty">${esc(focus)} — ${f[0].toFixed(3)}°N, ${f[1].toFixed(3)}°E${f[2] ? " · located from " + esc(f[2]) : ""}${f[3] ? " · " + esc(f[3]) : ""}</p>`;
+  main.innerHTML = html;
+  mapControls();
+}
+
 /* ---------- cross-references (OpenBible.info, CC BY 4.0) and parallels (computed from the word tags) ---------- */
 const XREF = {}, xrefLoad = book => XREF[disp(book)] ? Promise.resolve() : loadJs(`morph/xref_${book}.js`);
 const parLoad = () => typeof PAR !== "undefined" ? Promise.resolve() : loadJs("morph/parallels.js");
@@ -291,10 +393,12 @@ function refRow(b, c, v, end, note){
 }
 async function showRefs(book, ch, v, ev){
   if (ev) ev.stopPropagation();
-  await Promise.all([xrefLoad(book).catch(() => {}), parLoad().catch(() => {})]);
+  await Promise.all([xrefLoad(book).catch(() => {}), parLoad().catch(() => {}), placesLoad().catch(() => {})]);
   const xr = ((XREF[disp(book)] || {})[ch] || {})[v] || [];
   const pr = typeof PAR !== "undefined" ? (((PAR[disp(book)] || {})[ch] || {})[v] || []) : [];
   let html = `<span class="cls" onclick="hideRefs()">✕</span><h4>${disp(book)} ${ch}:${v}</h4>`;
+  const pls = (typeof PLACES !== "undefined" ? placesOf(book, ch, v).filter(n => PLACES[n]) : []);
+  if (pls.length) html += `<div class="pl">Places: ${pls.map(n => `<a onclick="hideRefs();setView('map');setTimeout(()=>showPlace('${attr(n)}','${book}',${ch}),300)">${esc(n)}</a>`).join("")}</div>`;
   if (pr.length) html += `<h4>Parallel passages</h4>` + pr.map(r => refRow(r[0].replace(/ /g, "_"), r[1], r[2], 0, Math.round(r[3] * 100) + "% shared wording")).join("");
   if (xr.length) html += `<h4>Cross-references <span style="font-weight:400;text-transform:none">(Treasury of Scripture Knowledge via OpenBible.info)</span></h4>`
     + xr.slice(0, 25).map(r => refRow(r[0].replace(/ /g, "_"), r[1], r[2], r[3], "")).join("");
@@ -551,14 +655,15 @@ function renderChapter(book, ch, highlightVerse) {
     for (const t of haveTargets)
       html += `<a class="${v==='tr'&&shown===t?'on':''} ${trs[t]?'':'off'}" onclick="setTl('${t}');setView('tr')">${TARGETS[t].native}</a>`;
     html += `<span class="sep"></span><a class="${v==='par'?'on':''} ${tr?'':'off'}" onclick="setView('par')">Side by side</a>`;
-    html += `<a class="${v==='all'?'on':''} ${(avail.length + (lxx?1:0))>1?'':'off'}" onclick="setView('all')">Compare</a><a class="${v==='harm'?'on':''}" onclick="setView('harm')" title="this chapter beside its parallels elsewhere">parallels</a><a class="tool ${inter?'on':''}" onclick="toggleInter()" title="gloss and parsing under every Hebrew / Greek word">interlinear</a><a class="tool" onclick="gsOpen()" title="find words by grammatical form">grammar search</a></div>`;
+    html += `<a class="${v==='all'?'on':''} ${(avail.length + (lxx?1:0))>1?'':'off'}" onclick="setView('all')">Compare</a><a class="${v==='harm'?'on':''}" onclick="setView('harm')" title="this chapter beside its parallels elsewhere">parallels</a><a class="${v==='map'?'on':''}" onclick="setView('map')" title="the places this chapter mentions, on a map">places</a><a class="tool ${inter?'on':''}" onclick="toggleInter()" title="gloss and parsing under every Hebrew / Greek word">interlinear</a><a class="tool" onclick="gsOpen()" title="find words by grammatical form">grammar search</a></div>`;
   }
-  main.className = ((v === "par" || v === "all" || v === "hl" || v === "harm") ? "wide" : "") + (inter && src && (v === "orig" || v === "par" || v === "all" || v === "hl") ? " inter" : "");
+  main.className = ((v === "par" || v === "all" || v === "hl" || v === "harm" || v === "map") ? "wide" : "") + (inter && src && (v === "orig" || v === "par" || v === "all" || v === "hl") ? " inter" : "");
   if (src && !MORPH[disp(book)]) morphLoad(book).then(() => { if (location.hash.slice(1).split("/").slice(0, 2).join("/") === `${book}/${ch}`) route(); }).catch(() => {});
   main.setAttribute("lang", (v === "orig" || v === "lxx" || v === "hl") ? "" : (shown || "en"));
   main.setAttribute("dir", (v === "tr" && shown) ? tdir(shown) : "ltr");
   if (!tr) html += `<p class="empty" style="margin:0 0 1.2rem">Not translated yet${src ? ` — showing the ${v === "lxx" ? "Septuagint" : L.name}.` : "."}</p>`;
   if (v === "harm") { renderHarmony(book, ch, html, shown); return; }
+  if (v === "map") { renderMap(book, ch, html); return; }
   if (!tr && v !== "orig" && v !== "lxx" && v !== "hl" && v !== "all") { main.innerHTML = html; return; }
   const nums = Object.keys(v === "tr" ? trs[shown].verses : src).filter(k => !k.startsWith("_")).map(Number).sort((a,b)=>a-b);
   if (v === "orig") {

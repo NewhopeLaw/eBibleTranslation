@@ -22,6 +22,9 @@ from them and carry the obligations below.
 
 | Cross-references between verses (~341,000 with positive votes) | [OpenBible.info cross-reference dataset](https://www.openbible.info/labs/cross-references/) — the *Treasury of Scripture Knowledge* (1830s, public domain) extended and ranked by reader votes | `cross-references.zip` downloaded 2026-09-11 into `sources/openbible/` (data stamped 2026-09-07) | **CC BY 4.0**, stated on the page and in the file header line `#www.openbible.info CC-BY` | `scripts/build_refs.py` writes `site/morph/xref_*.js`; the reader shows them when a verse number is clicked |
 
+| Place identifications and coordinates (1,111 located places, 4,812 verses) | [OpenBible.info Bible geocoding data](https://www.openbible.info/geo/), 2007 tab-delimited release (`geo/data/merged.txt`, `places.txt`) | downloaded 2026-09-11 into `sources/openbible/` | **CC BY 4.0** ("The dataset as a whole is licensed under the Creative Commons Attribution license") | `scripts/build_places.py` -> `site/morph/places.js`; the reader's *places* tab and the verse panel |
+| Coastlines, lakes and rivers for the base map | [Natural Earth](https://www.naturalearthdata.com/) 50m coastline, 50m lakes, 50m rivers, via [nvkelso/natural-earth-vector](https://github.com/nvkelso/natural-earth-vector) | downloaded 2026-09-11 into `sources/openbible/` | **Public domain** ("Everything here is public domain… Crediting the authors is unnecessary.") | clipped, simplified and written as SVG paths, so the map draws offline with no tiles or map service |
+
 GitHub's own license detection (`gh api repos/<owner>/<repo> --jq .license`)
 reports: morphhb `NOASSERTION` (custom LICENSE.md, quoted below), SBLGNT
 `CC-BY-4.0`, byzantine-majority-text `Unlicense`, First1KGreek `CC-BY-SA-4.0`.
@@ -264,6 +267,29 @@ Gospels, within Samuel–Kings–Chronicles (with Isaiah, Jeremiah, Psalms and
 Micah) and within the Torah are compared by the rare lexemes they share
 (idf-weighted cosine). No text of Aland, Robertson or any modern harmony is
 read. The reader states this.
+
+## 4d. Geography (places and the base map)
+
+**Places:** https://www.openbible.info/geo/ — the 2007 tab-delimited files
+`merged.txt` and `places.txt`. The page states: "The dataset as a whole is
+licensed under the Creative Commons Attribution license, meaning that you can
+use them for any purpose you want as long as you credit OpenBible.info."
+
+The same paragraph adds "Some data is from OpenStreetMap, which has its own
+open license." OpenStreetMap is share-alike (ODbL), which this project's
+provenance rule excludes, so **only the 2007 release is used** — name, the
+location the coordinates belong to, latitude, longitude, the verses that
+mention it, and a note. The newer GitHub dataset, which carries
+OpenStreetMap-derived geometry, is deliberately not used. Coordinates
+themselves are facts and not copyrightable; the attribution is given anyway.
+
+**Base map:** Natural Earth vector data (50m coastline, 50m lakes, 50m
+rivers). Its `LICENSE.md` states: "Everything here is public domain… No
+permission is needed to use Natural Earth. Crediting the authors is
+unnecessary." `scripts/build_places.py` clips it to the biblical world,
+simplifies it and writes SVG paths, so the reader draws the map itself: no
+tile server, no map API, nothing fetched at run time. The reader credits
+Natural Earth anyway.
 
 ## 4a. Provenance rule for reference data and tools
 

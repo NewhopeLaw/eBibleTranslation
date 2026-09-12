@@ -124,6 +124,16 @@ and `--pack` writes `site/morph/lexx.js`, shown in the reader's word popup
 under *This project's entry*. Roughly 7 s per lexeme: about 8 GPU hours for the
 3,861 lexemes occurring ten times or more, 33 hours for all 16,967.
 
+### Places and maps
+
+`scripts/build_places.py` writes `site/morph/places.js` from the OpenBible.info
+geocoding data (CC BY 4.0; the 2007 release — the newer one mixes in
+OpenStreetMap geometry under a share-alike licence) and a base map clipped from
+Natural Earth (public domain). The reader's *places* tab shows the places a
+chapter mentions on a vector map that is drawn offline — no tiles, no map
+service — with zoom, pan and a list of the places with their verses; place
+names also appear in the verse panel. 1,111 located places over 4,812 verses.
+
 ### Target languages
 
 The pipeline translates into several languages from the same sources; each
