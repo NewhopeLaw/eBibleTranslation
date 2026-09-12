@@ -166,6 +166,27 @@ chapter's statements, the rest of the book's, and the anchors. Nothing is summed
 into a date: no chronological system is asserted, and no copyrighted chronology
 is used.
 
+### Rebuilding the study layers
+
+```
+python scripts/build_all.py             every layer below, then the reader page
+python scripts/build_all.py --fast      skip morphology and syntax (the slow two)
+```
+
+| layer | script | source | output |
+|---|---|---|---|
+| word tags, lexicon, concordance | `build_morph.py` | STEPBible (CC BY 4.0) | `site/morph/<Book>.js`, `lex.js`, `conc.js` |
+| cross-references, parallels | `build_refs.py` | OpenBible.info (CC BY 4.0) + our tags | `xref_*.js`, `parallels.js` |
+| text notes (apparatus) | `build_apparatus.py` | STEPBible | `app_*.js` |
+| clause roles, referents, domains | `build_syntax.py` | MACULA Greek (CC BY 4.0) | `syn_*.js`, `domains.js` |
+| places and the map | `build_places.py` | OpenBible.info + Natural Earth | `places.js` |
+| chronology | `build_chronology.py` | our English text + hand-entered anchors | `chron.js` |
+| our lexicon | `build_lexicon.py` | the model over the concordance | `lexx.js` |
+| our lexicon, translated | `translate_lexicon.py --lang zh` | the model over our entries | `lexx_<lang>.js` |
+
+Every file loads on demand, so the reader page itself stays the same size and
+the whole set works offline and inside an Android bundle.
+
 ### Target languages
 
 The pipeline translates into several languages from the same sources; each

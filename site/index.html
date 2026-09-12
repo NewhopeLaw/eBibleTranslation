@@ -547,10 +547,14 @@ const morphLoad = book => MORPH[disp(book)] ? Promise.resolve() : loadJs(`morph/
 const lexLoad = () => typeof LEX !== "undefined" ? Promise.resolve() : loadJs("morph/lex.js");
 const concLoad = () => typeof CONC !== "undefined" ? Promise.resolve() : loadJs("morph/conc.js");
 const lexxLoad = () => typeof LEXX !== "undefined" ? Promise.resolve() : loadJs("morph/lexx.js");
+const LEXXT = {};                                        // our entries in the target languages
+const lexxtLoad = t => (t === "en" || LEXXT[t]) ? Promise.resolve() : loadJs(`morph/lexx_${t}.js`);
 const refLink = r => { const m = r.match(/^(.+?) (\d+):(\d+)$/); return m ? `<a onclick="hidePop();location.hash='#${m[1].replace(/ /g, "_")}/${m[2]}/${m[3]}'">${r}</a>` : esc(r); };
 function oursHtml(tag){                                  // our own entry, written by the model from the concordance
-  const e = typeof LEXX !== "undefined" ? LEXX[tag] : null; if (!e) return "";
-  let h = `<div class="ours"><h5>This project's entry <span style="text-transform:none;font-weight:400">· written by the model from ${e.count} occurrence${e.count === 1 ? "" : "s"}</span></h5>`;
+  const base = typeof LEXX !== "undefined" ? LEXX[tag] : null; if (!base) return "";
+  const tr = (LEXXT[tl] || {})[tag];                     // shown in the reading language when that translation exists
+  const e = tr ? {...base, ...tr} : base;
+  let h = `<div class="ours"><h5>This project's entry <span style="text-transform:none;font-weight:400">· written by the model from ${base.count} occurrence${base.count === 1 ? "" : "s"}${tr ? " · " + esc(TARGETS[tl].native) : ""}</span></h5>`;
   for (const s of e.senses || []) h += `<div class="sense"><b>${esc(s.sense)}</b> — ${esc(s.definition)} ${(s.refs || []).map(refLink).join(" ")}</div>`;
   if (e.usage) h += `<div class="usage">${esc(e.usage)}</div>`;
   for (const i of e.idioms || []) h += `<div class="idiom"><span class="orig">${esc(i.phrase)}</span> — ${esc(i.meaning)} ${(i.refs || []).map(refLink).join(" ")}</div>`;
@@ -584,7 +588,7 @@ let wsel = null;
 function hidePop(){ wpop.hidden = true; if (wsel) { wsel.classList.remove("sel"); wsel = null; } }
 async function showPop(el){
   const [book, ch, v, i] = el.dataset.k.split("/");
-  await morphLoad(book); await lexLoad(); await Promise.all([lexxLoad().catch(() => {}), synLoad(book).catch(() => {}), domLoad().catch(() => {})]);
+  await morphLoad(book); await lexLoad(); await Promise.all([lexxLoad().catch(() => {}), lexxtLoad(tl).catch(() => {}), synLoad(book).catch(() => {}), domLoad().catch(() => {})]);
   const m = MORPH[disp(book)], d = m && m[ch] && m[ch][v] && m[ch][v][i];
   if (wsel) wsel.classList.remove("sel"); wsel = el; el.classList.add("sel");
   let html = `<div class="hw"><span class="orig">${esc(el.textContent)}</span>`;
