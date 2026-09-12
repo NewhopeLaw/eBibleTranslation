@@ -49,12 +49,13 @@ from books import BOOKS, slug                            # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 EN = ROOT / "output" / "en" / "json"
+NORM = ROOT / "sources" / "normalized"
 MORPH = ROOT / "site" / "morph"
 DIR = ROOT / "targets" / "themes"
 CHAPTERS = DIR / "chapters.jsonl"
 CANON = DIR / "canonical.json"
 
-SYSTEM_CH = """You read one chapter of the Bible and say what it is about.
+SYSTEM_CH = """You read one chapter of the Bible in its original language, with a translation under each verse, and say what it is about.
 
 Reply with JSON only:
 {"themes": [{"theme": "a short label, three to six words", "what": "one sentence saying what the chapter does with it", "verses": "the verses that carry it, as 3-9 or 12", "words": "two or three words the chapter itself uses for it"}]}
@@ -64,7 +65,8 @@ Rules:
 - Label the theme from what this chapter says, in plain words. Do not reach for the standard headings of a tradition or a creed unless the chapter's own wording puts them there.
 - Every theme must name the verses it comes from, and they must be verses of this chapter.
 - Describe, do not preach. No application, no devotional comment, no doctrine the chapter does not state.
-- "words" are words that actually stand in the chapter you were given. They are evidence, not the theme itself: a theme is what the passage does, and one theme is usually carried by several unrelated words while one word serves several themes. Never define a theme as "the word X"."""
+- The Hebrew, Aramaic or Greek is the text; the translation is help, not authority. Where the original says something the translation blurs, follow the original.
+- "words" are words of the original that actually stand in the chapter, in their own script. They are evidence, not the theme itself: a theme is what the passage does, and one theme is usually carried by several unrelated words while one word serves several themes. Never define a theme as "the word X"."""
 
 SYSTEM_MERGE = """You are folding chapter-level themes into one list of themes for the whole Bible.
 
@@ -97,6 +99,15 @@ def chapter_files():
     return out
 
 
+def source_chapter(meta, ch):
+    """{verse: the original text} for one chapter."""
+    f = NORM / f"{meta['num']:02d}_{slug(meta['name'])}.json"
+    if not f.exists():
+        return {}
+    chapters = json.loads(f.read_text(encoding="utf-8"))["chapters"]
+    return {rec["v"]: rec["text"] for rec in chapters.get(str(ch), [])}
+
+
 def phase_chapters(limit):
     DIR.mkdir(parents=True, exist_ok=True)
     done = set()
@@ -114,8 +125,13 @@ def phase_chapters(limit):
     with CHAPTERS.open("a", encoding="utf-8") as fh:
         for meta, f in todo:
             d = json.loads(f.read_text(encoding="utf-8"))
-            body = "\n".join(f"[{v}] {t}" for v, t in sorted(d["verses"].items(), key=lambda kv: int(kv[0])))
-            user = f"{d['book']} {d['chapter']}\n\n{body}\n\nWhat is this chapter about?"
+            src = source_chapter(meta, d["chapter"])
+            lang = "Greek" if meta["testament"] == "NT" else "Hebrew or Aramaic"
+            body = "\n".join(
+                (f"[{v}] {src[int(v)]}\n     {t}" if int(v) in src else f"[{v}] {t}")
+                for v, t in sorted(d["verses"].items(), key=lambda kv: int(kv[0])))
+            user = (f"{d['book']} {d['chapter']} — each verse in {lang}, with the translation under it\n\n"
+                    f"{body}\n\nWhat is this chapter about?")
             try:
                 got = call(SYSTEM_CH, user)
                 themes = [t for t in (got.get("themes") or []) if isinstance(t, dict) and t.get("theme")]
