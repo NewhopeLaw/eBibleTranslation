@@ -155,6 +155,17 @@ pronoun to its antecedent (which is highlighted when you jump to it), and lists
 the other words sharing its semantic domain. Domain titles are not used: they
 are copyrighted, so the grouping is shown by its members instead.
 
+### Chronology
+
+`scripts/build_chronology.py` writes `site/morph/chron.js`: every explicit
+chronological statement in the text (ages, reign lengths, "in the Nth year
+of X", spans), extracted by pattern from our own English translation and shown
+with its verse, plus a hand-entered table of 17 events dated from Assyrian,
+Babylonian, Persian and Roman records. The reader's *chronology* tab shows the
+chapter's statements, the rest of the book's, and the anchors. Nothing is summed
+into a date: no chronological system is asserted, and no copyrighted chronology
+is used.
+
 ### Target languages
 
 The pipeline translates into several languages from the same sources; each

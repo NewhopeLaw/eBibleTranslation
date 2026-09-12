@@ -329,6 +329,23 @@ lexicon is used.
 The Hebrew half of MACULA (also CC BY 4.0) is per-chapter XML of roughly 900 MB
 and is not yet used; Hebrew clause roles would follow the same rule.
 
+## 4g. Chronology
+
+`scripts/build_chronology.py` produces two separate things, and the reader
+keeps them apart:
+
+- **What the text counts.** 291 explicit statements — ages, lengths of reign,
+  accession synchronisms, spans — extracted by pattern from this project's own
+  English translation, each shown with the verse it stands in. Nothing is
+  summed into a date, so no chronological system is asserted.
+- **Anchors.** 17 events dated from Assyrian, Babylonian, Persian and Roman
+  records, entered by hand with the reason each is datable. These are facts
+  about ancient records, not text taken from any modern work.
+
+No copyrighted chronology is used. Thiele's *The Mysterious Numbers of the
+Hebrew Kings* and Finegan's *Handbook of Biblical Chronology* are the standard
+references in this field and are **not** consulted, quoted or paraphrased.
+
 ## 4a. Provenance rule for reference data and tools
 
 Adopted 2026-09-11 so the finished product can be given away without

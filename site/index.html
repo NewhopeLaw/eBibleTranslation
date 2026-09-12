@@ -147,6 +147,15 @@ sup.v { cursor:pointer; } sup.v:hover { text-decoration:underline; }
 .plist { display:grid; grid-template-columns:repeat(auto-fill,minmax(13rem,1fr)); gap:.2rem .8rem; margin:.6rem 0 1rem; font:13px system-ui,sans-serif; }
 .plist a { cursor:pointer; padding:.15rem .3rem; border-radius:5px; } .plist a:hover { background:var(--soft); }
 .plist a small { color:var(--muted); }
+.chron { margin:.8rem 0 1.4rem; font:13px/1.5 system-ui,sans-serif; }
+.chron h3 { font:600 11px system-ui,sans-serif; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:1.1rem 0 .4rem; }
+.chron .row { display:grid; grid-template-columns:7rem 1fr; gap:.6rem; padding:.25rem .4rem; border-radius:6px; align-items:baseline; }
+.chron .row:hover { background:var(--soft); } .chron .row b { color:var(--accent); font:600 12px system-ui,sans-serif; cursor:pointer; }
+.chron .row .q { color:var(--muted); } .chron .num { font-variant-numeric:tabular-nums; color:var(--fg); font-weight:600; }
+.chron .anch { display:grid; grid-template-columns:5.5rem 1fr; gap:.6rem; padding:.3rem .4rem; border-bottom:1px solid var(--border); }
+.chron .anch .y { font-variant-numeric:tabular-nums; font-weight:600; }
+.chron .anch .basis { color:var(--muted); font-size:12px; }
+.chron .note { color:var(--muted); margin:.4rem 0 0; }
 #vpop .pl { font-size:12px; } #vpop .pl a { color:var(--accent); cursor:pointer; margin-right:.6em; }
 #vpop .ap { font-size:12px; padding:.2rem .4rem; }
 #vpop .ap .rd { font-size:1.15em; } #vpop .ap .ed { color:var(--muted); }
@@ -234,6 +243,9 @@ ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
     <a href="https://github.com/Clear-Bible/macula-greek">MACULA Greek linguistic datasets</a> © 2022-2024 Biblica, Inc.,
     <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> — syntactic role, word class, the word a pronoun refers back to, and the
     Louw-Nida domain number. Only the domain number is used; the domain titles are copyrighted and are not reproduced, so the reader shows the words that share a domain instead.</p>
+  <p><b>Chronology:</b> the numbers are extracted from this project's own English translation by pattern, each shown with its verse; nothing is summed into a date.
+    The anchor dates are entered by hand from Assyrian, Babylonian, Persian and Roman records and are marked as externally attested. No copyrighted chronology
+    (Thiele, Finegan or any other) is used.</p>
   <p><b>Translations:</b> produced from the Hebrew, Aramaic and Greek above by a local language model, checked and corrected by the project.
     Full notes: LEGAL.md in the project repository.</p>
 </footer>
@@ -302,6 +314,39 @@ function neighbours(book, ch) {
 }
 
 function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+
+/* ---------- chronology: what the text counts, and the dates outside records fix ---------- */
+const chronLoad = () => typeof CHRON !== "undefined" ? Promise.resolve() : loadJs("morph/chron.js");
+const KIND = {"age-father": "age at fathering", "age-at": "age at the time", "lifespan": "length of life",
+              "reigned": "length of reign", "synchronism": "dated by another reign", "since": "years since an event", "span": "a span of years"};
+async function renderChron(book, ch, head){
+  const main = $("#main");
+  main.innerHTML = head + `<p class="empty">Loading chronology…</p>`;
+  try { await chronLoad(); } catch (e) { main.innerHTML = head + `<p class="empty">Chronology is not built — run scripts/build_chronology.py.</p>`; return; }
+  const here = CHRON.data.filter(r => r[0] === disp(book) && r[1] == ch);
+  const inBook = CHRON.data.filter(r => r[0] === disp(book));
+  let html = head + `<div class="chron">`;
+  html += `<p class="note">Every line below is a number the text itself states, with the verse it stands in. Nothing here is added up into a date: totals depend on choices this project does not make for you.</p>`;
+  html += `<h3>In ${disp(book)} ${ch}</h3>`;
+  html += here.length ? here.map(r => chronRow(r)).join("")
+    : `<p class="empty">No chronological statement in this chapter.</p>`;
+  if (inBook.length > here.length) {
+    html += `<h3>Elsewhere in ${disp(book)} <span style="text-transform:none;font-weight:400">(${inBook.length - here.length})</span></h3>`;
+    html += inBook.filter(r => r[1] != ch).slice(0, 60).map(r => chronRow(r, true)).join("");
+    if (inBook.length - here.length > 60) html += `<p class="empty">… and ${inBook.length - here.length - 60} more</p>`;
+  }
+  html += `<h3>Dates fixed by records outside the Bible</h3>`;
+  html += `<p class="note">These are the only absolute years this project asserts. They come from Assyrian, Babylonian, Persian and Roman records, not from the biblical text, and several are still argued over.</p>`;
+  html += CHRON.anchors.map(([y, label, basis]) =>
+    `<div class="anch"><span class="y">${y < 0 ? Math.abs(y) + " BC" : "AD " + y}</span><span>${esc(label)}<div class="basis">${esc(basis)}</div></span></div>`).join("");
+  main.innerHTML = html + `</div>`;
+}
+function chronRow(r, withRef){
+  const [b, c, v, kind, who, n, unit, of, text] = r;
+  return `<div class="row"><b onclick="location.hash='#${b.replace(/ /g, "_")}/${c}/${v}'">${withRef ? esc(b) + " " : ""}${c}:${v}</b>
+    <span><span class="num">${n}</span> ${esc(unit)} — ${esc(KIND[kind] || kind)}${who ? " · " + esc(who) : ""}${of ? " · of " + esc(of) : ""}
+    <div class="q">“${esc(text)}”</div></span></div>`;
+}
 
 /* ---------- places: where the chapter happens, drawn offline (OpenBible.info CC BY 4.0 + Natural Earth, public domain) ---------- */
 const placesLoad = () => typeof PLACES !== "undefined" ? Promise.resolve() : loadJs("morph/places.js");
@@ -705,15 +750,16 @@ function renderChapter(book, ch, highlightVerse) {
     for (const t of haveTargets)
       html += `<a class="${v==='tr'&&shown===t?'on':''} ${trs[t]?'':'off'}" onclick="setTl('${t}');setView('tr')">${TARGETS[t].native}</a>`;
     html += `<span class="sep"></span><a class="${v==='par'?'on':''} ${tr?'':'off'}" onclick="setView('par')">Side by side</a>`;
-    html += `<a class="${v==='all'?'on':''} ${(avail.length + (lxx?1:0))>1?'':'off'}" onclick="setView('all')">Compare</a><a class="${v==='harm'?'on':''}" onclick="setView('harm')" title="this chapter beside its parallels elsewhere">parallels</a><a class="${v==='map'?'on':''}" onclick="setView('map')" title="the places this chapter mentions, on a map">places</a><a class="tool ${inter?'on':''}" onclick="toggleInter()" title="gloss and parsing under every Hebrew / Greek word">interlinear</a><a class="tool" onclick="gsOpen()" title="find words by grammatical form">grammar search</a></div>`;
+    html += `<a class="${v==='all'?'on':''} ${(avail.length + (lxx?1:0))>1?'':'off'}" onclick="setView('all')">Compare</a><a class="${v==='harm'?'on':''}" onclick="setView('harm')" title="this chapter beside its parallels elsewhere">parallels</a><a class="${v==='map'?'on':''}" onclick="setView('map')" title="the places this chapter mentions, on a map">places</a><a class="${v==='chron'?'on':''}" onclick="setView('chron')" title="the chronological statements in this chapter, and the dated anchors">chronology</a><a class="tool ${inter?'on':''}" onclick="toggleInter()" title="gloss and parsing under every Hebrew / Greek word">interlinear</a><a class="tool" onclick="gsOpen()" title="find words by grammatical form">grammar search</a></div>`;
   }
-  main.className = ((v === "par" || v === "all" || v === "hl" || v === "harm" || v === "map") ? "wide" : "") + (inter && src && (v === "orig" || v === "par" || v === "all" || v === "hl") ? " inter" : "");
+  main.className = ((v === "par" || v === "all" || v === "hl" || v === "harm" || v === "map" || v === "chron") ? "wide" : "") + (inter && src && (v === "orig" || v === "par" || v === "all" || v === "hl") ? " inter" : "");
   if (src && !MORPH[disp(book)]) morphLoad(book).then(() => { if (location.hash.slice(1).split("/").slice(0, 2).join("/") === `${book}/${ch}`) route(); }).catch(() => {});
   main.setAttribute("lang", (v === "orig" || v === "lxx" || v === "hl") ? "" : (shown || "en"));
   main.setAttribute("dir", (v === "tr" && shown) ? tdir(shown) : "ltr");
   if (!tr) html += `<p class="empty" style="margin:0 0 1.2rem">Not translated yet${src ? ` — showing the ${v === "lxx" ? "Septuagint" : L.name}.` : "."}</p>`;
   if (v === "harm") { renderHarmony(book, ch, html, shown); return; }
   if (v === "map") { renderMap(book, ch, html); return; }
+  if (v === "chron") { renderChron(book, ch, html); return; }
   if (!tr && v !== "orig" && v !== "lxx" && v !== "hl" && v !== "all") { main.innerHTML = html; return; }
   const nums = Object.keys(v === "tr" ? trs[shown].verses : src).filter(k => !k.startsWith("_")).map(Number).sort((a,b)=>a-b);
   if (v === "orig") {
