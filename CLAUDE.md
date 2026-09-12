@@ -38,6 +38,13 @@ the PC, which has the translations, and that rebuild is what gets committed.
 Dashboard changes are the same: the page can be read and edited anywhere, but it
 is only seen working with a model behind it, on the PC.
 
+## Presenting UI work
+
+Any screen, component or front-end change is presented together with a
+self-audit against `docs/ui-checklist.md` — seven points covering assumptions,
+edge states, hierarchy, reversibility, messy data, accessibility and component
+choice. The audit goes in the pull request or the reply, not in the code.
+
 ## House style
 
 Comments and commit messages explain *why*, in plain prose, the way the existing
