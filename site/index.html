@@ -145,6 +145,9 @@ sup.v { cursor:pointer; } sup.v:hover { text-decoration:underline; }
 .plist a { cursor:pointer; padding:.15rem .3rem; border-radius:5px; } .plist a:hover { background:var(--soft); }
 .plist a small { color:var(--muted); }
 #vpop .pl { font-size:12px; } #vpop .pl a { color:var(--accent); cursor:pointer; margin-right:.6em; }
+#vpop .ap { font-size:12px; padding:.2rem .4rem; }
+#vpop .ap .rd { font-size:1.15em; } #vpop .ap .ed { color:var(--muted); }
+#vpop .ap .kind { font:600 10px system-ui,sans-serif; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); margin-right:.4em; }
 .lt { font:600 10px system-ui,sans-serif; color:var(--muted); text-transform:uppercase;
   letter-spacing:.05em; margin:0 .3em; vertical-align:.5em; user-select:none; }
 p.ov { margin:0 0 .6em; }
@@ -221,6 +224,9 @@ ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
   <p><b>Places and the map:</b> place identifications and coordinates from the <a href="https://www.openbible.info/geo/">OpenBible.info</a> Bible geocoding data,
     <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> (the 2007 tab-delimited release; the newer dataset mixing in OpenStreetMap geometry is not used).
     Coastlines, lakes and rivers from <a href="https://www.naturalearthdata.com/">Natural Earth</a>, public domain — drawn here as vectors, with no map service or tiles.</p>
+  <p><b>Text notes:</b> which printed editions carry each reading, and the scribal Qere against the written Ketiv, are from the STEPBible data above
+    (CC BY 4.0). Editions compared: Nestle-Aland 27 and 28, Tyndale House 2017, SBLGNT, Westcott-Hort 1881, Tregelles, Scrivener's Textus Receptus 1894 and the
+    Robinson-Pierpont Byzantine text. This is an apparatus of editions, not of manuscripts: no manuscript is cited, because no openly licensed manuscript apparatus exists for this project to use.</p>
   <p><b>Translations:</b> produced from the Hebrew, Aramaic and Greek above by a local language model, checked and corrected by the project.
     Full notes: LEGAL.md in the project repository.</p>
 </footer>
@@ -292,6 +298,19 @@ function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
 
 /* ---------- places: where the chapter happens, drawn offline (OpenBible.info CC BY 4.0 + Natural Earth, public domain) ---------- */
 const placesLoad = () => typeof PLACES !== "undefined" ? Promise.resolve() : loadJs("morph/places.js");
+const APP = {}, appLoad = book => APP[disp(book)] ? Promise.resolve() : Promise.all([loadJs(`morph/app_${book}.js`), typeof APPED !== "undefined" ? 0 : loadJs("morph/app_meta.js")]);
+const edName = e => (typeof APPED !== "undefined" && APPED[e]) || e;
+function appHtml(book, ch, v, script){
+  const rows = ((APP[disp(book)] || {})[ch] || {})[v] || []; if (!rows.length) return "";
+  let h = `<h4>Text notes <span style="font-weight:400;text-transform:none">(printed editions and the scribal tradition — not manuscripts)</span></h4>`;
+  for (const [kind, reading, have, lack, note] of rows) {
+    if (kind === "var") h += `<div class="ap"><span class="kind">reading</span><span class="rd orig ${script}">${esc(reading)}</span>`
+      + `<div class="ed">in ${esc(have.split("+").map(edName).join(", "))}${lack ? `; not in ${esc(lack.split("+").map(edName).join(", "))}` : ""}</div></div>`;
+    else if (kind === "qere") h += `<div class="ap"><span class="kind">qere</span><span class="rd orig ${script}">${esc(reading)}</span> <span class="ed">read for the written text${note ? " — " + esc(note) : ""}</span></div>`;
+    else h += `<div class="ap"><span class="kind">${kind === "sp" ? "spelling" : "variant"}</span><span class="rd orig ${script}">${esc(reading)}</span> <span class="ed">${esc(note)}</span></div>`;
+  }
+  return h;
+}
 const placesOf = (b, c, v) => (typeof VPLACES !== "undefined" && VPLACES[`${disp(b)}|${c}|${v}`]) || [];
 function chapterPlaces(book, ch){
   const out = new Map(), src = (DATA[book] && DATA[book][ch] || {}).src || {};
@@ -393,7 +412,7 @@ function refRow(b, c, v, end, note){
 }
 async function showRefs(book, ch, v, ev){
   if (ev) ev.stopPropagation();
-  await Promise.all([xrefLoad(book).catch(() => {}), parLoad().catch(() => {}), placesLoad().catch(() => {})]);
+  await Promise.all([xrefLoad(book).catch(() => {}), parLoad().catch(() => {}), placesLoad().catch(() => {}), appLoad(book).catch(() => {})]);
   const xr = ((XREF[disp(book)] || {})[ch] || {})[v] || [];
   const pr = typeof PAR !== "undefined" ? (((PAR[disp(book)] || {})[ch] || {})[v] || []) : [];
   let html = `<span class="cls" onclick="hideRefs()">✕</span><h4>${disp(book)} ${ch}:${v}</h4>`;
@@ -402,7 +421,8 @@ async function showRefs(book, ch, v, ev){
   if (pr.length) html += `<h4>Parallel passages</h4>` + pr.map(r => refRow(r[0].replace(/ /g, "_"), r[1], r[2], 0, Math.round(r[3] * 100) + "% shared wording")).join("");
   if (xr.length) html += `<h4>Cross-references <span style="font-weight:400;text-transform:none">(Treasury of Scripture Knowledge via OpenBible.info)</span></h4>`
     + xr.slice(0, 25).map(r => refRow(r[0].replace(/ /g, "_"), r[1], r[2], r[3], "")).join("");
-  if (!pr.length && !xr.length) html += `<p class="empty">No cross-references or parallels for this verse.</p>`;
+  html += appHtml(book, ch, v, ((LANGS[(DATA[book] && DATA[book][ch] || {}).lang || "hbo"] || {}).script || "hebrew").toLowerCase());
+  if (!pr.length && !xr.length && !((APP[disp(book)] || {})[ch] || {})[v]) html += `<p class="empty">No cross-references, parallels or text notes for this verse.</p>`;
   vpop.innerHTML = html; vpop.hidden = false;
   const el = ev && ev.target, r = el ? el.getBoundingClientRect() : {left: 40, bottom: 80, top: 80};
   const W = vpop.offsetWidth, H = vpop.offsetHeight;

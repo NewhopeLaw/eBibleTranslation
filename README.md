@@ -134,6 +134,16 @@ chapter mentions on a vector map that is drawn offline — no tiles, no map
 service — with zoom, pan and a list of the places with their verses; place
 names also appear in the verse panel. 1,111 located places over 4,812 verses.
 
+### Text notes (apparatus)
+
+`scripts/build_apparatus.py` writes `site/morph/app_*.js` from the same
+STEPBible data: for Greek, which of the eight printed editions carry each
+reading and where they differ in spelling; for Hebrew, the scribal Qere against
+the written Ketiv and the meaning and spelling variants. They appear under
+*Text notes* when a verse number is clicked. This is an apparatus of editions,
+not of manuscripts — no manuscript sigla are asserted, because no openly
+licensed manuscript apparatus is available.
+
 ### Target languages
 
 The pipeline translates into several languages from the same sources; each

@@ -291,6 +291,22 @@ simplifies it and writes SVG paths, so the reader draws the map itself: no
 tile server, no map API, nothing fetched at run time. The reader credits
 Natural Earth anyway.
 
+## 4e. Textual apparatus (editions, not manuscripts)
+
+Built by `scripts/build_apparatus.py` from the STEPBible data already covered
+in 4b (CC BY 4.0). The Greek data marks, for every word, which printed
+editions contain it — Nestle-Aland 27 and 28, Tyndale House 2017, SBLGNT,
+Westcott-Hort 1881, Tregelles, Scrivener's Textus Receptus 1894, and the
+Robinson-Pierpont Byzantine text — and records spelling differences between
+them; the Hebrew data marks the scribal Qere against the written Ketiv and the
+meaning and spelling variants. 13,340 entries across 64 books.
+
+**No manuscript is cited.** Manuscript-level apparatus (NA28, UBS5, BHQ) is
+copyrighted, so this project asserts no manuscript sigla; the reader says so in
+its footer and in the panel itself. If an openly licensed manuscript apparatus
+becomes available (for example Tischendorf's 1872, whose digitisations would
+need checking), it could be added under the same rule.
+
 ## 4a. Provenance rule for reference data and tools
 
 Adopted 2026-09-11 so the finished product can be given away without

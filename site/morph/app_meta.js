@@ -1,0 +1,1 @@
+APPED={"NA28":"Nestle-Aland 28","NA27":"Nestle-Aland 27","Tyn":"Tyndale House 2017","SBL":"SBLGNT","WH":"Westcott-Hort 1881","Treg":"Tregelles","TR":"Textus Receptus (Scrivener 1894)","Byz":"Byzantine (Robinson-Pierpont)"};
