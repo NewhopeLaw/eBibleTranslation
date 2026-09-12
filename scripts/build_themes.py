@@ -23,7 +23,7 @@ Every theme cites the verses it came from, so a reader can check it against
 the text. Themes are interpretation, not data: the reader labels them as the
 model's reading, and they sit apart from the tagged layers.
 
-    THEMES  = {id: [label, description, [[book, ch, "v-v"], ...], [[lexeme, headword, gloss, lift, n], ...]]}
+    THEMES  = {id: [label, description, passages, vocabulary, [phrase, translit, gloss, why]]}
     CHTHEME = {"Book|ch": [[id, "v-v", note], ...]}
     THEMEWORD = {lexeme: [theme id, ...]}
 
@@ -54,6 +54,7 @@ MORPH = ROOT / "site" / "morph"
 DIR = ROOT / "targets" / "themes"
 CHAPTERS = DIR / "chapters.jsonl"
 CANON = DIR / "canonical.json"
+FACES = DIR / "faces.jsonl"
 
 SYSTEM_CH = """You read one chapter of the Bible in its original language, with a translation under each verse, and say what it is about.
 
@@ -67,6 +68,19 @@ Rules:
 - Describe, do not preach. No application, no devotional comment, no doctrine the chapter does not state.
 - The Hebrew, Aramaic or Greek is the text; the translation is help, not authority. Where the original says something the translation blurs, follow the original.
 - "words" are words of the original that actually stand in the chapter, in their own script. They are evidence, not the theme itself: a theme is what the passage does, and one theme is usually carried by several unrelated words while one word serves several themes. Never define a theme as "the word X"."""
+
+SYSTEM_FACE = """You give a theme its name in the language of the Bible itself.
+
+You get a theme, the words its passages use most distinctively (Hebrew, Aramaic or Greek, with glosses), and a few of its passages.
+
+Reply with JSON only:
+{"phrase": "two to five words in the original script, as the text itself would put it", "translit": "a plain transliteration", "gloss": "the same phrase in two to five English words", "why": "one sentence: which passages put it this way"}
+
+Rules:
+- The phrase must be the language of the text, not a modern coinage: build it from words that actually stand in these passages, in a form the text uses.
+- Prefer a phrase over a single word. A theme is not a word, and a one-word name will mislead. Only use one word if the text itself names the theme in one word.
+- Hebrew or Aramaic for an Old Testament theme, Greek for a New Testament one. If the passages are on both sides, give the phrase in the language of the majority.
+- Do not invent vocabulary, do not add vowel points you cannot see, and do not translate the phrase into the other original language."""
 
 SYSTEM_MERGE = """You are folding chapter-level themes into one list of themes for the whole Bible.
 
@@ -228,7 +242,7 @@ def theme_vocabulary(passages):
     out, byword = {}, defaultdict(set)
     for key, plist in passages.items():
         here, n = defaultdict(int), 0
-        for book, ch, vspec in plist:
+        for book, ch, vspec, *_ in plist:          # faces pass passes a fourth field (the note)
             bn = num.get(book)
             if not bn:
                 continue
@@ -252,6 +266,60 @@ def theme_vocabulary(passages):
     return out, {k: sorted(v) for k, v in byword.items()}
 
 
+def phase_faces(limit):
+    """Name each canonical theme in the language of the text, from its own words."""
+    passages, themes = theme_passages_for_faces()
+    vocab = theme_vocabulary(passages)[0]
+    done = set()
+    if FACES.exists():
+        for line in FACES.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                done.add(json.loads(line)["id"])
+    todo = [k for k, v in sorted(passages.items(), key=lambda kv: -len(kv[1])) if k not in done]
+    if limit:
+        todo = todo[:limit]
+    print(f"theme names in the original: {len(done)} done, {len(todo)} to do")
+    t0 = time.time()
+    with FACES.open("a", encoding="utf-8") as fh:
+        for n, key in enumerate(todo, 1):
+            tid = int(key[1:])
+            label = themes[tid] if tid < len(themes) else key
+            words = vocab.get(key, [])[:18]
+            plist = passages[key][:8]
+            user = (f"Theme as read in English: {label}\n\n"
+                    + "Its most distinctive words:\n"
+                    + "\n".join(f"  {w[1]} — {w[2]}" for w in words)
+                    + "\n\nSome of its passages:\n"
+                    + "\n".join(f"  {b} {c}{':' + v if v else ''} — {w[:120]}" for b, c, v, w in plist)
+                    + "\n\nName this theme in the language of the text.")
+            try:
+                got = call(SYSTEM_FACE, user, 0.1)
+            except Exception as e:                                # noqa: BLE001
+                print(f"  {label}: FAILED {e}", file=sys.stderr)
+                continue
+            rec = {"id": key, "label": label,
+                   "phrase": str(got.get("phrase", ""))[:80], "translit": str(got.get("translit", ""))[:80],
+                   "gloss": str(got.get("gloss", ""))[:80], "why": str(got.get("why", ""))[:240]}
+            if not rec["phrase"]:
+                continue
+            fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
+            fh.flush()
+            print(f"  {label}: {rec['phrase']} ({rec['gloss']}) [{n}/{len(todo)}, {(time.time() - t0) / n:.0f}s each]", flush=True)
+
+
+def theme_passages_for_faces():
+    rows = [json.loads(l) for l in CHAPTERS.read_text(encoding="utf-8").splitlines() if l.strip()] if CHAPTERS.exists() else []
+    items = [(r["book"], r["chapter"], t) for r in rows for t in r["themes"]]
+    state = json.loads(CANON.read_text(encoding="utf-8")) if CANON.exists() else {"themes": [], "assigned": {}}
+    out = defaultdict(list)
+    for i, (book, ch, t) in enumerate(items):
+        tid = state["assigned"].get(str(i))
+        if tid is None:
+            continue
+        out[f"t{tid:04d}"].append((book, ch, t.get("verses", ""), t.get("what", "")))
+    return out, state["themes"]
+
+
 def pack():
     rows = [json.loads(l) for l in CHAPTERS.read_text(encoding="utf-8").splitlines() if l.strip()] if CHAPTERS.exists() else []
     items = [(r["book"], r["chapter"], t) for r in rows for t in r["themes"]]
@@ -269,12 +337,18 @@ def pack():
         whats[key].append(t.get("what", ""))
         ch_index[f"{book}|{ch}"].append([key, t.get("verses", ""), t.get("theme", "")])
     vocab, byword = theme_vocabulary(passages)
+    faces = {}
+    if FACES.exists():
+        for line in FACES.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                r = json.loads(line)
+                faces[r["id"]] = [r.get("phrase", ""), r.get("translit", ""), r.get("gloss", ""), r.get("why", "")]
     for key, plist in passages.items():
         tid = int(key[1:])
         out[key] = [themes[tid] if tid < len(themes) else key,
                     max(whats[key], key=len)[:240] if whats[key] else "",
                     sorted(plist, key=lambda p: (next((m["num"] for m in BOOKS.values() if m["name"] == p[0]), 99), p[1])),
-                    vocab.get(key, [])]
+                    vocab.get(key, []), faces.get(key, [])]
     body = ("THEMES=" + json.dumps(out, ensure_ascii=False, separators=(",", ":")) + ";\n"
             + "CHTHEME=" + json.dumps(ch_index, ensure_ascii=False, separators=(",", ":")) + ";\n"
             + "THEMEWORD=" + json.dumps(byword, ensure_ascii=False, separators=(",", ":")) + ";\n")
@@ -289,6 +363,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--chapters", action="store_true", help="phase 1: read every chapter")
     ap.add_argument("--consolidate", action="store_true", help="phase 2: fold the labels into one list")
+    ap.add_argument("--faces", action="store_true", help="phase 3: name each theme in the language of the text")
     ap.add_argument("--pack", action="store_true")
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--batch", type=int, default=30)
@@ -297,7 +372,9 @@ def main():
         phase_chapters(a.limit)
     if a.consolidate:
         phase_consolidate(a.batch)
-    if a.pack or not (a.chapters or a.consolidate):
+    if a.faces:
+        phase_faces(a.limit)
+    if a.pack or not (a.chapters or a.consolidate or a.faces):
         pack()
 
 

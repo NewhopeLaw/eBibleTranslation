@@ -77,24 +77,38 @@
   "built": 1789189702.5611591
  },
  "themes": {
-  "count": 192,
+  "count": 265,
   "unit": "themes",
   "note": "what the chapters are about",
   "script": "build_themes.py",
-  "built": 1789221269.676071
+  "built": 1789222959.9168882
  },
  "book-arguments": {
-  "count": 1,
+  "count": 4,
   "unit": "books",
   "note": "what each book argues",
   "script": "build_theology.py",
-  "built": 1789221318.1744342
+  "built": 1789222413.977014
  },
  "trajectories": {
   "count": 2,
   "unit": "themes",
   "note": "how a theme develops across the canon",
   "script": "build_theology.py",
-  "built": 1789221318.1788366
+  "built": 1789222413.981014
+ },
+ "lexeme-inventory": {
+  "count": 281,
+  "unit": "dictionary words",
+  "note": "our own lexeme inventory",
+  "script": "build_lexemes.py",
+  "built": 1789222414.5251663
+ },
+ "fields": {
+  "count": 1080,
+  "unit": "lexemes sorted",
+  "note": "fields of meaning",
+  "script": "build_domains.py",
+  "built": 1789222507.2809596
  }
 }

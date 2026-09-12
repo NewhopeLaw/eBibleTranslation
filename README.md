@@ -246,7 +246,10 @@ again; the job resumes from where it stopped when you start it next.
 
 It also finds jobs started outside the dashboard — from `start_work.cmd` or a
 terminal — by looking at what the running python processes are, so those can be
-stopped from the same buttons. Each job's output goes to `logs/job_<name>.log`.
+stopped from the same buttons. That check is done in-process with `psutil`
+(`pip install psutil`), and everything the dashboard runs is started with no
+console window, so nothing flashes on screen while the bar refreshes. Each
+job's output goes to `logs/job_<name>.log`.
 
 ### Long model jobs (the work queue)
 

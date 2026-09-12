@@ -97,7 +97,8 @@ def main():
     h_rows, h_ids, h_ref = read(SRC / "hebrew.tsv", dict(zip(MACULA_OT, OT)), "role", ["gloss", "english"])
     ng = emit(g_rows, g_ids, g_ref)
     nh = emit(h_rows, h_ids, h_ref)
-    (OUT / "domains.js").unlink(missing_ok=True)        # UBS domain data is not ours to redistribute
+    # note: site/morph/domains.js is OUR fields of meaning (scripts/build_domains.py) and is left alone;
+    # the UBS domain data this file used to emit was removed at the source, not by deleting the file here.
     size = sum(p.stat().st_size for p in OUT.glob("syn_*.js"))
     manifest.record("clause-data", ng + nh, "words", "clause role, participants, glosses", "build_syntax.py")
     print(f"syntax: {ng} Greek words across {len(g_rows)} books, {nh} Hebrew words across {len(h_rows)} books "

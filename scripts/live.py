@@ -12,9 +12,11 @@ Pure standard library, no server beyond this one file.
 """
 import hashlib
 import json
+import os
 import queue
 import re
 import sys
+import subprocess
 import threading
 import time
 import urllib.error
@@ -33,6 +35,9 @@ ROOT = T.ROOT
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
+
+NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)      # never flash a console at the user
 
 
 class StopRun(Exception):
@@ -316,6 +321,7 @@ LAYERS = [
     ]),
     ("themes", "themes", [
         ("themes", "what the chapters are about", "job:themes"),
+        ("theme-names", "each theme named in the language of the text", "job:theme-names"),
     ]),
     ("arguments", "arguments", [
         ("book-arguments", "what each book argues", "job:book-arguments"),
@@ -355,26 +361,32 @@ _scan = {"at": 0.0, "found": {}}
 
 
 def foreign_jobs():
-    """{job name: [pid, ...]} for our jobs running outside this dashboard."""
-    import subprocess
-    if time.time() - _scan["at"] < 5:
+    """{job name: [pid, ...]} for our jobs running outside this dashboard.
+
+    Read in-process with psutil so nothing is spawned: shelling out here would
+    flash a console window at the user every time the bar refreshed.
+    """
+    if time.time() - _scan["at"] < 10:
         return _scan["found"]
     found = {}
     try:
-        r = subprocess.run(["powershell", "-NoProfile", "-Command",
-                            "Get-CimInstance Win32_Process -Filter \"Name like 'python%'\" | "
-                            "Select-Object ProcessId,CommandLine | ConvertTo-Json -Compress"],
-                           capture_output=True, text=True, timeout=20)
-        data = json.loads(r.stdout or "[]")
-        if isinstance(data, dict):
-            data = [data]
-    except Exception:                                        # noqa: BLE001 — discovery is best effort
-        data = []
+        import psutil
+    except ImportError:
+        _scan.update(at=time.time(), found=found)
+        return found
     mine = {proc.pid for proc in WORKERS.values() if proc.poll() is None}
-    for row in data:
-        cmd = (row.get("CommandLine") or "")
-        pid = row.get("ProcessId")
-        if not pid or pid in mine or "eBibleTranslation" not in cmd:
+    me = os.getpid()
+    for proc in psutil.process_iter(["pid", "name", "cmdline"]):
+        try:
+            info = proc.info
+            if info["pid"] in mine or info["pid"] == me:
+                continue
+            if not (info["name"] or "").lower().startswith("python"):
+                continue
+            cmd = " ".join(info["cmdline"] or ())
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            continue
+        if "eBibleTranslation" not in cmd:
             continue
         job = None
         for script, name in SCRIPT_JOB.items():
@@ -389,7 +401,7 @@ def foreign_jobs():
         elif "work.py" in cmd and "--only" not in cmd and "--list" not in cmd:
             job = "queue"
         if job:
-            found.setdefault(job, []).append(pid)
+            found.setdefault(job, []).append(info["pid"])
     _scan.update(at=time.time(), found=found)
     return found
 
@@ -403,7 +415,6 @@ def worker_running(job):
 
 def work_start(job):
     """Run one job in its own process, so it can be stopped on its own."""
-    import subprocess
     if worker_running(job):
         return "already running"
     table = work_jobs()
@@ -413,28 +424,28 @@ def work_start(job):
     log = ROOT / "logs" / f"job_{job}.log"
     log.parent.mkdir(exist_ok=True)
     fh = open(log, "a", encoding="utf-8", buffering=1)
-    flags = getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0)
-    WORKERS[job] = subprocess.Popen(cmd, cwd=str(ROOT), stdout=fh, stderr=fh, creationflags=flags)
+    flags = getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0) | NO_WINDOW
+    WORKERS[job] = subprocess.Popen(cmd, cwd=str(ROOT), stdout=fh, stderr=fh, stdin=subprocess.DEVNULL,
+                                    creationflags=flags)
     print(f"job {job}: started (pid {WORKERS[job].pid}) -> {log.name}")
     return None
 
 
 def work_stop(job=None):
     """Stop one job, or every job — whether this dashboard started it or not."""
-    import subprocess
     stopped = []
     for name, proc in list(WORKERS.items()):
         if job and name != job:
             continue
         if proc.poll() is None:
-            subprocess.run(["taskkill", "/PID", str(proc.pid), "/T", "/F"], capture_output=True)
+            subprocess.run(["taskkill", "/PID", str(proc.pid), "/T", "/F"], capture_output=True, creationflags=NO_WINDOW)
             stopped.append(name)
         WORKERS.pop(name, None)
     for name, pids in foreign_jobs().items():              # started from a terminal or start_work.cmd
         if job and name != job:
             continue
         for pid in pids:
-            subprocess.run(["taskkill", "/PID", str(pid), "/T", "/F"], capture_output=True)
+            subprocess.run(["taskkill", "/PID", str(pid), "/T", "/F"], capture_output=True, creationflags=NO_WINDOW)
             stopped.append(name)
     _scan["at"] = 0.0
     if stopped:
@@ -483,10 +494,10 @@ REBUILD_LOCK = threading.Lock()
 
 
 def rebuild_site() -> str:
-    import subprocess
     with REBUILD_LOCK:
         r = subprocess.run([sys.executable, str(ROOT / "scripts" / "build_site.py")],
-                           capture_output=True, text=True, encoding="utf-8", errors="replace")
+                           capture_output=True, text=True, encoding="utf-8", errors="replace",
+                           creationflags=NO_WINDOW)
     return (r.stdout + r.stderr).strip()
 
 
@@ -761,6 +772,8 @@ label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); fo
 #work .gl { width:6.6rem; flex:none; font-size:10px; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); text-align:right; }
 #work .j { display:flex; align-items:center; gap:.3rem; }
 #work .j b { color:var(--fg); font-weight:600; font-variant-numeric:tabular-nums; }
+#work .j .nm { cursor:pointer; text-decoration:underline dotted var(--border); text-underline-offset:2px; }
+#work .j .nm:hover { color:var(--accent); text-decoration-color:var(--accent); }
 #work .j .b { width:3.6rem; height:5px; background:var(--border); border-radius:3px; overflow:hidden; }
 #work .j .b i { display:block; height:100%; background:var(--accent); transition:width .4s; }
 #work .j.full .b i { background:var(--ok); }
@@ -1208,8 +1221,14 @@ async function workBar(){
     const btn = it.startable ? (it.running
         ? `<button class="on" title="stop this job" onclick="workStop('${it.job}')">\u25a0</button>`
         : (done >= total ? "" : `<button title="start this job" onclick="workStart('${it.job}')">\u25b6</button>`)) : "";
-    return `<span class="j ${cls}" title="${esc(tip)}">${esc(it.key.replace(/-/g, ' '))} <span class="b"><i style="width:${pct.toFixed(1)}%"></i></span> ${num}${btn}</span>`;
+    return `<span class="j ${cls}" title="${esc(tip)}"><span class="nm" onclick="showLayer('${it.key}')" title="show what this has produced">${esc(it.key.replace(/-/g, ' '))}</span> <span class="b"><i style="width:${pct.toFixed(1)}%"></i></span> ${num}${btn}</span>`;
   }).join('') + `</div>`).join('');
+}
+async function showLayer(key){          // open, in the reader, whatever this layer has produced
+  mode = 'read'; applyMode();
+  const rd = $('reader');
+  for (let i = 0; i < 60 && !(rd.contentWindow && rd.contentWindow.openView); i++) await new Promise(r => setTimeout(r, 200));
+  try { await rd.contentWindow.openView(key); } catch (e) { console.warn(e); }
 }
 async function workStart(job){
   const r = await post('/work/start', {job: job === 'queue' ? 'queue' : job});

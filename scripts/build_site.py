@@ -318,7 +318,8 @@ __READALOUD_CSS__
     of its own chapters, a theme's development from its own passages in canonical order, including the places where those passages pull against each other. These are
     readings, labelled as such in the reader, and they cite the layer they are built on so a reader can disagree at the step where they actually disagree. No published
     theology, commentary or topical Bible is consulted.</p>
-  <p><b>Themes:</b> the model reads each chapter and says what it is about, and those chapter themes are then folded into one list for the whole Bible. Nothing is
+  <p><b>Themes:</b> each theme is named in the language of the text — a short Hebrew, Aramaic or Greek phrase built from words that actually stand in its passages —
+    with a plain-language gloss beside it, because a reader should see what the text says and what it means at the same time. The model reads each chapter and says what it is about, and those chapter themes are then folded into one list for the whole Bible. Nothing is
     taken from a systematic theology or a topical Bible, and every theme names the verses it came from. Themes are a reading, not a tagged fact, and they are kept
     apart from the data layers for that reason. The vocabulary shown with a theme is evidence about its passages, not a definition of it: one theme runs on many
     unrelated words, and one word serves many themes.</p>
@@ -421,6 +422,8 @@ function trajHtml(id){
   if (unresolved) h += `<h3>Left open</h3><div>${esc(unresolved)}</div>`;
   return h + `</div>`;
 }
+const themeName = t => (t && t[4] && t[4][0]) ? t[4][0] : "";
+const themeGloss = t => (t && t[4] && t[4][2]) ? t[4][2] : (t ? t[0] : "");
 const BARR = `A theme is not a word. One theme runs on many unrelated words, and one word serves many themes — the caution James Barr pressed on word studies. The vocabulary below is what these passages happen to use, ranked by how much more often each word stands here than elsewhere. It is evidence about the passages, not a definition of the theme.`;
 async function renderThemes(book, ch, head){
   const main = $("#main");
@@ -433,7 +436,8 @@ async function renderThemes(book, ch, head){
   if (!here.length) html += `<p class="empty">No themes recorded for ${disp(book)} ${ch} yet.</p>`;
   for (const [id, verses, label] of here) {
     const t = THEMES[id];
-    html += `<div class="t"><b onclick="showTheme('${id}')">${esc((t && t[0]) || label)}</b>
+    const nm = themeName(t);
+    html += `<div class="t"><b onclick="showTheme('${id}')">${nm ? `<span class="orig">${esc(nm)}</span> <span style="font-weight:400;color:var(--muted)">${esc(themeGloss(t))}</span>` : esc((t && t[0]) || label)}</b>
       <span class="vv" onclick="location.hash='#${book}/${ch}${/^\d+$/.test(verses) ? "/" + verses : ""}'">${esc(verses || "")}</span>
       <div class="w">${esc(label && t && label !== t[0] ? "in this chapter: " + label : ((t && t[1]) || ""))}</div>
       ${t ? `<div class="w">${t[2].length} passage${t[2].length === 1 ? "" : "s"} in all</div>` : ""}</div>`;
@@ -444,7 +448,9 @@ async function showTheme(id){
   hidePop(); hideRefs(); await themesLoad(); await lexLoad(); await theolLoad().catch(() => {}); navRender(null);
   const t = THEMES[id]; if (!t) return;
   const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr");
-  let html = `<h2>${esc(t[0])}<small class="lang">${t[2].length} passage${t[2].length === 1 ? "" : "s"} · a reading, not a tagged fact</small></h2>`;
+  const nm = themeName(t), face = t[4] || [];
+  let html = `<h2>${nm ? `<span class="orig">${esc(nm)}</span>` : esc(t[0])}<small class="lang">${nm ? esc(themeGloss(t)) + " · " : ""}${t[2].length} passage${t[2].length === 1 ? "" : "s"} · a reading, not a tagged fact</small></h2>`;
+  if (nm) html += `<p class="empty" style="margin:0 0 .8rem">Named in the language of the text${face[1] ? ` (${esc(face[1])})` : ""}${face[3] ? ` — ${esc(face[3])}` : ""}${t[0] && t[0] !== themeGloss(t) ? ` · read in English as “${esc(t[0])}”` : ""}</p>`;
   if (t[1]) html += `<p class="empty" style="margin:0 0 1rem">${esc(t[1])}</p>`;
   html += trajHtml(id);
   html += `<h3 style="font:600 11px system-ui,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:1.4rem 0 .3rem">The passages it was read from</h3>`;
@@ -466,7 +472,7 @@ async function showTheme(id){
 function themeWordHtml(tag){                             // in the word popup: the themes this word turns up under
   if (typeof THEMEWORD === "undefined") return "";
   const ids = THEMEWORD[tag]; if (!ids || !ids.length) return "";
-  return `<div class="dom">Turns up under: ${ids.slice(0, 6).map(id => `<a onclick="showTheme('${id}')">${esc((THEMES[id] || ["?"])[0])}</a>`).join(" · ")}${ids.length > 6 ? ` and ${ids.length - 6} more` : ""}</div>`;
+  return `<div class="dom">Turns up under: ${ids.slice(0, 6).map(id => `<a onclick="showTheme('${id}')">${esc(themeGloss(THEMES[id]) || "?")}</a>`).join(" · ")}${ids.length > 6 ? ` and ${ids.length - 6} more` : ""}</div>`;
 }
 
 /* ---------- chronology: what the text counts, and the dates outside records fix ---------- */
@@ -711,6 +717,112 @@ function domHtml(tag){                                   // our own fields of me
   const ds = DOMTAG[tag]; if (!ds || !ds.length) return "";
   return `<div class="dom">Fields of meaning: ${ds.map(d => `<a onclick="showDomain('${attr(d)}')">${esc(d)}</a>`).join(" · ")}</div>`;
 }
+/* ---------- one entry point per layer, so the dashboard's work bar can open what a job produced ---------- */
+async function openView(key){
+  const go = {
+    "lexeme-inventory": browseLexemes, "concordance": browseLexemes,
+    "lexicon": browseLexicon, "lexicon-brief": browseLexicon, "lexicon-translated": browseLexicon,
+    "fields": browseFields, "themes": browseThemes, "trajectories": browseThemes,
+    "book-arguments": browseArguments,
+    "morphology": () => { if (!inter) toggleInter(); setView("orig"); },
+    "clause-data": () => { if (!inter) toggleInter(); setView("orig"); },
+    "search-index": () => { $("#q").focus(); },
+    "text-notes": () => { setView("orig"); const sup = document.querySelector("main sup.v"); if (sup) sup.click(); },
+    "cross-references": () => { setView("tr"); const sup = document.querySelector("main sup.v"); if (sup) sup.click(); },
+    "parallels": () => setView("harm"), "places": () => setView("map"), "chronology": () => setView("chron"),
+  }[key];
+  if (go) await go();
+}
+const shelf = (title, note, items) => `<h2>${esc(title)}<small class="lang">${esc(note)}</small></h2>`
+  + `<div class="plist">` + items.join("") + `</div>`;
+
+async function browseThemes(){                           // every theme, most attested first
+  hidePop(); hideRefs(); navRender(null);
+  const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
+  try { await themesLoad(); await theolLoad().catch(() => {}); } catch (e) {
+    main.innerHTML = `<h2>Themes</h2><p class="empty">Not built yet — run scripts/build_themes.py.</p>`; return; }
+  const ids = Object.keys(THEMES).sort((a, b) => THEMES[b][2].length - THEMES[a][2].length);
+  const withTraj = typeof TRAJ !== "undefined" ? ids.filter(i => TRAJ[i]).length : 0;
+  main.innerHTML = shelf("Themes", `${ids.length} themes · ${withTraj} traced across the canon · read out of the chapters`,
+    ids.map(id => { const t = THEMES[id];
+      const nm = themeName(t);
+      return `<a onclick="showTheme('${id}')">${nm ? `<span class="orig">${esc(nm)}</span> ` : ""}${esc(nm ? themeGloss(t) : t[0])} <small>${t[2].length} passage${t[2].length === 1 ? "" : "s"}${typeof TRAJ !== "undefined" && TRAJ[id] ? " · traced" : ""}</small></a>`; }));
+  window.scrollTo(0, 0);
+}
+async function browseArguments(){                        // the books whose argument has been written
+  hidePop(); navRender(null);
+  const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
+  try { await theolLoad(); } catch (e) {
+    main.innerHTML = `<h2>What each book argues</h2><p class="empty">Not built yet — run scripts/build_theology.py --books.</p>`; return; }
+  const names = Object.keys(BOOKARG).sort((a, b) => ORDER[a.replace(/ /g, "_")] - ORDER[b.replace(/ /g, "_")]);
+  if (!names.length) { main.innerHTML = `<h2>What each book argues</h2><p class="empty">No book arguments yet.</p>`; return; }
+  main.innerHTML = shelf("What each book argues", `${names.length} of 66 books · built from their chapters' themes`,
+    names.map(n => `<a onclick="showArgument('${n.replace(/ /g, "_")}')">${esc(n)} <small>${(BOOKARG[n][0] || []).length} sections</small></a>`));
+  window.scrollTo(0, 0);
+}
+async function showArgument(book){
+  await theolLoad().catch(() => {});
+  const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
+  main.innerHTML = `<h2>${esc(disp(book))}<small class="lang">what the book argues</small></h2>` + bookArgHtml(book)
+    + `<p class="empty"><a style="cursor:pointer;color:var(--accent)" onclick="browseArguments()">all books</a> · <a style="cursor:pointer;color:var(--accent)" onclick="location.hash='#${book}/1'">read it</a></p>`;
+  window.scrollTo(0, 0);
+}
+async function browseLexicon(){                          // our own entries, the fullest first
+  hidePop(); navRender(null);
+  const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
+  try { await lexLoad(); await lexxLoad(); await lexxtLoad(tl).catch(() => {}); } catch (e) {
+    main.innerHTML = `<h2>Our lexicon</h2><p class="empty">Not built yet — run scripts/build_lexicon.py.</p>`; return; }
+  const tags = Object.keys(LEXX).sort((a, b) => (LEXX[b].count || 0) - (LEXX[a].count || 0));
+  main.innerHTML = shelf("Our lexicon", `${tags.length} entries written from the text${(LEXXT[tl] ? " · shown in " + TARGETS[tl].native + " where translated" : "")}`,
+    tags.map(t => { const e = LEXX[t], tr = (LEXXT[tl] || {})[t];
+      return `<a onclick="showLexEntry('${t}')"><span class="orig">${esc(e.headword)}</span> <small>${esc((tr && tr.gloss) || e.gloss)} · ${e.count}×</small></a>`; }));
+  window.scrollTo(0, 0);
+}
+async function showLexEntry(tag){
+  await lexLoad(); await lexxLoad().catch(() => {}); await domLoad().catch(() => {}); await themesLoad().catch(() => {});
+  const e = LEX[tag] || ["", "", "", "", ""];
+  const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
+  main.innerHTML = `<h2><span class="orig">${esc(e[0] || tag)}</span><small class="lang">${esc(e[1] || "")} ${esc(e[2] || "")} · ${tag}</small></h2>`
+    + `<div id="wpopinline">${oursHtml(tag)}${domHtml(tag)}${themeWordHtml(tag)}</div>`
+    + `<p class="empty"><a style="cursor:pointer;color:var(--accent)" onclick="showConc('${tag}')">every occurrence</a> · <a style="cursor:pointer;color:var(--accent)" onclick="browseLexicon()">all entries</a></p>`;
+  window.scrollTo(0, 0);
+}
+async function browseLexemes(){                          // the inventory grown from the word forms
+  hidePop(); navRender(null);
+  const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
+  try { await lexemeLoad(); } catch (e) {
+    main.innerHTML = `<h2>Our lexeme inventory</h2><p class="empty">Not built yet — run scripts/build_lexemes.py.</p>`; return; }
+  const ids = Object.keys(LEXEME).sort((a, b) => LEXEME[b][4] - LEXEME[a][4]);
+  main.innerHTML = shelf("Our lexeme inventory", `${ids.length} dictionary words grown from ${Object.keys(FORM2LEX).length} word forms`,
+    ids.slice(0, 1200).map(id => { const [head, pos, gloss, root, count] = LEXEME[id];
+      return `<a onclick="showLexeme('${id}')"><span class="orig">${esc(head)}</span> <small>${esc(gloss)}${pos ? " · " + esc(pos) : ""} · ${count}×</small></a>`; }));
+  if (ids.length > 1200) main.innerHTML += `<p class="empty">Showing the 1,200 commonest of ${ids.length}.</p>`;
+  window.scrollTo(0, 0);
+}
+async function showLexeme(id){
+  await lexemeLoad();
+  const [head, pos, gloss, root, count] = LEXEME[id];
+  const forms = Object.keys(FORM2LEX).filter(f => FORM2LEX[f] === id);
+  const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
+  main.innerHTML = `<h2><span class="orig">${esc(head)}</span><small class="lang">${esc(gloss)}${pos ? " · " + esc(pos) : ""}${root ? " · root " + root : ""} · ${id} · ${count} occurrence${count === 1 ? "" : "s"}</small></h2>`
+    + `<p class="empty" style="margin:0 0 1rem">Grown from the text: the model read each of these written forms in its verse and gave this dictionary word for it.</p>`
+    + `<div class="plist">` + forms.map(f => `<a onclick="searchSource('${attr(f)}')"><span class="orig">${esc(f)}</span> <small>find it in the text</small></a>`).join("") + `</div>`
+    + `<p class="empty"><a style="cursor:pointer;color:var(--accent)" onclick="browseLexemes()">all lexemes</a></p>`;
+  window.scrollTo(0, 0);
+}
+async function searchSource(form){                       // find a Hebrew or Greek form through the source index
+  const name = /[\u0590-\u05ff]/.test(form) ? "hbo" : "grc";
+  try { await idxLoad(name); } catch (e) {}
+  const ids = idxVerses(name, foldTerm(form)) || [];
+  const main = $("#main"); main.className = ""; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
+  main.innerHTML = `<h2><span class="orig">${esc(form)}</span><small class="lang">${ids.length} verse${ids.length === 1 ? "" : "s"} in the original</small></h2>`
+    + `<div id="results">` + ids.slice(0, 400).map(id => {
+        const b = byNumBook[Math.floor(id / 1000000)], c = Math.floor(id / 1000) % 1000, v = id % 1000;
+        return b ? `<div class="hit" onclick="location.hash='#${b}/${c}/${v}'"><div class="ref">${disp(b)} ${c}:${v}</div>${verseHtml(b, c, v, -1)}</div>` : "";
+      }).join("") + `</div>`;
+  window.scrollTo(0, 0);
+}
+
 async function browseFields(){                           // the fields of meaning, as a list to pick from
   hidePop(); await domLoad().catch(() => {}); navRender(null);
   const main = $("#main"); main.className = ""; main.setAttribute("dir", "ltr");
