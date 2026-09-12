@@ -169,11 +169,12 @@ main.wide { max-width:66rem; }
   transition:transform .22s cubic-bezier(.2,0,0,1); }
 #tabbar .row { display:flex; }
 #tabbar button { flex:1 1 0; min-width:0; min-height:56px; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; gap:.1rem; padding:.3rem .15rem;
+  align-items:center; justify-content:center; gap:.1rem; padding:.3rem .15rem; overflow:hidden;
   background:none; border:0; color:var(--muted); cursor:pointer;
   font:500 11px system-ui,sans-serif; }
-#tabbar button .ic { display:flex; align-items:center; justify-content:center;
-  width:56px; max-width:100%; height:28px; border-radius:14px; }
+#tabbar button .ic { display:flex; align-items:center; justify-content:center; flex:none;
+  width:100%; max-width:56px; height:28px; border-radius:14px; }
+#tabbar button .lb { max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 #tabbar button svg { width:23px; height:23px; }
 #tabbar button[aria-expanded="true"] { color:var(--accent); font-weight:700; }
 #tabbar button[aria-expanded="true"] .ic { background:var(--hl); color:var(--fg); }
@@ -240,6 +241,9 @@ dialog.sheet::backdrop { background:var(--scrim); }
 .tools button:disabled { opacity:.45; cursor:default; }
 .tools button:hover:not(:disabled) { background:var(--soft); }
 .sheet .hint { font:12.5px/1.5 system-ui,sans-serif; color:var(--muted); margin:.4rem 0 0; }
+.sheet .primary { display:flex; width:100%; align-items:center; justify-content:center;
+  min-height:52px; border:1px solid var(--accent); border-radius:14px; margin:.6rem 0 .2rem;
+  background:var(--accent); color:var(--on-accent); cursor:pointer; font:700 15px system-ui,sans-serif; }
 /* ---------- the magnifier's way back, and a place to say a file did not load ---------- */
 #zoomchip, #toast { position:fixed; left:50%; transform:translateX(-50%); z-index:36;
   background:var(--card); color:var(--fg); border:1px solid var(--edge);
@@ -255,7 +259,10 @@ dialog.sheet::backdrop { background:var(--scrim); }
 footer#credits { border-top:1px solid var(--border); margin-top:2rem; padding:1.2rem 1.2rem 2rem; color:var(--muted);
   font:12px/1.55 system-ui, sans-serif; }
 footer#credits h2 { font:600 12px system-ui, sans-serif; text-transform:uppercase; letter-spacing:.06em; margin:0 0 .5rem; }
-footer#credits p { margin:0 0 .45rem; max-width:66rem; } footer#credits a { color:inherit; }
+footer#credits p { margin:0 0 .45rem; max-width:66rem; }
+/* The attributions carry bare URLs, which have no break in them and push a
+   narrow screen sideways unless they are allowed to break anywhere. */
+footer#credits a { color:inherit; } footer#credits, code { overflow-wrap:anywhere; }
 header .sources { margin-left:auto; font:12px system-ui, sans-serif; color:var(--muted); cursor:pointer; background:none; border:0; text-decoration:underline; }
 /* --barH is measured from the header, which wraps to two rows at some widths;
    the sidebar used to assume it never did and lost its last book behind it. */
@@ -327,7 +334,8 @@ main.inter .orig .w[data-m]::before { content:attr(data-m); display:block; font:
 #wpop .hw { font-size:1.35em; } #wpop .hw .orig { font-size:1em; } #wpop .tl { color:var(--muted); margin-left:.4em; } #wpop .pos { color:var(--muted); font-size:11px; margin-left:.4em; }
 #wpop .parse { margin:.35rem 0; } #wpop .parse code { font:11px ui-monospace,Consolas,monospace; color:var(--accent); margin-left:.4em; }
 #wpop .meaning { color:var(--muted); font-size:12px; margin-top:.35rem; max-height:9em; overflow:auto; }
-#wpop .acts { margin-top:.5rem; } #wpop .acts a { margin-right:.9rem; cursor:pointer; color:var(--accent); text-decoration:underline; }
+#wpop .acts { margin-top:.5rem; display:flex; flex-wrap:wrap; gap:.2rem 1rem; }
+#wpop .acts a { display:inline-flex; align-items:center; min-height:44px; cursor:pointer; color:var(--accent); text-decoration:underline; }
 #wpop .pre { color:var(--muted); font-size:12px; }
 #wpop .syn { margin:.35rem 0; font-size:12px; } #wpop .syn b { color:var(--fg); font-weight:600; }
 #wpop .syn a { color:var(--accent); cursor:pointer; } #wpop .dom { font-size:12px; color:var(--muted); margin-top:.25rem; } #wpop .dom a { color:var(--accent); cursor:pointer; }
@@ -454,6 +462,9 @@ ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
   .cmp .row .lab { text-align:start; }
   .harm .vs { grid-template-columns:1fr !important; }
   .harm .vs > div:empty { display:none }
+  /* Stacked, every passage already carries its own label, so the row of column
+     headings is a list of names above nothing. */
+  .harm.hdr { display:none }
   #wpop, #vpop { left:8px !important; right:8px; width:auto; max-width:none; }
 }
 /* A finger is not a mouse pointer: the verse number stays the size it is set
@@ -525,10 +536,10 @@ try {
 <main id="main"></main>
 </div>
 <nav id="tabbar" aria-label="Reader actions"><div class="row">
-  <button id="tbBooks" aria-haspopup="dialog" aria-expanded="false" aria-controls="navSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h6.5v14H4zM13.5 5.5H20v14h-6.5z"/></svg></span>Books</button>
-  <button id="tbSearch" aria-haspopup="dialog" aria-expanded="false" aria-controls="searchSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.6"/><path d="M16 16l4.4 4.4"/></svg></span>Search</button>
-  <button id="tbTools" class="adv" aria-haspopup="dialog" aria-expanded="false" aria-controls="toolsSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h5M13 7h7M4 17h9M17 17h3"/><circle cx="11" cy="7" r="2.2"/><circle cx="15" cy="17" r="2.2"/></svg></span>Tools</button>
-  <button id="tbDisp" aria-haspopup="dialog" aria-expanded="false" aria-controls="setSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 19l5-14 5 14M5.3 14.4h6.4M21 19v-6.6a2.6 2.6 0 0 0-5 -1M16 19a2.4 2.4 0 0 1 0-4.8h5"/></svg></span>Display</button>
+  <button id="tbBooks" aria-haspopup="dialog" aria-expanded="false" aria-controls="navSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h6.5v14H4zM13.5 5.5H20v14h-6.5z"/></svg></span><span class="lb">Books</span></button>
+  <button id="tbSearch" aria-haspopup="dialog" aria-expanded="false" aria-controls="searchSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.6"/><path d="M16 16l4.4 4.4"/></svg></span><span class="lb">Search</span></button>
+  <button id="tbTools" class="adv" aria-haspopup="dialog" aria-expanded="false" aria-controls="toolsSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h5M13 7h7M4 17h9M17 17h3"/><circle cx="11" cy="7" r="2.2"/><circle cx="15" cy="17" r="2.2"/></svg></span><span class="lb">Tools</span></button>
+  <button id="tbDisp" aria-haspopup="dialog" aria-expanded="false" aria-controls="setSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 19l5-14 5 14M5.3 14.4h6.4M21 19v-6.6a2.6 2.6 0 0 0-5 -1M16 19a2.4 2.4 0 0 1 0-4.8h5"/></svg></span><span class="lb">Display</span></button>
 </div></nav>
 <dialog class="sheet" id="navSheet" aria-labelledby="navSheetT">
   <div class="grab"><i></i></div>
@@ -1002,7 +1013,7 @@ async function renderHarmony(book, ch, head, shown){    // the chapter beside it
   if (!others.length) { main.innerHTML = head + `<p class="empty">No parallel passages found for ${disp(book)} ${ch}. Parallels are computed for the Gospels, for Samuel–Kings–Chronicles with Isaiah, Jeremiah, Psalms and Micah, and within the Torah.</p>`; return; }
   const cols = [disp(book), ...others];
   html += `<p class="empty" style="margin:0 0 .6rem">Verses sharing wording with ${others.join(", ")}. Percentages are shared vocabulary, weighted by how rare each word is.</p>`;
-  html += `<div class="harm" style="position:sticky;top:3.2rem;background:var(--bg);z-index:2;padding-top:.2rem"><div class="vs" style="grid-template-columns:repeat(${cols.length},1fr)">`
+  html += `<div class="harm hdr" style="position:sticky;top:var(--barH);background:var(--bg);z-index:2;padding-top:.2rem"><div class="vs" style="grid-template-columns:repeat(${cols.length},1fr)">`
     + cols.map(c => `<div class="lab" style="cursor:default">${c}</div>`).join("") + `</div></div>`;
   for (const n of nums) {
     const hits = P[n] || [];
@@ -1368,15 +1379,24 @@ function renderChapter(book, ch, highlightVerse) {
   const rtl = L.dir === "rtl", ocls = "orig " + L.script.toLowerCase();
   const lxx = src && src._lxx;
   let v = view;
+  /* The analysis views read the original text, not the translation, so an
+     untranslated chapter is no reason to refuse them — the Gospels are exactly
+     where a reader wants the parallels, and they were unreachable there. */
+  const analysis = v === "themes" || v === "harm" || v === "map" || v === "chron";
   if (!src) v = "tr";
-  else if (!tr) v = ((v === "lxx" || v === "hl") && lxx) ? v : "orig";
+  else if (!tr && !analysis) v = ((v === "lxx" || v === "hl") && lxx) ? v : "orig";
   else if (v === "all" && avail.length < 2 && !lxx) v = "par";
   if ((v === "lxx" || v === "hl") && !lxx) v = "orig";
   /* Basic mode is the book: the translation, or the text it was made from. */
   if (!adv() && v !== "tr" && v !== "orig") v = tr ? "tr" : "orig";
-  setTitle(`${disp(book)} ${ch}`, (v === "orig" || v === "lxx" || v === "hl")
-    ? (v === "lxx" ? "Septuagint" : L.name) : (tr ? TARGETS[shown].name : L.name));
-  let html = `<h2>${disp(book)} ${ch}<small class="lang">${L.name}${lxx ? " + Septuagint" : ""}${tr ? " → " + TARGETS[shown].name : ""}</small></h2>`;
+  /* The heading says what is actually on the screen rather than everything the
+     chapter has, because the bar repeats it and a reader in the Septuagint
+     should not be told they are reading Hebrew. */
+  const sub = v === "orig" ? L.name : v === "lxx" ? "Septuagint" : v === "hl" ? `${L.name} · Septuagint`
+    : v === "all" ? `${L.name}${lxx ? " + Septuagint" : ""} → ${avail.length} language${avail.length === 1 ? "" : "s"}`
+    : tr ? `${L.name} → ${TARGETS[shown].name}` : L.name;
+  setTitle(`${disp(book)} ${ch}`, sub);
+  let html = `<h2>${disp(book)} ${ch}<small class="lang">${esc(sub)}</small></h2>`;
   html += `<div class="chnav">` + chs.map(c =>
     `<a href="#${book}/${c}" class="${c==ch?'on':''} ${trOf(book,c)[tl]?'':'untr'}">${c}</a>`).join("") + `</div>`;
   if (src && adv()) {
@@ -1691,8 +1711,8 @@ function drawNav(){
 /* ---------- the search tray ---------- */
 function drawSearch(){
   $("#searchDyn").innerHTML =
-    `<p class="hint">Searching the ${esc((TARGETS[tl] || {}).name || tl)} text. Two letters is enough; the results appear behind this tray.</p>
-     <div class="rowlist"><button type="button" id="qGo">Show the results</button></div>
+    `<button type="button" class="primary" id="qGo">Show the results</button>
+     <p class="hint">Searching the ${esc((TARGETS[tl] || {}).name || tl)} text; two letters is enough. The results are drawn behind this tray as you type.</p>
      <p class="hint">To jump straight to a reference instead, close this and tap the chapter name at the top: &ldquo;Genesis 2:7&rdquo;, &ldquo;1 Sam 3&rdquo;, &ldquo;Ps 23&rdquo;.</p>`;
   $("#qGo").onclick = () => { const v = $("#q").value.trim(); if (v) search(v); closeSheet(); };
 }
@@ -1944,6 +1964,15 @@ $("#q").addEventListener("input", e => {
   clearTimeout(deb);
   const val = e.target.value;
   deb = setTimeout(() => val.trim() ? search(val) : route(), 250);
+});
+/* Enter is done searching: on a phone that means putting the tray away and
+   letting the reader see the hits it has been drawing behind it. */
+$("#q").addEventListener("keydown", e => {
+  if (e.key !== "Enter") return;
+  clearTimeout(deb);
+  const val = e.target.value.trim();
+  if (val) search(val);
+  if (openName === "search") closeSheet();
 });
 document.addEventListener("keydown", e => {
   if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
