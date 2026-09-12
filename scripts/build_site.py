@@ -279,6 +279,9 @@ __READALOUD_CSS__
   <p><b>Places and the map:</b> place identifications and coordinates from the <a href="https://www.openbible.info/geo/">OpenBible.info</a> Bible geocoding data,
     <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> (the 2007 tab-delimited release; the newer dataset mixing in OpenStreetMap geometry is not used).
     Coastlines, lakes and rivers from <a href="https://www.naturalearthdata.com/">Natural Earth</a>, public domain — drawn here as vectors, with no map service or tiles.</p>
+  <p><b>This project's lexeme inventory:</b> grown from the text by the local model — every distinct word form is analysed in context and the dictionary words it
+    implies become the inventory, numbered in order of first appearance (<code>scripts/build_lexemes.py</code>). It is independent of Strong's and of any published
+    dictionary; the reference tagging above is used only to measure how cleanly our inventory groups the text (<code>logs/lexeme_report.md</code>).</p>
   <p><b>Text notes:</b> which printed editions carry each reading, and the scribal Qere against the written Ketiv, are from the STEPBible data above
     (CC BY 4.0). Editions compared: Nestle-Aland 27 and 28, Tyndale House 2017, SBLGNT, Westcott-Hort 1881, Tregelles, Scrivener's Textus Receptus 1894 and the
     Robinson-Pierpont Byzantine text. This is an apparatus of editions, not of manuscripts: no manuscript is cited, because no openly licensed manuscript apparatus exists for this project to use.</p>
@@ -590,6 +593,13 @@ const lexxLoad = () => typeof LEXX !== "undefined" ? Promise.resolve() : loadJs(
 const LEXXT = {};                                        // our entries in the target languages
 const lexxtLoad = t => (t === "en" || LEXXT[t]) ? Promise.resolve() : loadJs(`morph/lexx_${t}.js`);
 const domLoad = () => typeof DOMTAG !== "undefined" ? Promise.resolve() : loadJs("morph/domains.js");
+const lexemeLoad = () => typeof FORM2LEX !== "undefined" ? Promise.resolve() : loadJs("morph/lexemes.js");
+function oursLexeme(form){                               // our own inventory, grown from the text by the model
+  if (typeof FORM2LEX === "undefined") return "";
+  const id = FORM2LEX[form]; if (!id) return "";
+  const [head, pos, gloss, root] = LEXEME[id];
+  return `<div class="syn">This project's lexeme <b>${esc(id)}</b>: <span class="orig">${esc(head)}</span> — ${esc(gloss)}${pos ? " (" + esc(pos) + ")" : ""}${root ? ` · root <span class="orig">${esc(root)}</span>` : ""}</div>`;
+}
 function domHtml(tag){                                   // our own fields of meaning, assigned by the model from the glosses
   if (typeof DOMTAG === "undefined") return "";
   const ds = DOMTAG[tag]; if (!ds || !ds.length) return "";
@@ -645,7 +655,7 @@ let wsel = null;
 function hidePop(){ wpop.hidden = true; if (wsel) { wsel.classList.remove("sel"); wsel = null; } }
 async function showPop(el){
   const [book, ch, v, i] = el.dataset.k.split("/");
-  await morphLoad(book); await lexLoad(); await Promise.all([lexxLoad().catch(() => {}), lexxtLoad(tl).catch(() => {}), synLoad(book).catch(() => {}), domLoad().catch(() => {})]);
+  await morphLoad(book); await lexLoad(); await Promise.all([lexxLoad().catch(() => {}), lexxtLoad(tl).catch(() => {}), synLoad(book).catch(() => {}), domLoad().catch(() => {}), lexemeLoad().catch(() => {})]);
   const m = MORPH[disp(book)], d = m && m[ch] && m[ch][v] && m[ch][v][i];
   if (wsel) wsel.classList.remove("sel"); wsel = el; el.classList.add("sel");
   let html = `<div class="hw"><span class="orig">${esc(el.textContent)}</span>`;
@@ -658,6 +668,7 @@ async function showPop(el){
     html += `<div class="parse">${esc(parseCode(d[1]))}<code>${esc(d[1])}</code></div>`;
     html += synHtml(book, ch, v, +i);
     html += domHtml(root);
+    html += oursLexeme(el.textContent);
     html += `<div>gloss: <b>${esc(d[2])}</b>${greek && d[3] && d[3] !== d[2] ? ` · <span class="tl">${esc(d[3])}</span>` : ""}</div>`;
     const extra = (d[0].match(TAGRE) || []).filter(t => t !== root && LEX[t]);
     if (extra.length) html += `<div class="pre">with: ${extra.map(t => `${esc(LEX[t][0])} <i>${esc(LEX[t][3])}</i>`).join(", ")}</div>`;

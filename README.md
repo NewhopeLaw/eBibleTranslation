@@ -166,6 +166,21 @@ chapter's statements, the rest of the book's, and the anchors. Nothing is summed
 into a date: no chronological system is asserted, and no copyrighted chronology
 is used.
 
+### Our own lexeme inventory
+
+`scripts/build_lexemes.py` grows a dictionary-word list from the text instead of
+inheriting one. Every distinct form — 61,537 Hebrew and Aramaic, 19,357 Greek —
+goes to the local model in the verse where it first stands; the model gives the
+dictionary form, part of speech, gloss and (for Hebrew) the root, and forms that
+answer with the same dictionary form become one lexeme, numbered in order of
+first appearance (`eH00001`, `eG00001`). About one second per form, so roughly a
+day for the whole text, resumable throughout.
+
+`--score` measures it against the reference tagging we already hold: on a
+300-form sample spread across frequencies, 95.6% of tokens fell in a lexeme
+whose members share the same reference tag (`logs/lexeme_report.md`). The
+reference is a yardstick only — nothing from it enters our inventory.
+
 ### Long model jobs (the work queue)
 
 The jobs that need the GPU for hours — writing the lexicon, sorting every
@@ -202,6 +217,7 @@ python scripts/build_all.py --fast      skip morphology and syntax (the slow two
 | our lexicon | `build_lexicon.py` | the model over the concordance | `lexx.js` |
 | our lexicon, translated | `translate_lexicon.py --lang zh` | the model over our entries | `lexx_<lang>.js` |
 | fields of meaning | `build_domains.py` | the model over our glosses | `domains.js` |
+| our own lexeme inventory | `build_lexemes.py` | the model over every word form | `lexemes.js` |
 
 Every file loads on demand, so the reader page itself stays the same size and
 the whole set works offline and inside an Android bundle.

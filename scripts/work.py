@@ -47,6 +47,9 @@ def lexeme_total(min_count=2):
 def jobs():
     """Each: name, what it does, how many are done, how many there are, the command."""
     out = [
+        ("lexemes", "grow our own lexeme inventory from every word form in the text",
+         count_lines(ROOT / "targets" / "lexemes" / "forms.jsonl"), 80894,
+         [sys.executable, str(S / "build_lexemes.py")]),
         ("lexicon", "write a lexicon entry for every lexeme, from its occurrences",
          count_lines(LEX / "entries.jsonl"), lexeme_total(2),
          [sys.executable, str(S / "build_lexicon.py"), "--min-count", "2"]),
