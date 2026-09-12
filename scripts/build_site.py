@@ -449,6 +449,9 @@ ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
   #title { display:block }
   #tabbar { display:block }
   main { padding:1.1rem 1rem calc(6rem + env(safe-area-inset-bottom)); }
+  /* The bottom bar floats over the page, so the last thing on it needs room
+     to be read — the attributions were ending underneath the bar. */
+  footer#credits { padding-bottom:calc(5.5rem + env(safe-area-inset-bottom)); }
   /* The chapter grid and the view tabs live in the trays on a phone; on the
      page they were two rows of chrome above every chapter. The heading keeps
      its reference — a reader scrolled halfway down wants to see where they
