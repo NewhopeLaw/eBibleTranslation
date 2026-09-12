@@ -507,6 +507,9 @@ ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
 #refslot #ref, #qslot #q { width:100%; font-size:16px; min-height:52px; }
 @media (max-width:760px){ #zoomchip, #toast { --chipUp:74px; } }
 __READALOUD_CSS__
+/* readaloud.py is shared with the dashboard, where the menu is used with a
+   mouse; here a finger opens it by pressing and holding, and needs the room. */
+#ctx .it { min-height:48px; display:flex; flex-direction:column; justify-content:center; }
 </style>
 <script>
 /* The skin, the mode and the type size are put on the page before anything is
@@ -999,6 +1002,7 @@ async function showRefs(book, ch, v, ev){
   html += appHtml(book, ch, v, ((LANGS[(DATA[book] && DATA[book][ch] || {}).lang || "hbo"] || {}).script || "hebrew").toLowerCase());
   if (!pr.length && !xr.length && !((APP[disp(book)] || {})[ch] || {})[v]) html += `<p class="empty">No cross-references, parallels or text notes for this verse.</p>`;
   vpop.innerHTML = html; vpop.hidden = false;
+  reachable(vpop);
   const el = ev && ev.target, r = el ? el.getBoundingClientRect() : {left: 40, bottom: 80, top: 80};
   const W = vpop.offsetWidth, H = vpop.offsetHeight;
   let x = Math.min(r.left, window.innerWidth - W - 10), y = r.bottom + 6;
@@ -1255,6 +1259,7 @@ async function showPop(el){
     html += `<div class="acts"><a onclick="showConc('${root}')">all occurrences</a><a onclick="gsOpen('${root}', '${attr(d[1])}')">this form elsewhere</a><a onclick="hidePop()">close</a></div>`;
   }
   wpop.innerHTML = html; wpop.hidden = false;
+  reachable(wpop);
   const r = el.getBoundingClientRect(), W = wpop.offsetWidth, H = wpop.offsetHeight;
   let x = Math.min(r.left, window.innerWidth - W - 10), y = r.bottom + 6; if (y + H > window.innerHeight - 8) y = Math.max(8, r.top - H - 6);
   wpop.style.left = Math.max(8, x) + "px"; wpop.style.top = y + "px";
@@ -1887,11 +1892,16 @@ function toast(msg){
    links reachable from a keyboard — most of the reader's links are <a> with no
    href, drawn into the page, which a keyboard cannot touch — and its heading
    repeated in the bar, where it is the way back into the navigation tray. */
+/* A verse number is deliberately left out of this: a chapter of Psalms would
+   put a hundred and seventy-six stops between a keyboard and the end of it. */
+const CLICKABLE = "a:not([href]):not([tabindex]):not(.off), .hit:not([tabindex]), .r[onclick]:not([tabindex]),"
+  + " .thm .t b:not([tabindex]), .chron .row b:not([tabindex]), .arg .sec b:not([tabindex]), .harm .lab[onclick]:not([tabindex])";
+function reachable(root){
+  for (const el of root.querySelectorAll(CLICKABLE)) { el.tabIndex = 0; el.setAttribute("role", "button"); }
+}
 new MutationObserver(() => {
   const m = $("#main");
-  for (const a of m.querySelectorAll("a:not([href]):not([tabindex]):not(.off)")) {
-    a.tabIndex = 0; a.setAttribute("role", "button");
-  }
+  reachable(m);
   const h = m.querySelector("h2");
   if (h) {
     const c = h.cloneNode(true), sub = h.querySelector(".lang");
@@ -1900,7 +1910,7 @@ new MutationObserver(() => {
   }
 }).observe($("#main"), {childList: true, subtree: true});
 document.addEventListener("keydown", e => {
-  if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches('a[role="button"]')) {
+  if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches('[role="button"][tabindex="0"]')) {
     e.preventDefault(); e.target.click();
   }
 });
