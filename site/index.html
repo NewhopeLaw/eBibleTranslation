@@ -239,10 +239,11 @@ ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
   <p><b>Text notes:</b> which printed editions carry each reading, and the scribal Qere against the written Ketiv, are from the STEPBible data above
     (CC BY 4.0). Editions compared: Nestle-Aland 27 and 28, Tyndale House 2017, SBLGNT, Westcott-Hort 1881, Tregelles, Scrivener's Textus Receptus 1894 and the
     Robinson-Pierpont Byzantine text. This is an apparatus of editions, not of manuscripts: no manuscript is cited, because no openly licensed manuscript apparatus exists for this project to use.</p>
-  <p><b>Clause roles, participants and semantic domains (Greek New Testament):</b> the
-    <a href="https://github.com/Clear-Bible/macula-greek">MACULA Greek linguistic datasets</a> © 2022-2024 Biblica, Inc.,
-    <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> — syntactic role, word class, the word a pronoun refers back to, and the
-    Louw-Nida domain number. Only the domain number is used; the domain titles are copyrighted and are not reproduced, so the reader shows the words that share a domain instead.</p>
+  <p><b>Clause roles, participants and glosses:</b> the <a href="https://github.com/Clear-Bible/macula-greek">MACULA Greek</a> and
+    <a href="https://github.com/Clear-Bible/macula-hebrew">MACULA Hebrew</a> linguistic datasets © 2022-2024 Biblica, Inc.,
+    <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> — word class, the word a pronoun refers back to, a gloss, and for Greek the role in the clause.
+    The semantic-domain fields in those datasets are United Bible Societies material (Louw-Nida for Greek, the Semantic Dictionary of Biblical Hebrew for Hebrew),
+    used by permission rather than licensed onward, so this project does not use them; the senses shown under <i>This project's entry</i> are written from the text instead.</p>
   <p><b>Chronology:</b> the numbers are extracted from this project's own English translation by pattern, each shown with its verse; nothing is summed into a date.
     The anchor dates are entered by hand from Assyrian, Babylonian, Persian and Roman records and are marked as externally attested. No copyrighted chronology
     (Thiele, Finegan or any other) is used.</p>
@@ -351,7 +352,6 @@ function chronRow(r, withRef){
 /* ---------- places: where the chapter happens, drawn offline (OpenBible.info CC BY 4.0 + Natural Earth, public domain) ---------- */
 const placesLoad = () => typeof PLACES !== "undefined" ? Promise.resolve() : loadJs("morph/places.js");
 const SYN = {}, synLoad = book => SYN[disp(book)] ? Promise.resolve() : loadJs(`morph/syn_${book}.js`);
-const domLoad = () => typeof DOMAINS !== "undefined" ? Promise.resolve() : loadJs("morph/domains.js");
 function synHtml(book, ch, v, i){
   const w = (((SYN[disp(book)] || {})[ch] || {})[v] || [])[i]; if (!w) return "";
   const [role, cls, dom, refTo] = w;
@@ -361,10 +361,6 @@ function synHtml(book, ch, v, i){
     const t = (((SYN[disp(b2)] || {})[c2] || {})[v2] || [])[i2];
     h += `${h ? " · " : `<div class="syn">`}refers to <a onclick="gotoWord('${b2.replace(/ /g, "_")}',${c2},${v2},${i2})">${esc((t && t[4]) || "the earlier word")} (${esc(b2)} ${c2}:${v2})</a>`; }
   if (h) h += `</div>`;
-  if (dom && typeof DOMAINS !== "undefined" && DOMAINS[dom]) {
-    const others = DOMAINS[dom].slice(0, 12);
-    h += `<div class="dom">Same semantic domain (${esc(dom)}): ${others.map(o => `<span class="orig greek">${esc(o[1])}</span> <i>${esc(o[2])}</i>`).join(" · ")}</div>`;
-  }
   return h;
 }
 function gotoWord(book, ch, v, i){
@@ -588,7 +584,7 @@ let wsel = null;
 function hidePop(){ wpop.hidden = true; if (wsel) { wsel.classList.remove("sel"); wsel = null; } }
 async function showPop(el){
   const [book, ch, v, i] = el.dataset.k.split("/");
-  await morphLoad(book); await lexLoad(); await Promise.all([lexxLoad().catch(() => {}), lexxtLoad(tl).catch(() => {}), synLoad(book).catch(() => {}), domLoad().catch(() => {})]);
+  await morphLoad(book); await lexLoad(); await Promise.all([lexxLoad().catch(() => {}), lexxtLoad(tl).catch(() => {}), synLoad(book).catch(() => {})]);
   const m = MORPH[disp(book)], d = m && m[ch] && m[ch][v] && m[ch][v][i];
   if (wsel) wsel.classList.remove("sel"); wsel = el; el.classList.add("sel");
   let html = `<div class="hw"><span class="orig">${esc(el.textContent)}</span>`;
