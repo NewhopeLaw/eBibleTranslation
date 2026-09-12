@@ -18,6 +18,8 @@ from them and carry the obligations below.
 | Greek New Testament, Robinson–Pierpont Byzantine Majority Text (2018 edition) | [byztxt/byzantine-majority-text](https://github.com/byztxt/byzantine-majority-text) | `master` @ `27a45ff1b7` (2024-12-31) | **Public domain** (The Unlicense, `LICENSE.txt`) | Listed in README as available for consultation; no pipeline script reads it |
 | Greek Old Testament, Septuagint, H. B. Swete's edition | [OpenGreekAndLatin/First1KGreek](https://github.com/OpenGreekAndLatin/First1KGreek), `data/tlg0527` | `master` @ `7881c56343` (2026-08-20); 37 TEI files fetched by `scripts/add_lxx.py` into `sources/lxx/` | Swete's printed edition (1887–1909): **public domain**. The TEI digital encoding: **CC BY-SA 4.0** (University of Leipzig / Open Greek and Latin) | Reference only: shown beside the Hebrew in the reader and dashboard, passed to the model as a clearly marked reference. Never translated |
 
+| Word-level tags for both testaments: lemma / Extended Strong's number, morphology, gloss; brief Hebrew and Greek lexicons; morphology-code expansions | [STEPBible/STEPBible-Data](https://github.com/STEPBible/STEPBible-Data) (Tyndale House, Cambridge) | `master`, cloned 2026-09-11 into `sources/STEPBible-Data` | **CC BY 4.0**, stated in the README and at the head of every data file | `scripts/build_morph.py` aligns the tags to our text and writes `site/morph/*.js` for the reader's word popups, interlinear view, concordance and grammar search |
+
 GitHub's own license detection (`gh api repos/<owner>/<repo> --jq .license`)
 reports: morphhb `NOASSERTION` (custom LICENSE.md, quoted below), SBLGNT
 `CC-BY-4.0`, byzantine-majority-text `Unlicense`, First1KGreek `CC-BY-SA-4.0`.
@@ -202,6 +204,42 @@ else and to all future additions.
 
 The reader (`site/index.html`) displays these attributions in its footer,
 reached from the "Sources & licenses" link in its header.
+
+## 4b. STEPBible data (word tags, lexicons, morphology codes)
+
+**Repository:** https://github.com/STEPBible/STEPBible-Data — files used:
+`Translators Amalgamated OT+NT/TAHOT *` (Hebrew OT: Leningrad text via
+OpenScriptures with disambiguated Extended Strong's tags, ETCBC/OpenScriptures
+morphology, glosses), `TAGNT *` (Greek NT: every word of the major editions,
+each marked with the editions containing it — the SBLGNT words are selected),
+`Lexicons/TBESH`, `Lexicons/TBESG` (brief lexicons), `Morphology codes/TEHMC`,
+`TEGMC` (code expansions).
+
+**Status.** CC BY 4.0. Each file begins with the statement "Data created by
+www.STEPBible.org based on work at Tyndale House Cambridge (CC BY 4.0)" and
+the terms, quoted:
+
+> This licence allows you to:
+> * Include any part of this data in software or publications without requesting permission
+> * Download the data and reformat it for your application, without changing the data
+> * Send any proposed corrections to STEPBibleATGmail.com. to be verified
+>   (You MAY make changes yourself, but you should include a note of changes that can be viewed by those who use your new data)
+> * Refer others to github.com/STEPBible as the source of the data. Please do not redistribute it yourself.
+>   (Updates or corrections are easier to implement when the data is distributed from a single source)
+
+The repository README states the data "is based on other publically licenced
+sources, and has been compared with non-public sources so that differences
+can be checked by Tyndale scholars"; the released data is Tyndale House's own
+work under CC BY.
+
+**How it is used, and the obligations met.** `scripts/build_morph.py` reads
+the files and writes a reformatted subset (`site/morph/*.js`: per-word tag,
+morphology code, gloss, transliteration; lexicon headwords, glosses and
+abbreviated meanings; code expansions). The STEPBible files themselves are
+not committed or redistributed (`sources/` is ignored), honouring their
+request; the reader's footer credits STEPBible.org and Tyndale House, states
+CC BY 4.0, links to the repository, and says the data was reformatted. No
+changes are made to the data beyond selection and reformatting.
 
 ## 4a. Provenance rule for reference data and tools
 

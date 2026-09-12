@@ -87,6 +87,19 @@ books) can be moved to either side or hidden with the tab at its edge to
 give the text the whole width. `start_reader.cmd` (or `pythonw scriptspp.py
 --reader`) opens just the reader — no server, it is one offline file.
 
+### Word study in the reader (morphology)
+
+`scripts/build_morph.py` reads the STEPBible data (CC BY 4.0, cloned with
+`git clone --depth 1 https://github.com/STEPBible/STEPBible-Data sources/STEPBible-Data`)
+and aligns every Hebrew, Aramaic and Greek word of the source text with its
+lemma tag, morphology, gloss and a brief lexicon entry, writing `site/morph/`
+(one file per book, loaded on demand; `logs/morph_report.md` shows the
+alignment, 99.9% of 442,835 words). In the reader: click any original-language
+word for its parsing and lexicon entry; *interlinear* puts gloss and code under
+every word; *all occurrences* is a concordance of that lexeme; *grammar
+search* finds words by form (e.g. every Piel participle, every aorist passive
+in a book).
+
 ### Target languages
 
 The pipeline translates into several languages from the same sources; each

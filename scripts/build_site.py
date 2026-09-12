@@ -143,6 +143,23 @@ mark { background:var(--hl); color:inherit; border-radius:3px; padding:0 .1em; }
 .orig.greek { font-family:"Gentium Plus","SBL Greek","Palatino Linotype","Times New Roman",serif; }
 .orig[dir=rtl] { text-align:right; }
 .orig sup.v { vertical-align:.7em; }
+.w { cursor:pointer; border-radius:3px; } .w:hover { background:var(--soft); } .w.sel { background:var(--hl); }
+main.inter .orig .w { display:inline-block; text-align:center; margin:0 .2em .45em 0; vertical-align:top; line-height:1.4; }
+main.inter .orig .w::after { content:attr(data-g); display:block; font:11px/1.25 system-ui,sans-serif; color:var(--muted); direction:ltr; max-width:9em; white-space:normal; margin-top:.1em; }
+main.inter .orig .w[data-m]::before { content:attr(data-m); display:block; font:9.5px/1.2 ui-monospace,Consolas,monospace; color:var(--accent); direction:ltr; }
+#wpop { position:fixed; z-index:40; max-width:26rem; background:var(--card); color:var(--fg); border:1px solid var(--border); border-radius:10px;
+  box-shadow:0 10px 30px rgba(0,0,0,.25); padding:.7rem .9rem; font:13px/1.45 system-ui,sans-serif; white-space:normal; direction:ltr; text-align:left; }
+#wpop .hw { font-size:1.35em; } #wpop .hw .orig { font-size:1em; } #wpop .tl { color:var(--muted); margin-left:.4em; } #wpop .pos { color:var(--muted); font-size:11px; margin-left:.4em; }
+#wpop .parse { margin:.35rem 0; } #wpop .parse code { font:11px ui-monospace,Consolas,monospace; color:var(--accent); margin-left:.4em; }
+#wpop .meaning { color:var(--muted); font-size:12px; margin-top:.35rem; max-height:9em; overflow:auto; }
+#wpop .acts { margin-top:.5rem; } #wpop .acts a { margin-right:.9rem; cursor:pointer; color:var(--accent); text-decoration:underline; }
+#wpop .pre { color:var(--muted); font-size:12px; }
+.tabs a.tool { border-style:dashed; }
+.gs { display:grid; grid-template-columns:repeat(auto-fill,minmax(11rem,1fr)); gap:.5rem .8rem; margin:.6rem 0 1rem; font:13px system-ui,sans-serif; }
+.gs label { display:flex; flex-direction:column; gap:.2rem; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.05em; }
+.gs select, .gs input { font:14px system-ui,sans-serif; padding:.35rem .5rem; border:1px solid var(--border); border-radius:8px; background:var(--card); color:var(--fg); }
+.gs button { grid-column:1 / -1; justify-self:start; font:14px system-ui,sans-serif; padding:.45rem 1rem; border:1px solid var(--accent); border-radius:8px; background:var(--accent); color:#fff; cursor:pointer; }
+.hit .orig { display:block; margin-top:.15rem; } .hit mark { background:var(--hl); color:inherit; border-radius:3px; }
 .lt { font:600 10px system-ui,sans-serif; color:var(--muted); text-transform:uppercase;
   letter-spacing:.05em; margin:0 .3em; vertical-align:.5em; user-select:none; }
 p.ov { margin:0 0 .6em; }
@@ -201,6 +218,10 @@ __READALOUD_CSS__
     (Cambridge, 1887–1909; public domain); digital edition by the Open Greek and Latin project, University of Leipzig, 2015,
     <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>,
     <a href="https://github.com/OpenGreekAndLatin/First1KGreek">https://github.com/OpenGreekAndLatin/First1KGreek</a> (data/tlg0527).</p>
+  <p><b>Word tags, glosses and brief lexicon:</b> STEPBible data (Translators Amalgamated Hebrew OT and Greek NT, brief lexicons, morphology code
+    expansions) created by <a href="https://www.STEPBible.org">STEPBible.org</a> based on work at Tyndale House, Cambridge,
+    <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, from <a href="https://github.com/STEPBible/STEPBible-Data">github.com/STEPBible</a>
+    (reformatted for this reader; the original data is distributed only from that repository).</p>
   <p><b>Translations:</b> produced from the Hebrew, Aramaic and Greek above by a local language model, checked and corrected by the project.
     Full notes: LEGAL.md in the project repository.</p>
 </footer>
@@ -269,6 +290,171 @@ function neighbours(book, ch) {
 }
 
 function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+
+/* ---------- morphology: every Hebrew, Aramaic and Greek word tagged (STEPBible data, CC BY 4.0), loaded per book on demand ---------- */
+const MORPH = {};                                        // morph/<Book>.js fills MORPH["Book name"]
+const _loaded = {};
+function loadJs(src){ return _loaded[src] || (_loaded[src] = new Promise((ok, no) => { const el = document.createElement("script"); el.src = src; el.onload = ok; el.onerror = () => { delete _loaded[src]; no(new Error(src)); }; document.head.appendChild(el); })); }
+const morphLoad = book => MORPH[disp(book)] ? Promise.resolve() : loadJs(`morph/${book}.js`);
+const lexLoad = () => typeof LEX !== "undefined" ? Promise.resolve() : loadJs("morph/lex.js");
+const concLoad = () => typeof CONC !== "undefined" ? Promise.resolve() : loadJs("morph/conc.js");
+const WRE = /[\p{L}\p{M}\p{N}]+(?:['\u2019][\p{L}\p{M}\p{N}]+)*/gu;   // same tokenizer as build_morph.py
+const attr = t => esc(t).replace(/"/g, "&quot;");
+function wrapSrc(text, book, ch, v){                     // words as spans; gloss + code attached when the book's tags are loaded
+  const m = MORPH[disp(book)], vw = m && m[ch] && m[ch][v]; let i = 0, out = "", last = 0;
+  for (const x of text.matchAll(WRE)) {
+    const w = vw && vw[i];
+    out += esc(text.slice(last, x.index)) + `<span class="w" data-k="${book}/${ch}/${v}/${i}"${w ? ` data-g="${attr(w[2])}" data-m="${attr(w[1])}"` : ""}>${esc(x[0])}</span>`;
+    i++; last = x.index + x[0].length;
+  }
+  return out + esc(text.slice(last));
+}
+let inter = localStorage.getItem("inter") === "1";
+function toggleInter(){ inter = !inter; localStorage.setItem("inter", inter ? "1" : "0"); route(); }
+const TAGRE = /[HG]\d{4}[A-Za-z]?/g;
+function rootTag(tags){ const m = tags.match(/\{([^}]+)\}/); return m ? m[1] : (tags.match(TAGRE) || [tags])[0]; }
+function parseCode(code){                                // "HR/Ncfsa" -> "Preposition + Noun (Singular Feminine, Absolute)"; Greek codes are looked up whole
+  if (typeof MORPHX === "undefined" || !code) return code || "";
+  if (!/^[HA]/.test(code)) return MORPHX[code] || code;
+  const lang = code[0], parts = code.split("/");
+  return parts.map((p, i) => MORPHX[i ? lang + p : p] || MORPHX[p] || p).join(" + ");
+}
+const wpop = document.createElement("div"); wpop.id = "wpop"; wpop.hidden = true; document.body.appendChild(wpop);
+let wsel = null;
+function hidePop(){ wpop.hidden = true; if (wsel) { wsel.classList.remove("sel"); wsel = null; } }
+async function showPop(el){
+  const [book, ch, v, i] = el.dataset.k.split("/");
+  await morphLoad(book); await lexLoad();
+  const m = MORPH[disp(book)], d = m && m[ch] && m[ch][v] && m[ch][v][i];
+  if (wsel) wsel.classList.remove("sel"); wsel = el; el.classList.add("sel");
+  let html = `<div class="hw"><span class="orig">${esc(el.textContent)}</span>`;
+  if (!d) { html += `</div><div class="pre">No tag for this word.</div>`; }
+  else {
+    const root = rootTag(d[0]), e = LEX[root], greek = /^G/.test(root);
+    if (!greek) html += `<span class="tl">${esc(d[3])}</span>`;
+    html += `</div>`;
+    if (e) html += `<div><b class="orig">${esc(e[0])}</b><span class="tl">${esc(e[1])}</span><span class="pos">${esc(e[2])}</span> — ${esc(e[3])}</div>`;
+    html += `<div class="parse">${esc(parseCode(d[1]))}<code>${esc(d[1])}</code></div>`;
+    html += `<div>gloss: <b>${esc(d[2])}</b>${greek && d[3] && d[3] !== d[2] ? ` · <span class="tl">${esc(d[3])}</span>` : ""}</div>`;
+    const extra = (d[0].match(TAGRE) || []).filter(t => t !== root && LEX[t]);
+    if (extra.length) html += `<div class="pre">with: ${extra.map(t => `${esc(LEX[t][0])} <i>${esc(LEX[t][3])}</i>`).join(", ")}</div>`;
+    if (e && e[4]) html += `<div class="meaning">${esc(e[4])}</div>`;
+    html += `<div class="acts"><a onclick="showConc('${root}')">all occurrences</a><a onclick="gsOpen('${root}', '${attr(d[1])}')">this form elsewhere</a><a onclick="hidePop()">close</a></div>`;
+  }
+  wpop.innerHTML = html; wpop.hidden = false;
+  const r = el.getBoundingClientRect(), W = wpop.offsetWidth, H = wpop.offsetHeight;
+  let x = Math.min(r.left, window.innerWidth - W - 10), y = r.bottom + 6; if (y + H > window.innerHeight - 8) y = Math.max(8, r.top - H - 6);
+  wpop.style.left = Math.max(8, x) + "px"; wpop.style.top = y + "px";
+}
+document.addEventListener("click", e => { const w = e.target.closest("main .w"); if (w) { showPop(w); return; } if (!e.target.closest("#wpop")) hidePop(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") hidePop(); });
+window.addEventListener("hashchange", hidePop);
+const byNum = {}; for (const b in ORDER) byNum[ORDER[b]] = b;
+function verseHtml(b, ch, v, mark){                      // one source verse with token `mark` highlighted
+  const src = DATA[b] && DATA[b][ch] && DATA[b][ch].src, t = src && src[v]; if (!t) return "";
+  const L = LANGS[DATA[b][ch].lang || "hbo"]; let i = 0, out = "", last = 0;
+  for (const x of t.matchAll(WRE)) { out += esc(t.slice(last, x.index)) + (i === mark ? `<mark>${esc(x[0])}</mark>` : esc(x[0])); i++; last = x.index + x[0].length; }
+  return `<span class="orig ${L.script.toLowerCase()}" dir="${L.dir}">${out + esc(t.slice(last))}</span>`;
+}
+function hitsHtml(refs, cap){
+  let html = "", n = 0, lastBook = null;
+  for (const [bn, ch, v, i] of refs) {
+    if (n++ >= cap) { html += `<p class="empty">… and ${refs.length - cap} more (narrow the search to see them)</p>`; break; }
+    const b = byNum[bn]; if (!b) continue;
+    if (b !== lastBook) { html += `<h3 style="font:600 13px system-ui,sans-serif;color:var(--muted);margin:1rem 0 .3rem">${disp(b)}</h3>`; lastBook = b; }
+    html += `<div class="hit" onclick="location.hash='#${b}/${ch}/${v}'"><div class="ref">${disp(b)} ${ch}:${v}</div>${verseHtml(b, ch, v, i)}</div>`;
+  }
+  return html;
+}
+async function showConc(tag){                            // concordance: every occurrence of a lexeme, in canonical order
+  hidePop(); await concLoad(); await lexLoad(); navRender(null);
+  const refs = CONC[tag] || [], e = LEX[tag];
+  const main = $("#main"); main.className = ""; main.setAttribute("dir", "ltr");
+  main.innerHTML = `<h2><span class="orig">${e ? esc(e[0]) : esc(tag)}</span><small class="lang">${e ? esc(e[1]) + " · " + esc(e[3]) + " · " : ""}${tag} · ${refs.length} occurrence${refs.length === 1 ? "" : "s"}</small></h2>`
+    + (e && e[4] ? `<p class="empty" style="margin:0 0 1rem">${esc(e[4])}</p>` : "") + `<div id="results">${hitsHtml(refs, 800)}</div>`;
+  window.scrollTo(0, 0);
+}
+/* ---- grammar search: words by form, over the tagged text of the whole Bible (loaded on first use) ---- */
+const GS = {
+  H: {fn: {V:"Verb", N:"Noun", A:"Adjective", P:"Pronoun", R:"Preposition", C:"Conjunction", D:"Adverb", T:"Particle", S:"Suffix"},
+      stem: {q:"Qal", N:"Niphal", p:"Piel", P:"Pual", h:"Hiphil", H:"Hophal", t:"Hithpael", o:"Polel", O:"Polal", r:"Hithpolel", m:"Poel", M:"Poal", k:"Palel", K:"Pulal", Q:"Qal passive", l:"Pilpel", L:"Polpal", f:"Hithpalpel", D:"Nithpael", j:"Pealal", i:"Pilel", u:"Hothpaal", c:"Tiphil", v:"Hishtaphel", w:"Nithpalel", y:"Nithpoel", z:"Hithpoel"},
+      form: {p:"Perfect", q:"Sequential perfect", i:"Imperfect", w:"Sequential imperfect", h:"Cohortative", j:"Jussive", v:"Imperative", r:"Participle active", s:"Participle passive", a:"Infinitive absolute", c:"Infinitive construct"},
+      person: {1:"1st", 2:"2nd", 3:"3rd"}, gender: {m:"masculine", f:"feminine", c:"common", b:"both"}, number: {s:"singular", p:"plural", d:"dual"}, state: {a:"absolute", c:"construct", d:"determined"}},
+  G: {fn: {N:"Noun", A:"Adjective", T:"Article", V:"Verb", P:"Personal pronoun", R:"Relative pronoun", D:"Demonstrative pronoun", C:"Reciprocal pronoun", F:"Reflexive pronoun", S:"Possessive pronoun", I:"Interrogative pronoun", X:"Indefinite pronoun", K:"Correlative pronoun", Q:"Correlative/interrogative", PREP:"Preposition", CONJ:"Conjunction", ADV:"Adverb", PRT:"Particle", INJ:"Interjection", COND:"Conditional", HEB:"Hebrew word", ARAM:"Aramaic word"},
+      tense: {P:"Present", I:"Imperfect", F:"Future", A:"Aorist", R:"Perfect", L:"Pluperfect"}, voice: {A:"Active", M:"Middle", P:"Passive", E:"Middle or passive", D:"Middle deponent", O:"Passive deponent", N:"Middle/passive deponent"},
+      mood: {I:"Indicative", S:"Subjunctive", O:"Optative", M:"Imperative", N:"Infinitive", P:"Participle"}, person: {1:"1st", 2:"2nd", 3:"3rd"},
+      kase: {N:"Nominative", G:"Genitive", D:"Dative", A:"Accusative", V:"Vocative"}, number: {S:"singular", P:"plural"}, gender: {M:"masculine", F:"feminine", N:"neuter"}}
+};
+const sel = (id, label, opts, val) => `<label>${label}<select id="gs_${id}"><option value="">any</option>${Object.entries(opts).map(([k, v]) => `<option value="${k}" ${k === val ? "selected" : ""}>${v}</option>`).join("")}</select></label>`;
+function gsOpen(tag, code){
+  hidePop(); navRender(null);
+  const lang = (tag && /^G/.test(tag)) || (code && !/^[HA]/.test(code)) ? "G" : (code && code[0] === "A" ? "A" : "H");
+  const main = $("#main"); main.className = ""; main.setAttribute("dir", "ltr");
+  main.innerHTML = `<h2>Grammar search<small class="lang">words by form, whole Bible</small></h2><div class="gs" id="gsform"></div><div id="results"></div>`;
+  const form = $("#gsform");
+  const render = () => {
+    const L = $("#gs_lang") ? $("#gs_lang").value : lang, g = GS[L === "G" ? "G" : "H"];
+    let h = `<label>language<select id="gs_lang"><option value="H" ${L==="H"?"selected":""}>Hebrew</option><option value="A" ${L==="A"?"selected":""}>Aramaic</option><option value="G" ${L==="G"?"selected":""}>Greek</option></select></label>`;
+    h += sel("fn", "function", g.fn, "");
+    if (L !== "G") h += sel("stem", "stem (verbs)", g.stem, "") + sel("form", "form (verbs)", g.form, "") + sel("person", "person", g.person, "") + sel("gender", "gender", g.gender, "") + sel("number", "number", g.number, "") + sel("state", "state (nouns)", g.state, "");
+    else h += sel("tense", "tense", g.tense, "") + sel("voice", "voice", g.voice, "") + sel("mood", "mood", g.mood, "") + sel("person", "person", g.person, "") + sel("kase", "case", g.kase, "") + sel("number", "number", g.number, "") + sel("gender", "gender", g.gender, "");
+    h += `<label>lexeme tag (from a word's popup)<input id="gs_tag" value="${tag ? attr(tag) : ""}" placeholder="e.g. H1288A or G5485"></label>`;
+    h += `<label>book<select id="gs_book"><option value="">all</option>${srcBooks.map(b => `<option value="${b}">${disp(b)}</option>`).join("")}</select></label>`;
+    h += `<button id="gs_run">Search</button>`;
+    form.innerHTML = h;
+    $("#gs_lang").onchange = render;
+    $("#gs_run").onclick = gsRun;
+    if (code) { for (const f of gsFieldsFromCode(code)) { const el = $("#gs_" + f[0]); if (el) el.value = f[1]; } code = null; }
+  };
+  render();
+}
+function gsFieldsFromCode(code){                         // prefill the form from a word's code: "HVqp3ms" / "V-AAI-3S" / "N-NSF"
+  const out = [];
+  if (/^[HA]/.test(code)) { const c = code.split("/").pop().replace(/^[HA]/, ""), fn = c[0]; out.push(["fn", fn]);
+    if (fn === "V") { out.push(["stem", c[1]], ["form", c[2]]); const t = c.slice(3); const p = t.match(/[123]/); if (p) out.push(["person", p[0]]); const g = t.match(/[mfcb]/); if (g) out.push(["gender", g[0]]); const n = t.match(/[spd]/); if (n) out.push(["number", n[0]]); }
+    else if (fn === "N" || fn === "A") { const t = c.slice(2); if (t[0]) out.push(["gender", t[0]]); if (t[1]) out.push(["number", t[1]]); if (t[2]) out.push(["state", t[2]]); } }
+  else { const parts = code.split("-"); out.push(["fn", parts[0]]);
+    if (parts[0] === "V" && parts[1]) { const tvm = parts[1].replace(/^2/, ""); out.push(["tense", tvm[0]], ["voice", tvm[1]], ["mood", tvm[2]]); const t = parts[2] || ""; if (/^[123]/.test(t)) { out.push(["person", t[0]], ["number", t[1]]); } else if (t) { out.push(["kase", t[0]], ["number", t[1]], ["gender", t[2]]); } }
+    else if (parts[1] && /^[NGDAV][SP][MFN]$/.test(parts[1])) out.push(["kase", parts[1][0]], ["number", parts[1][1]], ["gender", parts[1][2]]); }
+  return out;
+}
+function gsMatch(code, q){                               // does a word's code satisfy the form
+  if (!code) return false;
+  if (q.lang !== "G") {
+    const c = code.split("/").pop(); if (c[0] !== q.lang && !(code[0] === q.lang && code.split("/").length === 1)) { if (code[0] !== q.lang) return false; }
+    const body = c.replace(/^[HA]/, "");
+    if (q.fn && body[0] !== q.fn) return false;
+    if (body[0] === "V") { if (q.stem && body[1] !== q.stem) return false; if (q.form && body[2] !== q.form) return false;
+      const t = body.slice(3); if (q.person && !t.includes(q.person)) return false; if (q.gender && !t.includes(q.gender)) return false; if (q.number && !t.includes(q.number)) return false; }
+    else { const t = body.slice(1); if (q.stem || q.form) return false; if (q.person && !t.includes(q.person)) return false; if (q.gender && !t.includes(q.gender)) return false; if (q.number && !t.includes(q.number)) return false; if (q.state && !t.endsWith(q.state)) return false; }
+    return true;
+  }
+  const parts = code.split("-");
+  if (q.fn && parts[0] !== q.fn) return false;
+  if (parts[0] === "V") { const tvm = (parts[1] || "").replace(/^2/, ""); if (q.tense && tvm[0] !== q.tense) return false; if (q.voice && tvm[1] !== q.voice) return false; if (q.mood && tvm[2] !== q.mood) return false;
+    const t = parts[2] || ""; if (q.person && t[0] !== q.person) return false; if (q.kase && !(t.length === 3 && t[0] === q.kase)) return false;
+    if (q.number && !(t.length === 2 ? t[1] === q.number : t[1] === q.number)) return false; if (q.gender && t[2] !== q.gender) return false; }
+  else { const t = parts[1] || ""; if (q.tense || q.voice || q.mood || q.person) return false; if (q.kase && t[0] !== q.kase) return false; if (q.number && t[1] !== q.number) return false; if (q.gender && t[2] !== q.gender) return false; }
+  return true;
+}
+async function gsRun(){
+  const val = id => ($("#gs_" + id) || {}).value || "";
+  const q = {lang: val("lang"), fn: val("fn"), stem: val("stem"), form: val("form"), person: val("person"), gender: val("gender"), number: val("number"), state: val("state"),
+             tense: val("tense"), voice: val("voice"), mood: val("mood"), kase: val("kase"), tag: val("tag").trim(), book: val("book")};
+  const res = $("#results"); res.innerHTML = `<p class="empty">Loading the tagged text…</p>`;
+  const books = q.book ? [q.book] : srcBooks.filter(b => (q.lang === "G") === (ORDER[b] > 39));
+  let loadedN = 0;
+  for (const b of books) { try { await morphLoad(b); } catch (e) {} loadedN++; if (loadedN % 8 === 0) res.innerHTML = `<p class="empty">Loading the tagged text… ${loadedN}/${books.length}</p>`; }
+  const hits = [];
+  for (const b of books) { const m = MORPH[disp(b)]; if (!m) continue;
+    for (const ch in m) for (const v in m[ch]) { const ws = m[ch][v];
+      for (let i = 0; i < ws.length; i++) { const w = ws[i]; if (!w) continue;
+        if (q.tag && rootTag(w[0]) !== q.tag && !(w[0].match(TAGRE) || []).includes(q.tag)) continue;
+        if (!gsMatch(w[1], q)) continue;
+        hits.push([ORDER[b], +ch, +v, i]); if (hits.length >= 5000) break; } } }
+  hits.sort((a, b) => a[0] - b[0] || a[1] - b[1] || a[2] - b[2] || a[3] - b[3]);
+  res.innerHTML = `<p class="empty">${hits.length}${hits.length >= 5000 ? "+" : ""} word${hits.length === 1 ? "" : "s"} found.</p>` + hitsHtml(hits, 600);
+}
 const vtag = (src, n) => src._lang ? `<span class="lt">${LANGS[src._lang[n]].name}</span>` : "";
 const ruby = h => h.replace(/\{([^{}|\]]+)\|([^{}\]]+)[}\]]/g, "<ruby>$1<rt>$2</rt></ruby>");   // {漢字|かんじ} furigana notation
 const flat = t => ruby(esc(t)).replace(/\n\n/g,"\n").trim();
@@ -302,9 +488,10 @@ function renderChapter(book, ch, highlightVerse) {
     for (const t of haveTargets)
       html += `<a class="${v==='tr'&&shown===t?'on':''} ${trs[t]?'':'off'}" onclick="setTl('${t}');setView('tr')">${TARGETS[t].native}</a>`;
     html += `<span class="sep"></span><a class="${v==='par'?'on':''} ${tr?'':'off'}" onclick="setView('par')">Side by side</a>`;
-    html += `<a class="${v==='all'?'on':''} ${(avail.length + (lxx?1:0))>1?'':'off'}" onclick="setView('all')">Compare</a></div>`;
+    html += `<a class="${v==='all'?'on':''} ${(avail.length + (lxx?1:0))>1?'':'off'}" onclick="setView('all')">Compare</a><a class="tool ${inter?'on':''}" onclick="toggleInter()" title="gloss and parsing under every Hebrew / Greek word">interlinear</a><a class="tool" onclick="gsOpen()" title="find words by grammatical form">grammar search</a></div>`;
   }
-  main.className = (v === "par" || v === "all") ? "wide" : "";
+  main.className = ((v === "par" || v === "all") ? "wide" : "") + (inter && src && (v === "orig" || v === "par" || v === "all") ? " inter" : "");
+  if (src && !MORPH[disp(book)]) morphLoad(book).then(() => { if (location.hash.slice(1).split("/").slice(0, 2).join("/") === `${book}/${ch}`) route(); }).catch(() => {});
   main.setAttribute("lang", (v === "orig" || v === "lxx") ? "" : (shown || "en"));
   main.setAttribute("dir", (v === "tr" && shown) ? tdir(shown) : "ltr");
   if (!tr) html += `<p class="empty" style="margin:0 0 1.2rem">Not translated yet${src ? ` — showing the ${v === "lxx" ? "Septuagint" : L.name}.` : "."}</p>`;
@@ -312,7 +499,7 @@ function renderChapter(book, ch, highlightVerse) {
   const nums = Object.keys(v === "tr" ? trs[shown].verses : src).filter(k => !k.startsWith("_")).map(Number).sort((a,b)=>a-b);
   if (v === "orig") {
     for (const n of nums)
-      html += `<p class="ov ${ocls}" dir="${rtl?'rtl':'ltr'}" id="v-${book}-${ch}-${n}"><sup class="v">${n}</sup>${vtag(src,n)}${esc(src[n])}</p>`;
+      html += `<p class="ov ${ocls}" dir="${rtl?'rtl':'ltr'}" id="v-${book}-${ch}-${n}"><sup class="v">${n}</sup>${vtag(src,n)}${wrapSrc(src[n], book, ch, n)}</p>`;
   } else if (v === "lxx") {
     for (const n of nums)
       html += `<p class="ov orig greek" id="v-${book}-${ch}-${n}"><sup class="v">${n}</sup>${lxx[n] ? esc(lxx[n]) : "<i style='color:var(--muted)'>— no aligned verse</i>"}</p>`;
@@ -320,13 +507,13 @@ function renderChapter(book, ch, highlightVerse) {
     html += `<div class="par">`;
     for (const n of nums) {
       const e = trs[shown].verses[n];
-      html += `<div class="o ${ocls}" dir="${rtl?'rtl':'ltr'}"><sup class="v">${n}</sup>${vtag(src,n)}${esc(src[n])}</div>
+      html += `<div class="o ${ocls}" dir="${rtl?'rtl':'ltr'}"><sup class="v">${n}</sup>${vtag(src,n)}${wrapSrc(src[n], book, ch, n)}</div>
         <div class="e" lang="${shown}" dir="${tdir(shown)}" id="v-${book}-${ch}-${n}"><sup class="v">${n}</sup>${e ? flat(e) : "<i style='color:var(--muted)'>—</i>"}</div>`;
     }
     html += `</div>`;
   } else if (v === "all") {
     for (const n of nums) {
-      html += `<div class="cmp" id="v-${book}-${ch}-${n}"><div class="row"><span class="lab">${L.name} ${n}</span><span class="txt ${ocls}" dir="${rtl?'rtl':'ltr'}">${vtag(src,n)}${esc(src[n])}</span></div>`;
+      html += `<div class="cmp" id="v-${book}-${ch}-${n}"><div class="row"><span class="lab">${L.name} ${n}</span><span class="txt ${ocls}" dir="${rtl?'rtl':'ltr'}">${vtag(src,n)}${wrapSrc(src[n], book, ch, n)}</span></div>`;
       if (lxx && lxx[n]) html += `<div class="row"><span class="lab">LXX</span><span class="txt orig greek">${esc(lxx[n])}</span></div>`;
       for (const t of avail) {
         const e = trs[t].verses[n];

@@ -19,3 +19,4 @@ android/local.properties
 .claude/
 logs/app.log
 logs/webview/
+sources/STEPBible-Data/
