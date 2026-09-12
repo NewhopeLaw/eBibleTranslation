@@ -166,6 +166,24 @@ chapter's statements, the rest of the book's, and the anchors. Nothing is summed
 into a date: no chronological system is asserted, and no copyrighted chronology
 is used.
 
+### Long model jobs (the work queue)
+
+The jobs that need the GPU for hours — writing the lexicon, sorting every
+lexeme into fields of meaning, translating the lexicon into each target
+language — are queued and run one after another:
+
+```
+start_work.cmd                  (double-click) run the queue until it is done
+start_work.cmd --list           what is queued and how far along it is
+start_work.cmd --hours 8        stop starting new jobs after eight hours
+python scripts/work.py --only lexicon,domains
+```
+
+Every job writes as it goes and skips what is already written, so the window
+can be closed or the machine rebooted and the queue simply resumes. A
+translation run in the dashboard can go at the same time; they share the GPU
+and both run slower. Progress is appended to `logs/work.log`.
+
 ### Rebuilding the study layers
 
 ```
@@ -183,6 +201,7 @@ python scripts/build_all.py --fast      skip morphology and syntax (the slow two
 | chronology | `build_chronology.py` | our English text + hand-entered anchors | `chron.js` |
 | our lexicon | `build_lexicon.py` | the model over the concordance | `lexx.js` |
 | our lexicon, translated | `translate_lexicon.py --lang zh` | the model over our entries | `lexx_<lang>.js` |
+| fields of meaning | `build_domains.py` | the model over our glosses | `domains.js` |
 
 Every file loads on demand, so the reader page itself stays the same size and
 the whole set works offline and inside an Android bundle.

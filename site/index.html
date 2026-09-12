@@ -104,7 +104,7 @@ main.inter .orig .w[data-m]::before { content:attr(data-m); display:block; font:
 #wpop .acts { margin-top:.5rem; } #wpop .acts a { margin-right:.9rem; cursor:pointer; color:var(--accent); text-decoration:underline; }
 #wpop .pre { color:var(--muted); font-size:12px; }
 #wpop .syn { margin:.35rem 0; font-size:12px; } #wpop .syn b { color:var(--fg); font-weight:600; }
-#wpop .syn a { color:var(--accent); cursor:pointer; } #wpop .dom { font-size:12px; color:var(--muted); margin-top:.25rem; }
+#wpop .syn a { color:var(--accent); cursor:pointer; } #wpop .dom { font-size:12px; color:var(--muted); margin-top:.25rem; } #wpop .dom a { color:var(--accent); cursor:pointer; }
 #wpop .dom .orig { color:var(--fg); } .w.ante { outline:2px solid var(--accent); border-radius:3px; }
 #wpop .ours { border-top:1px solid var(--border); margin-top:.55rem; padding-top:.5rem; }
 #wpop .ours h5 { font:600 10px system-ui,sans-serif; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 .3rem; }
@@ -243,7 +243,8 @@ ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
     <a href="https://github.com/Clear-Bible/macula-hebrew">MACULA Hebrew</a> linguistic datasets © 2022-2024 Biblica, Inc.,
     <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> — word class, the word a pronoun refers back to, a gloss, and for Greek the role in the clause.
     The semantic-domain fields in those datasets are United Bible Societies material (Louw-Nida for Greek, the Semantic Dictionary of Biblical Hebrew for Hebrew),
-    used by permission rather than licensed onward, so this project does not use them; the senses shown under <i>This project's entry</i> are written from the text instead.</p>
+    used by permission rather than licensed onward, so this project does not use them. The fields of meaning shown in the word popup are this project's own: the model sorts
+    each lexeme by its usage and gloss into a list of fields written for this project (<code>scripts/build_domains.py</code>).</p>
   <p><b>Chronology:</b> the numbers are extracted from this project's own English translation by pattern, each shown with its verse; nothing is summed into a date.
     The anchor dates are entered by hand from Assyrian, Babylonian, Persian and Roman records and are marked as externally attested. No copyrighted chronology
     (Thiele, Finegan or any other) is used.</p>
@@ -545,6 +546,23 @@ const concLoad = () => typeof CONC !== "undefined" ? Promise.resolve() : loadJs(
 const lexxLoad = () => typeof LEXX !== "undefined" ? Promise.resolve() : loadJs("morph/lexx.js");
 const LEXXT = {};                                        // our entries in the target languages
 const lexxtLoad = t => (t === "en" || LEXXT[t]) ? Promise.resolve() : loadJs(`morph/lexx_${t}.js`);
+const domLoad = () => typeof DOMTAG !== "undefined" ? Promise.resolve() : loadJs("morph/domains.js");
+function domHtml(tag){                                   // our own fields of meaning, assigned by the model from the glosses
+  if (typeof DOMTAG === "undefined") return "";
+  const ds = DOMTAG[tag]; if (!ds || !ds.length) return "";
+  return `<div class="dom">Fields of meaning: ${ds.map(d => `<a onclick="showDomain('${attr(d)}')">${esc(d)}</a>`).join(" · ")}</div>`;
+}
+async function showDomain(name){
+  hidePop(); await domLoad(); await lexLoad(); navRender(null);
+  const members = (DOMAINS[name] || []);
+  const main = $("#main"); main.className = ""; main.setAttribute("dir", "ltr");
+  main.innerHTML = `<h2>${esc(name)}<small class="lang">${members.length} word${members.length === 1 ? "" : "s"} · this project's own grouping</small></h2>`
+    + `<p class="empty" style="margin:0 0 1rem">Assigned by the model from each word's usage and gloss. The fields are this project's own wording; no published domain lexicon is used.</p>`
+    + `<div class="plist">` + members.map(([t, head, gloss]) =>
+        `<a onclick="showConc('${attr(t)}')"><span class="orig">${esc(head)}</span> <small>${esc(gloss)}</small></a>`).join("") + `</div>`
+    + `<p class="empty">Other fields: ${DOMLIST.filter(d => d !== name && (DOMAINS[d] || []).length).map(d => `<a style="cursor:pointer;color:var(--accent)" onclick="showDomain('${attr(d)}')">${esc(d)}</a>`).join(" · ")}</p>`;
+  window.scrollTo(0, 0);
+}
 const refLink = r => { const m = r.match(/^(.+?) (\d+):(\d+)$/); return m ? `<a onclick="hidePop();location.hash='#${m[1].replace(/ /g, "_")}/${m[2]}/${m[3]}'">${r}</a>` : esc(r); };
 function oursHtml(tag){                                  // our own entry, written by the model from the concordance
   const base = typeof LEXX !== "undefined" ? LEXX[tag] : null; if (!base) return "";
@@ -584,7 +602,7 @@ let wsel = null;
 function hidePop(){ wpop.hidden = true; if (wsel) { wsel.classList.remove("sel"); wsel = null; } }
 async function showPop(el){
   const [book, ch, v, i] = el.dataset.k.split("/");
-  await morphLoad(book); await lexLoad(); await Promise.all([lexxLoad().catch(() => {}), lexxtLoad(tl).catch(() => {}), synLoad(book).catch(() => {})]);
+  await morphLoad(book); await lexLoad(); await Promise.all([lexxLoad().catch(() => {}), lexxtLoad(tl).catch(() => {}), synLoad(book).catch(() => {}), domLoad().catch(() => {})]);
   const m = MORPH[disp(book)], d = m && m[ch] && m[ch][v] && m[ch][v][i];
   if (wsel) wsel.classList.remove("sel"); wsel = el; el.classList.add("sel");
   let html = `<div class="hw"><span class="orig">${esc(el.textContent)}</span>`;
@@ -596,6 +614,7 @@ async function showPop(el){
     if (e) html += `<div><b class="orig">${esc(e[0])}</b><span class="tl">${esc(e[1])}</span><span class="pos">${esc(e[2])}</span> — ${esc(e[3])}</div>`;
     html += `<div class="parse">${esc(parseCode(d[1]))}<code>${esc(d[1])}</code></div>`;
     html += synHtml(book, ch, v, +i);
+    html += domHtml(root);
     html += `<div>gloss: <b>${esc(d[2])}</b>${greek && d[3] && d[3] !== d[2] ? ` · <span class="tl">${esc(d[3])}</span>` : ""}</div>`;
     const extra = (d[0].match(TAGRE) || []).filter(t => t !== root && LEX[t]);
     if (extra.length) html += `<div class="pre">with: ${extra.map(t => `${esc(LEX[t][0])} <i>${esc(LEX[t][3])}</i>`).join(", ")}</div>`;
