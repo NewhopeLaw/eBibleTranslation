@@ -20,6 +20,8 @@ from them and carry the obligations below.
 
 | Word-level tags for both testaments: lemma / Extended Strong's number, morphology, gloss; brief Hebrew and Greek lexicons; morphology-code expansions | [STEPBible/STEPBible-Data](https://github.com/STEPBible/STEPBible-Data) (Tyndale House, Cambridge) | `master`, cloned 2026-09-11 into `sources/STEPBible-Data` | **CC BY 4.0**, stated in the README and at the head of every data file | `scripts/build_morph.py` aligns the tags to our text and writes `site/morph/*.js` for the reader's word popups, interlinear view, concordance and grammar search |
 
+| Cross-references between verses (~341,000 with positive votes) | [OpenBible.info cross-reference dataset](https://www.openbible.info/labs/cross-references/) — the *Treasury of Scripture Knowledge* (1830s, public domain) extended and ranked by reader votes | `cross-references.zip` downloaded 2026-09-11 into `sources/openbible/` (data stamped 2026-09-07) | **CC BY 4.0**, stated on the page and in the file header line `#www.openbible.info CC-BY` | `scripts/build_refs.py` writes `site/morph/xref_*.js`; the reader shows them when a verse number is clicked |
+
 GitHub's own license detection (`gh api repos/<owner>/<repo> --jq .license`)
 reports: morphhb `NOASSERTION` (custom LICENSE.md, quoted below), SBLGNT
 `CC-BY-4.0`, byzantine-majority-text `Unlicense`, First1KGreek `CC-BY-SA-4.0`.
@@ -240,6 +242,28 @@ not committed or redistributed (`sources/` is ignored), honouring their
 request; the reader's footer credits STEPBible.org and Tyndale House, states
 CC BY 4.0, links to the repository, and says the data was reformatted. No
 changes are made to the data beyond selection and reformatting.
+
+## 4c. OpenBible.info cross-references
+
+**Source:** https://www.openbible.info/labs/cross-references/ (file
+`https://a.openbible.info/data/cross-references.zip`). The page states the
+data is "licensed under a Creative Commons Attribution License"
+(CC BY 4.0), and the data file's header row carries
+`#www.openbible.info CC-BY`. The underlying reference set is the
+*Treasury of Scripture Knowledge* (R. A. Torrey et al., 1830s), long in the
+public domain; OpenBible.info added community voting to rank the references.
+
+**How it is used.** `scripts/build_refs.py` keeps the links with a positive
+vote count and writes them per book as `site/morph/xref_*.js`. The reader
+credits the Treasury and OpenBible.info in its footer with the licence link.
+The raw archive is not committed (`sources/openbible/` is ignored).
+
+**Parallel passages are not taken from any harmony.** They are computed in
+`scripts/build_refs.py` from the STEPBible word tags: verses within the
+Gospels, within Samuel–Kings–Chronicles (with Isaiah, Jeremiah, Psalms and
+Micah) and within the Torah are compared by the rare lexemes they share
+(idf-weighted cosine). No text of Aland, Robertson or any modern harmony is
+read. The reader states this.
 
 ## 4a. Provenance rule for reference data and tools
 

@@ -160,6 +160,22 @@ main.inter .orig .w[data-m]::before { content:attr(data-m); display:block; font:
 .gs select, .gs input { font:14px system-ui,sans-serif; padding:.35rem .5rem; border:1px solid var(--border); border-radius:8px; background:var(--card); color:var(--fg); }
 .gs button { grid-column:1 / -1; justify-self:start; font:14px system-ui,sans-serif; padding:.45rem 1rem; border:1px solid var(--accent); border-radius:8px; background:var(--accent); color:#fff; cursor:pointer; }
 .hit .orig { display:block; margin-top:.15rem; } .hit mark { background:var(--hl); color:inherit; border-radius:3px; }
+sup.v { cursor:pointer; } sup.v:hover { text-decoration:underline; }
+#vpop { position:fixed; z-index:40; width:min(30rem,92vw); max-height:70vh; overflow:auto; background:var(--card); color:var(--fg);
+  border:1px solid var(--border); border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,.25); padding:.7rem .9rem;
+  font:13px/1.5 system-ui,sans-serif; white-space:normal; direction:ltr; text-align:left; }
+#vpop h4 { font:600 11px system-ui,sans-serif; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:.6rem 0 .3rem; }
+#vpop h4:first-child { margin-top:0; }
+#vpop .r { padding:.25rem .4rem; border-radius:6px; cursor:pointer; display:grid; grid-template-columns:7.5rem 1fr; gap:.5rem; align-items:baseline; }
+#vpop .r:hover { background:var(--soft); } #vpop .r b { font:600 12px system-ui,sans-serif; color:var(--accent); }
+#vpop .r span { color:var(--muted); overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+#vpop .cls { float:right; cursor:pointer; color:var(--muted); }
+.harm { border-bottom:1px solid var(--border); padding:.6rem 0; }
+.harm .vs { display:grid; gap:.4rem 1.2rem; align-items:start; }
+.harm .vs > div { min-width:0; }
+.harm .lab { font:600 11px system-ui,sans-serif; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.15rem; cursor:pointer; }
+.harm .lab:hover { color:var(--accent); } .harm .lab small { text-transform:none; letter-spacing:0; opacity:.7; }
+.harm .txt { white-space:pre-wrap; } .harm .txt.dim { color:var(--muted); }
 .lt { font:600 10px system-ui,sans-serif; color:var(--muted); text-transform:uppercase;
   letter-spacing:.05em; margin:0 .3em; vertical-align:.5em; user-select:none; }
 p.ov { margin:0 0 .6em; }
@@ -222,6 +238,9 @@ __READALOUD_CSS__
     expansions) created by <a href="https://www.STEPBible.org">STEPBible.org</a> based on work at Tyndale House, Cambridge,
     <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, from <a href="https://github.com/STEPBible/STEPBible-Data">github.com/STEPBible</a>
     (reformatted for this reader; the original data is distributed only from that repository).</p>
+  <p><b>Cross-references:</b> the <i>Treasury of Scripture Knowledge</i> (1830s, public domain) as extended and voted on by readers at
+    <a href="https://www.openbible.info/labs/cross-references/">OpenBible.info</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+    Parallel passages are computed from the word tags above, not taken from any harmony.</p>
   <p><b>Translations:</b> produced from the Hebrew, Aramaic and Greek above by a local language model, checked and corrected by the project.
     Full notes: LEGAL.md in the project repository.</p>
 </footer>
@@ -290,6 +309,75 @@ function neighbours(book, ch) {
 }
 
 function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+
+/* ---------- cross-references (OpenBible.info, CC BY 4.0) and parallels (computed from the word tags) ---------- */
+const XREF = {}, xrefLoad = book => XREF[disp(book)] ? Promise.resolve() : loadJs(`morph/xref_${book}.js`);
+const parLoad = () => typeof PAR !== "undefined" ? Promise.resolve() : loadJs("morph/parallels.js");
+const vnum = (b, c, n) => `<sup class="v" onclick="showRefs('${b}',${c},${n},event)">${n}</sup>`;
+function verseText(b, c, v){                            // the shown translation if there is one, else the original
+  const d = DATA[b] && DATA[b][c]; if (!d) return ["", "en", "ltr"];
+  const t = d.tr && (d.tr[tl] || d.tr[Object.keys(d.tr)[0]]);
+  if (t && t.verses[v]) return [t.verses[v].replace(/\n+/g, " "), d.tr[tl] ? tl : Object.keys(d.tr)[0], "ltr"];
+  const src = d.src && d.src[v]; const L = LANGS[d.lang || "hbo"];
+  return src ? [src, "", L.dir] : ["", "", "ltr"];
+}
+const vpop = document.createElement("div"); vpop.id = "vpop"; vpop.hidden = true; document.body.appendChild(vpop);
+function hideRefs(){ vpop.hidden = true; }
+function refRow(b, c, v, end, note){
+  const [txt, lang, dir] = verseText(b, c, v);
+  return `<div class="r" onclick="location.hash='#${b}/${c}/${v}';hideRefs()"><b>${disp(b)} ${c}:${v}${end && end > v ? "–" + end : ""}${note ? ` <span style="font-weight:400;color:var(--muted)">${note}</span>` : ""}</b><span lang="${lang}" dir="${dir}">${ruby(esc(txt))}</span></div>`;
+}
+async function showRefs(book, ch, v, ev){
+  if (ev) ev.stopPropagation();
+  await Promise.all([xrefLoad(book).catch(() => {}), parLoad().catch(() => {})]);
+  const xr = ((XREF[disp(book)] || {})[ch] || {})[v] || [];
+  const pr = typeof PAR !== "undefined" ? (((PAR[disp(book)] || {})[ch] || {})[v] || []) : [];
+  let html = `<span class="cls" onclick="hideRefs()">✕</span><h4>${disp(book)} ${ch}:${v}</h4>`;
+  if (pr.length) html += `<h4>Parallel passages</h4>` + pr.map(r => refRow(r[0].replace(/ /g, "_"), r[1], r[2], 0, Math.round(r[3] * 100) + "% shared wording")).join("");
+  if (xr.length) html += `<h4>Cross-references <span style="font-weight:400;text-transform:none">(Treasury of Scripture Knowledge via OpenBible.info)</span></h4>`
+    + xr.slice(0, 25).map(r => refRow(r[0].replace(/ /g, "_"), r[1], r[2], r[3], "")).join("");
+  if (!pr.length && !xr.length) html += `<p class="empty">No cross-references or parallels for this verse.</p>`;
+  vpop.innerHTML = html; vpop.hidden = false;
+  const el = ev && ev.target, r = el ? el.getBoundingClientRect() : {left: 40, bottom: 80, top: 80};
+  const W = vpop.offsetWidth, H = vpop.offsetHeight;
+  let x = Math.min(r.left, window.innerWidth - W - 10), y = r.bottom + 6;
+  if (y + H > window.innerHeight - 8) y = Math.max(8, window.innerHeight - H - 8);
+  vpop.style.left = Math.max(8, x) + "px"; vpop.style.top = y + "px";
+}
+document.addEventListener("click", e => { if (!e.target.closest("#vpop") && !e.target.closest("sup.v")) hideRefs(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") hideRefs(); });
+window.addEventListener("hashchange", hideRefs);
+async function renderHarmony(book, ch, head, shown){    // the chapter beside its parallels, verse by verse
+  const main = $("#main");
+  main.innerHTML = head + `<p class="empty">Loading parallels…</p>`;
+  await parLoad().catch(() => {});
+  const P = typeof PAR !== "undefined" ? (PAR[disp(book)] || {})[ch] || {} : {};
+  const src = (DATA[book][ch] || {}).src || {};
+  const nums = Object.keys(src).filter(k => !k.startsWith("_")).map(Number).sort((a, b) => a - b);
+  const freq = {}; for (const r of Object.values(P).flat()) freq[r[0]] = (freq[r[0]] || 0) + 1;      // the books this chapter most parallels, at most four columns
+  const others = Object.keys(freq).sort((a, b) => freq[b] - freq[a]).slice(0, 4).sort((a, b) => ORDER[a.replace(/ /g, "_")] - ORDER[b.replace(/ /g, "_")]);
+  let html = head;
+  if (!others.length) { main.innerHTML = head + `<p class="empty">No parallel passages found for ${disp(book)} ${ch}. Parallels are computed for the Gospels, for Samuel–Kings–Chronicles with Isaiah, Jeremiah, Psalms and Micah, and within the Torah.</p>`; return; }
+  const cols = [disp(book), ...others];
+  html += `<p class="empty" style="margin:0 0 .6rem">Verses sharing wording with ${others.join(", ")}. Percentages are shared vocabulary, weighted by how rare each word is.</p>`;
+  html += `<div class="harm" style="position:sticky;top:3.2rem;background:var(--bg);z-index:2;padding-top:.2rem"><div class="vs" style="grid-template-columns:repeat(${cols.length},1fr)">`
+    + cols.map(c => `<div class="lab" style="cursor:default">${c}</div>`).join("") + `</div></div>`;
+  for (const n of nums) {
+    const hits = P[n] || [];
+    const cells = cols.map(cname => {
+      if (cname === disp(book)) {
+        const [txt, lang, dir] = verseText(book, ch, n);
+        return `<div><div class="lab" onclick="location.hash='#${book}/${ch}/${n}'">${disp(book)} ${ch}:${n}</div><div class="txt" lang="${lang}" dir="${dir}">${ruby(esc(txt))}</div></div>`;
+      }
+      const h = hits.filter(r => r[0] === cname).sort((a, b) => b[3] - a[3])[0];
+      if (!h) return `<div></div>`;
+      const b2 = h[0].replace(/ /g, "_"), [txt, lang, dir] = verseText(b2, h[1], h[2]);
+      return `<div><div class="lab" onclick="location.hash='#${b2}/${h[1]}/${h[2]}'">${h[0]} ${h[1]}:${h[2]} <small>${Math.round(h[3] * 100)}%</small></div><div class="txt dim" lang="${lang}" dir="${dir}">${ruby(esc(txt))}</div></div>`;
+    }).join("");
+    html += `<div class="harm" id="v-${book}-${ch}-${n}"><div class="vs" style="grid-template-columns:repeat(${cols.length},1fr)">${cells}</div></div>`;
+  }
+  main.innerHTML = html;
+}
 
 /* ---------- morphology: every Hebrew, Aramaic and Greek word tagged (STEPBible data, CC BY 4.0), loaded per book on demand ---------- */
 const MORPH = {};                                        // morph/<Book>.js fills MORPH["Book name"]
@@ -488,38 +576,39 @@ function renderChapter(book, ch, highlightVerse) {
     for (const t of haveTargets)
       html += `<a class="${v==='tr'&&shown===t?'on':''} ${trs[t]?'':'off'}" onclick="setTl('${t}');setView('tr')">${TARGETS[t].native}</a>`;
     html += `<span class="sep"></span><a class="${v==='par'?'on':''} ${tr?'':'off'}" onclick="setView('par')">Side by side</a>`;
-    html += `<a class="${v==='all'?'on':''} ${(avail.length + (lxx?1:0))>1?'':'off'}" onclick="setView('all')">Compare</a><a class="tool ${inter?'on':''}" onclick="toggleInter()" title="gloss and parsing under every Hebrew / Greek word">interlinear</a><a class="tool" onclick="gsOpen()" title="find words by grammatical form">grammar search</a></div>`;
+    html += `<a class="${v==='all'?'on':''} ${(avail.length + (lxx?1:0))>1?'':'off'}" onclick="setView('all')">Compare</a><a class="${v==='harm'?'on':''}" onclick="setView('harm')" title="this chapter beside its parallels elsewhere">parallels</a><a class="tool ${inter?'on':''}" onclick="toggleInter()" title="gloss and parsing under every Hebrew / Greek word">interlinear</a><a class="tool" onclick="gsOpen()" title="find words by grammatical form">grammar search</a></div>`;
   }
-  main.className = ((v === "par" || v === "all" || v === "hl") ? "wide" : "") + (inter && src && (v === "orig" || v === "par" || v === "all" || v === "hl") ? " inter" : "");
+  main.className = ((v === "par" || v === "all" || v === "hl" || v === "harm") ? "wide" : "") + (inter && src && (v === "orig" || v === "par" || v === "all" || v === "hl") ? " inter" : "");
   if (src && !MORPH[disp(book)]) morphLoad(book).then(() => { if (location.hash.slice(1).split("/").slice(0, 2).join("/") === `${book}/${ch}`) route(); }).catch(() => {});
   main.setAttribute("lang", (v === "orig" || v === "lxx" || v === "hl") ? "" : (shown || "en"));
   main.setAttribute("dir", (v === "tr" && shown) ? tdir(shown) : "ltr");
   if (!tr) html += `<p class="empty" style="margin:0 0 1.2rem">Not translated yet${src ? ` — showing the ${v === "lxx" ? "Septuagint" : L.name}.` : "."}</p>`;
+  if (v === "harm") { renderHarmony(book, ch, html, shown); return; }
   if (!tr && v !== "orig" && v !== "lxx" && v !== "hl" && v !== "all") { main.innerHTML = html; return; }
   const nums = Object.keys(v === "tr" ? trs[shown].verses : src).filter(k => !k.startsWith("_")).map(Number).sort((a,b)=>a-b);
   if (v === "orig") {
     for (const n of nums)
-      html += `<p class="ov ${ocls}" dir="${rtl?'rtl':'ltr'}" id="v-${book}-${ch}-${n}"><sup class="v">${n}</sup>${vtag(src,n)}${wrapSrc(src[n], book, ch, n)}</p>`;
+      html += `<p class="ov ${ocls}" dir="${rtl?'rtl':'ltr'}" id="v-${book}-${ch}-${n}">${vnum(book,ch,n)}${vtag(src,n)}${wrapSrc(src[n], book, ch, n)}</p>`;
   } else if (v === "lxx") {
     for (const n of nums)
-      html += `<p class="ov orig greek" id="v-${book}-${ch}-${n}"><sup class="v">${n}</sup>${lxx[n] ? esc(lxx[n]) : "<i style='color:var(--muted)'>— no aligned verse</i>"}</p>`;
+      html += `<p class="ov orig greek" id="v-${book}-${ch}-${n}">${vnum(book,ch,n)}${lxx[n] ? esc(lxx[n]) : "<i style='color:var(--muted)'>— no aligned verse</i>"}</p>`;
   } else if (v === "hl") {                                   // Hebrew and Septuagint side by side
     html += `<div class="par">`;
     for (const n of nums)
-      html += `<div class="o ${ocls}" dir="${rtl?'rtl':'ltr'}"><sup class="v">${n}</sup>${vtag(src,n)}${wrapSrc(src[n], book, ch, n)}</div>
-        <div class="o orig greek" id="v-${book}-${ch}-${n}"><sup class="v">${n}</sup>${lxx[n] ? esc(lxx[n]) : "<i style='color:var(--muted)'>— no aligned verse</i>"}</div>`;
+      html += `<div class="o ${ocls}" dir="${rtl?'rtl':'ltr'}">${vnum(book,ch,n)}${vtag(src,n)}${wrapSrc(src[n], book, ch, n)}</div>
+        <div class="o orig greek" id="v-${book}-${ch}-${n}">${vnum(book,ch,n)}${lxx[n] ? esc(lxx[n]) : "<i style='color:var(--muted)'>— no aligned verse</i>"}</div>`;
     html += `</div>`;
   } else if (v === "par") {
     html += `<div class="par">`;
     for (const n of nums) {
       const e = trs[shown].verses[n];
-      html += `<div class="o ${ocls}" dir="${rtl?'rtl':'ltr'}"><sup class="v">${n}</sup>${vtag(src,n)}${wrapSrc(src[n], book, ch, n)}</div>
-        <div class="e" lang="${shown}" dir="${tdir(shown)}" id="v-${book}-${ch}-${n}"><sup class="v">${n}</sup>${e ? flat(e) : "<i style='color:var(--muted)'>—</i>"}</div>`;
+      html += `<div class="o ${ocls}" dir="${rtl?'rtl':'ltr'}">${vnum(book,ch,n)}${vtag(src,n)}${wrapSrc(src[n], book, ch, n)}</div>
+        <div class="e" lang="${shown}" dir="${tdir(shown)}" id="v-${book}-${ch}-${n}">${vnum(book,ch,n)}${e ? flat(e) : "<i style='color:var(--muted)'>—</i>"}</div>`;
     }
     html += `</div>`;
   } else if (v === "all") {
     for (const n of nums) {
-      html += `<div class="cmp" id="v-${book}-${ch}-${n}"><div class="row"><span class="lab">${L.name} ${n}</span><span class="txt ${ocls}" dir="${rtl?'rtl':'ltr'}">${vtag(src,n)}${wrapSrc(src[n], book, ch, n)}</span></div>`;
+      html += `<div class="cmp" id="v-${book}-${ch}-${n}"><div class="row"><span class="lab">${L.name} ${vnum(book,ch,n)}</span><span class="txt ${ocls}" dir="${rtl?'rtl':'ltr'}">${vtag(src,n)}${wrapSrc(src[n], book, ch, n)}</span></div>`;
       if (lxx && lxx[n]) html += `<div class="row"><span class="lab">LXX</span><span class="txt orig greek">${esc(lxx[n])}</span></div>`;
       for (const t of avail) {
         const e = trs[t].verses[n];
@@ -535,9 +624,9 @@ function renderChapter(book, ch, highlightVerse) {
       const vid = `v-${book}-${ch}-${n}`;
       if (t.includes("\n")) {
         flush();
-        html += `<div class="poetry" id="${vid}"><sup class="v">${n}</sup>${ruby(esc(t)).replace(/\n\n/g,"\n").trimEnd()}</div>`;
+        html += `<div class="poetry" id="${vid}">${vnum(book,ch,n)}${ruby(esc(t)).replace(/\n\n/g,"\n").trimEnd()}</div>`;
       } else {
-        para.push(`<span id="${vid}"><sup class="v">${n}</sup>${ruby(esc(t))}</span>`);
+        para.push(`<span id="${vid}">${vnum(book,ch,n)}${ruby(esc(t))}</span>`);
       }
     }
     flush();

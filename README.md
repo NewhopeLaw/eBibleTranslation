@@ -100,6 +100,18 @@ every word; *all occurrences* is a concordance of that lexeme; *grammar
 search* finds words by form (e.g. every Piel participle, every aorist passive
 in a book).
 
+### Cross-references and parallels
+
+`scripts/build_refs.py` writes two more layers into `site/morph/`: the
+OpenBible.info cross-reference set (CC BY 4.0, ~341,000 voted links from the
+public-domain *Treasury of Scripture Knowledge*; download
+`https://a.openbible.info/data/cross-references.zip` into `sources/openbible/`),
+and parallel passages computed from the word tags themselves — verses in the
+Gospels, in Samuel–Kings–Chronicles with Isaiah, Jeremiah, Psalms and Micah,
+and in the Torah, matched by the rare lexemes they share. In the reader: click
+a verse number for its cross-references and parallels; the *parallels* tab
+lays the chapter out in columns beside the books it parallels.
+
 ### Target languages
 
 The pipeline translates into several languages from the same sources; each

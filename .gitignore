@@ -20,3 +20,4 @@ android/local.properties
 logs/app.log
 logs/webview/
 sources/STEPBible-Data/
+sources/openbible/
