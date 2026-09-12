@@ -78,7 +78,9 @@ input:focus { outline:2px solid var(--accent); border-color:transparent; }
 #ref { width:9rem; } #q { width:13rem; }
 .goto { display:flex; align-items:center; gap:.4rem; font:12px system-ui, sans-serif; color:var(--muted); white-space:nowrap; }
 button.fs { cursor:pointer; width:2.2rem; }
-button.fs:hover { border-color:var(--accent); }
+button.fs:hover:not(:disabled) { border-color:var(--accent); }
+button.fs:disabled { opacity:.3; cursor:default; }
+#back { font-size:16px; line-height:1; }
 select#bookSel { max-width:11rem; display:none; }
 main { max-width:42rem; margin:0 auto; padding:1.4rem 1.2rem 5rem; }
 main.wide { max-width:66rem; }
@@ -265,6 +267,7 @@ __READALOUD_CSS__
 </head>
 <body>
 <header>
+  <button class="fs" id="back" title="Back to what you were looking at (Backspace)" disabled>&#8592;</button>
   <span class="brand">eBible — from the Hebrew, Aramaic &amp; Greek</span>
   <select id="bookSel"></select>
   <select id="tlSel" title="Translation language"></select>
@@ -350,6 +353,10 @@ let tl = localStorage.getItem("tl");
 if (!haveTargets.includes(tl)) tl = haveTargets[0] || "en";
 let view = localStorage.getItem("view") || "tr";   // tr | orig | par | all
 function setView(v){ view = v; localStorage.setItem("view", v); route(); }
+/* Every link to a reference goes through here. A theme, an entry or a list of
+   hits is drawn over the chapter without changing the address, so a link back
+   to the chapter already in the address would otherwise do nothing at all. */
+function goto(h){ if (location.hash === h) route(); else location.hash = h; }
 function setTl(t){ tl = t; localStorage.setItem("tl", t); $("#tlSel").value = t; if (view === "orig") view = "tr"; route(); }
 const tlSel = $("#tlSel");
 tlSel.innerHTML = haveTargets.map(t => `<option value="${t}">${TARGETS[t].native}</option>`).join("");
@@ -380,7 +387,7 @@ function navRender(current) {
   sel.innerHTML = srcBooks.map(b =>
     `<option value="${b}" ${b===current?'selected':''}>${disp(b)}</option>`).join("");
 }
-$("#bookSel").addEventListener("change", e => location.hash = `#${e.target.value}/1`);
+$("#bookSel").addEventListener("change", e => goto(`#${e.target.value}/1`));
 
 function neighbours(book, ch) {
   const chs = chapterList(book);
@@ -406,7 +413,7 @@ function bookArgHtml(book){
   if (argument) h += `<div class="lead">${esc(argument)}</div>`;
   if ((concerns || []).length) h += `<div class="tags">${concerns.map(c => `<span>${esc(c)}</span>`).join("")}</div>`;
   if ((sections || []).length) { h += `<h3>Its sections</h3>`;
-    h += sections.map(sc => `<div class="sec"><b onclick="location.hash='#${book}/${(String(sc.chapters).match(/\d+/) || [1])[0]}'">${esc(sc.chapters)}</b><span><b style="font-weight:600">${esc(sc.section)}</b> — ${esc(sc.what)}</span></div>`).join(""); }
+    h += sections.map(sc => `<div class="sec"><b onclick="goto('#${book}/${(String(sc.chapters).match(/\d+/) || [1])[0]}')">${esc(sc.chapters)}</b><span><b style="font-weight:600">${esc(sc.section)}</b> — ${esc(sc.what)}</span></div>`).join(""); }
   return h + `</div>`;
 }
 function trajHtml(id){
@@ -438,7 +445,7 @@ async function renderThemes(book, ch, head){
     const t = THEMES[id];
     const nm = themeName(t);
     html += `<div class="t"><b onclick="showTheme('${id}')">${nm ? `<span class="orig">${esc(nm)}</span> <span style="font-weight:400;color:var(--muted)">${esc(themeGloss(t))}</span>` : esc((t && t[0]) || label)}</b>
-      <span class="vv" onclick="location.hash='#${book}/${ch}${/^\d+$/.test(verses) ? "/" + verses : ""}'">${esc(verses || "")}</span>
+      <span class="vv" onclick="goto('#${book}/${ch}${/^\d+$/.test(verses) ? "/" + verses : ""}')">${esc(verses || "")}</span>
       <div class="w">${esc(label && t && label !== t[0] ? "in this chapter: " + label : ((t && t[1]) || ""))}</div>
       ${t ? `<div class="w">${t[2].length} passage${t[2].length === 1 ? "" : "s"} in all</div>` : ""}</div>`;
   }
@@ -457,7 +464,7 @@ async function showTheme(id){
   html += `<div class="thm">` + t[2].map(([b, c, vv]) => {
     const bb = b.replace(/ /g, "_");
     const [txt] = verseText(bb, c, (String(vv).match(/\d+/) || [1])[0]);
-    return `<div class="t"><b onclick="location.hash='#${bb}/${c}'">${esc(b)} ${c}${vv ? ":" + esc(String(vv)) : ""}</b>
+    return `<div class="t"><b onclick="goto('#${bb}/${c}')">${esc(b)} ${c}${vv ? ":" + esc(String(vv)) : ""}</b>
       <div class="w">${esc(String(txt).slice(0, 170))}</div></div>`;
   }).join("") + `</div>`;
   if ((t[3] || []).length) {
@@ -503,7 +510,7 @@ async function renderChron(book, ch, head){
 }
 function chronRow(r, withRef){
   const [b, c, v, kind, who, n, unit, of, text] = r;
-  return `<div class="row"><b onclick="location.hash='#${b.replace(/ /g, "_")}/${c}/${v}'">${withRef ? esc(b) + " " : ""}${c}:${v}</b>
+  return `<div class="row"><b onclick="goto('#${b.replace(/ /g, "_")}/${c}/${v}')">${withRef ? esc(b) + " " : ""}${c}:${v}</b>
     <span><span class="num">${n}</span> ${esc(unit)} — ${esc(KIND[kind] || kind)}${who ? " · " + esc(who) : ""}${of ? " · of " + esc(of) : ""}
     <div class="q">“${esc(text)}”</div></span></div>`;
 }
@@ -524,7 +531,7 @@ function synHtml(book, ch, v, i){
 }
 function gotoWord(book, ch, v, i){
   hidePop();
-  location.hash = `#${book}/${ch}/${v}`;
+  goto(`#${book}/${ch}/${v}`);
   setTimeout(() => { const el = document.querySelector(`main .w[data-k="${book}/${ch}/${v}/${i}"]`); if (el) { el.classList.add("ante"); el.scrollIntoView({block: "center"}); setTimeout(() => el.classList.remove("ante"), 4000); } }, 500);
 }
 const APP = {}, appLoad = book => APP[disp(book)] ? Promise.resolve() : Promise.all([loadJs(`morph/app_${book}.js`), typeof APPED !== "undefined" ? 0 : loadJs("morph/app_meta.js")]);
@@ -637,7 +644,7 @@ const vpop = document.createElement("div"); vpop.id = "vpop"; vpop.hidden = true
 function hideRefs(){ vpop.hidden = true; }
 function refRow(b, c, v, end, note){
   const [txt, lang, dir] = verseText(b, c, v);
-  return `<div class="r" onclick="location.hash='#${b}/${c}/${v}';hideRefs()"><b>${disp(b)} ${c}:${v}${end && end > v ? "–" + end : ""}${note ? ` <span style="font-weight:400;color:var(--muted)">${note}</span>` : ""}</b><span lang="${lang}" dir="${dir}">${ruby(esc(txt))}</span></div>`;
+  return `<div class="r" onclick="goto('#${b}/${c}/${v}');hideRefs()"><b>${disp(b)} ${c}:${v}${end && end > v ? "–" + end : ""}${note ? ` <span style="font-weight:400;color:var(--muted)">${note}</span>` : ""}</b><span lang="${lang}" dir="${dir}">${ruby(esc(txt))}</span></div>`;
 }
 async function showRefs(book, ch, v, ev){
   if (ev) ev.stopPropagation();
@@ -682,12 +689,12 @@ async function renderHarmony(book, ch, head, shown){    // the chapter beside it
     const cells = cols.map(cname => {
       if (cname === disp(book)) {
         const [txt, lang, dir] = verseText(book, ch, n);
-        return `<div><div class="lab" onclick="location.hash='#${book}/${ch}/${n}'">${disp(book)} ${ch}:${n}</div><div class="txt" lang="${lang}" dir="${dir}">${ruby(esc(txt))}</div></div>`;
+        return `<div><div class="lab" onclick="goto('#${book}/${ch}/${n}')">${disp(book)} ${ch}:${n}</div><div class="txt" lang="${lang}" dir="${dir}">${ruby(esc(txt))}</div></div>`;
       }
       const h = hits.filter(r => r[0] === cname).sort((a, b) => b[3] - a[3])[0];
       if (!h) return `<div></div>`;
       const b2 = h[0].replace(/ /g, "_"), [txt, lang, dir] = verseText(b2, h[1], h[2]);
-      return `<div><div class="lab" onclick="location.hash='#${b2}/${h[1]}/${h[2]}'">${h[0]} ${h[1]}:${h[2]} <small>${Math.round(h[3] * 100)}%</small></div><div class="txt dim" lang="${lang}" dir="${dir}">${ruby(esc(txt))}</div></div>`;
+      return `<div><div class="lab" onclick="goto('#${b2}/${h[1]}/${h[2]}')">${h[0]} ${h[1]}:${h[2]} <small>${Math.round(h[3] * 100)}%</small></div><div class="txt dim" lang="${lang}" dir="${dir}">${ruby(esc(txt))}</div></div>`;
     }).join("");
     html += `<div class="harm" id="v-${book}-${ch}-${n}"><div class="vs" style="grid-template-columns:repeat(${cols.length},1fr)">${cells}</div></div>`;
   }
@@ -764,7 +771,7 @@ async function showArgument(book){
   await theolLoad().catch(() => {});
   const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
   main.innerHTML = `<h2>${esc(disp(book))}<small class="lang">what the book argues</small></h2>` + bookArgHtml(book)
-    + `<p class="empty"><a style="cursor:pointer;color:var(--accent)" onclick="browseArguments()">all books</a> · <a style="cursor:pointer;color:var(--accent)" onclick="location.hash='#${book}/1'">read it</a></p>`;
+    + `<p class="empty"><a style="cursor:pointer;color:var(--accent)" onclick="browseArguments()">all books</a> · <a style="cursor:pointer;color:var(--accent)" onclick="goto('#${book}/1')">read it</a></p>`;
   window.scrollTo(0, 0);
 }
 async function browseLexicon(){                          // our own entries, the fullest first
@@ -818,7 +825,7 @@ async function searchSource(form){                       // find a Hebrew or Gre
   main.innerHTML = `<h2><span class="orig">${esc(form)}</span><small class="lang">${ids.length} verse${ids.length === 1 ? "" : "s"} in the original</small></h2>`
     + `<div id="results">` + ids.slice(0, 400).map(id => {
         const b = byNumBook[Math.floor(id / 1000000)], c = Math.floor(id / 1000) % 1000, v = id % 1000;
-        return b ? `<div class="hit" onclick="location.hash='#${b}/${c}/${v}'"><div class="ref">${disp(b)} ${c}:${v}</div>${verseHtml(b, c, v, -1)}</div>` : "";
+        return b ? `<div class="hit" onclick="goto('#${b}/${c}/${v}')"><div class="ref">${disp(b)} ${c}:${v}</div>${verseHtml(b, c, v, -1)}</div>` : "";
       }).join("") + `</div>`;
   window.scrollTo(0, 0);
 }
@@ -844,7 +851,7 @@ async function showDomain(name){
     + `<p class="empty">Other fields: ${DOMLIST.filter(d => d !== name && (DOMAINS[d] || []).length).map(d => `<a style="cursor:pointer;color:var(--accent)" onclick="showDomain('${attr(d)}')">${esc(d)}</a>`).join(" · ")}</p>`;
   window.scrollTo(0, 0);
 }
-const refLink = r => { const m = r.match(/^(.+?) (\d+):(\d+)$/); return m ? `<a onclick="hidePop();location.hash='#${m[1].replace(/ /g, "_")}/${m[2]}/${m[3]}'">${r}</a>` : esc(r); };
+const refLink = r => { const m = r.match(/^(.+?) (\d+):(\d+)$/); return m ? `<a onclick="hidePop();goto('#${m[1].replace(/ /g, "_")}/${m[2]}/${m[3]}')">${r}</a>` : esc(r); };
 function oursHtml(tag){                                  // our own entry, written by the model from the concordance
   const base = typeof LEXX !== "undefined" ? LEXX[tag] : null; if (!base) return "";
   const tr = (LEXXT[tl] || {})[tag];                     // shown in the reading language when that translation exists
@@ -926,7 +933,7 @@ function hitsHtml(refs, cap){
     if (n++ >= cap) { html += `<p class="empty">… and ${refs.length - cap} more (narrow the search to see them)</p>`; break; }
     const b = byNum[bn]; if (!b) continue;
     if (b !== lastBook) { html += `<h3 style="font:600 13px system-ui,sans-serif;color:var(--muted);margin:1rem 0 .3rem">${disp(b)}</h3>`; lastBook = b; }
-    html += `<div class="hit" onclick="location.hash='#${b}/${ch}/${v}'"><div class="ref">${disp(b)} ${ch}:${v}</div>${verseHtml(b, ch, v, i)}</div>`;
+    html += `<div class="hit" onclick="goto('#${b}/${ch}/${v}')"><div class="ref">${disp(b)} ${ch}:${v}</div>${verseHtml(b, ch, v, i)}</div>`;
   }
   return html;
 }
@@ -1144,7 +1151,7 @@ function goRef(input) {
     book = allBooks.find(b => b.toLowerCase().startsWith(t));
   }
   if (!book) return false;
-  location.hash = `#${book}/${m[2]||1}${m[3] ? "/"+m[3] : ""}`;
+  goto(`#${book}/${m[2]||1}${m[3] ? "/"+m[3] : ""}`);
   return true;
 }
 
@@ -1209,7 +1216,7 @@ async function search(q) {
   html += `<p class="empty">${hits.length}${hits.length >= 500 ? "+" : ""} verse${hits.length === 1 ? "" : "s"} found${cand ? "" : " · scanned, this text has no index yet"}.</p>`;
   for (const h of hits) {
     rx.lastIndex = 0;
-    html += `<div class="hit" lang="${tl}" dir="${tdir(tl)}" onclick="location.hash='#${h.book}/${h.ch}/${h.v}'">
+    html += `<div class="hit" lang="${tl}" dir="${tdir(tl)}" onclick="goto('#${h.book}/${h.ch}/${h.v}')">
       <div class="ref">${disp(h.book)} ${h.ch}:${h.v}</div>
       ${ruby(esc(h.t).replace(rx, m => `<mark>${m}</mark>`))}</div>`;
   }
@@ -1222,8 +1229,52 @@ function route() {
   if (!h) { const b = booksWith(tl)[0] || srcBooks[0]; if (b) location.hash = `#${b}/1`; return; }
   const [book, ch, v] = h.split("/");
   $("#q").value = "";
+  const p = readPlace();
+  trailPush(p.key, p.run);
   renderChapter(book, ch, v ? +v : null);
 }
+
+/* ---------- back: the trail of what has been looked at ---------- */
+/* A chapter has an address in the hash, but a theme, a lexicon entry, a field
+   of meaning or a list of occurrences does not: they are drawn straight into
+   the page. Without a trail of its own the reader has no way back out of
+   them, and a mistaken click is a dead end. Every page is remembered here,
+   however it was reached, and the arrow in the header walks back through
+   them. */
+const TRAIL = [];
+function trailPush(key, run){
+  const top = TRAIL[TRAIL.length - 1];
+  if (top && top.key === key) { top.run = run; return; }          // the same page again is not a step
+  if (top && key.startsWith("search|") && top.key.startsWith("search|")) TRAIL[TRAIL.length - 1] = {key, run};
+  else TRAIL.push({key, run});                                    // a search being typed stays one place
+  if (TRAIL.length > 300) TRAIL.shift();
+  backSync();
+}
+function backSync(){ const b = $("#back"); if (b) b.disabled = TRAIL.length < 2; }
+function goBack(){
+  if (TRAIL.length < 2) return;
+  TRAIL.pop();                                                    // where we are now
+  const p = TRAIL[TRAIL.length - 1];
+  backSync();
+  hidePop(); hideRefs();
+  p.run();
+}
+function readPlace(){                    // a chapter, as it was being read: the reference, the view, the language
+  const h = location.hash, v = view, t = tl;
+  return {key: `read|${h}|${v}|${t}`, run: () => {
+    view = v; localStorage.setItem("view", v);
+    if (t !== tl) { tl = t; localStorage.setItem("tl", t); const s = $("#tlSel"); if (s) s.value = t; }
+    if (location.hash === h) route(); else location.hash = h;     // an unchanged hash fires no event
+  }};
+}
+for (const name of ["browseThemes", "showTheme", "browseArguments", "showArgument", "browseLexicon", "showLexEntry",
+                    "browseLexemes", "showLexeme", "searchSource", "browseFields", "showDomain", "showConc",
+                    "gsOpen", "search"]) {
+  const fn = window[name];
+  if (typeof fn !== "function") continue;
+  window[name] = function(...a){ trailPush(name + "|" + a.join("|"), () => fn(...a)); return fn(...a); };
+}
+$("#back").onclick = goBack;
 let refDeb;                                   // the page follows the reference as it is typed; Enter is optional
 $("#ref").addEventListener("input", e => {
   clearTimeout(refDeb);
@@ -1242,11 +1293,12 @@ $("#q").addEventListener("input", e => {
 });
 document.addEventListener("keydown", e => {
   if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
+  if (e.key === "Backspace" || (e.altKey && e.key === "ArrowLeft")) { e.preventDefault(); goBack(); return; }
   const h = location.hash.slice(1).split("/");
   if (h.length < 2 || !DATA[h[0]]) return;
   const {prev, next} = neighbours(h[0], h[1]);
-  if (e.key === "ArrowLeft" && prev) location.hash = `#${prev.b}/${prev.c}`;
-  if (e.key === "ArrowRight" && next) location.hash = `#${next.b}/${next.c}`;
+  if (e.key === "ArrowLeft" && prev) goto(`#${prev.b}/${prev.c}`);
+  if (e.key === "ArrowRight" && next) goto(`#${next.b}/${next.c}`);
 });
 window.addEventListener("hashchange", route);
 $("#sources").onclick = () => $("#credits").scrollIntoView({behavior:"smooth", block:"start"});
