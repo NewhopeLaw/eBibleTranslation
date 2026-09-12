@@ -25,6 +25,8 @@ from them and carry the obligations below.
 | Place identifications and coordinates (1,111 located places, 4,812 verses) | [OpenBible.info Bible geocoding data](https://www.openbible.info/geo/), 2007 tab-delimited release (`geo/data/merged.txt`, `places.txt`) | downloaded 2026-09-11 into `sources/openbible/` | **CC BY 4.0** ("The dataset as a whole is licensed under the Creative Commons Attribution license") | `scripts/build_places.py` -> `site/morph/places.js`; the reader's *places* tab and the verse panel |
 | Coastlines, lakes and rivers for the base map | [Natural Earth](https://www.naturalearthdata.com/) 50m coastline, 50m lakes, 50m rivers, via [nvkelso/natural-earth-vector](https://github.com/nvkelso/natural-earth-vector) | downloaded 2026-09-11 into `sources/openbible/` | **Public domain** ("Everything here is public domain… Crediting the authors is unnecessary.") | clipped, simplified and written as SVG paths, so the map draws offline with no tiles or map service |
 
+| Clause role, word class, the word a pronoun refers back to, and the semantic-domain number for every word of the Greek NT | [Clear-Bible/macula-greek](https://github.com/Clear-Bible/macula-greek), `SBLGNT/tsv/macula-greek-SBLGNT.tsv` | downloaded 2026-09-11 into `sources/macula/` | **CC BY 4.0** — "MACULA Greek Linguistic Datasets © 2022-2024 by Biblica, Inc is licensed under CC BY 4.0" | `scripts/build_syntax.py` -> `site/morph/syn_*.js`, `domains.js`; shown in the reader's word popup |
+
 GitHub's own license detection (`gh api repos/<owner>/<repo> --jq .license`)
 reports: morphhb `NOASSERTION` (custom LICENSE.md, quoted below), SBLGNT
 `CC-BY-4.0`, byzantine-majority-text `Unlicense`, First1KGreek `CC-BY-SA-4.0`.
@@ -306,6 +308,26 @@ copyrighted, so this project asserts no manuscript sigla; the reader says so in
 its footer and in the panel itself. If an openly licensed manuscript apparatus
 becomes available (for example Tischendorf's 1872, whose digitisations would
 need checking), it could be added under the same rule.
+
+## 4f. MACULA Greek (syntax, participants, semantic domains)
+
+**Repository:** https://github.com/Clear-Bible/macula-greek — the file
+`SBLGNT/tsv/macula-greek-SBLGNT.tsv`, which is keyed to the SBLGNT, the same
+Greek text this project translates, so its word order matches ours exactly.
+
+**Status.** CC BY 4.0. The README states: "MACULA Greek Linguistic Datasets ©
+2022-2024 by Biblica, Inc is licensed under CC BY 4.0." The reader credits
+Biblica and links to the repository and the licence.
+
+**Louw-Nida domains.** The dataset carries the Louw-Nida semantic-domain
+*number* for each word. Louw and Nida's *Greek-English Lexicon of the New
+Testament Based on Semantic Domains* is copyrighted, and its domain titles are
+**not** reproduced here. The reader shows the number and the words that share
+it, so the grouping is visible without using their text. Nothing else from that
+lexicon is used.
+
+The Hebrew half of MACULA (also CC BY 4.0) is per-chapter XML of roughly 900 MB
+and is not yet used; Hebrew clause roles would follow the same rule.
 
 ## 4a. Provenance rule for reference data and tools
 

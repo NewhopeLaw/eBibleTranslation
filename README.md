@@ -144,6 +144,17 @@ the written Ketiv and the meaning and spelling variants. They appear under
 not of manuscripts — no manuscript sigla are asserted, because no openly
 licensed manuscript apparatus is available.
 
+### Clause roles, participants and semantic domains (Greek)
+
+`scripts/build_syntax.py` reads the MACULA Greek dataset for the SBLGNT (CC BY
+4.0, `sources/macula/greek.tsv`) and writes `site/morph/syn_*.js` and
+`domains.js`: for all 137,741 Greek words, the role in the clause, the word
+class, the semantic-domain number, and for pronouns the word they refer back
+to. The word popup then says what a word is doing in its clause, links a
+pronoun to its antecedent (which is highlighted when you jump to it), and lists
+the other words sharing its semantic domain. Domain titles are not used: they
+are copyrighted, so the grouping is shown by its members instead.
+
 ### Target languages
 
 The pipeline translates into several languages from the same sources; each
