@@ -249,9 +249,10 @@ dialog.sheet::backdrop { background:var(--scrim); }
   background:var(--card); color:var(--fg); border:1px solid var(--edge);
   box-shadow:0 6px 22px var(--shadow); font:13px/1.45 system-ui,sans-serif; }
 #zoomchip { bottom:calc(var(--chipUp,14px) + env(safe-area-inset-bottom));
-  display:flex; align-items:center; gap:.5rem; padding:.35rem .4rem .35rem .9rem; border-radius:999px; }
+  display:flex; align-items:center; gap:.5rem; padding:.35rem .4rem .35rem .9rem;
+  border-radius:999px; white-space:nowrap; }
 #zoomchip button { min-height:40px; padding:0 .95rem; border:0; border-radius:999px;
-  background:var(--accent); color:var(--on-accent); cursor:pointer;
+  background:var(--accent); color:var(--on-accent); cursor:pointer; white-space:nowrap;
   font:600 13px system-ui,sans-serif; }
 #toast { bottom:calc(var(--chipUp,14px) + env(safe-area-inset-bottom)); max-width:min(24rem,92vw);
   padding:.7rem 1rem; border-radius:14px; }
@@ -473,6 +474,13 @@ ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
   sup.v { position:relative; }
   sup.v::before { content:""; position:absolute; inset:-14px -10px; }
 }
+/* On a tablet the header wraps to two rows and takes a tenth of the screen
+   with it. The strapline goes, the boxes narrow, and the sources link goes
+   too — the settings tray behind the gear already has it. */
+@media (max-width:1040px){
+  header .brand, header .sources { display:none }
+  #q { width:10rem } #ref { width:7rem }
+}
 /* On a wide screen the same tray is a dialog in the middle of the page: it is
    the sheet's content that matters, not the gesture it arrived by. */
 @media (min-width:761px){
@@ -565,7 +573,7 @@ try {
     <button class="ib" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <div class="bd" id="setBody"><div id="setDyn"></div></div>
 </dialog>
-<div id="zoomchip" hidden role="status"><span id="zoomlvl"></span><button id="zoomreset" type="button">Reset zoom</button></div>
+<div id="zoomchip" hidden><span id="zoomlvl" role="status"></span><button id="zoomreset" type="button">Reset</button></div>
 <div id="toast" hidden role="status"></div>
 <footer id="credits">
   <h2>Source texts, licenses and attributions</h2>
@@ -1639,6 +1647,10 @@ for (const n in SHEETS) {
 }
 for (const n in OPENERS) for (const s of OPENERS[n]) { const el = $(s); if (el) el.onclick = () => openSheet(n); }
 window.addEventListener("hashchange", closeSheet);
+/* A modal <dialog> closes itself on Escape; the fallback for a browser without
+   showModal() does not, and a tray that traps a keyboard would be worse than
+   no tray at all. */
+document.addEventListener("keydown", e => { if (e.key === "Escape" && openName) closeSheet(); });
 
 /* The reference box and the search box are one element each, moved between the
    header and a tray as the screen changes, rather than copied into both — a
@@ -1867,6 +1879,7 @@ $("#zoomreset").onclick = () => {
 let toastT;
 function toast(msg){
   const t = $("#toast"); t.textContent = msg; t.hidden = false;
+  t.style.marginBottom = $("#zoomchip").hidden ? "" : "3.4rem";   // never on top of the magnifier's way back
   clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, 7000);
 }
 
