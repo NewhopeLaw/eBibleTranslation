@@ -432,27 +432,27 @@ function renderChapter(book, ch, highlightVerse) {
   const lxx = src && src._lxx;
   let v = view;
   if (!src) v = "tr";
-  else if (!tr) v = (v === "lxx" && lxx) ? "lxx" : "orig";
+  else if (!tr) v = ((v === "lxx" || v === "hl") && lxx) ? v : "orig";
   else if (v === "all" && avail.length < 2 && !lxx) v = "par";
-  if (v === "lxx" && !lxx) v = "orig";
+  if ((v === "lxx" || v === "hl") && !lxx) v = "orig";
   let html = `<h2>${disp(book)} ${ch}<small class="lang">${L.name}${lxx ? " + Septuagint" : ""}${tr ? " → " + TARGETS[shown].name : ""}</small></h2>`;
   html += `<div class="chnav">` + chs.map(c =>
     `<a href="#${book}/${c}" class="${c==ch?'on':''} ${trOf(book,c)[tl]?'':'untr'}">${c}</a>`).join("") + `</div>`;
   if (src) {
     html += `<div class="tabs"><a class="${v==='orig'?'on':''}" onclick="setView('orig')">${L.name}</a>`;
-    if (lxx) html += `<a class="${v==='lxx'?'on':''}" onclick="setView('lxx')" title="Swete's Septuagint">Septuagint</a>`;
+    if (lxx) html += `<a class="${v==='lxx'?'on':''}" onclick="setView('lxx')" title="Swete's Septuagint">Septuagint</a><a class="${v==='hl'?'on':''}" onclick="setView('hl')" title="Hebrew and the Septuagint side by side">Hebrew · Septuagint</a>`;
     html += `<span class="sep"></span>`;
     for (const t of haveTargets)
       html += `<a class="${v==='tr'&&shown===t?'on':''} ${trs[t]?'':'off'}" onclick="setTl('${t}');setView('tr')">${TARGETS[t].native}</a>`;
     html += `<span class="sep"></span><a class="${v==='par'?'on':''} ${tr?'':'off'}" onclick="setView('par')">Side by side</a>`;
     html += `<a class="${v==='all'?'on':''} ${(avail.length + (lxx?1:0))>1?'':'off'}" onclick="setView('all')">Compare</a><a class="tool ${inter?'on':''}" onclick="toggleInter()" title="gloss and parsing under every Hebrew / Greek word">interlinear</a><a class="tool" onclick="gsOpen()" title="find words by grammatical form">grammar search</a></div>`;
   }
-  main.className = ((v === "par" || v === "all") ? "wide" : "") + (inter && src && (v === "orig" || v === "par" || v === "all") ? " inter" : "");
+  main.className = ((v === "par" || v === "all" || v === "hl") ? "wide" : "") + (inter && src && (v === "orig" || v === "par" || v === "all" || v === "hl") ? " inter" : "");
   if (src && !MORPH[disp(book)]) morphLoad(book).then(() => { if (location.hash.slice(1).split("/").slice(0, 2).join("/") === `${book}/${ch}`) route(); }).catch(() => {});
-  main.setAttribute("lang", (v === "orig" || v === "lxx") ? "" : (shown || "en"));
+  main.setAttribute("lang", (v === "orig" || v === "lxx" || v === "hl") ? "" : (shown || "en"));
   main.setAttribute("dir", (v === "tr" && shown) ? tdir(shown) : "ltr");
   if (!tr) html += `<p class="empty" style="margin:0 0 1.2rem">Not translated yet${src ? ` — showing the ${v === "lxx" ? "Septuagint" : L.name}.` : "."}</p>`;
-  if (!tr && v !== "orig" && v !== "lxx" && v !== "all") { main.innerHTML = html; return; }
+  if (!tr && v !== "orig" && v !== "lxx" && v !== "hl" && v !== "all") { main.innerHTML = html; return; }
   const nums = Object.keys(v === "tr" ? trs[shown].verses : src).filter(k => !k.startsWith("_")).map(Number).sort((a,b)=>a-b);
   if (v === "orig") {
     for (const n of nums)
@@ -460,6 +460,12 @@ function renderChapter(book, ch, highlightVerse) {
   } else if (v === "lxx") {
     for (const n of nums)
       html += `<p class="ov orig greek" id="v-${book}-${ch}-${n}"><sup class="v">${n}</sup>${lxx[n] ? esc(lxx[n]) : "<i style='color:var(--muted)'>— no aligned verse</i>"}</p>`;
+  } else if (v === "hl") {                                   // Hebrew and Septuagint side by side
+    html += `<div class="par">`;
+    for (const n of nums)
+      html += `<div class="o ${ocls}" dir="${rtl?'rtl':'ltr'}"><sup class="v">${n}</sup>${vtag(src,n)}${wrapSrc(src[n], book, ch, n)}</div>
+        <div class="o orig greek" id="v-${book}-${ch}-${n}"><sup class="v">${n}</sup>${lxx[n] ? esc(lxx[n]) : "<i style='color:var(--muted)'>— no aligned verse</i>"}</div>`;
+    html += `</div>`;
   } else if (v === "par") {
     html += `<div class="par">`;
     for (const n of nums) {
