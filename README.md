@@ -100,6 +100,20 @@ described once in `TARGETS` in `scripts/books.py`:
 | `es` | Spanish | `prompts/targets/es.txt` | `targets/es/` | `output/es/` |
 | `ja` | Japanese | `prompts/targets/ja.txt` | `targets/ja/` | `output/ja/` |
 | `th` | Thai | `prompts/targets/th.txt` | `targets/th/` | `output/th/` |
+| `yue` | Cantonese, written colloquial (Traditional characters) | `prompts/targets/yue.txt` | `targets/yue/` | `output/yue/` |
+| `nan` | Taiwanese Hokkien, Han-character prose (MOE characters) | `prompts/targets/nan.txt` | `targets/nan/` | `output/nan/` |
+| `hak` | Hakka, Han-character prose (Sixian, MOE characters) | `prompts/targets/hak.txt` | `targets/hak/` | `output/hak/` |
+| `vi` | Vietnamese | `prompts/targets/vi.txt` | `targets/vi/` | `output/vi/` |
+| `ko` | Korean | `prompts/targets/ko.txt` | `targets/ko/` | `output/ko/` |
+| `fa` | Persian (right-to-left) | `prompts/targets/fa.txt` | `targets/fa/` | `output/fa/` |
+| `tr` | Turkish | `prompts/targets/tr.txt` | `targets/tr/` | `output/tr/` |
+| `id` | Indonesian | `prompts/targets/id.txt` | `targets/id/` | `output/id/` |
+| `ms` | Malay | `prompts/targets/ms.txt` | `targets/ms/` | `output/ms/` |
+| `ja-easy` | やさしい日本語 (Easy Japanese: short sentences, furigana on all but the most basic kanji) | `prompts/targets/ja-easy.txt` | `targets/ja-easy/` | `output/ja-easy/` |
+
+Easy Japanese writes furigana as `{漢字|かんじ}`; the reader and dashboard
+render it as ruby text, the markdown output as 漢字（かんじ）. Persian is
+right-to-left: `"dir": "rtl"` in `TARGETS` sets the direction of its columns.
 
 `prompts/system_prompt.txt` is the language-neutral core (the absolute rules,
 the notes format, the output shape); the per-target file supplies STYLE and

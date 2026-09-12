@@ -1,0 +1,31 @@
+{
+  "_comment": "Các thuật ngữ Hê-bơ-rơ/A-ram/Hy Lạp quan trọng và cách dịch cố định sang tiếng Việt; được chèn vào mọi prompt. Mở rộng dần.",
+  "hebrew": {
+    "יהוה (YHWH)": "CHÚA",
+    "אלהים (elohim, as title of God)": "Đức Chúa Trời",
+    "יהוה אלהים": "CHÚA Đức Chúa Trời",
+    "אדני יהוה (adonai YHWH)": "CHÚA Tối Cao",
+    "האדם (ha-adam)": "con người (cho đến khi văn mạch dùng A-đam như tên riêng)",
+    "חסד (hesed)": "tình yêu thành tín",
+    "נפש (nephesh)": "tùy văn mạch: sự sống, mạng sống, chính mình, lòng ham muốn, cổ họng — không mặc định là “linh hồn”",
+    "רוח (ruach)": "tùy văn mạch: hơi thở, gió, thần linh",
+    "תהום (tehom)": "vực sâu",
+    "תהו ובהו (tohu va-bohu)": "hoang vu và trống rỗng",
+    "ברית (berit)": "giao ước",
+    "תורה (torah)": "lời dạy / luật pháp (tùy văn mạch)",
+    "שלום (shalom)": "bình an (tùy văn mạch: hòa bình, an lành)",
+    "שאול (sheol)": "âm phủ"
+  },
+  "greek": {
+    "κύριος (kyrios)": "Chúa",
+    "χριστός (christos)": "Đấng Mê-si-a (khi là tước hiệu) / Đấng Christ (khi dùng như tên)",
+    "λόγος (logos, John 1)": "Ngôi Lời",
+    "ἀγάπη (agapē)": "tình yêu thương",
+    "ἐκκλησία (ekklēsia)": "hội thánh (cộng đoàn)",
+    "βασιλεία τοῦ θεοῦ": "nước Đức Chúa Trời",
+    "εὐαγγέλιον (euangelion)": "tin mừng",
+    "μετάνοια (metanoia)": "sự ăn năn",
+    "πνεῦμα (pneuma)": "tùy văn mạch: thần linh, hơi thở, gió",
+    "δικαιοσύνη (dikaiosynē)": "sự công chính"
+  }
+}

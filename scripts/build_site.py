@@ -154,6 +154,12 @@ p.ov { margin:0 0 .6em; }
 .cmp .row .txt { white-space:pre-wrap; }
 [lang="zh"], [lang="ja"] { font-family:Georgia, "Noto Serif CJK SC", "Noto Serif CJK JP", "Source Han Serif", "Yu Mincho", "MS Mincho", "SimSun", "Songti SC", serif; line-height:1.95; }
 [lang="th"] { font-family:"Noto Serif Thai", "Leelawadee UI", "Tahoma", sans-serif; line-height:2; }
+[lang="yue"], [lang="nan"], [lang="hak"] { font-family:Georgia, "Noto Serif CJK TC", "Source Han Serif TC", "PMingLiU", "Microsoft JhengHei", "Songti TC", serif; line-height:1.95; }
+[lang="ja-easy"] { font-family:Georgia, "Noto Serif CJK JP", "Source Han Serif", "Yu Mincho", "MS Mincho", serif; line-height:2.3; }
+ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
+[lang="ko"] { font-family:"Noto Serif KR", "Batang", "Malgun Gothic", "Apple SD Gothic Neo", serif; line-height:1.9; }
+[lang="fa"] { font-family:"Vazirmatn", "Noto Naskh Arabic", "Tahoma", "Segoe UI", serif; line-height:2.1; font-size:1.06em; }
+[dir="rtl"] { text-align:right; }
 @media (max-width:760px){
   .par { grid-template-columns:1fr; }
   .par .o { border-bottom:0; padding-bottom:.1rem; }
@@ -262,7 +268,9 @@ function neighbours(book, ch) {
 
 function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
 const vtag = (src, n) => src._lang ? `<span class="lt">${LANGS[src._lang[n]].name}</span>` : "";
-const flat = t => esc(t).replace(/\n\n/g,"\n").trim();
+const ruby = h => h.replace(/\{([^{}|\]]+)\|([^{}\]]+)[}\]]/g, "<ruby>$1<rt>$2</rt></ruby>");   // {漢字|かんじ} furigana notation
+const flat = t => ruby(esc(t)).replace(/\n\n/g,"\n").trim();
+const tdir = t => (TARGETS[t] && TARGETS[t].dir) || "ltr";
 
 function renderChapter(book, ch, highlightVerse) {
   const chData = DATA[book] && DATA[book][ch];
@@ -296,6 +304,7 @@ function renderChapter(book, ch, highlightVerse) {
   }
   main.className = (v === "par" || v === "all") ? "wide" : "";
   main.setAttribute("lang", (v === "orig" || v === "lxx") ? "" : (shown || "en"));
+  main.setAttribute("dir", (v === "tr" && shown) ? tdir(shown) : "ltr");
   if (!tr) html += `<p class="empty" style="margin:0 0 1.2rem">Not translated yet${src ? ` — showing the ${v === "lxx" ? "Septuagint" : L.name}.` : "."}</p>`;
   if (!tr && v !== "orig" && v !== "lxx" && v !== "all") { main.innerHTML = html; return; }
   const nums = Object.keys(v === "tr" ? trs[shown].verses : src).filter(k => !k.startsWith("_")).map(Number).sort((a,b)=>a-b);
@@ -310,7 +319,7 @@ function renderChapter(book, ch, highlightVerse) {
     for (const n of nums) {
       const e = trs[shown].verses[n];
       html += `<div class="o ${ocls}" dir="${rtl?'rtl':'ltr'}"><sup class="v">${n}</sup>${vtag(src,n)}${esc(src[n])}</div>
-        <div class="e" lang="${shown}" id="v-${book}-${ch}-${n}"><sup class="v">${n}</sup>${e ? flat(e) : "<i style='color:var(--muted)'>—</i>"}</div>`;
+        <div class="e" lang="${shown}" dir="${tdir(shown)}" id="v-${book}-${ch}-${n}"><sup class="v">${n}</sup>${e ? flat(e) : "<i style='color:var(--muted)'>—</i>"}</div>`;
     }
     html += `</div>`;
   } else if (v === "all") {
@@ -319,7 +328,7 @@ function renderChapter(book, ch, highlightVerse) {
       if (lxx && lxx[n]) html += `<div class="row"><span class="lab">LXX</span><span class="txt orig greek">${esc(lxx[n])}</span></div>`;
       for (const t of avail) {
         const e = trs[t].verses[n];
-        html += `<div class="row"><span class="lab">${TARGETS[t].native}</span><span class="txt" lang="${t}">${e ? flat(e) : "<i style='color:var(--muted)'>—</i>"}</span></div>`;
+        html += `<div class="row"><span class="lab">${TARGETS[t].native}</span><span class="txt" lang="${t}" dir="${tdir(t)}">${e ? flat(e) : "<i style='color:var(--muted)'>—</i>"}</span></div>`;
       }
       html += `</div>`;
     }
@@ -331,14 +340,14 @@ function renderChapter(book, ch, highlightVerse) {
       const vid = `v-${book}-${ch}-${n}`;
       if (t.includes("\n")) {
         flush();
-        html += `<div class="poetry" id="${vid}"><sup class="v">${n}</sup>${esc(t).replace(/\n\n/g,"\n").trimEnd()}</div>`;
+        html += `<div class="poetry" id="${vid}"><sup class="v">${n}</sup>${ruby(esc(t)).replace(/\n\n/g,"\n").trimEnd()}</div>`;
       } else {
-        para.push(`<span id="${vid}"><sup class="v">${n}</sup>${esc(t)}</span>`);
+        para.push(`<span id="${vid}"><sup class="v">${n}</sup>${ruby(esc(t))}</span>`);
       }
     }
     flush();
     if (trs[shown].notes) {
-      html += `<div class="notes">${esc(trs[shown].notes).replace(/^Notes:?/i,"<b>Translator's notes</b>").replace(/\n/g,"<br>")}</div>`;
+      html += `<div class="notes">${ruby(esc(trs[shown].notes)).replace(/^Notes:?/i,"<b>Translator's notes</b>").replace(/\n/g,"<br>")}</div>`;
     }
   }
   const {prev, next} = neighbours(book, ch);
@@ -391,9 +400,9 @@ function search(q) {
   html += `<p class="empty">${hits.length}${hits.length>=200?"+":""} verse${hits.length===1?"":"s"} found.</p>`;
   for (const h of hits) {
     rx.lastIndex = 0;
-    html += `<div class="hit" onclick="location.hash='#${h.book}/${h.ch}/${h.v}'">
+    html += `<div class="hit" lang="${tl}" dir="${tdir(tl)}" onclick="location.hash='#${h.book}/${h.ch}/${h.v}'">
       <div class="ref">${disp(h.book)} ${h.ch}:${h.v}</div>
-      ${esc(h.t).replace(rx, m => `<mark>${m}</mark>`)}</div>`;
+      ${ruby(esc(h.t).replace(rx, m => `<mark>${m}</mark>`))}</div>`;
   }
   main.innerHTML = html + "</div>";
 }
@@ -485,7 +494,7 @@ def main():
             .replace("__DATA__", json.dumps(data, ensure_ascii=False))
             .replace("__ORDER__", json.dumps(ORDER))
             .replace("__LANGS__", json.dumps({**LANGS, "mixed": MIXED}))
-            .replace("__TARGETS__", json.dumps({c: {"name": t["name"], "native": t["native"]} for c, t in TARGETS.items()}, ensure_ascii=False))
+            .replace("__TARGETS__", json.dumps({c: {"name": t["name"], "native": t["native"], "dir": t.get("dir", "ltr")} for c, t in TARGETS.items()}, ensure_ascii=False))
             .replace("__ABBREV__", json.dumps(
                 {k: v.replace(" ", "_") for k, v in ABBREV.items()})))
     out = SITE / "index.html"

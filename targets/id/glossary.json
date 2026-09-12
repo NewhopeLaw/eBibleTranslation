@@ -1,0 +1,31 @@
+{
+  "_comment": "Istilah Ibrani/Aram/Yunani penting dan padanan tetapnya dalam bahasa Indonesia; disisipkan ke setiap prompt. Diperluas seiring waktu.",
+  "hebrew": {
+    "יהוה (YHWH)": "TUHAN",
+    "אלהים (elohim, as title of God)": "Allah",
+    "יהוה אלהים": "TUHAN Allah",
+    "אדני יהוה (adonai YHWH)": "Tuhan ALLAH",
+    "האדם (ha-adam)": "manusia itu (sampai kisah jelas memakai Adam sebagai nama diri)",
+    "חסד (hesed)": "kasih setia",
+    "נפש (nephesh)": "menurut konteks: nyawa, hidup, diri sendiri, keinginan, kerongkongan — jangan otomatis “jiwa”",
+    "רוח (ruach)": "menurut konteks: napas, angin, roh",
+    "תהום (tehom)": "samudera raya",
+    "תהו ובהו (tohu va-bohu)": "belum berbentuk dan kosong",
+    "ברית (berit)": "perjanjian",
+    "תורה (torah)": "pengajaran / hukum (menurut konteks)",
+    "שלום (shalom)": "damai sejahtera (menurut konteks: perdamaian, selamat)",
+    "שאול (sheol)": "dunia orang mati"
+  },
+  "greek": {
+    "κύριος (kyrios)": "Tuhan",
+    "χριστός (christos)": "Mesias (sebagai gelar) / Kristus (sebagai nama)",
+    "λόγος (logos, John 1)": "Firman",
+    "ἀγάπη (agapē)": "kasih",
+    "ἐκκλησία (ekklēsia)": "jemaat",
+    "βασιλεία τοῦ θεοῦ": "Kerajaan Allah",
+    "εὐαγγέλιον (euangelion)": "Injil",
+    "μετάνοια (metanoia)": "pertobatan",
+    "πνεῦμα (pneuma)": "menurut konteks: roh, napas, angin",
+    "δικαιοσύνη (dikaiosynē)": "kebenaran"
+  }
+}

@@ -150,6 +150,17 @@ TARGETS = {
     "es": {"name": "Spanish",  "native": "Español", "latin": True,  "ratio": 0.8},
     "ja": {"name": "Japanese", "native": "日本語",   "latin": False, "ratio": 0.25},
     "th": {"name": "Thai",     "native": "ไทย",     "latin": False, "ratio": 0.6},
+    "yue": {"name": "Cantonese", "native": "粵語", "latin": False, "ratio": 0.2, "note": "written colloquial Cantonese, Traditional characters"},
+    "nan": {"name": "Taiwanese Hokkien", "native": "台語", "latin": False, "ratio": 0.2, "note": "Han-character prose, MOE recommended characters"},
+    "hak": {"name": "Hakka", "native": "客語", "latin": False, "ratio": 0.2, "note": "Han-character prose (Sixian), MOE recommended characters"},
+    "vi": {"name": "Vietnamese", "native": "Tiếng Việt", "latin": True, "ratio": 0.8},
+    "ko": {"name": "Korean", "native": "한국어", "latin": False, "ratio": 0.35},
+    "fa": {"name": "Persian", "native": "فارسی", "latin": False, "ratio": 0.5, "dir": "rtl"},
+    "tr": {"name": "Turkish", "native": "Türkçe", "latin": True, "ratio": 0.7},
+    "id": {"name": "Indonesian", "native": "Bahasa Indonesia", "latin": True, "ratio": 0.8},
+    "ms": {"name": "Malay", "native": "Bahasa Melayu", "latin": True, "ratio": 0.8},
+    "ja-easy": {"name": "Easy Japanese", "native": "やさしい日本語", "latin": False, "ratio": 0.3,
+                "note": "yasashii nihongo: short sentences, common words, furigana as {漢字|かんじ}"},
 }
 DEFAULT_TARGET = "en"
 

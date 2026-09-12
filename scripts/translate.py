@@ -275,8 +275,14 @@ def parse_output(raw, expected):
     return verses, "\n".join(notes_lines).strip(), missing, extra
 
 
+RUBY_RE = re.compile(r"\{([^{}|\]]+)\|([^{}\]]+)[}\]]")      # {漢字|かんじ} furigana notation (Easy Japanese)
+
+
 def render_md(meta, ch, verses, notes):
-    """Superscript verse numbers; prose flows, poetry keeps its lines."""
+    """Superscript verse numbers; prose flows, poetry keeps its lines.
+    Furigana notation becomes 漢字（かんじ） in the markdown."""
+    verses = {n: RUBY_RE.sub(r"\1（\2）", t) for n, t in verses.items()}
+    notes = RUBY_RE.sub(r"\1（\2）", notes or "")
     out = [f"# {meta['name']} {ch}", ""]
     para = []
 

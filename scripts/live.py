@@ -426,7 +426,7 @@ class Handler(BaseHTTPRequestHandler):
         q = self._query()
         if path in ("/", "/index.html"):
             body = (PAGE.replace("__LANGS__", json.dumps({**LANGS, "mixed": MIXED}, ensure_ascii=False))
-                        .replace("__TARGETS__", json.dumps({c: {"name": t["name"], "native": t["native"]}
+                        .replace("__TARGETS__", json.dumps({c: {"name": t["name"], "native": t["native"], "dir": t.get("dir", "ltr")}
                                                             for c, t in TARGETS.items()}, ensure_ascii=False))
                         .replace("__DEFAULT__", DEFAULT_TARGET)).encode("utf-8")
             self.send_response(200)
@@ -622,6 +622,12 @@ p.ov { margin:0 0 .5em; white-space:normal; }
 .cmp .row .txt { white-space:pre-wrap; } .cmp .row .txt.active { background:var(--hl); border-radius:6px; }
 [lang="zh"], [lang="ja"] { font-family:Georgia, "Noto Serif CJK SC", "Noto Serif CJK JP", "Source Han Serif", "Yu Mincho", "MS Mincho", "SimSun", "Songti SC", serif; line-height:1.9; }
 [lang="th"] { font-family:"Noto Serif Thai", "Leelawadee UI", "Tahoma", sans-serif; line-height:2; }
+[lang="yue"], [lang="nan"], [lang="hak"] { font-family:Georgia, "Noto Serif CJK TC", "Source Han Serif TC", "PMingLiU", "Microsoft JhengHei", "Songti TC", serif; line-height:1.95; }
+[lang="ja-easy"] { font-family:Georgia, "Noto Serif CJK JP", "Source Han Serif", "Yu Mincho", "MS Mincho", serif; line-height:2.3; }
+ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
+[lang="ko"] { font-family:"Noto Serif KR", "Batang", "Malgun Gothic", "Apple SD Gothic Neo", serif; line-height:1.9; }
+[lang="fa"] { font-family:"Vazirmatn", "Noto Naskh Arabic", "Tahoma", "Segoe UI", serif; line-height:2.1; font-size:1.06em; }
+[dir="rtl"] { text-align:right; }
 .chhead { display:flex; align-items:baseline; gap:.7rem; margin-bottom:.9rem; white-space:normal; }
 .chhead h2 { font:400 24px Georgia, serif; } .chhead small { color:var(--muted); font:13px system-ui; }
 aside { width:290px; flex:none; border-left:0; overflow:auto; padding:.7rem .8rem; font-size:13px; background:var(--card); }
@@ -757,6 +763,8 @@ $('dock').onclick = () => { panel.side = panel.side === 'left' ? 'right' : 'left
 applyPanel();
 
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function ruby(h){ return h.replace(/\{([^{}|\]]+)\|([^{}\]]+)[}\]]/g, '<ruby>$1<rt>$2</rt></ruby>'); }   // {漢字|かんじ} furigana notation
+function tdir(t){ return (TARGETS[t] && TARGETS[t].dir) || 'ltr'; }
 
 /* ---------- word alignment (Side by side): click a word, its counterparts light up ---------- */
 const SEG = (typeof Intl !== 'undefined' && Intl.Segmenter) ? new Intl.Segmenter(undefined, {granularity:'word'}) : null;
@@ -878,6 +886,7 @@ function render(){
   renderTabs(v, avail, L);
   box.className = (v === 'par' || v === 'all') ? '' : 'plain';
   box.setAttribute('lang', (v === 'orig' || v === 'lxx') ? '' : tl);
+  box.setAttribute('dir', (v === 'tr') ? tdir(tl) : 'ltr');
   const live = running && cur && cur.target === tl;
   const caret = live ? '<span class="caret"></span>' : '';
   if (alignStatus && statusKey !== chapKey()) alignStatus = '';   // status belongs to another chapter/language
@@ -902,9 +911,9 @@ function render(){
       const e = vs[s.v], writing = live && s.v === n;
       const cls = e === undefined ? 'e todo' : (writing ? 'e active' : 'e');
       html += `<div class="o ${ocls}" dir="${rtl?'rtl':'ltr'}"><sup>${s.v}</sup>${tag(s)}${wrap(s.text, 's', s.v, false)}</div>
-        <div class="${cls}" id="row-${s.v}"><sup>${s.v}</sup>${e === undefined ? '…' : (writing ? esc(e) + caret : wrap(e, 't', s.v, true))}</div>`;
+        <div class="${cls}" id="row-${s.v}" dir="${tdir(tl)}"><sup>${s.v}</sup>${e === undefined ? '…' : (writing ? ruby(esc(e)) + caret : (tl === 'ja-easy' ? ruby(esc(e)) : wrap(e, 't', s.v, true)))}</div>`;
     }
-    if (notes) html += `<div class="notes">${esc(notes)}</div>`;
+    if (notes) html += `<div class="notes">${ruby(esc(notes))}</div>`;
     box.innerHTML = html + '</div>';
     paint();
     if (live && n !== lastActive) { lastActive = n; const r = document.getElementById('row-' + n); if (r) r.scrollIntoView({block:'center', behavior:'smooth'}); }
@@ -918,7 +927,7 @@ function render(){
       if (s.lxx) html += `<div class="row"><span class="lab">LXX</span><span class="txt orig greek">${esc(s.lxx)}</span></div>`;
       for (const t of avail) {
         const e = parsed[t].vs[s.v], act = running && cur.target === t && parsed[t].n === s.v;
-        html += `<div class="row"><span class="lab">${TARGETS[t].native}</span><span class="txt ${act?'active':''}" lang="${t}">${e === undefined ? '…' : esc(e) + (act ? '<span class="caret"></span>' : '')}</span></div>`;
+        html += `<div class="row"><span class="lab">${TARGETS[t].native}</span><span class="txt ${act?'active':''}" lang="${t}" dir="${tdir(t)}">${e === undefined ? '…' : ruby(esc(e)) + (act ? '<span class="caret"></span>' : '')}</span></div>`;
       }
       html += '</div>';
     }
@@ -928,7 +937,7 @@ function render(){
   }
   const atBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 80;
   const raw = texts[tl] || '';
-  let html = esc(raw).replace(/^\[(\d+)\]\s*/gm, '<sup>$1</sup>');
+  let html = ruby(esc(raw)).replace(/^\[(\d+)\]\s*/gm, '<sup>$1</sup>');
   const i = html.indexOf(NL + '---');
   if (i >= 0) html = html.slice(0, i) + '<div class="notes">' + html.slice(i + 4).trim() + '</div>';
   if (!raw) html = '<span class="empty">Waiting for the model…</span>';

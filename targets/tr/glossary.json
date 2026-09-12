@@ -1,0 +1,31 @@
+{
+  "_comment": "Önemli İbranice/Aramice/Grekçe terimler ve sabit Türkçe karşılıkları; her istemin içine eklenir. Zamanla genişletilir.",
+  "hebrew": {
+    "יהוה (YHWH)": "RAB",
+    "אלהים (elohim, as title of God)": "Tanrı",
+    "יהוה אלהים": "RAB Tanrı",
+    "אדני יהוה (adonai YHWH)": "Egemen RAB",
+    "האדם (ha-adam)": "insan (anlatı Adem'i açıkça özel ad olarak kullanana kadar)",
+    "חסד (hesed)": "sarsılmaz sevgi",
+    "נפש (nephesh)": "bağlama göre: can, yaşam, kişinin kendisi, istek, boğaz — otomatik olarak “ruh” diye çevrilmez",
+    "רוח (ruach)": "bağlama göre: soluk, rüzgar, ruh",
+    "תהום (tehom)": "enginler",
+    "תהו ובהו (tohu va-bohu)": "şekilsiz ve boş",
+    "ברית (berit)": "antlaşma",
+    "תורה (torah)": "öğreti / yasa (bağlama göre)",
+    "שלום (shalom)": "esenlik (bağlama göre barış, selamet)",
+    "שאול (sheol)": "ölüler diyarı"
+  },
+  "greek": {
+    "κύριος (kyrios)": "Rab",
+    "χριστός (christos)": "Mesih (unvan olarak da ad olarak da)",
+    "λόγος (logos, John 1)": "Söz",
+    "ἀγάπη (agapē)": "sevgi",
+    "ἐκκλησία (ekklēsia)": "kilise (topluluk)",
+    "βασιλεία τοῦ θεοῦ": "Tanrı'nın Egemenliği",
+    "εὐαγγέλιον (euangelion)": "Müjde",
+    "μετάνοια (metanoia)": "tövbe",
+    "πνεῦμα (pneuma)": "bağlama göre: ruh, soluk, rüzgar",
+    "δικαιοσύνη (dikaiosynē)": "doğruluk"
+  }
+}

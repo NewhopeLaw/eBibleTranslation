@@ -1,0 +1,13 @@
+STYLE (tiếng Việt)
+- Tiếng Việt hiện đại, tự nhiên, trong sáng, có chút văn phong văn học; không dùng lối văn cổ hay Hán-Việt nặng nề khi có từ thuần Việt rõ nghĩa.
+- Văn xuôi viết thành đoạn liền mạch; thơ xếp thành dòng (mỗi dòng một vế hoặc một cặp vế).
+- Dịch trung thành ý nghĩa; không diễn giải tùy tiện, nhưng cũng không bắt chước trật tự từ Hê-bơ-rơ hay Hy Lạp đến mức tiếng Việt thiếu tự nhiên.
+- Dùng dấu ngoặc kép “ ” cho lời thoại. Tên riêng viết theo bảng tên (kiểu có gạch nối: A-đam, Giê-ru-sa-lem).
+- Xưng hô hợp văn mạch: Đức Chúa Trời phán với con người thì dùng “Ta” – “ngươi/các ngươi”; con người thưa với Ngài thì dùng “con”/“chúng con” – “Ngài”; giữa người với người theo vai vế tự nhiên.
+
+TERMINOLOGY (quy ước cố định — áp dụng nhất quán toàn bộ)
+- Danh YHWH (יהוה) -> “CHÚA” (viết hoa). Elohim như danh hiệu của Đức Chúa Trời -> “Đức Chúa Trời”. YHWH Elohim -> “CHÚA Đức Chúa Trời”. Adonai YHWH -> “CHÚA Tối Cao”.
+- ha-adam (הָאָדָם) -> “con người” cho đến khi văn mạch rõ ràng dùng A-đam như tên riêng.
+- Sáng thế 1:1 theo cách đọc mệnh đề phụ: “Khi Đức Chúa Trời bắt đầu sáng tạo trời và đất…”
+- Kyrios (κύριος) -> “Chúa” (chỉ dùng “CHÚA” khi trích dẫn rõ ràng một câu Cựu Ước có danh YHWH).
+- Christos (χριστός) -> “Đấng Mê-si-a” khi là tước hiệu, “Đấng Christ” khi dùng như tên.

@@ -1,0 +1,13 @@
+STYLE (Türkçe)
+- Doğal, açık, günümüz Türkçesi; hafif edebî bir tat taşısın ama eski ya da ağdalı dil (Osmanlıca kalıplar, “-dır” ile biten kuru cümleler) kullanılmasın.
+- Düzyazı akan paragraflar hâlinde; şiir dize dize (her dizede bir yan cümle ya da bir beyit).
+- Anlamı sadık biçimde çevirin; serbestçe yorumlamayın, ama İbranice ya da Grekçe sözcük sırasını Türkçeyi bozacak kadar da taklit etmeyin.
+- Konuşmalarda tırnak işareti “ ” kullanılır. Özel adlar ad tablosundaki yazımla verilir.
+- Tanrı'nın insana seslenişinde “sen / siz” bağlama göre; insanın Tanrı'ya seslenişi saygılı ama yalın.
+
+TERMINOLOGY (sabit karşılıklar — bütün kitap boyunca tutarlı)
+- YHWH adı (יהוה) -> “RAB” (büyük harflerle). Tanrı'nın unvanı olarak Elohim -> “Tanrı”. YHWH Elohim bileşimi -> “RAB Tanrı”. Adonai YHWH -> “Egemen RAB”.
+- ha-adam (הָאָדָם) -> “insan”; anlatı Adem'i açıkça özel ad olarak kullanana kadar ad yapılmaz.
+- Yaratılış 1:1 yan cümle okumasını izler: “Tanrı gökleri ve yeri yaratmaya başladığında…”
+- Kyrios (κύριος) -> “Rab” (yalnızca Eski Antlaşma'daki bir YHWH metnini açıkça alıntıladığında “RAB”).
+- Christos (χριστός) -> “Mesih” (unvan olarak da ad olarak da).
