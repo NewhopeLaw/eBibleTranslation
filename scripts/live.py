@@ -976,6 +976,10 @@ function applySnapshot(s){
     if (view === 'orig' || view === 'lxx') { view = 'par'; localStorage.setItem('liveView', view); } }
   else if (!cur && s.last) { cur = s.last; texts = {[cur.target]: cur.text}; }
   if (s.error) texts[tl] = 'ERROR: ' + s.error;
+  if (!s.running && !browsing && cur && cur.book) {          // a run just ended (or the page loaded after one): hand the
+    const b = (s.books || []).find(x => x.name === cur.book);  // chapter to browse mode so the strip is clickable again
+    if (b) { $('book').value = b.code; $('ch').value = cur.chapter; browse(); }
+  }
   if (cur) {
     $('cur').textContent = cur.book + ' ' + cur.chapter; $('vv').textContent = cur.verses; bookProgress(cur.book);
     if (!s.running && cur.started) { $('tok').textContent = cur.tokens; const r = s.recent[0];
