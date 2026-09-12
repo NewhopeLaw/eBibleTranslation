@@ -49,8 +49,11 @@ def call(system, user):
                "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
     req = urllib.request.Request(T.CONFIG["api_url"], data=json.dumps(payload).encode("utf-8"),
                                  headers={"Content-Type": "application/json"})
+    t0 = time.time()
     with urllib.request.urlopen(req, timeout=1800) as r:
-        return json.loads(json.loads(r.read()).get("message", {}).get("content", "{}"))
+        resp = json.loads(r.read())
+    T.log_work(resp, time.time() - t0)
+    return json.loads(resp.get("message", {}).get("content", "{}"))
 
 
 def keep_structure(src, out):
@@ -116,6 +119,7 @@ def main():
         if a.limit:
             todo = todo[:a.limit]
         system = SYSTEM.replace("{LANGUAGE}", TARGETS[lang]["name"])
+        T.WORK_JOB = f"lexicon-{lang}"
         print(f"{TARGETS[lang]['name']}: {len(done)} done, {len(todo)} to do")
         t0, n = time.time(), 0
         with out_file.open("a", encoding="utf-8") as fh:

@@ -134,8 +134,11 @@ def call(system, user):
                "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
     req = urllib.request.Request(T.CONFIG["api_url"], data=json.dumps(payload).encode("utf-8"),
                                  headers={"Content-Type": "application/json"})
+    t0 = time.time()
     with urllib.request.urlopen(req, timeout=1800) as r:
-        return json.loads(json.loads(r.read()).get("message", {}).get("content", "{}"))
+        resp = json.loads(r.read())
+    T.log_work(resp, time.time() - t0, "lexemes")
+    return json.loads(resp.get("message", {}).get("content", "{}"))
 
 
 def norm_lemma(s):

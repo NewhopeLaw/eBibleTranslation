@@ -29,6 +29,8 @@ ROOT = Path(__file__).resolve().parent.parent
 CONFIG = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))
 NORM_DIR = ROOT / "sources" / "normalized"
 LOG_PATH = ROOT / "logs" / "translate.jsonl"
+WORK_LOG_PATH = ROOT / "logs" / "work.jsonl"   # one line per model call made by a study job
+WORK_JOB = None                                # which queue job is calling; the builder sets it
 
 SUP = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
 VERSE_RE = re.compile(r"^\[(\d+)\]\s*(.*)$")
@@ -195,6 +197,22 @@ def model_options(extra=None):
             opts[k] = CONFIG[k]
     opts.update(extra or {})
     return opts
+
+
+def log_work(resp, seconds, job=None):
+    """Record one model call made by a study job (the lexicon, the fields of
+    meaning, the themes...) in logs/work.jsonl, so the dashboard can count what
+    the analysis costs apart from the translation."""
+    try:
+        WORK_LOG_PATH.parent.mkdir(exist_ok=True)
+        with WORK_LOG_PATH.open("a", encoding="utf-8") as f:
+            f.write(json.dumps({"ts": time.strftime("%Y-%m-%dT%H:%M:%S"), "t": round(time.time(), 3),
+                                "job": job or WORK_JOB or "work", "model": CONFIG["model"],
+                                "seconds": round(seconds, 1),
+                                "prompt_tokens": resp.get("prompt_eval_count"),
+                                "output_tokens": resp.get("eval_count")}) + "\n")
+    except OSError as e:                                    # a log must never stop a job
+        print(f"    work log: {e}", file=sys.stderr)
 
 
 def call_model(system, user, options=None):

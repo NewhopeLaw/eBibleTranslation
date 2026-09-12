@@ -58,6 +58,7 @@ STATE = {
 }
 NAME2META = {m["name"]: m for m in BOOKS.values()}
 _norm_cache = {}
+STARTED = time.time()          # so the work counter can say what this session cost
 
 
 def publish(ev: dict):
@@ -453,6 +454,43 @@ def work_stop(job=None):
     return sorted(set(stopped))
 
 
+_wtok = {"mtime": None, "size": None, "data": None}
+
+
+def work_tokens():
+    """What the analysis has cost the model, counted apart from the
+    translation: every call the study jobs logged in logs/work.jsonl, and the
+    part of it that belongs to this session of the dashboard."""
+    empty = {"calls": 0, "output_tokens": 0, "prompt_tokens": 0, "seconds": 0.0, "tps": None, "by_job": {},
+             "session": {"calls": 0, "output_tokens": 0, "prompt_tokens": 0, "seconds": 0.0, "tps": None}}
+    p = T.WORK_LOG_PATH
+    if not p.exists():
+        return empty
+    st = p.stat()
+    if (_wtok["mtime"], _wtok["size"]) != (st.st_mtime, st.st_size):
+        d = json.loads(json.dumps(empty))                   # a fresh copy of the shape above
+        for line in p.read_text(encoding="utf-8", errors="replace").splitlines():
+            try:
+                r = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            out, pro, sec = r.get("output_tokens") or 0, r.get("prompt_tokens") or 0, r.get("seconds") or 0
+            job = r.get("job") or "work"
+            for t in (d, d["session"]) if (r.get("t") or 0) >= STARTED else (d,):
+                t["calls"] += 1
+                t["output_tokens"] += out
+                t["prompt_tokens"] += pro
+                t["seconds"] += sec
+            b = d["by_job"].setdefault(job, {"calls": 0, "output_tokens": 0})
+            b["calls"] += 1
+            b["output_tokens"] += out
+        for t in (d, d["session"]):
+            t["seconds"] = round(t["seconds"], 1)
+            t["tps"] = round(t["output_tokens"] / t["seconds"], 1) if t["seconds"] else None
+        _wtok.update(mtime=st.st_mtime, size=st.st_size, data=d)
+    return _wtok["data"]
+
+
 def work_progress():
     """Every layer, in order from the smallest unit of language to the largest."""
     import importlib
@@ -487,7 +525,8 @@ def work_progress():
                             "startable": bool(jobname) and jobname in table})
         out.append({"group": gkey, "label": glabel, "items": entries})
     running = [i["key"] for g in out for i in g["items"] if i["running"]]
-    return {"groups": out, "now": time.time(), "anyrunning": bool(running), "running": running}
+    return {"groups": out, "now": time.time(), "anyrunning": bool(running), "running": running,
+            "tokens": work_tokens()}
 
 
 REBUILD_LOCK = threading.Lock()
@@ -767,7 +806,12 @@ button.primary { background:var(--accent); color:#fff; border-color:var(--accent
 button.stop { color:var(--err); }
 button:disabled { opacity:.4; cursor:default; }
 label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); font-size:12px; }
-#work { display:block; padding:.4rem .9rem .5rem; border-bottom:1px solid var(--border); background:var(--soft); font-size:12px; color:var(--muted); }
+/* Two areas, each its own rectangle with a line drawn between them: above, the
+   translation (what the run is doing and what it has cost); below, the model
+   work — the analysis jobs and their own token counter. */
+.pane { flex:none; margin:.5rem .85rem; border:1px solid var(--border); border-radius:12px; overflow:hidden; background:var(--card); }
+#split { flex:none; height:1px; margin:.1rem .85rem .45rem; background:var(--border); }
+#work { display:block; padding:.4rem .9rem .5rem; margin-top:0; background:var(--soft); font-size:12px; color:var(--muted); }
 #work .grp { display:flex; flex-wrap:wrap; align-items:center; gap:.25rem .8rem; padding:.1rem 0; }
 #work .gl { width:6.6rem; flex:none; font-size:10px; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); text-align:right; }
 #work .j { display:flex; align-items:center; gap:.3rem; }
@@ -788,9 +832,14 @@ label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); fo
 #work .hd button { font:11px system-ui,sans-serif; padding:.15rem .5rem; border:1px solid var(--border); border-radius:6px;
   background:var(--card); color:var(--fg); cursor:pointer; }
 #work .hd button.stopall { color:var(--err); border-color:var(--err); }
+#work .wtot { display:flex; flex-wrap:wrap; gap:.2rem 1.6rem; margin:.35rem -.9rem -.5rem; padding:.35rem .9rem .45rem;
+  border-top:1px solid var(--border); background:var(--card); }
+#work .wtot small { font-size:10px; text-transform:uppercase; letter-spacing:.06em; margin-right:.5rem; }
+#work .wtot b { color:var(--fg); font-variant-numeric:tabular-nums; font-weight:600; }
 body.reading #work { display:none; }
+#tpane { margin-bottom:.35rem; }
 #stats { display:flex; flex-wrap:wrap; gap:.4rem .5rem; padding:.5rem .9rem; align-items:stretch;
-  border-bottom:1px solid var(--border); }
+  border-bottom:1px solid var(--border); background:var(--bg); }
 .stat { display:flex; flex-direction:column; min-width:5.4rem; padding:.3rem .65rem; border-radius:8px; background:var(--card);
   border:1px solid var(--border); }
 .stat small { font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); }
@@ -804,11 +853,11 @@ body.reading #work { display:none; }
 .tabs span.on { color:var(--fg); border-color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent); }
 .tabs span.off { opacity:.4; cursor:default; }
 .tabs i.sep { width:1px; height:1.1rem; background:var(--border); margin:0 .2rem; }
-#totals { display:flex; flex-wrap:wrap; gap:.3rem 2rem; padding:.3rem .9rem; border-bottom:1px solid var(--border);
+#totals { display:flex; flex-wrap:wrap; gap:.3rem 2rem; padding:.3rem .9rem;
   font-size:12px; color:var(--muted); background:var(--card); }
 #totals small { font-size:10px; text-transform:uppercase; letter-spacing:.06em; margin-right:.5rem; }
 #totals b { color:var(--fg); font-variant-numeric:tabular-nums; font-weight:600; }
-#strip { display:flex; flex-wrap:wrap; gap:.22rem; padding:.45rem .9rem; border-bottom:1px solid var(--border);
+#strip { display:flex; flex-wrap:wrap; gap:.22rem; padding:.45rem .9rem; border-top:1px solid var(--border);
   background:var(--soft); align-items:center; }
 #strip a.on { animation:none; }
 #strip a.on.live { animation:pulse 1.4s infinite; }
@@ -828,7 +877,7 @@ body.reading #work { display:none; }
 .layout.closed aside { display:none; }
 #reader { flex:1; min-width:0; border:0; background:var(--bg); }   /* the offline reader: read mode fills the layout with it */
 .layout.reading #text, .layout.reading aside, .layout.reading #handle { display:none; }
-body.reading #stats, body.reading #totals, body.reading #strip { display:none; }   /* read mode: no translation indicators */
+body.reading #tpane, body.reading #split { display:none; }   /* read mode: no translation indicators */
 body.reading #run { visibility:hidden; }       /* keeps its space, so the header and the toggle do not move between modes */
 .phead { display:flex; justify-content:flex-end; gap:.25rem; margin:-.2rem 0 .1rem; }
 .phead button { font-size:12px; padding:.15rem .45rem; color:var(--muted); }
@@ -896,6 +945,7 @@ body.mobile #app { flex:none; width:410px; height:864px; margin:.6rem auto 0; bo
 body.mobile { background:var(--soft); }
 body.mobile .layout aside, body.mobile .layout #handle { display:none; }
 body.mobile .grid { grid-template-columns:1fr; } body.mobile .grid .o { border-bottom:0; padding-bottom:.1rem; }
+body.mobile .pane { margin:.35rem .45rem; } body.mobile #split { margin:.05rem .45rem .3rem; }
 body.mobile #text.plain { max-width:none; } body.mobile #text { padding:.9rem 1rem 3rem; }
 #device { gap:.15rem; padding:.2rem; border-radius:999px; }
 #device span { padding:.3rem .8rem; border-radius:999px; cursor:pointer; color:var(--muted); font-size:13px; }
@@ -922,6 +972,7 @@ __READALOUD_CSS__
     <span data-d="pc" class="on">PC</span><span data-d="mobile">mobile</span>
   </div>
 </header>
+<div class="pane" id="tpane">
 <div id="stats">
   <div class="stat"><small>Chapter</small><b id="cur">—</b></div>
   <div class="stat"><small>Verses</small><b id="vv">—</b></div>
@@ -936,8 +987,10 @@ __READALOUD_CSS__
   <span><small>Session</small><b id="ss_ch">0</b> chapters · <b id="ss_tok">0</b> tokens · <b id="ss_time">0s</b> · <b id="ss_tps">—</b> tok/s</span>
   <span><small>Lifetime</small><b id="lt_ch">0</b> chapters · <b id="lt_tok">0</b> tokens out · <b id="lt_ptok">0</b> in · <b id="lt_time">0s</b> · <b id="lt_tps">—</b> tok/s avg</span>
 </div>
-<div id="work" hidden></div>
 <div id="strip" hidden></div>
+</div>
+<div id="split" hidden></div>
+<div class="pane" id="work" hidden></div>
 <div class="layout" id="layout">
   <div id="text" class="plain"></div>
   <iframe id="reader" title="eBible reader" hidden></iframe>
@@ -1201,13 +1254,26 @@ const fmtN = n => n >= 1e6 ? (n/1e6).toFixed(2) + 'M' : n >= 1e4 ? (n/1e3).toFix
 const fmtT = s => { s = Math.round(s || 0); const h = Math.floor(s/3600), m = Math.floor(s%3600/60); return h ? `${h}h ${m}m` : m ? `${m}m ${s%60}s` : `${s}s`; };
 const fmtAge = t => { if (!t) return ''; const m = (Date.now()/1000 - t)/60;
   return m < 60 ? `built ${Math.round(m)} min ago` : (m < 1440 ? `built ${Math.round(m/60)} h ago` : `built ${Math.round(m/1440)} d ago`); };
+/* The model work has its own token counter, kept apart from the translation's:
+   what the analysis jobs have spent, in this session and over all of them. */
+function workTotals(t){
+  if (!t || !t.session) return '';
+  const row = (lab, x, tip) => `<span title="${esc(tip)}"><small>${lab}</small><b>${fmtN(x.calls)}</b> calls · <b>${fmtN(x.output_tokens)}</b> tokens out`
+    + ` · <b>${fmtN(x.prompt_tokens)}</b> in · <b>${fmtT(x.seconds)}</b> · <b>${x.tps || '—'}</b> tok/s</span>`;
+  const byJob = Object.entries(t.by_job || {}).sort((a, b) => b[1].output_tokens - a[1].output_tokens)
+    .map(([j, x]) => `${j.replace(/-/g, ' ')}: ${fmtN(x.output_tokens)} tokens in ${fmtN(x.calls)} calls`).join(NL);
+  return `<div class="wtot">`
+    + row('Session', t.session, 'what the analysis has asked of the model since this dashboard started')
+    + row('Analysis', t, 'every call the analysis jobs have made, counted apart from the translation above'
+          + (byJob ? NL + NL + byJob : '')) + `</div>`;
+}
 async function workBar(){
   let w;
   try { w = await (await fetch('/work')).json(); } catch (e) { return; }
   const el = $('work');
   const groups = (w.groups || []).filter(g => g.items.some(i => i.done || i.count));
-  if (!groups.length) { el.hidden = true; return; }
-  el.hidden = false;
+  if (!groups.length) { el.hidden = $('split').hidden = true; return; }
+  el.hidden = $('split').hidden = false;
   const anyrun = !!w.anyrunning;
   el.innerHTML = `<div class="hd"><b>Model work</b>${anyrun ? `<button class="stopall" onclick="workStop()">stop all — free the GPU</button>`
       : `<button onclick="workStart('queue')" title="run every unfinished job, one after another">run the queue</button>`}
@@ -1222,7 +1288,8 @@ async function workBar(){
         ? `<button class="on" title="stop this job" onclick="workStop('${it.job}')">\u25a0</button>`
         : (done >= total ? "" : `<button title="start this job" onclick="workStart('${it.job}')">\u25b6</button>`)) : "";
     return `<span class="j ${cls}" title="${esc(tip)}"><span class="nm" onclick="showLayer('${it.key}')" title="show what this has produced">${esc(it.key.replace(/-/g, ' '))}</span> <span class="b"><i style="width:${pct.toFixed(1)}%"></i></span> ${num}${btn}</span>`;
-  }).join('') + `</div>`).join('');
+  }).join('') + `</div>`).join('')
+    + workTotals(w.tokens);                 // the counter closes the area, under the last rung
 }
 async function showLayer(key){          // open, in the reader, whatever this layer has produced
   mode = 'read'; applyMode();

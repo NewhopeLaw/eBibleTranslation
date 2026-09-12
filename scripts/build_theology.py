@@ -87,8 +87,11 @@ def call(system, user, temp=0.2):
                "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
     req = urllib.request.Request(T.CONFIG["api_url"], data=json.dumps(payload).encode("utf-8"),
                                  headers={"Content-Type": "application/json"})
+    t0 = time.time()
     with urllib.request.urlopen(req, timeout=1800) as r:
-        return json.loads(json.loads(r.read()).get("message", {}).get("content", "{}"))
+        resp = json.loads(r.read())
+    T.log_work(resp, time.time() - t0)
+    return json.loads(resp.get("message", {}).get("content", "{}"))
 
 
 def chapter_rows():
@@ -107,6 +110,7 @@ def done_keys(path, key):
 
 
 def phase_books(limit, min_share=0.9):
+    T.WORK_JOB = "book-arguments"
     rows = chapter_rows()
     by_book = defaultdict(list)
     for r in rows:
@@ -163,6 +167,7 @@ def theme_passages():
 
 
 def phase_trajectories(limit, min_passages=4):
+    T.WORK_JOB = "trajectories"
     passages, themes = theme_passages()
     done = done_keys(TRAJ_OUT, "id")
     todo = [k for k, v in sorted(passages.items(), key=lambda kv: -len(kv[1]))

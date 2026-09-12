@@ -101,8 +101,11 @@ def call(system, user, temp=0.2):
                "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
     req = urllib.request.Request(T.CONFIG["api_url"], data=json.dumps(payload).encode("utf-8"),
                                  headers={"Content-Type": "application/json"})
+    t0 = time.time()
     with urllib.request.urlopen(req, timeout=1800) as r:
-        return json.loads(json.loads(r.read()).get("message", {}).get("content", "{}"))
+        resp = json.loads(r.read())
+    T.log_work(resp, time.time() - t0)
+    return json.loads(resp.get("message", {}).get("content", "{}"))
 
 
 def chapter_files():
@@ -123,6 +126,7 @@ def source_chapter(meta, ch):
 
 
 def phase_chapters(limit):
+    T.WORK_JOB = "themes"
     DIR.mkdir(parents=True, exist_ok=True)
     done = set()
     if CHAPTERS.exists():
@@ -165,7 +169,8 @@ def phase_chapters(limit):
 
 
 def phase_consolidate(batch=30):
-    rows = [json.loads(l) for l in CHAPTERS.read_text(encoding="utf-8").splitlines() if l.strip()]
+    T.WORK_JOB = "themes"
+    rows =[json.loads(l) for l in CHAPTERS.read_text(encoding="utf-8").splitlines() if l.strip()]
     items = []                                        # (book, chapter, theme dict)
     for r in rows:
         for t in r["themes"]:
@@ -268,6 +273,7 @@ def theme_vocabulary(passages):
 
 def phase_faces(limit):
     """Name each canonical theme in the language of the text, from its own words."""
+    T.WORK_JOB = "theme-names"
     passages, themes = theme_passages_for_faces()
     vocab = theme_vocabulary(passages)[0]
     done = set()
