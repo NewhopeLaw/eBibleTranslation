@@ -37,6 +37,15 @@ the PC, which always has the latest chapters, commit the rebuild.
 Dashboard changes are the same: the page can be read and edited anywhere, but it
 is only seen working with a model behind it, on the PC.
 
+## Where the work is going
+
+`docs/from-the-text.md` records the plan for the word layers: everything from
+forms to meaning is being rebuilt from the text by the model, bottom up, with
+the STEPBible-based layers kept only as a yardstick and each step compared
+against them before the next is built. Read it before touching `build_morph.py`,
+`build_lexemes.py`, `build_lexicon.py` or `build_domains.py`, and keep its
+"Where things stand" section current when a step lands.
+
 ## Presenting UI work
 
 Any screen, component or front-end change is presented together with a
