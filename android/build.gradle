@@ -1,5 +1,6 @@
-// Android Gradle Plugin 8.7 is the first that compiles against API 35 without
-// complaint, and API 35 is the level Play asks of a new release.
+// Play requires new apps and updates to target API 36 from 31 August 2026.
+// Android Gradle Plugin 8.13 compiles against it without complaint and is the
+// last of the 8.x line, before 9.0 changed the build DSL; it needs Gradle 8.13.
 plugins {
-    id "com.android.application" version "8.7.2" apply false
+    id "com.android.application" version "8.13.0" apply false
 }

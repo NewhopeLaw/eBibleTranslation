@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.RenderProcessGoneDetail;
@@ -58,16 +60,22 @@ public class MainActivity extends ComponentActivity {
     /**
      * Ask the page to go back before the app does. The reader keeps its own
      * trail of what has been looked at - a theme or a lexicon entry has no
-     * address of its own, so browser history cannot cover them - and its trays
-     * close before the page moves. Three ways of asking, in the order they are
-     * worth trying: a hook the page may grow for us, the state of its own back
-     * button, and otherwise nothing, which leaves the decision here.
+     * address of its own, so browser history cannot cover them. In the order a
+     * reader expects them undone: a popup over the text, then the page's own
+     * canGoBack()/goBack(), which also close an open tray. The page's back
+     * arrow is not a stand-in for canGoBack(): it stays disabled while a tray
+     * is open over the first page, and back would then skip the tray.
      */
     private static final String BACK_JS =
             "(function(){try{"
             + "if(typeof window.androidBack==='function')return !!androidBack();"
-            + "var b=document.getElementById('back');"
-            + "if(b&&!b.disabled&&typeof window.goBack==='function'){goBack();return true;}"
+            + "var w=document.getElementById('wpop');"
+            + "if(w&&!w.hidden&&typeof hidePop==='function'){hidePop();return true;}"
+            + "var r=document.getElementById('vpop');"
+            + "if(r&&!r.hidden&&typeof hideRefs==='function'){hideRefs();return true;}"
+            + "var c=document.getElementById('ctx');"
+            + "if(c&&!c.hidden){c.hidden=true;return true;}"
+            + "if(typeof canGoBack==='function'&&typeof goBack==='function'&&canGoBack()){goBack();return true;}"
             + "}catch(e){}return false;})()";
 
     /** The colour the page is actually painted in, asked for rather than assumed. */
@@ -83,6 +91,8 @@ public class MainActivity extends ComponentActivity {
     private View errorView;
     private WebView web;               // null when this phone could not give us one
     private boolean painted;           // the splash waits on this
+    @Nullable private Integer barColour;                          // what the bars were last given
+    private final Runnable recheckBars = this::matchBarsToPage;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,14 +110,15 @@ public class MainActivity extends ComponentActivity {
         // background reaches the edges of the screen, and the content is then
         // held clear of them - and of a camera cutout, and of the keyboard -
         // by the insets the system actually reports rather than by guessed
-        // heights. Because the padding is applied out here, the page's own
-        // safe-area CSS has nothing left to correct.
+        // heights. The insets are then consumed: passed on, a recent WebView
+        // turns them into the page's env(safe-area-inset-*) as well, and the
+        // page would pad again for bars it is already clear of.
         ViewCompat.setOnApplyWindowInsetsListener(root, (v, windowInsets) -> {
             Insets in = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
                     | WindowInsetsCompat.Type.displayCutout()
                     | WindowInsetsCompat.Type.ime());
             v.setPadding(in.left, in.top, in.right, in.bottom);
-            return windowInsets;
+            return WindowInsetsCompat.CONSUMED;
         });
 
         splash.setKeepOnScreenCondition(() -> !painted);
@@ -121,10 +132,13 @@ public class MainActivity extends ComponentActivity {
                     leave(self);
                     return;
                 }
+                // The WebView's own history is deliberately not consulted. It
+                // holds every chapter address the page has moved to, including
+                // the ones its trail re-enters on the way back, so walking it
+                // re-fed the trail and back could never leave the app. The page
+                // is the only judge of where there is to go.
                 web.evaluateJavascript(BACK_JS, handled -> {
-                    if ("true".equals(handled)) return;
-                    if (web != null && web.canGoBack()) web.goBack();
-                    else leave(self);
+                    if (!"true".equals(handled)) leave(self);
                 });
             }
         });
@@ -285,7 +299,8 @@ public class MainActivity extends ComponentActivity {
         if (web == null) return;
         web.evaluateJavascript(THEME_JS, value -> {
             Integer colour = parseCssColour(value);
-            if (colour == null) return;
+            if (colour == null || colour.equals(barColour)) return;
+            barColour = colour;
             root.setBackgroundColor(colour);
             if (web != null) web.setBackgroundColor(colour);
             boolean lightBehind = ColorUtils.calculateLuminance(colour) > 0.5;
@@ -345,7 +360,33 @@ public class MainActivity extends ComponentActivity {
         // The activity rides out a rotation or a switch into dark mode itself,
         // so nothing here is rebuilt; the page may repaint in the other palette
         // though, and the bars follow it once it has.
-        root.postDelayed(this::matchBarsToPage, 200L);
+        scheduleBarCheck();
+    }
+
+    /**
+     * The reader's own colour choice - sepia, dark, true black - changes the
+     * page without a load or a configuration change, so neither of those can
+     * tell the bars. The page and the shell have no bridge, and a timer would
+     * wake the phone for nothing, but a choice is only ever made with a tap or
+     * a key: asking once, just after each, catches every one of them.
+     */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        int action = ev.getActionMasked();
+        if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) scheduleBarCheck();
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent ev) {
+        if (ev.getAction() == KeyEvent.ACTION_UP) scheduleBarCheck();
+        return super.dispatchKeyEvent(ev);
+    }
+
+    private void scheduleBarCheck() {
+        if (root == null) return;
+        root.removeCallbacks(recheckBars);
+        root.postDelayed(recheckBars, 300L);
     }
 
     @Override
@@ -364,10 +405,12 @@ public class MainActivity extends ComponentActivity {
     protected void onResume() {
         super.onResume();
         if (web != null) web.onResume();
+        scheduleBarCheck();                 // the phone's theme may have changed while we were away
     }
 
     @Override
     protected void onDestroy() {
+        if (root != null) root.removeCallbacks(recheckBars);
         if (web != null) {
             holder.removeView(web);
             web.destroy();

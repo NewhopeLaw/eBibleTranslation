@@ -12,12 +12,12 @@ if (keystoreFile.exists()) keystoreFile.withInputStream { keystoreProps.load(it)
 
 android {
     namespace "org.ebible.reader"
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId "org.ebible.reader"
         minSdk 24            // Android 7.0: old enough to cover cheap and second-hand phones, new enough for a modern WebView
-        targetSdk 35
+        targetSdk 36         // what Play asks of every new app and update from 31 August 2026
         versionCode 1
         versionName "1.0"
     }

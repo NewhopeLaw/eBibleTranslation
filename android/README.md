@@ -7,7 +7,7 @@ nothing is reported back.
 
 ## Building
 
-Needs the Android SDK (platform 35), JDK 17 and Gradle 8.9 or later. There is
+Needs the Android SDK (platform 36), JDK 17 and Gradle 8.13 or later. There is
 no Gradle wrapper committed - generating one means committing the wrapper jar,
 and a binary in this repository would have to be taken on trust. Android Studio
 supplies its own; on the command line, `gradle wrapper` once in this folder
@@ -42,6 +42,9 @@ keytool -genkeypair -v -keystore ~/keys/ebible-release.jks \
 cp keystore.properties.example keystore.properties    # then fill it in
 ```
 
+`storeFile` in `keystore.properties` must be written out in full: Gradle does
+not expand `~` the way the shell did for `keytool`.
+
 Keep the keystore and its passwords off this repository and backed up
 somewhere else; Play signs the delivered app with its own key, but an upload
 key that is lost has to be reset with Google before another release can go up.
@@ -50,12 +53,15 @@ key that is lost has to be reset with Google before another release can go up.
 
 - **Insets.** The window draws edge to edge and the content is padded by the
   insets the system reports - bars, cutout, keyboard - so the page never has to
-  guess. Its own `safe-area` CSS therefore reads zero and has nothing to
-  correct.
-- **Colour.** After every load the shell asks the page what colour it actually
-  painted (`meta[name=theme-color]`, or the body background) and gives the
-  window and the bar icons the same. That keeps them one surface even where the
-  page and the phone disagree about dark mode.
+  guess. The insets are consumed there rather than passed on, so the page's own
+  `safe-area` CSS reads zero and does not pad a second time.
+- **Colour.** After every load, on returning to the app, and just after every
+  tap or key, the shell asks the page what colour it actually painted
+  (`meta[name=theme-color]`, or the body background) and gives the window and
+  the bar icons the same. The taps are what catch the reader's own colour
+  choice - sepia, dark, true black - which changes the page without a load.
+  That keeps them one surface even where the page and the phone disagree about
+  dark mode.
 - **Dark mode.** From Android 13 the page's `prefers-color-scheme` follows the
   phone's setting through the WebView by itself. Below that it does not, and
   the app would need `androidx.webkit` to make it; for now an older phone in
@@ -68,13 +74,20 @@ key that is lost has to be reset with Google before another release can go up.
   it.
 - **Zoom.** Pinch zoom stays on with the +/- overlay hidden - it covers the
   text, and a pinch does the same job.
-- **Back.** The system back button asks the page first, because the reader
-  keeps a trail of themes and lexicon entries that have no address of their
-  own. It goes through `OnBackPressedDispatcher` with
-  `enableOnBackInvokedCallback` on, so the predictive gesture animates the exit
-  when the page has nowhere left to go. While the page can still go back the
-  gesture is intercepted and shows no preview, which is the documented cost of
-  deciding in JavaScript.
+- **Back.** The system back button asks the page, because the reader keeps a
+  trail of themes and lexicon entries that have no address of their own. It
+  closes a popup first, then calls the page's `canGoBack()` and `goBack()`
+  (which close an open tray before moving), and leaves the app when the page
+  says there is nowhere to go. The WebView's own history is never walked: it
+  holds every chapter address the trail re-enters on its way back, and walking
+  it fed the trail again, so back could never leave. Because the answer comes
+  from JavaScript, the back callback is always registered and the predictive
+  gesture shows no preview of the home screen; that is the documented cost of
+  deciding in the page.
+- **Read aloud.** The Android System WebView has no `speechSynthesis`, so the
+  page's read-aloud menu does not appear in the app. The page checks for it and
+  hides the item rather than failing. Bringing it back would take a bridge to
+  Android's `TextToSpeech`.
 - **Rotation.** The activity handles the configuration changes itself rather
   than being rebuilt: parsing an eighteen-megabyte page again would lose the
   reader's place every time the phone turns. Process death is covered
@@ -108,5 +121,7 @@ key that is lost has to be reset with Google before another release can go up.
   compression. Play's limit for an install-time bundle is 200 MB, so there is
   room, but a future language will need either Play Asset Delivery or a
   download-on-demand of `morph/`.
-- **Target API.** 35, which is what Play requires of new releases; `minSdk 24`
-  covers Android 7 and later.
+- **Target API.** 36, which Play requires of new apps and updates from
+  31 August 2026 (an extension to 1 November can be requested in the Console);
+  `minSdk 24` covers Android 7 and later. The level rises every August, so
+  check it again before each year's first upload.

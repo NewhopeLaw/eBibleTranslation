@@ -9,3 +9,12 @@ app/src/main/assets/
 keystore.properties
 *.jks
 *.keystore
+
+# A Gradle wrapper made locally with `gradle wrapper`, and Android Studio's own
+# files. The wrapper jar is a binary nobody can review in a diff, so each
+# machine makes its own rather than trusting one from the repository.
+gradlew
+gradlew.bat
+gradle/wrapper/
+.idea/
+*.iml
