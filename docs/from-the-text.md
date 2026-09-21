@@ -93,3 +93,17 @@ depend on the lexeme set and are untouched.
 16,967 entries and fields 1,080 of 16,967 (both on the reference lexeme set,
 to be rerun); themes 391 of 1,189 chapters (unaffected). The dashboard's
 work bar shows the live counts; `logs/work.jsonl` records what each call cost.
+
+*21 September 2026:* inventory at 24,089 of 80,894 forms and running (268,100
+of the text's words covered, since the commonest forms went first). Every line
+parses and no form is written twice, but 110 rows (0.46%) have another script
+leaking into the lemma or the root — Arabic, Cyrillic, Chinese or Latin letters
+inside a Hebrew word (`כiyor`, `رعى`) — and the job has no check that would
+catch and re-ask them. They need one before step 3 builds on the inventory.
+No step has landed yet: the comparison for step 1 is still to be written.
+
+The search box now reaches the concordance, the lexicon, the fields and the
+themes, from any translated language, by tracing a reader's word through the
+verses it stands in to the Hebrew and Greek words behind them. That concordance
+is still the reference's. It becomes ours at step 3, and until then our own
+lexemes can be found by name but cannot be expanded into their verses.
