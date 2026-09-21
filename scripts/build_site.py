@@ -1534,6 +1534,14 @@ function renderChapter(book, ch, highlightVerse) {
   main.setAttribute("lang", (v === "orig" || v === "lxx" || v === "hl") ? "" : (shown || "en"));
   main.setAttribute("dir", (v === "tr" && shown) ? tdir(shown) : "ltr");
   if (!tr) html += `<p class="empty" style="margin:0 0 1.2rem">Not translated yet${src ? ` — showing the ${v === "lxx" ? "Septuagint" : L.name}.` : "."}</p>`;
+  /* A chapter the chosen language has not reached falls back to whatever
+     translation the chapter does have, which is better than an empty page -
+     but it used to do it in silence. The language menu still said 日本語
+     while the page was in English, and a reader was left to decide whether
+     the app was broken or that was what Japanese looked like. */
+  else if (shown !== tl && TARGETS[tl]) html += `<p class="empty" style="margin:0 0 1.2rem">`
+    + `${esc(TARGETS[tl].native || TARGETS[tl].name)}: not translated this far yet`
+    + ` — showing the ${esc(TARGETS[shown].name)}.</p>`;
   if (v === "harm") { renderHarmony(book, ch, html, shown); return; }
   if (v === "map") { renderMap(book, ch, html); return; }
   if (v === "chron") { renderChron(book, ch, html); return; }
