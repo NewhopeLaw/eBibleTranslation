@@ -310,11 +310,11 @@ p.vv { margin:0 0 1.05em; text-align:justify; hyphens:auto; }
   text-decoration:none; padding:.5rem .9rem; border:1px solid var(--edge); border-radius:12px; }
 .pn a:hover { border-color:var(--accent); background:var(--soft); }
 .pn .off { visibility:hidden; }
-#results { font:calc(15px * var(--ui))/1.5 system-ui,sans-serif; }
-#results .hit { background:var(--card); border:1px solid var(--border);
+#results, #askslot { font:calc(15px * var(--ui))/1.5 system-ui,sans-serif; }
+#results .hit, #askslot .hit { background:var(--card); border:1px solid var(--border);
   border-radius:10px; padding:.7rem .9rem; margin:.6rem 0; cursor:pointer; }
-#results .hit:hover { border-color:var(--accent); }
-#results .ref { color:var(--accent); font-weight:600; font-size:calc(13px * var(--ui)); }
+#results .hit:hover, #askslot .hit:hover { border-color:var(--accent); }
+#results .ref, #askslot .ref { color:var(--accent); font-weight:600; font-size:calc(13px * var(--ui)); }
 mark { background:var(--hl); color:inherit; border-radius:3px; padding:0 .1em; }
 .flash { animation:flash 2.5s; }
 @keyframes flash { 0%,55% { background:var(--hl); } 100% { background:transparent; } }
@@ -2005,6 +2005,7 @@ async function search(q) {
                      rest: {lit: lit.slice(FIRST, 500).map(verse)}};
 
   let html = `<h2>Search: “${esc(q)}”<small class="lang">${TARGETS[tl].name}</small></h2>`
+    + `<div id="askslot"></div>`
     + `<div id="entslot">${waiting ? `<p class="sectnote">Looking in the study layers…</p>` : ""}</div>`
     + `<div id="wordslot"></div><p class="sectnote" id="jumps"></p><div id="results">`;
   html += `<div class="sect" id="s-lit">Verses with these words<small>${lit.length}${whole ? "" : "+"}${IDX[tl] ? "" : " · scanned: the index for this text could not be opened, so only the first are found"}</small></div>`;
@@ -2018,6 +2019,7 @@ async function search(q) {
   }
   main.innerHTML = html + "</div>";
   drawJumps();
+  askDraw();
 
   if (!layers) return;
   await entLoad().catch(() => {});
@@ -2031,6 +2033,91 @@ async function search(q) {
   mine.words = origWords(mine);
   origDraw();
 }
+/* ---- the PC's search: the same box, with the model behind it ----
+   Everything above runs on a phone with nothing to ask. Served from the
+   dashboard (scripts/live.py, /reader) there is a model on the other side of
+   the wall, and scripts/ask.py lets it read the question: it names passages
+   from memory, the indexes add what its words find, and it picks from those
+   verses with their text in front of it. What comes back is verse numbers,
+   drawn here from this page's own text - the model chooses, it is never quoted.
+   It is asked for, not run as the reader types: an answer costs the GPU some
+   seconds, and a good many more when a job is translating on it. Anywhere but
+   the dashboard - a file, a phone, a static server - none of this is drawn. */
+const ASKHERE = /^https?:$/.test(location.protocol) && location.pathname === "/reader";
+const ASKED = new Map();                                  // "lang|question" -> {state, ...}, so typing on and coming back keeps the answer
+let ASKPC = null;                                         // what GET /ask said: {model, busy}, or false when nobody answered
+const askKey = () => SR ? tl + "|" + SR.q : "";
+async function askProbe(){
+  try { const r = await fetch("/ask", {cache: "no-store"}); const j = r.ok ? await r.json() : null; ASKPC = j && j.ok ? j : false; }
+  catch (e) { ASKPC = false; }
+}
+async function askDraw(){
+  const key = askKey(); if (!ASKHERE || !key) return;
+  if (ASKPC === null) await askProbe();
+  const slot = $("#askslot"); if (!slot || key !== askKey() || !ASKPC) return;
+  const a = ASKED.get(key), model = esc(ASKPC.model);
+  const head = (small, title) => `<div class="sect" id="s-ask">${title || "Picked by"} ${model}<small>${small}</small></div>`;
+  if (!a) {
+    slot.innerHTML = `<div class="wchips"><button type="button" id="askgo" onclick="askRun(false)">Ask ${model}</button>`
+      + `<span class="sectnote" style="align-self:center">It reads what you typed as a question, in any language, and picks verses by what they say. A few seconds`
+      + (ASKPC.busy ? ` — longer now: ${esc(ASKPC.busy)} is using the model, and the question waits its turn` : "") + `.</span></div>`;
+  } else if (a.state === "wait") {
+    slot.innerHTML = head("", "Asking") + `<div class="wchips"><span class="sectnote" role="status" style="align-self:center">`
+      + `<span id="asksecs">${askSecs(a)}</span>`
+      + (ASKPC.busy ? ` · ${esc(ASKPC.busy)} is using the model, so this waits its turn` : "") + `</span>`
+      + `<button type="button" onclick="askCancel()">Stop waiting</button></div>`;
+  } else if (a.state === "error") {
+    slot.innerHTML = head("no answer", "Asked") + `<p class="sectnote" role="alert">The model could not be asked: ${esc(a.error)}. The search below does not depend on it.</p>`
+      + `<div class="wchips"><button type="button" onclick="askRun(false)">Try again</button></div>`;
+  } else {
+    const r = a.res, n = r.hits.length, mem = r.hits.filter(h => h.from !== "found").length;
+    let h = head(`${n} verse${n === 1 ? "" : "s"} · it read ${r.read} and kept ${n === 1 ? "this" : "these"} · ${r.seconds} s${r.cached ? ", kept from when it was asked before" : ""}`);
+    if (!n) h += `<p class="sectnote">${r.read ? "None of the verses it was shown answered this, in its judgement." : "It named no passage, and its words found none."} The search below is unaffected.</p>`;
+    else h += `<p class="sectnote">${mem ? `${mem} from passages it named from memory, each checked against the text` : ""}${mem && n - mem ? "; " : ""}${n - mem ? `${n - mem} from what the indexes found for its words` : ""}. A model chose these; it can miss, and it can be wrong.</p>`;
+    /* The prodigal son is twenty verses, and twenty cards of it pushed everything
+       else the model found off the screen. Verses that follow one another are
+       one passage: its first verse is shown, and the card opens there. */
+    const runs = [];
+    for (const x of r.hits) { const last = runs[runs.length - 1]; if (last && x.id === last.id + last.n) last.n++; else runs.push({id: x.id, n: 1}); }
+    h += runs.map(askCard).join("");
+    if (r.dropped && r.dropped.length) h += `<p class="sectnote">It also named <span lang="en">${r.dropped.map(esc).join(", ")}</span>, which could not be found in this text, and ${r.dropped.length === 1 ? "was" : "were"} left out.</p>`;
+    h += `<div class="wchips"><button type="button" onclick="askRun(true)">Ask it again</button></div>`;
+    slot.innerHTML = h;
+  }
+}
+const askSecs = a => `Waiting for the model… ${Math.round((Date.now() - a.t0) / 1000)} s`;
+function askCard(h){
+  const b = byNum[Math.floor(h.id / 1000000)], c = String(Math.floor(h.id / 1000) % 1000), v = String(h.id % 1000); if (!b) return "";
+  const t = trOf(b, c)[tl], sv = t && t.verses[v];
+  /* A verse this language has not reached yet is shown as it stands in the original, as the concordance does. */
+  return `<div class="hit" ${sv ? `lang="${tl}" dir="${tdir(tl)}"` : ""} onclick="goto('#${b}/${c}/${v}')"><div class="ref">${disp(b)} ${c}:${v}${h.n > 1 ? "–" + (+v + h.n - 1) : ""}</div>${sv ? ruby(esc(sv)) : verseHtml(b, c, v)}`
+    + (h.n > 1 ? ` <small class="sectnote" lang="en" dir="ltr">… and the ${h.n - 1} verse${h.n === 2 ? "" : "s"} after it</small>` : "") + `</div>`;
+}
+async function askRun(fresh){
+  const key = askKey(); if (!key || !ASKPC) return;
+  const q = SR.q, lang = tl, a = {state: "wait", t0: Date.now(), stop: new AbortController()};
+  ASKED.set(key, a); askDraw();
+  a.tick = setInterval(() => { const el = $("#asksecs"); if (el && ASKED.get(askKey()) === a) el.textContent = askSecs(a); }, 1000);
+  askProbe().then(() => { if (ASKED.get(key) === a && key === askKey()) askDraw(); });      // is a job in the way right now?
+  let next;
+  try {
+    const r = await fetch("/ask", {method: "POST", headers: {"Content-Type": "application/json"},
+                                   body: JSON.stringify({q, lang, fresh}), signal: a.stop.signal});
+    const j = await r.json();
+    next = r.ok && Array.isArray(j.hits) ? {state: "done", res: j} : {state: "error", error: j.error || ("the dashboard answered " + r.status)};
+  } catch (e) {
+    next = e && e.name === "AbortError" ? null : {state: "error", error: "the dashboard did not answer"};
+  }
+  clearInterval(a.tick);
+  if (ASKED.get(key) !== a) return;                       // stopped, or asked again since
+  if (next) ASKED.set(key, next); else ASKED.delete(key);
+  if (key === askKey()) { askDraw().then(() => { const s = $("#s-ask"); if (s && next && next.state === "done") s.scrollIntoView({block: "nearest"}); }); }
+}
+function askCancel(){
+  const key = askKey(), a = ASKED.get(key); if (!a || a.state !== "wait") return;
+  a.stop.abort(); clearInterval(a.tick); ASKED.delete(key); askDraw().then(() => { const b = $("#askgo"); if (b) b.focus(); });
+}
+
 /* A page of five hundred verses was drawn afresh at every pause in typing, and
    most of them were never scrolled to. The first hundred are drawn; the rest
    are one tap away, and the tap leaves the reader on the first new verse. */

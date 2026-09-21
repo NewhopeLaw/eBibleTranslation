@@ -47,3 +47,8 @@ eBible * live translation.url
 # they are a reference read on this machine, not something this project
 # republishes: what leaves here is a list of name spellings.
 sources/references/
+
+# What was asked of the model through the PC search (scripts/ask.py): kept so a
+# question is answered once, and kept here because what someone searched their
+# Bible for is theirs.
+logs/ask/

@@ -5,7 +5,8 @@ Two kinds of work happen here, and they do not happen in the same place.
 ## The model's work stays on the PC
 
 Translating (`scripts/translate.py`), the study jobs (`scripts/work.py` and the
-`build_*.py` it runs) and the live dashboard (`scripts/live.py`, port 8766) all
+`build_*.py` it runs), the live dashboard (`scripts/live.py`, port 8766) and the
+search that asks the model (`scripts/ask.py`, behind the dashboard's `/ask`) all
 talk to Ollama on this machine's GPU — the model named in `config.json`. None of
 that can run anywhere else: a cloud session has no GPU, no Ollama and no
 `sources/morphhb` and friends (those clones are gitignored; see README.md).

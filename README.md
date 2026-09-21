@@ -196,6 +196,28 @@ The postings are built in code, not by the model — a list of occurrences has t
 be exact. The model's part is the layer above: grouping the forms of a word so
 that a search for one form finds the others.
 
+### Search with the model behind it (the PC)
+
+The index is what a phone can carry. On this machine the reader is served by the
+dashboard (`/reader`), and its search page grows a button: **Ask qwen3:32b** (or
+whatever `config.json` names). `scripts/ask.py` puts the question to the model
+in three steps — the model names passages and the words such a verse would be
+described with; code checks every reference against the source, adds a verse
+either side (the model counts the Psalms the English way, this text the
+Masoretic) and adds what those words find in the topical lines and the
+translation; then the model reads those verses as they stand in the reader's
+language and picks. It can only pick from the list, so nothing it remembers
+wrongly reaches the page, and what is drawn is the reader's own text.
+
+    python scripts/ask.py "the writing on the wall at a feast"
+    python scripts/ask.py --lang zh "那个离开九十九只羊去找一只的牧人"
+
+A question is two short model calls, a few seconds on an idle GPU. While a
+translation or a job is running it waits its turn between their requests, and
+the page says so. Answers are kept under `logs/ask/`, which is not committed.
+Opened as a file, on a phone or from any other server, the reader never shows
+the button.
+
 ### Themes
 
 The whole Bible is about 944,000 tokens and the model holds 40,960, so

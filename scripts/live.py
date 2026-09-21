@@ -29,6 +29,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 import translate as T                                                  # noqa: E402
 from books import BOOKS, DEFAULT_TARGET, LANGS, MIXED, TARGETS, slug, verse_lang   # noqa: E402
 import readaloud as RA                                                 # noqa: E402
+import ask as ASK                                                      # noqa: E402
 
 PORT = 8766
 ROOT = T.ROOT
@@ -763,6 +764,21 @@ def align_verse(req):
         return {"pairs": pairs, "cached": False, "seconds": cache[str(v)]["seconds"]}, 200
 
 
+# ------------------------------------------------------------ the PC's search
+# The reader served from here can put a question to the model (scripts/ask.py
+# has the how and the why). It asks first whether there is a model to put it
+# to, and is told at the same time whether the model is busy: a question takes
+# its turn between a running job's requests, and the reader is owed the reason
+# a five-second answer is taking forty.
+def ask_status():
+    with LOCK:
+        busy = "a translation" if STATE["running"] else None
+    if not busy:
+        jobs = [j for j, proc in WORKERS.items() if proc.poll() is None] + [j for j, pids in foreign_jobs().items() if pids]
+        busy = f"the {jobs[0]} job" if jobs else None
+    return {"ok": True, "model": T.CONFIG["model"], "busy": busy}
+
+
 # ------------------------------------------------------------------ server
 class Handler(BaseHTTPRequestHandler):
     def log_message(self, fmt, *args):       # quiet; keep errors only
@@ -827,6 +843,8 @@ class Handler(BaseHTTPRequestHandler):
             self._json(apk_status())
         elif path == "/reader-stale":
             self._json({"stale": reader_stale()})
+        elif path == "/ask":
+            self._json(ask_status())
         elif path in ("/reader", "/compare"):          # the offline reader; rebuilt first when translations are newer
             if path == "/reader" and reader_stale():
                 print("reader: " + rebuild_site())
@@ -873,6 +891,10 @@ class Handler(BaseHTTPRequestHandler):
             self._json({"ok": True, "output": rebuild_site()})
         elif self.path == "/align":
             payload, code = align_verse(self._body())
+            self._json(payload, code)
+        elif self.path == "/ask":
+            req = self._body()
+            payload, code = ASK.ask(req.get("q"), req.get("lang") or DEFAULT_TARGET, bool(req.get("fresh")))
             self._json(payload, code)
         else:
             self._json({"error": "not found"}, 404)
