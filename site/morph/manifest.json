@@ -35,11 +35,11 @@
   "built": 1789189625.8588498
  },
  "search-index": {
-  "count": 1690650,
+  "count": 4711547,
   "unit": "postings",
-  "note": "8 texts indexed for search",
+  "note": "9 texts indexed for search",
   "script": "build_index.py",
-  "built": 1789189629.3399994
+  "built": 1789960488.041003
  },
  "morphology": {
   "count": 442835,

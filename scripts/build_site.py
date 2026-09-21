@@ -1132,7 +1132,12 @@ async function renderHarmony(book, ch, head, shown){    // the chapter beside it
 /* ---------- morphology: every Hebrew, Aramaic and Greek word tagged (STEPBible data, CC BY 4.0), loaded per book on demand ---------- */
 const MORPH = {};                                        // morph/<Book>.js fills MORPH["Book name"]
 const _loaded = {};
-function loadJs(src){ return _loaded[src] || (_loaded[src] = new Promise((ok, no) => { const el = document.createElement("script"); el.src = src; el.onload = ok; el.onerror = () => { delete _loaded[src]; no(new Error(src)); }; document.head.appendChild(el); })); }
+/* The word tags, the lexicon and the search indexes are separate files, and a
+   browser caches a <script> hard. A reader who opened the reader last week
+   kept last week's search index after everything else had been rebuilt - it
+   answered 356 verses for 神 where the text has 4128, and said nothing. The
+   build stamp on the end of the URL makes a rebuilt page fetch them again. */
+function loadJs(src){ const url = src + (src.indexOf("?") < 0 ? "?v=" + encodeURIComponent(BUILD) : ""); return _loaded[src] || (_loaded[src] = new Promise((ok, no) => { const el = document.createElement("script"); el.src = url; el.onload = ok; el.onerror = () => { delete _loaded[src]; no(new Error(src)); }; document.head.appendChild(el); })); }
 const morphLoad = book => MORPH[disp(book)] ? Promise.resolve() : loadJs(`morph/${book}.js`);
 const lexLoad = () => typeof LEX !== "undefined" ? Promise.resolve() : loadJs("morph/lex.js");
 const concLoad = () => typeof CONC !== "undefined" ? Promise.resolve() : loadJs("morph/conc.js");
@@ -1679,7 +1684,14 @@ async function search(q) {
   main.className = ""; main.setAttribute("lang", "en"); main.setAttribute("dir", "ltr");
   if (q === "?diag") { main.innerHTML = await diagnostics(); return; }
   main.setAttribute("lang", tl);
-  if (q.length < 2) { main.innerHTML = `<p class="empty">Type at least two characters.</p>`; return; }
+  /* Two letters is a sensible floor for an alphabet, where one letter means
+     nothing on its own. It is the wrong floor for Chinese, Japanese and Thai:
+     there a single character is a whole word, and some of the words most
+     worth looking up - 光, 爱, 神, 道 - have no second character to type.
+     Asking for one told the reader to do something impossible. */
+  const oneCharWord = /[㐀-鿿぀-ヿ฀-๿]/.test(q);
+  if (q.length < (oneCharWord ? 1 : 2)) {
+    main.innerHTML = `<p class="empty">Type at least two characters.</p>`; return; }
   try { await idxLoad(tl); } catch (e) {}
   const rx = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi");
   const hits = [];
@@ -2609,6 +2621,19 @@ def main():
             .replace("__BUILT__", __import__("datetime").datetime.now().strftime("%Y-%m-%d %H:%M"))
             .replace("__READALOUD_CSS__", RA.CSS)
             .replace("__READALOUD_JS__", RA.js('main', '.par .o, .par .e, .cmp .row .txt, p.ov, .poetry, .vv span, .hit, .notes')))
+    # The search index is built by a different script, and nothing used to
+    # notice when it had fallen behind: search quietly answered from whatever
+    # text existed the last time build_index.py ran.
+    idx = sorted((SITE / "morph").glob("idx_*.js"))
+    if idx:
+        oldest = min(f.stat().st_mtime for f in idx)
+        newest = max((f.stat().st_mtime for code in counts
+                      for f in (OUT_ROOT / code / "json").glob("*.json")), default=0)
+        if newest > oldest + 3600:
+            import datetime as _dt
+            when = _dt.datetime.fromtimestamp(oldest).strftime("%Y-%m-%d %H:%M")
+            print(f"WARNING: the search index was built {when}, before the newest translated "
+                  f"chapter — search will not find the text added since. Run scripts/build_index.py.")
     out = out_dir / "index.html"
     out.write_text(page, encoding="utf-8")
     nch = sum(len(v) for v in data.values())
