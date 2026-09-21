@@ -2,6 +2,9 @@
 # megabytes of text git already holds once, so they live in a working tree and
 # never in a commit.
 app/src/main/assets/
+# ...and the APK builds' own copies, staged by scripts/build_apk.py.
+reader-assets/
+full-assets/
 
 # Signing material. The keystore and its passwords stay on the machine that
 # makes the release build; keystore.properties.example says what belongs in
