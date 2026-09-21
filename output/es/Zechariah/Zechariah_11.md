@@ -1,84 +1,12 @@
 # Zechariah 11
 
-¹ Abran las puertas de Lebanon, que su pino comerá el fuego;  
-sus cedros serán devorados por el fuego.  
-
-² ¡Lamenta, ciprés! Porque ha caído el cedro,  
-que tanto se ensoberbeció. ¡Lamenten, pinos de Bashán!  
-porque ha sido derribado el bosque hermoso.  
-Es la voz de los pastores que lloran,  
-porque ha sido destruida su gloria;  
-es la voz de los leones rugientes,  
-porque ha sido humillada la gloria del Jordán.  
-
-³ Así dice el SEÑOR, mi Dios:  
-Pasta a los corderos del matadero.  
-
-⁴ Sus dueños los matan, pero no sienten culpa;  
-sus comerciantes dicen:  
-«¡Bendito sea el SEÑOR! Nos hemos enriquecido».  
-Y sus pastores no sienten compasión por ellos.  
-
-⁵ Porque ya no tendré compasión por los habitantes de la tierra,  
-declara el SEÑOR. Miren, voy a entregar cada hombre en manos de su vecino,  
-y en manos de su rey. Los matarán en la tierra,  
-y yo no los salvaré de sus manos.  
-
-⁶ Así que pastoreé a los corderos del matadero.  
-Tomé para mí dos varas:  
-a una la llamé Gracia y a la otra Unión.  
-Y pastoreé a los corderos.  
-
-⁷ En un solo mes deshice a los tres pastores.  
-Mi alma se entristeció por ellos,  
-y sus almas también se entristecieron por mí.  
-
-⁸ Dije: «Ya no los pastorearé.  
-El que muera, muera; el que se pierda, se pierda;  
-y los que queden comerán la carne de sus pastores».  
-
-⁹ Tomé la vara Gracia, la corté para anular la alianza  
-que firmé con todos los pueblos.  
-
-¹⁰ Y aquel día se quebró,  
-y los pastores que cuidaban mis corderos supieron  
-que era la palabra del SEÑOR.  
-
-¹¹ Dije a ellos: «Si les parece bien, den mi salario;  
-si no, dejen de pastorear». Entonces pagaron mi salario:  
-treinta monedas de plata.  
-
-¹² El SEÑOR me dijo: «Tira la plata al horno del fundidor».  
-Y lancé las treinta monedas de plata al templo del SEÑOR,  
-al horno.  
-
-¹³ Corté también la vara Unión, para anular la hermandad  
-entre Judá y entre Israel.  
-
-¹⁴ El SEÑOR me dijo: «Toma otra vez el equipo de un pastor insensato».
-
-¹⁵ Miren, voy a levantar un pastor en la tierra,  
-que no cuidará de los perdidos,  
-ni buscará al que se ha separado,  
-ni sanará al que está herido,  
-ni alimentará al que está fuerte.  
-Sino que comerá la carne de los gordos,  
-y partirá los huesos de los débiles.  
-
-¹⁶ ¡Ay del pastor insensato que abandona el rebaño!  
-Una espada caerá sobre su brazo derecho,  
-sobre su ojo derecho.  
-Su brazo derecho se hará inútil,  
-y su ojo derecho quedará ciego.  
-
-¹⁷ El SEÑOR rechazará al pastor insensato,  
-que abandona el rebaño.  
-Desaparecerá su poder,  
-y su ojo derecho quedará ciego.  
+¹ Abran, oh Líbano, tus puertas, que entre el fuego a devorar tus cedros. ² Lamenta, ciprés, porque cayó el cedro, ante el cual te sentías tan orgulloso. Lamenten, cipreses de Basán, porque se derrumbó el bosque del abismo. ³ Se oye el grito de los pastores, porque se ha arruinado su gloria. Se oye el rugir de los leones, porque se ha destruido el muro del Jordán. ⁴ Así habla el SEÑOR, mi Dios: apacienta al rebaño de la matanza. ⁵ Sus dueños lo matan, pero no sienten remordimiento. Sus vendedores dicen: «Bendito sea el SEÑOR, y nos hicimos ricos». Y sus pastores no se compadecen de ellos. ⁶ Por eso ya no tendré compasión por los que habitan en la tierra, declara el SEÑOR. He aquí que entrego al hombre en manos de su prójimo y en manos de su rey. Ellos destruirán la tierra, y yo no los salvaré de su mano. ⁷ Apacienté al rebaño de la matanza, por lo cual cuidé a los desvalidos del rebaño. Tomé para mí dos varas: a una la llamé Nuevamente, y a la otra, Cuerdas de unión. Apacienté al rebaño. ⁸ En un solo mes hice perecer a los tres pastores. Mi alma se abatía por ellos, y también sus almas se abatían por mí. ⁹ Les dije: «No los apacentaré más. El que muera, que muera. El que se pierda, que se pierda. Y los que queden se comerán entre sí la carne de sus propios compañeros». ¹⁰ Tomé mi vara Nuevamente y la rompí, para anular la alianza que hice con todos los pueblos. ¹¹ Y fue quebrada aquel día, y los que cuidaban de mí, los pobres del rebaño, lo entendieron, porque era palabra del SEÑOR. ¹² Les dije: «Si les agrado, denme mi salario. Si no, que se lo lleve el viento». Y me pesaron treinta monedas de plata como salario. ¹³ El SEÑOR me dijo: «Lánzalas al orfebre, al artesano de lo fino, con quien te valoras más que ellos». Tomé las treinta monedas de plata y las lancé en la casa del SEÑOR, al orfebre. ¹⁴ Rompí mi segunda vara, la de Cuerdas de unión, para quebrantar la hermandad entre Judá y entre Israel. ¹⁵ El SEÑOR me dijo: «Toma aún un arnés de pastor tonto». ¹⁶ Porque he aquí que yo levantaré un pastor en la tierra, que no cuidará de los desgarrados, ni buscará al disperso, ni sanará al herido, ni apacentará al sano. Comerá la carne de lo más fuerte y romperá las patas de los rebaños. ¹⁷ ¡Ay del pastor insensato que abandona el rebaño! Una espada caerá sobre su brazo y sobre su ojo derecho. Su brazo se entorpecerá, y su ojo derecho quedará ciego.
 
 ---
 
 Notes  
-- v. 12-13: La traducción de la expresión "horno del fundidor" refleja el uso de un horno típico para fundir metales, y no se ha seguido la interpretación simbólica de algunos manuscritos.  
-- v. 15-16: El término "pastor insensato" se ha mantenido como interpretación de la palabra hebrea "עֵטֶר" (atser), cuyo significado exacto es ambiguo, pero en este contexto se entiende como un líder negligente.  
-- v. 17: La repetición de "rechazará al pastor insensato" y la descripción de la pérdida de la visión en el ojo derecho se interpreta como una maldición divina contra un líder inadecuado.
+- v. 7: La traducción de «nuevamente» es una interpretación de «נֹעַם» (Noam), nombre simbólico de la vara, que puede implicar gracia o belleza.  
+- v. 13: La expresión «orfebre de lo fino» se refiere a alguien que trabaja con metales finos, como una alusión a la valía relativa de las monedas en comparación con la gente.  
+- v. 15: Se ha traducido «כְּלִי רֹעֶה אֱוִלִי» como «arnés de pastor tonto», manteniendo la metáfora del instrumento.  
+- v. 16: Se ha seguido el sentido figurado del texto, donde el pastor tonto no cuida ni protege al rebaño.  
+- v. 17: La traducción de «חֹבְלִים» como «cuerdas de unión» en el verso 7 se complementa con el uso de «cuerdas» como símbolo de hermandad en el verso 14.

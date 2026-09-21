@@ -376,6 +376,18 @@ def parse_output(raw, expected):
             verses[cur] += "\n"        # paragraph/stanza break marker
     missing = [n for n in expected if n not in verses]
     extra = [n for n in verses if n not in expected]
+    # A verse number the source does not have is dropped rather than retried.
+    # These are the Textus Receptus verses - Acts 8:37, 15:34, Matthew 18:11 -
+    # supplied from memory of the English Bible the model was trained on.
+    # Telling it not to does not work: the closed list of verse numbers is in
+    # the prompt now, and Acts 8:37 came back on the second attempt and the
+    # third regardless. Retrying cannot win against something a model is
+    # certain of, and the decision needs no judgement - there is no source
+    # text behind the verse, so there is nothing to translate and nothing is
+    # lost by removing it. The numbering around it is already right: the
+    # source skips 37 and so does what is left.
+    for n in extra:
+        verses.pop(n, None)
     return verses, "\n".join(notes_lines).strip(), missing, extra
 
 
