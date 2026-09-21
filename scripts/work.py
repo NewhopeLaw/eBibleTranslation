@@ -63,6 +63,9 @@ def jobs():
     out.append(("theme-names", "name each theme in the language of the text",
                 count_lines(ROOT / "targets" / "themes" / "faces.jsonl"), 300,
                 [sys.executable, str(S / "build_themes.py"), "--faces", "--pack"]))
+    out.append(("topics", "write the line that lets each verse be found by someone who cannot quote it",
+                count_lines(ROOT / "targets" / "search" / "topics.jsonl"), 1189,
+                [sys.executable, str(S / "build_topics.py")]))
     out.append(("book-arguments", "say what each book argues, from its chapter themes",
                 count_lines(ROOT / "targets" / "themes" / "books.jsonl"), 66,
                 [sys.executable, str(S / "build_theology.py"), "--books", "--pack"]))
