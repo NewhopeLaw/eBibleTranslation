@@ -396,6 +396,18 @@ sup.v[aria-pressed="true"], sup.v[aria-pressed="true"]:hover {
 #map .plab { font:calc(10px * var(--ui)) system-ui,sans-serif; fill:var(--fg); pointer-events:none; paint-order:stroke; stroke:var(--bg); stroke-width:2.5px; }
 .mapbar { display:flex; flex-wrap:wrap; gap:.4rem; align-items:center; margin:.5rem 0; font:calc(13px * var(--ui)) system-ui,sans-serif; color:var(--muted); }
 .mapbar button { font:calc(13px * var(--ui)) system-ui,sans-serif; padding:.25rem .6rem; border:1px solid var(--border); border-radius:7px; background:var(--card); color:var(--fg); cursor:pointer; }
+/* A search answers from more than one place now: the words and fields the
+   study layers hold, the verses that contain what was typed, and the verses
+   that are about it without saying it. Each gets its own heading, because a
+   verse found through a description the reader cannot see is not the same
+   claim as one found through its own words, and running them together would
+   hide which is which. */
+.sect { margin:1.1rem 0 .3rem; font:600 calc(13px * var(--ui)) system-ui,sans-serif; color:var(--fg);
+        display:flex; align-items:baseline; gap:.5rem; flex-wrap:wrap; }
+.sect small { font-weight:400; color:var(--muted); font-size:calc(12px * var(--ui)); }
+.kind { display:inline-block; font:600 calc(10px * var(--ui)) system-ui,sans-serif; text-transform:uppercase;
+        letter-spacing:.05em; color:var(--muted); border:1px solid var(--border); border-radius:4px;
+        padding:.05rem .3rem; margin-right:.35rem; vertical-align:.08em; }
 .plist { display:grid; grid-template-columns:repeat(auto-fill,minmax(13rem,1fr)); gap:.2rem .8rem; margin:.6rem 0 1rem; font:calc(13px * var(--ui)) system-ui,sans-serif; }
 .plist a { cursor:pointer; padding:.15rem .3rem; border-radius:5px; } .plist a:hover { background:var(--soft); }
 .plist a small { color:var(--muted); }
@@ -1145,6 +1157,13 @@ const lexxLoad = () => typeof LEXX !== "undefined" ? Promise.resolve() : loadJs(
 const LEXXT = {};                                        // our entries in the target languages
 const lexxtLoad = t => (t === "en" || LEXXT[t]) ? Promise.resolve() : loadJs(`morph/lexx_${t}.js`);
 const domLoad = () => typeof DOMTAG !== "undefined" ? Promise.resolve() : loadJs("morph/domains.js");
+/* Everything the study layers know, in one index keyed by the words a reader
+   types. Until this existed the search box could reach none of them: a reader
+   asking for "love" got the verses an English translator happened to use the
+   word in, while chesed and agape sat two taps away with every occurrence
+   already counted. The reader-only build does not carry it, so every use of it
+   is guarded rather than assumed. */
+const entLoad = () => typeof ENTIDX !== "undefined" ? Promise.resolve() : loadJs("morph/entries.js");
 const lexemeLoad = () => typeof FORM2LEX !== "undefined" ? Promise.resolve() : loadJs("morph/lexemes.js");
 function oursLexeme(form){                               // our own inventory, grown from the text by the model
   if (typeof FORM2LEX === "undefined") return "";
@@ -1677,6 +1696,50 @@ async function diagnostics(){
     + `</div>`;
 }
 
+/* ---- the study layers, answered from the same box as the verses ---- */
+const unpack = enc => { const out = []; let p = 0; for (const x of enc.split(".")) { p += parseInt(x, 16); out.push(p); } return out; };
+function entFind(index, q){                              // entry numbers holding every word of the query
+  let acc = null;
+  for (const w of q.split(/[^\p{L}\p{M}\p{N}]+/u).filter(Boolean).map(foldTerm)) {
+    const enc = index && index[w]; if (!enc) return [];
+    const set = new Set(unpack(enc));
+    acc = acc === null ? set : new Set([...acc].filter(v => set.has(v)));
+    if (!acc.size) break;
+  }
+  /* ENTRIES is written in order of how often the thing occurs, so the entry
+     number is already its rank and sorting by it needs no second thought. */
+  return acc ? [...acc].sort((a, b) => a - b) : [];
+}
+const ENTOPEN = {
+  /* Our own inventory is opened at its lexeme page; a reference tag goes to the
+     concordance, which is what someone searching for a word actually wants -
+     every place it stands, not a dictionary entry about it. */
+  lexeme: e => e[1][0] === "e" ? `showLexeme('${attr(e[1])}')` : `showConc('${attr(e[1])}')`,
+  field: e => `showDomain('${attr(e[1])}')`,
+  theme: e => `showTheme('${attr(e[1])}')`,
+  place: e => `showPlace('${attr(e[1])}')`,
+};
+const ENTKIND = {lexeme: "word", field: "field", theme: "theme", place: "place"};
+function entBlock(q){
+  if (typeof ENTIDX === "undefined") return "";
+  const named = entFind(typeof ENTKEY === "undefined" ? null : ENTKEY, q);
+  const seen = new Set(named);
+  /* What an entry calls itself first. A hit inside a long dictionary definition
+     is still a hit - a definition of a staff mentions shepherds - but it should
+     never stand above the word whose own gloss is the one asked for. */
+  const order = named.concat(entFind(ENTIDX, q).filter(n => !seen.has(n))).slice(0, 12);
+  if (!order.length) return "";
+  return `<div class="sect">In the study layers<small>${order.length}${order.length >= 12 ? "+" : ""} of them — tap to open</small></div>`
+    + `<div class="plist">` + order.map(n => {
+        const e = ENTRIES[n], kind = e[0], label = e[2], sub = e[3] || "", count = e[4] || 0;
+        const open = (ENTOPEN[kind] || (() => ""))(e);
+        return `<a onclick="${open}"><span class="kind">${esc(ENTKIND[kind] || kind)}</span>`
+          + `<span class="orig">${esc(label)}</span> <small>${esc(sub)}`
+          + (count ? ` · ${count} occurrence${count === 1 ? "" : "s"}` : "")
+          + (e[5] === "ref" ? " · the reference lexicon" : "") + `</small></a>`;
+      }).join("") + `</div>`;
+}
+
 async function search(q) {
   navRender(null);
   q = q.trim();
@@ -1693,6 +1756,9 @@ async function search(q) {
   if (q.length < (oneCharWord ? 1 : 2)) {
     main.innerHTML = `<p class="empty">Type at least two characters.</p>`; return; }
   try { await idxLoad(tl); } catch (e) {}
+  /* Three sources, each allowed to fail on its own: a reader-only build has no
+     study layers and no topical index, and a search must still answer. */
+  await Promise.all([entLoad().catch(() => {}), idxLoad("topics").catch(() => {})]);
   const rx = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi");
   const hits = [];
   const cand = idxCandidates(tl, q);
@@ -1718,13 +1784,36 @@ async function search(q) {
       }
     }
   }
-  let html = `<h2>Search: “${esc(q)}”<small class="lang">${TARGETS[tl].name}</small></h2><div id="results">`;
-  html += `<p class="empty">${hits.length}${hits.length >= 500 ? "+" : ""} verse${hits.length === 1 ? "" : "s"} found${cand ? "" : " · scanned, this text has no index yet"}.</p>`;
-  for (const h of hits) {
-    rx.lastIndex = 0;
-    html += `<div class="hit" lang="${tl}" dir="${tdir(tl)}" onclick="goto('#${h.book}/${h.ch}/${h.v}')">
+  /* Verses whose own words do not answer, but whose subject does. The topical
+     line behind each one is never shown - it is written to be matched against,
+     not read - so these carry no highlight and are told apart by their heading
+     rather than left looking like ordinary hits that failed to light up. */
+  const found = new Set(hits.map(h => h.book + "|" + h.ch + "|" + h.v));
+  const about = [];
+  for (const id of (idxCandidates("topics", q) || [])) {
+    const book = byNumBook[Math.floor(id / 1000000)], ch = String(Math.floor(id / 1000) % 1000), v = String(id % 1000);
+    const t = book && trOf(book, ch)[tl];
+    const sv = t && t.verses[v];
+    if (!sv || found.has(book + "|" + ch + "|" + v)) continue;
+    about.push({book, ch, v, t: sv});
+    if (about.length >= 60) break;
+  }
+  const verse = h => `<div class="hit" lang="${tl}" dir="${tdir(tl)}" onclick="goto('#${h.book}/${h.ch}/${h.v}')">
       <div class="ref">${disp(h.book)} ${h.ch}:${h.v}</div>
       ${ruby(esc(h.t).replace(rx, m => `<mark>${m}</mark>`))}</div>`;
+  const things = entBlock(q);
+
+  let html = `<h2>Search: “${esc(q)}”<small class="lang">${TARGETS[tl].name}</small></h2>` + things + `<div id="results">`;
+  if (!hits.length && !about.length && !things) {
+    html += `<p class="empty">Nothing found for “${esc(q)}”.</p>`;
+  } else {
+    html += `<div class="sect">Verses with these words<small>${hits.length}${hits.length >= 500 ? "+" : ""}${cand ? "" : " · scanned, this text has no index yet"}</small></div>`;
+    html += hits.length ? hits.map(verse).join("")
+          : `<p class="empty">No verse in ${esc(TARGETS[tl].name)} uses them.</p>`;
+    if (about.length) {
+      html += `<div class="sect">Verses about this<small>${about.length}${about.length >= 60 ? "+" : ""} · found by what the verse is about, not by its wording</small></div>`;
+      html += about.map(verse).join("");
+    }
   }
   main.innerHTML = html + "</div>";
 }

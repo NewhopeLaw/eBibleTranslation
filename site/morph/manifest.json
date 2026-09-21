@@ -35,11 +35,11 @@
   "built": 1789189625.8588498
  },
  "search-index": {
-  "count": 4936220,
+  "count": 5264370,
   "unit": "postings",
-  "note": "9 texts indexed for search",
+  "note": "10 texts indexed for search",
   "script": "build_index.py",
-  "built": 1789966389.4796746
+  "built": 1789988285.4366539
  },
  "morphology": {
   "count": 442835,
@@ -114,8 +114,15 @@
  "vectors": {
   "count": 31152,
   "unit": "verse vectors",
-  "note": "semantic search, verse text alone",
+  "note": "semantic search, with the topical lines",
   "script": "build_vectors.py",
-  "built": 1789964794.650975
+  "built": 1789988346.1297116
+ },
+ "entries": {
+  "count": 24463,
+  "unit": "things",
+  "note": "the study layers, searchable",
+  "script": "build_entries.py",
+  "built": 1789990496.8923097
  }
 }

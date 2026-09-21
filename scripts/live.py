@@ -310,6 +310,8 @@ LAYERS = [
         ("morphology", "every word parsed and glossed", None),
         ("clause-data", "each word's part in its clause", None),
         ("search-index", "every word found in every verse", None),
+        ("topics", "the words a verse does not use, so it can still be found", "job:topics"),
+        ("entries", "the study layers, reachable from the search box", None),
     ]),
     ("lexemes", "lexemes", [
         ("concordance", "every occurrence of every lexeme", None),
@@ -333,6 +335,7 @@ LAYERS = [
         ("cross-references", "verses that speak to each other", None),
         ("parallels", "passages that share their wording", None),
         ("places", "where it happens", None),
+        ("people", "who everyone is, and who they came from", "job:people"),
         ("chronology", "what the text counts", None),
     ]),
 ]
@@ -357,7 +360,9 @@ def work_jobs():
 # dashboard finds those by looking at what the running python processes are, so
 # the buttons can stop them too — the point of the buttons is to free the GPU.
 SCRIPT_JOB = {"build_lexemes.py": "lexemes", "build_lexicon.py": "lexicon", "build_domains.py": "domains",
-              "build_themes.py": "themes", "build_index.py": "search-index"}
+              "build_themes.py": "themes", "build_index.py": "search-index",
+              "build_topics.py": "topics", "build_people.py": "people",
+              "build_entries.py": "entries"}
 _scan = {"at": 0.0, "found": {}}
 
 
@@ -387,8 +392,18 @@ def foreign_jobs():
             cmd = " ".join(info["cmdline"] or ())
         except (psutil.NoSuchProcess, psutil.AccessDenied):
             continue
+        # A job started from a terminal inside the project is run as
+        # "python scripts/build_topics.py", and its command line never mentions
+        # the project at all. Matching on the text alone made those jobs
+        # invisible here: the bar showed nothing and the stop button, whose
+        # whole purpose is to free the GPU, had nothing to stop. Where the
+        # process is running says it when the command line does not.
         if "eBibleTranslation" not in cmd:
-            continue
+            try:
+                if not str(proc.cwd()).startswith(str(ROOT)):
+                    continue
+            except (psutil.NoSuchProcess, psutil.AccessDenied, OSError):
+                continue
         job = None
         for script, name in SCRIPT_JOB.items():
             if script in cmd:
@@ -945,6 +960,15 @@ label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); fo
 #work .j.full .b i { background:var(--ok); }
 #work .j.run b { color:var(--accent); } #work .j.run .b i { animation:pulse 1.4s infinite; }
 #work .j.none { opacity:.45; }
+/* What a job has cost, on its own rung. It used to be readable only by resting
+   the pointer on the totals underneath, which on a touch screen meant not at
+   all, and the one number a long job is judged by should not be behind a
+   hover.
+
+   The muted grey these secondary figures usually take comes to 4.01:1 against
+   the panel in the light theme, under the 4.5:1 a reader is owed, so this one
+   keeps the foreground colour and steps back by weight and size instead. */
+#work .j .tk { color:var(--fg); font-weight:400; font-variant-numeric:tabular-nums; font-size:11px; }
 #work .j button { font:11px system-ui,sans-serif; line-height:1; padding:.15rem .3rem; min-width:1.3rem; border:1px solid var(--border);
   border-radius:5px; background:var(--card); color:var(--muted); cursor:pointer; }
 #work .j button:hover { border-color:var(--accent); color:var(--fg); }
@@ -1427,6 +1451,7 @@ async function workBar(){
   if (!groups.length) { el.hidden = $('split').hidden = true; return; }
   el.hidden = $('split').hidden = false;
   const anyrun = !!w.anyrunning;
+  const byJob = (w.tokens && w.tokens.by_job) || {};
   el.innerHTML = `<div class="hd"><b>Model work</b>${anyrun ? `<button class="stopall" onclick="workStop()">stop all — free the GPU</button>`
       : `<button onclick="workStart('queue')" title="run every unfinished job, one after another">run the queue</button>`}
       <span style="font-size:11px">${anyrun ? "using the GPU now" : "idle"}</span></div>`
@@ -1439,7 +1464,9 @@ async function workBar(){
     const btn = it.startable ? (it.running
         ? `<button class="on" title="stop this job" onclick="workStop('${it.job}')">\u25a0</button>`
         : (done >= total ? "" : `<button title="start this job" onclick="workStart('${it.job}')">\u25b6</button>`)) : "";
-    return `<span class="j ${cls}" title="${esc(tip)}"><span class="nm" onclick="showLayer('${it.key}')" title="show what this has produced">${esc(it.key.replace(/-/g, ' '))}</span> <span class="b"><i style="width:${pct.toFixed(1)}%"></i></span> ${num}${btn}</span>`;
+    const spent = it.job && byJob[it.job];
+    const tok = spent ? ` <span class="tk" title="${esc(fmtN(spent.output_tokens) + ' tokens out over ' + fmtN(spent.calls) + ' calls')}">${fmtN(spent.output_tokens)} tok</span>` : "";
+    return `<span class="j ${cls}" title="${esc(tip)}"><span class="nm" onclick="showLayer('${it.key}')" title="show what this has produced">${esc(it.key.replace(/-/g, ' '))}</span> <span class="b"><i style="width:${pct.toFixed(1)}%"></i></span> ${num}${tok}${btn}</span>`;
   }).join('') + `</div>`).join('')
     + workTotals(w.tokens);                 // the counter closes the area, under the last rung
 }

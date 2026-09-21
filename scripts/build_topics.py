@@ -42,6 +42,7 @@ import urllib.request
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+import manifest                                           # noqa: E402
 import translate as T                                     # noqa: E402
 from books import BOOKS, slug                             # noqa: E402
 
@@ -102,6 +103,20 @@ def source_chapter(meta, ch):
         return {}
     chapters = json.loads(f.read_text(encoding="utf-8"))["chapters"]
     return {rec["v"]: rec["text"] for rec in chapters.get(str(ch), [])}
+
+
+def chapter_lines():
+    """{(book, chapter): {verse: line}} for everything written so far."""
+    got = {}
+    if TOPICS.exists():
+        for line in TOPICS.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                try:
+                    r = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                got[(r["book"], int(r["chapter"]))] = r.get("topics") or {}
+    return got
 
 
 def done_chapters():
@@ -183,6 +198,9 @@ def run(limit=0, redo=False, only=None):
                       f"{left:.1f} h left]", flush=True)
     print(f"topics done: {n} chapters written"
           + (f", {short} of them short of a line for every verse" if short else ""))
+    total = sum(len(r) for r in chapter_lines().values())
+    manifest.record("topics", total, "verse lines",
+                    "the words a verse does not use, so it can still be found", "build_topics.py")
 
 
 def show(book, ch):

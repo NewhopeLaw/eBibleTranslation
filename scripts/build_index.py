@@ -32,6 +32,7 @@ import manifest                                       # noqa: E402
 from books import BOOKS, TARGETS, slug   # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
+TOPICS = ROOT / "targets" / "search" / "topics.jsonl"
 NORM = ROOT / "sources" / "normalized"
 OUT = ROOT / "site" / "morph"
 NOSPACE = re.compile(r"[㐀-鿿豈-﫿぀-ヿ฀-๿]")
@@ -127,6 +128,34 @@ def main():
                     postings[t].add(vid)
         if postings:
             write_index(code, postings, f" ({TARGETS[code]['name']}, {n} chapters)")
+    # ---- the words the verses do not use
+    # scripts/build_topics.py writes, for every verse, a line of the plain modern
+    # words a reader would look with - the writing on the wall for a verse that
+    # says fingers wrote on the plaster. They are indexed on their own rather
+    # than mixed into each language: the postings are verse ids, which every
+    # translation shares, so one index serves them all and no language file
+    # grows by an English vocabulary it has no other use for.
+    if TOPICS.exists():
+        bynum = {m["name"]: m["num"] for m in BOOKS.values()}
+        postings = defaultdict(set)
+        chapters = 0
+        for line in TOPICS.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            try:
+                rec = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            num = bynum.get(rec["book"])
+            if not num:
+                continue
+            chapters += 1
+            for v, said in (rec.get("topics") or {}).items():
+                vid = num * 1000000 + int(rec["chapter"]) * 1000 + int(v)
+                for t in terms_of(said, "la"):
+                    postings[t].add(vid)
+        if postings:
+            write_index("topics", postings, f" (what each verse is about, {chapters} chapters)")
 
 
 if __name__ == "__main__":
