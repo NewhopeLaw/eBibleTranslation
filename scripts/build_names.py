@@ -60,7 +60,7 @@ STOP = {
     "Here", "Where", "With", "Behold", "Therefore", "Surely", "Indeed", "Woe",
     "Blessed", "Hear", "Speak", "Say", "Go", "Do", "Have", "Will", "Shall",
     "One", "Two", "Three", "Son", "Sons", "Daughter", "King", "Kings", "Priest",
-    "Israel", "Lord's", "So", "If", "As", "At", "In", "On", "By", "Of", "To",
+    "Lord's", "So", "If", "As", "At", "In", "On", "By", "Of", "To",
     "It", "He", "We", "Our", "Their", "My", "Me", "I", "Us", "Am", "Is", "Are",
     "Was", "Were", "Be", "Been", "Not", "No", "Nor", "Or", "Yet", "Still",
     "Again", "Also", "Even", "Only", "Just", "Such", "Same", "Other", "Another",
@@ -124,6 +124,42 @@ def seed_characters(lang):
     return chars
 
 
+TOKEN = re.compile(r"[^\W\d_]+(?:[-‐-―'’][^\W\d_]+)*", re.UNICODE)
+HANGUL = re.compile(r"[가-힣]")
+
+
+def is_spaced(ref):
+    """Does this language put spaces between its words?
+
+    Chinese and Japanese do not, and a name has to be found by reading runs of
+    the characters names are written with. Korean, Vietnamese and Persian do,
+    and there the words are already marked out - which is better evidence, so
+    it is used where it exists rather than guessed at.
+    """
+    sample = "".join(list(ref.values())[:300])
+    return sample.count(" ") > len(sample) / 25
+
+
+def candidates(text, chars, spaced):
+    """The strings in this passage that could be a name."""
+    if not spaced:
+        return set(runs_of(text, chars))
+    out = set()
+    for m in TOKEN.finditer(text):
+        w = m.group()
+        if len(w) < 2:
+            continue
+        out.add(w)
+        # Korean glues its grammar onto the end of a name - 모세가, 모세를,
+        # 모세야 are all Moses - so the name is a prefix of the word rather
+        # than the word. Every prefix is offered and the scoring decides: the
+        # bare stem keeps company with all of them and wins on that.
+        if HANGUL.match(w):
+            for i in range(2, len(w)):
+                out.add(w[:i])
+    return out
+
+
 def runs_of(text, chars, lo=2, hi=6):
     out, cur = [], []
     for ch in text + " ":
@@ -185,7 +221,7 @@ def grow_characters(ref, chars, rounds=4):
     return chars
 
 
-def learn(pivot, ref, chars, min_chapters, min_score):
+def learn(pivot, ref, chars, min_chapters, min_score, spaced=False):
     """Pair each English name with the reference string that shadows it."""
     eng_ch, eng_books = defaultdict(set), defaultdict(set)
     for key, names in pivot.items():
@@ -198,7 +234,7 @@ def learn(pivot, ref, chars, min_chapters, min_score):
 
     cand_ch = defaultdict(set)
     for key, text in ref.items():
-        for run in set(runs_of(text, chars)):
+        for run in candidates(text, chars, spaced):
             cand_ch[run].add(key)
 
     # Only compare things that could plausibly pair: walk chapter by chapter.
@@ -206,7 +242,7 @@ def learn(pivot, ref, chars, min_chapters, min_score):
     for key, names in pivot.items():
         if key not in ref:
             continue
-        cands = set(runs_of(ref[key], chars))
+        cands = candidates(ref[key], chars, spaced)
         for n in names:
             # Distinct chapters, not rows. Both the chapter and each of its
             # verses are rows, so a name in one chapter of five verses looked
@@ -224,7 +260,9 @@ def learn(pivot, ref, chars, min_chapters, min_score):
 
     best = {}
     for n, rows in ranked.items():
-        rows.sort(reverse=True)
+        # Equal evidence, longer string: a prefix of a name keeps exactly the
+        # company the name does, so Môi would score as well as Môi-se.
+        rows.sort(key=lambda r: (-r[0], -len(r[1]), r[1]))
         score, c, both = rows[0]
         if score < min_score:
             continue
@@ -264,6 +302,23 @@ def drop_impure(best, ref, cap_frac=0.0025):
             freq.update(c for c in text if CJK.match(c))
     cap = cap_frac * sum(freq.values())
     return {n: row for n, row in best.items() if all(freq[c] <= cap for c in row[0])}
+
+
+SUSPECT = re.compile(r"[aeiouAEIOUăâêôơư][ùøûõï]")
+
+
+def drop_suspect(best):
+    """Leave out a spelling the reference itself cannot be trusted on.
+
+    The Vietnamese edition carries a pre-Unicode artifact: Aùp-ra-ham where
+    every Vietnamese Bible prints Áp-ra-ham. The mapping looks obvious, but it
+    cannot be checked - the corrected form appears nowhere in the text - and
+    guessing at it would be guessing at 17 names. A vowel followed by one of
+    those tone letters is not Vietnamese orthography, so those entries are
+    dropped. A name the model is never given it can at least invent once;
+    a name it is given wrongly it will write wrongly every time.
+    """
+    return {n: row for n, row in best.items() if not SUSPECT.search(row[0])}
 
 
 def drop_collisions(best):
@@ -347,9 +402,14 @@ def main():
         ref = reference_chapters(path)
         shared = sum(1 for k in pivot if k in ref)
         print(f"pivot ({PIVOT}) {len(pivot)} rows, {Path(path).name} {len(ref)}, shared {shared}")
-        mine = grow_characters(ref, set(seed_characters(a.lang)))
+        spaced = is_spaced(ref)
+        mine = set() if spaced else grow_characters(ref, set(seed_characters(a.lang)))
         chars |= mine
-        found = drop_collisions(untruncate(learn(pivot, ref, mine, a.min_chapters, a.min_score), ref))
+        found = learn(pivot, ref, mine, a.min_chapters, a.min_score, spaced)
+        if not spaced:                     # run-reading can cut a name short; tokens cannot
+            found = untruncate(found, ref)
+        found = drop_collisions(drop_suspect(found))
+        print(f"  ({'words are spaced' if spaced else 'no spaces: reading character runs'})")
         print(f"  {Path(path).name}: {len(found)} names")
         for n, row in found.items():
             best.setdefault(n, row)               # the first reference given keeps the name
