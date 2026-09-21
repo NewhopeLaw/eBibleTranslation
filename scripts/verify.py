@@ -19,6 +19,8 @@ Checks (flags, never auto-fixes):
     capitalised tokens, e.g. Rebekah/Rebecca) — Latin-script targets
   - names that depart from the spellings readers of the language already know,
     where targets/<lang>/names.map.json has been built (scripts/build_names.py)
+  - a closing quotation mark with nothing open before it: speech that runs on
+    past the end of a verse, closed at every verse as though it had stopped
 
 Writes logs/verify_<lang>.md and prints a summary. Exit code 1 if any flags.
 """
@@ -105,6 +107,41 @@ def name_inventory(chapters_out):
     return names
 
 
+QUOTES = [("“", "”"), ("「", "」"), ("『", "』"), ("«", "»")]
+
+
+def check_quotes(outs, flags):
+    """A closing quotation mark that closes nothing.
+
+    A speech in the Bible runs on for verses at a time, and the model, being
+    handed one verse at a time to write, keeps shutting it at the end of each
+    one - so verse after verse ends with a stray mark that opened nowhere. It
+    is the most visible defect in the text, and unlike the reverse case it is
+    never a convention: the published editions reopen a long speech at each
+    paragraph and close it once, which leaves opens unmatched, never closes.
+
+    Counted per chapter, because that is the unit the model is given. A speech
+    running past the end of a chapter would be a false positive, and is rare
+    enough to be worth the occasional one.
+    """
+    for out in outs:
+        for opener, closer in QUOTES:
+            depth, stray = 0, []
+            for n in sorted(out["verses"], key=int):
+                for c in out["verses"][n]:
+                    if c == opener:
+                        depth += 1
+                    elif c == closer:
+                        if depth > 0:
+                            depth -= 1
+                        else:
+                            stray.append(n)
+            if stray:
+                where = ", ".join(stray[:8]) + ("..." if len(stray) > 8 else "")
+                flags.append(f"{out['book']} {out['chapter']}: QUOTES — {len(stray)} closing "
+                             f"{closer} with nothing open (v. {where})")
+
+
 def check_established(lang, outs, flags):
     """Names a reader of this language would not recognise.
 
@@ -176,6 +213,7 @@ def verify_lang(lang, book_arg, ch_arg):
         if latin:
             check_names(name_inventory(outs), flags)
         check_established(lang, outs, flags)
+        check_quotes(outs, flags)
 
     report.parent.mkdir(exist_ok=True)
     lines = [f"# Verification report — {TARGETS[lang]['name']} ({lang})",
