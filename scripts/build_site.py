@@ -261,7 +261,7 @@ dialog.sheet::backdrop { background:var(--scrim); }
   font:600 calc(13px * var(--ui)) system-ui,sans-serif; }
 #toast { bottom:calc(var(--chipUp,14px) + env(safe-area-inset-bottom)); max-width:min(24rem,92vw);
   padding:.7rem 1rem; border-radius:14px; }
-#zoomchip[hidden], #toast[hidden] { display:none; }
+#zoomchip[hidden], #toast[hidden], #vbar[hidden] { display:none; }
 footer#credits { border-top:1px solid var(--border); margin-top:2rem; padding:1.2rem 1.2rem 2rem; color:var(--muted);
   font:calc(12px * var(--ui))/1.55 system-ui, sans-serif; }
 footer#credits h2 { font:600 calc(12px * var(--ui)) system-ui, sans-serif; text-transform:uppercase; letter-spacing:.06em; margin:0 0 .5rem; }
@@ -408,6 +408,21 @@ sup.v[aria-pressed="true"], sup.v[aria-pressed="true"]:hover {
 .kind { display:inline-block; font:600 calc(10px * var(--ui)) system-ui,sans-serif; text-transform:uppercase;
         letter-spacing:.05em; color:var(--muted); border:1px solid var(--border); border-radius:4px;
         padding:.05rem .3rem; margin-right:.35rem; vertical-align:.08em; }
+/* The original words a search was traced back to. Each one is a switch, because
+   the tracing is arithmetic over verses and can bring a neighbour along - sheep
+   with the shepherd - and the reader is the one who knows which was meant. On
+   is said with a tick and a heavier border, not with colour alone. */
+.wchips { display:flex; flex-wrap:wrap; gap:.4rem; margin:.4rem 0 .5rem; }
+.wchips button { min-height:44px; padding:.3rem .7rem; border:1px solid var(--edge); border-radius:12px;
+  background:var(--card); color:var(--fg); cursor:pointer; text-align:start;
+  font:calc(13px * var(--ui)) system-ui,sans-serif; }
+.wchips button small { color:var(--muted); }
+.wchips button[aria-pressed="true"] { border:2px solid var(--accent); background:var(--hl);
+  padding:calc(.3rem - 1px) calc(.7rem - 1px); font-weight:600; }
+.wchips button[aria-pressed="true"] small { color:var(--fg); }
+.wchips button[aria-pressed="true"]::before { content:"\2713\00a0"; }
+.sectnote { color:var(--muted); font:calc(13px * var(--ui))/1.5 system-ui,sans-serif; margin:.2rem 0 .5rem; }
+.sectnote a { color:var(--accent); cursor:pointer; }
 .plist { display:grid; grid-template-columns:repeat(auto-fill,minmax(13rem,1fr)); gap:.2rem .8rem; margin:.6rem 0 1rem; font:calc(13px * var(--ui)) system-ui,sans-serif; }
 .plist a { cursor:pointer; padding:.15rem .3rem; border-radius:5px; } .plist a:hover { background:var(--soft); }
 .plist a small { color:var(--muted); }
@@ -1658,19 +1673,48 @@ function idxVerses(name, term){                          // -> verse ids for one
   return out;
 }
 const byNumBook = {}; for (const b in ORDER) byNumBook[ORDER[b]] = b;
-function idxCandidates(name, q){                         // verses holding every term of the query, or null to fall back
-  if (!IDX[name]) return null;
+/* Which verses could hold what was typed, from the index alone. Each word is
+   looked up the way its script is indexed. A spaced word is a term; while it is
+   still being typed it is not one yet, and it used to fall through to a scan of
+   the whole Bible on every keystroke (or, at three letters, to no answer at
+   all) - now the terms that begin with it stand in for it. An unspaced run is
+   indexed by its pieces of up to three characters, so a longer one is every one
+   of its threes, where it used to be only the first. `forms` lets the caller say
+   that a word may be answered by others - loved and loving for love. */
+const NOSPACE = /[㐀-鿿豈-﫿぀-ヿ฀-๿]/;
+const TERMS = {};                                        // index name -> its terms, listed once
+function idxCandidates(name, q, forms){                  // verses holding every word of the query, or null with no index
+  const index = IDX[name]; if (!index) return null;
   const words = q.split(/[^\p{L}\p{M}\p{N}]+/u).filter(Boolean).map(foldTerm);
   if (!words.length) return null;
   let acc = null;
-  for (const w of words) {
-    const got = idxVerses(name, w) || idxVerses(name, w.slice(0, 3)) || idxVerses(name, w.slice(0, 2));
-    if (!got) return IDX[name][w] === undefined && w.length > 3 ? null : [];   // a word the index knows is absent means no hits
-    const set = new Set(got);
-    acc = acc === null ? set : new Set([...acc].filter(v => set.has(v)));
+  for (const w of new Set(words)) {
+    let set;
+    if (NOSPACE.test(w)) {
+      const grams = [];
+      if (w.length <= 3) grams.push(w); else for (let i = 0; i + 3 <= w.length; i++) grams.push(w.slice(i, i + 3));
+      for (const g of new Set(grams)) {
+        const got = idxVerses(name, g); if (!got) { set = new Set(); break; }
+        if (!set) set = new Set(got); else { const keep = new Set(got); for (const v of set) if (!keep.has(v)) set.delete(v); }
+      }
+    } else {
+      let terms = (forms && forms[w]) || (index[w] ? [w] : null);
+      if (!terms) { const all = TERMS[name] || (TERMS[name] = Object.keys(index)); terms = all.filter(t => t.startsWith(w) && !t.startsWith("lxx:")); }
+      set = new Set();
+      for (const t of terms) for (const v of idxVerses(name, t) || []) set.add(v);
+    }
+    if (acc === null) acc = set; else for (const v of acc) if (!set.has(v)) acc.delete(v);
     if (!acc.size) break;
   }
   return acc ? [...acc].sort((a, b) => a - b) : [];
+}
+/* The index folds accents so that oracion finds oración; the check against the
+   verse itself did not, and threw those verses away again. This matches a
+   letter however it is accented, against the verse taken apart the same way. */
+const apart = s => /[À-ɏḀ-ỿͰ-Ͽἀ-῿]/.test(s) ? s.normalize("NFD") : s;
+function looseRx(strs){
+  const one = s => [...foldTerm(s)].map(c => c.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + (/\p{L}/u.test(c) ? "[\\u0300-\\u036f]*" : "")).join("");
+  return new RegExp(strs.slice().sort((a, b) => b.length - a.length).map(one).join("|"), "gi");
 }
 /* Typing ?diag into the search box says what this copy of the reader actually
    has in it. On a phone there is no console and no way to look inside the app,
@@ -1698,17 +1742,93 @@ async function diagnostics(){
 
 /* ---- the study layers, answered from the same box as the verses ---- */
 const unpack = enc => { const out = []; let p = 0; for (const x of enc.split(".")) { p += parseInt(x, 16); out.push(p); } return out; };
-function entFind(index, q){                              // entry numbers holding every word of the query
-  let acc = null;
-  for (const w of q.split(/[^\p{L}\p{M}\p{N}]+/u).filter(Boolean).map(foldTerm)) {
-    const enc = index && index[w]; if (!enc) return [];
-    const set = new Set(unpack(enc));
-    acc = acc === null ? set : new Set([...acc].filter(v => set.has(v)));
-    if (!acc.size) break;
+/* The glosses and the topical lines are English prose, and English bends its
+   words: the line for Daniel 5:5 says a hand "writes" on the wall, so a reader
+   typing "writing on the wall" matched nothing. The forms of a word are folded
+   together here, at the time of asking - crudely, by the endings English adds -
+   and the little words are dropped when there is anything else to go on. It is
+   done over the index's own terms, so nothing has to be rebuilt and the stemmer
+   has no twin in Python to fall out of step with. Only these English-keyed
+   indexes are folded; a verse's own wording is still matched as it was typed. */
+const STOPW = new Set(("a an the of on in at to and or for with by from is are was were be his her their its who "
+  + "that which this it as he she they them him not what when where how").split(" "));
+function stemOf(w){
+  if (!/^[a-z]+$/.test(w)) return w;
+  if (w.length > 4) {
+    for (const s of ["ing", "ed", "es", "s", "ly"])
+      if (w.endsWith(s) && w.length - s.length >= 3) { w = w.slice(0, -s.length); break; }
+    if (w.length > 3 && w[w.length - 1] === w[w.length - 2] && !"aeiouls".includes(w[w.length - 1])) w = w.slice(0, -1);
+  } else if (w.length === 4 && w.endsWith("s") && !w.endsWith("ss")) w = w.slice(0, -1);
+  return w.length > 3 && w.endsWith("e") ? w.slice(0, -1) : w;
+}
+const STEMS = new WeakMap();                             // index -> {stem: [its terms]}, built the first time it is asked
+function formsOf(index, w){
+  let g = STEMS.get(index);
+  if (!g) { g = {}; for (const t in index) (g[stemOf(t)] || (g[stemOf(t)] = [])).push(t); STEMS.set(index, g); }
+  return g[stemOf(w)] || (index[w] ? [w] : []);
+}
+function foldFind(index, q, relax){                      // numbers answering every word of the query, in any of its forms
+  if (!index) return [];
+  let words = q.split(/[^\p{L}\p{M}\p{N}]+/u).filter(Boolean).map(foldTerm);
+  const content = words.filter(w => !STOPW.has(w));
+  if (content.length) words = content;
+  const score = new Map();
+  for (const w of new Set(words)) {
+    const got = new Set();
+    for (const t of formsOf(index, w)) for (const n of unpack(index[t])) got.add(n);
+    for (const n of got) score.set(n, (score.get(n) || 0) + 1);
   }
-  /* ENTRIES is written in order of how often the thing occurs, so the entry
-     number is already its rank and sorting by it needs no second thought. */
-  return acc ? [...acc].sort((a, b) => a - b) : [];
+  const n = new Set(words).size, pick = k => [...score].filter(([, c]) => c >= k).map(([v]) => v).sort((a, b) => a - b);
+  const all = pick(n);
+  /* A description is rarely exact. With three words or more, a verse that
+     answers all but one is offered when none answers them all - "writing on the
+     wall at a feast" should not fail because one line says banquet. */
+  return all.length || !relax || n < 3 ? all : pick(n - 1);
+}
+/* ENTRIES is written in order of how often the thing occurs, so the entry
+   number is already its rank and sorting by it needs no second thought. */
+const entFind = (index, q) => foldFind(index, q, false);
+
+/* ---- from the reader's language to the original, through the verses ----
+   The glosses and the topical lines are English, so a reader of the Chinese who
+   typed 宽恕 was answered by the eight verses that spell it and by nothing
+   else: no word, no field, no verse about forgiveness that says it otherwise.
+   Translating those layers is a job per language. But every translation shares
+   its verse numbers with the original, which makes the text its own dictionary:
+   take the verses where the reader's word stands, and ask which Hebrew and
+   Greek words stand in them far more often than chance allows. 赦免 comes back
+   as סָלַח, ἀφίημι and נָשָׂא; misericordia as ἔλεος, חָנַן and רָחַם - in any
+   language that has been translated, with nothing built for it and no model
+   asked. The same question put to the topical lines gives the English words a
+   verse is described with, and so the verses about it.
+   It is arithmetic, and it says so: a word is kept when a fair share of its
+   whole life is spent in these verses and it is many times commoner here than
+   elsewhere. A rare query has less to go on, so it is allowed a looser share
+   when the strict one finds nothing. */
+const INV = {};
+function inverse(name){                                  // verse -> the keys standing in it, and how many verses each key has
+  if (INV[name]) return INV[name];
+  const map = new Map(), tot = {};
+  const add = (k, ids) => { tot[k] = ids.length; for (const v of ids) { const a = map.get(v); if (a) a.push(k); else map.set(v, [k]); } };
+  if (name === "lex") for (const tag in CONC) add(tag, [...new Set(CONC[tag].map(r => r[0] * 1000000 + r[1] * 1000 + r[2]))]);
+  else for (const t in IDX.topics) if (t.length > 2 && !STOPW.has(t)) add(t, unpack(IDX.topics[t]));
+  return INV[name] = {map, tot};
+}
+function behind(ids, name, cap){                         // -> [{k, n, tot, share, score}], the likeliest first
+  const H = ids.length; if (H < 3) return [];
+  const {map, tot} = inverse(name), N = map.size, c = new Map();
+  for (const v of ids) for (const k of (map.get(v) || [])) c.set(k, (c.get(k) || 0) + 1);
+  const tier = share => {
+    const out = [];
+    for (const [k, n] of c) {
+      if (n < 3 || n / H < .05 || n / tot[k] < share) continue;
+      const lift = (n / H) / (tot[k] / N);
+      if (lift >= 8) out.push({k, n, tot: tot[k], share: n / tot[k], score: n * Math.log(lift)});
+    }
+    return out.sort((a, b) => b.score - a.score).slice(0, cap);
+  };
+  const strict = tier(.2);
+  return strict.length ? strict : tier(.05);
 }
 const ENTOPEN = {
   /* Our own inventory is opened at its lexeme page; a reference tag goes to the
@@ -1720,26 +1840,74 @@ const ENTOPEN = {
   place: e => `showPlace('${attr(e[1])}')`,
 };
 const ENTKIND = {lexeme: "word", field: "field", theme: "theme", place: "place"};
-function entBlock(q){
+let ENTNUM = null;                                        // "kind|id" -> its number in ENTRIES
+function entNum(kind, id){
+  if (!ENTNUM) { ENTNUM = {}; ENTRIES.forEach((e, n) => { const k = e[0] + "|" + e[1]; if (!(k in ENTNUM)) ENTNUM[k] = n; }); }
+  return ENTNUM[kind + "|" + id];
+}
+const entOfTag = tag => (typeof ENTRIES !== "undefined" && ENTRIES[entNum("lexeme", tag)]) || ["lexeme", tag, tag, "", 0, ""];
+/* What the study layers have for this search. Asked in English, the index is
+   simply looked up. Asked in anything else it cannot be - its keys are English
+   glosses - so it is reached the way the verses were: through the original
+   words the search was traced to (the fields those words were sorted into, the
+   themes they are distinctive of) and through the English words the verses are
+   described with. The traced words themselves are not repeated here; they are
+   the switches just below. */
+function entBlock(s){
   if (typeof ENTIDX === "undefined") return "";
-  const named = entFind(typeof ENTKEY === "undefined" ? null : ENTKEY, q);
-  const seen = new Set(named);
-  /* What an entry calls itself first. A hit inside a long dictionary definition
-     is still a hit - a definition of a staff mentions shepherds - but it should
-     never stand above the word whose own gloss is the one asked for. */
-  const order = named.concat(entFind(ENTIDX, q).filter(n => !seen.has(n))).slice(0, 12);
-  if (!order.length) return "";
-  return `<div class="sect">In the study layers<small>${order.length}${order.length >= 12 ? "+" : ""} of them — tap to open</small></div>`
-    + `<div class="plist">` + order.map(n => {
-        const e = ENTRIES[n], kind = e[0], label = e[2], sub = e[3] || "", count = e[4] || 0;
+  const order = [], seen = new Set(), take = n => { if (n !== undefined && !seen.has(n)) { seen.add(n); order.push(n); } };
+  let how = "";
+  if (s.direct) {
+    /* What an entry calls itself first. A hit inside a long dictionary definition
+       is still a hit - a definition of a staff mentions shepherds - but it should
+       never stand above the word whose own gloss is the one asked for. */
+    entFind(typeof ENTKEY === "undefined" ? null : ENTKEY, s.q).forEach(take);
+    entFind(ENTIDX, s.q).forEach(take);
+  } else {
+    /* A field counts for each traced word sorted into it. A theme counts for
+       how much of it the word is: every theme records how often its distinctive
+       words stand in its passages and how many times commoner that is than
+       elsewhere, and without that the Sabbath was offered Cain, in whose theme
+       it happens to stand three times. "other" is where the sorting put what it
+       could not place, and is not somewhere to send a reader. */
+    const on = (s.words || []).filter(w => w.on), c = new Map(), best = (cap, kind) =>
+      [...c].sort((a, b) => b[1] - a[1]).slice(0, cap).forEach(([id]) => take(entNum(kind, id)));
+    for (const w of s.words || []) seen.add(entNum("lexeme", w.tag));
+    if (typeof DOMTAG !== "undefined") for (const w of on) for (const f of DOMTAG[w.tag] || []) if (f !== "other") c.set(f, (c.get(f) || 0) + 1);
+    best(3, "field"); c.clear();
+    if (typeof THEMEWORD !== "undefined") for (const w of on) for (const id of THEMEWORD[w.tag] || []) {
+      const row = ((THEMES[id] || [])[3] || []).find(r => r[0] === w.tag);
+      if (row && row[3] > 1) c.set(id, (c.get(id) || 0) + row[4] * Math.log(row[3]));
+    }
+    best(3, "theme");
+    if (typeof ENTKEY !== "undefined") for (const t of s.via) entFind(ENTKEY, t.k).slice(0, 6).forEach(take);
+    const through = s.via.map(t => t.k);
+    how = ` · the layers are keyed in English, so these were reached through `
+      + [on.length ? "the original words below" : "", through.length ? `what the verses are about (<span lang="en">${through.map(esc).join(", ")}</span>)` : ""].filter(Boolean).join(" and ");
+  }
+  const shown = order.slice(0, 12);
+  if (!shown.length) return "";
+  return `<div class="sect">In the study layers<small>${shown.length}${order.length > 12 ? "+" : ""} of them — tap to open${how}</small></div>`
+    + `<div class="plist">` + shown.map(n => {
+        const e = ENTRIES[n], kind = e[0], label = e[2], count = e[4] || 0;
+        /* A theme's description is a sentence or two, and a list of them pushed
+           the verses off a phone's first screen: the name is what is chosen
+           from, and the whole description is on the page it opens. What is
+           counted is said in its own unit - a theme has passages, a field
+           already says how many words it holds, a place is just a place. */
+        let sub = e[3] || ""; if (kind === "theme" && sub.length > 64) sub = sub.slice(0, 60).replace(/\s+\S*$/, "") + "…";
+        const unit = kind === "lexeme" ? "occurrence" : kind === "theme" ? "passage" : "";
         const open = (ENTOPEN[kind] || (() => ""))(e);
         return `<a onclick="${open}"><span class="kind">${esc(ENTKIND[kind] || kind)}</span>`
           + `<span class="orig">${esc(label)}</span> <small>${esc(sub)}`
-          + (count ? ` · ${count} occurrence${count === 1 ? "" : "s"}` : "")
+          + (count && unit ? ` · ${count} ${unit}${count === 1 ? "" : "s"}` : "")
           + (e[5] === "ref" ? " · the reference lexicon" : "") + `</small></a>`;
       }).join("") + `</div>`;
 }
 
+let SR = null;                                            // the search on the page now
+let SEARCHSEQ = 0;
+const FIRST = 100;                                        // verses drawn at once; the rest wait to be asked for
 async function search(q) {
   navRender(null);
   q = q.trim();
@@ -1752,16 +1920,29 @@ async function search(q) {
      there a single character is a whole word, and some of the words most
      worth looking up - 光, 爱, 神, 道 - have no second character to type.
      Asking for one told the reader to do something impossible. */
-  const oneCharWord = /[㐀-鿿぀-ヿ฀-๿]/.test(q);
-  if (q.length < (oneCharWord ? 1 : 2)) {
+  if (q.length < (NOSPACE.test(q) ? 1 : 2)) {
     main.innerHTML = `<p class="empty">Type at least two characters.</p>`; return; }
-  try { await idxLoad(tl); } catch (e) {}
-  /* Three sources, each allowed to fail on its own: a reader-only build has no
-     study layers and no topical index, and a search must still answer. */
-  await Promise.all([entLoad().catch(() => {}), idxLoad("topics").catch(() => {})]);
-  const rx = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi");
-  const hits = [];
-  const cand = idxCandidates(tl, q);
+  /* The two small indexes are waited for, because the verses are what the
+     reader came for. The study layers are ten megabytes the first time and are
+     not: the verses are drawn, and the words and the concordance fill their
+     places when they arrive. Each source is allowed to fail on its own - a
+     reader-only build has no study layers, and a search must still answer.
+     A search is started by every pause in typing, and the first of them waits
+     longest, for the index; an answer that arrives after a later question has
+     been asked is dropped rather than drawn over the newer one. */
+  const seq = ++SEARCHSEQ;
+  await Promise.all([idxLoad(tl).catch(() => {}), idxLoad("topics").catch(() => {})]);
+  if (seq !== SEARCHSEQ) return;
+  /* One English word is answered by its other forms too - loved and loving for
+     love - through the same folding the English-keyed layers use. More than one
+     word is a phrase, and is looked for as it was typed. */
+  const words = q.split(/[^\p{L}\p{M}\p{N}]+/u).filter(Boolean).map(foldTerm);
+  let forms = null;
+  if (tl === "en" && words.length === 1 && IDX.en && IDX.en[words[0]]) forms = {[words[0]]: formsOf(IDX.en, words[0])};
+  const rx = looseRx(forms ? forms[words[0]].concat(q) : [q]);
+  const KEPT = 5000;                    // how many are kept, to trace the original words from
+  const lit = [];
+  const cand = idxCandidates(tl, q, forms);
   if (cand) {
     for (const id of cand) {
       const book = byNumBook[Math.floor(id / 1000000)], ch = String(Math.floor(id / 1000) % 1000), v = String(id % 1000);
@@ -1769,7 +1950,7 @@ async function search(q) {
       const sv = t && t.verses[v];
       if (!sv) continue;
       rx.lastIndex = 0;
-      if (rx.test(sv)) { hits.push({book, ch, v, t: sv}); if (hits.length >= 500) break; }
+      if (rx.test(apart(sv))) { lit.push({id, book, ch, v, t: sv}); if (lit.length >= KEPT) break; }
     }
   } else {
     outer:
@@ -1779,43 +1960,164 @@ async function search(q) {
         if (!t) continue;
         for (const [v, sv] of Object.entries(t.verses)) {
           rx.lastIndex = 0;
-          if (rx.test(sv)) { hits.push({book, ch, v, t: sv}); if (hits.length >= 200) break outer; }
+          if (rx.test(apart(sv))) { lit.push({id: ORDER[book] * 1000000 + ch * 1000 + +v, book, ch, v, t: sv}); if (lit.length >= 200) break outer; }
         }
       }
     }
   }
+  const whole = cand ? lit.length < KEPT : lit.length < 200;      // is this every verse that has the words, or a first part
+  const litIds = lit.map(h => h.id), litSet = new Set(litIds);
+  /* The glosses and the topical lines are English. A reader of the English is
+     answered from them directly. So is anyone whose words are in no verse of
+     their own translation - they may well have typed English. But words that
+     are found in a Spanish or a Chinese Bible are Spanish or Chinese, and must
+     not be looked up as English: sin is "without" in Spanish, and stands in
+     thousands of verses that have nothing to do with sin. Those are carried
+     across by the verses they were found in instead. */
+  const direct = tl === "en" || !lit.length;
   /* Verses whose own words do not answer, but whose subject does. The topical
      line behind each one is never shown - it is written to be matched against,
      not read - so these carry no highlight and are told apart by their heading
      rather than left looking like ordinary hits that failed to light up. */
-  const found = new Set(hits.map(h => h.book + "|" + h.ch + "|" + h.v));
+  let aboutIds = direct && IDX.topics ? foldFind(IDX.topics, q, true) : [], via = [];
+  if (!aboutIds.length && IDX.topics && whole) {
+    const terms = behind(litIds, "topics", 4);
+    via = terms.filter(t => t.score >= terms[0].score / 2);
+    const u = new Set(); for (const t of via) for (const id of unpack(IDX.topics[t.k])) u.add(id);
+    aboutIds = [...u].sort((x, y) => x - y);
+  }
   const about = [];
-  for (const id of (idxCandidates("topics", q) || [])) {
+  for (const id of aboutIds) {
+    if (litSet.has(id)) continue;
     const book = byNumBook[Math.floor(id / 1000000)], ch = String(Math.floor(id / 1000) % 1000), v = String(id % 1000);
     const t = book && trOf(book, ch)[tl];
     const sv = t && t.verses[v];
-    if (!sv || found.has(book + "|" + ch + "|" + v)) continue;
+    if (!sv) continue;
     about.push({book, ch, v, t: sv});
     if (about.length >= 60) break;
   }
   const verse = h => `<div class="hit" lang="${tl}" dir="${tdir(tl)}" onclick="goto('#${h.book}/${h.ch}/${h.v}')">
       <div class="ref">${disp(h.book)} ${h.ch}:${h.v}</div>
-      ${ruby(esc(h.t).replace(rx, m => `<mark>${m}</mark>`))}</div>`;
-  const things = entBlock(q);
+      ${ruby(esc(apart(h.t)).replace(rx, m => `<mark>${m}</mark>`).normalize("NFC"))}</div>`;
+  const layers = !READER_ONLY;
+  const waiting = layers && typeof ENTIDX === "undefined";
+  const mine = SR = {q, litIds, litSet, whole, direct, via, words: null, more: 0, nLit: lit.length, nAbout: about.length,
+                     rest: {lit: lit.slice(FIRST, 500).map(verse)}};
 
-  let html = `<h2>Search: “${esc(q)}”<small class="lang">${TARGETS[tl].name}</small></h2>` + things + `<div id="results">`;
-  if (!hits.length && !about.length && !things) {
-    html += `<p class="empty">Nothing found for “${esc(q)}”.</p>`;
-  } else {
-    html += `<div class="sect">Verses with these words<small>${hits.length}${hits.length >= 500 ? "+" : ""}${cand ? "" : " · scanned, this text has no index yet"}</small></div>`;
-    html += hits.length ? hits.map(verse).join("")
-          : `<p class="empty">No verse in ${esc(TARGETS[tl].name)} uses them.</p>`;
-    if (about.length) {
-      html += `<div class="sect">Verses about this<small>${about.length}${about.length >= 60 ? "+" : ""} · found by what the verse is about, not by its wording</small></div>`;
-      html += about.map(verse).join("");
-    }
+  let html = `<h2>Search: “${esc(q)}”<small class="lang">${TARGETS[tl].name}</small></h2>`
+    + `<div id="entslot">${waiting ? `<p class="sectnote">Looking in the study layers…</p>` : ""}</div>`
+    + `<div id="wordslot"></div><p class="sectnote" id="jumps"></p><div id="results">`;
+  html += `<div class="sect" id="s-lit">Verses with these words<small>${lit.length}${whole ? "" : "+"}${IDX[tl] ? "" : " · scanned: the index for this text could not be opened, so only the first are found"}</small></div>`;
+  html += lit.length ? lit.slice(0, FIRST).map(verse).join("") + moreBtn("lit", Math.min(lit.length, 500) - FIRST, lit.length - 500)
+        : `<p class="empty" style="margin-top:.5rem">No verse in ${esc(TARGETS[tl].name)} uses them.</p>`;
+  html += `<div id="origslot"></div>`;
+  if (about.length) {
+    html += `<div class="sect" id="s-about">Verses about this<small>${about.length}${about.length >= 60 ? "+" : ""} · found by what the verse is about, not by its wording</small></div>`;
+    if (via.length) html += `<p class="sectnote">The verses with “${esc(q)}” are mostly about <b lang="en">${via.map(t => esc(t.k)).join(", ")}</b>; these are the others that are.</p>`;
+    html += about.map(verse).join("");
   }
   main.innerHTML = html + "</div>";
+  drawJumps();
+
+  if (!layers) return;
+  await entLoad().catch(() => {});
+  if (SR !== mine) return;                                // the reader has typed on; this answer is for a question no longer asked
+  const slot = $("#entslot"); if (slot) slot.innerHTML = entBlock(mine);
+  /* The concordance behind a search is a study tool, and five megabytes: it is
+     for the reader who asked for everything, not the one who asked for the book. */
+  if (!adv()) return;
+  await Promise.all([concLoad().catch(() => {}), direct ? 0 : domLoad().catch(() => {}), direct ? 0 : themesLoad().catch(() => {})]);
+  if (SR !== mine || typeof CONC === "undefined") return;
+  mine.words = origWords(mine);
+  origDraw();
+}
+/* A page of five hundred verses was drawn afresh at every pause in typing, and
+   most of them were never scrolled to. The first hundred are drawn; the rest
+   are one tap away, and the tap leaves the reader on the first new verse. */
+function moreBtn(which, n, beyond){
+  if (n <= 0) return "";
+  return `<div class="wchips" id="more-${which}"><button type="button" onclick="moreHits('${which}')">Show the other ${n}</button>`
+    + (beyond > 0 ? `<span class="sectnote" style="align-self:center">${beyond} more than that are not listed — a longer search narrows them</span>` : "") + `</div>`;
+}
+function moreHits(which){
+  const at = $("#more-" + which), rest = SR && SR.rest[which]; if (!at || !rest) return;
+  const prev = at.previousElementSibling;
+  at.insertAdjacentHTML("beforebegin", rest.join("")); at.remove(); SR.rest[which] = null;
+  const first = prev && prev.nextElementSibling;
+  if (first) { first.tabIndex = 0; first.setAttribute("role", "button"); first.focus({preventScroll: true}); }
+}
+
+/* ---- the concordance, reached from the search box ----
+   The words a search was traced to, and every other verse where one of them
+   stands - the verses a translation worded differently, which a search of the
+   translation can never find. Two ways in: through the verses (any language),
+   and through the glosses (English). What the text says about itself comes
+   first; a gloss match it did not confirm is offered switched off. */
+function origWords(s){
+  const out = [], seen = new Set(), H = s.litIds.length;
+  /* Counted in from the start: a word that lives mostly in these verses, or one
+     that stands in most of them. The second is for a word like רָעָה, which is
+     behind more than half the verses that say shepherd and is still mostly
+     somewhere else, because it is also the word for grazing a flock. */
+  if (s.whole) for (const w of behind(s.litIds, "lex", 6)) { seen.add(w.k); out.push({tag: w.k, n: w.n, on: w.share >= .4 || w.n / H >= .4}); }
+  if (s.direct && typeof ENTKEY !== "undefined") for (const n of entFind(ENTKEY, s.q)) {
+    const e = ENTRIES[n];
+    if (out.length >= 9) break;
+    if (e[0] !== "lexeme" || seen.has(e[1]) || !(CONC[e[1]] || []).length) continue;
+    seen.add(e[1]); out.push({tag: e[1], n: 0, on: false});
+  }
+  if (out.length && !out.some(w => w.on)) out.slice(0, 3).forEach(w => { w.on = true; });
+  return out;
+}
+/* A hundred verses with the word in them stand between the top of the page and
+   anything found another way, so the top says what else is further down and
+   goes there when asked. */
+function drawJumps(){
+  const el = $("#jumps"), s = SR; if (!el || !s) return;
+  const parts = [[s.nLit, "s-lit", "with these words"], [s.more, "s-orig", "more through the original words"], [s.nAbout, "s-about", "about this"]]
+    .filter(p => p[0]);
+  el.innerHTML = parts.length < 2 ? "" : "On this page: " + parts.map(([n, id, what]) =>
+    `<a onclick="document.getElementById('${id}').scrollIntoView({block:'start'})">${n}${id === "s-about" && n >= 60 ? "+" : ""} ${what}</a>`).join(" · ");
+}
+function origToggle(tag){
+  if (!SR || !SR.words) return;
+  const w = SR.words.find(x => x.tag === tag); if (!w) return;
+  w.on = !w.on; origDraw();
+  const b = document.querySelector(`#wordslot button[data-tag="${tag}"]`); if (b) b.focus();   // the button was redrawn under the reader's finger
+}
+function origDraw(){
+  const slot = $("#origslot"), top = $("#wordslot"), s = SR; if (!slot || !top || !s || !s.words) return;
+  if (!s.direct) { const e = $("#entslot"); if (e) e.innerHTML = entBlock(s); }      // the fields and themes follow the words counted in
+  if (!s.words.length) { slot.innerHTML = top.innerHTML = ""; return; }
+  const H = s.litIds.length, via = new Map();
+  for (const w of s.words) if (w.on) for (const r of CONC[w.tag]) {
+    const id = r[0] * 1000000 + r[1] * 1000 + r[2];
+    if (!s.litSet.has(id) && !via.has(id)) via.set(id, [w, r]);
+  }
+  const ids = [...via.keys()].sort((a, b) => a - b), CAP = 300;
+  let h = `<div class="sect">The original words behind it<small>traced through the ${H} verse${H === 1 ? "" : "s"} that ha${H === 1 ? "s" : "ve"} it${s.direct ? ", or matched by their gloss" : ""} · tap one to count it in or out</small></div><div class="wchips">`;
+  for (const w of s.words) { const e = entOfTag(w.tag);
+    h += `<button type="button" data-tag="${attr(w.tag)}" aria-pressed="${w.on}" aria-controls="origslot" onclick="origToggle('${attr(w.tag)}')"><span class="orig">${esc(e[2])}</span> <small>${esc(e[3] || "")}`
+      + (w.n ? ` · in ${w.n} of ${H}` : " · by its gloss") + `</small></button>`; }
+  const on = s.words.filter(w => w.on);
+  top.innerHTML = h + `</div>` + (on.length ? "" : `<p class="sectnote">No word is counted in. Tap one to see where else it stands.</p>`);
+  s.more = on.length ? ids.length : 0; drawJumps();
+  if (!on.length) { slot.innerHTML = ""; return; }
+  const card = id => {
+    const [w, r] = via.get(id), b = byNum[r[0]], c = r[1], v = r[2]; if (!b) return "";
+    const t = trOf(b, String(c))[tl], sv = t && t.verses[String(v)];
+    /* Where the chosen language has not reached this verse yet, the verse is
+       shown as it stands in the original, with the word marked. */
+    return `<div class="hit" ${sv ? `lang="${tl}" dir="${tdir(tl)}"` : ""} onclick="goto('#${b}/${c}/${v}')"><div class="ref">${disp(b)} ${c}:${v} · <span class="orig">${esc(entOfTag(w.tag)[2])}</span></div>${sv ? ruby(esc(sv)) : verseHtml(b, c, v, r[3])}</div>`;
+  };
+  h = `<div class="sect" id="s-orig">Other verses where the original has ${on.length === 1 ? "it" : "one of them"}<small>${ids.length}${s.whole ? " · the translation words these differently" : ""}</small></div>`;
+  if (!ids.length) h += `<p class="sectnote">None: every verse with ${on.length === 1 ? "this word" : "these words"} is already above.</p>`;
+  const SOME = 40;
+  h += ids.slice(0, SOME).map(card).join("");
+  s.rest.orig = ids.slice(SOME, CAP).map(card);
+  h += moreBtn("orig", s.rest.orig.length, ids.length - CAP);
+  h += `<p class="sectnote">Every occurrence, in the original: ` + on.map(w => `<a onclick="showConc('${attr(w.tag)}')"><span class="orig">${esc(entOfTag(w.tag)[2])}</span></a>`).join(" · ") + `</p>`;
+  slot.innerHTML = h;
 }
 
 /* ---------- a verse in the hand ----------
