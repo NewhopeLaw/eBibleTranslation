@@ -66,7 +66,12 @@ STOP = {
     "Again", "Also", "Even", "Only", "Just", "Such", "Same", "Other", "Another",
 }
 WORD = re.compile(r"[A-Z][a-z]+(?:-[A-Z]?[a-z]+)*")
-CJK = re.compile(r"[㐀-鿿]")
+# The characters a transliteration can be written with. Han for Chinese;
+# katakana for Japanese, where a foreign name is katakana and almost
+# nothing else in the sentence is, which makes the names easy to see;
+# the prolonged mark and the middle dot, which belong inside a Japanese
+# name (ヨハネ, ペテロ, バル・テマイ) rather than separating words.
+CJK = re.compile(r"[㐀-鿿ァ-ヺー・ก-๛가-힣]")
 
 
 def pivot_chapters():
@@ -312,7 +317,9 @@ def untruncate(best, ref):
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--lang", required=True, help="target code, e.g. zh")
-    ap.add_argument("--ref", required=True, help="reference Bible .json in that language")
+    ap.add_argument("--ref", required=True, action="append",
+                    help="reference Bible .json in that language; repeat it to use more than "
+                         "one, and an earlier one wins where they disagree")
     ap.add_argument("--min-chapters", type=int, default=3,
                     help="ignore names appearing in fewer chapters than this (default 3)")
     ap.add_argument("--min-score", type=float, default=0.55,
@@ -323,16 +330,23 @@ def main():
         raise SystemExit(f"unknown target language {a.lang!r}")
 
     pivot = pivot_chapters()
-    ref = reference_chapters(a.ref)
-    shared = sum(1 for k in pivot if k in ref)
-    print(f"pivot ({PIVOT}) {len(pivot)} chapters, reference {len(ref)}, shared {shared}")
-
-    chars = seed_characters(a.lang)
-    print(f"seed characters from names.json: {len(chars)}")
-    chars = grow_characters(ref, set(chars))
-    print(f"after growing them against the reference: {len(chars)}")
-
-    best = drop_collisions(untruncate(learn(pivot, ref, chars, a.min_chapters, a.min_score), ref))
+    # Where a language has more than one reference worth reading, each is
+    # learned from on its own and the first one given wins. Japanese needs
+    # this: the only complete public-domain Bible is a new one whose Greek
+    # and Latin names are not the ones readers know (アジア for アジヤ), while
+    # the translation that does keep them is the New Testament alone.
+    best, chars = {}, set()
+    for path in a.ref:
+        ref = reference_chapters(path)
+        shared = sum(1 for k in pivot if k in ref)
+        print(f"pivot ({PIVOT}) {len(pivot)} rows, {Path(path).name} {len(ref)}, shared {shared}")
+        mine = grow_characters(ref, set(seed_characters(a.lang)))
+        chars |= mine
+        found = drop_collisions(untruncate(learn(pivot, ref, mine, a.min_chapters, a.min_score), ref))
+        print(f"  {Path(path).name}: {len(found)} names")
+        for n, row in found.items():
+            best.setdefault(n, row)               # the first reference given keeps the name
+    ref = reference_chapters(a.ref[-1])           # the fullest one, for the report below
     print(f"names paired: {len(best)}")
 
     # Does it recover what we already knew? names.json was written by hand and
@@ -376,7 +390,7 @@ def main():
                          "Bible by scripts/build_names.py. Injected per chapter by translate.py, not "
                          "wholesale: only the names in the chapter being translated go into the prompt. "
                          "Spellings are a convention, not text: no reference wording is reproduced."),
-            "_source": Path(a.ref).name,
+            "_source": [Path(r).name for r in a.ref],
             "_pairs": len(best),
             "names": {n: c for n, (c, *_r) in sorted(best.items())},
         }

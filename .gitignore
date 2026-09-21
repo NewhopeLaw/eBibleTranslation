@@ -42,3 +42,8 @@ CCCPBible/*
 
 # A shortcut to the dashboard on this machine, not part of the project.
 eBible * live translation.url
+
+# Reference Bibles fetched by scripts/get_references.py. Public domain, but
+# they are a reference read on this machine, not something this project
+# republishes: what leaves here is a list of name spellings.
+sources/references/
