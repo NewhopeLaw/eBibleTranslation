@@ -35,11 +35,11 @@
   "built": 1789189625.8588498
  },
  "search-index": {
-  "count": 4711547,
+  "count": 4936220,
   "unit": "postings",
   "note": "9 texts indexed for search",
   "script": "build_index.py",
-  "built": 1789960488.041003
+  "built": 1789966389.4796746
  },
  "morphology": {
   "count": 442835,
@@ -110,5 +110,12 @@
   "note": "fields of meaning",
   "script": "build_domains.py",
   "built": 1789222507.2809596
+ },
+ "vectors": {
+  "count": 31152,
+  "unit": "verse vectors",
+  "note": "semantic search, verse text alone",
+  "script": "build_vectors.py",
+  "built": 1789964794.650975
  }
 }
