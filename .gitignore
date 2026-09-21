@@ -39,3 +39,6 @@ CCCPBible/*
 !CCCPBible/和合本_新标点_简体.csv
 !CCCPBible/和合本_新标点_简体.json
 !CCCPBible/和合本_新标点_简体.txt
+
+# A shortcut to the dashboard on this machine, not part of the project.
+eBible * live translation.url
