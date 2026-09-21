@@ -375,7 +375,34 @@ conditions beyond attribution:
   on it.
 - **Desktop window:** pywebview (BSD-3-Clause, https://github.com/r0x0r/pywebview),
   installed with pip, not vendored.
-- **Python** standard library only otherwise (PSF license).
+- **Python** standard library only otherwise (PSF license). The packaged app
+  (`scripts/package_app.py`) carries CPython's own embeddable build (PSF
+  license), which python.org publishes for exactly this purpose, together with
+  pywebview, psutil (BSD-3-Clause) and requests (Apache 2.0) installed into it
+  from PyPI.
+- **Android build toolchain** (`tools/android/`, fetched by
+  `scripts/build_apk.py --setup`, never committed):
+  - *Eclipse Temurin JDK 17* - GPLv2 with the Classpath Exception, which
+    permits redistribution (https://adoptium.net/about/).
+  - *Gradle* - Apache License 2.0 (https://github.com/gradle/gradle).
+  - *Android SDK (platform 36, command-line tools)* - Google's Android SDK
+    Terms and Conditions (https://developer.android.com/studio/terms). **It may
+    not be passed on.** Section 3.4: "you may not copy (except for backup
+    purposes), modify, adapt, redistribute, decompile, reverse engineer,
+    disassemble, or create derivative works of the SDK or any part of the SDK",
+    and the same section forbids "distributing any software or device
+    incorporating a part of the SDK". Each machine therefore installs it for
+    itself, under the licence the person at that machine accepts: the
+    dashboard's APK button asks before fetching anything, and
+    `package_app.py --shareable` builds a copy of the app with the SDK left
+    out. A bundle built without that flag holds the SDK and is for the
+    builder's own machines only.
+  - The APK this produces contains none of the above: it is our page, our
+    WebView shell, and the androidx libraries below.
+- **androidx libraries in the Android app** (`androidx.core`,
+  `androidx.activity`, `androidx.core:core-splashscreen`) and the Kotlin
+  standard library they depend on - Apache License 2.0. These are compiled
+  into the APK and may be distributed with it.
 
 ## 6. The translations produced here
 

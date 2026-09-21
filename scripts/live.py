@@ -491,6 +491,117 @@ def work_tokens():
     return _wtok["data"]
 
 
+# ------------------------------------------------------------------ the Android reader APK
+# scripts/build_apk.py does the work and keeps logs/apk_build.json current; the
+# dashboard only starts it, reads that file, and opens the folder at the end.
+APK = {"proc": None, "checked": 0.0, "toolchain": None}
+
+
+def apk_toolchain(fresh=False):
+    """What build_apk.py would find: a JDK 17, the Android SDK, Gradle. Cached a minute."""
+    import importlib
+    if fresh or APK["toolchain"] is None or time.time() - APK["checked"] > 60:
+        try:
+            b = importlib.import_module("build_apk")
+            importlib.reload(b)
+            APK["toolchain"] = b.check()
+        except Exception as e:                                # noqa: BLE001
+            APK["toolchain"] = {"ready": False, "missing": [f"build_apk.py: {e}"]}
+        APK["checked"] = time.time()
+    return APK["toolchain"]
+
+
+def apk_running_elsewhere():
+    """A build started from a terminal, not from here - it keeps the same state file."""
+    if time.time() - APK.get("scanned", 0.0) < 5:
+        return APK.get("foreign", False)
+    found = False
+    try:
+        import psutil
+        for p in psutil.process_iter(["pid", "name", "cmdline"]):
+            try:
+                if "build_apk.py" in " ".join(p.info["cmdline"] or ()) and p.pid != os.getpid():
+                    found = True
+                    break
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                continue
+    except ImportError:
+        pass
+    APK.update(scanned=time.time(), foreign=found)
+    return found
+
+
+def apk_status():
+    f = ROOT / "logs" / "apk_build.json"
+    try:
+        st = json.loads(f.read_text(encoding="utf-8")) if f.exists() else {}
+    except ValueError:
+        st = {}
+    proc = APK["proc"]
+    running = (proc is not None and proc.poll() is None) or apk_running_elsewhere()
+    if st.get("state") == "running" and not running:
+        # The file says running but nothing is: the build was killed or the
+        # dashboard restarted under it. Say so rather than spin forever.
+        st.update(state="failed", error=st.get("error") or "the build stopped before it finished - see logs/apk_build.log")
+    return {**st, "running": running, "toolchain": apk_toolchain()}
+
+
+def apk_start(setup=False, full=False):
+    # Two Gradle builds in the same folder fight over its locks and its output,
+    # so one at a time - including one started from a terminal.
+    if APK["proc"] is not None and APK["proc"].poll() is None:
+        return "an APK is already being built"
+    APK["scanned"] = 0.0
+    if apk_running_elsewhere():
+        return "an APK is already being built, from a terminal"
+    cmd = [sys.executable, str(ROOT / "scripts" / "build_apk.py")]
+    if full:
+        cmd.append("--full")
+    if setup:
+        # Only ever passed after the user said yes to the licence in the dashboard.
+        cmd += ["--setup", "--accept-android-sdk-license"]
+    log = ROOT / "logs" / "apk_build.log"
+    log.parent.mkdir(exist_ok=True)
+    fh = open(log, "w", encoding="utf-8", buffering=1)
+    APK["proc"] = subprocess.Popen(cmd, cwd=str(ROOT), stdout=fh, stderr=fh, stdin=subprocess.DEVNULL,
+                                   creationflags=getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0) | NO_WINDOW)
+    APK["checked"] = 0.0                     # a setup changes the answer
+    print(f"apk: {'full' if full else 'reader'} build started (pid {APK['proc'].pid})"
+          f"{' with setup' if setup else ''} -> {log.name}")
+    return None
+
+
+def apk_stop():
+    """Stop a build this dashboard started - Gradle and its Java with it."""
+    proc = APK["proc"]
+    if proc is None or proc.poll() is not None:
+        return "no build of ours is running"
+    subprocess.run(["taskkill", "/PID", str(proc.pid), "/T", "/F"], capture_output=True, creationflags=NO_WINDOW)
+    APK["proc"] = None
+    APK["scanned"] = 0.0
+    # The build cannot write its own ending once it is killed, and a state file
+    # left saying "running" would be read as a crash. Say what really happened.
+    f = ROOT / "logs" / "apk_build.json"
+    try:
+        st = json.loads(f.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        st = {}
+    st.update(state="stopped", step="", error="", finished=time.time())
+    f.write_text(json.dumps(st, ensure_ascii=False), encoding="utf-8")
+    print("apk: build stopped")
+    return None
+
+
+def apk_open():
+    apk = apk_status().get("apk")
+    if apk and Path(apk).exists():
+        subprocess.Popen(f'explorer /select,"{apk}"', creationflags=NO_WINDOW)
+    else:
+        (ROOT / "dist").mkdir(exist_ok=True)
+        os.startfile(str(ROOT / "dist"))                      # noqa: S606 - our own folder
+    return apk
+
+
 def work_progress():
     """Every layer, in order from the smallest unit of language to the largest."""
     import importlib
@@ -697,6 +808,8 @@ class Handler(BaseHTTPRequestHandler):
             self.wfile.write(body)
         elif path == "/work":
             self._json(work_progress())
+        elif path == "/apk":
+            self._json(apk_status())
         elif path == "/reader-stale":
             self._json({"stale": reader_stale()})
         elif path in ("/reader", "/compare"):          # the offline reader; rebuilt first when translations are newer
@@ -732,6 +845,15 @@ class Handler(BaseHTTPRequestHandler):
             self._json({"ok": err is None, "error": err}, 409 if err else 200)
         elif self.path == "/work/stop":
             self._json({"ok": True, "stopped": work_stop((self._body().get("job") or "").strip() or None)})
+        elif self.path == "/apk/build":
+            body = self._body()
+            err = apk_start(bool(body.get("setup")), bool(body.get("full")))
+            self._json({"ok": err is None, "error": err}, 409 if err else 200)
+        elif self.path == "/apk/stop":
+            err = apk_stop()
+            self._json({"ok": err is None, "error": err}, 409 if err else 200)
+        elif self.path == "/apk/open":
+            self._json({"ok": True, "apk": apk_open()})
         elif self.path == "/rebuild":
             self._json({"ok": True, "output": rebuild_site()})
         elif self.path == "/align":
@@ -950,6 +1072,17 @@ body.mobile #text.plain { max-width:none; } body.mobile #text { padding:.9rem 1r
 #device { gap:.15rem; padding:.2rem; border-radius:999px; }
 #device span { padding:.3rem .8rem; border-radius:999px; cursor:pointer; color:var(--muted); font-size:13px; }
 #device span.on { background:var(--accent); color:#fff; }
+/* The APK button sits with the other window-wide controls, so it is there in
+   read and translate mode alike; its status line says what the build is doing. */
+#apk { gap:.45rem; }
+#apkKind { display:flex; gap:.15rem; padding:.15rem; border:1px solid var(--border); border-radius:999px; }
+#apkKind span { padding:.25rem .6rem; border-radius:999px; cursor:pointer; color:var(--muted); font-size:12px; white-space:nowrap; }
+#apkKind span.on { background:var(--accent); color:#fff; }
+#apkKind.busy span { cursor:default; opacity:.5; }
+#apk button { white-space:nowrap; }
+#apkMsg { font-size:12px; color:var(--muted); max-width:24rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+#apkMsg.err { color:var(--err); }
+#apkMsg.ok { color:var(--fg); }
 __READALOUD_CSS__
 </style></head><body>
 <div id="app">
@@ -970,6 +1103,16 @@ __READALOUD_CSS__
   </div>
   <div class="group" id="device" title="mobile: preview the screen at phone size (390 x 844) for UI testing">
     <span data-d="pc" class="on">PC</span><span data-d="mobile">mobile</span>
+  </div>
+  <div class="group" id="apk" title="Build an Android app holding the reader alone - larger type, no study tools. It carries only the languages the whole Bible has been translated into; one still in progress is left out until it is finished">
+    <span id="apkKind" role="group" aria-label="What goes in the APK">
+      <span data-k="reader" class="on" title="The text alone, in every finished language: about a 11 MB APK, 26 MB on the phone">reader</span>
+      <span data-k="full" title="The reader with every study layer built so far - word tags, lexicon, concordance, syntax, cross-references, apparatus, themes, places, chronology: about a 26 MB APK, 78 MB on the phone. The layers are frozen as they stand when it is built.">+ study tools</span>
+    </span>
+    <button id="apkBtn">Make Android APK</button>
+    <span id="apkMsg" role="status"></span>
+    <button id="apkStop" hidden title="Stop this build and free the machine">stop</button>
+    <button id="apkOpen" hidden title="Show the APK in its folder">open folder</button>
   </div>
 </header>
 <div class="pane" id="tpane">
@@ -1131,8 +1274,17 @@ $('text').addEventListener('mouseover', e => {
 $('text').addEventListener('mouseout', e => { if (hov && e.target.closest('.w')) { hov = null; paint(); } });
 function schedule(){ if (!pending){ pending = true; requestAnimationFrame(render); } }
 function setView(v){ view = v; localStorage.setItem('liveView', v); lastActive = null; render(); }
-function setTl(t){ tl = t; localStorage.setItem('liveTl', t); $('lang').value = t; $('tlname').textContent = TARGETS[t].name;
-  if (S && !S.running) refresh(); if (browsing) browse(); else render(); }
+/* The live stream carries one language's counts. Switching language without
+   reopening it left the old language's snapshot arriving over the new one, so
+   a language with nothing translated wore English's numbers and looked
+   finished - until the app was restarted and the stream opened on it. The
+   stream follows the switch now, and the counts are re-read either way.
+   A switch that came from the stream itself (a run started in another
+   language) leaves the stream alone: closing it mid-run would drop tokens. */
+function setTl(t, fromStream){ tl = t; localStorage.setItem('liveTl', t); $('lang').value = t; $('tlname').textContent = TARGETS[t].name;
+  if (!fromStream) connect();
+  refresh();
+  if (browsing) browse(); else render(); }
 $('lang').innerHTML = TCODES.map(t => `<option value="${t}">${TARGETS[t].native}</option>`).join('') + '<option value="all">All languages</option>';
 $('lang').value = tl; $('tlname').textContent = TARGETS[tl].name;
 $('lang').onchange = () => { if ($('lang').value !== 'all') setTl($('lang').value); };
@@ -1414,14 +1566,16 @@ document.addEventListener('keydown', e => {
 });
 
 /* ---------- live stream ---------- */
+let ES = null;
 function connect(){
-  const es = new EventSource('/events?lang=' + tl);
+  if (ES) { try { ES.close(); } catch (e) {} }        // one stream at a time, for the language on screen
+  const es = ES = new EventSource('/events?lang=' + tl);
   es.onmessage = e => {
     const m = JSON.parse(e.data);
     if (m.type === 'snapshot') applySnapshot(m);
     else if (m.type === 'token') { if (cur) { texts[cur.target] = (texts[cur.target] || '') + m.t; cur.tokens++; } schedule(); }
     else if (m.type === 'start') { lastActive = null; browsing = null;
-      if (m.target !== tl) setTl(m.target);
+      if (m.target !== tl) setTl(m.target, true);
       if (view === 'orig' || view === 'lxx') setView('par');      // always watch the text arrive
       cur = {book:m.book, chapter:m.chapter, verses:m.verses, lang:m.lang, src:m.src, target:m.target,
              chapters:m.chapters, translated:m.translated, started:Date.now()/1000, tokens:0};
@@ -1433,9 +1587,71 @@ function connect(){
     else if (m.type === 'done' || m.type === 'skip') { const a = $('strip').querySelector(`a[data-c="${m.chapter}"]`); if (a && cur && cur.book === m.book) { a.classList.remove('on'); a.classList.add('tr'); } refresh(); }
     else if (m.type === 'run') refresh();
   };
-  es.onerror = () => { es.close(); setTimeout(connect, 2000); };
+  es.onerror = () => { es.close(); if (ES === es) setTimeout(connect, 2000); };
 }
 async function refresh(){ applySnapshot(await (await fetch('/state?lang=' + tl)).json()); }
+/* ---------- the Android APK: the reader alone, or the study tools with it ---------- */
+let apkT = null;
+let apkKind = localStorage.getItem('apkKind') === 'full' ? 'full' : 'reader';
+for (const el of document.querySelectorAll('#apkKind span')) el.onclick = () => {
+  if ($('apkKind').classList.contains('busy')) return;     // not while one is being built
+  apkKind = el.dataset.k; localStorage.setItem('apkKind', apkKind); apkBar();
+};
+async function apkBar(){
+  let s;
+  try { s = await (await fetch('/apk')).json(); } catch (e) { apkT = setTimeout(apkBar, 20000); return; }
+  const b = $('apkBtn'), m = $('apkMsg'), o = $('apkOpen'), tc = s.toolchain || {};
+  b.disabled = !!s.running;
+  b.textContent = s.running ? 'Building APK…' : 'Make Android APK';
+  $('apkKind').classList.toggle('busy', !!s.running);
+  for (const el of $('apkKind').children) el.classList.toggle('on', el.dataset.k === apkKind);
+  m.className = ''; m.title = '';
+  $('apkStop').hidden = !s.running;
+  if (s.running) m.textContent = (s.variant === 'full' ? 'with study tools · ' : '') + (s.step || 'working');
+  else if (s.state === 'done' && s.apk) {
+    const name = s.apk.split(/[\\/]/).pop(), mins = Math.round((Date.now() / 1000 - (s.finished || 0)) / 60);
+    m.textContent = `ready: ${name} · ${(s.size / 1048576).toFixed(1)} MB · ${mins < 1 ? 'just now' : mins < 90 ? mins + ' min ago' : new Date(s.finished * 1000).toLocaleString()}`;
+    m.className = 'ok'; m.title = s.apk + (s.chapters ? '\ntranslated chapters: ' + s.chapters : '');
+  } else if (s.state === 'failed') {
+    m.textContent = 'failed: ' + (s.error || 'see logs/apk_build.log'); m.className = 'err';
+    m.title = (s.error || '') + '\n\nThe whole story is in logs/apk_build.log';
+  } else if (s.state === 'stopped') m.textContent = 'stopped';
+  else if (!tc.ready) m.textContent = 'first time: needs the Android build tools';
+  else m.textContent = '';
+  o.hidden = !(s.state === 'done' && s.apk && !s.running);
+  clearTimeout(apkT);
+  apkT = setTimeout(apkBar, s.running ? 2500 : 30000);
+}
+$('apkBtn').onclick = async () => {
+  let s = {};
+  try { s = await (await fetch('/apk')).json(); } catch (e) {}
+  const tc = s.toolchain || {};
+  let setup = false;
+  if (!tc.ready) {
+    // Fetching the SDK is a download of about a gigabyte and an agreement to
+    // Google's licence, so it happens only on an explicit yes, here.
+    const ok = confirm(
+      'Building an APK needs the Android build tools, which are not on this PC yet'
+      + (tc.missing && tc.missing.length ? ' (missing: ' + tc.missing.join(', ') + ')' : '') + '.\n\n'
+      + 'Install them once, into tools/android/ inside this project? About 1 GB is downloaded:\n'
+      + '  • JDK 17 (Eclipse Temurin, adoptium.net)\n'
+      + '  • Gradle 8.13 (gradle.org)\n'
+      + '  • Android command-line tools and the Android 16 SDK platform (Google)\n\n'
+      + 'Installing the Android SDK means accepting the Android SDK License:\n'
+      + 'https://developer.android.com/studio/terms\n\n'
+      + 'OK: I accept that licence - install the tools, then build the APK.\n'
+      + 'Cancel: do nothing.');
+    if (!ok) return;
+    setup = true;
+  }
+  const r = await post('/apk/build', {setup, full: apkKind === 'full'});
+  if (!r.ok) alert(r.error || 'could not start the build');
+  apkBar();
+};
+$('apkStop').onclick = async () => { const r = await post('/apk/stop', {}); if (!r.ok) alert(r.error); apkBar(); };
+$('apkOpen').onclick = () => post('/apk/open', {});
+apkBar();
+
 async function post(path, body){ const r = await fetch(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body||{})}); return r.json(); }
 
 $('start').onclick = async () => {
