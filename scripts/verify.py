@@ -21,6 +21,9 @@ Checks (flags, never auto-fixes):
     where targets/<lang>/names.map.json has been built (scripts/build_names.py)
   - a closing quotation mark with nothing open before it: speech that runs on
     past the end of a verse, closed at every verse as though it had stopped
+  - a verse whose content belongs to a different verse number, checked against
+    a published edition in the same language (sources/references/<lang>.json,
+    fetched by scripts/get_references.py)
 
 Writes logs/verify_<lang>.md and prints a summary. Exit code 1 if any flags.
 """
@@ -108,6 +111,79 @@ def name_inventory(chapters_out):
 
 
 QUOTES = [("“", "”"), ("「", "」"), ("『", "』"), ("«", "»")]
+WORDS = re.compile(r"[^\W\d_]{4,}", re.UNICODE)
+_refs = {}
+
+
+def reference(lang):
+    """A published edition in this language, keyed by book/chapter, or None."""
+    if lang not in _refs:
+        f = ROOT / "sources" / "references" / f"{lang}.json"
+        out = {}
+        if f.exists():
+            for b in json.loads(f.read_text(encoding="utf-8")):
+                for v in b["verses"]:
+                    out.setdefault((b["english"], v["chapter"]), {})[str(v["verse"])] = v["text"]
+        _refs[lang] = out or None
+    return _refs[lang]
+
+
+def check_alignment(lang, outs, flags):
+    """A verse carrying the text of a different verse.
+
+    Mark 14 came out with verse 3 split in two, and every verse after it
+    numbered one too high - fifty-one of seventy-two, and every check that
+    counts verses passed it, because seventy-two is still seventy-two. What
+    catches it is meaning: a published edition in the same language says which
+    verse the words belong to.
+
+    Only where the chapter has the same number of verses in both. Where the
+    counts differ the numbering differs too - the Masoretic and the English
+    traditions split several chapters differently - and that is a convention,
+    not a fault. Every reported case is therefore a chapter that agrees on how
+    many verses it has and disagrees about which is which.
+    """
+    ref_all = reference(lang)
+    if not ref_all:
+        return
+    for out in outs:
+        ref = ref_all.get((out["book"], int(out["chapter"])))
+        if not ref or len(ref) != len(out["verses"]):
+            continue
+        moved = []
+        for n, t in out["verses"].items():
+            w = set(WORDS.findall(t.lower()))
+            if len(w) < 4:
+                continue
+            scores = {}
+            for k in range(int(n) - 2, int(n) + 3):
+                r = ref.get(str(k))
+                if r:
+                    rw = set(WORDS.findall(r.lower()))
+                    scores[k] = len(w & rw) / max(len(w | rw), 1)
+            if not scores:
+                continue
+            at = max(scores, key=scores.get)
+            # Beating its own number is not enough. Neighbouring verses in a
+            # genealogy or a psalm share most of their words, and the one next
+            # door wins by a hair often enough to cry wolf all through the Old
+            # Testament. It has to win clearly.
+            if at != int(n) and scores[at] > 0.35 and scores[at] - scores.get(int(n), 0) > 0.15:
+                moved.append((n, at))
+        # A real shift is systematic: a run of verses all displaced the same
+        # way, because one verse was split or merged and the rest followed.
+        deltas = Counter(at - int(n) for n, at in moved)
+        if moved and deltas.most_common(1)[0][1] < max(3, 0.6 * len(moved)):
+            continue                     # scattered near-misses, not a shift
+        # A chapter numbered differently from its first verse is not a fault
+        # but a tradition: the Hebrew counts a psalm's superscription as verse
+        # one and the English does not, and the whole psalm slides by one.
+        if moved and min(int(n) for n, _a in moved) <= 2:
+            continue
+        if len(moved) >= 3:
+            where = ", ".join(f"{n}->{at}" for n, at in moved[:6]) + ("..." if len(moved) > 6 else "")
+            flags.append(f"{out['book']} {out['chapter']}: ALIGNMENT — {len(moved)} of "
+                         f"{len(out['verses'])} verses hold the text of another verse ({where})")
 
 
 def check_quotes(outs, flags):
@@ -214,6 +290,7 @@ def verify_lang(lang, book_arg, ch_arg):
             check_names(name_inventory(outs), flags)
         check_established(lang, outs, flags)
         check_quotes(outs, flags)
+        check_alignment(lang, outs, flags)
 
     report.parent.mkdir(exist_ok=True)
     lines = [f"# Verification report — {TARGETS[lang]['name']} ({lang})",

@@ -243,6 +243,19 @@ def build_user_prompt(meta, ch, verses, prev_translation, lang):
     for v in verses:
         tag = " [Aramaic]" if src_lang == "mixed" and v.get("lang") == "arc" else ""
         lines.append(f"{v['v']}.{tag} {v['text']}")
+    # The numbers, said plainly. "Never invent verses" was in the rules already
+    # and the model inserted Matthew 18:11 and Acts 15:34 anyway - verses the
+    # Textus Receptus has and the critical text does not, supplied from memory
+    # of the English Bible it grew up on. Worse than the extra verse is what it
+    # does to the numbering: everything after it shifts by one, and a chapter
+    # with the right number of verses can still have every one of them
+    # mislabelled. So the set is given, and it is closed.
+    nums = [str(v["v"]) for v in verses]
+    span = f"{nums[0]}-{nums[-1]}" if len(nums) > 3 else ", ".join(nums)
+    lines += ["", f"VERSE NUMBERS: this chapter has exactly these {len(nums)} verses, {span}. "
+                  "Output each one once, under its own number. Do not add a verse that is not "
+                  "in the list above, however familiar it may be from another Bible, and do not "
+                  "merge two of them or split one - the numbers after it would all be wrong."]
     if want_lxx(lines, verses, lang) and any(v.get("lxx") for v in verses):
         lines += ["", "=== REFERENCE ONLY — NOT SOURCE TEXT ===",
                   "Below is the Septuagint, the ancient Greek version of this chapter. It is a reference "
