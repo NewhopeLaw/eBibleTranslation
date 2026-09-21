@@ -74,6 +74,10 @@ USFM = {"GEN": "Genesis", "EXO": "Exodus", "LEV": "Leviticus", "NUM": "Numbers",
 
 MARKUP = re.compile(r"\\[a-z]+\d*\*?\s?")          # \add \nd \w ... and their closers
 FOOTNOTE = re.compile(r"\\f .*?\\f\*|\\x .*?\\x\*", re.S)
+# A USFM word can carry attributes: \w And|strong="G2532"\w*. The word is the
+# text; the attributes are apparatus, and left in they become part of it - the
+# ASV came out as And|strong="G2532"they|strong="G2532"led...
+ATTRS = re.compile(r'\|(?:[a-z\-]+="[^"]*"|[a-z\-]+:[^\s|\\]*|[^\s|\\"]+)')
 
 
 def fetch(url, timeout=300):
@@ -113,7 +117,7 @@ def public_domain(rows, lang):
 
 def parse_usfm(text):
     """-> (usfm book id, {chapter: {verse: text}})"""
-    text = FOOTNOTE.sub("", text)
+    text = ATTRS.sub("", FOOTNOTE.sub("", text))
     book = None
     m = re.search(r"\\id\s+(\w+)", text)
     if m:
@@ -122,7 +126,9 @@ def parse_usfm(text):
 
     def flush():
         if ch is not None and verse is not None:
-            t = MARKUP.sub("", " ".join(buf)).strip()
+            # A space, not nothing: \w And\w*\w while\w* has no space of its
+            # own between the words, and the run-together is collapsed below.
+            t = MARKUP.sub(" ", " ".join(buf)).strip()
             t = re.sub(r"\s+", " ", t)
             if t:
                 chapters.setdefault(ch, {})[verse] = t
