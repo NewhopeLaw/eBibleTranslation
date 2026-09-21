@@ -16,7 +16,9 @@ Checks (flags, never auto-fixes):
   - suspicious length ratio (translation far shorter than source = possible
     truncation; the threshold is looser for CJK/Thai, which are denser)
   - proper-name spelling inconsistencies across chapters (near-duplicate
-    capitalised tokens, e.g. Rebekah/Rebecca) — Latin-script targets only
+    capitalised tokens, e.g. Rebekah/Rebecca) — Latin-script targets
+  - names that depart from the spellings readers of the language already know,
+    where targets/<lang>/names.map.json has been built (scripts/build_names.py)
 
 Writes logs/verify_<lang>.md and prints a summary. Exit code 1 if any flags.
 """
@@ -103,6 +105,33 @@ def name_inventory(chapters_out):
     return names
 
 
+def check_established(lang, outs, flags):
+    """Names a reader of this language would not recognise.
+
+    A near-duplicate check cannot see this: 斯提反 and 司提反 are both
+    plausible Chinese, and nothing inside our own text says which one the
+    Bibles of that language have used for a century. The answer is not in our
+    output at all, so it is looked up - names.map.json holds the established
+    spelling, learned from a reference edition, and the English of the same
+    chapter says which names the chapter contains.
+    """
+    table = ROOT / "targets" / lang / "names.map.json"
+    if not table.exists():
+        return
+    known = json.loads(table.read_text(encoding="utf-8"))["names"]
+    for out in outs:
+        pivot = ROOT / "output" / "en" / "json" / f"{slug(out['book'])}_{int(out['chapter']):02d}.json"
+        if not pivot.exists():
+            continue
+        eng = " ".join(json.loads(pivot.read_text(encoding="utf-8"))["verses"].values())
+        text = "".join(out["verses"].values())
+        for n in sorted(set(CAP_TOKEN.findall(eng)) | set(re.findall(r"[A-Z][a-z]+-[A-Z]?[a-z]+", eng))):
+            want = known.get(n)
+            if want and want not in text:
+                flags.append(f"{out['book']} {out['chapter']}: NAME — {n} is {want} in the Bibles "
+                             f"this language already reads; this chapter does not use it")
+
+
 def check_names(names, flags):
     toks = sorted(names)
     for i, a in enumerate(toks):
@@ -143,9 +172,10 @@ def verify_lang(lang, book_arg, ch_arg):
         check_chapter(code, out["chapter"], out, src_verses, flags, TARGETS[lang]["ratio"])
         per_book.setdefault(code, []).append(out)
 
-    if latin:
-        for code, outs in per_book.items():
+    for code, outs in per_book.items():
+        if latin:
             check_names(name_inventory(outs), flags)
+        check_established(lang, outs, flags)
 
     report.parent.mkdir(exist_ok=True)
     lines = [f"# Verification report — {TARGETS[lang]['name']} ({lang})",

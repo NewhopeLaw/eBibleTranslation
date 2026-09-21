@@ -53,6 +53,14 @@ self-audit against `docs/ui-checklist.md` — seven points covering assumptions,
 edge states, hierarchy, reversibility, messy data, accessibility and component
 choice. The audit goes in the pull request or the reply, not in the code.
 
+## Finished means verified
+
+A chapter is translated when its verses are in it. A run that fails — the
+model answers in the wrong language, or echoes the prompt back — still leaves
+a file behind, and counting files let a Chinese Bible with no Psalm 119 in it
+call itself complete and ship in an APK. `build_site.py --complete-only` now
+counts verses against the source, and says which chapters are hollow.
+
 ## House style
 
 Comments and commit messages explain *why*, in plain prose, the way the existing

@@ -26,6 +26,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 from books import BOOKS, DEFAULT_TARGET, LANGS, TARGETS, chapter_lang, parse_targets, slug
 
 ROOT = Path(__file__).resolve().parent.parent
+NL = chr(10)
+PIVOT_LANG = "en"          # the translation the per-chapter name list is looked up through
 CONFIG = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))
 NORM_DIR = ROOT / "sources" / "normalized"
 LOG_PATH = ROOT / "logs" / "translate.jsonl"
@@ -158,6 +160,72 @@ def build_system_prompt(lang=DEFAULT_TARGET) -> str:
 
 
 # ------------------------------------------------------------------ prompt
+_name_map = {}
+
+
+def chapter_names(meta, ch, lang):
+    """The established spellings for the names in THIS chapter, or {}.
+
+    The names a reader knows number in the thousands, and the whole list
+    cannot be pasted into every prompt - it would crowd out the chapter. But
+    one chapter holds a few dozen at most, and those are knowable in advance:
+    our English is the pivot, so the names in the English of this chapter are
+    the names in this chapter, whatever language it is going into.
+
+    Without this the model invents a spelling per chapter with no memory of
+    the last one, and the same man is 司提反 here and 斯提反 overleaf.
+    targets/<lang>/names.map.json is written by scripts/build_names.py.
+    """
+    if lang == PIVOT_LANG:
+        return {}
+    if lang not in _name_map:
+        f = ROOT / "targets" / lang / "names.map.json"
+        _name_map[lang] = json.loads(f.read_text(encoding="utf-8"))["names"] if f.exists() else {}
+    table = _name_map[lang]
+    if not table:
+        return {}
+    pivot = ROOT / "output" / PIVOT_LANG / "json" / f"{slug(meta['name'])}_{int(ch):02d}.json"
+    if not pivot.exists():
+        return {}                       # not translated into the pivot yet; nothing to look up
+    text = " ".join(json.loads(pivot.read_text(encoding="utf-8"))["verses"].values())
+    found = {n: table[n] for n in set(re.findall(r"[A-Z][a-z]+(?:-[A-Z]?[a-z]+)*", text)) if n in table}
+    return dict(sorted(found.items()))
+
+
+def rough_tokens(text):
+    """A deliberately pessimistic token count.
+
+    Hebrew with its points, and Greek with its breathings, run at about a
+    token a character - nothing like the four-to-one of English prose. Any
+    estimate that is too generous here is worse than useless, so ASCII counts
+    at a quarter and everything else at one.
+    """
+    ascii_n = sum(1 for c in text if c.isascii())
+    return ascii_n // 4 + (len(text) - ascii_n)
+
+
+def want_lxx(lines, verses, lang):
+    """Whether the Septuagint column still fits beside the chapter.
+
+    It is a reference, and the chapter is the text: when both will not fit,
+    the reference goes. Past num_ctx the server drops the front of the prompt,
+    which is where the instructions are - and a model that has lost them
+    answers in the wrong language or copies the source back out. Psalm 119 and
+    1 Kings 8, the two longest chapters here, failed that way in every
+    language and left empty files behind that still counted as translated.
+    """
+    if not CONFIG.get("consult_lxx", True):
+        return False
+    budget = CONFIG["num_ctx"] - CONFIG.get("num_predict", 8192) - 1200   # reply, and the system prompt
+    used = rough_tokens(NL.join(lines))
+    extra = rough_tokens(NL.join(v["lxx"] for v in verses if v.get("lxx")))
+    if used + extra <= budget:
+        return True
+    print(f"    (chapter too long for the Septuagint column as well: "
+          f"{used}+{extra} tokens over a budget of {budget} - translating from the source alone)")
+    return False
+
+
 def build_user_prompt(meta, ch, verses, prev_translation, lang):
     src_lang = chapter_lang(meta, verses)
     lang_label = "Hebrew with an Aramaic section" if src_lang == "mixed" else LANG_NAME[src_lang]
@@ -166,11 +234,16 @@ def build_user_prompt(meta, ch, verses, prev_translation, lang):
     if prev_translation:
         lines += ["YOUR TRANSLATION OF THE PREVIOUS CHAPTER (for continuity of tone and recurring phrases — do not re-output it):",
                   prev_translation, ""]
+    fixed = chapter_names(meta, ch, lang)
+    if fixed:
+        lines += [f"NAMES IN THIS CHAPTER — use exactly these {TARGETS[lang]['name']} spellings "
+                  "(they are what readers of this language already know; do not invent your own):",
+                  "; ".join(f"{k} = {v}" for k, v in fixed.items()), ""]
     lines.append(f"SOURCE TEXT ({meta['name']} {ch}, {len(verses)} verses — translate ALL {len(verses)}):")
     for v in verses:
         tag = " [Aramaic]" if src_lang == "mixed" and v.get("lang") == "arc" else ""
         lines.append(f"{v['v']}.{tag} {v['text']}")
-    if CONFIG.get("consult_lxx", True) and any(v.get("lxx") for v in verses):
+    if want_lxx(lines, verses, lang) and any(v.get("lxx") for v in verses):
         lines += ["", "=== REFERENCE ONLY — NOT SOURCE TEXT ===",
                   "Below is the Septuagint, the ancient Greek version of this chapter. It is a reference "
                   "witness, not the text you are translating. The SOURCE TEXT above is the only basis of "
