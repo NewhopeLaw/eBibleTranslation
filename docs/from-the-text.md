@@ -102,6 +102,43 @@ inside a Hebrew word (`כiyor`, `رعى`) — and the job has no check that woul
 catch and re-ask them. They need one before step 3 builds on the inventory.
 No step has landed yet: the comparison for step 1 is still to be written.
 
+*21 September 2026, later:* the job has that check now, and the rows already
+written have been mended. `build_lexemes.py` holds a lemma and a root to the
+script of their language before a row is written, asks the bad ones again —
+up to three times, in eights, then fours, then singly — and if a field is
+still wrong writes it empty, says so in the row (`"emptied": ["root"]`) and in
+`logs/lexemes_scripts.log`. `--check-scripts` counts the faulty rows without
+asking anything; `--repair-scripts` asks them again and rewrites `forms.jsonl`
+in place, row for row, and refuses to replace a file that grew while it worked.
+It is for when the job is stopped.
+
+Measured on the inventory as it stood with the job stopped, 27,568 forms: 310
+rows at fault (1.12%) — 8 lemmas and 304 roots. That is more than the 110
+first counted, because a root wholly in Latin letters is now counted too. The
+prompt has always asked for the root in Hebrew; some three dozen early rows
+carry a fair transliteration (`šwb`, `brk`), but most of what has come back in
+Latin since is a word spelt out, not a root (`matteh`, `milchem`,
+`sack(noroot`), so none of it is let through. After the repair: none at fault,
+every row where it was, no row touched that was clean, and no lemma changed on
+a row whose only fault was its root. Five roots are left empty and marked
+(three forms of נחל, מִנְחָתָהּ, and the Aramaic זִמְנִין), to be asked again by a
+later repair. On 41 more the model, asked again, said the word has no root —
+its answer, not our blank.
+
+One thing learned on the way, which the parse (step 2) should expect: the
+fault is catching. A word that draws the model into transliterating — זְמָן came
+back `zman` — takes the rest of its batch with it, forty Latin roots in a row,
+and telling the model what it did wrong changed nothing while the batch stayed
+the same. Asking the same forms in fours freed them. A first repair that
+re-asked in one batch left 80 roots empty; re-asking in shrinking batches
+left 5.
+
+The check is about script, not about whether the answer is right: בְּאֵלֹנֵי now
+has the lemma אֵלֹנ, which is Hebrew and is not a word. That is the comparison's
+work, still to be written. The queue on the PC runs the copy of the job on
+`main`, so the check takes effect when this change is merged there and the job
+next started.
+
 The search box now reaches the concordance, the lexicon, the fields and the
 themes, from any translated language, by tracing a reader's word through the
 verses it stands in to the Hebrew and Greek words behind them. That concordance

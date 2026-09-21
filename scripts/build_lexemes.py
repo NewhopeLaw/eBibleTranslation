@@ -5,6 +5,8 @@
     python scripts/build_lexemes.py                    # every form, resuming
     python scripts/build_lexemes.py --pack             # consolidate and write site/morph/lexemes.js
     python scripts/build_lexemes.py --score            # how far our inventory agrees with the reference tagging
+    python scripts/build_lexemes.py --check-scripts    # how many rows have another alphabet in the lemma or root
+    python scripts/build_lexemes.py --repair-scripts   # ask those rows again (only while the job is stopped)
 
 Rather than inherit a lexeme list from a published dictionary, this grows one
 from the text: every distinct word form in the Hebrew, Aramaic and Greek is put
@@ -16,6 +18,12 @@ so the numbering is stable, reproducible and ours.
 
 81,000 distinct forms, batched; roughly four to six hours on one GPU. Every
 answer is written as it is made, so the run resumes.
+
+Every answer is checked before it is written: a lemma or a root with another
+alphabet in it is asked again, and if it is still wrong the field is left empty
+and the row says so ("emptied": ["root"]), as does logs/lexemes_scripts.log.
+Such a row counts as done, so the run does not keep returning to it;
+--repair-scripts does.
 
     site/morph/lexemes.js:
         LEXEME = {id: [headword, pos, gloss, root, count]}
@@ -145,6 +153,185 @@ def norm_lemma(s):
     return unicodedata.normalize("NFC", re.sub(r"\s+", "", str(s or ""))).strip("־-,.;:!?()[]{}\"'")
 
 
+# The model is multilingual and now and then its hand slips into another
+# alphabet half way through a word: כiyor for כִּיּוֹר, the root of הָרֹעִים given as
+# the Arabic رعى, a Korean gloss where the root should stand. About one row in
+# two hundred. A lemma like that becomes a lexeme nobody can find, so a lemma
+# and a root must be written wholly in the script of their language, and
+# anything else is asked again.
+#
+# A root in Latin letters is refused as well. A few early rows carry a fair
+# transliteration (šwb, brk), but the prompt has always asked for Hebrew, and
+# most of what came back in Latin since is not a root at all but a word spelt
+# out - matteh, milchem, sack(noroot. The full stop is let through because the
+# model sometimes writes a root the way the grammars do, ש.מ.ע.
+SCRIPT = {"he": ((0x0590, 0x05FF), (0xFB1D, 0xFB4F)),
+          "gr": ((0x0370, 0x03FF), (0x1F00, 0x1FFF), (0x0300, 0x036F))}
+JOINERS = " ,־-.’ʼ'"
+# A word that draws the model into transliterating draws its neighbours in with
+# it: זְמָן at the head of a batch came back zman, and the thirty-nine roots after
+# it came back in Latin too, whatever the re-ask said. What frees them is
+# smaller company, so each re-ask puts the bad rows in smaller batches than the
+# last - eights, then fours, then one at a time.
+REASK = (8, 4, 1)
+BAD_LOG = ROOT / "logs" / "lexemes_scripts.log"
+AGAIN = ("\n\nYour last answer for these put letters of another alphabet into the lemma or the root. "
+         "Write both in {script} script only, every letter of them — no transliteration, no other language.")
+
+
+def stray(s, lang):
+    """The characters of s that do not belong in a word of this language; "" when it is clean."""
+    return "".join(c for c in s if c not in JOINERS
+                   and not any(lo <= ord(c) <= hi for lo, hi in SCRIPT[lang]))
+
+
+def faults(row):
+    """Which of a row's fields have another script in them."""
+    return [k for k in ("lemma", "root") if stray(row.get(k) or "", row["lang"])]
+
+
+def ask(lang, chunk, again=False):
+    """One batch to the model -> {form: row}. The shape is checked here: an
+    answer that is not an object, or has no lemma, is left out, and its form
+    stays unanswered."""
+    lines = []
+    for i, (_, form, count, ctx) in enumerate(chunk, 1):
+        book, ch, v, text = ctx
+        lines.append(f"{i}. {form}   ({count}×)\n   {book} {ch}:{v} — {text}")
+    user = "\n".join(lines) + "\n\nGive the dictionary word for each."
+    if again:
+        user += AGAIN.format(script="Hebrew" if lang == "he" else "Greek")
+    got = call(SYSTEM_HE if lang == "he" else SYSTEM_GR, user)
+    rows = {}
+    for i, (_, form, count, ctx) in enumerate(chunk, 1):
+        r = got.get(str(i)) if isinstance(got, dict) else None
+        if not isinstance(r, dict) or not norm_lemma(r.get("lemma")):
+            continue
+        rows[form] = {"form": form, "lang": lang, "count": count,
+                      "lemma": norm_lemma(r.get("lemma")), "pos": str(r.get("pos") or ""),
+                      "gloss": str(r.get("gloss") or ""), "root": norm_lemma(r.get("root"))}
+    return rows
+
+
+def analyse(lang, chunk):
+    """A batch asked, checked for script, and its bad rows asked again on their
+    own, told what was wrong, in the smaller and smaller batches of REASK. A
+    row that is still wrong after that is kept with the offending field
+    emptied: an empty root is a gap, a wrong one is a mistake someone has to
+    find. -> {form: row}; raises what the first call raises."""
+    rows = ask(lang, chunk)
+    for size in REASK:
+        bad = [c for c in chunk if c[1] in rows and faults(rows[c[1]])]
+        for start in range(0, len(bad), size):
+            try:
+                fresh = ask(lang, bad[start:start + size], again=True)
+            except Exception as ex:                        # noqa: BLE001
+                print(f"  re-ask of {len(bad[start:start + size])} forms: FAILED {ex}", file=sys.stderr)
+                continue
+            for form, r in fresh.items():
+                if len(faults(r)) < len(faults(rows[form])):   # never trade a bad answer for a worse one
+                    rows[form] = r
+    for r in rows.values():
+        empty(r)
+    return rows
+
+
+def empty(row):
+    """Blank whatever is still in the wrong script, and say so in the row and in
+    the log. The row carries the note itself - "emptied": ["root"] - because an
+    empty root is otherwise what a word without a root looks like, and
+    --repair-scripts could not tell which ones to come back to."""
+    for k in faults(row):
+        line = (f"{time.strftime('%Y-%m-%d %H:%M:%S')} {row['form']}: {k} {row[k]!r} "
+                f"is not in its own script after {len(REASK)} re-asks; left empty")
+        print("  " + line, file=sys.stderr)
+        try:
+            BAD_LOG.parent.mkdir(exist_ok=True)
+            with BAD_LOG.open("a", encoding="utf-8") as fh:
+                fh.write(line + "\n")
+        except OSError as e:                                # a log must never stop a job
+            print(f"    scripts log: {e}", file=sys.stderr)
+        row[k] = ""
+        row["emptied"] = sorted(set(row.get("emptied", [])) | {k})
+    return row
+
+
+def read_forms():
+    return [json.loads(line) for line in FORMS.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def wanting(row):
+    """The fields a repair would ask again: those with another script in them,
+    and those already emptied for it."""
+    return sorted(set(faults(row)) | set(row.get("emptied", [])))
+
+
+def repair(batch, dry=False):
+    """Ask again the rows already written with another script in them, and
+    rewrite forms.jsonl with every row where it was. The job appends to that
+    file, so this must not run beside it: the size is taken at the start and
+    checked before the new file replaces the old, and if anything was added in
+    between the repair is dropped rather than lose those rows."""
+    if not FORMS.exists():
+        print("lexemes: no forms.jsonl to repair")
+        return
+    size = FORMS.stat().st_size
+    rows = read_forms()
+    bad = [r for r in rows if wanting(r)]
+    wrong = [r for r in bad if faults(r)]
+    by_field = Counter(k for r in wrong for k in faults(r))
+    print(f"lexemes: {len(rows)} rows, {len(wrong)} with another script in the lemma or root "
+          f"({100 * len(wrong) / max(1, len(rows)):.2f}%: lemma {by_field['lemma']}, root {by_field['root']}), "
+          f"{len(bad) - len(wrong)} with a field emptied for it")
+    if dry or not bad:
+        return
+    data = collect()
+    todo = []
+    for r in bad:
+        d = data[r["lang"]].get(r["form"])
+        if d:
+            todo.append((r["lang"], r["form"], d[0], d[1]))
+    fixed = {}
+    t0 = time.time()
+    for lang in ("he", "gr"):
+        mine = [c for c in todo if c[0] == lang]
+        for start in range(0, len(mine), batch):
+            try:
+                fixed.update(analyse(lang, mine[start:start + batch]))
+            except Exception as ex:                            # noqa: BLE001
+                print(f"  batch at {start}: FAILED {ex}", file=sys.stderr)
+            print(f"  {len(fixed)}/{len(todo)} forms asked again [{(time.time() - t0) / 60:.1f} min]", flush=True)
+    # Where only the root was wrong, only the root is taken from the new answer:
+    # the lemma that was already there is what other rows were grouped with. A
+    # wrong lemma takes the whole new row, since the rest was said of that lemma.
+    # A form the model would not answer this time keeps its old row, but not the
+    # letters that were wrong in it.
+    out, changed = [], 0
+    for r in rows:
+        new, want = fixed.get(r["form"]), wanting(r)
+        if new and want:
+            if "lemma" in want:
+                r = new
+            else:
+                r = {k: v for k, v in dict(r, root=new["root"]).items() if k != "emptied"}
+                if "root" in new.get("emptied", []):
+                    r["emptied"] = ["root"]
+            changed += 1
+        out.append(empty(r))
+    tmp = FORMS.with_suffix(".jsonl.tmp")
+    with tmp.open("w", encoding="utf-8") as fh:             # as the job writes it, line for line
+        for r in out:
+            fh.write(json.dumps(r, ensure_ascii=False) + "\n")
+    if FORMS.stat().st_size != size:
+        tmp.unlink()
+        print("lexemes: forms.jsonl grew while the repair ran — a job is writing to it. Nothing replaced; "
+              "stop the job and run the repair again.", file=sys.stderr)
+        sys.exit(1)
+    tmp.replace(FORMS)
+    print(f"lexemes: {changed} rows rewritten; {sum(1 for r in out if faults(r))} still with another script, "
+          f"{sum(1 for r in out if r.get('emptied'))} with a field left empty")
+
+
 def pack(score=False):
     data = collect()
     answers = {}
@@ -235,8 +422,13 @@ def main():
     ap.add_argument("--min-count", type=int, default=1)
     ap.add_argument("--pack", action="store_true")
     ap.add_argument("--score", action="store_true")
+    ap.add_argument("--check-scripts", action="store_true", help="count the rows with another script in the lemma or root; asks nothing")
+    ap.add_argument("--repair-scripts", action="store_true", help="ask those rows again and rewrite forms.jsonl; not while the job is running")
     a = ap.parse_args()
     DIR.mkdir(parents=True, exist_ok=True)
+    if a.check_scripts or a.repair_scripts:
+        repair(a.batch, dry=not a.repair_scripts)
+        return
     if a.pack or a.score:
         pack(score=a.score)
         return
@@ -263,24 +455,15 @@ def main():
             chunk = todo[start:start + a.batch]
             lang = chunk[0][0]
             chunk = [c for c in chunk if c[0] == lang]          # never mix languages in one batch
-            lines = []
-            for i, (_, form, count, ctx) in enumerate(chunk, 1):
-                book, ch, v, text = ctx
-                lines.append(f"{i}. {form}   ({count}×)\n   {book} {ch}:{v} — {text}")
             try:
-                got = call(SYSTEM_HE if lang == "he" else SYSTEM_GR, "\n".join(lines) + "\n\nGive the dictionary word for each.")
+                rows = analyse(lang, chunk)
             except Exception as ex:                                # noqa: BLE001
                 print(f"  batch at {start}: FAILED {ex}", file=sys.stderr)
                 continue
-            for i, (_, form, count, ctx) in enumerate(chunk, 1):
-                r = got.get(str(i)) or {}
-                if not isinstance(r, dict) or not norm_lemma(r.get("lemma")):
-                    continue
-                fh.write(json.dumps({"form": form, "lang": lang, "count": count,
-                                     "lemma": norm_lemma(r.get("lemma")), "pos": str(r.get("pos") or ""),
-                                     "gloss": str(r.get("gloss") or ""), "root": norm_lemma(r.get("root"))},
-                                    ensure_ascii=False) + "\n")
-                n += 1
+            for _, form, _, _ in chunk:
+                if form in rows:
+                    fh.write(json.dumps(rows[form], ensure_ascii=False) + "\n")
+                    n += 1
             fh.flush()
             el = time.time() - t0
             print(f"  {n}/{len(todo)} forms [{el / max(1, n):.2f}s each, {el / 60:.1f} min]", flush=True)
