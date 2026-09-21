@@ -1,0 +1,10 @@
+# Psalms 66
+
+¹ Al maestro de coro. Canto. Salmo. Alaben a Dios, toda la tierra. ² Canten la gloria de su nombre, den su honor, alaben a él. ³ Digan a Dios: «¡Qué terribles son tus obras! Con tu gran poder, tus enemigos te engañarán». ⁴ Toda la tierra se doblegue ante ti y cante a ti, cante el nombre de Dios. Sela. ⁵ Vengan y vean las obras de Dios, terribles en sus designios, para los hijos de los humanos. ⁶ Hizo el mar convertirse en tierra seca, los ríos pasaron a pie, allí nos alegramos. ⁷ Que gobierna con su poder eterno, sus ojos miran a las naciones. Que los soberbios no se eleven demasiado. Sela. ⁸ Bendigan a los pueblos a nuestro Dios, hagan oír la voz de su alabanza. ⁹ Que puso nuestra alma en vida, y no permitió que nuestros pies se tambalearan. ¹⁰ Porque nos probaste, Dios, nos purificaste como se purifica la plata. ¹¹ Nos trajiste a la trampa, pusiste un yugo en nuestra cintura. ¹² Pusiste carga sobre nuestras cabezas, pasamos por fuego y agua, y nos sacaste a la abundancia. ¹³ Entraré en tu casa con ofrendas, cumpliré mis votos hacia ti. ¹⁴ Las palabras que prometí con mis labios y pronuncié en mi aflicción: ¹⁵ Ofrendas quemadas de ovejas te llevaré, junto con incienso y corderos; cumpliré mis votos con toros y carneros. Sela. ¹⁶ Vengan, oigan y les contaré a todos los que temen a Dios, lo que él ha hecho por mi alma. ¹⁷ A él clamé con mi boca, y elevé mi oración bajo mi lengua. ¹⁸ Si en mi corazón vi iniquidad, el Señor no escucharía. ¹⁹ Pero ciertamente Dios escuchó, inclinó su oído a la voz de mi oración. ²⁰ Bendito sea Dios, que no rechazó mi oración ni quitó de mí su amor leal.
+
+---
+
+Notes  
+- v. 7: La frase "los soberbios no se eleven demasiado" refleja el sentido del hebreo, que habla de los que se rebelan (סּוֹרְרִים) y no deben ser exaltados.  
+- v. 12: La traducción "carga sobre nuestras cabezas" sigue la interpretación del hebreo, que usa una metáfora de carga pesada.  
+- v. 17: "Elevé mi oración bajo mi lengua" es una interpretación natural del hebreo, que describe una oración interior o silenciosa.

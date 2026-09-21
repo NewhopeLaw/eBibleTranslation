@@ -1,0 +1,11 @@
+# Psalms 59
+
+¹ Al director del coro. No destruir. Salmo de David. Cuando Saúl lo envió a matarlo y los guardias lo cuidaron en la casa. ² Sálvame de mis enemigos, Dios, líbrame de los que me persiguen. ³ Líbrame de los que practican la maldad, y de los hombres de sangre. Sálvame. ⁴ Porque he aquí, me acechan para quitar mi vida, hombres fuertes vienen contra mí, aunque no he pecado ni he cometido maldad, oh SEÑOR. ⁵ Sin culpa corrieron y me persiguieron. Levántate a encontrarte conmigo y mírame. ⁶ Y tú, SEÑOR Dios de los ejércitos, Dios de Israel, despierta para visitar a todas las naciones. No compadecas a todos los que practican la maldad. Selah. ⁷ Regresarán al anochecer, y como perros morirán de hambre, y rodearán a la ciudad. ⁸ He aquí, profieren palabras en sus bocas, espadas en sus labios. ¿Quién los escucha? ⁹ Y tú, SEÑOR, te burlarás de ellos, desalentarás a todas las naciones. ¹⁰ Mi fuerza yo la guardaré en ti, porque Dios es mi defensor. ¹¹ Mi Dios, su amor leal me precederá. Mi Dios me mostrará en mis enemigos. ¹² No los mates, para que no olviden tu pueblo. Derríbalos con tu poder y destrúyelos, oh SEÑOR, mi defensor. ¹³ La culpa de sus labios, la palabra de sus bocas, y que sean atrapados por su arrogancia. Y por la traición y el engaño, serán condenados. ¹⁴ Arruínalos, arruínalos en tu furia, y que no existan más. Y conocerán que Dios gobierna a Jacob por los confines de la tierra. Selah. ¹⁵ Regresarán al anochecer, y como perros morirán de hambre, y rodearán a la ciudad. ¹⁶ Ellos serán dispersos para comer, si no se sienten saciados, y gemirán. ¹⁷ Pero yo cantaré de tu fuerza, y alabaré tu amor leal al amanecer. Porque has sido mi defensor, y mi refugio en el día de la aflicción. ¹⁸ Mi fuerza, a ti cantaré. Porque Dios es mi defensor, el amor leal de mi Dios.
+
+---
+
+Notes  
+- v. 5: La construcción "sin culpa corrieron y me persiguieron" refleja el sentido de que los enemigos actúan sin justificación alguna.  
+- v. 6: La palabra "Selah" se ha mantenido sin traducir, como es común en salmos.  
+- v. 14: La repetición de "arruínalos" enfatiza la solemnidad y firmeza del juicio divino.  
+- v. 18: Se ha mantenido la paralela con v. 11 para resaltar la confianza en Dios como defensor y fuente de amor leal.

@@ -1,0 +1,9 @@
+# Isaiah 31
+
+¹ ¡Ay de los que bajan a Egipto en busca de ayuda, confiando en caballos, y esperando en carros, porque son muchos, y en jinetes, porque son fuertes, pero no buscaron el apoyo del Santo de Israel, ni buscaron al SEÑOR! ² Y Él es sabio, y traerá el mal, y no cesará su palabra, sino que se levantará contra la casa de los malvados, contra la ayuda de los que practican el mal. ³ Porque Egipto es un hombre, y no un Dios, y sus caballos son carne, y no espíritu; y el SEÑOR extenderá su mano, y caerán los que ayudan, y perecerán todos juntos. ⁴ Porque así ha dicho el SEÑOR: Como el león y el tigre rugen sobre su presa, y si llaman contra ellos una multitud de pastores, no se apartarán por el ruido, ni por el tumulto responderán; así descendirá el SEÑOR de los ejércitos sobre el monte de Sión, sobre sus colinas. ⁵ Como las aves que vuelan, así cuidará el SEÑOR de los ejércitos sobre Jerusalén, cubriéndola, salvándola y protegiéndola. ⁶ Vuelvan, hijos de Israel, a los profundos consejos que han seguido, ¡ustedes que obran injustamente! ⁷ Porque en aquel día rechazarán a sus ídolos de plata y a sus ídolos de oro, que sus manos han hecho como falsos. ⁸ Y caerá Asiria, no por espada de hombre, ni por espada de humano la comerá, y huirá, no por causa de la espada, y sus jóvenes serán destruidos. ⁹ Porque su rey será capturado como un león en una trampa, y sus generales caerán, dice el SEÑOR, cuya señal está puesta en Sión, y cuyo fuego será en Jerusalén.
+
+---
+
+Notes
+- v. 4: La comparación del león y el tigre se mantiene fiel a la estructura del texto hebreo, que usa metáforas de animales salvajes para describir el acto de caza y la imposibilidad de asustarlos.
+- v. 9: La expresión «como un león en una trampa» se interpreta del hebreo "כְּסַלְעוֹ מִמָּגוֹר", que se acerca a la idea de un león atrapado en una trampa, y se traduce como "capturado como un león en una trampa".

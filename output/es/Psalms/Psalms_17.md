@@ -1,0 +1,9 @@
+# Psalms 17
+
+¹ Oración de David. Escucha, SEÑOR, mi justicia, atiende mi ruego, escucha mi oración, que no sale de labios engañosos. ² Que mi juicio salga delante de ti, tus ojos vean lo recto. ³ Has examinado mi corazón, has revisado por la noche, me has probado y no has encontrado maldad en mí, no hay en mi lengua transgresión. ⁴ Para cumplir los designios de los hombres, según las palabras de tus labios, he guardado las sendas de los violentos. ⁵ Sostén mis pasos en tus huellas, no resbale mi pie. ⁶ Yo te invoqué, porque me has respondido, oh Dios, inclina tu oído a mí, escucha mis palabras. ⁷ Ensancha tu amor leal hacia quienes esperan en ti, libra a los que buscan tu derecha. ⁸ Guarda mi vida como la pupila de los ojos, bajo la sombra de tus alas me ocultes. ⁹ Aleja de mí la faz de los impíos que me persiguen, mis enemigos buscan mi vida y me rodean. ¹⁰ Sus entrañas están llenas de codicia, sus labios hablan con altivez. ¹¹ Ahora nos rodean, fijan sus ojos para arrojarnos de la tierra. ¹² Se me acercan como león que acecha para matar, como leopardo oculto en los escondrijos. ¹³ Levántate, SEÑOR, enfrenta a ellos, abate sus fuerzas, líbrame de la mano mala con tu espada. ¹⁴ De tus manos, SEÑOR, líbrame de los muertos, de la tierra de los que perecen. Que sus porciones sean en la vida, y sus vientres llenos de lo que escondes, hasta que se saturen y dejen el resto a sus hijos. ¹⁵ Yo, en justicia, contemplo tu rostro; me saciaré al despertar viendo tu semblante.
+
+---
+
+Notes
+- v. 14: El término "métimos" se traduce como "muertos", refiriéndose a enemigos o adversarios vencidos, en lugar del término más común "perecidos", para mantener coherencia con el contexto de lucha y destrucción.
+- v. 15: La expresión "en justicia" refleja el sentido de rectitud y pureza del autor, que le permite contemplar la presencia divina.

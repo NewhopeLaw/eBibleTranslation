@@ -1,0 +1,11 @@
+# Jeremiah 24
+
+¹ Mostróme YHWH dos cestos de higos, colocados delante del templo de YHWH, después de que Nabucodonosor, rey de Babilonia, llevara en cautividad a Jeconías, hijo de Joaquín, rey de Judá, y a los príncipes de Judá, al artesano y al soldado, de Jerusalén, y los trajera a Babilonia. ² Uno de los cestos contenía higos muy buenos, como los higos de primavera; y el otro cesto contenía higos muy malos, que no se pueden comer, porque están podridos. ³ Entonces YHWH me dijo: ¿Qué ves, Jeremías? Y yo respondí: Higos; los buenos, muy buenos, y los malos, muy malos, que no se pueden comer por estar podridos. ⁴ Vino la palabra de YHWH a mí diciendo: ⁵ Así dice YHWH, el Dios de Israel: Así como he reconocido a los exiliados de Judá, que envié de este lugar a la tierra de los caldeos, para bien, ⁶ también pongo mis ojos en bien sobre ellos, y los haré volver a esta tierra. Los reconstruiré y no los destruiré, los plantaré y no los arrancaré. ⁷ Les daré un corazón para que me conozcan, que yo soy YHWH. Y serán para mí un pueblo, y yo seré su Dios, porque se volverán a mí con todo su corazón. ⁸ Y así como los higos malos, que no se pueden comer por estar podridos, así dice YHWH, también entregaré a Zedecías, rey de Judá, y a sus príncipes, y al resto de Jerusalén que queda en esta tierra, y a los que habitan en Egipto. ⁹ Los haré objeto de desprecio y maldad entre todas las naciones de la tierra; serán un escarnio y una parábola, y una maldición en todos los lugares adonde los arroje. ¹⁰ Envié contra ellos la espada, el hambre y la peste, hasta que se extingan de la tierra que les di a ellos y a sus padres.
+
+---
+
+Notes
+- v. 1: Se ha traducido "נְבוּכַדְרֶאצַּר" como "Nabucodonosor", que es la forma más común en tradiciones bíblicas del nombre babilónico "Nabu-kudur-uzur".
+- v. 2: La expresión "מֵרֹֽעַ" se ha traducido como "por estar podridos", que captura el matiz de corrupción o maldad de los higos malos.
+- v. 8: Se ha traducido "צִדְקִיָּהוּ" como "Zedecías", nombre estándar en la tradición bíblica para este rey de Judá.
+- v. 10: La palabra "דָּבֶר" se ha traducido como "peste", que es el significado más claro en este contexto bíblico, donde "dabér" se refiere a enfermedad o plaga.

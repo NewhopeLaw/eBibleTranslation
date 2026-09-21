@@ -1,0 +1,10 @@
+# Psalms 90
+
+¹ Oración de Moisés, el hombre de Dios: El SEÑOR, tú has sido nuestro refugio, de generación en generación. ² Antes de que los montes nacieran, tú creaste la tierra y el mundo, y desde la eternidad hasta la eternidad tú eres Dios. ³ Tú nos haces volver de la ruina, y dices: "Retornen, hijos de la humanidad". ⁴ Porque mil años en tus ojos son como un día de ayer, como un instante de la noche. ⁵ Tú los envuelves en sueño; al despertar, se convierten como la hierba. ⁶ Al amanecer, brotan y se marchitan; al atardecer, se secan y se marchitan. ⁷ Porque nos consumimos en tu ira y nos asustamos en tu furor. ⁸ Tú llevas nuestra maldad delante de ti, y nuestra iniquidad a la luz de tu rostro. ⁹ Porque todos nuestros días pasan en tu furor, y nos consumimos como polvo. ¹⁰ Los días de nuestros años, setenta años, y si hay vigor, ochenta años; pero su esplendor es trabajo y sufrimiento, porque pasa rápidamente y somos arrebatados. ¹¹ ¿Quién conoce la potencia de tu ira, y el temor de tu enojo conforme a la medida? ¹² Enséñanos a contar nuestros días, para que adquiramos sabiduría de corazón. ¹³ Vuélvete, SEÑOR, ¿hasta cuándo? Y ten misericordia de tus siervos. ¹⁴ Sátenos por la mañana con tu amor leal, y nos alegraremos y nos regocijaremos todos los días de nuestra vida. ¹⁵ Haznos gozar, como los días en que nos humillaste, los años en que vimos maldad. ¹⁶ Que aparezca tu obra a tus siervos, y tu gloria a sus hijos. ¹⁷ Y que el favor del SEÑOR, nuestro Dios, esté sobre nosotros, y establezca lo que nuestras manos hacen, establezcamos nosotros mismos lo que nuestras manos hacen.
+
+---
+
+Notes
+- v. 1: "Oración de Moisés, el hombre de Dios" — se sigue la interpretación de que "אִֽישׁ־הָאֱלֹהִים" se refiere a Moisés como "el hombre de Dios", un título honorífico. 
+- v. 12: "Enséñanos a contar nuestros días, para que adquiramos sabiduría de corazón" — se usó "adquiramos" en lugar de "hagamos" para capturar el propósito pedagógico del versículo.
+- v. 17: "establezcamos nosotros mismos lo que nuestras manos hacen" — se tradujo el verbo reflexivo para mantener el tono de responsabilidad y coautoría con Dios.

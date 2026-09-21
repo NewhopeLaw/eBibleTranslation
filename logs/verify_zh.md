@@ -1,5 +1,108 @@
 # Verification report — Chinese (zh)
-Chapters checked: 1
-Flags: 0
+Chapters checked: 28
+Flags: 104
 
-All checks passed.
+- Acts 2:7: SHORT — 17 chars vs 88 source (possible truncation)
+- Acts 2:16: SHORT — 10 chars vs 52 source (possible truncation)
+- Acts 3:2: SHORT — 31 chars vs 192 source (possible truncation)
+- Acts 3:9: SHORT — 12 chars vs 62 source (possible truncation)
+- Acts 3:24: SHORT — 18 chars vs 102 source (possible truncation)
+- Acts 4:5: SHORT — 20 chars vs 112 source (possible truncation)
+- Acts 4:15: SHORT — 12 chars vs 73 source (possible truncation)
+- Acts 4:17: SHORT — 19 chars vs 118 source (possible truncation)
+- Acts 4:22: SHORT — 17 chars vs 88 source (possible truncation)
+- Acts 5:11: SHORT — 16 chars vs 83 source (possible truncation)
+- Acts 8:3: SHORT — 20 chars vs 119 source (possible truncation)
+- Acts 8:21: SHORT — 18 chars vs 100 source (possible truncation)
+- Acts 8:28: SHORT — 17 chars vs 89 source (possible truncation)
+- Acts 8:33: SHORT — 19 chars vs 107 source (possible truncation)
+- Acts 8:35: SHORT — 19 chars vs 102 source (possible truncation)
+- Acts 9:7: SHORT — 19 chars vs 98 source (possible truncation)
+- Acts 9:25: SHORT — 17 chars vs 88 source (possible truncation)
+- Acts 9:31: SHORT — 35 chars vs 182 source (possible truncation)
+- Acts 9:34: SHORT — 18 chars vs 104 source (possible truncation)
+- Acts 9:36: SHORT — 21 chars vs 131 source (possible truncation)
+- Acts 9:41: SHORT — 17 chars vs 96 source (possible truncation)
+- Acts 9:43: UNTRANSLATED source characters remain
+- Acts 10:34: SHORT — 19 chars vs 98 source (possible truncation)
+- Acts 11:6: SHORT — 22 chars vs 111 source (possible truncation)
+- Acts 12:1: SHORT — 18 chars vs 101 source (possible truncation)
+- Acts 13:18: SHORT — 12 chars vs 64 source (possible truncation)
+- Acts 13:33: SHORT — 26 chars vs 149 source (possible truncation)
+- Acts 13:38: SHORT — 23 chars vs 149 source (possible truncation)
+- Acts 13:49: SHORT — 9 chars vs 51 source (possible truncation)
+- Acts 15: EXTRA verse numbers [34]
+- Acts 15:36: SHORT — 21 chars vs 165 source (possible truncation)
+- Acts 15:39: SHORT — 22 chars vs 121 source (possible truncation)
+- Acts 16:17: SHORT — 22 chars vs 150 source (possible truncation)
+- Acts 16:27: SHORT — 24 chars vs 160 source (possible truncation)
+- Acts 16:37: SHORT — 26 chars vs 195 source (possible truncation)
+- Acts 16:38: SHORT — 20 chars vs 103 source (possible truncation)
+- Acts 16:40: SHORT — 20 chars vs 106 source (possible truncation)
+- Acts 17:5: SHORT — 34 chars vs 191 source (possible truncation)
+- Acts 17:6: SHORT — 27 chars vs 147 source (possible truncation)
+- Acts 17:10: SHORT — 18 chars vs 144 source (possible truncation)
+- Acts 17:13: SHORT — 24 chars vs 162 source (possible truncation)
+- Acts 19:8: SHORT — 21 chars vs 112 source (possible truncation)
+- Acts 19:17: SHORT — 27 chars vs 165 source (possible truncation)
+- Acts 19:26: SHORT — 26 chars vs 169 source (possible truncation)
+- Acts 20:13: SHORT — 30 chars vs 152 source (possible truncation)
+- Acts 20:35: SHORT — 34 chars vs 177 source (possible truncation)
+- Acts 20:37: SHORT — 17 chars vs 96 source (possible truncation)
+- Acts 22:20: SHORT — 23 chars vs 137 source (possible truncation)
+- Acts 23:30: SHORT — 23 chars vs 132 source (possible truncation)
+- Acts 23:31: SHORT — 20 chars vs 112 source (possible truncation)
+- Acts 23:35: SHORT — 20 chars vs 116 source (possible truncation)
+- Acts 24:11: SHORT — 19 chars vs 105 source (possible truncation)
+- Acts 24:16: SHORT — 19 chars vs 96 source (possible truncation)
+- Acts 25:23: SHORT — 37 chars vs 211 source (possible truncation)
+- Acts 26:3: SHORT — 12 chars vs 107 source (possible truncation)
+- Acts 27:37: SHORT — 12 chars vs 61 source (possible truncation)
+- Acts 27:40: SHORT — 26 chars vs 156 source (possible truncation)
+- Acts 28: EXTRA verse numbers [29]
+- Acts 1: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 2: NAME — Asia is 亚西亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 3: NAME — Pilate is 彼拉多 in the Bibles this language already reads; this chapter does not use it
+- Acts 4: NAME — Alexander is 亚力山大 in the Bibles this language already reads; this chapter does not use it
+- Acts 6: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- Acts 6: NAME — Philip is 腓力 in the Bibles this language already reads; this chapter does not use it
+- Acts 6: NAME — Stephen is 司提反 in the Bibles this language already reads; this chapter does not use it
+- Acts 7: NAME — Hamor is 哈抹 in the Bibles this language already reads; this chapter does not use it
+- Acts 7: NAME — Stephen is 司提反 in the Bibles this language already reads; this chapter does not use it
+- Acts 8: NAME — Caesarea is 凯撒利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 8: NAME — Philip is 腓力 in the Bibles this language already reads; this chapter does not use it
+- Acts 8: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 9: NAME — Caesarea is 凯撒利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 9: NAME — Lydda is 大原 in the Bibles this language already reads; this chapter does not use it
+- Acts 9: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 9: NAME — Simon is 西门 in the Bibles this language already reads; this chapter does not use it
+- Acts 10: NAME — Caesarea is 凯撒利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 11: NAME — Caesarea is 凯撒利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 12: NAME — Caesarea is 凯撒利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 13: NAME — Jesse is 耶西 in the Bibles this language already reads; this chapter does not use it
+- Acts 14: NAME — Pamphylia is 旁非利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 14: NAME — Perga is 别加 in the Bibles this language already reads; this chapter does not use it
+- Acts 15: NAME — Pamphylia is 旁非利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 15: NAME — Pharisees is 法利赛人 in the Bibles this language already reads; this chapter does not use it
+- Acts 15: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 15: NAME — Simon is 西门 in the Bibles this language already reads; this chapter does not use it
+- Acts 16: NAME — Asia is 亚西亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 16: NAME — Derbe is 特庇 in the Bibles this language already reads; this chapter does not use it
+- Acts 16: NAME — Thyatira is 推雅推 in the Bibles this language already reads; this chapter does not use it
+- Acts 18: NAME — Caesarea is 凯撒利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 19: NAME — Alexander is 亚力山大 in the Bibles this language already reads; this chapter does not use it
+- Acts 19: NAME — Aristarchus is 亚里达古 in the Bibles this language already reads; this chapter does not use it
+- Acts 19: NAME — Asia is 亚西亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 20: NAME — Philippi is 腓立比 in the Bibles this language already reads; this chapter does not use it
+- Acts 21: NAME — Caesarea is 凯撒利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 21: NAME — Philip is 腓力 in the Bibles this language already reads; this chapter does not use it
+- Acts 23: NAME — Caesarea is 凯撒利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 23: NAME — Felix is 腓力斯 in the Bibles this language already reads; this chapter does not use it
+- Acts 24: NAME — Asia is 亚西亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 24: NAME — Felix is 腓力斯 in the Bibles this language already reads; this chapter does not use it
+- Acts 24: NAME — Tertullus is 士帖 in the Bibles this language already reads; this chapter does not use it
+- Acts 25: NAME — Caesarea is 凯撒利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 26: NAME — Agrippa is 亚基 in the Bibles this language already reads; this chapter does not use it
+- Acts 26: NAME — Pharisees is 法利赛人 in the Bibles this language already reads; this chapter does not use it
+- Acts 27: NAME — Asia is 亚西亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 28: NAME — Publius is 百流 in the Bibles this language already reads; this chapter does not use it

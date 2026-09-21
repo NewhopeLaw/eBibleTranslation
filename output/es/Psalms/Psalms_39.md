@@ -1,0 +1,9 @@
+# Psalms 39
+
+¹ Salmo para recordar. Salmo de David. ² Dije: «Cuidaré mis caminos para no pecar con mi lengua; pondré un cerrojo a mi boca mientras el malo esté delante de mí». ³ Me quedé mudo, abatido, no hablé por los buenos, y mi dolor se renovaba. ⁴ Se calentó mi corazón dentro de mí, y mientras meditaba, prendió fuego mi habla. ⁵ SEÑOR, háblame de mi fin, y dime cuántos son mis días, para que sepa cuánto he faltado. ⁶ He aquí, has puesto mis días como nada; mi vida, delante de ti, no es nada. Más que nada, todo hombre que vive. Selah. ⁷ Ciertamente, el hombre camina como una sombra; ciertamente, se agita en vano. Acumula y no sabe quién lo recogerá. ⁸ Ahora bien, ¿qué espero yo, SEÑOR? Mi esperanza está en ti. ⁹ Sálvame de todos mis pecados; no me hagas objeto de ridículo del necio. ¹⁰ Me quedé mudo, no abrí mi boca, porque tú eres quien me creó. ¹¹ Quita de sobre mí tu castigo, al apartar la fuerza de tu mano, porque yo he desfallecido. ¹² Con reconvenciones por causa del pecado corriges al hombre, y consumes su alma como araña; ciertamente, todo hombre se agita en vano. Selah. ¹³ Escucha mi oración, SEÑOR; escucha mi ruego. No te quedes callado frente a mis lágrimas, porque soy un forastero contigo, un refugiado, como todos mis padres. ¹⁴ Aparta de mí, y viviré un poco, antes de que vaya y no haya ya nada.
+
+---
+
+Notes  
+- v. 10: «porque tú eres quien me creó» refleja el sentido de la construcción hebreo «כִּי־אַתָּה עָשִׂיתָ», que puede entenderse como «porque tú has hecho esto (esto, es decir, haberme callado)». En este contexto, se interpreta como una reflexión sobre la creación humana como fundamento de la humildad.  
+- v. 14: La expresión «antes de que vaya y no haya ya nada» traduce metafóricamente la idea hebreo «בְּטֶרֶם אֵלֵךְ וְאֵינֶנִּי», que sugiere la transición hacia la muerte y la pérdida de la existencia consciente.

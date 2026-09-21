@@ -1,0 +1,11 @@
+# Song of Songs 7
+
+¹ Vuélvete, vuélvete, oh Sulamita, vuélvete, vuélvete, para que te contemplemos. ¿Qué veremos en la Sulamita, comparable al ejército bien dispuesto? ² Hermosos son tus pasos en tus sandalias, oh hija de príncipe. Tus muslos son como joyas, obra de manos hábiles. ³ Tu ombligo es como un cántaro de embriaguez, que no falta en su mezcla. Tu vientre es como un montón de trigo, cubierto de lirios. ⁴ Tus dos pechos son como dos gemelos de una cabra joven. ⁵ Tu cuello es como una torre de mármol. Tus ojos, como estanques de Beseán, junto a la puerta de la hija de los muchos. Tu nariz es como una torre del Líbano que mira hacia el rostro de Damasco. ⁶ Tu cabello es sobre ti como el Carmelo, y la trenza de tu cabeza como el púrpura. El rey está aprisionado en las redes. ⁷ ¡Qué hermosa y qué agradable eres, oh amada, entre las delicias! ⁸ Tu figura es como el palmero, y tus pechos como sus racimos. ⁹ Dije: Subiré al palmero, agarraré sus racimos, y serán tus pechos como racimos de la vid, y el aroma de tu nariz como manzanas. ¹⁰ Tu voz es como el vino dulce que fluye suavemente para mi amado, inundando los labios de dormidos. ¹¹ Yo soy de mi amado, y sobre mí su deseo. ¹² Ven, oh amado mío, salgamos al campo, pasemos por las aldeas. ¹³ Levantémonos a los viñedos, veamos si ha florecido la vid, si ha dado el sarmiento, si han florecido los granados. Allí te daré mis pechos. ¹⁴ Las mandrágoras desprenden su aroma, y junto a nuestras puertas hay toda clase de frutos nuevos y antiguos. Allí, oh amado mío, te guardé.
+
+---
+
+Notes
+- v. 1: La expresión "como el ejército bien dispuesto" se elige en lugar de "como un ejército en orden" para mantener coherencia con el verso 4 del capítulo anterior.
+- v. 4: "Dos gemelos de una cabra joven" refleja la imagen de simetría y gracia del texto hebreo. La traducción evita el lenguaje metafórico menos claro como "dos corderos".
+- v. 10: "Vino dulce que fluye suavemente" se prefiere a "vino dulce que corre recto" para mantener el tono poético del original.
+- v. 14: "Frutos nuevos y antiguos" se elige para reflejar la riqueza de la abundancia mencionada, en lugar de una traducción más literal como "frutos tanto nuevos como viejos".

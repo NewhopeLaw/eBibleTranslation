@@ -1,0 +1,10 @@
+# Ezekiel 19
+
+¹ Toma tú una lamentación contra los príncipes de Israel: ² y di: «¿Qué fue de tu madre, que era como un león entre leones, que se extendió entre cachorros de león? ³ Uno de sus cachorros se convirtió en león, y aprendió a cazar, devoró un hombre. ⁴ Y los pueblos lo escucharon; en su ruina lo capturaron, y lo llevaron preso a la tierra de Egipto. ⁵ Y vio que su herencia había sido destruida, que su esperanza se había apagado, y tomó otro de sus cachorros, lo puso como león. ⁶ Y este caminó entre leones, se convirtió en león, y aprendió a cazar, devoró un hombre. ⁷ Y con su arrogancia destruyó a sus viudas y a sus ciudades, y arruinó la tierra con todo lo que contenía, por la voz de su rugido. ⁸ Y los pueblos de alrededor lo rodearon, de sus tierras extendieron sus redes, y en su ruina lo capturaron. ⁹ Y lo llevaron a una celda, a una fortaleza, y lo condujeron ante el rey de Babilonia, y lo introdujeron en prisión, para que no se oyera su voz más en los montes de Israel. ¹⁰ Tu madre era como una vid, plantada junto al río, en la corriente del agua, fructífera y con ramas. ¹¹ Y tuvo varas de fortaleza, para los varones de los gobernantes; se alzó en su altura entre las ramas, y se vio su esplendor por la multitud de sus ramas. ¹² Pero fue arrancada con furia, lanzada a la tierra; el viento del sur secó sus frutos, se dispersaron y secaron, la vara de su fortaleza fue devorada por el fuego. ¹³ Y ahora está plantada en el desierto, en tierra sin agua. ¹⁴ Y salió fuego de su vara escogida, y la consumió, y no le quedó vara de fortaleza. Será como una parábola de lamento, y será un lamento.
+
+---
+
+Notes  
+- v. 10: La frase «como una vid, plantada junto al río» se traduce de manera fiel al hebreo, que usa imágenes naturales para describir el esplendor pasado de Israel.  
+- v. 13: «tierra sin agua» corresponde a la traducción de «אֶרֶץ צִיָּה», que describe un lugar árido y desolado.  
+- v. 14: «vara de fortaleza» es una traducción precisa de «מַטֵּה עֹז», que en el contexto describe la capacidad de liderazgo y gobernanza.

@@ -1,0 +1,12 @@
+# Titus 1
+
+¹ Pablo siervo de Dios, apóstol del Señor Jesús por la fe de los elegidos de Dios y por el conocimiento de la verdad según la piedad, ² basada en la esperanza de la vida eterna, la cual juró el Dios verdadero antes de los tiempos eternos. ³ Y ahora, en su debido tiempo, reveló su palabra por medio del anuncio, que yo he creído según la orden del Salvador nuestro Dios. ⁴ A Tito, hijo querido según la fe común: gracia y paz de Dios Padre y del Señor Jesucristo, nuestro Salvador. ⁵ Por esta razón te dejé en Creta, para que arregles lo que faltaba y que establezcas ancianos en cada ciudad, como yo te ordené, ⁶ si alguien es irreprochable, marido de una sola mujer, que tenga hijos creyentes, que no estén acusados de libertinaje ni se consideren rebeldes. ⁷ En efecto, el obispo debe ser irreprochable, como administrador de Dios, no arrogante, no iracundo, no adicto al vino, ni agresivo, ni codicioso. ⁸ Sino hospitalario, amante del bien, sensato, justo, piadoso, templado, ⁹ aferrado a la palabra firme de la enseñanza, para que también pueda exhortar con la enseñanza sana y rebatir a los que discrepan. ¹⁰ Pues hay muchos desobedientes, charlatanes y engañadores, sobre todo los que pertenecen a la circuncisión, ¹¹ a los que debes callar, porque arruinan hogares al enseñar lo que no se debe, por codicia deshonrosa. ¹² Uno de ellos, profeta de ellos mismos, dijo: «Los cretenses siempre mienten, son animales malvados, vientres perezosos». ¹³ Esta testimonio es verdadero. Por esta razón, repréndelos con dureza, para que sanen en la fe, ¹⁴ sin prestar atención a los mitos judaicos ni a las enseñanzas de hombres que se apartan de la verdad. ¹⁵ Para los puros, todo es puro; pero para los contaminados e incrédulos, nada es puro; de hecho, su mente y su conciencia también están contaminadas. ¹⁶ Reconocen a Dios, pero en sus obras lo niegan, porque son abominables, rebeldes y desaprobados en cualquier obra buena.
+
+---
+
+Notes  
+- v. 1: La frase griega se interpreta con énfasis en la relación entre la fe, la elección divina, y el conocimiento de la verdad.  
+- v. 4: La expresión "gnēsíῳ téknōi" se traduce como "hijo querido" para mantener el tono afectuoso del texto.  
+- v. 9: La frase «τοῦ κατὰ τὴν διδαχὴν πιστοῦ λόγου» se interpreta como “aferrado a la palabra firme de la enseñanza”.  
+- v. 12: El texto citado se presenta en forma poética, como se indica en el estilo.  
+- v. 16: Se ha traducido "ἀδόκιμοι" como "desaprobados", evitando una interpretación moralizante innecesaria.

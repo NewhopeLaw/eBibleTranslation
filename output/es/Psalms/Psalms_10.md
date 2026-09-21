@@ -1,0 +1,11 @@
+# Psalms 10
+
+¹ ¿Por qué, SEÑOR, permaneces lejos? ¿Por qué guardas silencio en las angustias? ² El malvado, en su arrogancia, persigue al necesitado; se enreda en las trampas que ha urdido. ³ Porque el malvado se gloría en lo que desea, y el codicioso maldice al SEÑOR. ⁴ El malvado, alzado con su orgullo, no busca a Dios; todas sus maquinaciones son inútiles. ⁵ Sus caminos se desvanecen siempre, y tus juicios están muy altos sobre él. Todos sus enemigos lo miran y retroceden. ⁶ Dijo en su corazón: «No me moveré; de generación en generación no habrá maldad en mí». ⁷ Su boca está llena de mentiras y engaño; bajo su lengua hay trabajo y maldad. ⁸ Él se sienta en emboscadas en las plazas, en los escondites mata al inocente. Sus ojos acechan al desvalido. ⁹ Como león en la guarida, acecha en la cabaña; acecha al necesitado, para atraparlo con su red. ¹⁰ Se desploma, cae, y es atrapado en sus artimañas; la violencia de sus manos lo destruirá. ¹¹ Dijo en su corazón: «Dios no se acuerda, el Señor ocultó su rostro, no ha de verlo para siempre». ¹² Levántate, SEÑOR, Dios, extiende tu mano; no olvides al humilde. ¹³ ¿Por qué odia el malvado a Dios? El SEÑOR ha dicho en su corazón: «No lo juzgaré». ¹⁴ Viste, porque tú ves el trabajo y la aflicción; tú lo miras para entregarlo en tus manos. Tú eres el que abandona al huérfano al cuidado de los demás. ¹⁵ Rompe la fuerza del malvado y del perverso; busca su maldad, y no la encuentres. ¹⁶ El SEÑOR reina para siempre y para siempre; las naciones perecerán de su tierra. ¹⁷ Escuchaste, SEÑOR, la esperanza del humilde; tú acomodarás su corazón, atenderás con oído atento. ¹⁸ Justificarás al huérfano y al afligido, para que no haya más quien los atormente sobre la tierra.
+
+---
+
+Notes  
+- v. 3: «maldice al SEÑOR» es una interpretación del verbo נִאֵץ, que puede significar "despreciar" u "ofender", pero el contexto sugiere una maldición directa.  
+- v. 13: La frase «El SEÑOR ha dicho en su corazón» no se refiere a una decisión divina real, sino a la ilusión del malvado de que Dios no actuará.  
+- v. 14: El texto sugiere que el malvado confía en que Dios no interviene, pero el salmista responde con la confianza en que Dios sí actúa.  
+- v. 18: La expresión «no haya más» (בַּל־יוֹסִיף) sugiere una acción decisiva de Dios que pone fin al mal, no solo una promesa futura.

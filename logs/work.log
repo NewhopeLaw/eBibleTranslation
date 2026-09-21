@@ -27,3 +27,6 @@
 2026-09-12 09:03:47 domains: starting — sort every lexeme into this project's fields of meaning (1080/16967 done)
 2026-09-12 09:03:49 domains: finished in 0 min (exit 1)
 2026-09-12 09:03:49 themes: starting — read every chapter and say what it is about (391/1189 done)
+2026-09-12 19:20:12 lexemes: starting — grow our own lexeme inventory from every word form in the text (3409/80894 done)
+2026-09-12 19:54:34 lexemes: finished in 34 min (exit 1)
+2026-09-12 19:54:34 lexicon: starting — write a lexicon entry for every lexeme, from its occurrences (263/10684 done)

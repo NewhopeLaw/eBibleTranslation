@@ -1,0 +1,11 @@
+# Hosea 8
+
+¹ Como cuerno alzado, el shofar aúlla sobre la casa del SEÑOR, porque han quebrantado mi pacto y se apartaron de mi torah. ² A mí clamarán: «¡Dios nuestro, te conocimos!». ³ Israel abandonó lo bueno; su enemigo le persigue. ⁴ Se coronaron reyes por sí mismos, sin que yo los designara; entonaron canciones sin que yo lo autorizara. Mi plata y mi oro los convirtieron en ídolos para su perdición. ⁵ Han abandonado el becerro de Samaría; mi ira arde contra ellos, ¿hasta cuándo no podrán purificarse? ⁶ ¿Acaso es Dios el que fabricó Israel? ¡Es un herrero quien lo hizo, y no es Dios! Por eso será un becerro engañoso el becerro de Samaría. ⁷ Porque sembraron viento, y recogerán tempestad. No tiene grano la mies, no dará harina, no puede hacer pan; si lo hace, extranjeros lo devorarán. ⁸ Israel ha sido tragado ahora. Se ha convertido en un recipiente inútil entre las naciones. ⁹ Porque ellos subieron a Asiria; allí entregó su afecto Efod. ¹⁰ Aun si se dispersaran entre las naciones, ahora los recogeré. Pero serán un pequeño resto, un peso ligero para reyes y príncipes. ¹¹ Porque multiplico los altares de Efraím; han sido para él altares de pecado, altares de pecado. ¹² Escribiré para él leyes en multitud, y como a un extraño considerarán mis preceptos. ¹³ Sacrificarán víctimas de inmolación y comerán carne, pero el SEÑOR no aceptará. Ahora recordará sus maldades y visitará sus pecados. Ellos mismos volverán a Egipto, y allí comieron impuro. ¹⁴ Israel olvidó al que lo hizo, y construyó templos; Judá multiplicó ciudades fortificadas. Pero yo enviaré fuego a sus ciudades, y consumirá sus cimientos.
+
+---
+
+Notes
+- v. 1: La expresión «como cuerno alzado» se ajusta al contexto metafórico del shofar, no al valor literal hebreo de «al cuello» (חִכְּךָ).
+- v. 12: La expresión «como a un extraño considerarán mis preceptos» refleja el desprecio mostrado por la ley de Dios, tal como se describe en el texto.
+- v. 13: La expresión «comieron impuro» se interpreta del contexto de Egipto como lugar de contaminación ritual, no literal.
+- v. 14: «construyó templos» se traduce del hebreo בָּנָה הֵֽיכָלוֹת, que se refiere a templos falsos o a estructuras religiosas que no representan la verdadera adoración.

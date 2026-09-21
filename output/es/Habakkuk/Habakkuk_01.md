@@ -1,0 +1,12 @@
+# Habakkuk 1
+
+¹ La carga que vio el profeta Habacuc: ² ¿Hasta cuándo, oh SEÑOR, clamaré y no escucharás? ¡Te grito, y no me salvas! ¡Te pido ayuda, y no respondes! ³ ¿Por qué me muestras maldad y veo violencia? ¿Por qué hay injusticia y disputa delante de mí, y el opresor triunfa? ⁴ Por eso la ley se desvanece y la justicia nunca llega, porque el malvado persigue al justo, por eso la justicia se desvía. ⁵ Miren entre las naciones, observen atentamente, y quedarán asombrados, porque algo se está realizando en sus días que no creerán aunque se les cuente. ⁶ Porque he decidido levantar a los caldeos, un pueblo cruel y veloz, que marcha por las tierras a conquistar casas que no le pertenecen. ⁷ Aterrador y terrible es él, de él saldrá su juicio, y su poder será su destrucción. ⁸ Sus caballos son más veloces que los leones, y sus guerreros más afilados que los lobos de la tarde. Sus jinetes se extienden como águilas que se lanzan con avidez a devorar. ⁹ Todo llega por maldad, sus rostros son fieros, y recogen como la arena su presa. ¹⁰ El rey se burla de él, los reyes se entretienen como si fuera un juego. Él ríe de cada fortaleza, la despoja y la captura. ¹¹ Entonces su espíritu se desvanece, pasa y se desvanece, y su fuerza es para su dios. ¹² ¿No eres tú, oh SEÑOR, mi Dios, mi santo, desde la eternidad? El SEÑOR no muere, lo puso para el juicio, y fundó la roca para probar. ¹³ Tú eres puro, no puedes ver el mal, ni contemplar el dolor. ¿Por qué miras con indiferencia cuando el malvado traga al justo? ¹⁴ ¿Has hecho al hombre como los peces del mar, como el gusano que no tiene dueño? ¹⁵ Cada cosa con anzuelo la saca, la arrastra con su red, y la reúne con sus cebos, por eso se regocija y se alegra. ¹⁶ Por eso ofrendará a su anzuelo, y hará ofrendas a su red, porque en ellas puso su porción y su alimento es selecto. ¹⁷ Así que su red se extiende, y mata naciones sin piedad, sin compasión.
+
+---
+
+Notes
+- v. 1: Se ha traducido "hamas" como "carga" o "mensaje profético", que es el uso habitual en este contexto.
+- v. 5: Se ha mantenido la estructura de la oración para reflejar el asombro y la sorpresa del profeta.
+- v. 14: Se ha evitado la traducción directa de "remes" como "gusano", y se ha usado "el gusano" para mantener el sentido metafórico.
+- v. 16: La palabra "meret" se ha traducido como "cebos", que es el uso más claro en el contexto de pesca.
+- v. 17: "Charom" se ha traducido como "red", que es el uso habitual en el contexto bíblico.

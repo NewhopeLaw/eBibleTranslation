@@ -1,0 +1,11 @@
+# Song of Songs 2
+
+¹ Yo soy la hortaliza del campo, la rosa de las hondonadas. ² Como una rosa entre las espinas, así es mi amada entre las doncellas. ³ Como un manzano entre las árboles del bosque, así es mi amado entre los jóvenes. En su sombra me senté deseosa, y su fruto es dulce en mi garganta. ⁴ Llevadme a la casa del vino, y que la caricia se derrame sobre mí. ⁵ Apoyadme en los aromas, envolvedme en los manzanos, porque estoy desfallecida de amor. ⁶ Su hombro izquierdo está bajo mi cabeza, y su brazo derecho me abraza. ⁷ He jurado vosotras, hijas de Jerusalén, por los ejércitos o por las ciervas del campo, que no despertéis ni exciteis el amor hasta que quiera. ⁸ He aquí que viene mi amado, saltando sobre los montes, corriendo sobre las colinas. ⁹ Mi amado se parece a un ciervo, o al joven de los ciervos. He aquí que se para detrás de nuestro muro, observa por las ventanas, mira por los rejas. ¹⁰ Mi amado me respondió y dijo: «Levántate, hermosa mía, hermosa y encantadora, y ven conmigo». ¹¹ Porque he aquí que ha pasado el invierno, ha cesado la lluvia, se ha ido ya. ¹² Ya se ven las flores en la tierra, ha llegado la temporada de la siega, y se oye la voz del tórtola en nuestra tierra. ¹³ La higuera ha dado su fruto, las viñas han dado aroma. Levántate, hermosa mía, hermosa y encantadora, y ven conmigo. ¹⁴ Tú, paloma mía, en la hondonada de la roca, en el escondite del muro, muéstrame tu rostro, hazme oír tu voz, porque tu voz es hermosa y tu rostro es hermoso. ¹⁵ Captadnos a las zorras, a las zorras pequeñas que destruyen las viñas, y nuestras viñas están en flor. ¹⁶ Mi amado es mío y yo soy suya; él pastorea entre las rosas. ¹⁷ Hasta que pase el día y se muevan las sombras. Vuélvete, hermano mío, semejante a un ciervo o al joven de los ciervos sobre los montes de Bater.
+
+---
+
+Notes
+- v. 3: "en su sombra me senté deseosa" refleja el uso de "חִמַּדְתִּי" como deseo o anhelo.
+- v. 5: "desfallecida de amor" traduce "חוֹלַת אַהֲבָה", que implica un estado de debilidad causada por el amor.
+- v. 13: "ha dado aroma" refleja el sentido de "סְמָדַר" en relación con el perfume de las viñas.
+- v. 17: "Bater" es la transliteración más directa de "בָּתֶר", un topónimo que no aparece en el glosario.

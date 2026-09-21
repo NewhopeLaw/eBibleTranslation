@@ -1,0 +1,33 @@
+{
+ "book": "1 Chronicles",
+ "chapter": 3,
+ "lang": "es",
+ "verses": {
+  "1": "Estos eran los hijos de David que nacieron para él en Hebrón: el primogénito, Amnón, de Achaínóam la israelita; el segundo, Danías, de Abigayil la carmelita.\n",
+  "2": "El tercero, Absalón, hijo de Maaca, hija de Talmai rey de Gesur; el cuarto, Adonías, hijo de Haguit.\n",
+  "3": "El quinto, Sefatías, de Abital; el sexto, Ittirám, de Eglá, su esposa.\n",
+  "4": "Seis hijos le nacieron en Hebrón, y allí reinó siete años y seis meses. Treinta y tres años reinó en Jerusalén.\n",
+  "5": "Y estos nacieron para él en Jerusalén: Semá, Sobab, Natán y Salomón, cuatro hijos de Betsabé, hija de Amiél.\n",
+  "6": "También: Jibrá, Elisama y Elifelét.\n",
+  "7": "Y Nogá, Nefeg, y Jafé.\n",
+  "8": "Además, Elisama, Elidad y Elifelét, nueve en total.\n",
+  "9": "Todos los hijos de David, excepto los hijos de sus concubinas. Y Tamar era su hermana.\n",
+  "10": "El hijo de Salomón fue Roboam, y el hijo de Roboam fue Abías, y el hijo de Abías fue Asá.\n",
+  "11": "Y el hijo de Asá fue Josafat, y el hijo de Josafat fue Joram.\n",
+  "12": "Y el hijo de Joram fue Ozías, y el hijo de Ozías fue Joás.\n",
+  "13": "Y el hijo de Joás fue Amasías, y el hijo de Amasías fue Azarías, y el hijo de Azarías fue Joatán.\n",
+  "14": "Y el hijo de Joatán fue Acaz, y el hijo de Acaz fue Ezequías, y el hijo de Ezequías fue Manasés.\n",
+  "15": "Y el hijo de Manasés fue Amón, y el hijo de Amón fue Josías.\n",
+  "16": "Y los hijos de Josías fueron: el primogénito, Jonán, el segundo, Joiacim, el tercero, Sedecías, el cuarto, Salum.\n",
+  "17": "Y los hijos de Joiacim fueron: Jeconías, hijo de él, y Sedecías, hijo de él.\n",
+  "18": "Y los hijos de Jeconías fueron: Asir, Salatíel, hijo de él; Melquiram, Padaías, Senaazar, Yekamím, Josamá y Nedabías.\n",
+  "19": "Y los hijos de Salatíel fueron: Zorobabel, Mesulam y Salomé, hermana de ellos.\n",
+  "20": "Y Casubá, Osé, Baraquías, Casadías, y Josabád, cinco en total.\n",
+  "21": "Y los hijos de Hananí fueron: Patyá, Jesúa, Rafael, Orén, Abdeías y Sekanías.\n",
+  "22": "Y el hijo de Sekanías fue Semai, y los hijos de Semai fueron: Hotzús, Joel, Merai, Nedabías y Safat, seis en total.\n",
+  "23": "Y los hijos de Nedabías fueron: Elioená, Ezequías y Ezerikam, tres en total.\n",
+  "24": "Y los hijos de Elioená fueron: Hodavías, Eliasib, Pelayé, Acuab, Jonán, Dalaías y Ananí, siete en total.\n"
+ },
+ "notes": "Notes\n- v. 1: La identidad de las mujeres mencionadas como madres se ha traducido con claridad, manteniendo la estructura genealógica.\n- v. 9: Se ha traducido \"Tamar\" como \"hermana\" de los demás hijos, en concordancia con el uso en el texto hebreo.\n- v. 18: La forma \"Salatíel\" se ha utilizado para \"Zerubabel\" en esta genealogía, en lugar de \"Zorobabel\", para mantener fidelidad al texto hebreo.\n- v. 20: La palabra hebrea \"chasubá\" se ha traducido como \"Casubá\" para mantener la coherencia en el uso de nombres propios.\n- v. 24: Se han mantenido los nombres hebreos tal como aparecen, sin adaptarlos a sus formas griegas conocidas en la Septuagint.",
+ "raw": "[1] Estos eran los hijos de David que nacieron para él en Hebrón: el primogénito, Amnón, de Achaínóam la israelita; el segundo, Danías, de Abigayil la carmelita.\n\n[2] El tercero, Absalón, hijo de Maaca, hija de Talmai rey de Gesur; el cuarto, Adonías, hijo de Haguit.\n\n[3] El quinto, Sefatías, de Abital; el sexto, Ittirám, de Eglá, su esposa.\n\n[4] Seis hijos le nacieron en Hebrón, y allí reinó siete años y seis meses. Treinta y tres años reinó en Jerusalén.\n\n[5] Y estos nacieron para él en Jerusalén: Semá, Sobab, Natán y Salomón, cuatro hijos de Betsabé, hija de Amiél.\n\n[6] También: Jibrá, Elisama y Elifelét.\n\n[7] Y Nogá, Nefeg, y Jafé.\n\n[8] Además, Elisama, Elidad y Elifelét, nueve en total.\n\n[9] Todos los hijos de David, excepto los hijos de sus concubinas. Y Tamar era su hermana.\n\n[10] El hijo de Salomón fue Roboam, y el hijo de Roboam fue Abías, y el hijo de Abías fue Asá.\n\n[11] Y el hijo de Asá fue Josafat, y el hijo de Josafat fue Joram.\n\n[12] Y el hijo de Joram fue Ozías, y el hijo de Ozías fue Joás.\n\n[13] Y el hijo de Joás fue Amasías, y el hijo de Amasías fue Azarías, y el hijo de Azarías fue Joatán.\n\n[14] Y el hijo de Joatán fue Acaz, y el hijo de Acaz fue Ezequías, y el hijo de Ezequías fue Manasés.\n\n[15] Y el hijo de Manasés fue Amón, y el hijo de Amón fue Josías.\n\n[16] Y los hijos de Josías fueron: el primogénito, Jonán, el segundo, Joiacim, el tercero, Sedecías, el cuarto, Salum.\n\n[17] Y los hijos de Joiacim fueron: Jeconías, hijo de él, y Sedecías, hijo de él.\n\n[18] Y los hijos de Jeconías fueron: Asir, Salatíel, hijo de él; Melquiram, Padaías, Senaazar, Yekamím, Josamá y Nedabías.\n\n[19] Y los hijos de Salatíel fueron: Zorobabel, Mesulam y Salomé, hermana de ellos.\n\n[20] Y Casubá, Osé, Baraquías, Casadías, y Josabád, cinco en total.\n\n[21] Y los hijos de Hananí fueron: Patyá, Jesúa, Rafael, Orén, Abdeías y Sekanías.\n\n[22] Y el hijo de Sekanías fue Semai, y los hijos de Semai fueron: Hotzús, Joel, Merai, Nedabías y Safat, seis en total.\n\n[23] Y los hijos de Nedabías fueron: Elioená, Ezequías y Ezerikam, tres en total.\n\n[24] Y los hijos de Elioená fueron: Hodavías, Eliasib, Pelayé, Acuab, Jonán, Dalaías y Ananí, siete en total.\n\n---\n\nNotes\n- v. 1: La identidad de las mujeres mencionadas como madres se ha traducido con claridad, manteniendo la estructura genealógica.\n- v. 9: Se ha traducido \"Tamar\" como \"hermana\" de los demás hijos, en concordancia con el uso en el texto hebreo.\n- v. 18: La forma \"Salatíel\" se ha utilizado para \"Zerubabel\" en esta genealogía, en lugar de \"Zorobabel\", para mantener fidelidad al texto hebreo.\n- v. 20: La palabra hebrea \"chasubá\" se ha traducido como \"Casubá\" para mantener la coherencia en el uso de nombres propios.\n- v. 24: Se han mantenido los nombres hebreos tal como aparecen, sin adaptarlos a sus formas griegas conocidas en la Septuagint."
+}

@@ -1,0 +1,9 @@
+# Song of Songs 6
+
+¹ ¿Adónde fue tu amado, oh la hermosa entre las mujeres? ¿Adónde se volvió tu amado, para que lo busquemos con vosotras? ² Mi amado bajó a su jardín, a las cámaras del aromático, a pastorear en los jardines, a recoger lirios. ³ Yo soy de mi amado, y mi amado es mío, el que pastorea entre los lirios. ⁴ Hermosa eres tú, oh mi amada, como la hermosa Jerusalén, admirable como el ejército bien dispuesto. ⁵ Retira tus ojos de mí, porque me han deslumbrado. Tu pelo es como un rebaño de cabras que descienden del monte Galaad. ⁶ Tus dientes son como un rebaño de corderos que suben del lavadero, todos aparejados, y ninguna hay entre ellas que falte en crías. ⁷ Tu mejilla es como un segmento de granada roja que cuelga detrás de tu velo. ⁸ Sesenta son las reinas y ochenta las concubinas, y doncellas incontables. ⁹ Una sola es, mi paloma, mi perfecta. Una sola es para su madre, la preferida de la que la engendró. Las hijas la vieron y la alabaron, reinas y concubinas, y la elogiaron. ¹⁰ ¿Quién es ésta que aparece como el amanecer, hermosa como la luna, escogida como el sol, admirable como el ejército bien dispuesto? ¹¹ Bajé a la viña de higos para ver los brotes del arroyo, para ver si había florecido la vid, si habían dado fruto los granados. ¹² No supe mi alma; me pusieron carros de un noble nacido.
+
+---
+
+Notes  
+- v. 1: La pregunta inicial refleja un tono de inquietud y búsqueda, lo cual se mantiene en el estilo directo y natural del español.  
+- v. 12: "no supe mi alma" traduce את לא ידעתי נפשי, que se interpreta como una expresión de maravilla o desconcierto. "me pusieron carros de un noble nacido" refleja el texto hebreo "שָׂמַתְנִי מַרְכְּבוֹת עַמִּי־נָדִֽיב", que puede significar que la persona fue colocada en un estado de gloria o honor asociado con un noble.

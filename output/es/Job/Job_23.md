@@ -1,0 +1,9 @@
+# Job 23
+
+¹ Job respondió y dijo: ² Hoy también protesto amargamente, mi mano pesa sobre mi queja. ³ ¿Quién me dará a conocer, y yo lo encontraré, y llegaré hasta su juicio? ⁴ Presentaría delante de Él mi causa, y mi boca se llenaría de reprensiones. ⁵ Yo conocería palabras con las que me responda, y entendería qué me dirá. ⁶ Si el hombre poderoso me contenderá, no es Él quien me pondrá a prueba. ⁷ Allí está la justicia con Él, y con Él hay rectitud; y me librará para siempre de mi juez. ⁸ Miro hacia adelante y Él no está, miro hacia atrás y no lo entiendo. ⁹ A mi izquierda hace cosas y no lo agarro; a mi derecha me rodea y no lo veo. ¹⁰ Porque ya conoce mi camino, me ha probado como al oro. ¹¹ Caminaré por sus mandamientos, guardé sus caminos y no me aparté. ¹² No he desviado su palabra y no he apartado su ordenamiento de mi corazón; he guardado las palabras de Su boca. ¹³ Y Él, por sí mismo, ¿quién le responderá? Y su voluntad es lo que Él hace. ¹⁴ Porque ciertamente Él establece mis decretos, y grandes son Sus obras conmigo. ¹⁵ Por esto, ante Su rostro temeré, meditaré y temeré de Él. ¹⁶ Y el Dios que ablandó mi corazón, Shaddai me ha atemorizado. ¹⁷ Porque no supe que vendría sobre mí la oscuridad, y ante mí Él me cubrió con tinieblas.
+
+---
+
+Notes
+- v. 16: La expresión hebrea "וְהוּא בְאֶחָד" es traducida como "Él, por sí mismo", reflejando la idea de que solo Dios puede actuar según Su voluntad. La Septuagint traduce esto como "porque Él juzga así", pero el texto hebreo no menciona explícitamente un juicio, por lo que se ha seguido el texto original.
+- v. 17: La interpretación de "לִּי מִפְּנֵי־חֹשֶׁךְ" y "מִפָּנַי כִּסָּה־אֹֽפֶל" es difícil. La traducción refleja que Job no sabía que la oscuridad vendría sobre él, y que Dios le cubrió con tinieblas, manteniendo el tono poético del texto.

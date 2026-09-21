@@ -1,0 +1,8 @@
+# Deuteronomy 34
+
+¹ Moisés subió desde Arabot de Moab al monte Nebo, al vértice de Pisga, que está delante de Jericó. Y el SEÑOR le mostró toda la tierra: desde Galde hasta Dan, ² toda la tierra de Efraín y de Manasés, toda la tierra de Judá hasta el mar del poniente, ³ la región del sur, los llanos de Jericó, la ciudad de los dátiles, hasta Ceor. ⁴ Y dijo el SEÑOR: «Esta es la tierra a la cual juré a Abraham, Isaac y Jacob, diciendo: "A tu descendencia se la daré". Te la he mostrado con tus propios ojos, pero no la cruzarás». ⁵ Allí murió Moisés, siervo del SEÑOR, en la tierra de Moab, por palabra del SEÑOR. ⁶ Y lo enterraron en el valle de Moab, frente a Bete-Peor, y nadie conoce la ubicación de su tumba hasta el día de hoy. ⁷ Moisés tenía ciento veinte años cuando murió; sus ojos no se habían enturbiado, ni su rostro había menguado. ⁸ Los hijos de Israel lloraron a Moisés en Arabot de Moab junto al Jordán, cerca de Jericó, durante treinta días, y se terminaron los días de luto por la muerte de Moisés. ⁹ Josué hijo de Nun se llenó del espíritu de sabiduría, porque Moisés había apoyado sus manos sobre él. Y los hijos de Israel lo escucharon, y hicieron todo lo que el SEÑOR había mandado a Moisés. ¹⁰ No se levantó más un profeta como Moisés, el cual el SEÑOR conocía de frente, ¹¹ en todos los signos y prodigios que el SEÑOR lo envió a hacer en la tierra de Egipto, contra Faraón, contra todos sus siervos y contra toda su tierra, ¹² y en toda la mano poderosa y el gran temor que Moisés hizo delante de todos los israelitas.
+
+---
+
+Notes
+- v. 10: La expresión "el cual el SEÑOR conocía de frente" sigue la tradición de "panim el panim" (פָּנִים אֶל־פָּנִים), que se interpreta como una relación directa y cercana.

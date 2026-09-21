@@ -1,0 +1,10 @@
+# Isaiah 35
+
+¹ Alegre se levante el desierto y sediento, y la llanura se regocije y florezca como el lirio. ² Florecerá y se regocijará la aridez del Jordán. El esplendor del Líbano se le dará, y la gloria del Carmelo y del Sharon. Verán la gloria del SEÑOR, la hermosura de nuestro Dios. ³ Fortalece las manos cansadas y los tobillos cojos. Anima a los de corazón abatido. Di al desfallecido: «¡Anímese, no tema! He aquí, nuestro Dios viene a vengar, a devolver. Él mismo vendrá y nos salvará». ⁴ Di a los que tienen corazón apresurado: «¡Anímense, no teman! He aquí, viene el juicio de nuestro Dios, el castigo que redimirá». El SEÑOR vendrá y os salvará. ⁵ Entonces se abrirán los ojos de los ciegos, y los oídos de los sordos escucharán. ⁶ Entonces saltará el cojo como el ciervo, y la lengua de los mudos cantará. Porque en el desierto brotarán aguas, y ríos correrán en la llanura. ⁷ Y será el árido un estanque, y la sedienta, fuentes de agua. Allí descansarán las aves, pastos de cañas y juncos. ⁸ Allí habrá un camino, una senda, y se llamará: «El Camino Santo». No lo cruzará el impuro, ni caminarán por él los necios. ⁹ Allí no habrá león ni fieras, ni subirán bestias peligrosas. Allí no se hallarán, sino que caminarán los redimidos. ¹⁰ Y los rescatados por el SEÑOR regresarán, llegando a Sión con alegría, con gozo eterno sobre sus cabezas. Les alcanzarán la alegría y la alegría, y huirán la aflicción y el lamento.
+
+---
+
+Notes  
+- v. 4: Se ha optado por mantener la repetición del mensaje de ánimo, siguiendo la estructura del texto hebreo, que reitera la idea de consuelo, aunque se evita la redundancia excesiva.  
+- v. 6: La expresión «el cojo como el ciervo» refleja la idea de restablecimiento milagroso, no un salto literal de un cojo. Se ha traducido con claridad, evitando interpretaciones metafóricas innecesarias.  
+- v. 8: El término «necios» (אֱוִילִים) se ha elegido sobre «impíos» o «malvados» para mantener el contraste con «impuro» (טָמֵא), enfatizando la pureza del camino.

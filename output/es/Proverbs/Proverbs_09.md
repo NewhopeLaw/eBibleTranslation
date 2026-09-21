@@ -1,0 +1,10 @@
+# Proverbs 9
+
+¹ La sabiduría construyó su casa, puso a su disposición siete columnas. ² Mató su cordero, mezcló su vino y puso su mesa. ³ Envió a sus doncellas, que llamaron en lo alto de los elevados postes, diciendo: ⁴ ¿Quién es necio? Que se aparte hacia mí. A quien carece de entendimiento, le dijo: ⁵ Venid, comed de mi pan, y bebéid del vino que he mezclado. ⁶ Abandonad la necedad y viviréis; andad en la senda de la prudencia. ⁷ El que reprende al necio recibe vergüenza; el que reprende al malvado se carga con afrenta. ⁸ No reprendas al necio, pues te odiará; reprime al sabio, y te amará. ⁹ Enséñale al sabio, y se volverá más sabio; haz partícipe al justo, y aumentará su conocimiento. ¹⁰ El temor al SEÑOR es el principio de la sabiduría, y el conocimiento de los santos es entendimiento. ¹¹ Porque por medio de mí se multiplicarán tus días, y añadiré a ti años de vida. ¹² Si te haces sabio, serás sabio para ti mismo, y por tu propia cuenta llevarás la carga de tu necedad. ¹³ Mujer necia y audaz, carece de sentido, no conoce vergüenza. ¹⁴ Se sienta a la entrada de su casa, en un asiento elevado, en las calles abiertas. ¹⁵ Llama a los que pasan por el camino, a quienes van por sendas rectas. ¹⁶ ¿Quién es necio? Que se aparte hacia mí. A quien carece de entendimiento, le digo: ¹⁷ El pan robado es dulce, y el agua hurtada es suave. ¹⁸ Pero no sabe que allí están los muertos, que sus invitaciones vienen desde el abismo de Sheol.
+
+---
+
+Notes
+- v. 12: La interpretación de «dḥi ʾanūḏar ʿerēm» es compleja. Aquí se ha traducido como "si te haces sabio, serás sabio para ti mismo, y por tu propia cuenta llevarás la carga de tu necedad", reflejando la idea de que la sabiduría no ayuda si uno no acepta su guía.
+- v. 17: La expresión "מַֽיִם־גְּנוּבִים" ("aguas robadas") y "לֶחֶם סְתָרִים" ("pan oculto") se traduce con su sentido figurado de algo prohibido pero deseado, no literalmente como "agua robada" o "pan oculto".
+- v. 18: "רְפָאִים" se interpreta como "muertos", refiriéndose al lugar del Sheol. La frase "שָׁם בְּעִמְקֵי שְׁאוֹל קְרֻאֶֽיהָ" se entiende como que las invitaciones de la necedad vienen desde el abismo de Sheol.
