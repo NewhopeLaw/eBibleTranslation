@@ -66,9 +66,11 @@ def jobs():
     out.append(("topics", "write the line that lets each verse be found by someone who cannot quote it",
                 count_lines(ROOT / "targets" / "search" / "topics.jsonl"), 1189,
                 [sys.executable, str(S / "build_topics.py")]))
-    out.append(("people", "read who everyone is and who they came from, out of the text",
-                count_lines(ROOT / "targets" / "people" / "chapters.jsonl"), 1189,
-                [sys.executable, str(S / "build_people.py"), "--chapters", "--gather", "--pack"]))
+    # build_people.py is not queued. It has been run on one chapter and nothing
+    # reads what it writes yet, and a queue left running overnight should not
+    # spend 1,189 calls on a job nobody has looked at the output of. Run it by
+    # hand - python scripts/build_people.py --chapters --gather --pack - and put
+    # it back here once a book's worth has been read and found right.
     out.append(("book-arguments", "say what each book argues, from its chapter themes",
                 count_lines(ROOT / "targets" / "themes" / "books.jsonl"), 66,
                 [sys.executable, str(S / "build_theology.py"), "--books", "--pack"]))
