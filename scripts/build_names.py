@@ -187,12 +187,14 @@ def grow_characters(ref, chars, rounds=4):
 
 def learn(pivot, ref, chars, min_chapters, min_score):
     """Pair each English name with the reference string that shadows it."""
-    eng_ch = defaultdict(set)
+    eng_ch, eng_books = defaultdict(set), defaultdict(set)
     for key, names in pivot.items():
         if key not in ref:
             continue
         for n in names:
             eng_ch[n].add(key)
+            if key[2] is None:                 # the chapter row, not its verses
+                eng_books[n].add((key[0], key[1]))
 
     cand_ch = defaultdict(set)
     for key, text in ref.items():
@@ -206,7 +208,12 @@ def learn(pivot, ref, chars, min_chapters, min_score):
             continue
         cands = set(runs_of(ref[key], chars))
         for n in names:
-            if len(eng_ch[n]) < min_chapters:
+            # Distinct chapters, not rows. Both the chapter and each of its
+            # verses are rows, so a name in one chapter of five verses looked
+            # like six chapters' worth of evidence - which let the whole
+            # wilderness itinerary of Numbers 33 in, where every stop is named
+            # once, in one verse, beside forty others it can be confused with.
+            if len(eng_books[n]) < min_chapters:
                 continue
             for c in cands:
                 pairs[(n, c)] += 1
