@@ -4,10 +4,12 @@
 # @JavascriptInterface, because the page and the shell talk one way only,
 # through evaluateJavascript.
 #
-# If a bridge is ever added, its class has to be kept whole:
-#   -keepclassmembers class org.ebible.reader.** {
-#       @android.webkit.JavascriptInterface <methods>;
-#   }
+# The page talks to the phone through AndroidApp - speech, the clipboard, the
+# share sheet - and R8 would otherwise rename methods only JavaScript calls,
+# leaving a release build where every one of those buttons does nothing.
+-keepclassmembers class org.ebible.reader.** {
+    @android.webkit.JavascriptInterface <methods>;
+}
 
 # A crash report from Play is only worth reading with the line numbers in it;
 # the mapping file that goes with the build translates the rest.

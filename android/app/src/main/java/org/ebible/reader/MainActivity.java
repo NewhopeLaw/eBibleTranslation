@@ -2,16 +2,22 @@ package org.ebible.reader;
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.Voice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
 import android.webkit.RenderProcessGoneDetail;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -27,6 +33,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.FileProvider;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.Insets;
 import androidx.core.splashscreen.SplashScreen;
@@ -35,7 +42,13 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Locale;
 
 /**
  * The app is a window and nothing else: the reader is the page in assets, and
@@ -92,6 +105,8 @@ public class MainActivity extends ComponentActivity {
     private WebView web;               // null when this phone could not give us one
     private boolean painted;           // the splash waits on this
     @Nullable private Integer barColour;                          // what the bars were last given
+    @Nullable private volatile Speech speech;                     // the phone's voice, started when first asked for
+    private long leaveAskedAt;                                    // when back was last pressed with nowhere to go
     private final Runnable recheckBars = this::matchBarsToPage;
 
     @Override
@@ -146,8 +161,21 @@ public class MainActivity extends ComponentActivity {
         openReader(savedInstanceState);
     }
 
-    /** Step aside and let the system finish the activity, gesture animation and all. */
+    /**
+     * Back, when the page says it has nothing left to put away.
+     *
+     * Leaving on the first press is how a phone app is expected to behave, but
+     * a reader deep in a chapter can hit back by accident and lose their place
+     * to a stray touch. The first press says what the second one will do; a
+     * second press within a couple of seconds does it.
+     */
     private void leave(OnBackPressedCallback callback) {
+        long now = System.currentTimeMillis();
+        if (web != null && now - leaveAskedAt > 2500) {       // no reading to lose on the error screen
+            leaveAskedAt = now;
+            Toast.makeText(this, R.string.back_again, Toast.LENGTH_SHORT).show();
+            return;
+        }
         callback.setEnabled(false);
         getOnBackPressedDispatcher().onBackPressed();
         callback.setEnabled(true);
@@ -216,6 +244,12 @@ public class MainActivity extends ComponentActivity {
 
         w.setBackgroundColor(getColor(R.color.page_bg));   // no white flash before the first paint
         w.setWebViewClient(new ReaderClient());
+        // The page can ask the phone for the things a page alone cannot do:
+        // speak a verse, put one on the clipboard, hand one to another app.
+        // Only our own page is ever loaded here - every other address is sent
+        // out to the browser in shouldOverrideUrlLoading - so nothing from the
+        // web is on the other end of this.
+        w.addJavascriptInterface(new Bridge(), "AndroidApp");
 
         if ((getApplicationInfo().flags & android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
             WebView.setWebContentsDebuggingEnabled(true);   // only in a debug build, never in what Play receives
@@ -272,6 +306,308 @@ public class MainActivity extends ComponentActivity {
     }
 
     /**
+     * What the page cannot do by itself, the phone does for it.
+     *
+     * The Android System WebView has no speech of its own, no way to reach the
+     * clipboard a reader would expect, and no share sheet; all three live out
+     * here. Every method is called from a binder thread, so anything that
+     * touches the window or the UI is posted back to the main one.
+     */
+    private class Bridge {
+
+        /**
+         * Read a verse aloud in the language it is written in, at the speed the
+         * reader has chosen.
+         *
+         * Left to itself the engine speaks at whatever rate the phone's own
+         * accessibility settings ask for, which on some phones is very fast
+         * indeed - the page therefore always says what it wants, and the
+         * reader can change it in the display tray.
+         */
+        @JavascriptInterface
+        public void speak(String text, String lang, float rate, float pitch, String voice) {
+            runOnUiThread(() -> speech().say(text, lang, rate, pitch, voice));
+        }
+
+        /**
+         * The voices this phone can read that language with, as JSON.
+         *
+         * Only the ones held on the device: the app has no internet permission,
+         * so a voice that needs the network would simply never speak. Quality
+         * is the engine's own rating, and it is what separates the flat compact
+         * voice most phones default to from the fuller one beside it.
+         */
+        @JavascriptInterface
+        public String voices(String lang) {
+            Speech sp = speech;
+            return sp == null ? "[]" : sp.voiceList(lang);
+        }
+
+        /**
+         * Stop, if there is anything to stop.
+         *
+         * The page calls this whenever the verses being held change, which is
+         * long before anyone has asked to hear one: going through speech()
+         * would build a text-to-speech engine on a phone whose reader never
+         * wants to hear anything.
+         */
+        @JavascriptInterface
+        public void stopSpeaking() {
+            Speech sp = speech;
+            if (sp != null) runOnUiThread(sp::stop);
+        }
+
+        /**
+         * -> "" while the voices are still loading, "yes", or "no".
+         *
+         * This one answers on the calling thread, because the page waits on it
+         * to decide whether to offer Listen at all. The engine itself is only
+         * ever built on the main thread; until it is there, the answer is "not
+         * yet" and the page asks again the next time a verse is taken up.
+         */
+        @JavascriptInterface
+        public String voiceFor(String lang) {
+            if (speech == null) {
+                runOnUiThread(MainActivity.this::speech);
+                return "";
+            }
+            return speech.state(lang);
+        }
+
+        @JavascriptInterface
+        public void copy(String text, String said) {
+            runOnUiThread(() -> {
+                ClipboardManager cb = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                if (cb != null) {
+                    cb.setPrimaryClip(ClipData.newPlainText(getString(R.string.app_name), text));
+                    // Android 13 and later shows its own copy confirmation; saying
+                    // it again over the top would be one notice too many.
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) toast(said);
+                }
+            });
+        }
+
+        /** Hand a verse to whatever the reader shares with - messages, mail, notes. */
+        @JavascriptInterface
+        public void share(String text, String subject) {
+            Intent send = new Intent(Intent.ACTION_SEND).setType("text/plain")
+                    .putExtra(Intent.EXTRA_TEXT, text)
+                    .putExtra(Intent.EXTRA_SUBJECT, subject);
+            runOnUiThread(() -> open(send, subject));
+        }
+
+        /**
+         * Hand the app itself to the phone next to you. The share sheet this
+         * opens is where Quick Share lives, so a copy can go over the air with
+         * no shop and no network in between.
+         */
+        @JavascriptInterface
+        public void shareApp() {
+            // The app is eleven megabytes at least, and copying that where the
+            // screen is drawn would freeze it long enough for Android to offer
+            // to kill us. The copy is made here, on the thread the page called
+            // from; only the share sheet goes back to the main one.
+            ApplicationInfo info = getApplicationInfo();
+            if (info.splitSourceDirs != null && info.splitSourceDirs.length > 0) {
+                // An app delivered by Play arrives in pieces; handing on the
+                // base piece alone would give the other phone something that
+                // cannot install. Only the APK built here is a single file.
+                toast(getString(R.string.share_app_split));
+                return;
+            }
+            try {
+                File dir = new File(getCacheDir(), "share");
+                if (!dir.exists() && !dir.mkdirs()) throw new IOException("no share folder");
+                File copy = new File(dir, getString(R.string.app_name) + ".apk");
+                try (InputStream in = new FileInputStream(info.sourceDir);
+                     OutputStream out = new FileOutputStream(copy)) {
+                    byte[] buf = new byte[1 << 16];
+                    for (int n; (n = in.read(buf)) > 0; ) out.write(buf, 0, n);
+                }
+                Uri uri = FileProvider.getUriForFile(MainActivity.this, getPackageName() + ".files", copy);
+                Intent send = new Intent(Intent.ACTION_SEND)
+                        .setType("application/vnd.android.package-archive")
+                        .putExtra(Intent.EXTRA_STREAM, uri)
+                        .putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_app_subject))
+                        .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                runOnUiThread(() -> open(send, getString(R.string.share_app_subject)));
+            } catch (IOException | RuntimeException e) {                  // noqa: the reader gets told, not a crash
+                toast(getString(R.string.share_app_failed));
+            }
+        }
+
+        /**
+         * The page's own word about the colour it has just painted.
+         *
+         * The reader's choice of skin changes nothing the shell can see, so
+         * before this the bars were re-read after every tap and caught up a
+         * moment later. Now the page says so as it happens.
+         */
+        @JavascriptInterface
+        public void theme(String css) {
+            runOnUiThread(() -> applyBars(parseCssColour(css)));
+        }
+
+        /** The share sheet, or a word about why there is none. */
+        private void open(Intent send, String title) {
+            try {
+                startActivity(Intent.createChooser(send, title));
+            } catch (ActivityNotFoundException | SecurityException e) {
+                toast(getString(R.string.share_app_failed));
+            }
+        }
+
+        @JavascriptInterface
+        public void toast(String msg) {
+            runOnUiThread(() -> Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show());
+        }
+    }
+
+    /**
+     * The phone's own text-to-speech, held open while the app is.
+     *
+     * A voice is the phone's, not ours: whichever languages the reader has
+     * installed are the ones that can be heard. Hebrew and Greek are read with
+     * the modern voices for those languages - the pronunciation is not
+     * ancient, but it is the language, and it is what exists.
+     */
+    private Speech speech() {
+        if (speech == null) speech = new Speech();
+        return speech;
+    }
+
+    private class Speech implements TextToSpeech.OnInitListener {
+        private final TextToSpeech tts = new TextToSpeech(MainActivity.this, this);
+        private volatile boolean ready;          // set on the main thread, read from the page's binder thread
+        private volatile boolean failed;         // no speech engine on this phone at all
+        private String pendingText, pendingLang, pendingVoice;
+        private float pendingRate = 1f, pendingPitch = 1f;
+
+        @Nullable
+        private Voice pick(Locale loc, String wanted) {
+            Voice best = null;
+            try {
+                for (Voice v : tts.getVoices()) {
+                    if (v == null || v.isNetworkConnectionRequired()) continue;
+                    if (!v.getLocale().getLanguage().equals(loc.getLanguage())) continue;
+                    if (wanted != null && wanted.equals(v.getName())) return v;
+                    if (best == null || v.getQuality() > best.getQuality()) best = v;
+                }
+            } catch (RuntimeException e) {                      // some engines throw rather than answer
+                return null;
+            }
+            return best;
+        }
+
+        String voiceList(String lang) {
+            if (!ready) return "[]";
+            Locale loc = locale(lang);
+            StringBuilder out = new StringBuilder("[");
+            try {
+                for (Voice v : tts.getVoices()) {
+                    if (v == null || v.isNetworkConnectionRequired()) continue;
+                    if (!v.getLocale().getLanguage().equals(loc.getLanguage())) continue;
+                    if (out.length() > 1) out.append(',');
+                    out.append("{\"name\":\"").append(v.getName().replace("\"", ""))
+                       .append("\",\"locale\":\"").append(v.getLocale().toLanguageTag())
+                       .append("\",\"quality\":").append(v.getQuality()).append('}');
+                }
+            } catch (RuntimeException e) {                      // noqa: an engine that will not list is one voice to us
+                return "[]";
+            }
+            return out.append(']').toString();
+        }
+
+        /** Nothing outside what an engine will do, whatever the page asks for. */
+        private float clamp(float v) {
+            return v < 0.3f ? 0.3f : v > 2.5f ? 2.5f : v;
+        }
+
+        @Override
+        public void onInit(int status) {
+            ready = status == TextToSpeech.SUCCESS;
+            failed = !ready;
+            if (ready && pendingText != null) say(pendingText, pendingLang, pendingRate, pendingPitch, pendingVoice);
+            pendingText = null;
+        }
+
+        private Locale locale(String tag) {
+            final String lang = tag == null ? "" : tag;
+            switch (lang) {
+                case "hbo": case "arc": return new Locale("he", "IL");    // modern Hebrew voice for the Hebrew text
+                case "grc": return new Locale("el", "GR");                // modern Greek for the Greek
+                case "yue": return Locale.forLanguageTag("zh-HK");
+                case "nan": case "hak": return Locale.forLanguageTag("zh-TW");
+                case "ja-easy": return Locale.JAPANESE;
+                default: return Locale.forLanguageTag(lang.isEmpty() ? "en" : lang);
+            }
+        }
+
+        String state(String lang) {
+            // A phone with no speech engine installed never becomes ready, and
+            // the page must hear "no" rather than wait for a voice that is not
+            // coming, or it would offer a Listen button that does nothing.
+            if (failed) return "no";
+            if (!ready) return "";                                          // still starting up; the page asks again
+            int r = tts.isLanguageAvailable(locale(lang));
+            return r >= TextToSpeech.LANG_AVAILABLE ? "yes" : "no";
+        }
+
+        void say(String text, String lang, float rate, float pitch, String wanted) {
+            if (text == null || text.isEmpty()) return;
+            if (!ready) { pendingText = text; pendingLang = lang; pendingRate = rate; pendingPitch = pitch;
+                          pendingVoice = wanted; return; }
+            Locale loc = locale(lang);
+            tts.setLanguage(loc);
+            // Left alone the engine takes its default, which on most phones is
+            // the compact voice - the one that sounds like a machine reading
+            // letters. The best one installed for that language is chosen here
+            // instead, unless the reader has picked one themselves.
+            Voice v = pick(loc, wanted);
+            if (v != null) tts.setVoice(v);
+            tts.setSpeechRate(clamp(rate));
+            tts.setPitch(clamp(pitch));
+            speakChunks(text);
+        }
+
+        /**
+         * Say it, however long it is.
+         *
+         * A reader can now hold a dozen verses at once, and past the length the
+         * engine accepts it speaks nothing at all - so the passage is broken at
+         * a space and queued piece by piece rather than cut off at the limit.
+         */
+        private void speakChunks(String text) {
+            int max = TextToSpeech.getMaxSpeechInputLength();
+            if (max <= 0) max = 4000;
+            int spoken = 0;
+            for (int i = 0; i < text.length(); ) {
+                int end = Math.min(text.length(), i + max);
+                if (end < text.length()) {
+                    int space = text.lastIndexOf(' ', end);
+                    if (space > i) end = space;
+                }
+                String piece = text.substring(i, end).trim();
+                i = end;
+                if (piece.isEmpty()) continue;
+                tts.speak(piece, spoken == 0 ? TextToSpeech.QUEUE_FLUSH : TextToSpeech.QUEUE_ADD,
+                          null, "ebible" + spoken);
+                spoken++;
+            }
+            if (spoken == 0) tts.stop();       // nothing but spaces: at least stop what was already going
+        }
+
+        void stop() {
+            if (ready) tts.stop();
+        }
+
+        void shutdown() {
+            tts.stop();
+            tts.shutdown();
+        }
+    }
+
+    /**
      * The credits carry links out to the source texts. There is no INTERNET
      * permission here, so those pages could only fail inside the app; they
      * belong to whatever the reader uses for the web.
@@ -297,17 +633,19 @@ public class MainActivity extends ComponentActivity {
      */
     private void matchBarsToPage() {
         if (web == null) return;
-        web.evaluateJavascript(THEME_JS, value -> {
-            Integer colour = parseCssColour(value);
-            if (colour == null || colour.equals(barColour)) return;
-            barColour = colour;
-            root.setBackgroundColor(colour);
-            if (web != null) web.setBackgroundColor(colour);
-            boolean lightBehind = ColorUtils.calculateLuminance(colour) > 0.5;
-            WindowInsetsControllerCompat bars = WindowCompat.getInsetsController(getWindow(), root);
-            bars.setAppearanceLightStatusBars(lightBehind);     // dark icons on a pale page, pale icons on a dark one
-            bars.setAppearanceLightNavigationBars(lightBehind);
-        });
+        web.evaluateJavascript(THEME_JS, value -> applyBars(parseCssColour(value)));
+    }
+
+    /** Put the window and the bar icons on the colour the page is painted in. */
+    private void applyBars(@Nullable Integer colour) {
+        if (colour == null || colour.equals(barColour) || root == null) return;
+        barColour = colour;
+        root.setBackgroundColor(colour);
+        if (web != null) web.setBackgroundColor(colour);
+        boolean lightBehind = ColorUtils.calculateLuminance(colour) > 0.5;
+        WindowInsetsControllerCompat bars = WindowCompat.getInsetsController(getWindow(), root);
+        bars.setAppearanceLightStatusBars(lightBehind);     // dark icons on a pale page, pale icons on a dark one
+        bars.setAppearanceLightNavigationBars(lightBehind);
     }
 
     /** "#faf8f4", "rgb(250, 248, 244)" or a colour name, as evaluateJavascript quotes it. */
@@ -364,11 +702,11 @@ public class MainActivity extends ComponentActivity {
     }
 
     /**
-     * The reader's own colour choice - sepia, dark, true black - changes the
-     * page without a load or a configuration change, so neither of those can
-     * tell the bars. The page and the shell have no bridge, and a timer would
-     * wake the phone for nothing, but a choice is only ever made with a tap or
-     * a key: asking once, just after each, catches every one of them.
+     * The page tells the shell its colour as it changes it (Bridge.theme), so
+     * this is the net underneath: an older page in a newer shell, or a paint
+     * that came from somewhere the page did not announce. A colour choice is
+     * only ever made with a tap or a key, so asking once just after each
+     * catches whatever the page did not say, and nothing is polled.
      */
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -399,6 +737,7 @@ public class MainActivity extends ComponentActivity {
     protected void onPause() {
         super.onPause();
         if (web != null) web.onPause();     // no timers or animation running behind another app
+        if (speech != null) speech.stop();  // a verse being read does not follow the reader out of the app
     }
 
     @Override
@@ -411,6 +750,7 @@ public class MainActivity extends ComponentActivity {
     @Override
     protected void onDestroy() {
         if (root != null) root.removeCallbacks(recheckBars);
+        if (speech != null) { speech.shutdown(); speech = null; }
         if (web != null) {
             holder.removeView(web);
             web.destroy();

@@ -108,9 +108,9 @@ public-domain *Treasury of Scripture Knowledge*; download
 `https://a.openbible.info/data/cross-references.zip` into `sources/openbible/`),
 and parallel passages computed from the word tags themselves — verses in the
 Gospels, in Samuel–Kings–Chronicles with Isaiah, Jeremiah, Psalms and Micah,
-and in the Torah, matched by the rare lexemes they share. In the reader: click
-a verse number for its cross-references and parallels; the *parallels* tab
-lays the chapter out in columns beside the books it parallels.
+and in the Torah, matched by the rare lexemes they share. In the reader: take
+a verse and press **Notes** for its cross-references and parallels; the
+*parallels* tab lays the chapter out in columns beside the books it parallels.
 
 ### Our own lexicon
 
@@ -140,7 +140,7 @@ names also appear in the verse panel. 1,111 located places over 4,812 verses.
 STEPBible data: for Greek, which of the eight printed editions carry each
 reading and where they differ in spelling; for Hebrew, the scribal Qere against
 the written Ketiv and the meaning and spelling variants. They appear under
-*Text notes* when a verse number is clicked. This is an apparatus of editions,
+*Text notes* in a taken verse's **Notes**. This is an apparatus of editions,
 not of manuscripts — no manuscript sigla are asserted, because no openly
 licensed manuscript apparatus is available.
 
@@ -295,6 +295,42 @@ python scripts/build_all.py --fast      skip morphology and syntax (the slow two
 Every file loads on demand, so the reader page itself stays the same size and
 the whole set works offline and inside an Android bundle.
 
+### Names readers already know (`scripts/build_names.py`)
+
+`targets/<lang>/names.json` is pasted into every prompt, so it holds a few
+dozen names and cannot hold more without crowding out the chapter. Every other
+name was left to the model, which invents a spelling per chapter with no
+memory of the last one — so Stephen came out 司提反 in one chapter and 斯提反
+in the next, and a reader who knows the Bible of their language met a stranger
+every few verses. Measured against a reference edition, 38 of 60 well-known
+names were spelled two ways in our own Chinese.
+
+The spellings a language's readers know are already written down, in the
+translation they grew up with, so they are learned rather than listed:
+
+```
+python scripts/build_names.py --lang zh --ref <a reference Bible>.json --write
+```
+
+Our English is the pivot, because its proper names can be picked out
+mechanically — a real name is never written lower-case anywhere in the Bible,
+which is a better filter than any stop-list. A name turns up in the same
+verses in both Bibles and almost nowhere else, so pairing is by overlap
+(Dice); an ordinary word is spread across the canon and pairs with nothing.
+For a language written without spaces the alphabet of transliteration
+characters is bootstrapped from the names already pinned, with a frequency cap
+so that no character carried by the whole language can join it. Where the
+evidence cannot separate two names — Cappadocia and Pontus are named in the
+same breath and nowhere else — both are dropped rather than guessed, and so is
+any spelling claimed by two unrelated names.
+
+It writes `targets/<lang>/names.map.json`, and `translate.py` injects only the
+names in the chapter being translated: about ten per chapter, a hundred and
+forty characters, instead of a list that would not fit. `verify.py` then flags
+a chapter that ignored one. The reference text is read on this machine and
+none of it is reproduced — what is kept is a list of spellings, which is a
+convention, not a text. Chinese: 744 names.
+
 ### Target languages
 
 The pipeline translates into several languages from the same sources; each
@@ -395,17 +431,68 @@ self-contained HTML file — full-text search, a reference finder
 open the file in any browser, or as its own window with `start_reader.cmd`
 (the dashboard also serves it at <http://localhost:8766/reader>).
 
-### Android app (planned)
+**Taking verses.** Every verse number is a button. Press it and the verse is
+taken: the number sets into the page and the verse is washed the colour of a
+search hit, and a bar at the foot of the screen offers to copy it, send it,
+read it aloud, or - in advanced mode, one verse at a time - show its notes,
+cross-references and parallels. Press more numbers and they are taken too, in
+any order and with any gaps: the bar names them the way a reference is written
+("Psalms 23:1-3, 5"), copies them as one quotation with the verse numbers in
+it, and reads them aloud in order without reading the numbers out. Pressing a
+number again lets that verse go; tapping the text of a verse takes that one
+alone, and tapping it again, pressing Escape, or the phone's back button lets
+everything go. From a keyboard the chapter's numbers are a single stop on the
+way through the page - arrows move between them, space or enter takes one -
+because a hundred and seventy-six tab stops in Psalm 119 would be no kindness.
 
-The reader is deliberately one offline HTML file so it can be wrapped as an
-APK with no code changes:
+### Android app
 
-1. **Capacitor** (recommended): `npx cap init && npx cap add android`, copy
-   `site/index.html` into the webDir, build in Android Studio or with Gradle.
-2. Minimal hand-rolled WebView project loading the file from `assets/` —
-   smallest APK, no framework.
+`android/` is a WebView around the reader (see `android/README.md`). There are
+two builds of it:
 
-Building either requires the Android SDK; not installed on the Spark yet.
+**Make Android APK** in the dashboard header builds either of them, and
+`python scripts/build_apk.py [--full]` does the same from the command line. The
+APK lands in `dist/`:
+
+- **reader** - the text alone, in every translated language, always in "Just
+  read" mode, with the search indexes: an 11 MB APK, 26 MB on the phone.
+- **+ study tools** - the same page with everything in `site/morph/` behind it:
+  word tags, lexicon, concordance, syntax, cross-references, apparatus, themes,
+  places, chronology. A 26 MB APK, 78 MB on the phone, and the
+  layers are frozen as they stand when it is built, so a job still running
+  (themes, the lexicon, the lexemes) will be partial in it.
+
+Both carry only the languages the whole Bible has been translated into, so a
+language still in progress is left out until it is finished; the build says
+which it left, and with what it had (`es (14/1189)`). The reader here on the PC
+still shows every language, finished or not.
+
+The first time, the button offers to fetch the build tools (a JDK 17, Gradle
+and the Android SDK, about 1 GB, into `tools/android/`), which means accepting
+the Android SDK License; it asks before doing so. Without an upload key the APK
+is a debug build that installs on any phone allowing apps from outside Play.
+Both variants carry the same application id, so one replaces the other on a
+phone, and both hold whatever chapters have been translated when they are
+built.
+
+For a Play upload the AAB still comes from `android/sync_assets.sh` and Gradle,
+as `android/README.md` describes.
+
+### The app as one folder (`scripts/package_app.py`)
+
+`python scripts/package_app.py` builds `dist/eBible-app/`: the dashboard, the
+reader, the translation driver and the APK builder, with their own Python, the
+translated text and the study layers, started by `eBible.exe`. Nothing needs
+installing on the machine that runs it - translating still needs Ollama and the
+model, reading and building APKs do not.
+
+- **with the toolchain** (the default, about 1.5 GB) it also carries the JDK,
+  Gradle, the Android SDK and the libraries Gradle would otherwise download, so
+  it builds an APK with no network at all. Google's SDK terms forbid passing
+  that on, so a bundle built this way is for your own machines.
+- **`--shareable`** (about 170 MB) leaves the SDK out; the first APK build on
+  the other machine offers to fetch it, under the licence whoever runs it
+  accepts. See LEGAL.md section 5.
 
 ## Status
 

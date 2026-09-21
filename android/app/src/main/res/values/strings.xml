@@ -14,4 +14,11 @@
     <string name="retry">Try again</string>
     <string name="retry_description">Try to open the reader again</string>
     <string name="no_browser">No app on this phone can open that link.</string>
+
+    <!-- The verse actions and the two share buttons. -->
+    <string name="back_again">Press back again to leave the reader</string>
+    <string name="copied">Verse copied</string>
+    <string name="share_app_subject">eBible — the whole Bible, offline</string>
+    <string name="share_app_failed">The app could not be prepared for sharing.</string>
+    <string name="share_app_split">This copy came from the Play Store in several pieces, so it cannot be passed on as one file.</string>
 </resources>

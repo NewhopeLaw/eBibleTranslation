@@ -57,7 +57,8 @@ function ttsSpeak(text, code, node){
   const chunks = []; let buf = '';
   for (const p of parts) { if ((buf + p).length > 220 && buf) { chunks.push(buf); buf = ''; } buf += p; } if (buf.trim()) chunks.push(buf);
   if (ttsMark) ttsMark.classList.remove('speaking'); ttsMark = node || null; if (ttsMark) ttsMark.classList.add('speaking');
-  chunks.forEach((c, i) => { const u = new SpeechSynthesisUtterance(c); u.lang = bcp; if (v) u.voice = v; u.rate = 0.95;
+  chunks.forEach((c, i) => { const u = new SpeechSynthesisUtterance(c); u.lang = bcp; if (v) u.voice = v;
+    u.rate = (typeof VOICE !== 'undefined' ? VOICE.rate : 0.95); u.pitch = (typeof VOICE !== 'undefined' ? VOICE.pitch : 1);
     if (i === chunks.length - 1) u.onend = u.onerror = () => { if (ttsMark) { ttsMark.classList.remove('speaking'); ttsMark = null; } };
     speechSynthesis.speak(u); });
 }

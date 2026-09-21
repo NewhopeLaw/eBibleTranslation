@@ -5,7 +5,21 @@ lexicon, themes, parallels - is in the APK, and the app asks for no
 permissions at all, the INTERNET one least of any: nothing is fetched and
 nothing is reported back.
 
-## Building
+## The reader APK, in one step
+
+`python scripts/build_apk.py` - or **Make Android APK** in the PC dashboard - builds the reader-only page (`build_site.py --reader-only`: always
+basic mode, no study layers), stages it with the search indexes in
+`reader-assets/`, runs Gradle with `-PappAssets` pointing there, and copies
+the APK to `dist/`. The full build's `app/src/main/assets/` is not touched.
+Each build gets a version code that rises by the minute, so a new APK installs
+over the last one.
+
+It finds a JDK 17, the SDK and Gradle where Android Studio or its own
+`--setup` put them; `--setup --accept-android-sdk-license` fetches all three
+into `tools/android/`. With `keystore.properties` present it makes a signed
+release; without, a debug build.
+
+## Building the full app
 
 Needs the Android SDK (platform 36), JDK 17 and Gradle 8.13 or later. There is
 no Gradle wrapper committed - generating one means committing the wrapper jar,
@@ -83,11 +97,35 @@ key that is lost has to be reset with Google before another release can go up.
   it fed the trail again, so back could never leave. Because the answer comes
   from JavaScript, the back callback is always registered and the predictive
   gesture shows no preview of the home screen; that is the documented cost of
-  deciding in the page.
-- **Read aloud.** The Android System WebView has no `speechSynthesis`, so the
-  page's read-aloud menu does not appear in the app. The page checks for it and
-  hides the item rather than failing. Bringing it back would take a bridge to
-  Android's `TextToSpeech`.
+  deciding in the page. What the page puts away, in order, is the verses it is
+  holding, a popup, a tray, and a page drawn over a chapter; chapter after chapter is not
+  a stack to climb down on a phone, so from a plain chapter the page says it
+  has nothing left. The first press then says "press back again to leave" and
+  the second one leaves - the convention is to leave at once, but a reader deep
+  in a chapter should not lose their place to a stray touch.
+- **What the page cannot do alone.** The WebView has no speech, no clipboard a
+  reader would expect, and no share sheet, so the shell exposes those three to
+  the page as `AndroidApp` (see the `Bridge` class): speak a passage, copy one,
+  send one, and send the app itself. Only our own page is ever loaded in this
+  WebView - every other address goes out to the browser - so nothing from the
+  web is on the other end of that bridge, and R8 is told to keep its methods or
+  a release build would silently lose all four.
+- **Read aloud.** The phone's own `TextToSpeech`, not the page's: whichever
+  languages the reader has installed are the ones it can read. Hebrew, Aramaic
+  and Greek are spoken with the modern Hebrew and Greek voices - the
+  pronunciation is not ancient, but it is the language, and it is what exists.
+  A phone with no speech engine says so, and the Listen button is not offered.
+  Speaking stops when the app goes into the background.
+
+  A reader can take a dozen verses at once, and past the length the engine
+  accepts - `getMaxSpeechInputLength()`, four thousand characters on most
+  phones - it speaks nothing at all rather than what it can. The passage is
+  therefore broken at a space and queued piece by piece, the first flushing
+  whatever was being said and the rest following it.
+- **Sharing the app.** The share sheet, which is where Quick Share lives, is
+  handed a copy of our own APK through a `FileProvider` - Android will not let
+  one app read another's file by path. The copy goes to `cache/share/`, and
+  that folder is the only thing the provider exposes.
 - **Rotation.** The activity handles the configuration changes itself rather
   than being rebuilt: parsing an eighteen-megabyte page again would lose the
   reader's place every time the phone turns. Process death is covered

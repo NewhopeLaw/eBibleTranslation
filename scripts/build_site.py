@@ -70,7 +70,12 @@ PAGE = r"""<!DOCTYPE html>
   --bg:#faf8f4; --fg:#22201c; --muted:#635c52; --accent:#654aa8; --on-accent:#ffffff;
   --card:#ffffff; --border:#d7cfc2; --edge:#8a8176; --hl:#f6e7a6; --soft:#f0ece4;
   --err:#ad2317; --warn:#7d5000; --scrim:rgba(28,22,14,.5); --shadow:rgba(44,34,18,.26);
-  --fs:18px; --lh:1.72; --barH:56px;
+  --fs:20px; --lh:1.72; --barH:56px;
+  /* The labels, buttons and trays around the text were set in 10-14 px, which
+     is small print on a phone. Every one of them is written as its old size
+     times --ui, so the whole of the chrome grows together: 1.2 by default, and
+     further as the reader turns the text itself up (see applyType). */
+  --ui:1.2;
 }
 /* With no skin chosen the phone decides, which is what a reader expects the
    first time the page opens. A chosen skin sets data-theme and wins here. */
@@ -128,14 +133,14 @@ header { position:sticky; top:0; background:var(--bg); z-index:30;
   transition:transform .22s cubic-bezier(.2,0,0,1); }
 html.chrome-off header { transform:translateY(-115%); }
 html.chrome-off #tabbar { transform:translateY(115%); }
-header .brand { font-size:15px; font-style:italic; color:var(--muted);
+header .brand { font-size:calc(15px * var(--ui)); font-style:italic; color:var(--muted);
   margin-right:auto; white-space:nowrap; }
-input, select, button.fs { font:14px system-ui, sans-serif; padding:.45rem .6rem;
+input, select, button.fs { font:calc(14px * var(--ui)) system-ui, sans-serif; padding:.45rem .6rem;
   min-height:44px; border:1px solid var(--edge); border-radius:10px;
   background:var(--card); color:var(--fg); }
 input:focus { outline:3px solid var(--accent); outline-offset:1px; }
 #ref { width:9rem; } #q { width:13rem; }
-.goto { display:flex; align-items:center; gap:.4rem; font:12px system-ui, sans-serif; color:var(--muted); white-space:nowrap; }
+.goto { display:flex; align-items:center; gap:.4rem; font:calc(12px * var(--ui)) system-ui, sans-serif; color:var(--muted); white-space:nowrap; }
 button.fs { cursor:pointer; min-width:2.6rem; }
 button.fs:hover:not(:disabled) { border-color:var(--accent); }
 button.fs:disabled { opacity:.35; cursor:default; }
@@ -153,11 +158,11 @@ select#bookSel { max-width:11rem; display:none; }
    way into the navigation tray, which saves a row of chrome. */
 #title { display:none; flex:1 1 auto; min-width:0; min-height:44px; text-align:left;
   background:none; border:1px solid transparent; border-radius:12px; color:var(--fg);
-  cursor:pointer; padding:.15rem .5rem; font:600 16px/1.2 system-ui,sans-serif; }
+  cursor:pointer; padding:.15rem .5rem; font:600 calc(16px * var(--ui))/1.2 system-ui,sans-serif; }
 #title:hover { background:var(--soft); }
 #title .main { display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 #title .main::after { content:" \25BE"; color:var(--muted); font-size:.85em; }
-#title .sub { display:block; font:400 12px/1.35 system-ui,sans-serif; color:var(--muted);
+#title .sub { display:block; font:400 calc(12px * var(--ui))/1.35 system-ui,sans-serif; color:var(--muted);
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 main { max-width:42rem; margin:0 auto; padding:1.4rem 1.2rem 5rem; }
 main.wide { max-width:66rem; }
@@ -171,7 +176,7 @@ main.wide { max-width:66rem; }
 #tabbar button { flex:1 1 0; min-width:0; min-height:56px; display:flex; flex-direction:column;
   align-items:center; justify-content:center; gap:.1rem; padding:.3rem .15rem; overflow:hidden;
   background:none; border:0; color:var(--muted); cursor:pointer;
-  font:500 11px system-ui,sans-serif; }
+  font:500 calc(11px * var(--ui)) system-ui,sans-serif; }
 #tabbar button .ic { display:flex; align-items:center; justify-content:center; flex:none;
   width:100%; max-width:56px; height:28px; border-radius:14px; }
 #tabbar button .lb { max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
@@ -191,42 +196,42 @@ dialog.sheet::backdrop { background:var(--scrim); }
 .sheet .grab i { width:36px; height:4px; border-radius:2px; background:var(--edge); display:block; }
 .sheet .sh { display:flex; align-items:center; gap:.4rem; padding:.1rem .6rem .4rem 1rem;
   flex:none; touch-action:none; }
-.sheet .sh .st { flex:1; min-width:0; font:600 17px system-ui,sans-serif;
+.sheet .sh .st { flex:1; min-width:0; font:600 calc(17px * var(--ui)) system-ui,sans-serif;
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .sheet .bd { overflow-y:auto; overscroll-behavior:contain; flex:1 1 auto;
   padding:0 1rem calc(1.4rem + env(safe-area-inset-bottom)); }
-.shead { margin:1.1rem 0 .35rem; font:600 11px system-ui,sans-serif; text-transform:uppercase;
+.shead { margin:1.1rem 0 .35rem; font:600 calc(11px * var(--ui)) system-ui,sans-serif; text-transform:uppercase;
   letter-spacing:.07em; color:var(--muted); }
 .rowlist { display:flex; flex-direction:column; }
 .rowlist a, .rowlist button { display:flex; width:100%; align-items:center; gap:.6rem;
   min-height:48px; padding:.5rem .7rem; border:0; border-radius:12px; background:none;
-  color:var(--fg); font:15px system-ui,sans-serif; text-align:left; cursor:pointer;
+  color:var(--fg); font:calc(15px * var(--ui)) system-ui,sans-serif; text-align:left; cursor:pointer;
   text-decoration:none; }
 .rowlist a:hover, .rowlist button:hover { background:var(--soft); }
 .rowlist .on { background:var(--hl); font-weight:700; }
 .rowlist .nm { flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .rowlist .ct { flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis;
-  white-space:nowrap; text-align:end; font:12px system-ui,sans-serif; color:var(--muted); }
+  white-space:nowrap; text-align:end; font:calc(12px * var(--ui)) system-ui,sans-serif; color:var(--muted); }
 .rowlist .tk { flex:none; font-weight:700; color:var(--accent); }
 .rowlist .missing { color:var(--muted); opacity:.5; pointer-events:none; }
 .chgrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(48px,1fr)); gap:.4rem; }
 .chgrid a { display:flex; align-items:center; justify-content:center; min-height:48px;
   border:1px solid var(--edge); border-radius:12px; text-decoration:none; color:var(--fg);
-  font:15px system-ui,sans-serif; }
+  font:calc(15px * var(--ui)) system-ui,sans-serif; }
 .chgrid a.on { background:var(--accent); color:var(--on-accent); border-color:var(--accent); font-weight:700; }
 .chgrid a.untr { color:var(--muted); border-style:dashed; }
 .seg { display:flex; gap:.3rem; padding:.25rem; background:var(--soft); border-radius:14px; }
 .seg button { flex:1 1 0; min-width:0; min-height:44px; border:1px solid transparent;
   border-radius:11px; background:none; color:var(--fg); cursor:pointer;
-  font:500 14px system-ui,sans-serif; }
+  font:500 calc(14px * var(--ui)) system-ui,sans-serif; }
 .seg button[aria-pressed="true"] { background:var(--card); border-color:var(--edge); font-weight:700; }
 .seg button:disabled { opacity:.4; cursor:default; }
 .seg .val { flex:0 0 5.5rem; display:flex; align-items:center; justify-content:center;
-  font:600 14px system-ui,sans-serif; font-variant-numeric:tabular-nums; }
+  font:600 calc(14px * var(--ui)) system-ui,sans-serif; font-variant-numeric:tabular-nums; }
 .skins { display:grid; grid-template-columns:repeat(auto-fill,minmax(9rem,1fr)); gap:.5rem; }
 .skins button { display:flex; align-items:center; gap:.55rem; min-height:52px; padding:.5rem .6rem;
   border:1px solid var(--edge); border-radius:14px; background:var(--card); color:var(--fg);
-  font:14px system-ui,sans-serif; cursor:pointer; text-align:left; }
+  font:calc(14px * var(--ui)) system-ui,sans-serif; cursor:pointer; text-align:left; }
 .skins button[aria-pressed="true"] { border:2px solid var(--accent); font-weight:700; padding:calc(.5rem - 1px) calc(.6rem - 1px); }
 .skins .sw { width:26px; height:26px; border-radius:50%; flex:none; border:1px solid var(--edge); }
 .skins .tick { margin-left:auto; font-weight:700; color:var(--accent); }
@@ -234,40 +239,40 @@ dialog.sheet::backdrop { background:var(--scrim); }
 .tools button { min-height:64px; display:flex; flex-direction:column; align-items:flex-start;
   justify-content:center; gap:.1rem; padding:.6rem .7rem; border:1px solid var(--edge);
   border-radius:14px; background:var(--card); color:var(--fg); cursor:pointer;
-  font:600 14px system-ui,sans-serif; text-align:left; }
-.tools button small { font:400 11.5px/1.3 system-ui,sans-serif; color:var(--muted); }
+  font:600 calc(14px * var(--ui)) system-ui,sans-serif; text-align:left; }
+.tools button small { font:400 calc(11.5px * var(--ui))/1.3 system-ui,sans-serif; color:var(--muted); }
 .tools button[aria-pressed="true"] { border:2px solid var(--accent); background:var(--hl);
   padding:calc(.6rem - 1px) calc(.7rem - 1px); }
 .tools button:disabled { opacity:.45; cursor:default; }
 .tools button:hover:not(:disabled) { background:var(--soft); }
-.sheet .hint { font:12.5px/1.5 system-ui,sans-serif; color:var(--muted); margin:.4rem 0 0; }
+.sheet .hint { font:calc(12.5px * var(--ui))/1.5 system-ui,sans-serif; color:var(--muted); margin:.4rem 0 0; }
 .sheet .primary { display:flex; width:100%; align-items:center; justify-content:center;
   min-height:52px; border:1px solid var(--accent); border-radius:14px; margin:.6rem 0 .2rem;
-  background:var(--accent); color:var(--on-accent); cursor:pointer; font:700 15px system-ui,sans-serif; }
+  background:var(--accent); color:var(--on-accent); cursor:pointer; font:700 calc(15px * var(--ui)) system-ui,sans-serif; }
 /* ---------- the magnifier's way back, and a place to say a file did not load ---------- */
 #zoomchip, #toast { position:fixed; left:50%; transform:translateX(-50%); z-index:36;
   background:var(--card); color:var(--fg); border:1px solid var(--edge);
-  box-shadow:0 6px 22px var(--shadow); font:13px/1.45 system-ui,sans-serif; }
+  box-shadow:0 6px 22px var(--shadow); font:calc(13px * var(--ui))/1.45 system-ui,sans-serif; }
 #zoomchip { bottom:calc(var(--chipUp,14px) + env(safe-area-inset-bottom));
   display:flex; align-items:center; gap:.5rem; padding:.35rem .4rem .35rem .9rem;
   border-radius:999px; white-space:nowrap; }
 #zoomchip button { min-height:40px; padding:0 .95rem; border:0; border-radius:999px;
   background:var(--accent); color:var(--on-accent); cursor:pointer; white-space:nowrap;
-  font:600 13px system-ui,sans-serif; }
+  font:600 calc(13px * var(--ui)) system-ui,sans-serif; }
 #toast { bottom:calc(var(--chipUp,14px) + env(safe-area-inset-bottom)); max-width:min(24rem,92vw);
   padding:.7rem 1rem; border-radius:14px; }
 #zoomchip[hidden], #toast[hidden] { display:none; }
 footer#credits { border-top:1px solid var(--border); margin-top:2rem; padding:1.2rem 1.2rem 2rem; color:var(--muted);
-  font:12px/1.55 system-ui, sans-serif; }
-footer#credits h2 { font:600 12px system-ui, sans-serif; text-transform:uppercase; letter-spacing:.06em; margin:0 0 .5rem; }
+  font:calc(12px * var(--ui))/1.55 system-ui, sans-serif; }
+footer#credits h2 { font:600 calc(12px * var(--ui)) system-ui, sans-serif; text-transform:uppercase; letter-spacing:.06em; margin:0 0 .5rem; }
 footer#credits p { margin:0 0 .45rem; max-width:66rem; }
 /* The attributions carry bare URLs, which have no break in them and push a
    narrow screen sideways unless they are allowed to break anywhere. */
 footer#credits a { color:inherit; } footer#credits, code { overflow-wrap:anywhere; }
-header .sources { margin-left:auto; font:12px system-ui, sans-serif; color:var(--muted); cursor:pointer; background:none; border:0; text-decoration:underline; }
+header .sources { margin-left:auto; font:calc(12px * var(--ui)) system-ui, sans-serif; color:var(--muted); cursor:pointer; background:none; border:0; text-decoration:underline; }
 /* --barH is measured from the header, which wraps to two rows at some widths;
    the sidebar used to assume it never did and lost its last book behind it. */
-nav#books { width:210px; flex:none; padding:1rem .6rem; font:14px system-ui,sans-serif;
+nav#books { width:210px; flex:none; padding:1rem .6rem; font:calc(14px * var(--ui)) system-ui,sans-serif;
   border-right:1px solid var(--border); height:calc(100vh - var(--barH));
   overflow-y:auto; position:sticky; top:var(--barH); }
 nav#books a { display:block; padding:.35rem .55rem; color:var(--fg);
@@ -275,12 +280,12 @@ nav#books a { display:block; padding:.35rem .55rem; color:var(--fg);
 nav#books a:hover { background:var(--card); }
 nav#books a.on { background:var(--accent); color:#fff; }
 nav#books .t { margin:.7rem 0 .25rem; font-weight:600; color:var(--muted);
-  font-size:12px; text-transform:uppercase; letter-spacing:.06em; }
+  font-size:calc(12px * var(--ui)); text-transform:uppercase; letter-spacing:.06em; }
 nav#books a.missing { color:var(--muted); opacity:.4; pointer-events:none; }
 nav#books a.untr { color:var(--muted); }
-nav#books a .ct { float:right; font-size:11px; color:var(--muted); margin-top:.15rem; }
+nav#books a .ct { float:right; font-size:calc(11px * var(--ui)); color:var(--muted); margin-top:.15rem; }
 nav#books a.on .ct { color:#fff; opacity:.85; }
-.chnav { font:14px system-ui,sans-serif; margin:.9rem 0 1.6rem;
+.chnav { font:calc(14px * var(--ui)) system-ui,sans-serif; margin:.9rem 0 1.6rem;
   display:flex; flex-wrap:wrap; gap:.3rem; }
 .chnav a { display:inline-flex; align-items:center; justify-content:center;
   min-width:2.4rem; min-height:40px; padding:.22rem .6rem; border:1px solid var(--edge);
@@ -288,33 +293,33 @@ nav#books a.on .ct { color:#fff; opacity:.85; }
 .chnav a.on { background:var(--accent); color:var(--on-accent); border-color:var(--accent); font-weight:700; }
 .chnav a.untr { color:var(--muted); border-style:dashed; }
 h2 { font-size:1.65em; font-weight:normal; margin:.3rem 0 .4rem; }
-h2 .lang { font:13px system-ui,sans-serif; color:var(--muted); margin-left:.6rem; vertical-align:middle; }
+h2 .lang { font:calc(13px * var(--ui)) system-ui,sans-serif; color:var(--muted); margin-left:.6rem; vertical-align:middle; }
 sup.v { color:var(--accent); font:600 .58em system-ui,sans-serif;
   margin:0 .18em 0 .05em; user-select:none; vertical-align:.55em; }
 p.vv { margin:0 0 1.05em; text-align:justify; hyphens:auto; }
 .poetry { margin:0 0 1.05em 1.3em; text-indent:-1.3em; white-space:pre-wrap; }
 .notes { margin-top:2.4rem; padding:1rem 1.2rem; background:var(--card);
   border:1px solid var(--border); border-radius:10px;
-  font:14px/1.6 system-ui,sans-serif; color:var(--muted); }
+  font:calc(14px * var(--ui))/1.6 system-ui,sans-serif; color:var(--muted); }
 .notes b { color:var(--fg); }
 /* Moving to the next chapter costs no reading space: it waits at the end of
    the one being read, where a reader arrives anyway, and in the tray. */
 .pn { display:flex; justify-content:space-between; gap:.6rem; margin-top:2.6rem;
-  font:15px system-ui,sans-serif; }
+  font:calc(15px * var(--ui)) system-ui,sans-serif; }
 .pn a { display:inline-flex; align-items:center; min-height:48px; color:var(--accent);
   text-decoration:none; padding:.5rem .9rem; border:1px solid var(--edge); border-radius:12px; }
 .pn a:hover { border-color:var(--accent); background:var(--soft); }
 .pn .off { visibility:hidden; }
-#results { font:15px/1.5 system-ui,sans-serif; }
+#results { font:calc(15px * var(--ui))/1.5 system-ui,sans-serif; }
 #results .hit { background:var(--card); border:1px solid var(--border);
   border-radius:10px; padding:.7rem .9rem; margin:.6rem 0; cursor:pointer; }
 #results .hit:hover { border-color:var(--accent); }
-#results .ref { color:var(--accent); font-weight:600; font-size:13px; }
+#results .ref { color:var(--accent); font-weight:600; font-size:calc(13px * var(--ui)); }
 mark { background:var(--hl); color:inherit; border-radius:3px; padding:0 .1em; }
 .flash { animation:flash 2.5s; }
 @keyframes flash { 0%,55% { background:var(--hl); } 100% { background:transparent; } }
-.empty { color:var(--muted); font:15px system-ui,sans-serif; margin-top:2rem; }
-.tabs { display:flex; flex-wrap:wrap; gap:.3rem; font:14px system-ui,sans-serif; margin:-.8rem 0 1.3rem; align-items:center; }
+.empty { color:var(--muted); font:calc(15px * var(--ui)) system-ui,sans-serif; margin-top:2rem; }
+.tabs { display:flex; flex-wrap:wrap; gap:.3rem; font:calc(14px * var(--ui)) system-ui,sans-serif; margin:-.8rem 0 1.3rem; align-items:center; }
 .tabs a { display:inline-flex; align-items:center; min-height:40px; padding:.25rem .8rem;
   border:1px solid var(--edge); border-radius:999px;
   cursor:pointer; color:var(--fg); user-select:none; }
@@ -328,45 +333,56 @@ mark { background:var(--hl); color:inherit; border-radius:3px; padding:0 .1em; }
 .orig sup.v { vertical-align:.7em; }
 .w { cursor:pointer; border-radius:3px; } .w:hover { background:var(--soft); } .w.sel { background:var(--hl); }
 main.inter .orig .w { display:inline-block; text-align:center; margin:0 .2em .45em 0; vertical-align:top; line-height:1.4; }
-main.inter .orig .w::after { content:attr(data-g); display:block; font:11px/1.25 system-ui,sans-serif; color:var(--muted); direction:ltr; max-width:9em; white-space:normal; margin-top:.1em; }
-main.inter .orig .w[data-m]::before { content:attr(data-m); display:block; font:9.5px/1.2 ui-monospace,Consolas,monospace; color:var(--accent); direction:ltr; }
+main.inter .orig .w::after { content:attr(data-g); display:block; font:calc(11px * var(--ui))/1.25 system-ui,sans-serif; color:var(--muted); direction:ltr; max-width:9em; white-space:normal; margin-top:.1em; }
+main.inter .orig .w[data-m]::before { content:attr(data-m); display:block; font:calc(9.5px * var(--ui))/1.2 ui-monospace,Consolas,monospace; color:var(--accent); direction:ltr; }
 #wpop { position:fixed; z-index:40; max-width:26rem; background:var(--card); color:var(--fg); border:1px solid var(--border); border-radius:10px;
-  box-shadow:0 10px 30px rgba(0,0,0,.25); padding:.7rem .9rem; font:13px/1.45 system-ui,sans-serif; white-space:normal; direction:ltr; text-align:left; }
-#wpop .hw { font-size:1.35em; } #wpop .hw .orig { font-size:1em; } #wpop .tl { color:var(--muted); margin-left:.4em; } #wpop .pos { color:var(--muted); font-size:11px; margin-left:.4em; }
-#wpop .parse { margin:.35rem 0; } #wpop .parse code { font:11px ui-monospace,Consolas,monospace; color:var(--accent); margin-left:.4em; }
-#wpop .meaning { color:var(--muted); font-size:12px; margin-top:.35rem; max-height:9em; overflow:auto; }
+  box-shadow:0 10px 30px rgba(0,0,0,.25); padding:.7rem .9rem; font:calc(13px * var(--ui))/1.45 system-ui,sans-serif; white-space:normal; direction:ltr; text-align:left; }
+#wpop .hw { font-size:1.35em; } #wpop .hw .orig { font-size:1em; } #wpop .tl { color:var(--muted); margin-left:.4em; } #wpop .pos { color:var(--muted); font-size:calc(11px * var(--ui)); margin-left:.4em; }
+#wpop .parse { margin:.35rem 0; } #wpop .parse code { font:calc(11px * var(--ui)) ui-monospace,Consolas,monospace; color:var(--accent); margin-left:.4em; }
+#wpop .meaning { color:var(--muted); font-size:calc(12px * var(--ui)); margin-top:.35rem; max-height:9em; overflow:auto; }
 #wpop .acts { margin-top:.5rem; display:flex; flex-wrap:wrap; gap:.2rem 1rem; }
 #wpop .acts a { display:inline-flex; align-items:center; min-height:44px; cursor:pointer; color:var(--accent); text-decoration:underline; }
-#wpop .pre { color:var(--muted); font-size:12px; }
-#wpop .syn { margin:.35rem 0; font-size:12px; } #wpop .syn b { color:var(--fg); font-weight:600; }
-#wpop .syn a { color:var(--accent); cursor:pointer; } #wpop .dom { font-size:12px; color:var(--muted); margin-top:.25rem; } #wpop .dom a { color:var(--accent); cursor:pointer; }
+#wpop .pre { color:var(--muted); font-size:calc(12px * var(--ui)); }
+#wpop .syn { margin:.35rem 0; font-size:calc(12px * var(--ui)); } #wpop .syn b { color:var(--fg); font-weight:600; }
+#wpop .syn a { color:var(--accent); cursor:pointer; } #wpop .dom { font-size:calc(12px * var(--ui)); color:var(--muted); margin-top:.25rem; } #wpop .dom a { color:var(--accent); cursor:pointer; }
 #wpop .dom .orig { color:var(--fg); } .w.ante { outline:2px solid var(--accent); border-radius:3px; }
 #wpop .ours { border-top:1px solid var(--border); margin-top:.55rem; padding-top:.5rem; }
-#wpop .ours h5 { font:600 10px system-ui,sans-serif; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 .3rem; }
-#wpop .sense { margin:0 0 .3rem; } #wpop .sense b { font-weight:600; } #wpop .sense i { color:var(--muted); font-style:normal; font-size:11px; }
+#wpop .ours h5 { font:600 calc(10px * var(--ui)) system-ui,sans-serif; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 .3rem; }
+#wpop .sense { margin:0 0 .3rem; } #wpop .sense b { font-weight:600; } #wpop .sense i { color:var(--muted); font-style:normal; font-size:calc(11px * var(--ui)); }
 #wpop .sense a, #wpop .idiom a { color:var(--accent); cursor:pointer; margin-left:.3em; }
-#wpop .idiom, #wpop .near, #wpop .usage, #wpop .cav { font-size:12px; color:var(--muted); margin-top:.3rem; }
+#wpop .idiom, #wpop .near, #wpop .usage, #wpop .cav { font-size:calc(12px * var(--ui)); color:var(--muted); margin-top:.3rem; }
 .tabs a.tool { border-style:dashed; }
 .tabs i.sep { width:1px; height:1.1rem; background:var(--border); margin:0 .35rem; align-self:center; }
-.gs { display:grid; grid-template-columns:repeat(auto-fill,minmax(11rem,1fr)); gap:.5rem .8rem; margin:.6rem 0 1rem; font:13px system-ui,sans-serif; }
-.gs label { display:flex; flex-direction:column; gap:.2rem; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.05em; }
-.gs select, .gs input { font:14px system-ui,sans-serif; padding:.35rem .5rem; border:1px solid var(--border); border-radius:8px; background:var(--card); color:var(--fg); }
-.gs button { grid-column:1 / -1; justify-self:start; font:14px system-ui,sans-serif; padding:.45rem 1rem; border:1px solid var(--accent); border-radius:8px; background:var(--accent); color:#fff; cursor:pointer; }
+.gs { display:grid; grid-template-columns:repeat(auto-fill,minmax(11rem,1fr)); gap:.5rem .8rem; margin:.6rem 0 1rem; font:calc(13px * var(--ui)) system-ui,sans-serif; }
+.gs label { display:flex; flex-direction:column; gap:.2rem; color:var(--muted); font-size:calc(11px * var(--ui)); text-transform:uppercase; letter-spacing:.05em; }
+.gs select, .gs input { font:calc(14px * var(--ui)) system-ui,sans-serif; padding:.35rem .5rem; border:1px solid var(--border); border-radius:8px; background:var(--card); color:var(--fg); }
+.gs button { grid-column:1 / -1; justify-self:start; font:calc(14px * var(--ui)) system-ui,sans-serif; padding:.45rem 1rem; border:1px solid var(--accent); border-radius:8px; background:var(--accent); color:#fff; cursor:pointer; }
 .hit .orig { display:block; margin-top:.15rem; } .hit mark { background:var(--hl); color:inherit; border-radius:3px; }
-sup.v { cursor:pointer; } sup.v:hover { text-decoration:underline; }
+/* The verse number is the button that takes the verse: one tap holds it, a
+   second lets it go, and as many as wanted can be held at once. Held, it is
+   pressed in - filled and set down into the page - so a glance down the
+   margin says which verses the bar at the foot of the screen is talking
+   about, without reading the reference. */
+sup.v { cursor:pointer; border-radius:4px; padding:0 .14em; border:1px solid transparent;
+  transition:background .12s, color .12s, box-shadow .12s; }
+sup.v:hover { background:var(--soft); }
+sup.v:focus-visible { outline:2px solid var(--accent); outline-offset:1px; }
+sup.v[aria-pressed="true"], sup.v[aria-pressed="true"]:hover {
+  background:var(--accent); color:var(--on-accent); border-color:var(--accent);
+  box-shadow:inset 0 1.5px 2.5px rgba(0,0,0,.45); }
 #vpop { position:fixed; z-index:40; width:min(30rem,92vw); max-height:70vh; overflow:auto; background:var(--card); color:var(--fg);
   border:1px solid var(--border); border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,.25); padding:.7rem .9rem;
-  font:13px/1.5 system-ui,sans-serif; white-space:normal; direction:ltr; text-align:left; }
-#vpop h4 { font:600 11px system-ui,sans-serif; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:.6rem 0 .3rem; }
+  font:calc(13px * var(--ui))/1.5 system-ui,sans-serif; white-space:normal; direction:ltr; text-align:left; }
+#vpop h4 { font:600 calc(11px * var(--ui)) system-ui,sans-serif; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:.6rem 0 .3rem; }
 #vpop h4:first-child { margin-top:0; }
 #vpop .r { padding:.25rem .4rem; border-radius:6px; cursor:pointer; display:grid; grid-template-columns:7.5rem 1fr; gap:.5rem; align-items:baseline; }
-#vpop .r:hover { background:var(--soft); } #vpop .r b { font:600 12px system-ui,sans-serif; color:var(--accent); }
+#vpop .r:hover { background:var(--soft); } #vpop .r b { font:600 calc(12px * var(--ui)) system-ui,sans-serif; color:var(--accent); }
 #vpop .r span { color:var(--muted); overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
 #vpop .cls { float:right; cursor:pointer; color:var(--muted); }
 .harm { border-bottom:1px solid var(--border); padding:.6rem 0; }
 .harm .vs { display:grid; gap:.4rem 1.2rem; align-items:start; }
 .harm .vs > div { min-width:0; }
-.harm .lab { font:600 11px system-ui,sans-serif; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.15rem; cursor:pointer; }
+.harm .lab { font:600 calc(11px * var(--ui)) system-ui,sans-serif; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.15rem; cursor:pointer; }
 .harm .lab:hover { color:var(--accent); } .harm .lab small { text-transform:none; letter-spacing:0; opacity:.7; }
 .harm .txt { white-space:pre-wrap; } .harm .txt.dim { color:var(--muted); }
 #map { width:100%; height:auto; background:var(--card); border:1px solid var(--border); border-radius:10px; touch-action:none; cursor:grab; }
@@ -377,48 +393,48 @@ sup.v { cursor:pointer; } sup.v:hover { text-decoration:underline; }
 #map .river { fill:none; stroke:var(--border); stroke-width:.7; opacity:.8; }
 #map .pin { fill:var(--accent); stroke:var(--card); stroke-width:1.2; cursor:pointer; }
 #map .pin.on { fill:var(--err); }
-#map .plab { font:10px system-ui,sans-serif; fill:var(--fg); pointer-events:none; paint-order:stroke; stroke:var(--bg); stroke-width:2.5px; }
-.mapbar { display:flex; flex-wrap:wrap; gap:.4rem; align-items:center; margin:.5rem 0; font:13px system-ui,sans-serif; color:var(--muted); }
-.mapbar button { font:13px system-ui,sans-serif; padding:.25rem .6rem; border:1px solid var(--border); border-radius:7px; background:var(--card); color:var(--fg); cursor:pointer; }
-.plist { display:grid; grid-template-columns:repeat(auto-fill,minmax(13rem,1fr)); gap:.2rem .8rem; margin:.6rem 0 1rem; font:13px system-ui,sans-serif; }
+#map .plab { font:calc(10px * var(--ui)) system-ui,sans-serif; fill:var(--fg); pointer-events:none; paint-order:stroke; stroke:var(--bg); stroke-width:2.5px; }
+.mapbar { display:flex; flex-wrap:wrap; gap:.4rem; align-items:center; margin:.5rem 0; font:calc(13px * var(--ui)) system-ui,sans-serif; color:var(--muted); }
+.mapbar button { font:calc(13px * var(--ui)) system-ui,sans-serif; padding:.25rem .6rem; border:1px solid var(--border); border-radius:7px; background:var(--card); color:var(--fg); cursor:pointer; }
+.plist { display:grid; grid-template-columns:repeat(auto-fill,minmax(13rem,1fr)); gap:.2rem .8rem; margin:.6rem 0 1rem; font:calc(13px * var(--ui)) system-ui,sans-serif; }
 .plist a { cursor:pointer; padding:.15rem .3rem; border-radius:5px; } .plist a:hover { background:var(--soft); }
 .plist a small { color:var(--muted); }
-.chron { margin:.8rem 0 1.4rem; font:13px/1.5 system-ui,sans-serif; }
-.chron h3 { font:600 11px system-ui,sans-serif; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:1.1rem 0 .4rem; }
+.chron { margin:.8rem 0 1.4rem; font:calc(13px * var(--ui))/1.5 system-ui,sans-serif; }
+.chron h3 { font:600 calc(11px * var(--ui)) system-ui,sans-serif; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:1.1rem 0 .4rem; }
 .chron .row { display:grid; grid-template-columns:7rem 1fr; gap:.6rem; padding:.25rem .4rem; border-radius:6px; align-items:baseline; }
-.chron .row:hover { background:var(--soft); } .chron .row b { color:var(--accent); font:600 12px system-ui,sans-serif; cursor:pointer; }
+.chron .row:hover { background:var(--soft); } .chron .row b { color:var(--accent); font:600 calc(12px * var(--ui)) system-ui,sans-serif; cursor:pointer; }
 .chron .row .q { color:var(--muted); } .chron .num { font-variant-numeric:tabular-nums; color:var(--fg); font-weight:600; }
 .chron .anch { display:grid; grid-template-columns:5.5rem 1fr; gap:.6rem; padding:.3rem .4rem; border-bottom:1px solid var(--border); }
 .chron .anch .y { font-variant-numeric:tabular-nums; font-weight:600; }
-.chron .anch .basis { color:var(--muted); font-size:12px; }
+.chron .anch .basis { color:var(--muted); font-size:calc(12px * var(--ui)); }
 .chron .note { color:var(--muted); margin:.4rem 0 0; }
-.thm { margin:.8rem 0 1.4rem; font:14px/1.6 system-ui,sans-serif; }
+.thm { margin:.8rem 0 1.4rem; font:calc(14px * var(--ui))/1.6 system-ui,sans-serif; }
 .thm .t { padding:.5rem .6rem; border-bottom:1px solid var(--border); }
-.thm .t b { font:600 15px system-ui,sans-serif; cursor:pointer; color:var(--fg); }
+.thm .t b { font:600 calc(15px * var(--ui)) system-ui,sans-serif; cursor:pointer; color:var(--fg); }
 .thm .t b:hover { color:var(--accent); }
-.thm .t .vv { color:var(--accent); font-size:12px; margin-left:.5rem; cursor:pointer; }
-.thm .t .w { color:var(--muted); font-size:13px; }
-.thm .cav { color:var(--muted); font-size:12px; margin:.5rem 0 1rem; padding:.5rem .7rem; border-left:2px solid var(--border); }
-.vocab { display:grid; grid-template-columns:repeat(auto-fill,minmax(12rem,1fr)); gap:.15rem .8rem; margin:.5rem 0 1rem; font-size:13px; }
+.thm .t .vv { color:var(--accent); font-size:calc(12px * var(--ui)); margin-left:.5rem; cursor:pointer; }
+.thm .t .w { color:var(--muted); font-size:calc(13px * var(--ui)); }
+.thm .cav { color:var(--muted); font-size:calc(12px * var(--ui)); margin:.5rem 0 1rem; padding:.5rem .7rem; border-left:2px solid var(--border); }
+.vocab { display:grid; grid-template-columns:repeat(auto-fill,minmax(12rem,1fr)); gap:.15rem .8rem; margin:.5rem 0 1rem; font-size:calc(13px * var(--ui)); }
 .vocab a { cursor:pointer; padding:.1rem .3rem; border-radius:5px; } .vocab a:hover { background:var(--soft); }
 .vocab a small { color:var(--muted); }
-.arg { margin:.6rem 0 1.2rem; font:14px/1.65 system-ui,sans-serif; }
+.arg { margin:.6rem 0 1.2rem; font:calc(14px * var(--ui))/1.65 system-ui,sans-serif; }
 .arg .lead { padding:.6rem .8rem; background:var(--card); border:1px solid var(--border); border-radius:10px; }
-.arg h3 { font:600 11px system-ui,sans-serif; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:1.2rem 0 .35rem; }
+.arg h3 { font:600 calc(11px * var(--ui)) system-ui,sans-serif; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:1.2rem 0 .35rem; }
 .arg .sec { display:grid; grid-template-columns:5.5rem 1fr; gap:.6rem; padding:.25rem .4rem; border-radius:6px; align-items:baseline; }
-.arg .sec:hover { background:var(--soft); } .arg .sec b { color:var(--accent); font:600 12px system-ui,sans-serif; cursor:pointer; }
+.arg .sec:hover { background:var(--soft); } .arg .sec b { color:var(--accent); font:600 calc(12px * var(--ui)) system-ui,sans-serif; cursor:pointer; }
 .arg .tags { display:flex; flex-wrap:wrap; gap:.3rem; margin-top:.4rem; }
-.arg .tags span { font-size:12px; padding:.1rem .5rem; border:1px solid var(--border); border-radius:999px; color:var(--muted); }
+.arg .tags span { font-size:calc(12px * var(--ui)); padding:.1rem .5rem; border:1px solid var(--border); border-radius:999px; color:var(--muted); }
 .arg .stage { padding:.3rem .4rem; border-bottom:1px solid var(--border); }
-.arg .stage b { font:600 13px system-ui,sans-serif; } .arg .stage .r { color:var(--accent); font-size:12px; margin-left:.4rem; }
+.arg .stage b { font:600 calc(13px * var(--ui)) system-ui,sans-serif; } .arg .stage .r { color:var(--accent); font-size:calc(12px * var(--ui)); margin-left:.4rem; }
 .arg .tension { padding:.35rem .5rem; border-left:2px solid var(--warn); margin:.3rem 0; color:var(--fg); }
-.arg .tension .r { color:var(--muted); font-size:12px; }
-.arg .derived { color:var(--muted); font-size:12px; margin:.2rem 0 .8rem; }
-#vpop .pl { font-size:12px; } #vpop .pl a { color:var(--accent); cursor:pointer; margin-right:.6em; }
-#vpop .ap { font-size:12px; padding:.2rem .4rem; }
+.arg .tension .r { color:var(--muted); font-size:calc(12px * var(--ui)); }
+.arg .derived { color:var(--muted); font-size:calc(12px * var(--ui)); margin:.2rem 0 .8rem; }
+#vpop .pl { font-size:calc(12px * var(--ui)); } #vpop .pl a { color:var(--accent); cursor:pointer; margin-right:.6em; }
+#vpop .ap { font-size:calc(12px * var(--ui)); padding:.2rem .4rem; }
 #vpop .ap .rd { font-size:1.15em; } #vpop .ap .ed { color:var(--muted); }
-#vpop .ap .kind { font:600 10px system-ui,sans-serif; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); margin-right:.4em; }
-.lt { font:600 10px system-ui,sans-serif; color:var(--muted); text-transform:uppercase;
+#vpop .ap .kind { font:600 calc(10px * var(--ui)) system-ui,sans-serif; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); margin-right:.4em; }
+.lt { font:600 calc(10px * var(--ui)) system-ui,sans-serif; color:var(--muted); text-transform:uppercase;
   letter-spacing:.05em; margin:0 .3em; vertical-align:.5em; user-select:none; }
 p.ov { margin:0 0 .6em; }
 .par { display:grid; grid-template-columns:1fr 1fr; gap:0 1.6rem; align-items:start; }
@@ -426,7 +442,7 @@ p.ov { margin:0 0 .6em; }
 .par .e { white-space:pre-wrap; }
 .cmp { border-bottom:1px solid var(--border); padding:.6rem 0 .5rem; }
 .cmp .row { display:grid; grid-template-columns:5.5rem 1fr; gap:.6rem; padding:.15rem 0; align-items:baseline; }
-.cmp .row .lab { font:600 11px system-ui,sans-serif; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; text-align:right; }
+.cmp .row .lab { font:600 calc(11px * var(--ui)) system-ui,sans-serif; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; text-align:right; }
 .cmp .row .txt { white-space:pre-wrap; }
 /* Each script keeps the leading it needs, but as a multiple of the reader's
    chosen line spacing rather than a fixed number, or the spacing control would
@@ -497,8 +513,6 @@ ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
    away, popups included, so that a mis-tap in the middle of a verse does
    nothing at all. Advanced mode is one tap away and is remembered. */
 :root[data-mode="basic"] .adv { display:none !important; }
-:root[data-mode="basic"] sup.v { cursor:default; }
-:root[data-mode="basic"] sup.v:hover { text-decoration:none; }
 :root[data-mode="basic"] main .w { cursor:inherit; }
 :root[data-mode="basic"] main .w:hover { background:none; }
 /* The two inputs move between the header and a tray as the screen narrows, so
@@ -506,9 +520,52 @@ ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
 #hdrSlot, #hdrSlot > #qWrap { display:contents; }
 #qslot #qWrap { display:block; margin:.2rem 0; }
 #refslot #gotoWrap { display:flex; flex-direction:column; align-items:stretch;
-  gap:.25rem; margin:.2rem 0 .6rem; font-size:11px; text-transform:uppercase; letter-spacing:.07em; }
-#refslot #ref, #qslot #q { width:100%; font-size:16px; min-height:52px; }
-@media (max-width:760px){ #zoomchip, #toast { --chipUp:74px; } }
+  gap:.25rem; margin:.2rem 0 .6rem; font-size:calc(11px * var(--ui)); text-transform:uppercase; letter-spacing:.07em; }
+#refslot #ref, #qslot #q { width:100%; font-size:calc(16px * var(--ui)); min-height:52px; }
+@media (max-width:760px){ #zoomchip, #toast, #vbar { --chipUp:74px; } }
+/* The bars slide away while the reader is reading, and with them every way to
+   change anything. This stays: bottom right, out of the text, one tap to the
+   display tray - the type size, the skin, the voice and the rest. */
+#quick { position:fixed; z-index:31; right:calc(.7rem + env(safe-area-inset-right));
+  bottom:calc(.9rem + env(safe-area-inset-bottom)); width:52px; height:52px; padding:13px;
+  border-radius:999px; border:1px solid var(--border); background:var(--card); color:var(--fg);
+  box-shadow:0 6px 20px var(--shadow); cursor:pointer;
+  visibility:hidden; opacity:0; transform:translateY(10px); transition:opacity .2s, transform .2s; }
+#quick svg { width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; }
+/* Only once the bars have gone: while they are there the same tray is one tap
+   away on the bar itself, and two gears in a corner is one too many. Hidden by
+   visibility rather than opacity, so it cannot be tabbed to while invisible. */
+html.chrome-off #quick { visibility:visible; opacity:1; transform:none; }
+@media (min-width:761px){ #quick { display:none; } }
+.try { font:inherit; color:var(--accent); background:none; border:0; padding:0 .1rem; min-height:0;
+  text-decoration:underline; cursor:pointer; }
+/* A verse taken hold of, and the bar of what can be done with it. The hold is
+   marked with the same wash as a search hit, plus a ring, so it reads as held
+   rather than merely highlighted. */
+.held { background:var(--hl); border-radius:5px; box-shadow:0 0 0 .18em var(--hl); }
+#vbar { position:fixed; left:50%; bottom:calc(var(--chipUp,14px) + env(safe-area-inset-bottom));
+  transform:translateX(-50%); z-index:60; display:flex; align-items:center; justify-content:center;
+  flex-wrap:wrap; gap:.15rem; padding:.3rem;
+  max-width:min(96vw,36rem); background:var(--card); border:1px solid var(--border); border-radius:14px;
+  box-shadow:0 8px 28px var(--shadow); }
+#vbar .ref { padding:0 .55rem; color:var(--muted); white-space:nowrap; min-width:0;
+  overflow:hidden; text-overflow:ellipsis;
+  font:600 calc(12px * var(--ui)) system-ui,sans-serif; }
+/* On a phone the bar is a band across the foot of the screen rather than a
+   pill in the middle of it, and a reference to several verses - the long kind,
+   "Psalms 23:1-3, 5" - takes the line above the buttons rather than being
+   squeezed in beside them and cut to "Psalms 23:1...". So does a short one
+   when the study button is there too and five things will not fit; one verse
+   with three buttons stays on the one row. */
+@media (max-width:560px){
+  #vbar { left:8px; right:8px; transform:none; max-width:none; }
+  #vbar button { padding:.4rem .55rem; }
+  #vbar.wide .ref { flex:1 0 100%; text-align:center; padding:.15rem .4rem .1rem; }
+}
+#vbar button { font:calc(13px * var(--ui)) system-ui,sans-serif; min-height:44px; padding:.4rem .7rem;
+  border:0; border-radius:10px; background:transparent; color:var(--fg); cursor:pointer; white-space:nowrap; }
+#vbar button:hover { background:var(--soft); }
+#vbar button.x { color:var(--muted); padding:.4rem .6rem; }
 __READALOUD_CSS__
 /* readaloud.py is shared with the dashboard, where the menu is used with a
    mouse; here a finger opens it by pressing and holding, and needs the room. */
@@ -522,10 +579,12 @@ try {
   var _s = localStorage.getItem("skin");
   if (_s && _s !== "auto") document.documentElement.setAttribute("data-theme", _s);
   var _m = localStorage.getItem("mode");
-  document.documentElement.setAttribute("data-mode",
+  document.documentElement.setAttribute("data-mode", __READER_ONLY__ ? "basic" :
     _m === "advanced" ? "advanced" : _m === "basic" ? "basic"
       : (localStorage.getItem("view") || localStorage.getItem("tl")) ? "advanced" : "basic");
-  var _f = localStorage.getItem("fs"); if (_f) document.documentElement.style.setProperty("--fs", _f + "px");
+  var _f = localStorage.getItem("fs");
+  if (_f) { document.documentElement.style.setProperty("--fs", _f + "px");
+            document.documentElement.style.setProperty("--ui", String(Math.min(1.45, Math.max(1.15, .8 + _f / 50)))); }
   var _l = localStorage.getItem("lh"); if (_l) document.documentElement.style.setProperty("--lh", _l);
 } catch (e) {}
 </script>
@@ -549,6 +608,7 @@ try {
 <nav id="books" aria-label="Books of the Bible"></nav>
 <main id="main"></main>
 </div>
+<button id="quick" class="adv-hide" aria-label="Display and reading settings" title="Display and reading settings" aria-haspopup="dialog" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6M18.4 18.4l-1.6-1.6M7.2 7.2L5.6 5.6"/></svg></button>
 <nav id="tabbar" aria-label="Reader actions"><div class="row">
   <button id="tbBooks" aria-haspopup="dialog" aria-expanded="false" aria-controls="navSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h6.5v14H4zM13.5 5.5H20v14h-6.5z"/></svg></span><span class="lb">Books</span></button>
   <button id="tbSearch" aria-haspopup="dialog" aria-expanded="false" aria-controls="searchSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.6"/><path d="M16 16l4.4 4.4"/></svg></span><span class="lb">Search</span></button>
@@ -682,6 +742,11 @@ function applySkin(){
   if (skin === "auto") r.removeAttribute("data-theme"); else r.setAttribute("data-theme", skin);
   const m = document.querySelector('meta[name="theme-color"]');
   if (m) m.content = SKINBAR[skin === "auto" ? (prefersDark.matches ? "dark" : "light") : skin];
+  // In the app, the bars around the page are the shell's to paint: tell it at
+  // once, or they sit in the old colour until it notices.
+  if (m && typeof AndroidApp !== "undefined" && AndroidApp && AndroidApp.theme) {
+    try { AndroidApp.theme(m.content); } catch (e) {}
+  }
 }
 function setSkin(s){ skin = s; localStorage.setItem("skin", s); applySkin(); redrawSheet(); }
 prefersDark.addEventListener("change", () => { if (skin === "auto") { applySkin(); redrawSheet(); } });
@@ -692,24 +757,34 @@ applySkin();
    adds every layer this project has built on top of the text. A reader arriving
    for the first time gets basic; anyone whose browser already remembers a view
    or a language has been using the study tools, so they keep them. */
+/* The reader-only build (the Android reader APK) ships the text without the
+   study layers in morph/, so advanced mode would open onto empty views: it is
+   basic, always, and the switch is not offered. */
+const READER_ONLY = __READER_ONLY__;
 let mode = localStorage.getItem("mode");
 if (mode !== "basic" && mode !== "advanced")
   mode = (localStorage.getItem("view") || localStorage.getItem("tl")) ? "advanced" : "basic";
+if (READER_ONLY) mode = "basic";
 const adv = () => mode === "advanced";
 function applyMode(){ document.documentElement.setAttribute("data-mode", mode); }
-function setMode(m){ mode = m; localStorage.setItem("mode", m); applyMode(); route(); redrawSheet(); }
+function setMode(m){ if (READER_ONLY) m = "basic"; mode = m; localStorage.setItem("mode", m); applyMode(); route(); redrawSheet(); }
 applyMode();
 
 /* ---------- text size and line spacing ---------- */
 const SPACING = [[1.5, "Tight"], [1.72, "Normal"], [1.95, "Roomy"], [2.2, "Loose"]];
-let fs = +(localStorage.getItem("fs") || 18);
+const FS_MIN = 16, FS_MAX = 40;         // 40 px is large print on a phone held at arm's length
+let fs = +(localStorage.getItem("fs") || 20);
 let lh = +(localStorage.getItem("lh") || 1.72);
 function applyType(){
   const s = document.documentElement.style;
   s.setProperty("--fs", fs + "px"); s.setProperty("--lh", String(lh));
-  $("#fsMinus").disabled = fs <= 14; $("#fsPlus").disabled = fs >= 30;
+  // A reader who needs bigger text needs bigger buttons too, but the bars have
+  // to fit a phone: the chrome grows with the text, more slowly, and stops.
+  s.setProperty("--ui", String(Math.min(1.45, Math.max(1.15, .8 + fs / 50))));
+  $("#fsMinus").disabled = fs <= FS_MIN; $("#fsPlus").disabled = fs >= FS_MAX;
+  if (typeof measureBar === "function") measureBar();
 }
-function fsStep(d){ fs = Math.min(30, Math.max(14, fs + d)); localStorage.setItem("fs", fs); applyType(); redrawSheet(); }
+function fsStep(d){ fs = Math.min(FS_MAX, Math.max(FS_MIN, fs + 2 * d)); localStorage.setItem("fs", fs); applyType(); redrawSheet(); }
 function setLh(v){ lh = v; localStorage.setItem("lh", v); applyType(); redrawSheet(); }
 applyType();
 $("#fsMinus").onclick = () => fsStep(-1);
@@ -804,7 +879,7 @@ async function showTheme(id){
   if (nm) html += `<p class="empty" style="margin:0 0 .8rem">Named in the language of the text${face[1] ? ` (${esc(face[1])})` : ""}${face[3] ? ` — ${esc(face[3])}` : ""}${t[0] && t[0] !== themeGloss(t) ? ` · read in English as “${esc(t[0])}”` : ""}</p>`;
   if (t[1]) html += `<p class="empty" style="margin:0 0 1rem">${esc(t[1])}</p>`;
   html += trajHtml(id);
-  html += `<h3 style="font:600 11px system-ui,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:1.4rem 0 .3rem">The passages it was read from</h3>`;
+  html += `<h3 style="font:600 calc(11px * var(--ui)) system-ui,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:1.4rem 0 .3rem">The passages it was read from</h3>`;
   html += `<div class="thm">` + t[2].map(([b, c, vv]) => {
     const bb = b.replace(/ /g, "_");
     const [txt] = verseText(bb, c, (String(vv).match(/\d+/) || [1])[0]);
@@ -812,7 +887,7 @@ async function showTheme(id){
       <div class="w">${esc(String(txt).slice(0, 170))}</div></div>`;
   }).join("") + `</div>`;
   if ((t[3] || []).length) {
-    html += `<h3 style="font:600 11px system-ui,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:1.4rem 0 .3rem">The words these passages use</h3>`;
+    html += `<h3 style="font:600 calc(11px * var(--ui)) system-ui,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:1.4rem 0 .3rem">The words these passages use</h3>`;
     html += `<div class="thm"><div class="cav">${esc(BARR)}</div></div>`;
     html += `<div class="vocab">` + t[3].map(([tag, head, gloss, lift, n]) =>
       `<a onclick="showConc('${tag}')"><span class="orig">${esc(head)}</span> <small>${esc(gloss)} · ${n}× here, ${lift}× as often as elsewhere</small></a>`).join("") + `</div>`;
@@ -976,7 +1051,11 @@ function renderMapInto(book, ch, focus, head){
 /* ---------- cross-references (OpenBible.info, CC BY 4.0) and parallels (computed from the word tags) ---------- */
 const XREF = {}, xrefLoad = book => XREF[disp(book)] ? Promise.resolve() : loadJs(`morph/xref_${book}.js`);
 const parLoad = () => typeof PAR !== "undefined" ? Promise.resolve() : loadJs("morph/parallels.js");
-const vnum = (b, c, n) => `<sup class="v" onclick="showRefs('${b}',${c},${n},event)">${n}</sup>`;
+/* A button rather than a label, with the verse it stands for written on it:
+   the same verse is numbered twice in the side-by-side views, and both copies
+   have to show the same held state. */
+const vnum = (b, c, n) => `<sup class="v" role="button" tabindex="-1" aria-pressed="false"`
+  + ` data-v="${b}|${c}|${n}" aria-label="Verse ${n}">${n}</sup>`;
 function verseText(b, c, v){                            // the shown translation if there is one, else the original
   const d = DATA[b] && DATA[b][c]; if (!d) return ["", "en", "ltr"];
   const t = d.tr && (d.tr[tl] || d.tr[Object.keys(d.tr)[0]]);
@@ -1008,11 +1087,14 @@ async function showRefs(book, ch, v, ev){
   reachable(vpop);
   const el = ev && ev.target, r = el ? el.getBoundingClientRect() : {left: 40, bottom: 80, top: 80};
   const W = vpop.offsetWidth, H = vpop.offsetHeight;
+  // The verse bar is what opens this, and it sits at the foot of the screen:
+  // the popup stops above it rather than having its last lines covered.
+  const floor = (vbar && !vbar.hidden ? vbar.getBoundingClientRect().top : window.innerHeight) - 8;
   let x = Math.min(r.left, window.innerWidth - W - 10), y = r.bottom + 6;
-  if (y + H > window.innerHeight - 8) y = Math.max(8, window.innerHeight - H - 8);
+  if (y + H > floor) y = Math.max(8, floor - H);
   vpop.style.left = Math.max(8, x) + "px"; vpop.style.top = y + "px";
 }
-document.addEventListener("click", e => { if (!e.target.closest("#vpop") && !e.target.closest("sup.v")) hideRefs(); });
+document.addEventListener("click", e => { if (!e.target.closest("#vpop") && !e.target.closest("#vbar")) hideRefs(); });
 document.addEventListener("keydown", e => { if (e.key === "Escape") hideRefs(); });
 window.addEventListener("hashchange", hideRefs);
 async function renderHarmony(book, ch, head, shown){    // the chapter beside its parallels, verse by verse
@@ -1074,6 +1156,7 @@ function domHtml(tag){                                   // our own fields of me
 async function openView(key){
   /* The dashboard opens a layer by name. Everything but the search box belongs
      to advanced mode, so asking for one is asking to be in it. */
+  if (READER_ONLY && key !== "search-index") return;
   if (key !== "search-index" && !adv()) { mode = "advanced"; localStorage.setItem("mode", "advanced"); applyMode(); }
   const go = {
     "lexeme-inventory": browseLexemes, "concordance": browseLexemes,
@@ -1083,8 +1166,8 @@ async function openView(key){
     "morphology": () => { if (!inter) toggleInter(); setView("orig"); },
     "clause-data": () => { if (!inter) toggleInter(); setView("orig"); },
     "search-index": () => focusSearch(),
-    "text-notes": () => { setView("orig"); const sup = document.querySelector("main sup.v"); if (sup) sup.click(); },
-    "cross-references": () => { setView("tr"); const sup = document.querySelector("main sup.v"); if (sup) sup.click(); },
+    "text-notes": () => { setView("orig"); showFirstRefs(); },
+    "cross-references": () => { setView("tr"); showFirstRefs(); },
     "parallels": () => setView("harm"), "places": () => setView("map"), "chronology": () => setView("chron"),
   }[key];
   if (go) await go();
@@ -1282,7 +1365,7 @@ function hitsHtml(refs, cap){
   for (const [bn, ch, v, i] of refs) {
     if (n++ >= cap) { html += `<p class="empty">… and ${refs.length - cap} more (narrow the search to see them)</p>`; break; }
     const b = byNum[bn]; if (!b) continue;
-    if (b !== lastBook) { html += `<h3 style="font:600 13px system-ui,sans-serif;color:var(--muted);margin:1rem 0 .3rem">${disp(b)}</h3>`; lastBook = b; }
+    if (b !== lastBook) { html += `<h3 style="font:600 calc(13px * var(--ui)) system-ui,sans-serif;color:var(--muted);margin:1rem 0 .3rem">${disp(b)}</h3>`; lastBook = b; }
     html += `<div class="hit" onclick="goto('#${b}/${ch}/${v}')"><div class="ref">${disp(b)} ${ch}:${v}</div>${verseHtml(b, ch, v, i)}</div>`;
   }
   return html;
@@ -1437,8 +1520,12 @@ function renderChapter(book, ch, highlightVerse) {
   /* The word tags are a file per book, fetched the first time the book is
      opened. Until it arrives the text reads normally with no glosses under it,
      which is silent and puzzling in interlinear; and if it never arrives the
-     reader should be told rather than left staring at a view that never fills. */
-  if (src && !MORPH[disp(book)]) {
+     reader should be told rather than left staring at a view that never fills.
+     Basic mode never uses them - a tap on a word does nothing there - so it
+     does not fetch them either; the reader-only build does not even carry
+     them, and would warn on every book. setMode re-routes, which fetches them
+     the moment advanced mode is chosen. */
+  if (src && adv() && !MORPH[disp(book)]) {
     if (inter && adv()) html += `<p class="empty" role="status">Loading the word tags for ${disp(book)}…</p>`;
     morphLoad(book)
       .then(() => { if (location.hash.slice(1).split("/").slice(0, 2).join("/") === `${book}/${ch}`) route(); })
@@ -1528,6 +1615,7 @@ function goRef(input) {
 }
 
 /* ---------- search (in the selected translation) ---------- */
+const BUILD = "__BUILT__";               // when this page was built, so a phone can say which copy it is running
 const IDX = {};
 const idxLoad = name => IDX[name] ? Promise.resolve() : loadJs(`morph/idx_${name}.js`);
 const foldTerm = t => t.normalize("NFD").replace(/[\u0300-\u036f\u0591-\u05c7]/g, "").normalize("NFC").toLowerCase();
@@ -1552,11 +1640,37 @@ function idxCandidates(name, q){                         // verses holding every
   }
   return acc ? [...acc].sort((a, b) => a - b) : [];
 }
+/* Typing ?diag into the search box says what this copy of the reader actually
+   has in it. On a phone there is no console and no way to look inside the app,
+   so when something does not work this is what can be read out. */
+async function diagnostics(){
+  let idxState = "not loaded";
+  try { await idxLoad(tl); idxState = `${Object.keys(IDX[tl] || {}).length} indexed words`; }
+  catch (e) { idxState = `could not load morph/idx_${tl}.js (${e && e.message || e})`; }
+  const chapters = srcBooks.reduce((n, b) => n + Object.keys(DATA[b]).length, 0);
+  const translated = srcBooks.reduce((n, b) => n + Object.values(DATA[b]).filter(c => c.tr && c.tr[tl]).length, 0);
+  let store = "working";
+  try { localStorage.setItem("_t", "1"); localStorage.removeItem("_t"); } catch (e) { store = `blocked (${e.name})`; }
+  const rows = [["Built", BUILD], ["Address", location.href], ["Reading language", tl],
+                ["Languages in this copy", Object.keys(TARGETS).join(", ") || "none"],
+                ["Books / chapters", `${srcBooks.length} / ${chapters}`],
+                ["Chapters in " + tl, translated], ["Search index", idxState],
+                ["Study layers", READER_ONLY ? "not in this build (the reader alone)"
+                    : `${Object.keys(typeof MORPH === "undefined" ? {} : MORPH).length} books of word tags loaded`],
+                ["Settings storage", store], ["Browser", navigator.userAgent]];
+  return `<h2>What this copy holds<small class="lang">type ?diag in the search box to see this</small></h2>`
+    + `<div class="cmp">` + rows.map(([k, v]) =>
+        `<div class="row"><span class="lab">${esc(k)}</span><span class="txt">${esc(String(v))}</span></div>`).join("")
+    + `</div>`;
+}
+
 async function search(q) {
   navRender(null);
   q = q.trim();
   const main = $("#main");
-  main.className = ""; main.setAttribute("lang", tl);
+  main.className = ""; main.setAttribute("lang", "en"); main.setAttribute("dir", "ltr");
+  if (q === "?diag") { main.innerHTML = await diagnostics(); return; }
+  main.setAttribute("lang", tl);
   if (q.length < 2) { main.innerHTML = `<p class="empty">Type at least two characters.</p>`; return; }
   try { await idxLoad(tl); } catch (e) {}
   const rx = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi");
@@ -1595,6 +1709,288 @@ async function search(q) {
   main.innerHTML = html + "</div>";
 }
 
+/* ---------- a verse in the hand ----------
+   Tapping a verse takes hold of it: the whole verse lights up, and a bar says
+   what can be done with it - copy it with its reference, send it to someone,
+   or hear it read. In the app those three go to the phone itself through the
+   shell's AndroidApp; in a browser they go to whatever the browser has, and
+   the buttons that have nothing behind them are not offered. */
+const PHONE = (typeof AndroidApp !== "undefined" && AndroidApp) ? AndroidApp : null;   // APP is the apparatus; this is the shell
+/* How fast and how high the reading voice is. A phone left to itself speaks at
+   whatever rate its accessibility settings ask for, which is often far too
+   quick for a text being read rather than skimmed, so the page always says. */
+const SPEEDS = [[0.6, "Slow"], [0.8, "Steady"], [1, "Normal"], [1.25, "Quick"]];
+const PITCHES = [[0.85, "Low"], [1, "Middle"], [1.15, "High"]];
+const VOICE = {rate: +(localStorage.getItem("ttsRate") || 0.8), pitch: +(localStorage.getItem("ttsPitch") || 1)};
+const voiceKey = lang => "ttsVoice_" + lang;
+const chosenVoice = lang => localStorage.getItem(voiceKey(lang)) || "";
+function setChosenVoice(lang, name){
+  if (name) localStorage.setItem(voiceKey(lang), name); else localStorage.removeItem(voiceKey(lang));
+  redrawSheet();
+}
+function voicesFor(lang){                                 // the phone's, best first; [] in a browser
+  if (!(PHONE && PHONE.voices)) return [];
+  try { return JSON.parse(PHONE.voices(lang) || "[]").sort((a, b) => b.quality - a.quality); }
+  catch (e) { return []; }
+}
+if (!(VOICE.rate > 0)) VOICE.rate = 0.8;
+if (!(VOICE.pitch > 0)) VOICE.pitch = 1;
+function setVoice(k, v){ VOICE[k] = v; localStorage.setItem(k === "rate" ? "ttsRate" : "ttsPitch", v); redrawSheet(); }
+const vbar = document.createElement("div"); vbar.id = "vbar"; vbar.hidden = true;
+vbar.setAttribute("role", "toolbar"); vbar.setAttribute("aria-label", "What to do with this verse");
+document.body.appendChild(vbar);
+/* Which verses are held, in the order they were taken. A reference - book,
+   chapter and verse - keeps its place in the set when the view around it is
+   redrawn and the verse is a different element afterwards. */
+let vsel = [];
+const vkey = r => r.book + "|" + r.ch + "|" + r.v;
+const unkey = k => { const p = k.split("|"); return {book: p[0], ch: +p[1], v: +p[2]}; };
+const verseElem = k => document.getElementById("v-" + k.replace(/\|/g, "-"));
+
+function verseOf(el){                                    // -> the element of the verse a tap landed in
+  const p = el && el.closest ? el.closest('[id^="v-"]') : null;
+  return p && /^v-.+-\d+-\d+$/.test(p.id) ? p : null;
+}
+function verseRef(el){
+  const m = el.id.match(/^v-(.+)-(\d+)-(\d+)$/);
+  return m ? {book: m[1], ch: +m[2], v: +m[3]} : null;
+}
+function verseContent(r){                                // what is actually on the page for that verse
+  const d = DATA[r.book] && DATA[r.book][r.ch];
+  if (!d) return null;
+  const tr = d.tr && d.tr[tl];
+  // Whatever is on the screen is what is copied and read aloud: in the views
+  // that show only the originals, the translation is not there to be quoted.
+  if (view !== "orig" && view !== "lxx" && view !== "hl" && tr && tr.verses[r.v])
+    return {txt: tr.verses[r.v].replace(/\n+/g, " "), lang: tl};
+  if (d.src && d.src[r.v])
+    return {txt: d.src[r.v], lang: (d.src._lang && d.src._lang[r.v]) || d.lang || "hbo"};
+  return tr && tr.verses[r.v] ? {txt: tr.verses[r.v].replace(/\n+/g, " "), lang: tl} : null;
+}
+/* The held verses that are actually on the page, in the order they are read
+   rather than the order they were tapped.
+   On the page is meant literally: a map, a theme or a lexicon entry is drawn
+   over the chapter and has no verses in it, and a bar offering to copy one
+   that cannot be seen belongs to nothing on the screen. The verses are not
+   let go of, though - they are still held when the chapter comes back. */
+function selContent(){
+  const out = [];
+  for (const k of vsel) { const r = unkey(k), c = verseElem(k) && verseContent(r); if (c) out.push({r, c}); }
+  out.sort((a, b) => (ORDER[a.r.book] || 0) - (ORDER[b.r.book] || 0) || a.r.ch - b.r.ch || a.r.v - b.r.v);
+  return out;
+}
+/* One reference for however many verses are held: neighbours close up into a
+   range, a gap starts a new one, and a second chapter says its name again. */
+function selRef(sel){
+  const runs = [];
+  for (const {r} of sel) {
+    const last = runs[runs.length - 1];
+    if (last && last.book === r.book && last.ch === r.ch && r.v === last.to + 1) { last.to = r.v; continue; }
+    runs.push({book: r.book, ch: r.ch, from: r.v, to: r.v});
+  }
+  let out = "", prev = null;
+  for (const g of runs) {
+    const span = g.from + (g.to > g.from ? "\u2013" + g.to : "");
+    if (prev && prev.book === g.book && prev.ch === g.ch) out += ", " + span;
+    else { out += (out ? "; " : "") + disp(g.book) + " " + g.ch + ":" + span; prev = g; }
+  }
+  return out;
+}
+/* Quotation marks and the reference, because a passage leaves the app to be
+   read by someone who cannot see where it came from. More than one verse is
+   numbered as it is quoted, so it can be followed against a printed Bible. */
+function selQuote(sel){
+  const body = sel.length === 1 ? sel[0].c.txt : sel.map(({r, c}) => r.v + " " + c.txt).join("\n");
+  return `\u201c${body}\u201d \u2014 ${selRef(sel)}`;
+}
+
+function speechFor(lang){                                // "" = not ready yet, "yes", "no"
+  if (PHONE && PHONE.voiceFor) { try { return PHONE.voiceFor(lang); } catch (e) { return "no"; } }
+  return ("speechSynthesis" in window) ? "yes" : "no";
+}
+function speakVerse(txt, lang){
+  if (PHONE && PHONE.speak) { PHONE.speak(txt, lang, VOICE.rate, VOICE.pitch, chosenVoice(lang)); return; }
+  if (typeof ttsSpeak === "function") ttsSpeak(txt, lang, null);
+}
+function stopSpeaking(){
+  if (PHONE && PHONE.stopSpeaking) { PHONE.stopSpeaking(); return; }
+  if ("speechSynthesis" in window) speechSynthesis.cancel();
+}
+function copyText(t){
+  // The shell says so, not the page: Android 13 and later shows its own copy
+  // confirmation, and a toast of ours on top of it would be one too many.
+  if (PHONE && PHONE.copy) { PHONE.copy(t, "Copied, with its reference."); return; }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(t).then(() => toast("Copied, with its reference."), selectHeld);
+    return;
+  }
+  selectHeld();
+}
+/* Nothing would take the text: select it on the page instead, so the reader
+   can copy it themselves. A run of verses with a gap in it cannot be selected
+   as such - one selection is one stretch of the page - so what is offered is
+   the stretch from the first held verse to the last. */
+function selectHeld(){
+  const on = selContent().map(x => verseElem(vkey(x.r))).filter(Boolean);
+  if (on.length) {
+    const sel = getSelection(), rg = document.createRange();
+    rg.setStartBefore(on[0]); rg.setEndAfter(on[on.length - 1]);
+    sel.removeAllRanges(); sel.addRange(rg);
+  }
+  toast("This browser would not let the page copy. The passage is selected \u2014 press Ctrl+C.");
+}
+function shareText(t, subject){
+  if (PHONE && PHONE.share) { PHONE.share(t, subject); return; }
+  if (navigator.share) { navigator.share({title: subject, text: t}).catch(() => {}); return; }
+  copyText(t);                                           // nothing to share with; the clipboard is the next best thing
+}
+
+/* The held state lives in vsel, not in the page, so it is painted on rather
+   than toggled: a chapter redrawn underneath a held verse comes back marked. */
+function syncVerseMarks(){
+  document.querySelectorAll("main .held").forEach(el => el.classList.remove("held"));
+  document.querySelectorAll('sup.v[aria-pressed="true"]').forEach(el => el.setAttribute("aria-pressed", "false"));
+  for (const k of vsel) {
+    const el = verseElem(k); if (el) el.classList.add("held");
+    document.querySelectorAll(`sup.v[data-v="${k}"]`).forEach(n => n.setAttribute("aria-pressed", "true"));
+  }
+}
+/* A hundred and seventy-six verse numbers are not a hundred and seventy-six
+   stops on the way through the page. The chapter's numbers are one stop, as a
+   toolbar is: the first takes the focus and the arrow keys walk from there.
+   That is why CLICKABLE below still leaves verse numbers alone. */
+function rovingVerses(){
+  const nums = document.querySelectorAll("main sup.v");
+  if (!nums.length) return;
+  let stop = null;
+  for (const n of nums) if (n === document.activeElement) stop = n;
+  if (!stop) for (const n of nums) if (n.getAttribute("aria-pressed") === "true") { stop = n; break; }
+  if (!stop) stop = nums[0];
+  for (const n of nums) n.tabIndex = n === stop ? 0 : -1;
+}
+function dropVerse(){
+  if (!vsel.length) return;
+  vsel = []; syncVerseMarks(); rovingVerses();
+  drawVbar();                              // with nothing held it puts itself away
+  stopSpeaking();
+}
+/* Taking or letting go of a verse stops the reading: what is being spoken is
+   no longer what is held, and a voice carrying on over a new selection is the
+   most confusing thing the page could do. */
+function setSel(keys){
+  vsel = keys;
+  stopSpeaking();
+  syncVerseMarks();
+  drawVbar();
+}
+function toggleVerse(k){
+  const i = vsel.indexOf(k);
+  if (i >= 0) setSel(vsel.filter((_, j) => j !== i));
+  else if (verseContent(unkey(k))) setSel(vsel.concat([k]));
+}
+/* What the bar is saying, in as few characters as comparing it needs: the
+   verses, the language they are in, and the length of what would be copied. */
+const selSig = sel => sel.map(x => `${x.r.book} ${x.r.ch}:${x.r.v} ${x.c.lang} ${x.c.txt.length}`).join("|");
+let vbarSig = "";
+
+/* The same verse is different text in another view and another language, and
+   on a map it is not on the page at all. After the page is redrawn the bar is
+   asked again what it should say; it is only rebuilt if the answer changed,
+   because rebuilding it costs the shell a call to the phone about voices. */
+function refreshVbar(){
+  if (selSig(selContent()) !== vbarSig) drawVbar();
+}
+function drawVbar(){
+  const sel = selContent();
+  vbarSig = selSig(sel);
+  if (!sel.length) { vbar.hidden = true; vbar.innerHTML = ""; vbar.className = ""; return; }
+  const lang = sel[0].c.lang, voice = speechFor(lang), many = sel.length > 1;
+  const ref = selRef(sel);
+  vbar.setAttribute("aria-label", many ? "What to do with these verses" : "What to do with this verse");
+  vbar.innerHTML = `<span class="ref" title="${attr(ref)}">${esc(ref)}</span>`
+    + `<button type="button" data-a="copy">Copy</button>`
+    + `<button type="button" data-a="share">Share</button>`
+    + (voice === "no" ? "" : `<button type="button" data-a="listen">Listen</button>`)
+    + (!many && adv() ? `<button type="button" data-a="refs" title="Cross-references, parallels and text notes">Notes</button>` : "")
+    + `<button type="button" class="x" data-a="close" aria-label="Let go of ${many ? "these verses" : "this verse"}">&#215;</button>`;
+  const quoted = selQuote(sel);
+  vbar.querySelector('[data-a="copy"]').onclick = () => { copyText(quoted); };
+  vbar.querySelector('[data-a="share"]').onclick = () => { shareText(quoted, ref); };
+  const hear = vbar.querySelector('[data-a="listen"]');
+  if (hear) hear.onclick = () => {
+    if (speechFor(lang) === "no") { toast("This phone has no voice for " + ((LANGS[lang] || {}).name || lang) + " installed."); return; }
+    speakVerse(sel.map(x => x.c.txt).join(" "), lang);   // the numbers are not read out; they are not the text
+  };
+  const refs = vbar.querySelector('[data-a="refs"]');
+  if (refs) refs.onclick = e => showRefs(sel[0].r.book, sel[0].r.ch, sel[0].r.v, e);
+  vbar.querySelector('[data-a="close"]').onclick = dropVerse;
+  // Four things and a reference do not fit across a phone; the reference then
+  // takes the line above rather than the close button being left on one of
+  // its own underneath.
+  vbar.classList.toggle("wide", many || vbar.querySelectorAll("button").length > 4);
+  vbar.hidden = false;
+  reachable(vbar);
+}
+/* The study popup used to hang off the verse number, which is now the button
+   that holds the verse; the tour reaches it the way a reader does. */
+function showFirstRefs(){
+  const n = document.querySelector("main sup.v");
+  if (!n) return;
+  setSel([n.dataset.v]);
+  const b = vbar.querySelector('[data-a="refs"]');
+  if (b) b.click();
+}
+/* A tap on a verse number takes that verse and leaves the others where they
+   are. A tap on the text of a verse starts again with that one alone, which
+   is what a reader who is not collecting verses expects. A word in advanced
+   mode belongs to the word popup, so it is left alone. */
+document.addEventListener("click", e => {
+  if (e.target.closest("#vbar")) return;
+  const num = e.target.closest("sup.v");
+  if (num) { if (num.dataset.v) toggleVerse(num.dataset.v); return; }
+  if (adv() && e.target.closest("main .w")) { dropVerse(); return; }
+  if (e.target.closest("#wpop, #vpop, #ctx, dialog, header, #tabbar")) return;
+  const el = verseOf(e.target), r = el && verseRef(el);
+  if (!r) { dropVerse(); return; }
+  const k = vkey(r);
+  if (vsel.length === 1 && vsel[0] === k) { dropVerse(); return; }   // tapping it again lets it go
+  setSel([k]);
+});
+/* Enter and space on a focused number are handled with every other drawn-in
+   button further down; these are the arrows that move between them. In a
+   right-to-left chapter the next verse is to the left, where it is printed. */
+document.addEventListener("keydown", e => {
+  const num = e.target.closest && e.target.closest("sup.v");
+  if (!num || e.altKey || e.ctrlKey || e.metaKey) return;
+  const nums = [...document.querySelectorAll("main sup.v")], i = nums.indexOf(num);
+  if (i < 0) return;
+  const rtl = !!num.closest('[dir="rtl"]');
+  const step = {ArrowDown: 1, ArrowUp: -1, ArrowRight: rtl ? -1 : 1, ArrowLeft: rtl ? 1 : -1}[e.key];
+  const j = step ? i + step : e.key === "Home" ? 0 : e.key === "End" ? nums.length - 1 : -1;
+  if (j < 0 || j >= nums.length) return;
+  e.preventDefault();
+  num.tabIndex = -1; nums[j].tabIndex = 0; nums[j].focus();
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape") dropVerse(); });
+window.addEventListener("hashchange", dropVerse);
+
+/* The system back button, when the page is in the Android app. The shell asks
+   this first: it undoes what is on top - a held verse, a popup, a tray, a page
+   drawn over a chapter - and says so. Chapter after chapter is not a stack to
+   climb down on a phone, so from a plain chapter it says no, and the shell
+   then offers to leave. */
+window.androidBack = function(){
+  if (vsel.length) { dropVerse(); return true; }
+  if (wpop && !wpop.hidden) { hidePop(); return true; }
+  if (vpop && !vpop.hidden) { hideRefs(); return true; }
+  const c = document.getElementById("ctx");
+  if (c && !c.hidden) { c.hidden = true; return true; }
+  if (openName) { closeSheet(); return true; }
+  const top = TRAIL[TRAIL.length - 1];
+  if (TRAIL.length > 1 && top && !top.key.startsWith("read|")) { goBack(); return true; }
+  return false;
+};
+
 /* ---------- the shell ----------
    A phone has room for the text and very little else, so everything that is
    not the text lives in a tray: navigation, search, the study views, and the
@@ -1622,7 +2018,13 @@ function openSheet(name){
 function closeSheet(){
   if (!openName) return;
   const d = SHEETS[openName]; openName = null;
+  /* On a phone the search box in this tray has the keyboard up. Closing the
+     tray without letting go of the box leaves the keyboard standing over half
+     the screen, which reads as the tray not having closed at all. */
+  const f = document.activeElement;
+  if (f && f.blur && d.contains(f)) f.blur();
   if (d.close && d.open) d.close(); else d.removeAttribute("open");
+  d.style.transform = "";                  // a drag that ended outside the tray must not leave it shifted
   markOpeners();
 }
 function markOpeners(){
@@ -1649,7 +2051,11 @@ function dragToClose(d){
 for (const n in SHEETS) {
   const d = SHEETS[n];
   d.addEventListener("close", () => { if (openName === n) { openName = null; markOpeners(); } });
-  d.addEventListener("click", e => { if (e.target === d) closeSheet(); });   // outside the sheet is the scrim
+  /* Outside the sheet is the scrim. It listens for the touch as well as the
+     click: with the keyboard up, the first tap outside is spent dismissing it
+     and the click never arrives, so the tray would need tapping twice. */
+  d.addEventListener("click", e => { if (e.target === d) closeSheet(); });
+  d.addEventListener("pointerdown", e => { if (e.target === d && e.pointerType === "touch") closeSheet(); });
   d.querySelector("[data-close]").onclick = closeSheet;
   dragToClose(d);
 }
@@ -1734,7 +2140,15 @@ function drawSearch(){
     `<button type="button" class="primary" id="qGo">Show the results</button>
      <p class="hint">Searching the ${esc((TARGETS[tl] || {}).name || tl)} text; two letters is enough. The results are drawn behind this tray as you type.</p>
      <p class="hint">To jump straight to a reference instead, close this and tap the chapter name at the top: &ldquo;Genesis 2:7&rdquo;, &ldquo;1 Sam 3&rdquo;, &ldquo;Ps 23&rdquo;.</p>`;
-  $("#qGo").onclick = () => { const v = $("#q").value.trim(); if (v) search(v); closeSheet(); };
+  /* The tray goes away first. It used to close after the search had been set
+     going, which meant that anything the search threw left the tray sitting
+     over the page with no way back - the reader saw a search box that would
+     not close and no results behind it. */
+  $("#qGo").onclick = () => {
+    const box = $("#q"), v = box ? box.value.trim() : "";
+    closeSheet();
+    if (v) search(v);
+  };
 }
 
 /* ---------- the tools tray: every view this project builds, in one place ---------- */
@@ -1790,12 +2204,13 @@ function drawTools(){
 
 /* ---------- the display tray ---------- */
 function drawSettings(){
-  let h = `<div class="shead">How much of the reader you want</div>
+  let h = READER_ONLY ? "" : `<div class="shead">How much of the reader you want</div>
     <div class="seg" role="group" aria-label="Mode">
       <button type="button" data-mode="basic" aria-pressed="${!adv()}">Just read</button>
       <button type="button" data-mode="advanced" aria-pressed="${adv()}">Everything</button></div>
     <p class="hint">${adv() ? "Every layer this project has built is switched on: the word tags, the lexicon, the themes, the maps and the rest."
                             : "The book and nothing else: a chapter, a language, the size of the type. Tapping a word does nothing."}</p>`;
+  if (READER_ONLY) h = "";
   h += `<div class="shead">Skin</div><div class="skins" role="group" aria-label="Skin">`;
   for (const [id, name, paper, ink] of SKINS) {
     const on = skin === id;
@@ -1806,16 +2221,42 @@ function drawSettings(){
   }
   h += `</div>`;
   h += `<div class="shead">Text size</div><div class="seg" role="group" aria-label="Text size">
-      <button type="button" data-fs="-1"${fs <= 14 ? " disabled" : ""} aria-label="Smaller text">A&minus;</button>
+      <button type="button" data-fs="-1"${fs <= FS_MIN ? " disabled" : ""} aria-label="Smaller text">A&minus;</button>
       <span class="val" role="status">${fs} px</span>
-      <button type="button" data-fs="1"${fs >= 30 ? " disabled" : ""} aria-label="Larger text">A+</button></div>
+      <button type="button" data-fs="1"${fs >= FS_MAX ? " disabled" : ""} aria-label="Larger text">A+</button></div>
     <p class="hint">Pinching the page magnifies it as well, for as long as you need it; the reader offers a way back to normal size while it is magnified.</p>`;
   h += `<div class="shead">Line spacing</div><div class="seg" role="group" aria-label="Line spacing">`
     + SPACING.map(([v, n]) => `<button type="button" data-lh="${v}" aria-pressed="${Math.abs(lh - v) < .001}">${n}</button>`).join("") + `</div>`;
   h += `<div class="shead">Reading language</div><div class="rowlist">${langRows()}</div>`;
-  h += `<div class="shead">Read aloud</div><p class="hint">${"speechSynthesis" in window
-      ? "Press and hold a verse (or right-click it) to have the device read it in its own language."
+  h += `<div class="shead">Read aloud</div><p class="hint">${PHONE
+      ? "Tap a verse and choose Listen. The voices are the phone\u2019s own, so whichever languages it has installed are the ones it can read; Hebrew and Greek are read with modern voices."
+      : ("speechSynthesis" in window)
+      ? "Tap a verse and choose Listen, or press and hold it (right-click) for the same in its own language."
       : "This browser has no speech voices, so nothing can be read aloud here."}</p>`;
+  if (speechFor(tl) !== "no") {
+    h += `<div class="shead">Voice speed</div><div class="seg" role="group" aria-label="Voice speed">`
+      + SPEEDS.map(([v, n]) => `<button type="button" data-rate="${v}" aria-pressed="${Math.abs(VOICE.rate - v) < .001}">${n}</button>`).join("")
+      + `</div>`;
+    h += `<div class="shead">Voice pitch</div><div class="seg" role="group" aria-label="Voice pitch">`
+      + PITCHES.map(([v, n]) => `<button type="button" data-pitch="${v}" aria-pressed="${Math.abs(VOICE.pitch - v) < .001}">${n}</button>`).join("")
+      + `</div><p class="hint"><button type="button" id="voiceTry" class="try">Hear it</button> a verse at this setting.</p>`;
+    const vs = voicesFor(tl), pickName = chosenVoice(tl);
+    if (vs.length > 1) {
+      h += `<div class="shead">Which voice</div><div class="rowlist">`
+        + row('data-voice=""', "Best this phone has", "chosen for quality", !pickName)
+        + vs.map((v, i) => row(`data-voice="${attr(v.name)}"`, `Voice ${i + 1}`,
+            `${v.quality >= 400 ? "very natural" : v.quality >= 300 ? "natural" : "plain"} \u00b7 ${esc(v.locale)}`,
+            pickName === v.name)).join("")
+        + `</div>`;
+    }
+    h += `<p class="hint">The voices belong to the phone, not to this app. A flat, clipped voice is the small
+      one Android ships with: more natural voices are a free download in the phone's own settings \u2014
+      Settings \u203a Accessibility \u203a Text-to-speech output \u203a your engine \u203a Install voice data,
+      where the larger voices for a language can be added. They then appear here.</p>`;
+  }
+  if (PHONE) h += `<div class="shead">Pass it on</div><div class="rowlist">`
+    + row('id="setShareApp"', "Share this app", "send a copy to another phone", false)
+    + `</div><p class="hint">The whole Bible goes with it: no shop, no account, and nothing to download at the other end.</p>`;
   h += `<div class="shead">About the text</div><div class="rowlist"><button type="button" id="setSrc"><span class="nm">Sources and licenses</span><span class="ct">what each layer came from</span></button></div>`;
   const dyn = $("#setDyn");
   dyn.innerHTML = h;
@@ -1823,12 +2264,30 @@ function drawSettings(){
   dyn.querySelectorAll("[data-skin]").forEach(el => el.onclick = () => setSkin(el.dataset.skin));
   dyn.querySelectorAll("[data-fs]").forEach(el => el.onclick = () => fsStep(+el.dataset.fs));
   dyn.querySelectorAll("[data-lh]").forEach(el => el.onclick = () => setLh(+el.dataset.lh));
+  dyn.querySelectorAll("[data-rate]").forEach(el => el.onclick = () => { setVoice("rate", +el.dataset.rate); tryVoice(); });
+  dyn.querySelectorAll("[data-pitch]").forEach(el => el.onclick = () => { setVoice("pitch", +el.dataset.pitch); tryVoice(); });
+  dyn.querySelectorAll("[data-voice]").forEach(el => el.onclick = () => { setChosenVoice(tl, el.dataset.voice); tryVoice(); });
+  const tryBtn = $("#voiceTry");
+  if (tryBtn) tryBtn.onclick = tryVoice;
   dyn.querySelectorAll("[data-lang]").forEach(el => el.onclick = () => {
     const v = el.dataset.lang;
     if (v === "__orig") setView("orig"); else setTl(v);
     drawSettings();
   });
   $("#setSrc").onclick = () => { closeSheet(); $("#credits").scrollIntoView({behavior: "smooth", block: "start"}); };
+  const shareApp = $("#setShareApp");
+  if (shareApp) shareApp.onclick = () => { closeSheet(); if (PHONE && PHONE.shareApp) PHONE.shareApp(); };
+}
+
+/* A setting is worth hearing rather than reading: the sample is a verse of the
+   text itself, in the language on screen, so the speed is judged on the thing
+   it will be used for. */
+function tryVoice(){
+  const h = location.hash.slice(1).split("/"), book = DATA[h[0]] ? h[0] : srcBooks[0];
+  if (!DATA[book]) return;                 // nothing built into this copy to read from
+  const ch = DATA[book][h[1]] ? h[1] : Object.keys(DATA[book])[0];
+  const r = {book, ch: +ch, v: 1}, c = verseContent(r);
+  if (c) speakVerse(c.txt, c.lang);
 }
 
 /* ---------- the title in the bar, and the bars getting out of the way ---------- */
@@ -1883,11 +2342,28 @@ $("#zoomreset").onclick = () => {
   setTimeout(() => { if (vvp && vvp.scale > 1.05) $("#zoomlvl").textContent = "Still magnified — pinch inwards to go back"; }, 500);
 };
 
+/* In the app there is no console to open: a script error would simply be a
+   button that does nothing, and the reader would have no way to say what went
+   wrong beyond "it does not work". So every error the page throws is shown,
+   once, where it can be read and repeated back. */
+addEventListener("error", e => {
+  const where = e.filename ? ` (line ${e.lineno})` : "";
+  toast(`Something went wrong: ${e.message || e.type}${where}. The rest of the reader is unaffected.`);
+});
+addEventListener("unhandledrejection", e => {
+  const r = e.reason;
+  toast(`Something went wrong: ${(r && (r.message || r)) || "a failed operation"}. The rest of the reader is unaffected.`);
+});
+
 /* A file that fails to load should say so rather than leave an empty view. */
 let toastT;
 function toast(msg){
   const t = $("#toast"); t.textContent = msg; t.hidden = false;
-  t.style.marginBottom = $("#zoomchip").hidden ? "" : "3.4rem";   // never on top of the magnifier's way back
+  // Never on top of the magnifier's way back, and never on top of the verse
+  // bar - which is where most of these messages are asked for in the first
+  // place, so a reader would watch the bar disappear behind the answer.
+  const lift = ($("#zoomchip").hidden ? 0 : 54) + (vbar.hidden ? 0 : vbar.offsetHeight + 10);
+  t.style.marginBottom = lift ? lift + "px" : "";
   clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, 7000);
 }
 
@@ -1895,8 +2371,6 @@ function toast(msg){
    links reachable from a keyboard — most of the reader's links are <a> with no
    href, drawn into the page, which a keyboard cannot touch — and its heading
    repeated in the bar, where it is the way back into the navigation tray. */
-/* A verse number is deliberately left out of this: a chapter of Psalms would
-   put a hundred and seventy-six stops between a keyboard and the end of it. */
 const CLICKABLE = "a:not([href]):not([tabindex]):not(.off), .hit:not([tabindex]), .r[onclick]:not([tabindex]),"
   + " .thm .t b:not([tabindex]), .chron .row b:not([tabindex]), .arg .sec b:not([tabindex]), .harm .lab[onclick]:not([tabindex])";
 function reachable(root){
@@ -1905,6 +2379,9 @@ function reachable(root){
 new MutationObserver(() => {
   const m = $("#main");
   reachable(m);
+  syncVerseMarks();                      // a redrawn chapter comes back with its held verses still held
+  rovingVerses();
+  refreshVbar();
   const h = m.querySelector("h2");
   if (h) {
     const c = h.cloneNode(true), sub = h.querySelector(".lang");
@@ -1997,11 +2474,12 @@ $("#q").addEventListener("keydown", e => {
   if (e.key !== "Enter") return;
   clearTimeout(deb);
   const val = e.target.value.trim();
+  if (openName === "search") closeSheet();          // away first, for the reason in drawSearch
   if (val) search(val);
-  if (openName === "search") closeSheet();
 });
 document.addEventListener("keydown", e => {
   if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
+  if (e.defaultPrevented) return;              // the arrows walking the verse numbers are not asking for a chapter
   if (e.key === "Backspace" || (e.altKey && e.key === "ArrowLeft")) { e.preventDefault(); goBack(); return; }
   if (openName) return;                        // the arrows belong to the tray while one is open
   const h = location.hash.slice(1).split("/");
@@ -2012,6 +2490,11 @@ document.addEventListener("keydown", e => {
 });
 window.addEventListener("hashchange", route);
 $("#sources").onclick = () => $("#credits").scrollIntoView({behavior:"smooth", block:"start"});
+/* The gear is for a phone, and only while there is something to read under it. */
+const quick = $("#quick");
+quick.onclick = () => openSheet("set");
+function quickShow(){ quick.hidden = !mqNarrow.matches; }
+mqNarrow.addEventListener("change", quickShow); quickShow();
 route();
 __READALOUD_JS__
 </script>
@@ -2044,6 +2527,16 @@ def source_chapter(book_key, ch):
 
 
 def main():
+    import argparse
+    ap = argparse.ArgumentParser(description="Build the offline reader page.")
+    ap.add_argument("--reader-only", action="store_true",
+                    help="the text alone, always in basic mode: the page for the Android reader APK, "
+                         "which ships without the study layers in morph/")
+    ap.add_argument("--out", default=str(SITE), help="folder to write index.html into (default: site/)")
+    ap.add_argument("--complete-only", action="store_true",
+                    help="carry only the languages the whole Bible has been translated into; "
+                         "what is shipped (the APKs) should not offer a language with books missing")
+    a = ap.parse_args()
     data = {}
     # every chapter of every book: original text always, translations when present
     for meta in sorted(BOOKS.values(), key=lambda m: m["num"]):
@@ -2054,28 +2547,65 @@ def main():
         for ch in sorted(json.loads(f.read_text(encoding="utf-8"))["chapters"], key=int):
             src, lang = source_chapter(key, ch)
             data.setdefault(key, {})[str(ch)] = {"src": src, "lang": lang, "tr": {}}
-    counts = {}
+    counts, short = {}, {}
     for code in TARGETS:
         for f in sorted((OUT_ROOT / code / "json").glob("*.json")):
             d = json.loads(f.read_text(encoding="utf-8"))
-            entry = data.setdefault(slug(d["book"]), {}).setdefault(str(d["chapter"]), {"src": None, "lang": None, "tr": {}})
+            key, ch = slug(d["book"]), str(d["chapter"])
+            entry = data.setdefault(key, {}).setdefault(ch, {"src": None, "lang": None, "tr": {}})
             entry["tr"][code] = {"verses": d["verses"], "notes": d.get("notes", "")}
-            counts[code] = counts.get(code, 0) + 1
-    SITE.mkdir(exist_ok=True)
+            # A chapter counts as translated when the verses are actually in it.
+            # A run that failed - the model answered in the wrong language, or
+            # echoed the prompt back - still leaves a file behind, and counting
+            # files once let a Chinese Bible with no Psalm 119 in it call
+            # itself complete. The source is the authority on what is missing.
+            want = {v for v in (entry["src"] or {}) if not v.startswith("_")}
+            if want and want - set(d["verses"]):
+                short.setdefault(code, []).append(f"{d['book']} {ch}")
+            else:
+                counts[code] = counts.get(code, 0) + 1
+    # A language still being translated is fine to watch here, on the machine
+    # doing the translating, where the chapter list shows what is done. It is
+    # not fine to hand someone a Bible whose Psalms stop at 39, so a build for
+    # shipping keeps only the languages that have every chapter.
+    targets = TARGETS
+    if a.complete_only:
+        whole = sum(len(v) for v in data.values())
+        targets = {c: t for c, t in TARGETS.items() if counts.get(c, 0) >= whole}
+        for chapters in data.values():
+            for entry in chapters.values():
+                entry["tr"] = {c: v for c, v in entry["tr"].items() if c in targets}
+        dropped = {c: n for c, n in counts.items() if c not in targets}
+        counts = {c: n for c, n in counts.items() if c in targets}
+        if dropped:
+            print("left out, still being translated: "
+                  + ", ".join(f"{c} ({n}/{whole})" for c, n in sorted(dropped.items())))
+        for code in sorted(dropped):
+            gaps = short.get(code)
+            if gaps:                       # a language held back by a handful of failures, not by its progress
+                print(f"  {code}: {len(gaps)} chapter(s) have verses missing and do not count - "
+                      + ", ".join(gaps[:6]) + (" ..." if len(gaps) > 6 else "")
+                      + f"; re-run them (scripts/verify.py --lang {code} shows what is gone)")
+        if not counts:
+            print("WARNING: no language is complete, so this page carries the original text alone")
+    out_dir = Path(a.out)
+    out_dir.mkdir(parents=True, exist_ok=True)
     page = (PAGE
             .replace("__DATA__", json.dumps(data, ensure_ascii=False))
             .replace("__ORDER__", json.dumps(ORDER))
             .replace("__LANGS__", json.dumps({**LANGS, "mixed": MIXED}))
-            .replace("__TARGETS__", json.dumps({c: {"name": t["name"], "native": t["native"], "dir": t.get("dir", "ltr")} for c, t in TARGETS.items()}, ensure_ascii=False))
+            .replace("__TARGETS__", json.dumps({c: {"name": t["name"], "native": t["native"], "dir": t.get("dir", "ltr")} for c, t in targets.items()}, ensure_ascii=False))
             .replace("__ABBREV__", json.dumps(
                 {k: v.replace(" ", "_") for k, v in ABBREV.items()}))
+            .replace("__READER_ONLY__", "true" if a.reader_only else "false")
+            .replace("__BUILT__", __import__("datetime").datetime.now().strftime("%Y-%m-%d %H:%M"))
             .replace("__READALOUD_CSS__", RA.CSS)
             .replace("__READALOUD_JS__", RA.js('main', '.par .o, .par .e, .cmp .row .txt, p.ov, .poetry, .vv span, .hit, .notes')))
-    out = SITE / "index.html"
+    out = out_dir / "index.html"
     out.write_text(page, encoding="utf-8")
     nch = sum(len(v) for v in data.values())
     tr = ", ".join(f"{c}={n}" for c, n in counts.items()) or "none"
-    print(f"site built: {out} ({len(data)} books, {nch} chapters of original text; "
+    print(f"site built{' (reader only)' if a.reader_only else ''}: {out} ({len(data)} books, {nch} chapters of original text; "
           f"translated chapters: {tr}; {out.stat().st_size // 1024} KB)")
 
 
