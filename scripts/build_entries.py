@@ -16,6 +16,7 @@ already has a page for, so the search box can offer them beside the verses
 without knowing anything about any particular layer.
 
     ENTRIES = [[kind, id, label, sub, count, source], ...]
+              an idiom carries a seventh: the verses it stands in, ["Ezekiel 1:4", ...]
     ENTIDX  = {term: "delta-encoded entry numbers, base 16, dot separated"}
     ENTKEY  = {term: the same, for terms standing in the name or the gloss}
 
@@ -26,7 +27,9 @@ holds only what an entry calls itself; a hit there outranks a hit anywhere
 else, and the long definitions stay searchable without taking over.
 
 `kind` is what the reader opens: a lexeme goes to showLexeme, a field to
-showDomain, a theme to showTheme, a place to the map. `count` is how often the
+showDomain, a theme to showTheme, a place to the map. An idiom is the one kind
+that is its own answer: what the reader wants from "a stone of stumbling" is the
+verses, so the entry brings them with it rather than a page to go and look on. `count` is how often the
 thing occurs, which is the only ranking worth having here - a reader searching
 "love" wants ἀγάπη before a hapax whose gloss happens to say loving.
 
@@ -76,7 +79,8 @@ def layer(name, var):
 
 
 def gather(ours_only=False):
-    """-> [(kind, id, label, sub, count, source, searchable text)]"""
+    """-> [(kind, id, label, sub, count, source, searchable text)], and after the
+    text whatever else the entry itself should carry"""
     out = []
     conc = layer("conc.js", "CONC") or {}
     occurrences = {k: len(v) for k, v in conc.items()}
@@ -90,6 +94,22 @@ def gather(ours_only=False):
                         + [str(s.get("definition", ""))[:DEFN] for s in senses])
         out.append(("lexeme", tag, rec.get("headword", tag), rec.get("gloss", ""),
                     occurrences.get(tag, 0), "", text))
+
+    # ---- the phrases those entries record. An idiom is what a search of the text
+    # cannot find: the verse says "lift up the face" and the reader is looking for
+    # favour. The meaning is what it is found by, the phrase is what it is called,
+    # and its verses come along. The model also files single inflected forms under
+    # idioms (שַׁבְּתֹתֶיהָ, "its sabbaths"); those are the word itself, which the word's
+    # own entry already answers for, so a phrase here is two words or more.
+    for tag, rec in lexx.items():
+        for n, idiom in enumerate(rec.get("idioms") or []):
+            if not isinstance(idiom, dict):
+                continue
+            phrase, meaning = str(idiom.get("phrase") or "").strip(), str(idiom.get("meaning") or "").strip()
+            refs = [str(r) for r in idiom.get("refs") or [] if r]
+            if not (meaning and refs and len(re.split(r"[\s־]+", phrase)) > 1):
+                continue
+            out.append(("idiom", f"{tag}#{n}", phrase, meaning, len(refs), "", f"{phrase} {meaning}", refs))
 
     # ---- our own lexeme inventory: the forms, before any entry has been written
     for lid, rec in (layer("lexemes.js", "LEXEME") or {}).items():
@@ -143,7 +163,7 @@ def main():
     # six thousand verses before one standing in two.
     rows.sort(key=lambda r: -(r[4] or 0))
     postings, key = defaultdict(set), defaultdict(set)
-    for n, (_k, _i, label, sub, _c, _src, text) in enumerate(rows):
+    for n, (_k, _i, label, sub, _c, _src, text, *_more) in enumerate(rows):
         for t in terms_of(text, "la"):
             postings[t].add(n)
         for t in terms_of(f"{label} {sub}", "la"):
@@ -152,7 +172,7 @@ def main():
             postings[t].add(n)                                # the headword in its own script
             key[t].add(n)
 
-    entries = [[k, i, lab, sub, c, src] for k, i, lab, sub, c, src, _t in rows]
+    entries = [[k, i, lab, sub, c, src, *more] for k, i, lab, sub, c, src, _t, *more in rows]
     body = ("ENTRIES=" + json.dumps(entries, ensure_ascii=False, separators=(",", ":")) + ";\n"
             + "ENTIDX=" + json.dumps({t: encode(v) for t, v in postings.items()},
                                      ensure_ascii=False, separators=(",", ":")) + ";\n"
@@ -200,10 +220,11 @@ def probe(query):
         print(f"nothing in the study layers answers “{query}”")
         return
     for n in sorted(named) + [n for n in sorted(anywhere) if n not in named]:
-        kind, _id, label, sub, count, src = ent[n]
+        kind, _id, label, sub, count, src = ent[n][:6]
         print(f"  {kind:7} {label:20} {str(sub)[:42]:42} {count:>6}"
               + ("  ref" if src == "ref" else "     ")
-              + ("  named" if n in named else ""))
+              + ("  named" if n in named else "")
+              + ("  " + ", ".join(ent[n][6]) if len(ent[n]) > 6 else ""))
 
 
 if __name__ == "__main__":
