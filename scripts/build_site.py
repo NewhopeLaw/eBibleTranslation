@@ -67,7 +67,7 @@ PAGE = r"""<!DOCTYPE html>
    no meaning; --edge is the outline of a control, which a reader has to be able
    to see, so it is held at 3:1 against the paper where --border is not. */
 :root {
-  --bg:#faf8f4; --fg:#22201c; --muted:#635c52; --accent:#654aa8; --on-accent:#ffffff;
+  --bg:#faf8f4; --fg:#22201c; --muted:#635c52; --accent:#654aa8; --on-accent:#ffffff; --gold:#a67c12;
   --card:#ffffff; --border:#d7cfc2; --edge:#8a8176; --hl:#f6e7a6; --soft:#f0ece4;
   --err:#ad2317; --warn:#7d5000; --scrim:rgba(28,22,14,.5); --shadow:rgba(44,34,18,.26);
   --fs:20px; --lh:1.72; --barH:56px;
@@ -81,33 +81,33 @@ PAGE = r"""<!DOCTYPE html>
    first time the page opens. A chosen skin sets data-theme and wins here. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --bg:#181614; --fg:#eae6df; --muted:#a8a094; --accent:#bda5f2; --on-accent:#1c1230;
+    --bg:#181614; --fg:#eae6df; --muted:#a8a094; --accent:#bda5f2; --on-accent:#1c1230; --gold:#e2b64a;
     --card:#221f1c; --border:#413a32; --edge:#847b6f; --hl:#4f4320; --soft:#2b2723;
     --err:#ff9d92; --warn:#e4b75f; --scrim:rgba(0,0,0,.62); --shadow:rgba(0,0,0,.6);
   }
 }
 :root[data-theme="light"] {
-  --bg:#faf8f4; --fg:#22201c; --muted:#635c52; --accent:#654aa8; --on-accent:#ffffff;
+  --bg:#faf8f4; --fg:#22201c; --muted:#635c52; --accent:#654aa8; --on-accent:#ffffff; --gold:#a67c12;
   --card:#ffffff; --border:#d7cfc2; --edge:#8a8176; --hl:#f6e7a6; --soft:#f0ece4;
   --err:#ad2317; --warn:#7d5000; --scrim:rgba(28,22,14,.5); --shadow:rgba(44,34,18,.26);
 }
 :root[data-theme="sepia"] {
-  --bg:#f3ead6; --fg:#33291b; --muted:#5f5340; --accent:#7a3d0e; --on-accent:#fff7e8;
+  --bg:#f3ead6; --fg:#33291b; --muted:#5f5340; --accent:#7a3d0e; --on-accent:#fff7e8; --gold:#9a6d0a;
   --card:#fbf4e4; --border:#d4c5a4; --edge:#8a7b5e; --hl:#e9d692; --soft:#eae0c8;
   --err:#98200f; --warn:#6d4600; --scrim:rgba(48,36,18,.5); --shadow:rgba(70,54,24,.28);
 }
 :root[data-theme="dark"] {
-  --bg:#181614; --fg:#eae6df; --muted:#a8a094; --accent:#bda5f2; --on-accent:#1c1230;
+  --bg:#181614; --fg:#eae6df; --muted:#a8a094; --accent:#bda5f2; --on-accent:#1c1230; --gold:#e2b64a;
   --card:#221f1c; --border:#413a32; --edge:#847b6f; --hl:#4f4320; --soft:#2b2723;
   --err:#ff9d92; --warn:#e4b75f; --scrim:rgba(0,0,0,.62); --shadow:rgba(0,0,0,.6);
 }
 :root[data-theme="black"] {
-  --bg:#000000; --fg:#eaeaea; --muted:#a6a6a6; --accent:#c3a8ff; --on-accent:#150a28;
+  --bg:#000000; --fg:#eaeaea; --muted:#a6a6a6; --accent:#c3a8ff; --on-accent:#150a28; --gold:#e6bb4d;
   --card:#101010; --border:#3a3a3a; --edge:#767676; --hl:#4c4118; --soft:#1a1a1a;
   --err:#ff9a90; --warn:#e2b75e; --scrim:rgba(0,0,0,.75); --shadow:rgba(0,0,0,.8);
 }
 :root[data-theme="contrast"] {
-  --bg:#ffffff; --fg:#000000; --muted:#2b2b2b; --accent:#3d1785; --on-accent:#ffffff;
+  --bg:#ffffff; --fg:#000000; --muted:#2b2b2b; --accent:#3d1785; --on-accent:#ffffff; --gold:#5c4400;
   --card:#ffffff; --border:#000000; --edge:#000000; --hl:#ffe74a; --soft:#ededed;
   --err:#9b0000; --warn:#5d3600; --scrim:rgba(0,0,0,.6); --shadow:rgba(0,0,0,.4);
 }
@@ -256,6 +256,57 @@ dialog.sheet::backdrop { background:var(--scrim); }
   background:var(--accent); color:var(--on-accent); cursor:pointer; font:700 calc(15px * var(--ui)) system-ui,sans-serif; }
 .sheet .primary.share { gap:.6rem; margin-top:1.4rem; min-height:56px; text-transform:uppercase; letter-spacing:.06em; }
 .sheet .primary .mark { width:26px; height:22px; fill:currentColor; flex:none; }
+/* ---------- Who is Jesus?: the button, the milestones, the badge ---------- */
+header .who { flex:none; min-height:40px; padding:0 .9rem; border:1px solid var(--accent); border-radius:999px;
+  background:var(--accent); color:var(--on-accent); cursor:pointer; white-space:nowrap;
+  font:600 calc(13px * var(--ui)) system-ui,sans-serif; }
+.sheet .primary.who { min-height:60px; margin:.1rem 0 .3rem; gap:.6rem; font-size:calc(17px * var(--ui)); }
+.sheet .primary.who svg { width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; flex:none; }
+.progress { display:flex; align-items:center; justify-content:space-between; gap:.6rem; margin:.1rem 0 .3rem;
+  font:calc(13px * var(--ui)) system-ui,sans-serif; color:var(--muted); }
+.progress b { color:var(--fg); }
+.progress button { min-height:44px; padding:0 .5rem; border:0; background:none; color:var(--accent); cursor:pointer;
+  font:600 calc(13px * var(--ui)) system-ui,sans-serif; text-decoration:underline; white-space:nowrap; }
+/* A milestone row is not a button: there is nothing to do with one but look. */
+.miles .mile { display:flex; align-items:center; gap:.7rem; min-height:56px; padding:.4rem .5rem; border-radius:12px; }
+.miles .mile.on { background:var(--hl); }
+.miles .mile .txt { flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:.1rem; }
+.miles .mile .nm { font:600 calc(15px * var(--ui)) system-ui,sans-serif; }
+.miles .mile .ct { font:calc(12px * var(--ui)) system-ui,sans-serif; color:var(--muted); }
+.miles .mile .tk { flex:none; font-weight:700; color:var(--accent); }
+/* A story's name is worth two lines; its reference is short and stays whole. */
+.stories .nm { white-space:normal; }
+.stories .ct { flex:none; }
+.sheet .forget { display:block; margin:1.2rem auto 0; min-height:44px; padding:0 .8rem; border:0; background:none;
+  color:var(--muted); cursor:pointer; font:calc(12.5px * var(--ui)) system-ui,sans-serif; text-decoration:underline; }
+/* The medal: a ribbon, a ring, and inside it what was done - one star for a
+   story, a larger star with a bar for a milestone, a crown for all twenty. The
+   shapes carry the rank, the gold only repeats it; unearned, it is an outline. */
+.medal { width:44px; height:44px; flex:none; }
+.medal .rib { fill:var(--muted); }
+.medal .ring { fill:var(--accent); }
+.medal .core { fill:var(--card); }
+.medal .sign { fill:var(--accent); }
+.medal.t2 .ring, .medal.t2 .sign, .medal.t3 .ring, .medal.t3 .sign { fill:var(--gold); }
+.medal.off .rib { fill:var(--border); }
+.medal.off .ring { fill:none; stroke:var(--edge); stroke-width:2; stroke-dasharray:4 3; }
+.medal.off .core { fill:var(--soft); }
+.medal.off .sign { fill:var(--edge); }
+/* The badge is a card at the top of the page, not a dialog in the middle of
+   it: it asks for nothing, stays a few seconds, fades, and is gone. The story
+   the reader has just heard is still the thing on the screen. */
+#badgeDlg { position:fixed; inset:auto; top:calc(.6rem + env(safe-area-inset-top)); left:50%; transform:translateX(-50%);
+  margin:0; padding:0; width:min(22rem,92vw); z-index:40; border:1px solid var(--edge); border-radius:18px;
+  background:var(--card); color:var(--fg); box-shadow:0 10px 34px var(--shadow); text-align:left;
+  transition:opacity 1s ease; cursor:pointer; }
+#badgeDlg.fading { opacity:0; }
+#badgeDlg .in { display:flex; align-items:center; gap:.8rem; padding:.65rem .9rem .65rem .7rem; }
+#badgeDlg .medal { width:58px; height:58px; animation:badgein .55s cubic-bezier(.2,0,0,1); }
+@keyframes badgein { from { transform:scale(.3); opacity:0; } 65% { transform:scale(1.08); opacity:1; } }
+#badgeDlg .txt { flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:.05rem; }
+#badgeDlg .kick { font:700 calc(10.5px * var(--ui)) system-ui,sans-serif; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); }
+#badgeDlg h2 { margin:0; font:700 calc(16px * var(--ui))/1.25 system-ui,sans-serif; }
+#badgeDlg p { margin:0; font:calc(12.5px * var(--ui))/1.4 system-ui,sans-serif; color:var(--muted); }
 /* ---------- the magnifier's way back, and a place to say a file did not load ---------- */
 #zoomchip, #toast { position:fixed; left:50%; transform:translateX(-50%); z-index:36;
   background:var(--card); color:var(--fg); border:1px solid var(--edge);
@@ -494,7 +545,7 @@ ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
   .par { grid-template-columns:1fr; }
   .par .o { border-bottom:0; padding-bottom:.1rem; }
   nav#books { display:none }
-  header .brand, header .goto, header .sources, header #bookSel, header #tlSel,
+  header .brand, header .goto, header .sources, header #bookSel, header #tlSel, header .who,
   header #q, header #fsMinus, header #fsPlus, header #toolsBtn, header #gear { display:none }
   #title { display:block }
   #tabbar { display:block }
@@ -636,6 +687,7 @@ try {
   <button class="fs" id="fsPlus" title="Larger text" aria-label="Larger text">A+</button>
   <button class="ib adv" id="toolsBtn" aria-label="Tools and study views" title="Tools and study views" aria-haspopup="dialog" aria-expanded="false" aria-controls="toolsSheet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h5M13 7h7M4 17h9M17 17h3"/><circle cx="11" cy="7" r="2.2"/><circle cx="15" cy="17" r="2.2"/></svg></button>
   <button class="ib" id="gear" aria-label="Display and reading settings" title="Display and reading settings" aria-haspopup="dialog" aria-expanded="false" aria-controls="setSheet"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6M18.4 18.4l-1.6-1.6M7.2 7.2L5.6 5.6"/></svg></button>
+  <button class="who" id="whoHdr" title="A story from the life of Jesus, read aloud">Who is Jesus?</button>
   <button class="sources" id="sources" title="Source texts, licenses and attributions">Sources &amp; licenses</button>
 </header>
 <div class="layout">
@@ -657,10 +709,17 @@ try {
 </dialog>
 <dialog class="sheet" id="searchSheet" aria-labelledby="searchSheetT">
   <div class="grab"><i></i></div>
-  <div class="sh"><span class="st" id="searchSheetT">Search the text</span>
+  <div class="sh"><span class="st" id="searchSheetT">Search</span>
     <button class="ib" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-  <div class="bd" id="searchBody"><div id="qslot"></div><div id="searchDyn"></div></div>
+  <div class="bd" id="searchBody"><div id="whoSlot"></div><div id="qslot"></div><div id="searchDyn"></div></div>
 </dialog>
+<dialog class="sheet" id="milesSheet" aria-labelledby="milesSheetT">
+  <div class="grab"><i></i></div>
+  <div class="sh"><span class="st" id="milesSheetT">Milestones</span>
+    <button class="ib" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="bd" id="milesBody"><div id="milesDyn"></div></div>
+</dialog>
+<dialog id="badgeDlg" aria-labelledby="badgeT"></dialog>
 <dialog class="sheet" id="toolsSheet" aria-labelledby="toolsSheetT">
   <div class="grab"><i></i></div>
   <div class="sh"><span class="st" id="toolsSheetT">Tools</span>
@@ -746,12 +805,12 @@ const booksWith = t => srcBooks.filter(b => Object.values(DATA[b]).some(c => c.t
 let tl = localStorage.getItem("tl");
 if (!haveTargets.includes(tl)) tl = haveTargets[0] || "en";
 let view = localStorage.getItem("view") || "tr";   // tr | orig | par | all
-function setView(v){ view = v; localStorage.setItem("view", v); route(); }
+function setView(v){ view = v; localStorage.setItem("view", v); route(); rehear(); }
 /* Every link to a reference goes through here. A theme, an entry or a list of
    hits is drawn over the chapter without changing the address, so a link back
    to the chapter already in the address would otherwise do nothing at all. */
 function goto(h){ if (location.hash === h) route(); else location.hash = h; }
-function setTl(t){ tl = t; localStorage.setItem("tl", t); $("#tlSel").value = t; if (view === "orig") view = "tr"; route(); }
+function setTl(t){ tl = t; localStorage.setItem("tl", t); $("#tlSel").value = t; if (view === "orig") view = "tr"; route(); rehear(); }
 const tlSel = $("#tlSel");
 tlSel.innerHTML = haveTargets.map(t => `<option value="${t}">${TARGETS[t].native}</option>`).join("");
 tlSel.value = tl;
@@ -2316,15 +2375,46 @@ function selQuote(sel){
 
 function speechFor(lang){                                // "" = not ready yet, "yes", "no"
   if (PHONE && PHONE.voiceFor) { try { return PHONE.voiceFor(lang); } catch (e) { return "no"; } }
-  return ("speechSynthesis" in window) ? "yes" : "no";
+  if (!("speechSynthesis" in window)) return "no";
+  /* A browser takes any language and, given one it has no voice for, says
+     nothing and reports nothing: Thai on a PC with English, Japanese and
+     Chinese voices went to Listen and came back silent. So the browser is
+     asked the same question the phone is asked - is there a voice for this
+     language - and the list it answers from fills in late, so an empty list
+     is "not yet" rather than "no". */
+  if (typeof ttsVoice !== "function") return "yes";
+  if (!ttsVoices.length) return "";
+  return ttsVoice(TTS_LANG[lang] || lang) ? "yes" : "no";
 }
+/* Where a voice comes from, said for the machine in hand. On a phone the
+   settings path is in the display tray already; on a computer it is here. */
+function noVoiceHelp(lang){
+  const name = langName(lang);
+  if (PHONE) return `This phone has no voice for ${name} installed.`;
+  const mac = /Mac|iPhone|iPad/.test(navigator.platform || "");
+  return `This computer has no ${name} voice. ` + (mac
+    ? `Add one in System Settings \u203a Accessibility \u203a Spoken Content \u203a System voice \u203a Manage voices.`
+    : `Windows adds one under Settings \u203a Time & Language \u203a Speech \u203a Add voices; Microsoft Edge brings voices of its own for most languages.`);
+}
+/* Every reading is numbered, and the shell or the browser answers with the
+   number when it ends - finished, or stopped - so that an answer about a
+   reading already replaced is not taken for the one being waited on. */
+let SPEAKSEQ = 0;
 function speakVerse(txt, lang){
-  if (PHONE && PHONE.speak) { PHONE.speak(txt, lang, VOICE.rate, VOICE.pitch, chosenVoice(lang)); return; }
-  if (typeof ttsSpeak === "function") ttsSpeak(txt, lang, null);
+  const id = ++SPEAKSEQ;
+  if (PHONE && PHONE.speak) {
+    try { PHONE.speak(txt, lang, VOICE.rate, VOICE.pitch, chosenVoice(lang), id); }
+    catch (e) { PHONE.speak(txt, lang, VOICE.rate, VOICE.pitch, chosenVoice(lang)); }   // a shell from before readings were numbered
+    return id;
+  }
+  if (typeof ttsSpeak === "function") ttsSpeak(txt, lang, null, ok => speechDone(id, ok));
+  return id;
 }
 function stopSpeaking(){
+  hearing = null; speakUi();
   if (PHONE && PHONE.stopSpeaking) { PHONE.stopSpeaking(); return; }
-  if ("speechSynthesis" in window) speechSynthesis.cancel();
+  if (typeof ttsStop === "function") ttsStop();
+  else if ("speechSynthesis" in window) speechSynthesis.cancel();
 }
 function copyText(t){
   // The shell says so, not the page: Android 13 and later shows its own copy
@@ -2428,8 +2518,9 @@ function drawVbar(){
   vbar.querySelector('[data-a="share"]').onclick = () => { shareText(quoted, ref); };
   const hear = vbar.querySelector('[data-a="listen"]');
   if (hear) hear.onclick = () => {
-    if (speechFor(lang) === "no") { toast("This phone has no voice for " + ((LANGS[lang] || {}).name || lang) + " installed."); return; }
-    speakVerse(sel.map(x => x.c.txt).join(" "), lang);   // the numbers are not read out; they are not the text
+    if (hearing) { stopSpeaking(); return; }               // the same button, while it reads, is Stop
+    if (speechFor(lang) === "no") { toast(noVoiceHelp(lang)); return; }
+    hearSel(sel, lang);
   };
   const refs = vbar.querySelector('[data-a="refs"]');
   if (refs) refs.onclick = e => showRefs(sel[0].r.book, sel[0].r.ch, sel[0].r.v, e);
@@ -2439,6 +2530,7 @@ function drawVbar(){
   // its own underneath.
   vbar.classList.toggle("wide", many || vbar.querySelectorAll("button").length > 4);
   vbar.hidden = false;
+  speakUi();
   reachable(vbar);
 }
 /* The study popup used to hang off the verse number, which is now the button
@@ -2490,12 +2582,17 @@ window.addEventListener("hashchange", dropVerse);
    climb down on a phone, so from a plain chapter it says no, and the shell
    then offers to leave. */
 window.androidBack = function(){
-  if (vsel.length) { dropVerse(); return true; }
+  /* Top first. A tray stands over the held verses, and putting the verses
+     away underneath it looked like back doing nothing at all: the milestones
+     tray, opened after a story with its verses still held, would not close. */
+  const bd = $("#badgeDlg");
+  if (bd && bd.open) { closeBadge(); return true; }
+  if (openName) { closeSheet(); return true; }
   if (wpop && !wpop.hidden) { hidePop(); return true; }
   if (vpop && !vpop.hidden) { hideRefs(); return true; }
   const c = document.getElementById("ctx");
   if (c && !c.hidden) { c.hidden = true; return true; }
-  if (openName) { closeSheet(); return true; }
+  if (vsel.length) { dropVerse(); return true; }
   const top = TRAIL[TRAIL.length - 1];
   if (TRAIL.length > 1 && top && !top.key.startsWith("read|")) { goBack(); return true; }
   return false;
@@ -2508,8 +2605,8 @@ window.androidBack = function(){
    where the scrim, the focus trap and Escape come from — none of that is worth
    writing by hand. Each tray's contents are drawn fresh every time it opens,
    so nothing in them can fall out of step with the page behind. */
-const SHEETS = {nav: $("#navSheet"), search: $("#searchSheet"), tools: $("#toolsSheet"), set: $("#setSheet")};
-const OPENERS = {nav: ["#tbBooks", "#title"], search: ["#tbSearch"], tools: ["#tbTools", "#toolsBtn"], set: ["#tbDisp", "#gear"]};
+const SHEETS = {nav: $("#navSheet"), search: $("#searchSheet"), tools: $("#toolsSheet"), set: $("#setSheet"), miles: $("#milesSheet")};
+const OPENERS = {nav: ["#tbBooks", "#title"], search: ["#tbSearch"], tools: ["#tbTools", "#toolsBtn"], set: ["#tbDisp", "#gear"], miles: []};
 const mqNarrow = matchMedia("(max-width:760px)");
 let openName = null, navBook = null, navPane = "chapters";
 function openSheet(name){
@@ -2524,7 +2621,11 @@ function openSheet(name){
   if (d.showModal) d.showModal(); else d.setAttribute("open", "");
   d.style.transform = "";
   showChrome(); markOpeners();
-  if (name === "search") { const q = $("#q"); if (q) { q.focus(); q.select(); } }
+  /* The search tray used to put the keyboard up as it opened. It now leads
+     with a button, and a keyboard standing over half the screen would hide
+     what the tray is for; the box takes the keyboard when it is tapped. On a
+     wide screen there is no keyboard to stand anywhere, so the box is focused. */
+  if (name === "search" && !mqNarrow.matches) { const q = $("#q"); if (q) { q.focus(); q.select(); } }
 }
 function closeSheet(){
   if (!openName) return;
@@ -2542,7 +2643,7 @@ function markOpeners(){
   for (const n in OPENERS) for (const s of OPENERS[n]) {
     const el = $(s); if (el) el.setAttribute("aria-expanded", openName === n ? "true" : "false"); }
 }
-function drawSheet(n){ ({nav: drawNav, search: drawSearch, tools: drawTools, set: drawSettings})[n](); }
+function drawSheet(n){ ({nav: drawNav, search: drawSearch, tools: drawTools, set: drawSettings, miles: drawMiles})[n](); }
 function redrawSheet(){ if (openName) drawSheet(openName); }
 /* A tray is dragged down by its handle or its heading only. Starting a drag
    anywhere in the contents would fight the list the reader is scrolling. */
@@ -2647,10 +2748,28 @@ function drawNav(){
 
 /* ---------- the search tray ---------- */
 function drawSearch(){
+  /* What someone who has never read a Bible actually wants to find is not a
+     word: it is who Jesus is. The tray therefore leads with that, and the box
+     for looking a word up comes under it, for the reader who by now knows
+     what to look for. */
+  const heard = STORIES.filter(s => HEARD[s.id]).length, earned = BADGES.filter(b => EARNED[b.id]).length;
+  const voice = speechFor(tl);
+  $("#whoSlot").innerHTML =
+    `<button type="button" class="primary who" id="whoGo">${CROSS}Who is Jesus?</button>
+     <p class="hint">A story from his life, read aloud &mdash; twenty of them tell the whole gospel. Heard to the end, a story counts towards a milestone.</p>
+     ${voice === "no" ? `<p class="hint">This device has no voice for ${esc(langName(tl))}, so the stories can be read here but not heard.</p>` : ""}
+     <div class="progress"><span><b>${heard}</b> of ${STORIES.length} stories heard &middot; <b>${earned}</b> of ${BADGES.length} milestones</span>
+       <button type="button" id="whoMiles">Milestones</button></div>
+     <div class="shead">Look something up</div>`;
+  $("#whoGo").onclick = whoIsJesus;
+  $("#whoMiles").onclick = () => openSheet("miles");
   $("#searchDyn").innerHTML =
     `<button type="button" class="primary" id="qGo">Show the results</button>
+     ${READER_ONLY ? "" : `<div class="rowlist"><button type="button" id="qLex"><span class="nm">Our lexicon</span><span class="ct">entries written from the text</span></button></div>`}
      <p class="hint">Searching the ${esc((TARGETS[tl] || {}).name || tl)} text; two letters is enough. The results are drawn behind this tray as you type.</p>
      <p class="hint">To jump straight to a reference instead, close this and tap the chapter name at the top: &ldquo;Genesis 2:7&rdquo;, &ldquo;1 Sam 3&rdquo;, &ldquo;Ps 23&rdquo;.</p>`;
+  const lex = $("#qLex");
+  if (lex) lex.onclick = () => { closeSheet(); browseLexicon(); };
   /* The tray goes away first. It used to close after the search had been set
      going, which meant that anything the search threw left the tray sitting
      over the page with no way back - the reader saw a search box that would
@@ -2713,6 +2832,245 @@ function drawTools(){
   });
 }
 
+/* ---------- Who is Jesus? ----------
+   Someone who has never opened a Bible does not know what to search for. The
+   search tray therefore leads with one button that plays a story from the
+   life of Jesus, read aloud; twenty such stories, in the order they happen,
+   tell the whole gospel - his coming, what he taught and did, his death, his
+   rising, and what he sent his followers to do. After a few of them a reader
+   knows what to look for, and the search box under the button is there.
+   A story counts as heard only when the reading ran to its end without being
+   stopped: the shell or the browser says how each reading ended. Hearing one
+   earns a first badge, three of the stories are milestones of their own, and
+   all twenty together are the last. It is all kept on the device. */
+const STORIES = [
+  {id:"annunciation", name:"The angel comes to Mary", book:"Luke", ch:1, from:26, to:38},
+  {id:"birth", name:"The birth of Jesus", book:"Luke", ch:2, from:1, to:20},
+  {id:"baptism", name:"Jesus is baptised", book:"Matthew", ch:3, from:13, to:17},
+  {id:"temptation", name:"Tempted in the wilderness", book:"Matthew", ch:4, from:1, to:11},
+  {id:"nicodemus", name:"Nicodemus, and God so loved the world", book:"John", ch:3, from:1, to:21},
+  {id:"disciples", name:"The first disciples", book:"Luke", ch:5, from:1, to:11},
+  {id:"sermon", name:"The Sermon on the Mount", book:"Matthew", ch:5, from:1, to:16},
+  {id:"paralysed", name:"The paralysed man forgiven", book:"Mark", ch:2, from:1, to:12},
+  {id:"storm", name:"The storm on the lake", book:"Mark", ch:4, from:35, to:41},
+  {id:"loaves", name:"Feeding the five thousand", book:"John", ch:6, from:1, to:14},
+  {id:"samaritan", name:"The Good Samaritan", book:"Luke", ch:10, from:25, to:37},
+  {id:"prodigal", name:"The Prodigal Son", book:"Luke", ch:15, from:11, to:32},
+  {id:"lazarus", name:"The raising of Lazarus", book:"John", ch:11, from:17, to:44},
+  {id:"zacchaeus", name:"Zacchaeus", book:"Luke", ch:19, from:1, to:10},
+  {id:"supper", name:"The Last Supper", book:"Luke", ch:22, from:14, to:23},
+  {id:"gethsemane", name:"Gethsemane and the arrest", book:"Luke", ch:22, from:39, to:53},
+  {id:"crucifixion", name:"The Crucifixion", book:"Luke", ch:23, from:32, to:49},
+  {id:"resurrection", name:"The Resurrection", book:"Luke", ch:24, from:1, to:12},
+  {id:"thomas", name:"Thomas: my Lord and my God", book:"John", ch:20, from:19, to:31},
+  {id:"commission", name:"Go into all the world", book:"Matthew", ch:28, from:16, to:20},
+];
+const BADGES = [
+  {id:"first", tier:1, kick:"Achievement", name:"Listened to one Bible story", how:"Hear any one of the twenty to the end."},
+  {id:"prodigal", tier:2, kick:"Milestone", story:"prodigal", name:"The Prodigal Son", how:"Hear the Prodigal Son to the end."},
+  {id:"crucifixion", tier:2, kick:"Milestone", story:"crucifixion", name:"The Crucifixion", how:"Hear the Crucifixion to the end."},
+  {id:"resurrection", tier:2, kick:"Milestone", story:"resurrection", name:"The Resurrection", how:"Hear the Resurrection to the end."},
+  {id:"all", tier:3, kick:"Final milestone", name:"Listened to the top 20 stories", how:"Hear all twenty to the end."},
+];
+const CROSS = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M6 9h12"/></svg>`;
+const langName = l => ((TARGETS[l] || LANGS[l] || {}).name) || l;
+const readJson = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } };
+let HEARD = readJson("who_heard", {}), EARNED = readJson("who_earned", {});
+function saveWho(){ try { localStorage.setItem("who_heard", JSON.stringify(HEARD)); localStorage.setItem("who_earned", JSON.stringify(EARNED)); } catch (e) {} }
+const storyKeys = s => { const out = []; for (let v = s.from; v <= s.to; v++) out.push(`${s.book}|${s.ch}|${v}`); return out; };
+const storyRef = s => `${disp(s.book)} ${s.ch}:${s.from}\u2013${s.to}`;
+function storyHas(s, t){                                  // every verse of it, in that language
+  const tr = trOf(s.book, s.ch)[t]; if (!tr) return false;
+  for (let v = s.from; v <= s.to; v++) if (!tr.verses[v]) return false;
+  return true;
+}
+/* One not yet heard, so that twenty presses reach all twenty; any of them once they all have been. */
+function pickStory(){ const left = STORIES.filter(s => !HEARD[s.id]); const pool = left.length ? left : STORIES; return pool[Math.floor(Math.random() * pool.length)]; }
+function whoIsJesus(){ playStory(pickStory()); }
+/* The chapter is opened at the story's first verse, the story's verses are
+   taken up as if the reader had tapped them - so the bar with Copy, Share and
+   Stop is the same bar as always - and the reading starts. */
+function playStory(s){
+  readyBell();                                            // while this is still the reader's tap
+  closeSheet(); closeBadge();
+  if (view !== "tr") { view = "tr"; localStorage.setItem("view", "tr"); }
+  if (!storyHas(s, tl)) {
+    const alt = haveTargets.find(t => storyHas(s, t));
+    if (!alt) { toast(`${storyRef(s)} is not translated yet in this copy.`); return; }
+    const was = tl;
+    tl = alt; const sel = $("#tlSel"); if (sel) sel.value = alt;      // for now; the reader's saved choice is not overwritten
+    toast(`Not in ${langName(was)} yet \u2014 reading it in ${langName(alt)}.`);
+  }
+  landOn(`#${s.book}/${s.ch}/${s.from}`, () => {
+    setSel(storyKeys(s));
+    const sel = selContent();
+    if (!sel.length) return;
+    const lang = sel[0].c.lang;
+    if (speechFor(lang) === "no") { toast(`No voice for ${langName(lang)} on this device \u2014 ${s.name} is here to read.`); return; }
+    hearSel(sel, lang);
+  });
+}
+/* The address change is what draws the chapter, and it arrives after this
+   call returns; the same address again draws nothing, so it is drawn here. */
+function landOn(h, then){
+  if (location.hash === h) { route(); then(); return; }
+  addEventListener("hashchange", () => then(), {once: true});
+  location.hash = h;
+}
+/* What is being read, when it is a story - and only when the verses held are
+   exactly the story's, in the translation: a reader who tapped Listen on those
+   same verses has heard the story as surely as one who pressed the button. */
+let hearing = null;                                       // {seq, story} while a reading is under way
+function storyOfSel(sel){
+  const sig = sel.map(x => vkey(x.r)).join(",");
+  if (sel[0].c.lang !== tl) return null;
+  return STORIES.find(s => storyKeys(s).join(",") === sig) || null;
+}
+function hearSel(sel, lang){
+  readyBell();
+  const seq = speakVerse(sel.map(x => x.c.txt).join(" "), lang);   // the numbers are not read out; they are not the text
+  hearing = {seq, story: storyOfSel(sel)};
+  speakUi();
+  if (hearing.story) toast(`${hearing.story.name} \u2014 ${storyRef(hearing.story)}. Heard to the end, it counts.`);
+}
+function speakUi(){
+  const b = vbar.querySelector('[data-a="listen"]');
+  if (b) b.textContent = hearing ? "Stop" : "Listen";
+}
+/* A reading under way when the language is changed starts again in the new
+   language, from the beginning of the same verses: a voice carrying on in
+   English over a page that now says Chinese is not what the change asked for.
+   With no voice for the new language it stops and says why. */
+function rehear(){
+  if (!hearing) return;
+  stopSpeaking();
+  const sel = selContent();
+  if (!sel.length) return;
+  const lang = sel[0].c.lang;
+  if (speechFor(lang) === "no") { toast(noVoiceHelp(lang)); return; }
+  hearSel(sel, lang);
+}
+window.speechDone = function(id, ok){
+  if (!hearing || hearing.seq !== id) return;
+  const h = hearing; hearing = null; speakUi();
+  if (ok && h.story) storyHeard(h.story);
+};
+function storyHeard(s){
+  HEARD[s.id] = Date.now();
+  const won = [];
+  const give = b => { if (!EARNED[b.id]) { EARNED[b.id] = Date.now(); won.push(b); } };
+  give(BADGES[0]);
+  for (const b of BADGES) if (b.story === s.id) give(b);
+  if (STORIES.every(x => HEARD[x.id])) give(BADGES[BADGES.length - 1]);
+  saveWho();
+  if (openName) redrawSheet();
+  const n = STORIES.filter(x => HEARD[x.id]).length;
+  /* The story is counted at once, but nothing is said for a moment: the last
+     words are still in the air, and a badge landing on them takes the story
+     away from the reader who has just heard it. */
+  setTimeout(() => {
+    if (won.length) showBadges(won, s);
+    else toast(`${s.name} \u2014 heard to the end. ${n} of ${STORIES.length} stories.`);
+  }, BADGE_PAUSE);
+}
+const BADGE_PAUSE = 2000;
+/* The medal: a ribbon, a ring, and inside it what was done. */
+function medal(tier, on){
+  const star = (cx, cy, r) => { let d = ""; for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * .45 : r;
+    d += (i ? "L" : "M") + (cx + rr * Math.cos(a)).toFixed(1) + " " + (cy + rr * Math.sin(a)).toFixed(1); } return d + "Z"; };
+  const sign = tier === 1 ? `<path class="sign" d="${star(32, 37, 9)}"/>`
+    : tier === 2 ? `<path class="sign" d="${star(32, 35, 11)}"/><rect class="sign" x="23" y="46" width="18" height="2.4" rx="1.2"/>`
+    : `<path class="sign" d="M20 45V31l7 6 5-10 5 10 7-6v14z"/>`;
+  return `<svg class="medal t${tier}${on ? "" : " off"}" viewBox="0 0 64 64" aria-hidden="true">
+    <path class="rib" d="M23 3h7v17h-7zM34 3h7v17h-7z"/><circle class="ring" cx="32" cy="38" r="20"/><circle class="core" cx="32" cy="38" r="15"/>${sign}</svg>`;
+}
+/* A ding with the badge, made rather than shipped: the app carries no sound
+   files, and the Web Audio API can strike a bell in a few lines. A page may
+   only make a sound after a touch, so the bell is readied on the tap that
+   starts a reading and rung when the badge arrives, minutes later. A phone
+   with no audio, or a browser without the API, simply shows the badge. */
+let bell = null;
+function readyBell(){
+  try {
+    const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+    if (!bell) bell = new AC();
+    if (bell.state === "suspended") bell.resume();
+  } catch (e) { bell = null; }
+}
+function ding(tier){
+  if (!bell || bell.state !== "running") return;
+  try {
+    const t0 = bell.currentTime + 0.02;
+    // one note for a story, a fifth for a milestone, a rising chord for all twenty
+    const notes = tier === 3 ? [523.25, 659.25, 783.99, 1046.5] : tier === 2 ? [659.25, 987.77] : [880];
+    notes.forEach((f, i) => {
+      const o = bell.createOscillator(), g = bell.createGain(), t = t0 + i * 0.17;
+      o.type = "sine"; o.frequency.value = f;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.22, t + 0.012);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 1.1);
+      o.connect(g); g.connect(bell.destination);
+      o.start(t); o.stop(t + 1.2);
+    });
+  } catch (e) {}
+}
+/* The badge is shown for three seconds and fades through the fourth; a tap
+   puts it away sooner, and two earned at once come one after the other. It is
+   not modal and has no button: the tray under Search keeps every milestone,
+   and a story can be heard again from there. */
+const BADGE_SHOW = 3000, BADGE_FADE = 1000;
+let badgeQueue = [], badgeStory = null, badgeT1, badgeT2;
+function showBadges(list, s){ badgeQueue = badgeQueue.concat(list); badgeStory = s; nextBadge(); }
+function nextBadge(){
+  const d = $("#badgeDlg");
+  if (d.open || !badgeQueue.length) return;
+  const b = badgeQueue.shift(), n = STORIES.filter(x => HEARD[x.id]).length;
+  const said = b.tier === 3 ? "All twenty stories, heard to the end."
+    : badgeStory ? `${badgeStory.name}, heard to the end.` : "";
+  d.classList.remove("fading");
+  d.innerHTML = `<div class="in">${medal(b.tier, true)}<div class="txt"><div class="kick">${b.kick}</div>
+    <h2 id="badgeT">${esc(b.name)}</h2><p>${esc(said)} ${n} of ${STORIES.length} stories.</p></div></div>`;
+  ding(b.tier);
+  if (d.show) d.show(); else d.setAttribute("open", "");
+  clearTimeout(badgeT1); clearTimeout(badgeT2);
+  badgeT1 = setTimeout(() => d.classList.add("fading"), BADGE_SHOW);
+  badgeT2 = setTimeout(closeBadge, BADGE_SHOW + BADGE_FADE);
+}
+function closeBadge(){
+  clearTimeout(badgeT1); clearTimeout(badgeT2);
+  const d = $("#badgeDlg"); d.classList.remove("fading");
+  if (d.open) d.close(); else d.removeAttribute("open");
+}
+$("#badgeDlg").addEventListener("close", () => setTimeout(nextBadge, 250));
+$("#badgeDlg").addEventListener("click", closeBadge);
+function when(t){ try { return new Date(t).toLocaleDateString(undefined, {year: "numeric", month: "short", day: "numeric"}); } catch (e) { return ""; } }
+function drawMiles(){
+  const heard = STORIES.filter(s => HEARD[s.id]).length;
+  let h = `<div class="progress"><span><b>${heard}</b> of ${STORIES.length} stories heard to the end</span></div>`;
+  h += `<div class="rowlist miles" role="list">`;
+  for (const b of BADGES) {
+    const on = !!EARNED[b.id];
+    h += `<div class="mile${on ? " on" : ""}" role="listitem">${medal(b.tier, on)}<span class="txt"><span class="nm">${esc(b.name)}</span>
+      <span class="ct">${on ? "Earned " + when(EARNED[b.id]) : esc(b.how)}</span></span>${on ? `<span class="tk" aria-hidden="true">&#10003;</span>` : ""}</div>`;
+  }
+  h += `</div><div class="shead">The twenty stories</div><div class="rowlist stories">`;
+  for (const s of STORIES) h += row(`data-story="${s.id}"`, esc(s.name), HEARD[s.id] ? "heard" : storyRef(s), !!HEARD[s.id]);
+  h += `</div><p class="hint">Tap a story to hear it. It counts when it is heard to the end without being stopped; the button in the search tray picks one you have not heard yet.</p>`;
+  if (heard || BADGES.some(b => EARNED[b.id])) h += `<button type="button" class="forget" id="whoForget">Forget my progress</button>`;
+  const dyn = $("#milesDyn");
+  dyn.innerHTML = h;
+  dyn.querySelectorAll("[data-story]").forEach(el => el.onclick = () => playStory(STORIES.find(s => s.id === el.dataset.story)));
+  /* Asked twice, in the button itself: the app's WebView has no dialog of
+     its own, so confirm() there answers no without ever being seen. */
+  const f = $("#whoForget");
+  if (f) f.onclick = () => {
+    if (f.dataset.sure) { HEARD = {}; EARNED = {}; saveWho(); drawMiles(); toast("Forgotten. Every story is new again."); return; }
+    f.dataset.sure = "1"; f.textContent = "Tap again to forget every story heard and every milestone earned on this device";
+    setTimeout(() => { if (f.isConnected) { delete f.dataset.sure; f.textContent = "Forget my progress"; } }, 6000);
+  };
+}
+$("#whoHdr").onclick = whoIsJesus;
+
 /* ---------- the display tray ---------- */
 function drawSettings(){
   let h = READER_ONLY ? "" : `<div class="shead">How much of the reader you want</div>
@@ -2742,7 +3100,8 @@ function drawSettings(){
   h += `<div class="shead">Read aloud</div><p class="hint">${PHONE
       ? "Tap a verse and choose Listen. The voices are the phone\u2019s own, so whichever languages it has installed are the ones it can read; Hebrew and Greek are read with modern voices."
       : ("speechSynthesis" in window)
-      ? "Tap a verse and choose Listen, or press and hold it (right-click) for the same in its own language."
+      ? (speechFor(tl) === "no" ? esc(noVoiceHelp(tl)) + " Until then the page can be read here but not heard in it."
+         : "Tap a verse and choose Listen, or press and hold it (right-click) for the same in its own language.")
       : "This browser has no speech voices, so nothing can be read aloud here."}</p>`;
   if (speechFor(tl) !== "no") {
     h += `<div class="shead">Voice speed</div><div class="seg" role="group" aria-label="Voice speed">`
