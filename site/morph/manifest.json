@@ -28,11 +28,11 @@
   "built": 1789189625.7489722
  },
  "lexicon": {
-  "count": 263,
+  "count": 1101,
   "unit": "entries",
   "note": "our own lexicon, written from the text",
   "script": "build_lexicon.py",
-  "built": 1789189625.8588498
+  "built": 1790103825.0793247
  },
  "search-index": {
   "count": 8684196,
@@ -119,10 +119,10 @@
   "built": 1789988346.1297116
  },
  "entries": {
-  "count": 24463,
+  "count": 24708,
   "unit": "things",
   "note": "the study layers, searchable",
   "script": "build_entries.py",
-  "built": 1789990496.8923097
+  "built": 1790103826.6276615
  }
 }

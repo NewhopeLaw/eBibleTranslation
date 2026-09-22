@@ -433,6 +433,17 @@ sup.v[aria-pressed="true"], sup.v[aria-pressed="true"]:hover {
 .plist { display:grid; grid-template-columns:repeat(auto-fill,minmax(13rem,1fr)); gap:.2rem .8rem; margin:.6rem 0 1rem; font:calc(13px * var(--ui)) system-ui,sans-serif; }
 .plist a { cursor:pointer; padding:.15rem .3rem; border-radius:5px; } .plist a:hover { background:var(--soft); }
 .plist a small { color:var(--muted); }
+/* A phrase from the lexicon and the verses it stands in. One to a line, because
+   the meaning is a sentence and the references have to be big enough to tap:
+   each is its own link, 44px high, where a row of .plist is one link and small. */
+.phrases { margin:.4rem 0 1rem; font:calc(13px * var(--ui))/1.5 system-ui,sans-serif; }
+.phrases > div { padding:.1rem .3rem; border-top:1px solid var(--border); display:flex; flex-wrap:wrap; align-items:center; gap:0 .2rem; }
+.phrases > div:first-child { border-top:0; }
+.phrases small { color:var(--muted); font-size:inherit; flex:1 1 11rem; line-height:1.35; }
+.phrases .refs { flex:1 0 100%; display:flex; flex-wrap:wrap; align-items:center; margin-top:-.3rem; }
+.phrases a { cursor:pointer; color:var(--accent); display:inline-flex; align-items:center; min-height:44px; padding:0 .45rem; border-radius:5px; }
+.phrases a:hover { background:var(--soft); }
+.phrases a.word { color:var(--fg); padding-inline-start:0; }
 .chron { margin:.8rem 0 1.4rem; font:calc(13px * var(--ui))/1.5 system-ui,sans-serif; }
 .chron h3 { font:600 calc(11px * var(--ui)) system-ui,sans-serif; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:1.1rem 0 .4rem; }
 .chron .row { display:grid; grid-template-columns:7rem 1fr; gap:.6rem; padding:.25rem .4rem; border-radius:6px; align-items:baseline; }
@@ -1685,7 +1696,7 @@ function goRef(input) {
 }
 
 /* ---------- search (in the selected translation) ---------- */
-const BUILD = "2026-09-22 11:57";               // when this page was built, so a phone can say which copy it is running
+const BUILD = "2026-09-22 12:03";               // when this page was built, so a phone can say which copy it is running
 const IDX = {};
 const idxLoad = name => IDX[name] ? Promise.resolve() : loadJs(`morph/idx_${name}.js`);
 const foldTerm = t => t.normalize("NFD").replace(/[\u0300-\u036f\u0591-\u05c7]/g, "").normalize("NFC").toLowerCase();
@@ -1861,8 +1872,10 @@ const ENTOPEN = {
   field: e => `showDomain('${attr(e[1])}')`,
   theme: e => `showTheme('${attr(e[1])}')`,
   place: e => `showPlace('${attr(e[1])}')`,
+  idiom: e => `showConc('${attr(e[1].split("#")[0])}')`,   // the word it was recorded under
 };
-const ENTKIND = {lexeme: "word", field: "field", theme: "theme", place: "place"};
+const ENTKIND = {lexeme: "word", field: "field", theme: "theme", place: "place", idiom: "phrase"};
+const isPhrase = n => ENTRIES[n][0] === "idiom";
 let ENTNUM = null;                                        // "kind|id" -> its number in ENTRIES
 function entNum(kind, id){
   if (!ENTNUM) { ENTNUM = {}; ENTRIES.forEach((e, n) => { const k = e[0] + "|" + e[1]; if (!(k in ENTNUM)) ENTNUM[k] = n; }); }
@@ -1903,14 +1916,22 @@ function entBlock(s){
       if (row && row[3] > 1) c.set(id, (c.get(id) || 0) + row[4] * Math.log(row[3]));
     }
     best(3, "theme");
-    if (typeof ENTKEY !== "undefined") for (const t of s.via) entFind(ENTKEY, t.k).slice(0, 6).forEach(take);
+    /* Phrases are counted by their verses, a handful at most, so in a list cut
+       at six they would never be reached; they are cut on their own. */
+    if (typeof ENTKEY !== "undefined") for (const t of s.via) {
+      const hit = entFind(ENTKEY, t.k);
+      hit.filter(n => !isPhrase(n)).slice(0, 6).forEach(take);
+      hit.filter(isPhrase).slice(0, 2).forEach(take);
+    }
     const through = s.via.map(t => t.k);
     how = ` · the layers are keyed in English, so these were reached through `
       + [on.length ? "the original words below" : "", through.length ? `what the verses are about (<span lang="en">${through.map(esc).join(", ")}</span>)` : ""].filter(Boolean).join(" and ");
   }
-  const shown = order.slice(0, 12);
-  if (!shown.length) return "";
-  return `<div class="sect">In the study layers<small>${shown.length}${order.length > 12 ? "+" : ""} of them — tap to open${how}</small></div>`
+  const shown = order.filter(n => !isPhrase(n)).slice(0, 12), rest = order.filter(n => !isPhrase(n)).length;
+  return phraseBlock(order.filter(isPhrase), shown.length ? "" : how, s.direct ? s.q : "") + (!shown.length ? "" : layersBlock(shown, rest, how));
+}
+function layersBlock(shown, all, how){
+  return `<div class="sect">In the study layers<small>${shown.length}${all > 12 ? "+" : ""} of them — tap to open${how}</small></div>`
     + `<div class="plist">` + shown.map(n => {
         const e = ENTRIES[n], kind = e[0], label = e[2], count = e[4] || 0;
         /* A theme's description is a sentence or two, and a list of them pushed
@@ -1925,6 +1946,40 @@ function entBlock(s){
           + `<span class="orig">${esc(label)}</span> <small>${esc(sub)}`
           + (count && unit ? ` · ${count} ${unit}${count === 1 ? "" : "s"}` : "")
           + (e[5] === "ref" ? " · the reference lexicon" : "") + `</small></a>`;
+      }).join("") + `</div>`;
+}
+/* What a search of the text cannot find: the verse says "lift up the face" and
+   the reader typed favour. The lexicon records such phrases with what they mean
+   and where they stand, so here the answer is the verses themselves - each
+   reference goes straight to its verse - and the phrase opens the word it was
+   recorded under. They stand above the other layers because they are verses,
+   which is what was asked for; four of them, because on a phone a row is a
+   meaning and its references on two or three lines, and the text itself is
+   still further down the page. */
+const PHRASES = 4, PHREFS = 5;
+function phraseBlock(nums, how, q){
+  if (!nums.length) return "";
+  /* The other layers are ranked by how often a thing occurs. A phrase occurs
+     once or twice, so that order says nothing, and "Lord of lords" - which the
+     index reads as the one word lord - was answered with four other phrases
+     that mention the Lord. What ranks a phrase is how much of its meaning the
+     reader typed: the meaning that says the query outright first, and then the
+     shorter meaning, which has less in it that was not asked for. */
+  const want = (q || "").trim().toLowerCase(), words = n => ENTRIES[n][3].split(/\s+/).length;
+  const says = n => want && ENTRIES[n][3].toLowerCase().includes(want) ? 0 : 1;
+  const ranked = [...nums].sort((a, b) => says(a) - says(b) || words(a) - words(b) || a - b);
+  /* And when some phrase does say it outright, the ones that only share a word
+     with it are noise beside the answer, and are left out. */
+  if (!says(ranked[0])) nums = ranked.filter(n => !says(n));
+  const shown = (says(ranked[0]) ? ranked : nums).slice(0, PHRASES);
+  return `<div class="sect">Phrases<small>${shown.length}${nums.length > PHRASES ? "+" : ""} from this project's lexicon — tap a reference to read it there${how}</small></div>`
+    + `<div class="phrases">` + shown.map(n => {
+        const e = ENTRIES[n], refs = e[6] || [], more = refs.length - PHREFS;
+        return `<div><a class="word" onclick="${ENTOPEN.idiom(e)}" title="the word this phrase is recorded under">`
+          + `<span class="kind">${ENTKIND.idiom}</span><bdi class="orig">${esc(e[2])}</bdi></a> `
+          + `<small lang="en">${esc(e[3])}</small> `
+          + `<span class="refs">` + refs.slice(0, PHREFS).map(refLink).join("")
+          + (more > 0 ? ` <small>and ${more} more under the word</small>` : "") + `</span></div>`;
       }).join("") + `</div>`;
 }
 
