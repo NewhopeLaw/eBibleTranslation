@@ -50,16 +50,33 @@ function ttsSelection(){
   const d = document.createElement('div'); d.appendChild(s.getRangeAt(0).cloneContents()); return ttsTextOf(d);
 }
 let ttsMark = null;
-function ttsSpeak(text, code, node){
-  speechSynthesis.cancel();
+/* A reading can end two ways, finished or cut off, and the reader page wants to
+   know which: a story counts as heard only when it was heard to the end. The
+   browser does not say plainly - Chrome reports a cancelled utterance as an
+   error, Firefox as an ordinary end - so every reading is numbered, a stop is
+   noted before it is asked for, and the last piece answers for the whole. */
+let ttsRun = 0, ttsHalt = false;
+function ttsStop(){
+  ttsHalt = true; speechSynthesis.cancel();
+  if (ttsMark) { ttsMark.classList.remove('speaking'); ttsMark = null; }
+}
+function ttsSpeak(text, code, node, done){
+  ttsHalt = true; speechSynthesis.cancel();
+  const run = ++ttsRun; ttsHalt = false;
   const bcp = TTS_LANG[code] || 'en-US', v = ttsVoice(bcp);
   const parts = ttsClean(code, text).match(/[^.!?。！？׃;·]+[.!?。！？׃;·]*\s*/g) || [text];   // sentence-sized pieces: long utterances get cut off
   const chunks = []; let buf = '';
   for (const p of parts) { if ((buf + p).length > 220 && buf) { chunks.push(buf); buf = ''; } buf += p; } if (buf.trim()) chunks.push(buf);
   if (ttsMark) ttsMark.classList.remove('speaking'); ttsMark = node || null; if (ttsMark) ttsMark.classList.add('speaking');
+  const fin = ok => {
+    if (run !== ttsRun) ok = false;                         // a piece of a reading already replaced by the next
+    if (ttsMark) { ttsMark.classList.remove('speaking'); ttsMark = null; }
+    if (done) { const f = done; done = null; f(ok); }      // once, whichever piece answers first
+  };
   chunks.forEach((c, i) => { const u = new SpeechSynthesisUtterance(c); u.lang = bcp; if (v) u.voice = v;
     u.rate = (typeof VOICE !== 'undefined' ? VOICE.rate : 0.95); u.pitch = (typeof VOICE !== 'undefined' ? VOICE.pitch : 1);
-    if (i === chunks.length - 1) u.onend = u.onerror = () => { if (ttsMark) { ttsMark.classList.remove('speaking'); ttsMark = null; } };
+    u.onerror = () => fin(false);
+    if (i === chunks.length - 1) u.onend = () => fin(!ttsHalt);
     speechSynthesis.speak(u); });
 }
 const ctx = document.createElement('div'); ctx.id = 'ctx'; ctx.hidden = true; document.body.appendChild(ctx);
@@ -80,10 +97,10 @@ document.addEventListener('contextmenu', e => {
   const w = ctx.offsetWidth, h = ctx.offsetHeight;
   ctx.style.left = Math.min(e.clientX, window.innerWidth - w - 8) + 'px'; ctx.style.top = Math.min(e.clientY, window.innerHeight - h - 8) + 'px';
   ctx.querySelector('[data-a=read]').onclick = () => { ttsSpeak(text, code, sel ? null : verse); ctxHide(); };
-  const st = ctx.querySelector('[data-a=stop]'); if (st) st.onclick = () => { speechSynthesis.cancel(); if (ttsMark) { ttsMark.classList.remove('speaking'); ttsMark = null; } ctxHide(); };
+  const st = ctx.querySelector('[data-a=stop]'); if (st) st.onclick = () => { ttsStop(); ctxHide(); };
 });
 document.addEventListener('click', e => { if (!e.target.closest('#ctx')) ctxHide(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { ctxHide(); if ('speechSynthesis' in window) speechSynthesis.cancel(); if (ttsMark) { ttsMark.classList.remove('speaking'); ttsMark = null; } } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { ctxHide(); if ('speechSynthesis' in window) ttsStop(); } });
 window.addEventListener('scroll', ctxHide, true);
 """
 

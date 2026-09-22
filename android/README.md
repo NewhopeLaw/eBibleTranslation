@@ -122,6 +122,20 @@ key that is lost has to be reset with Google before another release can go up.
   phones - it speaks nothing at all rather than what it can. The passage is
   therefore broken at a space and queued piece by piece, the first flushing
   whatever was being said and the rest following it.
+
+  The page is told how each reading ended. The "Who is Jesus?" stories count
+  only when they were heard to the end, so `speak` takes a number from the
+  page, and an `UtteranceProgressListener` sends it back through
+  `speechDone(id, finished)` - true when the last piece was spoken, false the
+  moment anything stopped it, including the app going into the background.
+  Each reading answers once, and a reading already flushed by the next one
+  does not answer at all: the number is what keeps them apart. The engine's
+  "done" is not taken on its own, because one phone kept reporting it before
+  the story was over: after it, the shell watches the phone's music stream
+  (`AudioManager.isMusicActive`, where speech is played) and reports the end
+  once the stream has been silent for a moment and at least half the time the
+  text should take has passed - or, if something else keeps the stream busy,
+  when twice that time has gone.
 - **Sharing the app.** The share sheet, which is where Quick Share lives, is
   handed a copy of our own APK through a `FileProvider` - Android will not let
   one app read another's file by path. The copy goes to `cache/share/`, and

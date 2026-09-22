@@ -8,10 +8,12 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.speech.tts.Voice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -212,6 +214,10 @@ public class MainActivity extends ComponentActivity {
     private void configure(WebView w) {
         WebSettings s = w.getSettings();
         s.setJavaScriptEnabled(true);      // the reader is all script
+        // The badge for a story heard to the end rings a bell, minutes after
+        // the tap that started the reading. Only our own page is loaded here,
+        // so it may sound without a touch just before.
+        s.setMediaPlaybackRequiresUserGesture(false);
         s.setDomStorageEnabled(true);      // text size, view, language and theme preferences live in local storage
 
         // The page is in the APK and asks for nothing outside it. Assets and
@@ -326,7 +332,22 @@ public class MainActivity extends ComponentActivity {
          */
         @JavascriptInterface
         public void speak(String text, String lang, float rate, float pitch, String voice) {
-            runOnUiThread(() -> speech().say(text, lang, rate, pitch, voice));
+            speak(text, lang, rate, pitch, voice, 0);
+        }
+
+        /**
+         * The same, with a number the page will hear back.
+         *
+         * A story only counts as listened to when it was heard to the end, so
+         * the page needs to know how a reading ended - finished, or stopped -
+         * and which reading it was: its stop for one passage and its start of
+         * the next are a moment apart, and an answer about the first must not
+         * be taken for the second. Speech.report() sends the number back with
+         * the verdict.
+         */
+        @JavascriptInterface
+        public void speak(String text, String lang, float rate, float pitch, String voice, int id) {
+            runOnUiThread(() -> speech().say(text, lang, rate, pitch, voice, id));
         }
 
         /**
@@ -482,6 +503,83 @@ public class MainActivity extends ComponentActivity {
         private volatile boolean failed;         // no speech engine on this phone at all
         private String pendingText, pendingLang, pendingVoice;
         private float pendingRate = 1f, pendingPitch = 1f;
+        private int pendingId;
+        /*
+         * One reading is one run: its utterances are named after it, so the
+         * engine's callbacks - which arrive on the engine's own thread, and for
+         * pieces of a reading already flushed by the next one - can be told
+         * apart from the reading the page is waiting on. Each run is reported
+         * once, finished or stopped, whichever comes first.
+         */
+        private volatile int run;
+        private volatile int pageId;
+        private volatile String lastPiece;
+        private volatile boolean reported;
+        /*
+         * "Done" is not taken at its word. Some engines say an utterance is
+         * finished while the phone is still speaking it - on one phone the
+         * badge for a story kept arriving before the reading was over - so
+         * the end is judged by the phone's own audio instead: after the engine
+         * has said done, the reading is over once the music stream has been
+         * silent for a moment and at least half the time the text should take
+         * has passed. If something else keeps the stream busy, twice that time
+         * is taken as the end. Only the last piece of a reading is watched.
+         */
+        private final AudioManager audio = (AudioManager) getSystemService(AUDIO_SERVICE);
+        private volatile long startedAt, floorAt;   // when the reading began, and when it should be over
+        private volatile long quietSince;            // when the stream last fell silent; 0 while it sounds
+        private volatile boolean doneSeen;
+        private final Runnable finish = this::maybeFinish;
+
+        {
+            tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+                @Override public void onStart(String id) {}
+                @Override public void onDone(String id) {
+                    if (id.equals(lastPiece)) { doneSeen = true; runOnUiThread(finish); }
+                }
+                @Override public void onError(String id) { report(id, false); }
+                @Override public void onError(String id, int code) { report(id, false); }
+                @Override public void onStop(String id, boolean interrupted) { report(id, false); }
+            });
+        }
+
+        /** On the main thread: finished, if every sign agrees; otherwise look again shortly. */
+        private void maybeFinish() {
+            if (reported || !doneSeen || lastPiece == null) return;
+            long now = System.currentTimeMillis();
+            boolean busy = tts.isSpeaking() || (audio != null && audio.isMusicActive());
+            if (busy) quietSince = 0; else if (quietSince == 0) quietSince = now;
+            long span = floorAt - startedAt;
+            boolean quiet = quietSince != 0 && now - quietSince >= 1500 && now >= startedAt + span / 2;
+            boolean overdue = now >= floorAt + span;
+            if (quiet || overdue) { report(lastPiece, true); return; }
+            root.postDelayed(finish, 400);
+        }
+
+        /** Characters a second an engine speaks at rate 1: rough, and only used to bound the wait. */
+        private double pace(String lang) {
+            switch (lang == null ? "" : lang) {
+                case "zh": case "yue": case "nan": case "hak": return 4.5;
+                case "ja": case "ja-easy": return 5;
+                case "th": return 8;
+                default: return 15;
+            }
+        }
+
+        /** Tell the page how the reading it asked for ended, once, and never about an older one. */
+        private void report(String id, boolean finished) {
+            if (id == null || !id.startsWith("ebible" + run + "-")) return;
+            synchronized (this) {
+                if (reported) return;
+                reported = true;
+            }
+            final int which = pageId;
+            runOnUiThread(() -> {
+                if (web != null)
+                    web.evaluateJavascript("if(typeof window.speechDone==='function')speechDone("
+                                           + which + "," + finished + ")", null);
+            });
+        }
 
         @Nullable
         private Voice pick(Locale loc, String wanted) {
@@ -527,7 +625,7 @@ public class MainActivity extends ComponentActivity {
         public void onInit(int status) {
             ready = status == TextToSpeech.SUCCESS;
             failed = !ready;
-            if (ready && pendingText != null) say(pendingText, pendingLang, pendingRate, pendingPitch, pendingVoice);
+            if (ready && pendingText != null) say(pendingText, pendingLang, pendingRate, pendingPitch, pendingVoice, pendingId);
             pendingText = null;
         }
 
@@ -536,6 +634,7 @@ public class MainActivity extends ComponentActivity {
             switch (lang) {
                 case "hbo": case "arc": return new Locale("he", "IL");    // modern Hebrew voice for the Hebrew text
                 case "grc": return new Locale("el", "GR");                // modern Greek for the Greek
+                case "zh": return Locale.SIMPLIFIED_CHINESE;
                 case "yue": return Locale.forLanguageTag("zh-HK");
                 case "nan": case "hak": return Locale.forLanguageTag("zh-TW");
                 case "ja-easy": return Locale.JAPANESE;
@@ -553,10 +652,18 @@ public class MainActivity extends ComponentActivity {
             return r >= TextToSpeech.LANG_AVAILABLE ? "yes" : "no";
         }
 
-        void say(String text, String lang, float rate, float pitch, String wanted) {
+        void say(String text, String lang, float rate, float pitch, String wanted, int id) {
             if (text == null || text.isEmpty()) return;
             if (!ready) { pendingText = text; pendingLang = lang; pendingRate = rate; pendingPitch = pitch;
-                          pendingVoice = wanted; return; }
+                          pendingVoice = wanted; pendingId = id; return; }
+            root.removeCallbacks(finish);
+            run++;
+            pageId = id;
+            reported = false;
+            lastPiece = null;
+            doneSeen = false; quietSince = 0;
+            startedAt = System.currentTimeMillis();
+            floorAt = startedAt + (long) (text.trim().length() * 1000.0 / (pace(lang) * clamp(rate)));
             Locale loc = locale(lang);
             tts.setLanguage(loc);
             // Left alone the engine takes its default, which on most phones is
@@ -578,6 +685,7 @@ public class MainActivity extends ComponentActivity {
          * a space and queued piece by piece rather than cut off at the limit.
          */
         private void speakChunks(String text) {
+            text = text.trim();                // so the last piece is a real one, and can be named as the last
             int max = TextToSpeech.getMaxSpeechInputLength();
             if (max <= 0) max = 4000;
             int spoken = 0;
@@ -590,18 +698,24 @@ public class MainActivity extends ComponentActivity {
                 String piece = text.substring(i, end).trim();
                 i = end;
                 if (piece.isEmpty()) continue;
-                tts.speak(piece, spoken == 0 ? TextToSpeech.QUEUE_FLUSH : TextToSpeech.QUEUE_ADD,
-                          null, "ebible" + spoken);
+                // The last piece is the one whose end is the end of the reading;
+                // it is named before it is queued, because a short piece can be
+                // over before speak() has returned.
+                String name = "ebible" + run + "-" + spoken;
+                if (end >= text.length()) lastPiece = name;
+                tts.speak(piece, spoken == 0 ? TextToSpeech.QUEUE_FLUSH : TextToSpeech.QUEUE_ADD, null, name);
                 spoken++;
             }
             if (spoken == 0) tts.stop();       // nothing but spaces: at least stop what was already going
         }
 
         void stop() {
-            if (ready) tts.stop();
+            root.removeCallbacks(finish);
+            if (ready) tts.stop();             // the listener's onStop tells the page
         }
 
         void shutdown() {
+            root.removeCallbacks(finish);
             tts.stop();
             tts.shutdown();
         }
