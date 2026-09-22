@@ -31,3 +31,8 @@
 2026-09-12 19:54:34 lexemes: finished in 34 min (exit 1)
 2026-09-12 19:54:34 lexicon: starting — write a lexicon entry for every lexeme, from its occurrences (263/10684 done)
 2026-09-21 03:47:31 lexemes: starting — grow our own lexeme inventory from every word form in the text (5609/80894 done)
+2026-09-21 09:32:33 lexemes: finished in 345 min (exit 1)
+2026-09-21 09:32:33 lexicon: starting — write a lexicon entry for every lexeme, from its occurrences (265/10684 done)
+2026-09-21 11:50:46 lexicon: finished in 138 min (exit 1)
+2026-09-21 11:50:46 domains: starting — sort every lexeme into this project's fields of meaning (1080/16967 done)
+2026-09-22 09:49:53 lexemes: starting — grow our own lexeme inventory from every word form in the text (27568/80894 done)

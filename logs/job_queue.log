@@ -9,3 +9,7 @@ lexemes: starting — grow our own lexeme inventory from every word form in the te
 lexemes: finished in 34 min (exit 1)
 lexicon: starting — write a lexicon entry for every lexeme, from its occurrences (263/10684 done)
 lexemes: starting — grow our own lexeme inventory from every word form in the text (5609/80894 done)
+lexemes: finished in 345 min (exit 1)
+lexicon: starting — write a lexicon entry for every lexeme, from its occurrences (265/10684 done)
+lexicon: finished in 138 min (exit 1)
+domains: starting — sort every lexeme into this project's fields of meaning (1080/16967 done)
