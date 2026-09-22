@@ -214,6 +214,11 @@ dialog.sheet::backdrop { background:var(--scrim); }
   white-space:nowrap; text-align:end; font:calc(12px * var(--ui)) system-ui,sans-serif; color:var(--muted); }
 .rowlist .tk { flex:none; font-weight:700; color:var(--accent); }
 .rowlist .missing { color:var(--muted); opacity:.5; pointer-events:none; }
+/* A row that opens onto more rows. The chevron is the only sign, and it turns
+   when open, so the state is not left to colour. */
+.rowlist button[aria-expanded] .chev { flex:none; color:var(--muted); transition:transform .15s; }
+.rowlist button[aria-expanded="true"] .chev { transform:rotate(90deg); }
+.rowlist .sub { margin-left:.9rem; border-left:2px solid var(--border); padding-left:.2rem; }
 .chgrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(48px,1fr)); gap:.4rem; }
 .chgrid a { display:flex; align-items:center; justify-content:center; min-height:48px;
   border:1px solid var(--edge); border-radius:12px; text-decoration:none; color:var(--fg);
@@ -249,6 +254,8 @@ dialog.sheet::backdrop { background:var(--scrim); }
 .sheet .primary { display:flex; width:100%; align-items:center; justify-content:center;
   min-height:52px; border:1px solid var(--accent); border-radius:14px; margin:.6rem 0 .2rem;
   background:var(--accent); color:var(--on-accent); cursor:pointer; font:700 calc(15px * var(--ui)) system-ui,sans-serif; }
+.sheet .primary.share { gap:.6rem; margin-top:1.4rem; min-height:56px; text-transform:uppercase; letter-spacing:.06em; }
+.sheet .primary .mark { width:26px; height:22px; fill:currentColor; flex:none; }
 /* ---------- the magnifier's way back, and a place to say a file did not load ---------- */
 #zoomchip, #toast { position:fixed; left:50%; transform:translateX(-50%); z-index:36;
   background:var(--card); color:var(--fg); border:1px solid var(--edge);
@@ -2220,7 +2227,12 @@ const PHONE = (typeof AndroidApp !== "undefined" && AndroidApp) ? AndroidApp : n
 const SPEEDS = [[0.6, "Slow"], [0.8, "Steady"], [1, "Normal"], [1.25, "Quick"]];
 const PITCHES = [[0.85, "Low"], [1, "Middle"], [1.15, "High"]];
 const VOICE = {rate: +(localStorage.getItem("ttsRate") || 0.8), pitch: +(localStorage.getItem("ttsPitch") || 1)};
+/* The open book from the launcher icon (android/.../ic_mark_foreground.xml),
+   the same two pages on the same canvas, in whatever colour the text around it
+   has - so the app is recognised by its own mark where it offers itself. */
+const BOOKMARK = `<svg class="mark" viewBox="18 24 72 60" aria-hidden="true"><path d="M52,38 C45,32.5 35,29.5 24,29.5 L24,71.5 C35,71.5 45,74.5 52,80 Z"/><path d="M56,38 C63,32.5 73,29.5 84,29.5 L84,71.5 C73,71.5 63,74.5 56,80 Z"/></svg>`;
 const voiceKey = lang => "ttsVoice_" + lang;
+let voiceListOpen = false;                                // whether the tray shows every voice, or just the one in use
 const chosenVoice = lang => localStorage.getItem(voiceKey(lang)) || "";
 function setChosenVoice(lang, name){
   if (name) localStorage.setItem(voiceKey(lang), name); else localStorage.removeItem(voiceKey(lang));
@@ -2506,6 +2518,7 @@ function openSheet(name){
   if (openName) closeSheet();
   if (name === "nav") { const b = location.hash.slice(1).split("/")[0]; if (DATA[b]) navBook = b; navPane = "chapters"; }
   openName = name;
+  voiceListOpen = false;                   // the voice list starts folded every time the tray is opened
   drawSheet(name);
   const bd = d.querySelector(".bd"); if (bd) bd.scrollTop = 0;    // a tray opens at its top, wherever it was left
   if (d.showModal) d.showModal(); else d.setAttribute("open", "");
@@ -2738,23 +2751,37 @@ function drawSettings(){
     h += `<div class="shead">Voice pitch</div><div class="seg" role="group" aria-label="Voice pitch">`
       + PITCHES.map(([v, n]) => `<button type="button" data-pitch="${v}" aria-pressed="${Math.abs(VOICE.pitch - v) < .001}">${n}</button>`).join("")
       + `</div><p class="hint"><button type="button" id="voiceTry" class="try">Hear it</button> a verse at this setting.</p>`;
+    /* A phone can have a dozen voices for one language, and a list of a dozen
+       "Voice 7 · natural · en-US" rows took the tray over for a choice nearly
+       nobody makes: the best voice is picked already. So one row says what is
+       in use, and the list is behind it, with the explanation of why the voices
+       vary, for whoever wants to change it. */
     const vs = voicesFor(tl), pickName = chosenVoice(tl);
-    if (vs.length > 1) {
-      h += `<div class="shead">Which voice</div><div class="rowlist">`
-        + row('data-voice=""', "Best this phone has", "chosen for quality", !pickName)
-        + vs.map((v, i) => row(`data-voice="${attr(v.name)}"`, `Voice ${i + 1}`,
-            `${v.quality >= 400 ? "very natural" : v.quality >= 300 ? "natural" : "plain"} \u00b7 ${esc(v.locale)}`,
-            pickName === v.name)).join("")
-        + `</div>`;
-    }
-    h += `<p class="hint">The voices belong to the phone, not to this app. A flat, clipped voice is the small
+    const grade = v => v.quality >= 400 ? "very natural" : v.quality >= 300 ? "natural" : "plain";
+    const note = v => `${grade(v)} \u00b7 ${esc(v.locale)}`;
+    const where = `<p class="hint">The voices belong to the phone, not to this app. A flat, clipped voice is the small
       one Android ships with: more natural voices are a free download in the phone's own settings \u2014
       Settings \u203a Accessibility \u203a Text-to-speech output \u203a your engine \u203a Install voice data,
       where the larger voices for a language can be added. They then appear here.</p>`;
+    if (vs.length > 1) {
+      const cur = vs.find(v => v.name === pickName), best = vs[0];
+      h += `<div class="shead">Which voice</div><div class="rowlist">`
+        + `<button type="button" id="voiceMore" aria-expanded="${voiceListOpen}" aria-controls="voiceList">`
+        + `<span class="nm">${cur ? `Voice ${vs.indexOf(cur) + 1}` : "Best this phone has"}</span>`
+        + `<span class="ct">${note(cur || best)}</span>`
+        + `<span class="chev" aria-hidden="true">\u203a</span></button>`
+        + `<div id="voiceList" class="sub"${voiceListOpen ? "" : " hidden"}>`
+        + `<p class="hint" style="margin:.2rem .7rem .4rem">The phone offers ${vs.length} voices for this language and the most natural is chosen
+           by itself. Pick another to keep it for this language; the choice is tried at once.</p>`
+        + row('data-voice=""', "Best this phone has", note(best), !pickName)
+        + vs.map((v, i) => row(`data-voice="${attr(v.name)}"`, `Voice ${i + 1}`, note(v), pickName === v.name)).join("")
+        + where.replace('class="hint"', 'class="hint" style="margin:.4rem .7rem .3rem"') + `</div></div>`;
+    } else h += where;
   }
-  if (PHONE) h += `<div class="shead">Pass it on</div><div class="rowlist">`
-    + row('id="setShareApp"', "Share this app", "send a copy to another phone", false)
-    + `</div><p class="hint">The whole Bible goes with it: no shop, no account, and nothing to download at the other end.</p>`;
+  /* One button, the app's own mark and three words. It stood under a heading
+     with a paragraph explaining that the whole Bible goes with it, and the
+     explanation was longer than the act: the phone's share sheet says the rest. */
+  if (PHONE) h += `<button type="button" class="primary share" id="setShareApp">${BOOKMARK}Share this Bible</button>`;
   h += `<div class="shead">About the text</div><div class="rowlist"><button type="button" id="setSrc"><span class="nm">Sources and licenses</span><span class="ct">what each layer came from</span></button></div>`;
   const dyn = $("#setDyn");
   dyn.innerHTML = h;
@@ -2765,6 +2792,8 @@ function drawSettings(){
   dyn.querySelectorAll("[data-rate]").forEach(el => el.onclick = () => { setVoice("rate", +el.dataset.rate); tryVoice(); });
   dyn.querySelectorAll("[data-pitch]").forEach(el => el.onclick = () => { setVoice("pitch", +el.dataset.pitch); tryVoice(); });
   dyn.querySelectorAll("[data-voice]").forEach(el => el.onclick = () => { setChosenVoice(tl, el.dataset.voice); tryVoice(); });
+  const more = $("#voiceMore");
+  if (more) more.onclick = () => { voiceListOpen = !voiceListOpen; drawSettings(); const b = $("#voiceMore"); if (b) b.focus(); };
   const tryBtn = $("#voiceTry");
   if (tryBtn) tryBtn.onclick = tryVoice;
   dyn.querySelectorAll("[data-lang]").forEach(el => el.onclick = () => {
