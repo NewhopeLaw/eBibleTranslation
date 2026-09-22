@@ -1696,7 +1696,7 @@ function goRef(input) {
 }
 
 /* ---------- search (in the selected translation) ---------- */
-const BUILD = "2026-09-22 12:03";               // when this page was built, so a phone can say which copy it is running
+const BUILD = "2026-09-22 12:08";               // when this page was built, so a phone can say which copy it is running
 const IDX = {};
 const idxLoad = name => IDX[name] ? Promise.resolve() : loadJs(`morph/idx_${name}.js`);
 const foldTerm = t => t.normalize("NFD").replace(/[\u0300-\u036f\u0591-\u05c7]/g, "").normalize("NFC").toLowerCase();

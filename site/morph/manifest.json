@@ -35,11 +35,11 @@
   "built": 1790103825.0793247
  },
  "search-index": {
-  "count": 8684196,
+  "count": 11481558,
   "unit": "postings",
   "note": "10 texts indexed for search",
   "script": "build_index.py",
-  "built": 1790103467.8962605
+  "built": 1790104097.6631923
  },
  "morphology": {
   "count": 442835,
@@ -123,6 +123,6 @@
   "unit": "things",
   "note": "the study layers, searchable",
   "script": "build_entries.py",
-  "built": 1790103826.6276615
+  "built": 1790104099.4405134
  }
 }

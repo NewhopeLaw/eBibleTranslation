@@ -36,7 +36,13 @@ TOPICS = ROOT / "targets" / "search" / "topics.jsonl"
 NORM = ROOT / "sources" / "normalized"
 OUT = ROOT / "site" / "morph"
 NOSPACE = re.compile(r"[㐀-鿿豈-﫿぀-ヿ฀-๿]")
-WORD = re.compile(r"[\w֐-׿Ͱ-Ͽἀ-῿]+", re.UNICODE)
+# The scripts are named one by one because Python's \w drops combining marks,
+# and a mark is half a letter here: Hebrew points, Greek breathings and Thai
+# vowels and tones all are. Thai was missing from the list, so every tone mark
+# cut a word in two - ตะกร้า went in as อตะกร and าผลไม - while the reader kept
+# its query whole, and a Thai reader searching for a word with a mark in it,
+# which is most of them, was told there was nothing.
+WORD = re.compile(r"[\w֐-׿Ͱ-Ͽἀ-῿฀-๿]+", re.UNICODE)
 
 
 def fold(term, script):
