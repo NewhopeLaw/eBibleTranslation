@@ -202,6 +202,14 @@ dialog.sheet::backdrop { background:var(--scrim); }
   padding:0 1rem calc(1.4rem + env(safe-area-inset-bottom)); }
 .shead { margin:1.1rem 0 .35rem; font:600 calc(11px * var(--ui)) system-ui,sans-serif; text-transform:uppercase;
   letter-spacing:.07em; color:var(--muted); }
+/* The two languages side by side, because they are chosen against each other:
+   which Bible to read, and what the buttons around it should say. Short native
+   names, so two columns fit a phone without either being cut. */
+.langs { display:grid; grid-template-columns:1fr 1fr; gap:.2rem .7rem; align-items:start; }
+.langs .shead { margin-top:.6rem; }
+.langs .rowlist button { padding:.45rem .55rem; }
+.langs .rowlist .nm { font-weight:600; }
+.langs .rowlist .ct { display:none; }                    /* the English name would crowd the column */
 .rowlist { display:flex; flex-direction:column; }
 .rowlist a, .rowlist button { display:flex; width:100%; align-items:center; gap:.6rem;
   min-height:48px; padding:.5rem .7rem; border:0; border-radius:12px; background:none;
@@ -707,10 +715,10 @@ try {
 </div>
 <button id="quick" class="adv-hide" aria-label="Display and reading settings" title="Display and reading settings" aria-haspopup="dialog" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6M18.4 18.4l-1.6-1.6M7.2 7.2L5.6 5.6"/></svg></button>
 <nav id="tabbar" aria-label="Reader actions"><div class="row">
-  <button id="tbBooks" aria-haspopup="dialog" aria-expanded="false" aria-controls="navSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h6.5v14H4zM13.5 5.5H20v14h-6.5z"/></svg></span><span class="lb">Books</span></button>
-  <button id="tbSearch" aria-haspopup="dialog" aria-expanded="false" aria-controls="searchSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.6"/><path d="M16 16l4.4 4.4"/></svg></span><span class="lb">Search</span></button>
-  <button id="tbTools" class="adv" aria-haspopup="dialog" aria-expanded="false" aria-controls="toolsSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h5M13 7h7M4 17h9M17 17h3"/><circle cx="11" cy="7" r="2.2"/><circle cx="15" cy="17" r="2.2"/></svg></span><span class="lb">Tools</span></button>
-  <button id="tbDisp" aria-haspopup="dialog" aria-expanded="false" aria-controls="setSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 19l5-14 5 14M5.3 14.4h6.4M21 19v-6.6a2.6 2.6 0 0 0-5 -1M16 19a2.4 2.4 0 0 1 0-4.8h5"/></svg></span><span class="lb">Display</span></button>
+  <button id="tbBooks" aria-haspopup="dialog" aria-expanded="false" aria-controls="navSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h6.5v14H4zM13.5 5.5H20v14h-6.5z"/></svg></span><span class="lb" data-t="Books">Books</span></button>
+  <button id="tbSearch" aria-haspopup="dialog" aria-expanded="false" aria-controls="searchSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.6"/><path d="M16 16l4.4 4.4"/></svg></span><span class="lb" data-t="Search">Search</span></button>
+  <button id="tbTools" class="adv" aria-haspopup="dialog" aria-expanded="false" aria-controls="toolsSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h5M13 7h7M4 17h9M17 17h3"/><circle cx="11" cy="7" r="2.2"/><circle cx="15" cy="17" r="2.2"/></svg></span><span class="lb" data-t="Tools">Tools</span></button>
+  <button id="tbDisp" aria-haspopup="dialog" aria-expanded="false" aria-controls="setSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 19l5-14 5 14M5.3 14.4h6.4M21 19v-6.6a2.6 2.6 0 0 0-5 -1M16 19a2.4 2.4 0 0 1 0-4.8h5"/></svg></span><span class="lb" data-t="Display">Display</span></button>
 </div></nav>
 <dialog class="sheet" id="navSheet" aria-labelledby="navSheetT">
   <div class="grab"><i></i></div>
@@ -803,7 +811,13 @@ const LANGS = __LANGS__;
 const TARGETS = __TARGETS__;          // {code: {name, native}} in canonical order
 const ABBREV = __ABBREV__;
 const $ = s => document.querySelector(s);
-const disp = b => b.replace(/_/g," ");
+/* Two names for a book. dataKey() is the English every built layer (MORPH,
+   PAR, XREF, SYN, APP, BOOKARG, CHRON...) is keyed by, and it never changes
+   with the display language - renaming it would silently empty every one of
+   those layers. disp() is what a reader is shown, and goes through the
+   display language's own names when it has them. */
+const dataKey = b => b.replace(/_/g, " ");
+const disp = b => bookName(b);
 
 const allBooks = Object.keys(ORDER).sort((a,b) => ORDER[a]-ORDER[b]);
 const srcBooks = allBooks.filter(b => DATA[b]);                          // navigable
@@ -812,11 +826,59 @@ const trOf = (b, c) => (DATA[b] && DATA[b][c] && DATA[b][c].tr) || {};
 const haveTargets = Object.keys(TARGETS).filter(t => srcBooks.some(b => Object.values(DATA[b]).some(c => c.tr && c.tr[t])));
 const booksWith = t => srcBooks.filter(b => Object.values(DATA[b]).some(c => c.tr && c.tr[t]));
 
-/* ---------- translation language + view (persisted) ---------- */
+/* ---------- the two languages, and the view (persisted) ----------
+   A reader has two languages and they are not the same one. The reading
+   language is which translation of the Bible is on the page; the display
+   language is what the buttons and headings around it say. Reading the Greek
+   with a Thai interface is an ordinary case, and so is a Thai speaker reading
+   the English text.
+
+   With neither chosen yet - a phone opening a shared copy for the first time -
+   the device says which it wants, and it sets both: a phone set to Thai in
+   Thailand opens a Thai Bible with a Thai interface, and nobody has to hunt for
+   a setting written in a language they do not read. */
+const UI = __UI__;                                       // {lang: {ui: {english: translated}, books: {...}}}
+const deviceLang = () => (((typeof navigator !== "undefined" && (navigator.language || (navigator.languages || [])[0])) || "")
+                          .toLowerCase().split("-")[0]);
+function firstRunLang(list){
+  const d = deviceLang();
+  if (!d) return null;
+  return list.includes(d) ? d : (list.find(x => x.split("-")[0] === d) || null);
+}
 let tl = localStorage.getItem("tl");
-if (!haveTargets.includes(tl)) tl = haveTargets[0] || "en";
+if (!haveTargets.includes(tl)) tl = firstRunLang(haveTargets) || haveTargets[0] || "en";
+/* English is always offered: it is the language the page is written in, and
+   every string that has no translation falls back to it. */
+const haveDisplay = ["en", ...Object.keys(UI).filter(l => l !== "en").sort()];
+let dl = localStorage.getItem("dl");
+if (!haveDisplay.includes(dl)) dl = firstRunLang(haveDisplay) || "en";
+/* The English string is its own key, so a string nobody has translated yet
+   still reads as English rather than as a name out of a table. */
+function t(s){ const m = UI[dl] && UI[dl].ui; return (m && m[s]) || s; }
+/* What a book is called on the page. disp() stays the English name - ORDER, the
+   hash and every built layer are keyed by it - and only what a reader sees goes
+   through here. */
+function bookName(b){
+  const m = UI[dl] && UI[dl].books, en = b.replace(/_/g, " ");
+  return (m && m[en]) || en;
+}
 let view = localStorage.getItem("view") || "tr";   // tr | orig | par | all
 function setView(v){ view = v; localStorage.setItem("view", v); route(); rehear(); }
+/* The header and the tab bar are written once into the page and never redrawn,
+   so changing the display language has to go round and re-letter them. Each
+   piece carries the English it was written with, which is also its key. */
+function applyChrome(){
+  document.querySelectorAll("[data-t]").forEach(el => { el.textContent = t(el.dataset.t); });
+  document.querySelectorAll("[data-tph]").forEach(el => { el.placeholder = t(el.dataset.tph); });
+  document.querySelectorAll("[data-ta]").forEach(el => { el.setAttribute("aria-label", t(el.dataset.ta)); });
+  document.querySelectorAll("[data-tt]").forEach(el => { el.title = t(el.dataset.tt); });
+}
+function setDl(d){
+  if (!haveDisplay.includes(d) || d === dl) return;
+  dl = d; localStorage.setItem("dl", d);
+  document.documentElement.setAttribute("lang", d);
+  applyChrome(); route(); redrawSheet();
+}
 /* Every link to a reference goes through here. A theme, an entry or a list of
    hits is drawn over the chapter without changing the address, so a link back
    to the chapter already in the address would otherwise do nothing at all. */
@@ -930,7 +992,7 @@ const themesLoad = () => typeof THEMES !== "undefined" ? Promise.resolve() : loa
 const theolLoad = () => typeof BOOKARG !== "undefined" ? Promise.resolve() : loadJs("morph/theology.js");
 const DERIVED = "Built from the layer below it and citing what it is built on: a reading, not a tagged fact. Nothing here is taken from a published theology.";
 function bookArgHtml(book){
-  const a = typeof BOOKARG !== "undefined" ? BOOKARG[disp(book)] : null; if (!a) return "";
+  const a = typeof BOOKARG !== "undefined" ? BOOKARG[dataKey(book)] : null; if (!a) return "";
   const [sections, argument, concerns] = a;
   let h = `<div class="arg"><h3>What ${esc(disp(book))} is doing</h3><div class="derived">${esc(DERIVED)}</div>`;
   if (argument) h += `<div class="lead">${esc(argument)}</div>`;
@@ -957,12 +1019,12 @@ const themeGloss = t => (t && t[4] && t[4][2]) ? t[4][2] : (t ? t[0] : "");
 const BARR = `A theme is not a word. One theme runs on many unrelated words, and one word serves many themes — the caution James Barr pressed on word studies. The vocabulary below is what these passages happen to use, ranked by how much more often each word stands here than elsewhere. It is evidence about the passages, not a definition of the theme.`;
 async function renderThemes(book, ch, head){
   const main = $("#main");
-  main.innerHTML = head + `<p class="empty">Loading themes…</p>`;
-  try { await themesLoad(); } catch (e) { main.innerHTML = head + `<p class="empty">Themes are not built yet — run scripts/build_themes.py.</p>`; return; }
+  main.innerHTML = head + `<p class="empty">${esc(t('Loading themes…'))}</p>`;
+  try { await themesLoad(); } catch (e) { main.innerHTML = head + `<p class="empty">${esc(t('Themes are not built yet — run scripts/build_themes.py.'))}</p>`; return; }
   try { await theolLoad(); } catch (e) {}
   const here = (typeof CHTHEME !== "undefined" && CHTHEME[`${disp(book)}|${ch}`]) || [];
   let html = head + `<div class="thm">`;
-  html += `<p class="empty" style="margin:0 0 .6rem">What the model found this chapter to be about, read chapter by chapter and then gathered across the whole Bible. This is a reading, not a tagged fact: every theme names the verses it came from, so it can be checked.</p>`;
+  html += `<p class="empty" style="margin:0 0 .6rem">${esc(t('What the model found this chapter to be about, read chapter by chapter and then gathered across the whole Bible. This is a reading, not a tagged fact: every theme names the verses it came from, so it can be checked.'))}</p>`;
   if (!here.length) html += `<p class="empty">No themes recorded for ${disp(book)} ${ch} yet.</p>`;
   for (const [id, verses, label] of here) {
     const t = THEMES[id];
@@ -1011,15 +1073,15 @@ const KIND = {"age-father": "age at fathering", "age-at": "age at the time", "li
               "reigned": "length of reign", "synchronism": "dated by another reign", "since": "years since an event", "span": "a span of years"};
 async function renderChron(book, ch, head){
   const main = $("#main");
-  main.innerHTML = head + `<p class="empty">Loading chronology…</p>`;
-  try { await chronLoad(); } catch (e) { main.innerHTML = head + `<p class="empty">Chronology is not built — run scripts/build_chronology.py.</p>`; return; }
-  const here = CHRON.data.filter(r => r[0] === disp(book) && r[1] == ch);
-  const inBook = CHRON.data.filter(r => r[0] === disp(book));
+  main.innerHTML = head + `<p class="empty">${esc(t('Loading chronology…'))}</p>`;
+  try { await chronLoad(); } catch (e) { main.innerHTML = head + `<p class="empty">${esc(t('Chronology is not built — run scripts/build_chronology.py.'))}</p>`; return; }
+  const here = CHRON.data.filter(r => r[0] === dataKey(book) && r[1] == ch);
+  const inBook = CHRON.data.filter(r => r[0] === dataKey(book));
   let html = head + `<div class="chron">`;
   html += `<p class="note">Every line below is a number the text itself states, with the verse it stands in. Nothing here is added up into a date: totals depend on choices this project does not make for you.</p>`;
   html += `<h3>In ${disp(book)} ${ch}</h3>`;
   html += here.length ? here.map(r => chronRow(r)).join("")
-    : `<p class="empty">No chronological statement in this chapter.</p>`;
+    : `<p class="empty">${esc(t('No chronological statement in this chapter.'))}</p>`;
   if (inBook.length > here.length) {
     html += `<h3>Elsewhere in ${disp(book)} <span style="text-transform:none;font-weight:400">(${inBook.length - here.length})</span></h3>`;
     html += inBook.filter(r => r[1] != ch).slice(0, 60).map(r => chronRow(r, true)).join("");
@@ -1040,14 +1102,14 @@ function chronRow(r, withRef){
 
 /* ---------- places: where the chapter happens, drawn offline (OpenBible.info CC BY 4.0 + Natural Earth, public domain) ---------- */
 const placesLoad = () => typeof PLACES !== "undefined" ? Promise.resolve() : loadJs("morph/places.js");
-const SYN = {}, synLoad = book => SYN[disp(book)] ? Promise.resolve() : loadJs(`morph/syn_${book}.js`);
+const SYN = {}, synLoad = book => SYN[dataKey(book)] ? Promise.resolve() : loadJs(`morph/syn_${book}.js`);
 function synHtml(book, ch, v, i){
-  const w = (((SYN[disp(book)] || {})[ch] || {})[v] || [])[i]; if (!w) return "";
+  const w = (((SYN[dataKey(book)] || {})[ch] || {})[v] || [])[i]; if (!w) return "";
   const [role, cls, dom, refTo] = w;
   let h = "";
   if (role || cls) h += `<div class="syn">In the clause: <b>${esc(role || cls)}</b>${role && cls && role !== cls ? ` (${esc(cls)})` : ""}`;
   if (refTo) { const [b2, c2, v2, i2] = refTo.split("|");
-    const t = (((SYN[disp(b2)] || {})[c2] || {})[v2] || [])[i2];
+    const t = (((SYN[dataKey(b2)] || {})[c2] || {})[v2] || [])[i2];
     h += `${h ? " · " : `<div class="syn">`}refers to <a onclick="gotoWord('${b2.replace(/ /g, "_")}',${c2},${v2},${i2})">${esc((t && t[4]) || "the earlier word")} (${esc(b2)} ${c2}:${v2})</a>`; }
   if (h) h += `</div>`;
   return h;
@@ -1057,10 +1119,10 @@ function gotoWord(book, ch, v, i){
   goto(`#${book}/${ch}/${v}`);
   setTimeout(() => { const el = document.querySelector(`main .w[data-k="${book}/${ch}/${v}/${i}"]`); if (el) { el.classList.add("ante"); el.scrollIntoView({block: "center"}); setTimeout(() => el.classList.remove("ante"), 4000); } }, 500);
 }
-const APP = {}, appLoad = book => APP[disp(book)] ? Promise.resolve() : Promise.all([loadJs(`morph/app_${book}.js`), typeof APPED !== "undefined" ? 0 : loadJs("morph/app_meta.js")]);
+const APP = {}, appLoad = book => APP[dataKey(book)] ? Promise.resolve() : Promise.all([loadJs(`morph/app_${book}.js`), typeof APPED !== "undefined" ? 0 : loadJs("morph/app_meta.js")]);
 const edName = e => (typeof APPED !== "undefined" && APPED[e]) || e;
 function appHtml(book, ch, v, script){
-  const rows = ((APP[disp(book)] || {})[ch] || {})[v] || []; if (!rows.length) return "";
+  const rows = ((APP[dataKey(book)] || {})[ch] || {})[v] || []; if (!rows.length) return "";
   let h = `<h4>Text notes <span style="font-weight:400;text-transform:none">(printed editions and the scribal tradition — not manuscripts)</span></h4>`;
   for (const [kind, reading, have, lack, note] of rows) {
     if (kind === "var") h += `<div class="ap"><span class="kind">reading</span><span class="rd orig ${script}">${esc(reading)}</span>`
@@ -1125,8 +1187,8 @@ function showPlace(name, book, ch){
 }
 async function renderMap(book, ch, head){
   const main = $("#main");
-  main.innerHTML = head + `<p class="empty">Loading places…</p>`;
-  try { await placesLoad(); } catch (e) { main.innerHTML = head + `<p class="empty">Place data is not built — run scripts/build_places.py.</p>`; return; }
+  main.innerHTML = head + `<p class="empty">${esc(t('Loading places…'))}</p>`;
+  try { await placesLoad(); } catch (e) { main.innerHTML = head + `<p class="empty">${esc(t('Place data is not built — run scripts/build_places.py.'))}</p>`; return; }
   mapView = null;
   renderMapInto(book, ch, null, head);
 }
@@ -1153,7 +1215,7 @@ function renderMapInto(book, ch, focus, head){
 }
 
 /* ---------- cross-references (OpenBible.info, CC BY 4.0) and parallels (computed from the word tags) ---------- */
-const XREF = {}, xrefLoad = book => XREF[disp(book)] ? Promise.resolve() : loadJs(`morph/xref_${book}.js`);
+const XREF = {}, xrefLoad = book => XREF[dataKey(book)] ? Promise.resolve() : loadJs(`morph/xref_${book}.js`);
 const parLoad = () => typeof PAR !== "undefined" ? Promise.resolve() : loadJs("morph/parallels.js");
 /* A button rather than a label, with the verse it stands for written on it:
    the same verse is numbered twice in the side-by-side views, and both copies
@@ -1177,8 +1239,8 @@ async function showRefs(book, ch, v, ev){
   if (ev) ev.stopPropagation();
   if (!adv()) return;                     // in basic mode a verse number is a verse number
   await Promise.all([xrefLoad(book).catch(() => {}), parLoad().catch(() => {}), placesLoad().catch(() => {}), appLoad(book).catch(() => {})]);
-  const xr = ((XREF[disp(book)] || {})[ch] || {})[v] || [];
-  const pr = typeof PAR !== "undefined" ? (((PAR[disp(book)] || {})[ch] || {})[v] || []) : [];
+  const xr = ((XREF[dataKey(book)] || {})[ch] || {})[v] || [];
+  const pr = typeof PAR !== "undefined" ? (((PAR[dataKey(book)] || {})[ch] || {})[v] || []) : [];
   let html = `<span class="cls" onclick="hideRefs()">✕</span><h4>${disp(book)} ${ch}:${v}</h4>`;
   const pls = (typeof PLACES !== "undefined" ? placesOf(book, ch, v).filter(n => PLACES[n]) : []);
   if (pls.length) html += `<div class="pl">Places: ${pls.map(n => `<a onclick="hideRefs();setView('map');setTimeout(()=>showPlace('${attr(n)}','${book}',${ch}),300)">${esc(n)}</a>`).join("")}</div>`;
@@ -1186,7 +1248,7 @@ async function showRefs(book, ch, v, ev){
   if (xr.length) html += `<h4>Cross-references <span style="font-weight:400;text-transform:none">(Treasury of Scripture Knowledge via OpenBible.info)</span></h4>`
     + xr.slice(0, 25).map(r => refRow(r[0].replace(/ /g, "_"), r[1], r[2], r[3], "")).join("");
   html += appHtml(book, ch, v, ((LANGS[(DATA[book] && DATA[book][ch] || {}).lang || "hbo"] || {}).script || "hebrew").toLowerCase());
-  if (!pr.length && !xr.length && !((APP[disp(book)] || {})[ch] || {})[v]) html += `<p class="empty">No cross-references, parallels or text notes for this verse.</p>`;
+  if (!pr.length && !xr.length && !((APP[dataKey(book)] || {})[ch] || {})[v]) html += `<p class="empty">${esc(t('No cross-references, parallels or text notes for this verse.'))}</p>`;
   vpop.innerHTML = html; vpop.hidden = false;
   reachable(vpop);
   const el = ev && ev.target, r = el ? el.getBoundingClientRect() : {left: 40, bottom: 80, top: 80};
@@ -1203,23 +1265,24 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") hideRefs(); 
 window.addEventListener("hashchange", hideRefs);
 async function renderHarmony(book, ch, head, shown){    // the chapter beside its parallels, verse by verse
   const main = $("#main");
-  main.innerHTML = head + `<p class="empty">Loading parallels…</p>`;
+  main.innerHTML = head + `<p class="empty">${esc(t('Loading parallels…'))}</p>`;
   await parLoad().catch(() => {});
-  const P = typeof PAR !== "undefined" ? (PAR[disp(book)] || {})[ch] || {} : {};
+  const P = typeof PAR !== "undefined" ? (PAR[dataKey(book)] || {})[ch] || {} : {};
   const src = (DATA[book][ch] || {}).src || {};
   const nums = Object.keys(src).filter(k => !k.startsWith("_")).map(Number).sort((a, b) => a - b);
   const freq = {}; for (const r of Object.values(P).flat()) freq[r[0]] = (freq[r[0]] || 0) + 1;      // the books this chapter most parallels, at most four columns
   const others = Object.keys(freq).sort((a, b) => freq[b] - freq[a]).slice(0, 4).sort((a, b) => ORDER[a.replace(/ /g, "_")] - ORDER[b.replace(/ /g, "_")]);
   let html = head;
   if (!others.length) { main.innerHTML = head + `<p class="empty">No parallel passages found for ${disp(book)} ${ch}. Parallels are computed for the Gospels, for Samuel–Kings–Chronicles with Isaiah, Jeremiah, Psalms and Micah, and within the Torah.</p>`; return; }
-  const cols = [disp(book), ...others];
+  const cols = [dataKey(book), ...others];   // data keys, for matching against P's own
+  const colLabels = cols.map(c => disp(c.replace(/ /g, "_")));   // what the header actually shows, every column
   html += `<p class="empty" style="margin:0 0 .6rem">Verses sharing wording with ${others.join(", ")}. Percentages are shared vocabulary, weighted by how rare each word is.</p>`;
   html += `<div class="harm hdr" style="position:sticky;top:var(--barH);background:var(--bg);z-index:2;padding-top:.2rem"><div class="vs" style="grid-template-columns:repeat(${cols.length},1fr)">`
-    + cols.map(c => `<div class="lab" style="cursor:default">${c}</div>`).join("") + `</div></div>`;
+    + colLabels.map(c => `<div class="lab" style="cursor:default">${esc(c)}</div>`).join("") + `</div></div>`;
   for (const n of nums) {
     const hits = P[n] || [];
     const cells = cols.map(cname => {
-      if (cname === disp(book)) {
+      if (cname === dataKey(book)) {
         const [txt, lang, dir] = verseText(book, ch, n);
         return `<div><div class="lab" onclick="goto('#${book}/${ch}/${n}')">${disp(book)} ${ch}:${n}</div><div class="txt" lang="${lang}" dir="${dir}">${ruby(esc(txt))}</div></div>`;
       }
@@ -1242,7 +1305,7 @@ const _loaded = {};
    answered 356 verses for 神 where the text has 4128, and said nothing. The
    build stamp on the end of the URL makes a rebuilt page fetch them again. */
 function loadJs(src){ const url = src + (src.indexOf("?") < 0 ? "?v=" + encodeURIComponent(BUILD) : ""); return _loaded[src] || (_loaded[src] = new Promise((ok, no) => { const el = document.createElement("script"); el.src = url; el.onload = ok; el.onerror = () => { delete _loaded[src]; no(new Error(src)); }; document.head.appendChild(el); })); }
-const morphLoad = book => MORPH[disp(book)] ? Promise.resolve() : loadJs(`morph/${book}.js`);
+const morphLoad = book => MORPH[dataKey(book)] ? Promise.resolve() : loadJs(`morph/${book}.js`);
 const lexLoad = () => typeof LEX !== "undefined" ? Promise.resolve() : loadJs("morph/lex.js");
 const concLoad = () => typeof CONC !== "undefined" ? Promise.resolve() : loadJs("morph/conc.js");
 const lexxLoad = () => typeof LEXX !== "undefined" ? Promise.resolve() : loadJs("morph/lexx.js");
@@ -1295,7 +1358,7 @@ async function browseThemes(){                           // every theme, most at
   hidePop(); hideRefs(); navRender(null);
   const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
   try { await themesLoad(); await theolLoad().catch(() => {}); } catch (e) {
-    main.innerHTML = `<h2>Themes</h2><p class="empty">Not built yet — run scripts/build_themes.py.</p>`; return; }
+    main.innerHTML = `<h2>Themes</h2><p class="empty">${esc(t('Not built yet — run scripts/build_themes.py.'))}</p>`; return; }
   const ids = Object.keys(THEMES).sort((a, b) => THEMES[b][2].length - THEMES[a][2].length);
   const withTraj = typeof TRAJ !== "undefined" ? ids.filter(i => TRAJ[i]).length : 0;
   main.innerHTML = shelf("Themes", `${ids.length} themes · ${withTraj} traced across the canon · read out of the chapters`,
@@ -1308,9 +1371,9 @@ async function browseArguments(){                        // the books whose argu
   hidePop(); navRender(null);
   const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
   try { await theolLoad(); } catch (e) {
-    main.innerHTML = `<h2>What each book argues</h2><p class="empty">Not built yet — run scripts/build_theology.py --books.</p>`; return; }
+    main.innerHTML = `<h2>What each book argues</h2><p class="empty">${esc(t('Not built yet — run scripts/build_theology.py --books.'))}</p>`; return; }
   const names = Object.keys(BOOKARG).sort((a, b) => ORDER[a.replace(/ /g, "_")] - ORDER[b.replace(/ /g, "_")]);
-  if (!names.length) { main.innerHTML = `<h2>What each book argues</h2><p class="empty">No book arguments yet.</p>`; return; }
+  if (!names.length) { main.innerHTML = `<h2>What each book argues</h2><p class="empty">${esc(t('No book arguments yet.'))}</p>`; return; }
   main.innerHTML = shelf("What each book argues", `${names.length} of 66 books · built from their chapters' themes`,
     names.map(n => `<a onclick="showArgument('${n.replace(/ /g, "_")}')">${esc(n)} <small>${(BOOKARG[n][0] || []).length} sections</small></a>`));
   window.scrollTo(0, 0);
@@ -1326,7 +1389,7 @@ async function browseLexicon(){                          // our own entries, the
   hidePop(); navRender(null);
   const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
   try { await lexLoad(); await lexxLoad(); await lexxtLoad(tl).catch(() => {}); } catch (e) {
-    main.innerHTML = `<h2>Our lexicon</h2><p class="empty">Not built yet — run scripts/build_lexicon.py.</p>`; return; }
+    main.innerHTML = `<h2>Our lexicon</h2><p class="empty">${esc(t('Not built yet — run scripts/build_lexicon.py.'))}</p>`; return; }
   const tags = Object.keys(LEXX).sort((a, b) => (LEXX[b].count || 0) - (LEXX[a].count || 0));
   main.innerHTML = shelf("Our lexicon", `${tags.length} entries written from the text${(LEXXT[tl] ? " · shown in " + TARGETS[tl].native + " where translated" : "")}`,
     tags.map(t => { const e = LEXX[t], tr = (LEXXT[tl] || {})[t];
@@ -1346,7 +1409,7 @@ async function browseLexemes(){                          // the inventory grown 
   hidePop(); navRender(null);
   const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
   try { await lexemeLoad(); } catch (e) {
-    main.innerHTML = `<h2>Our lexeme inventory</h2><p class="empty">Not built yet — run scripts/build_lexemes.py.</p>`; return; }
+    main.innerHTML = `<h2>Our lexeme inventory</h2><p class="empty">${esc(t('Not built yet — run scripts/build_lexemes.py.'))}</p>`; return; }
   const ids = Object.keys(LEXEME).sort((a, b) => LEXEME[b][4] - LEXEME[a][4]);
   main.innerHTML = shelf("Our lexeme inventory", `${ids.length} dictionary words grown from ${Object.keys(FORM2LEX).length} word forms`,
     ids.slice(0, 1200).map(id => { const [head, pos, gloss, root, count] = LEXEME[id];
@@ -1360,7 +1423,7 @@ async function showLexeme(id){
   const forms = Object.keys(FORM2LEX).filter(f => FORM2LEX[f] === id);
   const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
   main.innerHTML = `<h2><span class="orig">${esc(head)}</span><small class="lang">${esc(gloss)}${pos ? " · " + esc(pos) : ""}${root ? " · root " + root : ""} · ${id} · ${count} occurrence${count === 1 ? "" : "s"}</small></h2>`
-    + `<p class="empty" style="margin:0 0 1rem">Grown from the text: the model read each of these written forms in its verse and gave this dictionary word for it.</p>`
+    + `<p class="empty" style="margin:0 0 1rem">${esc(t('Grown from the text: the model read each of these written forms in its verse and gave this dictionary word for it.'))}</p>`
     + `<div class="plist">` + forms.map(f => `<a onclick="searchSource('${attr(f)}')"><span class="orig">${esc(f)}</span> <small>find it in the text</small></a>`).join("") + `</div>`
     + `<p class="empty"><a style="cursor:pointer;color:var(--accent)" onclick="browseLexemes()">all lexemes</a></p>`;
   window.scrollTo(0, 0);
@@ -1381,10 +1444,10 @@ async function searchSource(form){                       // find a Hebrew or Gre
 async function browseFields(){                           // the fields of meaning, as a list to pick from
   hidePop(); await domLoad().catch(() => {}); navRender(null);
   const main = $("#main"); main.className = ""; main.setAttribute("dir", "ltr");
-  if (typeof DOMLIST === "undefined") { main.innerHTML = `<h2>Fields of meaning</h2><p class="empty">Not built yet — run scripts/build_domains.py.</p>`; return; }
+  if (typeof DOMLIST === "undefined") { main.innerHTML = `<h2>Fields of meaning</h2><p class="empty">${esc(t('Not built yet — run scripts/build_domains.py.'))}</p>`; return; }
   const used = DOMLIST.filter(d => (DOMAINS[d] || []).length);
   main.innerHTML = `<h2>Fields of meaning<small class="lang">${used.length} fields · this project's own grouping</small></h2>`
-    + `<p class="empty" style="margin:0 0 1rem">Each lexeme is sorted by its usage and gloss into fields written for this project. No published domain lexicon is used.</p>`
+    + `<p class="empty" style="margin:0 0 1rem">${esc(t('Each lexeme is sorted by its usage and gloss into fields written for this project. No published domain lexicon is used.'))}</p>`
     + `<div class="plist">` + used.map(d => `<a onclick="showDomain('${attr(d)}')">${esc(d)} <small>${(DOMAINS[d] || []).length} words</small></a>`).join("") + `</div>`;
   window.scrollTo(0, 0);
 }
@@ -1393,7 +1456,7 @@ async function showDomain(name){
   const members = (DOMAINS[name] || []);
   const main = $("#main"); main.className = ""; main.setAttribute("dir", "ltr");
   main.innerHTML = `<h2>${esc(name)}<small class="lang">${members.length} word${members.length === 1 ? "" : "s"} · this project's own grouping</small></h2>`
-    + `<p class="empty" style="margin:0 0 1rem">Assigned by the model from each word's usage and gloss. The fields are this project's own wording; no published domain lexicon is used.</p>`
+    + `<p class="empty" style="margin:0 0 1rem">${esc(t("Assigned by the model from each word's usage and gloss. The fields are this project's own wording; no published domain lexicon is used."))}</p>`
     + `<div class="plist">` + members.map(([t, head, gloss]) =>
         `<a onclick="showConc('${attr(t)}')"><span class="orig">${esc(head)}</span> <small>${esc(gloss)}</small></a>`).join("") + `</div>`
     + `<p class="empty">Other fields: ${DOMLIST.filter(d => d !== name && (DOMAINS[d] || []).length).map(d => `<a style="cursor:pointer;color:var(--accent)" onclick="showDomain('${attr(d)}')">${esc(d)}</a>`).join(" · ")}</p>`;
@@ -1415,7 +1478,7 @@ function oursHtml(tag){                                  // our own entry, writt
 const WRE = /[\p{L}\p{M}\p{N}]+(?:['\u2019][\p{L}\p{M}\p{N}]+)*/gu;   // same tokenizer as build_morph.py
 const attr = t => esc(t).replace(/"/g, "&quot;");
 function wrapSrc(text, book, ch, v){                     // words as spans; gloss + code attached when the book's tags are loaded
-  const m = MORPH[disp(book)], vw = m && m[ch] && m[ch][v]; let i = 0, out = "", last = 0;
+  const m = MORPH[dataKey(book)], vw = m && m[ch] && m[ch][v]; let i = 0, out = "", last = 0;
   for (const x of text.matchAll(WRE)) {
     const w = vw && vw[i];
     out += esc(text.slice(last, x.index)) + `<span class="w" data-k="${book}/${ch}/${v}/${i}"${w ? ` data-g="${attr(w[2])}" data-m="${attr(w[1])}"` : ""}>${esc(x[0])}</span>`;
@@ -1439,7 +1502,7 @@ function hidePop(){ wpop.hidden = true; if (wsel) { wsel.classList.remove("sel")
 async function showPop(el){
   const [book, ch, v, i] = el.dataset.k.split("/");
   await morphLoad(book); await lexLoad(); await Promise.all([lexxLoad().catch(() => {}), lexxtLoad(tl).catch(() => {}), synLoad(book).catch(() => {}), domLoad().catch(() => {}), lexemeLoad().catch(() => {}), themesLoad().catch(() => {})]);
-  const m = MORPH[disp(book)], d = m && m[ch] && m[ch][v] && m[ch][v][i];
+  const m = MORPH[dataKey(book)], d = m && m[ch] && m[ch][v] && m[ch][v][i];
   if (wsel) wsel.classList.remove("sel"); wsel = el; el.classList.add("sel");
   let html = `<div class="hw"><span class="orig">${esc(el.textContent)}</span>`;
   if (!d) { html += `</div><div class="pre">No tag for this word.</div>`; }
@@ -1561,12 +1624,12 @@ async function gsRun(){
   const val = id => ($("#gs_" + id) || {}).value || "";
   const q = {lang: val("lang"), fn: val("fn"), stem: val("stem"), form: val("form"), person: val("person"), gender: val("gender"), number: val("number"), state: val("state"),
              tense: val("tense"), voice: val("voice"), mood: val("mood"), kase: val("kase"), tag: val("tag").trim(), book: val("book")};
-  const res = $("#results"); res.innerHTML = `<p class="empty">Loading the tagged text…</p>`;
+  const res = $("#results"); res.innerHTML = `<p class="empty">${esc(t('Loading the tagged text…'))}</p>`;
   const books = q.book ? [q.book] : srcBooks.filter(b => (q.lang === "G") === (ORDER[b] > 39));
   let loadedN = 0;
   for (const b of books) { try { await morphLoad(b); } catch (e) {} loadedN++; if (loadedN % 8 === 0) res.innerHTML = `<p class="empty">Loading the tagged text… ${loadedN}/${books.length}</p>`; }
   const hits = [];
-  for (const b of books) { const m = MORPH[disp(b)]; if (!m) continue;
+  for (const b of books) { const m = MORPH[dataKey(b)]; if (!m) continue;
     for (const ch in m) for (const v in m[ch]) { const ws = m[ch][v];
       for (let i = 0; i < ws.length; i++) { const w = ws[i]; if (!w) continue;
         if (q.tag && rootTag(w[0]) !== q.tag && !(w[0].match(TAGRE) || []).includes(q.tag)) continue;
@@ -1641,7 +1704,7 @@ function renderChapter(book, ch, highlightVerse) {
      does not fetch them either; the reader-only build does not even carry
      them, and would warn on every book. setMode re-routes, which fetches them
      the moment advanced mode is chosen. */
-  if (src && adv() && !MORPH[disp(book)]) {
+  if (src && adv() && !MORPH[dataKey(book)]) {
     if (inter && adv()) html += `<p class="empty" role="status">Loading the word tags for ${disp(book)}…</p>`;
     morphLoad(book)
       .then(() => { if (location.hash.slice(1).split("/").slice(0, 2).join("/") === `${book}/${ch}`) route(); })
@@ -2042,7 +2105,7 @@ async function search(q) {
      worth looking up - 光, 爱, 神, 道 - have no second character to type.
      Asking for one told the reader to do something impossible. */
   if (q.length < (NOSPACE.test(q) ? 1 : 2)) {
-    main.innerHTML = `<p class="empty">Type at least two characters.</p>`; return; }
+    main.innerHTML = `<p class="empty">${esc(t('Type at least two characters.'))}</p>`; return; }
   /* The two small indexes are waited for, because the verses are what the
      reader came for. The study layers are ten megabytes the first time and are
      not: the verses are drawn, and the words and the concordance fill their
@@ -2750,6 +2813,12 @@ function focusSearch(){ if (mqNarrow.matches) openSheet("search"); else { showCh
    one of them is colour, and colour on its own says nothing to some readers. */
 const row = (attrs, name, note, on) => `<button type="button" ${attrs} class="${on ? "on" : ""}"${on ? ' aria-current="true"' : ""}>`
   + `<span class="nm">${name}</span><span class="ct">${note}</span>${on ? `<span class="tk" aria-hidden="true">&#10003;</span>` : ""}</button>`;
+function dlRows(){
+  /* Every language is offered under its own name, because a reader looking for
+     it does not know what it is called in the language on the screen. */
+  return haveDisplay.map(d => row(`data-dl="${d}"`, esc((TARGETS[d] || {}).native || d),
+                                  esc((TARGETS[d] || {}).name || d), d === dl)).join("");
+}
 function langRows(){
   let h = "";
   for (const t of haveTargets)
@@ -2783,12 +2852,12 @@ function drawNav(){
       `<a href="#${navBook}/${c}" class="${navBook === curBook && c == curCh ? "on" : ""} ${trOf(navBook, c)[tl] ? "" : "untr"}"${navBook === curBook && c == curCh ? ' aria-current="page"' : ""}>${c}</a>`).join("") + `</div>`;
     h += `<p class="hint">A dashed outline marks a chapter with no ${esc((TARGETS[tl] || {}).name || tl)} yet &mdash; the original is still there to read.</p>`;
     const nb = neighbours(navBook, curBook === navBook ? curCh : chs[0]);
-    h += `<div class="shead">Move on</div><div class="rowlist">`;
+    h += `<div class="shead">${esc(t('Move on'))}</div><div class="rowlist">`;
     if (nb.prev) h += `<a href="#${nb.prev.b}/${nb.prev.c}">&#8592; ${disp(nb.prev.b)} ${nb.prev.c}</a>`;
     if (nb.next) h += `<a href="#${nb.next.b}/${nb.next.c}">${disp(nb.next.b)} ${nb.next.c} &#8594;</a>`;
     h += `</div>`;
   }
-  h += `<div class="shead">Reading language</div><div class="rowlist">${langRows()}</div>`;
+  h += `<div class="shead">${esc(t('Reading language'))}</div><div class="rowlist">${langRows()}</div>`;
   const dyn = $("#navDyn");
   dyn.innerHTML = h;
   dyn.querySelectorAll("[data-pane]").forEach(el => el.onclick = () => { navPane = el.dataset.pane; drawNav(); });
@@ -2815,7 +2884,7 @@ function drawSearch(){
      ${voice === "no" ? `<p class="hint">This device has no voice for ${esc(langName(tl))}, so the stories can be read here but not heard.</p>` : ""}
      <div class="progress"><span><b>${heard}</b> of ${STORIES.length} stories heard &middot; <b>${earned}</b> of ${BADGES.length} milestones</span>
        <button type="button" id="whoMiles">Milestones</button></div>
-     <div class="shead">Look something up</div>`;
+     <div class="shead">${esc(t('Look something up'))}</div>`;
   $("#whoGo").onclick = whoIsJesus;
   $("#whoMiles").onclick = () => openSheet("miles");
   $("#searchDyn").innerHTML =
@@ -2861,7 +2930,7 @@ function drawTools(){
     h += B("v:chron", "Chronology", "the numbers it states", view === "chron", false);
     h += `</div>`;
   }
-  h += `<div class="shead">Across the whole Bible</div><div class="tools">`;
+  h += `<div class="shead">${esc(t('Across the whole Bible'))}</div><div class="tools">`;
   h += B("gs", "Grammar search", "words by their form", false, false);
   h += B("fields", "Fields of meaning", "this project&rsquo;s grouping of its words", false, false);
   h += B("themes", "All themes", "gathered out of the chapters", false, false);
@@ -3108,7 +3177,7 @@ function drawMiles(){
     h += `<div class="mile${on ? " on" : ""}" role="listitem">${medal(b.tier, on)}<span class="txt"><span class="nm">${esc(b.name)}</span>
       <span class="ct">${on ? "Earned " + when(EARNED[b.id]) : esc(b.how)}</span></span>${on ? `<span class="tk" aria-hidden="true">&#10003;</span>` : ""}</div>`;
   }
-  h += `</div><div class="shead">The twenty stories</div><div class="rowlist stories">`;
+  h += `</div><div class="shead">${esc(t('The twenty stories'))}</div><div class="rowlist stories">`;
   for (const s of STORIES) h += row(`data-story="${s.id}"`, esc(s.name), HEARD[s.id] ? "heard" : storyRef(s), !!HEARD[s.id]);
   h += `</div><p class="hint">Tap a story to hear it. It counts when it is heard to the end without being stopped; the button in the search tray picks one you have not heard yet.</p>`;
   if (heard || BADGES.some(b => EARNED[b.id])) h += `<button type="button" class="forget" id="whoForget">Forget my progress</button>`;
@@ -3128,14 +3197,14 @@ $("#whoHdr").onclick = whoIsJesus;
 
 /* ---------- the display tray ---------- */
 function drawSettings(){
-  let h = READER_ONLY ? "" : `<div class="shead">How much of the reader you want</div>
+  let h = READER_ONLY ? "" : `<div class="shead">${esc(t('How much of the reader you want'))}</div>
     <div class="seg" role="group" aria-label="Mode">
       <button type="button" data-mode="basic" aria-pressed="${!adv()}">Just read</button>
       <button type="button" data-mode="advanced" aria-pressed="${adv()}">Everything</button></div>
     <p class="hint">${adv() ? "Every layer this project has built is switched on: the word tags, the lexicon, the themes, the maps and the rest."
                             : "The book and nothing else: a chapter, a language, the size of the type. Tapping a word does nothing."}</p>`;
   if (READER_ONLY) h = "";
-  h += `<div class="shead">Skin</div><div class="skins" role="group" aria-label="Skin">`;
+  h += `<div class="shead">${esc(t('Skin'))}</div><div class="skins" role="group" aria-label="Skin">`;
   for (const [id, name, paper, ink] of SKINS) {
     const on = skin === id;
     const sw = id === "auto"
@@ -3144,25 +3213,28 @@ function drawSettings(){
     h += `<button type="button" data-skin="${id}" aria-pressed="${on}"><span class="sw" style="${sw}"></span>${name}${on ? `<span class="tick" aria-hidden="true">&#10003;</span>` : ""}</button>`;
   }
   h += `</div>`;
-  h += `<div class="shead">Text size</div><div class="seg" role="group" aria-label="Text size">
+  h += `<div class="shead">${esc(t('Text size'))}</div><div class="seg" role="group" aria-label="Text size">
       <button type="button" data-fs="-1"${fs <= FS_MIN ? " disabled" : ""} aria-label="Smaller text">A&minus;</button>
       <span class="val" role="status">${fs} px</span>
       <button type="button" data-fs="1"${fs >= FS_MAX ? " disabled" : ""} aria-label="Larger text">A+</button></div>
     <p class="hint">Pinching the page magnifies it as well, for as long as you need it; the reader offers a way back to normal size while it is magnified.</p>`;
-  h += `<div class="shead">Line spacing</div><div class="seg" role="group" aria-label="Line spacing">`
+  h += `<div class="shead">${esc(t('Line spacing'))}</div><div class="seg" role="group" aria-label="Line spacing">`
     + SPACING.map(([v, n]) => `<button type="button" data-lh="${v}" aria-pressed="${Math.abs(lh - v) < .001}">${n}</button>`).join("") + `</div>`;
-  h += `<div class="shead">Reading language</div><div class="rowlist">${langRows()}</div>`;
-  h += `<div class="shead">Read aloud</div><p class="hint">${PHONE
+  h += `<div class="langs">`
+    + `<div><div class="shead">${esc(t("Display language"))}</div><div class="rowlist">${dlRows()}</div></div>`
+    + `<div><div class="shead">${esc(t("Reading language"))}</div><div class="rowlist">${langRows()}</div></div>`
+    + `</div>`;
+  h += `<div class="shead">${esc(t("Read aloud"))}</div><p class="hint">${PHONE
       ? "Tap a verse and choose Listen. The voices are the phone\u2019s own, so whichever languages it has installed are the ones it can read; Hebrew and Greek are read with modern voices."
       : ("speechSynthesis" in window)
       ? (speechFor(tl) === "no" ? esc(noVoiceHelp(tl)) + " Until then the page can be read here but not heard in it."
          : "Tap a verse and choose Listen, or press and hold it (right-click) for the same in its own language.")
       : "This browser has no speech voices, so nothing can be read aloud here."}</p>`;
   if (speechFor(tl) !== "no") {
-    h += `<div class="shead">Voice speed</div><div class="seg" role="group" aria-label="Voice speed">`
+    h += `<div class="shead">${esc(t('Voice speed'))}</div><div class="seg" role="group" aria-label="Voice speed">`
       + SPEEDS.map(([v, n]) => `<button type="button" data-rate="${v}" aria-pressed="${Math.abs(VOICE.rate - v) < .001}">${n}</button>`).join("")
       + `</div>`;
-    h += `<div class="shead">Voice pitch</div><div class="seg" role="group" aria-label="Voice pitch">`
+    h += `<div class="shead">${esc(t('Voice pitch'))}</div><div class="seg" role="group" aria-label="Voice pitch">`
       + PITCHES.map(([v, n]) => `<button type="button" data-pitch="${v}" aria-pressed="${Math.abs(VOICE.pitch - v) < .001}">${n}</button>`).join("")
       + `</div><p class="hint"><button type="button" id="voiceTry" class="try">Hear it</button> a verse at this setting.</p>`;
     /* A phone can have a dozen voices for one language, and a list of a dozen
@@ -3179,7 +3251,7 @@ function drawSettings(){
       where the larger voices for a language can be added. They then appear here.</p>`;
     if (vs.length > 1) {
       const cur = vs.find(v => v.name === pickName), best = vs[0];
-      h += `<div class="shead">Which voice</div><div class="rowlist">`
+      h += `<div class="shead">${esc(t('Which voice'))}</div><div class="rowlist">`
         + `<button type="button" id="voiceMore" aria-expanded="${voiceListOpen}" aria-controls="voiceList">`
         + `<span class="nm">${cur ? `Voice ${vs.indexOf(cur) + 1}` : "Best this phone has"}</span>`
         + `<span class="ct">${note(cur || best)}</span>`
@@ -3196,7 +3268,7 @@ function drawSettings(){
      with a paragraph explaining that the whole Bible goes with it, and the
      explanation was longer than the act: the phone's share sheet says the rest. */
   if (PHONE) h += `<button type="button" class="primary share" id="setShareApp">${BOOKMARK}Share this Bible</button>`;
-  h += `<div class="shead">About the text</div><div class="rowlist"><button type="button" id="setSrc"><span class="nm">Sources and licenses</span><span class="ct">what each layer came from</span></button></div>`;
+  h += `<div class="shead">${esc(t('About the text'))}</div><div class="rowlist"><button type="button" id="setSrc"><span class="nm">Sources and licenses</span><span class="ct">what each layer came from</span></button></div>`;
   const dyn = $("#setDyn");
   dyn.innerHTML = h;
   dyn.querySelectorAll("[data-mode]").forEach(el => el.onclick = () => setMode(el.dataset.mode));
@@ -3210,6 +3282,7 @@ function drawSettings(){
   if (more) more.onclick = () => { voiceListOpen = !voiceListOpen; drawSettings(); const b = $("#voiceMore"); if (b) b.focus(); };
   const tryBtn = $("#voiceTry");
   if (tryBtn) tryBtn.onclick = tryVoice;
+  dyn.querySelectorAll("[data-dl]").forEach(el => el.onclick = () => { setDl(el.dataset.dl); drawSettings(); });
   dyn.querySelectorAll("[data-lang]").forEach(el => el.onclick = () => {
     const v = el.dataset.lang;
     if (v === "__orig") setView("orig"); else setTl(v);
@@ -3436,6 +3509,12 @@ const quick = $("#quick");
 quick.onclick = () => openSheet("set");
 function quickShow(){ quick.hidden = !mqNarrow.matches; }
 mqNarrow.addEventListener("change", quickShow); quickShow();
+/* dl can come from localStorage or the device's own language before a single
+   line has been drawn, and the static chrome - the tab bar - is baked into
+   the page in English. Without this, a returning Thai reader's tab bar stayed
+   English until they opened Display and changed the setting to itself. */
+document.documentElement.setAttribute("lang", dl);
+applyChrome();
 route();
 __READALOUD_JS__
 </script>
@@ -3444,6 +3523,28 @@ __READALOUD_JS__
 """
 
 _norm_cache = {}
+
+
+UI_FILE = ROOT / "targets" / "ui" / "ui.json"
+
+
+def ui_table(targets):
+    """The interface in each carried language, written into the page itself.
+
+    It goes in the page rather than beside it because it has to be right at the
+    first paint, before anything is fetched: a shared copy is opened on a phone
+    with no network, and a reader who cannot read English should not watch an
+    English interface be replaced a moment later. It is a few tens of kilobytes
+    against the reader's forty megabytes.
+
+    Only the languages the build carries - a copy that left Japanese out has no
+    use for a Japanese interface.
+    """
+    if not UI_FILE.exists():
+        return "{}"
+    table = json.loads(UI_FILE.read_text(encoding="utf-8"))
+    out = {c: v for c, v in table.items() if not c.startswith("_") and c in targets}
+    return json.dumps(out, ensure_ascii=False, separators=(",", ":"))
 
 
 def source_chapter(book_key, ch):
@@ -3538,6 +3639,7 @@ def main():
             .replace("__TARGETS__", json.dumps({c: {"name": t["name"], "native": t["native"], "dir": t.get("dir", "ltr")} for c, t in targets.items()}, ensure_ascii=False))
             .replace("__ABBREV__", json.dumps(
                 {k: v.replace(" ", "_") for k, v in ABBREV.items()}))
+            .replace("__UI__", ui_table(targets))
             .replace("__READER_ONLY__", "true" if a.reader_only else "false")
             .replace("__BUILT__", __import__("datetime").datetime.now().strftime("%Y-%m-%d %H:%M"))
             .replace("__READALOUD_CSS__", RA.CSS)

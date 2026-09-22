@@ -124,5 +124,12 @@
   "note": "the study layers, searchable",
   "script": "build_entries.py",
   "built": 1790104099.4405134
+ },
+ "interface": {
+  "count": 294,
+  "unit": "strings",
+  "note": "the reader's own words, and the books' names",
+  "script": "build_ui.py",
+  "built": 1790106201.8978622
  }
 }
