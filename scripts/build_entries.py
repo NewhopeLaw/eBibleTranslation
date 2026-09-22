@@ -173,11 +173,13 @@ def main():
             key[t].add(n)
 
     entries = [[k, i, lab, sub, c, src, *more] for k, i, lab, sub, c, src, _t, *more in rows]
+    # ENTIDX and ENTKEY are sorted for the reason write_index sorts: their terms
+    # come out of a set, and unsorted this file was rewritten whole every build.
     body = ("ENTRIES=" + json.dumps(entries, ensure_ascii=False, separators=(",", ":")) + ";\n"
             + "ENTIDX=" + json.dumps({t: encode(v) for t, v in postings.items()},
-                                     ensure_ascii=False, separators=(",", ":")) + ";\n"
+                                     ensure_ascii=False, separators=(",", ":"), sort_keys=True) + ";\n"
             + "ENTKEY=" + json.dumps({t: encode(v) for t, v in key.items()},
-                                     ensure_ascii=False, separators=(",", ":")) + ";\n")
+                                     ensure_ascii=False, separators=(",", ":"), sort_keys=True) + ";\n")
     p = MORPH / "entries.js"
     p.write_text(body, encoding="utf-8")
     kinds = defaultdict(int)

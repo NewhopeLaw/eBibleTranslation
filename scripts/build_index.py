@@ -79,8 +79,13 @@ TOTALS = {}
 
 
 def write_index(name, postings, note):
+    # Sorted, because the terms arrive out of a set and a set gives them up in a
+    # different order every run: the same text wrote a different forty megabytes
+    # of index each time, so every rebuild looked as though each language had
+    # changed and the one that really had was lost among them.
     body = f"IDX[{json.dumps(name)}]=" + json.dumps({t: encode(v) for t, v in postings.items()},
-                                                    ensure_ascii=False, separators=(",", ":")) + ";\n"
+                                                    ensure_ascii=False, separators=(",", ":"),
+                                                    sort_keys=True) + ";\n"
     p = OUT / f"idx_{name}.js"
     p.write_text(body, encoding="utf-8")
     TOTALS[name] = sum(len(v) for v in postings.values())
