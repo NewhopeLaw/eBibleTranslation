@@ -11,6 +11,10 @@ Checks (flags, never auto-fixes):
   - verse count mismatch, missing or duplicated verse numbers
   - empty verses
   - untranslated source-script (Hebrew/Greek) characters in the translation
+  - a verse in the wrong script: another writing system leaking in (a Chinese
+    character inside a Thai word, a Russian numeral), an English word left
+    untranslated in a non-Latin target, or a verse with none of the target's
+    own script at all (a chapter that came back in Chinese)
   - a verse that trails off repeating the same words (a model loop, e.g.
     "and barley, and meal, and roasted grain, and barley, ...")
   - suspicious length ratio (translation far shorter than source = possible
@@ -45,6 +49,18 @@ NORM_DIR = ROOT / "sources" / "normalized"
 HEBREW = re.compile(r"[֐-׿]")
 GREEK = re.compile(r"[Ͱ-Ͽἀ-῿]")
 MARKS = re.compile(r"[֑-ׇ̀-ͯ]")   # Hebrew points/accents, Greek combining marks
+# What each non-Latin target is written in. A verse is checked for characters
+# of any other writing system, and for having some of its own. The first Thai
+# run left 161 verses with a Chinese character inside a Thai word and a whole
+# chapter of Hebrews in Chinese, and nothing here saw either: the source-script
+# check looks only for Hebrew and Greek. Japanese is CJK plus its kana; the
+# Chinese targets are Han script alone.
+HAN, KANA, HANGUL = r"一-鿿㐀-䶿豈-﫿", r"぀-ヿ", r"가-힯"
+SCRIPTS = {"th": (r"฀-๿", "Thai"), "ja": (HAN + KANA, "Japanese"), "ja-easy": (HAN + KANA, "Japanese"),
+           "ko": (HANGUL + HAN, "Korean"), "fa": (r"؀-ۿ", "Arabic-script"),
+           "zh": (HAN, "Han"), "yue": (HAN, "Han"), "nan": (HAN, "Han"), "hak": (HAN, "Han")}
+OTHERS = r"฀-๿" + HAN + KANA + HANGUL + r"Ѐ-ӿ؀-ۿऀ-ॿ"
+LATIN_WORD = re.compile(r"[A-Za-z]{4,}")
 CAP_TOKEN = re.compile(r"\b[A-ZÁÉÍÓÚÑ][a-záéíóúñ]{2,}\b")
 
 # Common sentence-initial words that are not proper names (English + Spanish).
@@ -68,7 +84,7 @@ def load_source(code):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def check_chapter(code, ch, out, src_verses, flags, ratio):
+def check_chapter(code, ch, out, src_verses, flags, ratio, script=None):
     ref = f"{BOOKS[code]['name']} {ch}"
     expected = [v["v"] for v in src_verses]
     got = sorted(int(k) for k in out["verses"])
@@ -91,6 +107,18 @@ def check_chapter(code, ch, out, src_verses, flags, ratio):
             continue
         if HEBREW.search(text) or GREEK.search(text):
             flags.append(f"{ref}:{n}: UNTRANSLATED source characters remain")
+        if script:
+            own, name = script
+            if not re.search(f"[{own}]", text):
+                flags.append(f"{ref}:{n}: SCRIPT — no {name} in the verse at all: {text.strip()[:40]!r}")
+            else:
+                alien = re.findall(f"[{OTHERS}]", re.sub(f"[{own}]", "", text))
+                if alien:
+                    flags.append(f"{ref}:{n}: SCRIPT — {len(alien)} character(s) of another writing system: "
+                                 f"{''.join(alien[:6])!r}")
+                words = LATIN_WORD.findall(text)
+                if words:
+                    flags.append(f"{ref}:{n}: SCRIPT — Latin word(s) left in: {', '.join(words[:3])}")
         unit = find_loop(text)
         if unit:
             flags.append(f"{ref}:{n}: LOOP — repeats {unit.strip()[:60]!r} over and over")
@@ -282,7 +310,7 @@ def verify_lang(lang, book_arg, ch_arg):
         code = next(c for c, m in BOOKS.items() if m["name"] == out["book"])
         src = load_source(code)
         src_verses = src["chapters"][str(out["chapter"])]
-        check_chapter(code, out["chapter"], out, src_verses, flags, TARGETS[lang]["ratio"])
+        check_chapter(code, out["chapter"], out, src_verses, flags, TARGETS[lang]["ratio"], SCRIPTS.get(lang))
         per_book.setdefault(code, []).append(out)
 
     for code, outs in per_book.items():
