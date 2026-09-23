@@ -205,6 +205,11 @@ def mend(code, ch, wanted, lang, system, dry=False, force=False):
 
 
 def main():
+    # A Windows console is cp1252 unless told otherwise, and the line that
+    # reports a mended Chinese verse raised there - after the model had
+    # answered and before the chapter was written, so the verse was lost.
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("book", nargs="?", help="OSIS book code, e.g. 2Kgs")
     ap.add_argument("where", nargs="?", help="chapter, or chapter:verses, e.g. 5 or 5:1,20")
