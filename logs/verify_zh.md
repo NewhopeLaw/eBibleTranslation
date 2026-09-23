@@ -1,5 +1,1771 @@
 # Verification report — Chinese (zh)
-Chapters checked: 1
-Flags: 0
+Chapters checked: 1189
+Flags: 1767
 
-All checks passed.
+- 1 John 1:5: SHORT — 14 chars vs 129 source (possible truncation)
+- 1 Kings 7:17: SHORT — 14 chars vs 91 source (possible truncation)
+- 1 Kings 13:22: SHORT — 16 chars vs 89 source (possible truncation)
+- 1 Peter 1:10: SHORT — 16 chars vs 97 source (possible truncation)
+- 1 Samuel 9:13: SHORT — 24 chars vs 133 source (possible truncation)
+- 1 Samuel 9:24: SHORT — 14 chars vs 129 source (possible truncation)
+- 1 Samuel 17:45: SHORT — 5 chars vs 104 source (possible truncation)
+- 1 Timothy 2:9: SHORT — 19 chars vs 146 source (possible truncation)
+- 1 Timothy 4:3: SHORT — 23 chars vs 127 source (possible truncation)
+- 2 Corinthians 5:8: SHORT — 17 chars vs 90 source (possible truncation)
+- 2 Corinthians 5:20: SHORT — 17 chars vs 106 source (possible truncation)
+- 2 Kings 22:14: SHORT — 23 chars vs 125 source (possible truncation)
+- 2 Samuel 13:20: SHORT — 17 chars vs 124 source (possible truncation)
+- 2 Samuel 17:29: SHORT — 17 chars vs 86 source (possible truncation)
+- 2 Timothy 4:4: SHORT — 13 chars vs 83 source (possible truncation)
+- Acts 2:7: SHORT — 17 chars vs 88 source (possible truncation)
+- Acts 2:16: SHORT — 10 chars vs 52 source (possible truncation)
+- Acts 3:2: SHORT — 31 chars vs 192 source (possible truncation)
+- Acts 3:9: SHORT — 12 chars vs 62 source (possible truncation)
+- Acts 3:24: SHORT — 18 chars vs 102 source (possible truncation)
+- Acts 4:5: SHORT — 20 chars vs 112 source (possible truncation)
+- Acts 4:15: SHORT — 12 chars vs 73 source (possible truncation)
+- Acts 4:17: SHORT — 19 chars vs 118 source (possible truncation)
+- Acts 4:22: SHORT — 17 chars vs 88 source (possible truncation)
+- Acts 5:11: SHORT — 16 chars vs 83 source (possible truncation)
+- Acts 8:3: SHORT — 20 chars vs 119 source (possible truncation)
+- Acts 8:21: SHORT — 18 chars vs 100 source (possible truncation)
+- Acts 8:28: SHORT — 17 chars vs 89 source (possible truncation)
+- Acts 8:33: SHORT — 19 chars vs 107 source (possible truncation)
+- Acts 8:35: SHORT — 19 chars vs 102 source (possible truncation)
+- Acts 9:7: SHORT — 19 chars vs 98 source (possible truncation)
+- Acts 9:25: SHORT — 17 chars vs 88 source (possible truncation)
+- Acts 9:31: SHORT — 35 chars vs 182 source (possible truncation)
+- Acts 9:34: SHORT — 18 chars vs 104 source (possible truncation)
+- Acts 9:36: SHORT — 21 chars vs 131 source (possible truncation)
+- Acts 9:41: SHORT — 17 chars vs 96 source (possible truncation)
+- Acts 10:34: SHORT — 19 chars vs 98 source (possible truncation)
+- Acts 11:6: SHORT — 22 chars vs 111 source (possible truncation)
+- Acts 12:1: SHORT — 18 chars vs 101 source (possible truncation)
+- Acts 13:18: SHORT — 12 chars vs 64 source (possible truncation)
+- Acts 13:33: SHORT — 26 chars vs 149 source (possible truncation)
+- Acts 13:38: SHORT — 23 chars vs 149 source (possible truncation)
+- Acts 13:49: SHORT — 9 chars vs 51 source (possible truncation)
+- Acts 15:36: SHORT — 21 chars vs 165 source (possible truncation)
+- Acts 15:39: SHORT — 22 chars vs 121 source (possible truncation)
+- Acts 16:17: SHORT — 22 chars vs 150 source (possible truncation)
+- Acts 16:27: SHORT — 24 chars vs 160 source (possible truncation)
+- Acts 16:37: SHORT — 26 chars vs 195 source (possible truncation)
+- Acts 16:38: SHORT — 20 chars vs 103 source (possible truncation)
+- Acts 16:40: SHORT — 20 chars vs 106 source (possible truncation)
+- Acts 17:5: SHORT — 34 chars vs 191 source (possible truncation)
+- Acts 17:6: SHORT — 27 chars vs 147 source (possible truncation)
+- Acts 17:10: SHORT — 18 chars vs 144 source (possible truncation)
+- Acts 17:13: SHORT — 24 chars vs 162 source (possible truncation)
+- Acts 19:8: SHORT — 21 chars vs 112 source (possible truncation)
+- Acts 19:17: SHORT — 27 chars vs 165 source (possible truncation)
+- Acts 19:26: SHORT — 26 chars vs 169 source (possible truncation)
+- Acts 20:13: SHORT — 30 chars vs 152 source (possible truncation)
+- Acts 20:35: SHORT — 34 chars vs 177 source (possible truncation)
+- Acts 20:37: SHORT — 17 chars vs 96 source (possible truncation)
+- Acts 22:20: SHORT — 23 chars vs 137 source (possible truncation)
+- Acts 23:30: SHORT — 23 chars vs 132 source (possible truncation)
+- Acts 23:31: SHORT — 20 chars vs 112 source (possible truncation)
+- Acts 23:35: SHORT — 20 chars vs 116 source (possible truncation)
+- Acts 24:11: SHORT — 19 chars vs 105 source (possible truncation)
+- Acts 24:16: SHORT — 18 chars vs 96 source (possible truncation)
+- Acts 25:23: SHORT — 37 chars vs 211 source (possible truncation)
+- Acts 26:3: SHORT — 12 chars vs 107 source (possible truncation)
+- Acts 27:37: SHORT — 12 chars vs 61 source (possible truncation)
+- Acts 27:40: SHORT — 26 chars vs 156 source (possible truncation)
+- Colossians 1:2: SHORT — 18 chars vs 100 source (possible truncation)
+- Colossians 1:21: SHORT — 17 chars vs 89 source (possible truncation)
+- Daniel 1:13: SHORT — 13 chars vs 74 source (possible truncation)
+- Daniel 1:19: SHORT — 11 chars vs 71 source (possible truncation)
+- Daniel 2:31: SHORT — 3 chars vs 78 source (possible truncation)
+- Daniel 3:22: SHORT — 19 chars vs 107 source (possible truncation)
+- Daniel 5:23: SHORT — 19 chars vs 199 source (possible truncation)
+- Daniel 5:29: SHORT — 11 chars vs 100 source (possible truncation)
+- Daniel 6:8: SHORT — 29 chars vs 152 source (possible truncation)
+- Deuteronomy 25:9: SHORT — 21 chars vs 109 source (possible truncation)
+- Deuteronomy 25:11: SHORT — 17 chars vs 89 source (possible truncation)
+- Ephesians 1:16: SHORT — 12 chars vs 72 source (possible truncation)
+- Ephesians 1:19: SHORT — 22 chars vs 121 source (possible truncation)
+- Ephesians 4:18: SHORT — 24 chars vs 136 source (possible truncation)
+- Ephesians 4:22: SHORT — 18 chars vs 111 source (possible truncation)
+- Ephesians 4:23: SHORT — 8 chars vs 41 source (possible truncation)
+- Ephesians 5:31: SHORT — 23 chars vs 131 source (possible truncation)
+- Exodus 30:33: SHORT — 9 chars vs 48 source (possible truncation)
+- Exodus 31:9: SHORT — 7 chars vs 38 source (possible truncation)
+- Ezekiel 24:1: SHORT — 11 chars vs 57 source (possible truncation)
+- Ezekiel 32:25: SHORT — 15 chars vs 126 source (possible truncation)
+- Genesis 21:23: SHORT — 15 chars vs 95 source (possible truncation)
+- Genesis 31:43: SHORT — 19 chars vs 118 source (possible truncation)
+- Hebrews 4:4: SHORT — 16 chars vs 111 source (possible truncation)
+- Hebrews 10:8: SHORT — 26 chars vs 136 source (possible truncation)
+- Hebrews 10:13: SHORT — 14 chars vs 76 source (possible truncation)
+- James 1:14: SHORT — 14 chars vs 75 source (possible truncation)
+- James 5:18: SHORT — 17 chars vs 86 source (possible truncation)
+- Jeremiah 2:6: SHORT — 22 chars vs 121 source (possible truncation)
+- Jeremiah 25:7: SHORT — 10 chars vs 53 source (possible truncation)
+- John 3:6: SHORT — 18 chars vs 92 source (possible truncation)
+- John 5:29: SHORT — 18 chars vs 108 source (possible truncation)
+- John 6:17: SHORT — 20 chars vs 130 source (possible truncation)
+- John 6:19: SHORT — 21 chars vs 150 source (possible truncation)
+- John 6:22: SHORT — 30 chars vs 198 source (possible truncation)
+- John 6:24: SHORT — 29 chars vs 148 source (possible truncation)
+- John 6:26: SHORT — 26 chars vs 136 source (possible truncation)
+- John 6:27: SHORT — 27 chars vs 159 source (possible truncation)
+- John 6:31: SHORT — 21 chars vs 112 source (possible truncation)
+- John 6:32: SHORT — 32 chars vs 165 source (possible truncation)
+- John 6:35: SHORT — 24 chars vs 130 source (possible truncation)
+- John 6:45: SHORT — 16 chars vs 128 source (possible truncation)
+- John 6:50: SHORT — 8 chars vs 85 source (possible truncation)
+- John 6:51: SHORT — 18 chars vs 172 source (possible truncation)
+- John 6:52: SHORT — 19 chars vs 102 source (possible truncation)
+- John 6:57: SHORT — 18 chars vs 95 source (possible truncation)
+- John 6:58: SHORT — 23 chars vs 129 source (possible truncation)
+- John 7:32: SHORT — 25 chars vs 134 source (possible truncation)
+- John 7:44: SHORT — 16 chars vs 81 source (possible truncation)
+- John 8:7: SHORT — 13 chars vs 114 source (possible truncation)
+- John 8:12: SHORT — 26 chars vs 144 source (possible truncation)
+- John 8:14: SHORT — 17 chars vs 175 source (possible truncation)
+- John 8:16: SHORT — 20 chars vs 103 source (possible truncation)
+- John 8:26: SHORT — 14 chars vs 122 source (possible truncation)
+- John 8:28: SHORT — 30 chars vs 154 source (possible truncation)
+- John 8:29: SHORT — 17 chars vs 90 source (possible truncation)
+- John 8:31: SHORT — 19 chars vs 121 source (possible truncation)
+- John 8:40: SHORT — 22 chars vs 120 source (possible truncation)
+- John 8:42: SHORT — 25 chars vs 157 source (possible truncation)
+- John 8:44: SHORT — 33 chars vs 262 source (possible truncation)
+- John 9:14: SHORT — 17 chars vs 87 source (possible truncation)
+- John 10:11: SHORT — 16 chars vs 86 source (possible truncation)
+- John 11:17: SHORT — 14 chars vs 72 source (possible truncation)
+- John 11:31: SHORT — 37 chars vs 193 source (possible truncation)
+- John 13:5: SHORT — 23 chars vs 117 source (possible truncation)
+- John 13:14: SHORT — 21 chars vs 106 source (possible truncation)
+- John 18:18: SHORT — 28 chars vs 150 source (possible truncation)
+- John 18:21: SHORT — 17 chars vs 87 source (possible truncation)
+- John 21:13: SHORT — 14 chars vs 82 source (possible truncation)
+- Judges 3:15: SHORT — 20 chars vs 122 source (possible truncation)
+- Judges 6:21: SHORT — 2 chars vs 114 source (possible truncation)
+- Judges 18:18: SHORT — 16 chars vs 83 source (possible truncation)
+- Leviticus 21:1: SHORT — 8 chars vs 67 source (possible truncation)
+- Luke 1:31: SHORT — 15 chars vs 78 source (possible truncation)
+- Luke 1:47: SHORT — 10 chars vs 54 source (possible truncation)
+- Luke 1:58: SHORT — 22 chars vs 117 source (possible truncation)
+- Luke 2:18: SHORT — 16 chars vs 84 source (possible truncation)
+- Luke 2:22: SHORT — 24 chars vs 124 source (possible truncation)
+- Luke 2:27: SHORT — 28 chars vs 148 source (possible truncation)
+- Luke 2:38: SHORT — 19 chars vs 114 source (possible truncation)
+- Luke 3:13: SHORT — 14 chars vs 72 source (possible truncation)
+- Luke 4:16: SHORT — 27 chars vs 139 source (possible truncation)
+- Luke 4:22: SHORT — 27 chars vs 152 source (possible truncation)
+- Luke 4:25: SHORT — 25 chars vs 172 source (possible truncation)
+- Luke 4:29: SHORT — 21 chars vs 141 source (possible truncation)
+- Luke 6:12: SHORT — 17 chars vs 121 source (possible truncation)
+- Luke 6:18: SHORT — 13 chars vs 113 source (possible truncation)
+- Luke 6:22: SHORT — 30 chars vs 155 source (possible truncation)
+- Luke 7:6: SHORT — 19 chars vs 194 source (possible truncation)
+- Luke 7:9: SHORT — 18 chars vs 140 source (possible truncation)
+- Luke 7:12: SHORT — 23 chars vs 153 source (possible truncation)
+- Luke 7:16: SHORT — 18 chars vs 131 source (possible truncation)
+- Luke 7:22: SHORT — 14 chars vs 203 source (possible truncation)
+- Luke 7:32: SHORT — 26 chars vs 147 source (possible truncation)
+- Luke 8:1: SHORT — 27 chars vs 142 source (possible truncation)
+- Luke 8:41: SHORT — 31 chars vs 157 source (possible truncation)
+- Luke 9:28: SHORT — 25 chars vs 129 source (possible truncation)
+- Luke 9:51: SHORT — 22 chars vs 125 source (possible truncation)
+- Luke 10:27: SHORT — 36 chars vs 182 source (possible truncation)
+- Luke 12:42: SHORT — 28 chars vs 149 source (possible truncation)
+- Luke 12:45: SHORT — 27 chars vs 170 source (possible truncation)
+- Luke 13:29: SHORT — 20 chars vs 103 source (possible truncation)
+- Luke 14:6: SHORT — 7 chars vs 42 source (possible truncation)
+- Luke 15:16: SHORT — 18 chars vs 100 source (possible truncation)
+- Luke 16:3: SHORT — 26 chars vs 134 source (possible truncation)
+- Luke 16:21: SHORT — 21 chars vs 126 source (possible truncation)
+- Luke 17:24: SHORT — 26 chars vs 133 source (possible truncation)
+- Luke 17:26: SHORT — 13 chars vs 93 source (possible truncation)
+- Luke 17:30: SHORT — 12 chars vs 61 source (possible truncation)
+- Luke 18:9: SHORT — 24 chars vs 122 source (possible truncation)
+- Luke 18:25: SHORT — 21 chars vs 109 source (possible truncation)
+- Luke 19:15: SHORT — 30 chars vs 158 source (possible truncation)
+- Luke 19:36: SHORT — 12 chars vs 61 source (possible truncation)
+- Luke 19:37: SHORT — 32 chars vs 165 source (possible truncation)
+- Luke 20:1: SHORT — 20 chars vs 151 source (possible truncation)
+- Luke 20:2: SHORT — 12 chars vs 115 source (possible truncation)
+- Luke 20:9: SHORT — 27 chars vs 141 source (possible truncation)
+- Luke 20:19: SHORT — 33 chars vs 171 source (possible truncation)
+- Luke 20:20: SHORT — 32 chars vs 167 source (possible truncation)
+- Luke 20:24: SHORT — 16 chars vs 87 source (possible truncation)
+- Luke 20:26: SHORT — 21 chars vs 107 source (possible truncation)
+- Luke 20:28: SHORT — 20 chars vs 178 source (possible truncation)
+- Luke 20:31: SHORT — 12 chars vs 82 source (possible truncation)
+- Luke 21:30: SHORT — 14 chars vs 81 source (possible truncation)
+- Luke 21:35: SHORT — 15 chars vs 83 source (possible truncation)
+- Luke 22:23: SHORT — 17 chars vs 88 source (possible truncation)
+- Luke 22:36: SHORT — 9 chars vs 132 source (possible truncation)
+- Luke 22:37: SHORT — 24 chars vs 125 source (possible truncation)
+- Luke 22:44: SHORT — 24 chars vs 122 source (possible truncation)
+- Luke 23:19: SHORT — 15 chars vs 78 source (possible truncation)
+- Luke 23:23: SHORT — 14 chars vs 91 source (possible truncation)
+- Luke 23:26: SHORT — 21 chars vs 129 source (possible truncation)
+- Luke 23:34: SHORT — 13 chars vs 117 source (possible truncation)
+- Luke 23:48: SHORT — 15 chars vs 116 source (possible truncation)
+- Luke 23:49: SHORT — 18 chars vs 117 source (possible truncation)
+- Luke 23:51: SHORT — 24 chars vs 135 source (possible truncation)
+- Luke 23:53: SHORT — 16 chars vs 104 source (possible truncation)
+- Luke 23:55: SHORT — 15 chars vs 132 source (possible truncation)
+- Luke 24:14: SHORT — 13 chars vs 68 source (possible truncation)
+- Luke 24:19: SHORT — 10 chars vs 159 source (possible truncation)
+- Luke 24:21: SHORT — 24 chars vs 144 source (possible truncation)
+- Luke 24:53: SHORT — 9 chars vs 52 source (possible truncation)
+- Mark 1:5: SHORT — 29 chars vs 158 source (possible truncation)
+- Mark 1:6: SHORT — 24 chars vs 121 source (possible truncation)
+- Mark 2:6: SHORT — 15 chars vs 86 source (possible truncation)
+- Mark 2:21: SHORT — 29 chars vs 148 source (possible truncation)
+- Mark 3:8: SHORT — 17 chars vs 143 source (possible truncation)
+- Mark 3:29: SHORT — 13 chars vs 113 source (possible truncation)
+- Mark 4:16: SHORT — 20 chars vs 117 source (possible truncation)
+- Mark 4:18: SHORT — 15 chars vs 84 source (possible truncation)
+- Mark 4:31: SHORT — 18 chars vs 97 source (possible truncation)
+- Mark 5:5: SHORT — 19 chars vs 108 source (possible truncation)
+- Mark 6:21: SHORT — 25 chars vs 152 source (possible truncation)
+- Mark 6:27: SHORT — 11 chars vs 124 source (possible truncation)
+- Mark 6:28: SHORT — 22 chars vs 114 source (possible truncation)
+- Mark 6:41: SHORT — 11 chars vs 201 source (possible truncation)
+- Mark 6:43: SHORT — 10 chars vs 62 source (possible truncation)
+- Mark 6:45: SHORT — 13 chars vs 131 source (possible truncation)
+- Mark 6:48: SHORT — 24 chars vs 189 source (possible truncation)
+- Mark 6:50: SHORT — 19 chars vs 122 source (possible truncation)
+- Mark 7:26: SHORT — 20 chars vs 109 source (possible truncation)
+- Mark 8:10: SHORT — 10 chars vs 82 source (possible truncation)
+- Mark 9:2: SHORT — 31 chars vs 168 source (possible truncation)
+- Mark 10:7: SHORT — 18 chars vs 110 source (possible truncation)
+- Mark 10:8: SHORT — 7 chars vs 71 source (possible truncation)
+- Mark 10:24: SHORT — 30 chars vs 154 source (possible truncation)
+- Mark 10:25: SHORT — 20 chars vs 113 source (possible truncation)
+- Mark 10:46: SHORT — 25 chars vs 164 source (possible truncation)
+- Mark 12:2: SHORT — 21 chars vs 106 source (possible truncation)
+- Mark 12:30: SHORT — 22 chars vs 140 source (possible truncation)
+- Mark 13:10: SHORT — 9 chars vs 58 source (possible truncation)
+- Mark 13:16: SHORT — 12 chars vs 70 source (possible truncation)
+- Mark 13:25: SHORT — 19 chars vs 99 source (possible truncation)
+- Mark 14:16: SHORT — 13 chars vs 100 source (possible truncation)
+- Mark 14:18: SHORT — 22 chars vs 115 source (possible truncation)
+- Mark 14:22: SHORT — 21 chars vs 111 source (possible truncation)
+- Mark 14:25: SHORT — 15 chars vs 134 source (possible truncation)
+- Mark 14:27: SHORT — 18 chars vs 124 source (possible truncation)
+- Mark 14:37: SHORT — 13 chars vs 116 source (possible truncation)
+- Mark 14:46: SHORT — 10 chars vs 51 source (possible truncation)
+- Mark 14:54: SHORT — 27 chars vs 147 source (possible truncation)
+- Mark 14:61: SHORT — 16 chars vs 123 source (possible truncation)
+- Mark 14:67: SHORT — 17 chars vs 99 source (possible truncation)
+- Mark 15:29: SHORT — 19 chars vs 139 source (possible truncation)
+- Mark 16:8: SHORT — 29 chars vs 327 source (possible truncation)
+- Mark 16:18: SHORT — 17 chars vs 109 source (possible truncation)
+- Matthew 3:4: SHORT — 28 chars vs 147 source (possible truncation)
+- Matthew 3:12: SHORT — 29 chars vs 146 source (possible truncation)
+- Matthew 4:2: SHORT — 14 chars vs 76 source (possible truncation)
+- Matthew 4:5: SHORT — 20 chars vs 101 source (possible truncation)
+- Matthew 5:24: SHORT — 24 chars vs 130 source (possible truncation)
+- Matthew 7:17: SHORT — 17 chars vs 91 source (possible truncation)
+- Matthew 7:28: SHORT — 19 chars vs 97 source (possible truncation)
+- Matthew 9:17: SHORT — 34 chars vs 199 source (possible truncation)
+- Matthew 9:20: SHORT — 17 chars vs 95 source (possible truncation)
+- Matthew 9:26: SHORT — 9 chars vs 49 source (possible truncation)
+- Matthew 10:9: SHORT — 11 chars vs 63 source (possible truncation)
+- Matthew 10:32: SHORT — 23 chars vs 121 source (possible truncation)
+- Matthew 11:1: SHORT — 27 chars vs 137 source (possible truncation)
+- Matthew 12:16: SHORT — 10 chars vs 53 source (possible truncation)
+- Matthew 12:40: SHORT — 27 chars vs 157 source (possible truncation)
+- Matthew 13:5: SHORT — 21 chars vs 106 source (possible truncation)
+- Matthew 13:42: SHORT — 18 chars vs 95 source (possible truncation)
+- Matthew 13:44: SHORT — 35 chars vs 180 source (possible truncation)
+- Matthew 13:45: SHORT — 13 chars vs 83 source (possible truncation)
+- Matthew 13:47: SHORT — 21 chars vs 107 source (possible truncation)
+- Matthew 13:49: SHORT — 22 chars vs 113 source (possible truncation)
+- Matthew 13:50: SHORT — 17 chars vs 95 source (possible truncation)
+- Matthew 14:34: SHORT — 10 chars vs 51 source (possible truncation)
+- Matthew 15:11: SHORT — 22 chars vs 117 source (possible truncation)
+- Matthew 15:29: SHORT — 20 chars vs 104 source (possible truncation)
+- Matthew 17:1: SHORT — 26 chars vs 142 source (possible truncation)
+- Matthew 18:23: SHORT — 18 chars vs 105 source (possible truncation)
+- Matthew 18:35: SHORT — 19 chars vs 104 source (possible truncation)
+- Matthew 19:6: SHORT — 15 chars vs 82 source (possible truncation)
+- Matthew 19:19: SHORT — 14 chars vs 73 source (possible truncation)
+- Matthew 21:6: SHORT — 13 chars vs 72 source (possible truncation)
+- Matthew 21:34: SHORT — 19 chars vs 111 source (possible truncation)
+- Matthew 22:1: SHORT — 11 chars vs 63 source (possible truncation)
+- Matthew 22:2: SHORT — 15 chars vs 83 source (possible truncation)
+- Matthew 22:6: SHORT — 12 chars vs 67 source (possible truncation)
+- Matthew 22:7: SHORT — 21 chars vs 115 source (possible truncation)
+- Matthew 22:32: SHORT — 16 chars vs 94 source (possible truncation)
+- Matthew 23:6: SHORT — 17 chars vs 86 source (possible truncation)
+- Matthew 23:23: SHORT — 25 chars vs 219 source (possible truncation)
+- Matthew 23:25: SHORT — 29 chars vs 147 source (possible truncation)
+- Matthew 23:27: SHORT — 33 chars vs 176 source (possible truncation)
+- Matthew 23:34: SHORT — 17 chars vs 194 source (possible truncation)
+- Matthew 24:38: SHORT — 23 chars vs 147 source (possible truncation)
+- Matthew 25:1: SHORT — 22 chars vs 128 source (possible truncation)
+- Matthew 25:7: SHORT — 14 chars vs 75 source (possible truncation)
+- Matthew 25:19: SHORT — 17 chars vs 86 source (possible truncation)
+- Matthew 25:40: SHORT — 23 chars vs 131 source (possible truncation)
+- Matthew 25:44: SHORT — 21 chars vs 144 source (possible truncation)
+- Matthew 26:1: SHORT — 17 chars vs 88 source (possible truncation)
+- Matthew 26:52: SHORT — 24 chars vs 129 source (possible truncation)
+- Matthew 27:27: SHORT — 21 chars vs 111 source (possible truncation)
+- Matthew 27:30: SHORT — 15 chars vs 79 source (possible truncation)
+- Matthew 27:39: SHORT — 12 chars vs 67 source (possible truncation)
+- Numbers 3:40: SHORT — 8 chars vs 71 source (possible truncation)
+- Numbers 14:31: SHORT — 11 chars vs 62 source (possible truncation)
+- Numbers 22:34: SHORT — 2 chars vs 89 source (possible truncation)
+- Numbers 27:7: SHORT — 10 chars vs 79 source (possible truncation)
+- Numbers 31:30: SHORT — 17 chars vs 115 source (possible truncation)
+- Numbers 33:38: SHORT — 14 chars vs 101 source (possible truncation)
+- Philippians 2:7: SHORT — 20 chars vs 107 source (possible truncation)
+- Revelation 1:15: SHORT — 15 chars vs 104 source (possible truncation)
+- Revelation 1:16: SHORT — 32 chars vs 165 source (possible truncation)
+- Revelation 2:28: SHORT — 7 chars vs 73 source (possible truncation)
+- Revelation 4:2: SHORT — 18 chars vs 95 source (possible truncation)
+- Revelation 4:4: SHORT — 35 chars vs 190 source (possible truncation)
+- Revelation 4:7: SHORT — 31 chars vs 163 source (possible truncation)
+- Revelation 6:5: SHORT — 26 chars vs 168 source (possible truncation)
+- Revelation 7:3: SHORT — 21 chars vs 128 source (possible truncation)
+- Revelation 9:6: SHORT — 24 chars vs 151 source (possible truncation)
+- Revelation 9:7: SHORT — 32 chars vs 162 source (possible truncation)
+- Revelation 9:8: SHORT — 13 chars vs 74 source (possible truncation)
+- Revelation 9:9: SHORT — 22 chars vs 120 source (possible truncation)
+- Revelation 9:10: SHORT — 22 chars vs 124 source (possible truncation)
+- Revelation 11:6: SHORT — 41 chars vs 214 source (possible truncation)
+- Revelation 12:4: SHORT — 26 chars vs 192 source (possible truncation)
+- Revelation 12:16: SHORT — 25 chars vs 129 source (possible truncation)
+- Revelation 13:13: SHORT — 20 chars vs 102 source (possible truncation)
+- Revelation 13:15: SHORT — 21 chars vs 160 source (possible truncation)
+- Revelation 13:16: SHORT — 35 chars vs 205 source (possible truncation)
+- Revelation 13:17: SHORT — 18 chars vs 120 source (possible truncation)
+- Revelation 16:18: SHORT — 23 chars vs 156 source (possible truncation)
+- Revelation 18:5: SHORT — 17 chars vs 95 source (possible truncation)
+- Romans 2:15: SHORT — 34 chars vs 175 source (possible truncation)
+- Romans 4:20: SHORT — 12 chars vs 99 source (possible truncation)
+- Romans 4:21: SHORT — 10 chars vs 61 source (possible truncation)
+- Romans 4:24: SHORT — 14 chars vs 109 source (possible truncation)
+- Romans 9:12: SHORT — 14 chars vs 83 source (possible truncation)
+- Romans 12:17: SHORT — 14 chars vs 79 source (possible truncation)
+- Romans 15:14: SHORT — 30 chars vs 151 source (possible truncation)
+- 1 Chronicles 1: NAME — Beor is 比珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 1: NAME — Bozrah is 波斯拉 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 1: NAME — Ebal is 以巴路山 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 1: NAME — Egypt is 埃及 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 1: NAME — Enosh is 以挪士 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 1: NAME — Heth is 迦南生长 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 1: NAME — Jared is 生雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 1: NAME — Noah is 挪亚 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 1: NAME — Onam is 阿南 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 1: NAME — Reu is 法勒生拉 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 1: NAME — Shelah is 示拉 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 1: NAME — Tema is 提玛 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 2: NAME — Azubah is 阿苏巴 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 2: NAME — Ethan is 以探 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 2: NAME — Hamul is 哈母勒 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 2: NAME — Korach is 雅兰 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 2: NAME — Onam is 阿南 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 2: NAME — Reuben is 流便 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 2: NAME — Zimri is 心利 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 3: NAME — Ammiel is 亚米利 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 3: NAME — Berechiah is 比利家 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 3: NAME — Daniel is 但以理 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 3: NAME — Haggith is 哈及 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 3: NAME — Hananiah is 哈拿尼雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 3: NAME — Hashub is 哈述 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 3: NAME — Hebron is 希伯仑 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 3: NAME — Ibhar is 以利书亚 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 3: NAME — Joash is 约阿施 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 3: NAME — Meshullam is 米书兰 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 3: NAME — Shemaiah is 示玛雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 3: NAME — Shephatiah is 示法提雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 3: NAME — Shobab is 耶路撒冷所生 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 3: NAME — Talmai is 达买 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Abi is 父亲耶利 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Amalek is 亚玛力 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Amnon is 暗嫩 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Ashan is 亚珊 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — David is 大卫 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Ethan is 以探 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Gedor is 基多 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Jebusite is 耶布斯 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Keilah is 基伊拉 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Kenaz is 基纳斯 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Meunim is 米乌宁 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Moab is 摩押 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Moladah is 摩拉大 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Penuel is 伊勒 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Pharaoh is 法老 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Reaiah is 利亚雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Sarai is 撒莱 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Seir is 西珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Shelah is 示拉 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Shemaiah is 示玛雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Simon is 西门 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 4: NAME — Tekoa is 提哥亚 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Amram is 暗兰 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Azariah is 亚撒利雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Bela is 比拉 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Buz is 布斯 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Eleazar is 以利亚撒 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Ephraim is 以法莲 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Gog is 歌革 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Hebron is 希伯仑 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Hermon is 黑门山 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Hilkiah is 希勒家 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Hodaviah is 何达威雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Hur is 户珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Izhar is 以斯哈 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Jehozadak is 大祭司约书亚 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Jotham is 约坦 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Meshullam is 米书兰 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Michael is 米迦勒 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Nebo is 尼波 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Nebuchadnezzar is 尼布甲尼撒 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Reaiah is 利亚雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Senir is 示尼珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Seraiah is 西莱雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Sharon is 沙仑 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Shema is 示玛 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Uzi is 乌西 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 5: NAME — Zerahiah is 西拉希雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Aaron is 亚伦 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Ahitub is 亚希突 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Aijalon is 亚雅仑 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Amram is 暗兰 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Asaph is 亚萨 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Ashan is 亚珊 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Asher is 亚设 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Azariah is 亚撒利雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Bani is 巴尼 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Bashan is 巴珊 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Benjamin is 便雅悯 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Bukki is 布基 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Daberath is 大比拉 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — David is 大卫 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Ephraim is 以法莲 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Ethan is 以探 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Galilee is 加利利 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Geba is 迦巴 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Golan is 哥兰 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Hebron is 希伯仑 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Izhar is 以斯哈 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Jericho is 耶利哥 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Jerusalem is 耶路撒冷 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Joel is 约珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Jordan is 约旦河 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Judah is 犹大 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Kedemoth is 基底莫 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Kedesh is 基低斯 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Kohathites is 属哥辖 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Korah is 可拉后裔的 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Libni is 立尼 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Manasseh is 玛拿西 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Michael is 米迦勒 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Naphtali is 拿弗他利 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Phinehas is 非尼哈 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Ramoth is 拉末 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Rehob is 利合 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Reuben is 流便 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Solomon is 所罗门 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Uzi is 乌西 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Zadok is 撒督 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Zebulun is 西布伦 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Zerah is 谢拉 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 6: NAME — Zerahiah is 西拉希雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 7: NAME — Anathoth is 亚拿突 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 7: NAME — Bilhan is 撒番 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 7: NAME — Gath is 迦特 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 7: NAME — Hananiah is 哈拿尼雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 7: NAME — Hever is 希百 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 7: NAME — Jerimoth is 耶利摩 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 7: NAME — Joel is 约珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 7: NAME — Michael is 米迦勒 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 7: NAME — Shamma is 米撒 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 7: NAME — Uzi is 乌西 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 7: NAME — Uzziel is 乌薛 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 8: NAME — Abi is 父亲耶利 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 8: NAME — Ahio is 亚希约 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 8: NAME — Aijalon is 亚雅仑 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 8: NAME — Ashbel is 亚实别 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 8: NAME — Atalyah is 亚他利雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 8: NAME — Bela is 比拉 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 8: NAME — Gedor is 基多 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 8: NAME — Huram is 户兰 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 8: NAME — Ishmael is 以实玛利 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 8: NAME — Joah is 约亚 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 8: NAME — Kish is 基士 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 8: NAME — Michael is 米迦勒 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 8: NAME — Ner is 尼珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 8: NAME — Penuel is 伊勒 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 8: NAME — Yeroham is 耶罗罕 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 8: NAME — Zabdi is 撒底 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 8: NAME — Zikri is 细基利 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 8: NAME — Zimri is 心利 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Abi is 父亲耶利 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Ahaz is 亚哈斯 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Azariah is 亚撒利雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Eleazar is 以利亚撒 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Gedor is 基多 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Hashub is 哈述 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Hodaviah is 何达威雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Ishmael is 以实玛利 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Jehu is 耶户 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Kish is 基士 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Korach is 雅兰 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Korah is 可拉后裔的 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Merari is 米拉利 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Meshullam is 米书兰 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Ner is 尼珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Phinehas is 非尼哈 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Salu is 撒路 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Shemaiah is 示玛雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Shephatiah is 示法提雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Talmon is 亚谷 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Yeroham is 耶罗罕 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Zerah is 谢拉 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Zikri is 细基利 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 9: NAME — Zimri is 心利 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 11: NAME — Abiel is 亚别 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 11: NAME — Ahijah is 亚希雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 11: NAME — Asahel is 亚撒黑 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 11: NAME — Benjamin is 便雅悯 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 11: NAME — Dodo is 伊勒哈难 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 11: NAME — Elhanan is 伊勒哈难杀 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 11: NAME — Gaash is 迦实山 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 11: NAME — Gibeah is 基比亚 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 11: NAME — Hagar is 夏甲 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 11: NAME — Hushathite is 户沙 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 11: NAME — Ittai is 以太 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 11: NAME — Joash is 约阿施 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 11: NAME — Joel is 约珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 11: NAME — Obadiah is 俄巴底 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 11: NAME — Rephaim is 利乏音 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 11: NAME — Zeruiah is 洗鲁雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 12: NAME — Eliab is 以利押 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 12: NAME — Jehu is 耶户 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 12: NAME — Joash is 约阿施 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 12: NAME — Obadiah is 俄巴底 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 12: NAME — Yeroham is 耶罗罕 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 12: NAME — Ziklag is 洗革拉 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 13: NAME — Obed is 俄备得 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 14: NAME — Shobab is 耶路撒冷所生 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 15: NAME — Berechiah is 比利家 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 15: NAME — Edom is 以东 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 15: NAME — Ethan is 以探 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 15: NAME — Hebron is 希伯仑 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 15: NAME — Joel is 约珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 15: NAME — Mattithiah is 玛他提雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 15: NAME — Merari is 米拉利 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 15: NAME — Nathan is 拿单 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 15: NAME — Uzziel is 乌薛 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 16: NAME — Chosah is 何萨 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 16: NAME — Edom is 以东 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 16: NAME — Eliab is 以利押 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 16: NAME — Mattithiah is 玛他提雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 18: NAME — Benaiah is 比拿雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 18: NAME — Jehoshaphat is 约沙法 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 18: NAME — Seraiah is 西莱雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 18: NAME — Zeruiah is 洗鲁雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 19: NAME — Aram-Naharaim is 美索不达米亚 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 19: NAME — Medeba is 米底巴 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 20: NAME — Elhanan is 伊勒哈难杀 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 20: NAME — Hushathite is 户沙 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 20: NAME — Rephaim is 利乏音 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 21: NAME — Jebusite is 耶布斯 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 23: NAME — Amram is 暗兰 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 23: NAME — Edar is 末力 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 23: NAME — Hebron is 希伯仑 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 23: NAME — Izhar is 以斯哈 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 23: NAME — Joel is 约珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 23: NAME — Kohath is 哥辖 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 24: NAME — Amram is 暗兰 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 24: NAME — Edar is 末力 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 24: NAME — Samuel is 撒母耳 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 25: NAME — Azariah is 亚撒利雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 25: NAME — Gedaliah is 基大利 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 25: NAME — Uzziel is 乌薛 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Abner is 押尼珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Ammiel is 亚米利 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Asaph is 亚萨 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Chosah is 何萨 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Eleazar is 以利亚撒 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Elihu is 以利户 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Elioenai is 以利约乃 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Ethan is 以探 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Jazer is 雅谢 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Jehozabad is 约萨 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Joah is 约亚 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Joel is 约珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Kish is 基士 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Korah is 可拉后裔的 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Merari is 米拉利 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Meshullam is 米书兰 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Nathan is 拿单 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Ner is 尼珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Obadiah is 俄巴底 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Obed is 俄备得 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Zeruiah is 洗鲁雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 26: NAME — Zikri is 细基利 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 27: NAME — Abner is 押尼珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 27: NAME — Asahel is 亚撒黑 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 27: NAME — Eleazar is 以利亚撒 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 27: NAME — Elihu is 以利户 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 27: NAME — Hushathite is 户沙 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 27: NAME — Jerimoth is 耶利摩 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 27: NAME — Joel is 约珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 27: NAME — Kemuel is 基母利 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 27: NAME — Obadiah is 俄巴底 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 27: NAME — Pedaiah is 毗大雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 27: NAME — Uzziel is 乌薛 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 27: NAME — Zabdi is 撒底 in the Bibles this language already reads; this chapter does not use it
+- 1 Chronicles 27: NAME — Zeruiah is 洗鲁雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Corinthians 1: NAME — Gaius is 该犹 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 1: NAME — Adonijah is 亚多尼雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 1: NAME — Haggith is 哈及 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 1: NAME — Zeruiah is 洗鲁雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 2: NAME — Abner is 押尼珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 2: NAME — Anathoth is 亚拿突 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 2: NAME — Gera is 基拉 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 2: NAME — Haggith is 哈及 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 2: NAME — Hebron is 希伯仑 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 2: NAME — Jordan is 约旦河 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 2: NAME — Zeruiah is 洗鲁雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 4: NAME — Abel is 亚伯 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 4: NAME — Amorites is 亚摩利 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 4: NAME — Benjamin is 便雅悯 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 4: NAME — Elon is 以伦 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 4: NAME — Jordan is 约旦河 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 4: NAME — Megiddo is 米吉多 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 4: NAME — Nathan is 拿单 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 4: NAME — Sihon is 西宏 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 4: NAME — Uri is 乌利 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 5: NAME — Ethan is 以探 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 5: NAME — Gaza is 迦萨 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 5: NAME — Philistines is 非利士 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 5: NAME — Tyre is 推罗 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 7: NAME — Sukkoth is 约旦平原 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 9: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 10: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 11: NAME — Millo is 米罗 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 11: NAME — Shishak is 示撒 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 13: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 14: NAME — Tirzah is 得撒 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 15: NAME — Gibbethon is 基比顿 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 15: NAME — Ijon is 便哈达听 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 15: NAME — Nebat is 尼八 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 15: NAME — Philistines is 非利士 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 15: NAME — Tirzah is 得撒 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 16: NAME — Gibbethon is 基比顿 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 16: NAME — Joshua is 约书亚 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 16: NAME — Judah is 犹大 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 16: NAME — Omri is 暗利 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 16: NAME — Philistines is 非利士 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 16: NAME — Tirzah is 得撒 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 16: NAME — Zimri is 心利 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 17: NAME — Jordan is 约旦河 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 18: NAME — Jacob is 雅各 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 19: NAME — Nimshi is 宁示的孙子 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 22: NAME — Ammon is 亚扪 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 22: NAME — Azubah is 阿苏巴 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 22: NAME — David is 大卫 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 22: NAME — Micah is 米迦 in the Bibles this language already reads; this chapter does not use it
+- 1 Kings 22: NAME — Tarshish is 他施 in the Bibles this language already reads; this chapter does not use it
+- 1 Peter 1: NAME — Asia is 亚西亚 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 2: NAME — Pharaoh is 法老 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 4: NAME — Ebenezer is 以便以谢 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 5: NAME — Ebenezer is 以便以谢 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 6: NAME — Perizzites is 比利洗人 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 7: NAME — Ekron is 以革伦 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 8: NAME — Abijah is 亚比雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 9: NAME — Abiel is 亚别 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 9: NAME — Benjamin is 便雅悯 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 10: NAME — Gibeah is 基比亚 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 10: NAME — Mizpah is 米斯巴 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 11: NAME — Gilgal is 吉甲 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 12: NAME — Jerubbaal is 耶路巴力 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 13: NAME — Geba is 迦巴 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 14: NAME — Abiel is 亚别 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 14: NAME — Abner is 押尼珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 14: NAME — Ahijah is 亚希雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 14: NAME — Geba is 迦巴 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 15: NAME — Gibeah is 基比亚 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 15: NAME — Havilah is 哈腓拉 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 16: NAME — Abinadab is 亚比拿达 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 16: NAME — Jesse is 耶西 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 17: NAME — Azekah is 亚西加 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 20: NAME — Abner is 押尼珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 20: NAME — Jesse is 耶西 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 22: NAME — Jesse is 耶西 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 23: NAME — Ahimelech is 亚希米勒 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 25: NAME — Jezreel is 耶斯列 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 26: NAME — Abner is 押尼珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 26: NAME — Joab is 约押 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 26: NAME — Ner is 尼珥 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 26: NAME — Zeruiah is 洗鲁雅 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 27: NAME — Jezreelite is 拿伯 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 27: NAME — Sharon is 沙仑 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 27: NAME — Ziklag is 洗革拉 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 28: NAME — Gilboa is 基利波山 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 29: NAME — Jezreel is 耶斯列 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 30: NAME — Bethel is 伯特利 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 30: NAME — Keilah is 基伊拉 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 30: NAME — Ramoth is 拉末 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 30: NAME — Ziklag is 洗革拉 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 31: NAME — Abinadab is 亚比拿达 in the Bibles this language already reads; this chapter does not use it
+- 1 Samuel 31: NAME — Jabesh is 雅比 in the Bibles this language already reads; this chapter does not use it
+- 1 Timothy 1: NAME — Alexander is 亚力山大 in the Bibles this language already reads; this chapter does not use it
+- 1 Timothy 6: NAME — Pontius is 本丢彼拉多 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 3: NAME — Jebusite is 耶布斯 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 4: NAME — Huram is 户兰 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 4: NAME — Sukkoth is 约旦平原 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 8: NAME — Huram is 户兰 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 9: NAME — Ahijah is 亚希雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 9: NAME — Huram is 户兰 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 9: NAME — Jeroboam is 耶罗波安 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 9: NAME — Nebat is 尼八 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 9: NAME — Philistines is 非利士 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 9: NAME — Rehoboam is 罗波安 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 10: NAME — Adoram is 亚多兰 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 10: NAME — Nebat is 尼八 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 11: NAME — Aijalon is 亚雅仑 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 11: NAME — Azekah is 亚西加 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 11: NAME — Eliab is 以利押 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 11: NAME — Gath is 迦特 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 11: NAME — Hebron is 希伯仑 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 11: NAME — Jerimoth is 耶利摩 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 12: NAME — Libyans is 路比 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 12: NAME — Pharaoh is 法老 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 13: NAME — Ephron is 以弗仑 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 13: NAME — Solomon is 所罗门 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 14: NAME — Zerah is 谢拉 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 16: NAME — Geba is 迦巴 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 16: NAME — Ijon is 便哈达听 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 16: NAME — Libyans is 路比 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 17: NAME — Asahel is 亚撒黑 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 17: NAME — Eliashib is 以利亚实 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 17: NAME — Jehozabad is 约萨 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 17: NAME — Jonathan is 约拿单 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 17: NAME — Obadiah is 俄巴底 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 18: NAME — Ammon is 亚扪 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 19: NAME — Ishmael is 以实玛利 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 20: NAME — Azubah is 阿苏巴 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 20: NAME — Benaiah is 比拿雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 20: NAME — Hanani is 哈拿尼 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 20: NAME — Jeiel is 耶利 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 20: NAME — Tekoa is 提哥亚 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 21: NAME — Ahaziah is 亚哈谢 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 21: NAME — Cush is 古实 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 21: NAME — Jehoahaz is 约哈斯 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 21: NAME — Libnah is 立拿 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 21: NAME — Shephatiah is 示法提雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 22: NAME — Nimshi is 宁示的孙子 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 22: NAME — Omri is 暗利 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 23: NAME — Mattan is 祭司玛坦杀 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 23: NAME — Obed is 俄备得 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 25: NAME — Benjamin is 便雅悯 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 25: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 25: NAME — Seir is 西珥 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 26: NAME — Amoz is 亚摩斯 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 26: NAME — Hananiah is 哈拿尼雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 26: NAME — Jeiel is 耶利 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 28: NAME — Aijalon is 亚雅仑 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 28: NAME — Berechiah is 比利家 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 28: NAME — Jericho is 耶利哥 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 28: NAME — Maaseiah is 玛西雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 28: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 29: NAME — Azariah is 亚撒利雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 29: NAME — Jeiel is 耶利 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 29: NAME — Kish is 基士 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 29: NAME — Kohath is 哥辖 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 29: NAME — Merari is 米拉利 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 29: NAME — Uzziel is 乌薛 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 29: NAME — Zimri is 心利 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 31: NAME — Asahel is 亚撒黑 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 31: NAME — Azariah is 亚撒利雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 31: NAME — Benaiah is 比拿雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 31: NAME — Jerimoth is 耶利摩 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 31: NAME — Shecaniah is 示迦尼 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 32: NAME — Sennacherib is 西拿基立 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 34: NAME — Ahikam is 亚希甘 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 34: NAME — Jahath is 雅哈 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 34: NAME — Kohathites is 属哥辖 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 34: NAME — Merari is 米拉利 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 34: NAME — Meshullam is 米书兰 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 34: NAME — Obadiah is 俄巴底 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 34: NAME — Shallum is 沙龙 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 35: NAME — Megiddo is 米吉多 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 35: NAME — Pharaoh is 法老 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 36: NAME — Chaldeans is 迦勒底 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 36: NAME — Cyrus is 居鲁士 in the Bibles this language already reads; this chapter does not use it
+- 2 Chronicles 36: NAME — Josiah is 约西亚 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 1: NAME — Tishbite is 提斯比人以利 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 3: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 4: NAME — Gilgal is 吉甲 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 5: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 8: NAME — Ben-Hadad is 便哈达 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 8: NAME — Libnah is 立拿 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 8: NAME — Omri is 暗利 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 8: NAME — Ramah is 拉玛 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 9: NAME — Ahijah is 亚希雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 9: NAME — Jehu is 耶户 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 9: NAME — Jezebel is 耶洗别 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 9: NAME — Megiddo is 米吉多 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 9: NAME — Nebat is 尼八 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 9: NAME — Nimshi is 宁示的孙子 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 9: NAME — Ramah is 拉玛 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 9: NAME — Tishbite is 提斯比人以利 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 9: NAME — Zimri is 心利 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 10: NAME — Jehoahaz is 约哈斯 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 10: NAME — Jezreel is 耶斯列 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 10: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 11: NAME — Mattan is 祭司玛坦杀 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 12: NAME — Jehozabad is 约萨 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 12: NAME — Jehu is 耶户 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 12: NAME — Millo is 米罗 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 13: NAME — Aphek is 亚弗 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 13: NAME — Jehoahaz is 约哈斯 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 13: NAME — Nebat is 尼八 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 13: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 14: NAME — Gath is 迦特 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 14: NAME — Jehoahaz is 约哈斯 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 14: NAME — Jehu is 耶户 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 14: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 14: NAME — Nebat is 尼八 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 14: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 15: NAME — Ijon is 便哈达听 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 15: NAME — Jabesh is 雅比 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 15: NAME — Kedesh is 基低斯 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 15: NAME — Nebat is 尼八 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 15: NAME — Remaliah is 利玛利的儿子 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 15: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 15: NAME — Tirzah is 得撒 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 16: NAME — Elath is 以拉他 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 16: NAME — Remaliah is 利玛利的儿子 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 17: NAME — Jacob is 雅各 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 17: NAME — Nebat is 尼八 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 17: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 18: NAME — Abi is 父亲耶利 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 18: NAME — Asaph is 亚萨 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 18: NAME — Hilkiah is 希勒家 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 18: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 19: NAME — Haran is 哈兰 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 19: NAME — Libnah is 立拿 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 19: NAME — Sennacherib is 西拿基立 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 20: NAME — Amoz is 亚摩斯 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 22: NAME — Ahikam is 亚希甘 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 22: NAME — Micah is 米迦 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 23: NAME — Geba is 迦巴 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 23: NAME — Hilkiah is 希勒家 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 23: NAME — Joshua is 约书亚 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 23: NAME — Nebat is 尼八 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 23: NAME — Riblah is 利比拉 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 23: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 24: NAME — Solomon is 所罗门 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 25: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 25: NAME — Kareah is 加利亚的 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 25: NAME — Riblah is 利比拉 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 25: NAME — Seraiah is 西莱雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Kings 25: NAME — Shaphan is 沙番 in the Bibles this language already reads; this chapter does not use it
+- 2 Peter 2: NAME — Beor is 比珥 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 2: NAME — Abner is 押尼珥 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 2: NAME — Gibeah is 基比亚 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 2: NAME — Hebron is 希伯仑 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 2: NAME — Jabesh is 雅比 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 2: NAME — Jezreel is 耶斯列 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 2: NAME — Jezreelite is 拿伯 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 2: NAME — Ner is 尼珥 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 2: NAME — Zeruiah is 洗鲁雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 3: NAME — Abner is 押尼珥 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 3: NAME — Adonijah is 亚多尼雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 3: NAME — Ahinoam is 亚希 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 3: NAME — Bahurim is 巴户琳 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 3: NAME — Haggith is 哈及 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 3: NAME — Hebron is 希伯仑 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 3: NAME — Ish-bosheth is 伊施波设 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 3: NAME — Ner is 尼珥 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 3: NAME — Shephatiah is 示法提雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 3: NAME — Talmai is 达买 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 3: NAME — Zeruiah is 洗鲁雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 4: NAME — Abner is 押尼珥 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 4: NAME — Hebron is 希伯仑 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 4: NAME — Ish-bosheth is 伊施波设 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 4: NAME — Ziklag is 洗革拉 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 5: NAME — Hebron is 希伯仑 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 5: NAME — Ibhar is 以利书亚 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 5: NAME — Millo is 米罗 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 5: NAME — Shobab is 耶路撒冷所生 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 6: NAME — Ahio is 亚希约 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 6: NAME — Gibeah is 基比亚 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 6: NAME — Hebron is 希伯仑 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 6: NAME — Obed is 俄备得 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 8: NAME — Ahimelech is 亚希米勒 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 8: NAME — Seraiah is 西莱雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 8: NAME — Zeruiah is 洗鲁雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 9: NAME — Ammiel is 亚米利 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 10: NAME — Jericho is 耶利哥 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 10: NAME — Rehob is 利合 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 11: NAME — Abimelech is 亚比米勒 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 11: NAME — Jerubbaal is 耶路巴力 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 13: NAME — Ammihud is 亚米 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 13: NAME — Ephraim is 以法莲 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 13: NAME — Talmai is 达买 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 14: NAME — Ahithophel is 亚希多弗 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 14: NAME — Tekoa is 提哥亚 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 14: NAME — Zeruiah is 洗鲁雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 16: NAME — Bahurim is 巴户琳 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 16: NAME — Gera is 基拉 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 16: NAME — Mephibosheth is 米非波设 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 16: NAME — Zeruiah is 洗鲁雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 16: NAME — Ziba is 洗巴 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 17: NAME — Abigail is 亚比该 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 17: NAME — Ammiel is 亚米利 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 17: NAME — Ammon is 亚扪 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 17: NAME — Bahurim is 巴户琳 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 17: NAME — Jordan is 约旦河 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 17: NAME — Mahanaim is 玛哈念 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 17: NAME — Nahash is 拿辖 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 17: NAME — Rabbah is 拉巴 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 17: NAME — Zeruiah is 洗鲁雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 19: NAME — Amasa is 亚玛撒 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 19: NAME — Gera is 基拉 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 19: NAME — Joseph is 约瑟 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 19: NAME — Mahanaim is 玛哈念 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 19: NAME — Zeruiah is 洗鲁雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 19: NAME — Ziba is 洗巴 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 20: NAME — Abel is 亚伯 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 20: NAME — Ahilud is 亚希律的儿子 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 20: NAME — Benjamin is 便雅悯 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 20: NAME — Ephraim is 以法莲 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 21: NAME — Elhanan is 伊勒哈难杀 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 21: NAME — Hushathite is 户沙 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 21: NAME — Jabesh is 雅比 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 21: NAME — Mephibosheth is 米非波设 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 21: NAME — Zeruiah is 洗鲁雅 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 23: NAME — Abi is 父亲耶利 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 23: NAME — Ahithophel is 亚希多弗 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 23: NAME — Ariel is 亚利伊勒 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 23: NAME — Baanah is 巴拿 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 23: NAME — Bani is 巴尼 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 23: NAME — Dodo is 伊勒哈难 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 23: NAME — Eliab is 以利押 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 23: NAME — Hushathite is 户沙 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 23: NAME — Ittai is 以太 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 23: NAME — Jacob is 雅各 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 24: NAME — Jazer is 雅谢 in the Bibles this language already reads; this chapter does not use it
+- 2 Samuel 24: NAME — Jebusite is 耶布斯 in the Bibles this language already reads; this chapter does not use it
+- 2 Timothy 4: NAME — Alexander is 亚力山大 in the Bibles this language already reads; this chapter does not use it
+- 2 Timothy 4: NAME — Tychicus is 推基古 in the Bibles this language already reads; this chapter does not use it
+- Acts 1: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 2: NAME — Asia is 亚西亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 2: NAME — Pontus is 多家 in the Bibles this language already reads; this chapter does not use it
+- Acts 3: NAME — Pilate is 彼拉多 in the Bibles this language already reads; this chapter does not use it
+- Acts 4: NAME — Alexander is 亚力山大 in the Bibles this language already reads; this chapter does not use it
+- Acts 6: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- Acts 6: NAME — Philip is 腓力 in the Bibles this language already reads; this chapter does not use it
+- Acts 6: NAME — Stephen is 司提反 in the Bibles this language already reads; this chapter does not use it
+- Acts 7: NAME — Hamor is 哈抹 in the Bibles this language already reads; this chapter does not use it
+- Acts 7: NAME — Stephen is 司提反 in the Bibles this language already reads; this chapter does not use it
+- Acts 8: NAME — Caesarea is 凯撒利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 8: NAME — Philip is 腓力 in the Bibles this language already reads; this chapter does not use it
+- Acts 8: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 9: NAME — Caesarea is 凯撒利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 9: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 10: NAME — Caesarea is 凯撒利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 11: NAME — Caesarea is 凯撒利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 12: NAME — Caesarea is 凯撒利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 13: NAME — Jesse is 耶西 in the Bibles this language already reads; this chapter does not use it
+- Acts 14: NAME — Pamphylia is 旁非利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 15: NAME — Pamphylia is 旁非利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 15: NAME — Pharisees is 法利赛人 in the Bibles this language already reads; this chapter does not use it
+- Acts 15: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 15: NAME — Simon is 西门 in the Bibles this language already reads; this chapter does not use it
+- Acts 16: NAME — Asia is 亚西亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 16: NAME — Derbe is 特庇 in the Bibles this language already reads; this chapter does not use it
+- Acts 16: NAME — Thyatira is 推雅推 in the Bibles this language already reads; this chapter does not use it
+- Acts 18: NAME — Caesarea is 凯撒利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 18: NAME — Pontus is 多家 in the Bibles this language already reads; this chapter does not use it
+- Acts 19: NAME — Alexander is 亚力山大 in the Bibles this language already reads; this chapter does not use it
+- Acts 19: NAME — Aristarchus is 亚里达古 in the Bibles this language already reads; this chapter does not use it
+- Acts 19: NAME — Asia is 亚西亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 20: NAME — Philippi is 腓立比 in the Bibles this language already reads; this chapter does not use it
+- Acts 21: NAME — Caesarea is 凯撒利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 21: NAME — Philip is 腓力 in the Bibles this language already reads; this chapter does not use it
+- Acts 23: NAME — Caesarea is 凯撒利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 23: NAME — Felix is 腓力斯 in the Bibles this language already reads; this chapter does not use it
+- Acts 24: NAME — Asia is 亚西亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 24: NAME — Felix is 腓力斯 in the Bibles this language already reads; this chapter does not use it
+- Acts 25: NAME — Caesarea is 凯撒利亚 in the Bibles this language already reads; this chapter does not use it
+- Acts 26: NAME — Pharisees is 法利赛人 in the Bibles this language already reads; this chapter does not use it
+- Acts 27: NAME — Asia is 亚西亚 in the Bibles this language already reads; this chapter does not use it
+- Amos 1: NAME — Amos is 阿摩司 in the Bibles this language already reads; this chapter does not use it
+- Amos 1: NAME — Ben-Hadad is 便哈达 in the Bibles this language already reads; this chapter does not use it
+- Amos 1: NAME — Ekron is 以革伦 in the Bibles this language already reads; this chapter does not use it
+- Amos 1: NAME — Hazael is 哈薛 in the Bibles this language already reads; this chapter does not use it
+- Amos 1: NAME — Joash is 约阿施 in the Bibles this language already reads; this chapter does not use it
+- Amos 1: NAME — Philistines is 非利士 in the Bibles this language already reads; this chapter does not use it
+- Amos 1: NAME — Tekoa is 提哥亚 in the Bibles this language already reads; this chapter does not use it
+- Amos 3: NAME — Jacob is 雅各 in the Bibles this language already reads; this chapter does not use it
+- Amos 3: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- Amos 4: NAME — Gilgal is 吉甲 in the Bibles this language already reads; this chapter does not use it
+- Amos 4: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- Amos 5: NAME — Gilgal is 吉甲 in the Bibles this language already reads; this chapter does not use it
+- Amos 9: NAME — Edom is 以东 in the Bibles this language already reads; this chapter does not use it
+- Colossians 4: NAME — Demas is 底马 in the Bibles this language already reads; this chapter does not use it
+- Colossians 4: NAME — Tychicus is 推基古 in the Bibles this language already reads; this chapter does not use it
+- Daniel 1: NAME — Chaldeans is 迦勒底 in the Bibles this language already reads; this chapter does not use it
+- Daniel 1: NAME — Cyrus is 居鲁士 in the Bibles this language already reads; this chapter does not use it
+- Daniel 1: NAME — Shinar is 示拿 in the Bibles this language already reads; this chapter does not use it
+- Daniel 3: NAME — Chaldeans is 迦勒底 in the Bibles this language already reads; this chapter does not use it
+- Daniel 3: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- Daniel 4: NAME — Belteshazzar is 伯提沙撒 in the Bibles this language already reads; this chapter does not use it
+- Daniel 5: NAME — Belteshazzar is 伯提沙撒 in the Bibles this language already reads; this chapter does not use it
+- Daniel 6: NAME — Darius is 大流士 in the Bibles this language already reads; this chapter does not use it
+- Daniel 7: NAME — Babylon is 巴比伦 in the Bibles this language already reads; this chapter does not use it
+- Daniel 9: NAME — Darius is 大流士 in the Bibles this language already reads; this chapter does not use it
+- Daniel 10: NAME — Cyrus is 居鲁士 in the Bibles this language already reads; this chapter does not use it
+- Daniel 11: NAME — Cyrus is 居鲁士 in the Bibles this language already reads; this chapter does not use it
+- Daniel 11: NAME — Libyans is 路比 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 1: NAME — Eshcol is 以实各谷 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 1: NAME — Hazeroth is 哈洗录 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 1: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 2: NAME — Avvim is 亚卫 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 2: NAME — Gaza is 迦萨 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 2: NAME — Jabbok is 雅博河 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 3: NAME — Kinnereth is 基尼烈 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 3: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 3: NAME — Maacathites is 巴珊全地 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 3: NAME — Perizzites is 比利洗人 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 4: NAME — Heshbon is 希实本 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 4: NAME — Pisgah is 毗斯迦山顶 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 9: NAME — Meribah is 米利巴 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 11: NAME — Eliab is 以利押 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 11: NAME — Reuben is 流便 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 16: NAME — Abib is 亚笔月内所定 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 25: NAME — Amalek is 亚玛力 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 29: NAME — Heshbon is 希实本 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 30: NAME — Jordan is 约旦河 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 32: NAME — Jordan is 约旦河 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 33: NAME — Seir is 西珥 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 33: NAME — Shur is 书珥 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 33: NAME — Sinai is 西奈山 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 34: NAME — Jericho is 耶利哥 in the Bibles this language already reads; this chapter does not use it
+- Deuteronomy 34: NAME — Pisgah is 毗斯迦山顶 in the Bibles this language already reads; this chapter does not use it
+- Ephesians 4: NAME — Paul is 保罗 in the Bibles this language already reads; this chapter does not use it
+- Ephesians 6: NAME — Tychicus is 推基古 in the Bibles this language already reads; this chapter does not use it
+- Esther 1: NAME — Tarshish is 他施 in the Bibles this language already reads; this chapter does not use it
+- Esther 2: NAME — Jacob is 雅各 in the Bibles this language already reads; this chapter does not use it
+- Esther 3: NAME — Hammedatha is 哈米大他的 in the Bibles this language already reads; this chapter does not use it
+- Esther 3: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- Esther 8: NAME — Hammedatha is 哈米大他的 in the Bibles this language already reads; this chapter does not use it
+- Esther 8: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- Esther 9: NAME — Hammedatha is 哈米大他的 in the Bibles this language already reads; this chapter does not use it
+- Esther 9: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- Esther 10: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- Exodus 1: NAME — Reuben is 流便 in the Bibles this language already reads; this chapter does not use it
+- Exodus 6: NAME — Korah is 可拉后裔的 in the Bibles this language already reads; this chapter does not use it
+- Exodus 6: NAME — Mishael is 米沙利 in the Bibles this language already reads; this chapter does not use it
+- Exodus 13: NAME — Abib is 亚笔月内所定 in the Bibles this language already reads; this chapter does not use it
+- Exodus 13: NAME — Hivites is 希未人 in the Bibles this language already reads; this chapter does not use it
+- Exodus 16: NAME — Sinai is 西奈山 in the Bibles this language already reads; this chapter does not use it
+- Exodus 23: NAME — Abib is 亚笔月内所定 in the Bibles this language already reads; this chapter does not use it
+- Exodus 31: NAME — Hur is 户珥 in the Bibles this language already reads; this chapter does not use it
+- Exodus 34: NAME — Abib is 亚笔月内所定 in the Bibles this language already reads; this chapter does not use it
+- Exodus 34: NAME — Passover is 逾越节 in the Bibles this language already reads; this chapter does not use it
+- Exodus 34: NAME — Sinai is 西奈山 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 1: NAME — Chebar is 在迦巴鲁河边所 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 3: NAME — Chebar is 在迦巴鲁河边所 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 11: NAME — Jaazaniah is 雅撒尼亚 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 11: NAME — Pedaiah is 毗大雅 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 16: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 17: NAME — Canaan is 迦南 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 17: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 23: NAME — Babylon is 巴比伦 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 25: NAME — Dedan is 底但 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 26: NAME — Jerusalem is 耶路撒冷 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 27: NAME — Dedan is 底但 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 27: NAME — Kittim is 基提 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 27: NAME — Libyans is 路比 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 27: NAME — Maaleh is 亚克拉滨坡 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 27: NAME — Tarshish is 他施 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 28: NAME — Jacob is 雅各 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 29: NAME — Cush is 古实 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 30: NAME — Tahpanhes is 挪弗 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 31: NAME — Egypt is 埃及 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 38: NAME — Dedan is 底但 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 38: NAME — Tarshish is 他施 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 43: NAME — Chebar is 在迦巴鲁河边所 in the Bibles this language already reads; this chapter does not use it
+- Ezekiel 45: NAME — Passover is 逾越节 in the Bibles this language already reads; this chapter does not use it
+- Ezra 1: NAME — Cyrus is 居鲁士 in the Bibles this language already reads; this chapter does not use it
+- Ezra 2: NAME — Adonikam is 亚多尼干 in the Bibles this language already reads; this chapter does not use it
+- Ezra 2: NAME — Azgad is 押甲 in the Bibles this language already reads; this chapter does not use it
+- Ezra 2: NAME — Bani is 巴尼 in the Bibles this language already reads; this chapter does not use it
+- Ezra 2: NAME — Beeroth is 基非拉 in the Bibles this language already reads; this chapter does not use it
+- Ezra 2: NAME — Geba is 迦巴 in the Bibles this language already reads; this chapter does not use it
+- Ezra 2: NAME — Hagar is 夏甲 in the Bibles this language already reads; this chapter does not use it
+- Ezra 2: NAME — Harim is 哈琳 in the Bibles this language already reads; this chapter does not use it
+- Ezra 2: NAME — Immer is 音麦 in the Bibles this language already reads; this chapter does not use it
+- Ezra 2: NAME — Joab is 约押 in the Bibles this language already reads; this chapter does not use it
+- Ezra 2: NAME — Meunim is 米乌宁 in the Bibles this language already reads; this chapter does not use it
+- Ezra 2: NAME — Mordecai is 末底改 in the Bibles this language already reads; this chapter does not use it
+- Ezra 2: NAME — Pashhur is 巴施户珥 in the Bibles this language already reads; this chapter does not use it
+- Ezra 2: NAME — Ramah is 拉玛 in the Bibles this language already reads; this chapter does not use it
+- Ezra 2: NAME — Reaiah is 利亚雅 in the Bibles this language already reads; this chapter does not use it
+- Ezra 2: NAME — Rehum is 利宏 in the Bibles this language already reads; this chapter does not use it
+- Ezra 2: NAME — Seraiah is 西莱雅 in the Bibles this language already reads; this chapter does not use it
+- Ezra 2: NAME — Shephatiah is 示法提雅 in the Bibles this language already reads; this chapter does not use it
+- Ezra 2: NAME — Sisera is 西西拉 in the Bibles this language already reads; this chapter does not use it
+- Ezra 2: NAME — Tirshatha is 用乌 in the Bibles this language already reads; this chapter does not use it
+- Ezra 2: NAME — Tobiah is 多比雅 in the Bibles this language already reads; this chapter does not use it
+- Ezra 3: NAME — Cyrus is 居鲁士 in the Bibles this language already reads; this chapter does not use it
+- Ezra 3: NAME — Joshua is 约书亚 in the Bibles this language already reads; this chapter does not use it
+- Ezra 3: NAME — Jozadak is 约萨达 in the Bibles this language already reads; this chapter does not use it
+- Ezra 4: NAME — Cyrus is 居鲁士 in the Bibles this language already reads; this chapter does not use it
+- Ezra 4: NAME — Darius is 大流士 in the Bibles this language already reads; this chapter does not use it
+- Ezra 4: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- Ezra 4: NAME — Joshua is 约书亚 in the Bibles this language already reads; this chapter does not use it
+- Ezra 4: NAME — Rehum is 利宏 in the Bibles this language already reads; this chapter does not use it
+- Ezra 5: NAME — Cyrus is 居鲁士 in the Bibles this language already reads; this chapter does not use it
+- Ezra 5: NAME — Darius is 大流士 in the Bibles this language already reads; this chapter does not use it
+- Ezra 5: NAME — Joshua is 约书亚 in the Bibles this language already reads; this chapter does not use it
+- Ezra 5: NAME — Jozadak is 约萨达 in the Bibles this language already reads; this chapter does not use it
+- Ezra 6: NAME — Cyrus is 居鲁士 in the Bibles this language already reads; this chapter does not use it
+- Ezra 6: NAME — Darius is 大流士 in the Bibles this language already reads; this chapter does not use it
+- Ezra 6: NAME — Persia is 波斯 in the Bibles this language already reads; this chapter does not use it
+- Ezra 7: NAME — Hilkiah is 希勒家 in the Bibles this language already reads; this chapter does not use it
+- Ezra 7: NAME — Seraiah is 西莱雅 in the Bibles this language already reads; this chapter does not use it
+- Ezra 7: NAME — Zerahiah is 西拉希雅 in the Bibles this language already reads; this chapter does not use it
+- Ezra 8: NAME — Adonikam is 亚多尼干 in the Bibles this language already reads; this chapter does not use it
+- Ezra 8: NAME — Ariel is 亚利伊勒 in the Bibles this language already reads; this chapter does not use it
+- Ezra 8: NAME — Atalyah is 亚他利雅 in the Bibles this language already reads; this chapter does not use it
+- Ezra 8: NAME — Bigvai is 比革瓦伊 in the Bibles this language already reads; this chapter does not use it
+- Ezra 8: NAME — Daniel is 但以理 in the Bibles this language already reads; this chapter does not use it
+- Ezra 8: NAME — Jonathan is 约拿单 in the Bibles this language already reads; this chapter does not use it
+- Ezra 8: NAME — Merari is 米拉利 in the Bibles this language already reads; this chapter does not use it
+- Ezra 8: NAME — Michael is 米迦勒 in the Bibles this language already reads; this chapter does not use it
+- Ezra 8: NAME — Moab is 摩押 in the Bibles this language already reads; this chapter does not use it
+- Ezra 8: NAME — Nathan is 拿单 in the Bibles this language already reads; this chapter does not use it
+- Ezra 8: NAME — Obadiah is 俄巴底 in the Bibles this language already reads; this chapter does not use it
+- Ezra 8: NAME — Phinehas is 非尼哈 in the Bibles this language already reads; this chapter does not use it
+- Ezra 8: NAME — Uriah is 乌利亚 in the Bibles this language already reads; this chapter does not use it
+- Ezra 8: NAME — Zerahiah is 西拉希雅 in the Bibles this language already reads; this chapter does not use it
+- Ezra 10: NAME — Amram is 暗兰 in the Bibles this language already reads; this chapter does not use it
+- Ezra 10: NAME — Asahel is 亚撒黑 in the Bibles this language already reads; this chapter does not use it
+- Ezra 10: NAME — Bani is 巴尼 in the Bibles this language already reads; this chapter does not use it
+- Ezra 10: NAME — Benaiah is 比拿雅 in the Bibles this language already reads; this chapter does not use it
+- Ezra 10: NAME — Bezalel is 比撒 in the Bibles this language already reads; this chapter does not use it
+- Ezra 10: NAME — Gedaliah is 基大利 in the Bibles this language already reads; this chapter does not use it
+- Ezra 10: NAME — Hanani is 哈拿尼 in the Bibles this language already reads; this chapter does not use it
+- Ezra 10: NAME — Hashum is 哈顺 in the Bibles this language already reads; this chapter does not use it
+- Ezra 10: NAME — Immer is 音麦 in the Bibles this language already reads; this chapter does not use it
+- Ezra 10: NAME — Jeremiah is 耶利米 in the Bibles this language already reads; this chapter does not use it
+- Ezra 10: NAME — Moab is 摩押 in the Bibles this language already reads; this chapter does not use it
+- Ezra 10: NAME — Ramoth is 拉末 in the Bibles this language already reads; this chapter does not use it
+- Galatians 1: NAME — Cilicia is 基利家 in the Bibles this language already reads; this chapter does not use it
+- Galatians 4: NAME — Jesus is 耶稣 in the Bibles this language already reads; this chapter does not use it
+- Galatians 4: NAME — Sinai is 西奈山 in the Bibles this language already reads; this chapter does not use it
+- Genesis 3: NAME — Adam is 亚当 in the Bibles this language already reads; this chapter does not use it
+- Genesis 4: NAME — Adam is 亚当 in the Bibles this language already reads; this chapter does not use it
+- Genesis 4: NAME — Enosh is 以挪士 in the Bibles this language already reads; this chapter does not use it
+- Genesis 5: NAME — Enosh is 以挪士 in the Bibles this language already reads; this chapter does not use it
+- Genesis 5: NAME — Jared is 生雅 in the Bibles this language already reads; this chapter does not use it
+- Genesis 10: NAME — Babel is 巴别 in the Bibles this language already reads; this chapter does not use it
+- Genesis 10: NAME — Heth is 迦南生长 in the Bibles this language already reads; this chapter does not use it
+- Genesis 10: NAME — Peleg is 法勒 in the Bibles this language already reads; this chapter does not use it
+- Genesis 10: NAME — Philistines is 非利士 in the Bibles this language already reads; this chapter does not use it
+- Genesis 10: NAME — Shelah is 示拉 in the Bibles this language already reads; this chapter does not use it
+- Genesis 11: NAME — Reu is 法勒生拉 in the Bibles this language already reads; this chapter does not use it
+- Genesis 11: NAME — Shelah is 示拉 in the Bibles this language already reads; this chapter does not use it
+- Genesis 13: NAME — Gomorrah is 蛾摩拉 in the Bibles this language already reads; this chapter does not use it
+- Genesis 14: NAME — Hermon is 黑门山 in the Bibles this language already reads; this chapter does not use it
+- Genesis 14: NAME — Rephaim is 利乏音 in the Bibles this language already reads; this chapter does not use it
+- Genesis 14: NAME — Seir is 西珥 in the Bibles this language already reads; this chapter does not use it
+- Genesis 14: NAME — Shinar is 示拿 in the Bibles this language already reads; this chapter does not use it
+- Genesis 15: NAME — Damascus is 大马士革 in the Bibles this language already reads; this chapter does not use it
+- Genesis 15: NAME — Rephaim is 利乏音 in the Bibles this language already reads; this chapter does not use it
+- Genesis 22: NAME — Kemuel is 基母利 in the Bibles this language already reads; this chapter does not use it
+- Genesis 23: NAME — Heth is 迦南生长 in the Bibles this language already reads; this chapter does not use it
+- Genesis 24: NAME — Aram-Naharaim is 美索不达米亚 in the Bibles this language already reads; this chapter does not use it
+- Genesis 25: NAME — Havilah is 哈腓拉 in the Bibles this language already reads; this chapter does not use it
+- Genesis 25: NAME — Shur is 书珥 in the Bibles this language already reads; this chapter does not use it
+- Genesis 27: NAME — Heth is 迦南生长 in the Bibles this language already reads; this chapter does not use it
+- Genesis 28: NAME — Rebekah is 利百加 in the Bibles this language already reads; this chapter does not use it
+- Genesis 29: NAME — Reuben is 流便 in the Bibles this language already reads; this chapter does not use it
+- Genesis 30: NAME — Reuben is 流便 in the Bibles this language already reads; this chapter does not use it
+- Genesis 32: NAME — Jabbok is 雅博河 in the Bibles this language already reads; this chapter does not use it
+- Genesis 34: NAME — Simon is 西门 in the Bibles this language already reads; this chapter does not use it
+- Genesis 35: NAME — Edar is 末力 in the Bibles this language already reads; this chapter does not use it
+- Genesis 36: NAME — Beor is 比珥 in the Bibles this language already reads; this chapter does not use it
+- Genesis 36: NAME — Bilhan is 撒番 in the Bibles this language already reads; this chapter does not use it
+- Genesis 36: NAME — Ebal is 以巴路山 in the Bibles this language already reads; this chapter does not use it
+- Genesis 36: NAME — Moab is 摩押 in the Bibles this language already reads; this chapter does not use it
+- Genesis 36: NAME — Onam is 阿南 in the Bibles this language already reads; this chapter does not use it
+- Genesis 40: NAME — Egypt is 埃及 in the Bibles this language already reads; this chapter does not use it
+- Genesis 42: NAME — Rachel is 拉结 in the Bibles this language already reads; this chapter does not use it
+- Genesis 42: NAME — Reuben is 流便 in the Bibles this language already reads; this chapter does not use it
+- Genesis 42: NAME — Simon is 西门 in the Bibles this language already reads; this chapter does not use it
+- Genesis 46: NAME — Rosh is 罗施 in the Bibles this language already reads; this chapter does not use it
+- Genesis 46: NAME — Saul is 扫罗 in the Bibles this language already reads; this chapter does not use it
+- Genesis 48: NAME — Luz is 路斯 in the Bibles this language already reads; this chapter does not use it
+- Genesis 50: NAME — Machir is 玛吉 in the Bibles this language already reads; this chapter does not use it
+- Genesis 37: QUOTES — 1 closing ” with nothing open (v. 20)
+- Habakkuk 2: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- Haggai 1: NAME — Darius is 大流士 in the Bibles this language already reads; this chapter does not use it
+- Haggai 1: NAME — Jehozadak is 大祭司约书亚 in the Bibles this language already reads; this chapter does not use it
+- Haggai 1: NAME — Joshua is 约书亚 in the Bibles this language already reads; this chapter does not use it
+- Haggai 2: NAME — Darius is 大流士 in the Bibles this language already reads; this chapter does not use it
+- Haggai 2: NAME — Jehozadak is 大祭司约书亚 in the Bibles this language already reads; this chapter does not use it
+- Haggai 2: NAME — Joshua is 约书亚 in the Bibles this language already reads; this chapter does not use it
+- Hebrews 11: NAME — Noah is 挪亚 in the Bibles this language already reads; this chapter does not use it
+- Hosea 1: NAME — Jehu is 耶户 in the Bibles this language already reads; this chapter does not use it
+- Hosea 1: NAME — Jezreel is 耶斯列 in the Bibles this language already reads; this chapter does not use it
+- Hosea 1: NAME — Joash is 约阿施 in the Bibles this language already reads; this chapter does not use it
+- Hosea 2: NAME — Jezreel is 耶斯列 in the Bibles this language already reads; this chapter does not use it
+- Hosea 4: NAME — Gilgal is 吉甲 in the Bibles this language already reads; this chapter does not use it
+- Hosea 7: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- Hosea 8: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- Hosea 10: NAME — Bethel is 伯特利 in the Bibles this language already reads; this chapter does not use it
+- Hosea 12: NAME — Gilgal is 吉甲 in the Bibles this language already reads; this chapter does not use it
+- Hosea 13: NAME — Egypt is 埃及 in the Bibles this language already reads; this chapter does not use it
+- Hosea 14: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 1: NAME — Ahaz is 亚哈斯 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 2: NAME — Bashan is 巴珊 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 2: NAME — Tarshish is 他施 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 8: NAME — Jordan is 约旦河 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 8: NAME — Naphtali is 拿弗他利 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 8: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 8: NAME — Zebulun is 西布伦 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 9: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 10: NAME — Anathoth is 亚拿突 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 10: NAME — Carchemish is 迦基米施 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 10: NAME — Geba is 迦巴 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 10: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 10: NAME — Saul is 扫罗 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 14: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 15: NAME — Elealeh is 以利亚利 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 16: NAME — Elealeh is 以利亚利 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 17: NAME — Rephaim is 利乏音 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 21: NAME — Dedan is 底但 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 21: NAME — Seir is 西珥 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 21: NAME — Tema is 提玛 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 22: NAME — Hilkiah is 希勒家 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 23: NAME — Kittim is 基提 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 23: NAME — Tarshish is 他施 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 29: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 29: NAME — Moab is 摩押 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 33: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 34: NAME — Bozrah is 波斯拉 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 34: NAME — Zion is 锡安 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 36: NAME — Hilkiah is 希勒家 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 37: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 37: NAME — Libnah is 立拿 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 38: NAME — Judah is 犹大 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 44: NAME — Cyrus is 居鲁士 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 45: NAME — Cyrus is 居鲁士 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 46: NAME — Bel is 彼勒 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 46: NAME — Nebo is 尼波 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 60: NAME — Dedan is 底但 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 60: NAME — Jacob is 雅各 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 60: NAME — Kedar is 基达 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 60: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 60: NAME — Tarshish is 他施 in the Bibles this language already reads; this chapter does not use it
+- Isaiah 63: NAME — Bozrah is 波斯拉 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 1: NAME — Benjamin is 便雅悯 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 2: NAME — Naphtali is 拿弗他利 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 2: NAME — Tahpanhes is 挪弗 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 3: NAME — Josiah is 约西亚 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 6: NAME — Tekoa is 提哥亚 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 13: NAME — David is 大卫 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 14: NAME — Jeremiah is 耶利米 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 15: NAME — Judah is 犹大 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 18: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 20: NAME — Immer is 音麦 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 20: NAME — Pashhur is 巴施户珥 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 21: NAME — Maaseiah is 玛西雅 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 21: NAME — Pashhur is 巴施户珥 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 21: NAME — Zephaniah is 西番雅 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 22: NAME — Jeconiah is 耶哥尼雅 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 24: NAME — Chaldeans is 迦勒底 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 25: NAME — Babel is 巴别 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 25: NAME — Buz is 布斯 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 25: NAME — Dedan is 底但 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 25: NAME — Zimri is 心利 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 26: NAME — Josiah is 约西亚 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 27: NAME — Jeremiah is 耶利米 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 28: NAME — Jehoiakim is 约雅 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 29: NAME — Hilkiah is 希勒家 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 29: NAME — Jeconiah is 耶哥尼雅 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 29: NAME — Nebuchadnezzar is 尼布甲尼撒 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 29: NAME — Shaphan is 沙番 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 29: NAME — Zephaniah is 西番雅 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 31: NAME — Hananel is 哈楠业楼 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 31: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 32: NAME — Chaldeans is 迦勒底 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 32: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 32: NAME — Neriah is 尼利亚 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 34: NAME — Azekah is 亚西加 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 36: NAME — Azariah is 亚撒利雅 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 36: NAME — Neriah is 尼利亚 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 36: NAME — Seraiah is 西莱雅 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 36: NAME — Shaphan is 沙番 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 37: NAME — Hananiah is 哈拿尼雅 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 37: NAME — Josiah is 约西亚 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 37: NAME — Seraiah is 西莱雅 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 38: NAME — Gedaliah is 基大利 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 38: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 38: NAME — Mattan is 祭司玛坦杀 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 38: NAME — Pashhur is 巴施户珥 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 39: NAME — Chaldeans is 迦勒底 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 39: NAME — Jericho is 耶利哥 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 39: NAME — Sarai is 撒莱 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 39: NAME — Shaphan is 沙番 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 40: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 40: NAME — Kareah is 加利亚的 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 40: NAME — Shaphan is 沙番 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 40: NAME — Zephaniah is 西番雅 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 41: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 41: NAME — Kareah is 加利亚的 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 41: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 41: NAME — Shaphan is 沙番 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 42: NAME — Ishmael is 以实玛利 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 42: NAME — Kareah is 加利亚的 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 43: NAME — Gedaliah is 基大利 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 43: NAME — Kareah is 加利亚的 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 43: NAME — Neriah is 尼利亚 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 43: NAME — Shaphan is 沙番 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 43: NAME — Tahpanhes is 挪弗 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 44: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 44: NAME — Tahpanhes is 挪弗 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 45: NAME — Neriah is 尼利亚 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 46: NAME — Josiah is 约西亚 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 46: NAME — Lud is 路德 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 47: NAME — Ashdod is 亚实突 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 47: NAME — Gath is 迦特 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 48: NAME — Jazer is 雅谢 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 48: NAME — Sibmah is 西比玛 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 49: NAME — Bozrah is 波斯拉 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 49: NAME — Dedan is 底但 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 49: NAME — Kedar is 基达 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 50: NAME — Bel is 彼勒 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 50: NAME — Jordan is 约旦河 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 51: NAME — Bel is 彼勒 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 51: NAME — Jacob is 雅各 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 51: NAME — Neriah is 尼利亚 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 51: NAME — Seraiah is 西莱雅 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 52: NAME — Libnah is 立拿 in the Bibles this language already reads; this chapter does not use it
+- Jeremiah 52: NAME — Seraiah is 西莱雅 in the Bibles this language already reads; this chapter does not use it
+- Job 2: NAME — Eliphaz is 以利法 in the Bibles this language already reads; this chapter does not use it
+- Job 13: NAME — Almighty is 全能 in the Bibles this language already reads; this chapter does not use it
+- Job 20: NAME — Almighty is 全能 in the Bibles this language already reads; this chapter does not use it
+- Job 24: NAME — Almighty is 全能 in the Bibles this language already reads; this chapter does not use it
+- Job 26: NAME — Job is 约伯 in the Bibles this language already reads; this chapter does not use it
+- Job 28: NAME — Cush is 古实 in the Bibles this language already reads; this chapter does not use it
+- Job 29: NAME — Almighty is 全能 in the Bibles this language already reads; this chapter does not use it
+- Job 37: NAME — Almighty is 全能 in the Bibles this language already reads; this chapter does not use it
+- Job 37: NAME — Job is 约伯 in the Bibles this language already reads; this chapter does not use it
+- Job 40: NAME — Almighty is 全能 in the Bibles this language already reads; this chapter does not use it
+- Job 41: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- Joel 1: NAME — Almighty is 全能 in the Bibles this language already reads; this chapter does not use it
+- Joel 4: NAME — Jehoshaphat is 约沙法 in the Bibles this language already reads; this chapter does not use it
+- John 2: NAME — Capernaum is 迦百农 in the Bibles this language already reads; this chapter does not use it
+- John 4: NAME — Capernaum is 迦百农 in the Bibles this language already reads; this chapter does not use it
+- John 4: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- John 5: NAME — Bethsaida is 伯赛大 in the Bibles this language already reads; this chapter does not use it
+- John 6: NAME — Andrew is 安得烈 in the Bibles this language already reads; this chapter does not use it
+- John 21: NAME — Galilee is 加利利 in the Bibles this language already reads; this chapter does not use it
+- Joshua 4: NAME — Egypt is 埃及 in the Bibles this language already reads; this chapter does not use it
+- Joshua 4: NAME — Gilgal is 吉甲 in the Bibles this language already reads; this chapter does not use it
+- Joshua 4: NAME — Reuben is 流便 in the Bibles this language already reads; this chapter does not use it
+- Joshua 7: NAME — Jericho is 耶利哥 in the Bibles this language already reads; this chapter does not use it
+- Joshua 7: NAME — Shinar is 示拿 in the Bibles this language already reads; this chapter does not use it
+- Joshua 7: NAME — Zabdi is 撒底 in the Bibles this language already reads; this chapter does not use it
+- Joshua 7: NAME — Zerah is 谢拉 in the Bibles this language already reads; this chapter does not use it
+- Joshua 8: NAME — Jordan is 约旦河 in the Bibles this language already reads; this chapter does not use it
+- Joshua 9: NAME — Beeroth is 基非拉 in the Bibles this language already reads; this chapter does not use it
+- Joshua 10: NAME — Azekah is 亚西加 in the Bibles this language already reads; this chapter does not use it
+- Joshua 10: NAME — Goshen is 歌珊 in the Bibles this language already reads; this chapter does not use it
+- Joshua 10: NAME — Kadesh-barnea is 加低斯巴尼亚 in the Bibles this language already reads; this chapter does not use it
+- Joshua 10: NAME — Lachish is 拉吉 in the Bibles this language already reads; this chapter does not use it
+- Joshua 11: NAME — Goshen is 歌珊 in the Bibles this language already reads; this chapter does not use it
+- Joshua 11: NAME — Hebron is 希伯仑 in the Bibles this language already reads; this chapter does not use it
+- Joshua 11: NAME — Hivites is 希未人 in the Bibles this language already reads; this chapter does not use it
+- Joshua 11: NAME — Jebusite is 耶布斯 in the Bibles this language already reads; this chapter does not use it
+- Joshua 11: NAME — Kinnereth is 基尼烈 in the Bibles this language already reads; this chapter does not use it
+- Joshua 12: NAME — Aphek is 亚弗 in the Bibles this language already reads; this chapter does not use it
+- Joshua 12: NAME — Arad is 亚拉得 in the Bibles this language already reads; this chapter does not use it
+- Joshua 12: NAME — Ashdod is 亚实突 in the Bibles this language already reads; this chapter does not use it
+- Joshua 12: NAME — Gilgal is 吉甲 in the Bibles this language already reads; this chapter does not use it
+- Joshua 12: NAME — Jabbok is 雅博河 in the Bibles this language already reads; this chapter does not use it
+- Joshua 12: NAME — Lachish is 拉吉 in the Bibles this language already reads; this chapter does not use it
+- Joshua 12: NAME — Libnah is 立拿 in the Bibles this language already reads; this chapter does not use it
+- Joshua 12: NAME — Maacathites is 巴珊全地 in the Bibles this language already reads; this chapter does not use it
+- Joshua 12: NAME — Naphtali is 拿弗他利 in the Bibles this language already reads; this chapter does not use it
+- Joshua 12: NAME — Rephaim is 利乏音 in the Bibles this language already reads; this chapter does not use it
+- Joshua 12: NAME — Seir is 西珥 in the Bibles this language already reads; this chapter does not use it
+- Joshua 12: NAME — Tirzah is 得撒 in the Bibles this language already reads; this chapter does not use it
+- Joshua 13: NAME — Aphek is 亚弗 in the Bibles this language already reads; this chapter does not use it
+- Joshua 13: NAME — Avvim is 亚卫 in the Bibles this language already reads; this chapter does not use it
+- Joshua 13: NAME — Jericho is 耶利哥 in the Bibles this language already reads; this chapter does not use it
+- Joshua 13: NAME — Pisgah is 毗斯迦山顶 in the Bibles this language already reads; this chapter does not use it
+- Joshua 13: NAME — Reuben is 流便 in the Bibles this language already reads; this chapter does not use it
+- Joshua 13: NAME — Sukkoth is 约旦平原 in the Bibles this language already reads; this chapter does not use it
+- Joshua 14: NAME — Arba is 亚巴 in the Bibles this language already reads; this chapter does not use it
+- Joshua 15: NAME — Arba is 亚巴 in the Bibles this language already reads; this chapter does not use it
+- Joshua 15: NAME — Benjamin is 便雅悯 in the Bibles this language already reads; this chapter does not use it
+- Joshua 15: NAME — Edar is 末力 in the Bibles this language already reads; this chapter does not use it
+- Joshua 15: NAME — Ekron is 以革伦 in the Bibles this language already reads; this chapter does not use it
+- Joshua 15: NAME — Hazeroth is 哈洗录 in the Bibles this language already reads; this chapter does not use it
+- Joshua 15: NAME — Keilah is 基伊拉 in the Bibles this language already reads; this chapter does not use it
+- Joshua 15: NAME — Kenaz is 基纳斯 in the Bibles this language already reads; this chapter does not use it
+- Joshua 15: NAME — Maaleh is 亚克拉滨坡 in the Bibles this language already reads; this chapter does not use it
+- Joshua 15: NAME — Reuben is 流便 in the Bibles this language already reads; this chapter does not use it
+- Joshua 15: NAME — Talmai is 达买 in the Bibles this language already reads; this chapter does not use it
+- Joshua 17: NAME — Gath is 迦特 in the Bibles this language already reads; this chapter does not use it
+- Joshua 17: NAME — Hoglah is 挪阿 in the Bibles this language already reads; this chapter does not use it
+- Joshua 17: NAME — Jezreel is 耶斯列 in the Bibles this language already reads; this chapter does not use it
+- Joshua 17: NAME — Naphtali is 拿弗他利 in the Bibles this language already reads; this chapter does not use it
+- Joshua 17: NAME — Noah is 挪亚 in the Bibles this language already reads; this chapter does not use it
+- Joshua 17: NAME — Tirzah is 得撒 in the Bibles this language already reads; this chapter does not use it
+- Joshua 18: NAME — Avvim is 亚卫 in the Bibles this language already reads; this chapter does not use it
+- Joshua 18: NAME — Beeroth is 基非拉 in the Bibles this language already reads; this chapter does not use it
+- Joshua 18: NAME — Geba is 迦巴 in the Bibles this language already reads; this chapter does not use it
+- Joshua 18: NAME — Maaleh is 亚克拉滨坡 in the Bibles this language already reads; this chapter does not use it
+- Joshua 18: NAME — Rephaim is 利乏音 in the Bibles this language already reads; this chapter does not use it
+- Joshua 19: NAME — Adam is 亚当 in the Bibles this language already reads; this chapter does not use it
+- Joshua 19: NAME — Eleazar is 以利亚撒 in the Bibles this language already reads; this chapter does not use it
+- Joshua 19: NAME — Elon is 以伦 in the Bibles this language already reads; this chapter does not use it
+- Joshua 19: NAME — Moladah is 摩拉大 in the Bibles this language already reads; this chapter does not use it
+- Joshua 21: NAME — Anathoth is 亚拿突 in the Bibles this language already reads; this chapter does not use it
+- Joshua 21: NAME — Arba is 亚巴 in the Bibles this language already reads; this chapter does not use it
+- Joshua 21: NAME — Daberath is 大比拉 in the Bibles this language already reads; this chapter does not use it
+- Joshua 21: NAME — Galilee is 加利利 in the Bibles this language already reads; this chapter does not use it
+- Joshua 21: NAME — Gibeah is 基比亚 in the Bibles this language already reads; this chapter does not use it
+- Joshua 21: NAME — Heshbon is 希实本 in the Bibles this language already reads; this chapter does not use it
+- Joshua 21: NAME — Libnah is 立拿 in the Bibles this language already reads; this chapter does not use it
+- Joshua 22: NAME — Zerah is 谢拉 in the Bibles this language already reads; this chapter does not use it
+- Joshua 24: NAME — Gaash is 迦实山 in the Bibles this language already reads; this chapter does not use it
+- Joshua 24: NAME — Seir is 西珥 in the Bibles this language already reads; this chapter does not use it
+- Jude 1: NAME — Korah is 可拉后裔的 in the Bibles this language already reads; this chapter does not use it
+- Judges 1: NAME — Aijalon is 亚雅仑 in the Bibles this language already reads; this chapter does not use it
+- Judges 1: NAME — Maaleh is 亚克拉滨坡 in the Bibles this language already reads; this chapter does not use it
+- Judges 1: NAME — Naphtali is 拿弗他利 in the Bibles this language already reads; this chapter does not use it
+- Judges 1: NAME — Talmai is 达买 in the Bibles this language already reads; this chapter does not use it
+- Judges 1: NAME — Zebulun is 西布伦 in the Bibles this language already reads; this chapter does not use it
+- Judges 3: NAME — Aram-Naharaim is 美索不达米亚 in the Bibles this language already reads; this chapter does not use it
+- Judges 3: NAME — Gera is 基拉 in the Bibles this language already reads; this chapter does not use it
+- Judges 3: NAME — Kenaz is 基纳斯 in the Bibles this language already reads; this chapter does not use it
+- Judges 4: NAME — Hever is 希百 in the Bibles this language already reads; this chapter does not use it
+- Judges 4: NAME — Kedesh is 基低斯 in the Bibles this language already reads; this chapter does not use it
+- Judges 5: NAME — Hever is 希百 in the Bibles this language already reads; this chapter does not use it
+- Judges 5: NAME — Issachar is 以萨迦 in the Bibles this language already reads; this chapter does not use it
+- Judges 5: NAME — Machir is 玛吉 in the Bibles this language already reads; this chapter does not use it
+- Judges 5: NAME — Sinai is 西奈山 in the Bibles this language already reads; this chapter does not use it
+- Judges 6: NAME — Jezreel is 耶斯列 in the Bibles this language already reads; this chapter does not use it
+- Judges 7: NAME — Abel is 亚伯 in the Bibles this language already reads; this chapter does not use it
+- Judges 7: NAME — Galilee is 加利利 in the Bibles this language already reads; this chapter does not use it
+- Judges 7: NAME — Jerubbaal is 耶路巴力 in the Bibles this language already reads; this chapter does not use it
+- Judges 7: NAME — Joash is 约阿施 in the Bibles this language already reads; this chapter does not use it
+- Judges 8: NAME — Ophrah is 俄弗拉 in the Bibles this language already reads; this chapter does not use it
+- Judges 8: NAME — Penuel is 伊勒 in the Bibles this language already reads; this chapter does not use it
+- Judges 9: NAME — Hamor is 哈抹 in the Bibles this language already reads; this chapter does not use it
+- Judges 9: NAME — Millo is 米罗 in the Bibles this language already reads; this chapter does not use it
+- Judges 9: NAME — Ophrah is 俄弗拉 in the Bibles this language already reads; this chapter does not use it
+- Judges 10: NAME — Dodo is 伊勒哈难 in the Bibles this language already reads; this chapter does not use it
+- Judges 10: NAME — Issachar is 以萨迦 in the Bibles this language already reads; this chapter does not use it
+- Judges 11: NAME — Abel is 亚伯 in the Bibles this language already reads; this chapter does not use it
+- Judges 11: NAME — Heshbon is 希实本 in the Bibles this language already reads; this chapter does not use it
+- Judges 12: NAME — Aijalon is 亚雅仑 in the Bibles this language already reads; this chapter does not use it
+- Judges 12: NAME — Elon is 以伦 in the Bibles this language already reads; this chapter does not use it
+- Judges 16: NAME — Gaza is 迦萨 in the Bibles this language already reads; this chapter does not use it
+- Judges 16: NAME — Hebron is 希伯仑 in the Bibles this language already reads; this chapter does not use it
+- Judges 20: NAME — Geba is 迦巴 in the Bibles this language already reads; this chapter does not use it
+- Judges 21: NAME — Jabesh is 雅比 in the Bibles this language already reads; this chapter does not use it
+- Leviticus 10: NAME — Uzi is 乌西 in the Bibles this language already reads; this chapter does not use it
+- Luke 3: NAME — Amos is 阿摩司 in the Bibles this language already reads; this chapter does not use it
+- Luke 3: NAME — Jared is 生雅 in the Bibles this language already reads; this chapter does not use it
+- Luke 3: NAME — Lamech is 拉麦 in the Bibles this language already reads; this chapter does not use it
+- Luke 3: NAME — Nathan is 拿单 in the Bibles this language already reads; this chapter does not use it
+- Luke 3: NAME — Noah is 挪亚 in the Bibles this language already reads; this chapter does not use it
+- Luke 3: NAME — Pontius is 本丢彼拉多 in the Bibles this language already reads; this chapter does not use it
+- Luke 3: NAME — Reu is 法勒生拉 in the Bibles this language already reads; this chapter does not use it
+- Luke 3: NAME — Shelah is 示拉 in the Bibles this language already reads; this chapter does not use it
+- Luke 5: NAME — Gennesaret is 革尼撒勒 in the Bibles this language already reads; this chapter does not use it
+- Luke 6: NAME — Tyre is 推罗 in the Bibles this language already reads; this chapter does not use it
+- Luke 7: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- Luke 8: NAME — Gerasenes is 加大拉 in the Bibles this language already reads; this chapter does not use it
+- Luke 8: NAME — Magdalene is 抹大拉的马利 in the Bibles this language already reads; this chapter does not use it
+- Luke 10: NAME — Sidon is 西顿 in the Bibles this language already reads; this chapter does not use it
+- Luke 10: NAME — Tyre is 推罗 in the Bibles this language already reads; this chapter does not use it
+- Luke 17: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- Luke 20: NAME — Caesar is 凯撒 in the Bibles this language already reads; this chapter does not use it
+- Malachi 1: NAME — Esau is 以扫 in the Bibles this language already reads; this chapter does not use it
+- Malachi 3: NAME — Jacob is 雅各 in the Bibles this language already reads; this chapter does not use it
+- Mark 1: NAME — Zebedee is 西庇太 in the Bibles this language already reads; this chapter does not use it
+- Mark 3: NAME — Zebedee is 西庇太 in the Bibles this language already reads; this chapter does not use it
+- Mark 5: NAME — Decapolis is 低加波利 in the Bibles this language already reads; this chapter does not use it
+- Mark 5: NAME — Gerasenes is 加大拉 in the Bibles this language already reads; this chapter does not use it
+- Mark 6: NAME — Gennesaret is 革尼撒勒 in the Bibles this language already reads; this chapter does not use it
+- Mark 7: NAME — Decapolis is 低加波利 in the Bibles this language already reads; this chapter does not use it
+- Mark 7: NAME — Moses is 摩西 in the Bibles this language already reads; this chapter does not use it
+- Mark 8: NAME — Philippi is 腓立比 in the Bibles this language already reads; this chapter does not use it
+- Mark 12: NAME — Caesar is 凯撒 in the Bibles this language already reads; this chapter does not use it
+- Mark 14: NAME — Christ is 基督 in the Bibles this language already reads; this chapter does not use it
+- Mark 15: NAME — Alexander is 亚力山大 in the Bibles this language already reads; this chapter does not use it
+- Matthew 4: NAME — Peter is 彼得 in the Bibles this language already reads; this chapter does not use it
+- Matthew 4: NAME — Zebedee is 西庇太 in the Bibles this language already reads; this chapter does not use it
+- Matthew 4: NAME — Zebulun is 西布伦 in the Bibles this language already reads; this chapter does not use it
+- Matthew 8: NAME — Gerasenes is 加大拉 in the Bibles this language already reads; this chapter does not use it
+- Matthew 10: NAME — Zebedee is 西庇太 in the Bibles this language already reads; this chapter does not use it
+- Matthew 11: NAME — Bethsaida is 伯赛大 in the Bibles this language already reads; this chapter does not use it
+- Matthew 13: NAME — Joseph is 约瑟 in the Bibles this language already reads; this chapter does not use it
+- Matthew 14: NAME — Gennesaret is 革尼撒勒 in the Bibles this language already reads; this chapter does not use it
+- Matthew 20: NAME — Jericho is 耶利哥 in the Bibles this language already reads; this chapter does not use it
+- Matthew 20: NAME — Zebedee is 西庇太 in the Bibles this language already reads; this chapter does not use it
+- Matthew 26: NAME — Zebedee is 西庇太 in the Bibles this language already reads; this chapter does not use it
+- Matthew 27: NAME — Barabbas is 巴拉巴 in the Bibles this language already reads; this chapter does not use it
+- Matthew 27: NAME — Magdalene is 抹大拉的马利 in the Bibles this language already reads; this chapter does not use it
+- Matthew 27: NAME — Simon is 西门 in the Bibles this language already reads; this chapter does not use it
+- Matthew 28: NAME — Magdalene is 抹大拉的马利 in the Bibles this language already reads; this chapter does not use it
+- Micah 1: NAME — Aijalon is 亚雅仑 in the Bibles this language already reads; this chapter does not use it
+- Micah 1: NAME — Micah is 米迦 in the Bibles this language already reads; this chapter does not use it
+- Micah 6: NAME — Moab is 摩押 in the Bibles this language already reads; this chapter does not use it
+- Nahum 1: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 1: NAME — Susa is 书珊城 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 2: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Azariah is 亚撒利雅 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Bani is 巴尼 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Baruch is 巴录 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Benjamin is 便雅悯 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Berechiah is 比利家 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Hananel is 哈楠业楼 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Hananiah is 哈拿尼雅 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Hanun is 哈嫩 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Harim is 哈琳 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Hashub is 哈述 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Hur is 户珥 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Immer is 音麦 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Jericho is 耶利哥 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Jeshua is 耶书亚 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Keilah is 基伊拉 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Levites is 利未 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Maaseiah is 玛西雅 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Mattan is 祭司玛坦杀 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Mattaniah is 玛探雅 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Meshullam is 米书兰 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Nethinim is 尼提宁 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Pedaiah is 毗大雅 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Rehum is 利宏 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Samaria is 撒玛利亚 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Shecaniah is 示迦尼 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Shemaiah is 示玛雅 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Uzziel is 乌薛 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 3: NAME — Zadok is 撒督 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 4: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 5: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 6: NAME — Berechiah is 比利家 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 6: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 6: NAME — Meshullam is 米书兰 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 6: NAME — Shecaniah is 示迦尼 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 7: NAME — Azgad is 押甲 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 7: NAME — Bethel is 伯特利 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 7: NAME — Bigvai is 比革瓦伊 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 7: NAME — Hodaviah is 何达威雅 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 7: NAME — Immer is 音麦 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 7: NAME — Jericho is 耶利哥 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 7: NAME — Meunim is 米乌宁 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 7: NAME — Mordecai is 末底改 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 7: NAME — Nob is 挪伯 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 7: NAME — Reaiah is 利亚雅 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 7: NAME — Sisera is 西西拉 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 7: NAME — Talmon is 亚谷 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 7: NAME — Tirshatha is 用乌 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 7: NAME — Tobiah is 多比雅 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 8: NAME — Hashum is 哈顺 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 8: NAME — Hilkiah is 希勒家 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 8: NAME — Joshua is 约书亚 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 8: NAME — Mattithiah is 玛他提雅 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 8: NAME — Mishael is 米沙利 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 8: NAME — Pedaiah is 毗大雅 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 8: NAME — Tirshatha is 用乌 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 9: NAME — Heshbon is 希实本 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 9: NAME — Joshua is 约书亚 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 10: NAME — Anathoth is 亚拿突 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 10: NAME — Azgad is 押甲 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 10: NAME — Baanah is 巴拿 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 10: NAME — Baruch is 巴录 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 10: NAME — Daniel is 但以理 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 10: NAME — Hashum is 哈顺 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 10: NAME — Meshullam is 米书兰 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 10: NAME — Moab is 摩押 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 10: NAME — Nethinim is 尼提宁 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 10: NAME — Pashhur is 巴施户珥 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 10: NAME — Rehob is 利合 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 10: NAME — Seraiah is 西莱雅 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 10: NAME — Shemaiah is 示玛雅 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 10: NAME — Tirshatha is 用乌 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 10: NAME — Zadok is 撒督 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 11: NAME — Baruch is 巴录 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 11: NAME — Dibon is 底本 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 11: NAME — Lachish is 拉吉 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 11: NAME — Nob is 挪伯 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 11: NAME — Talmon is 亚谷 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 12: NAME — Darius is 大流士 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 12: NAME — Geba is 迦巴 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 12: NAME — Gilgal is 吉甲 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 12: NAME — Salu is 撒路 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 12: NAME — Shammua is 沙母亚 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 12: NAME — Shecaniah is 示迦尼 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 12: NAME — Talmon is 亚谷 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 12: NAME — Uzi is 乌西 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 12: NAME — Zikri is 细基利 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 13: NAME — Jews is 犹太 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 13: NAME — Mattaniah is 玛探雅 in the Bibles this language already reads; this chapter does not use it
+- Nehemiah 13: NAME — Pedaiah is 毗大雅 in the Bibles this language already reads; this chapter does not use it
+- Numbers 1: NAME — Eliab is 以利押 in the Bibles this language already reads; this chapter does not use it
+- Numbers 1: NAME — Helon is 希伦 in the Bibles this language already reads; this chapter does not use it
+- Numbers 1: NAME — Joseph is 约瑟 in the Bibles this language already reads; this chapter does not use it
+- Numbers 1: NAME — Manasseh is 玛拿西 in the Bibles this language already reads; this chapter does not use it
+- Numbers 1: NAME — Pedahzur is 比大蓿 in the Bibles this language already reads; this chapter does not use it
+- Numbers 1: NAME — Reuben is 流便 in the Bibles this language already reads; this chapter does not use it
+- Numbers 1: NAME — Sinai is 西奈山 in the Bibles this language already reads; this chapter does not use it
+- Numbers 1: NAME — Zebulun is 西布伦 in the Bibles this language already reads; this chapter does not use it
+- Numbers 1: NAME — Zuar is 苏押 in the Bibles this language already reads; this chapter does not use it
+- Numbers 2: NAME — Eliab is 以利押 in the Bibles this language already reads; this chapter does not use it
+- Numbers 2: NAME — Helon is 希伦 in the Bibles this language already reads; this chapter does not use it
+- Numbers 2: NAME — Manasseh is 玛拿西 in the Bibles this language already reads; this chapter does not use it
+- Numbers 2: NAME — Pedahzur is 比大蓿 in the Bibles this language already reads; this chapter does not use it
+- Numbers 2: NAME — Reuel is 流珥 in the Bibles this language already reads; this chapter does not use it
+- Numbers 2: NAME — Zuar is 苏押 in the Bibles this language already reads; this chapter does not use it
+- Numbers 3: NAME — Amram is 暗兰 in the Bibles this language already reads; this chapter does not use it
+- Numbers 3: NAME — Elizaphan is 以利撒反 in the Bibles this language already reads; this chapter does not use it
+- Numbers 3: NAME — Hebron is 希伯仑 in the Bibles this language already reads; this chapter does not use it
+- Numbers 3: NAME — Izhar is 以斯哈 in the Bibles this language already reads; this chapter does not use it
+- Numbers 3: NAME — Kohath is 哥辖 in the Bibles this language already reads; this chapter does not use it
+- Numbers 3: NAME — Kohathites is 属哥辖 in the Bibles this language already reads; this chapter does not use it
+- Numbers 3: NAME — Libni is 立尼 in the Bibles this language already reads; this chapter does not use it
+- Numbers 3: NAME — Merari is 米拉利 in the Bibles this language already reads; this chapter does not use it
+- Numbers 4: NAME — Merari is 米拉利 in the Bibles this language already reads; this chapter does not use it
+- Numbers 7: NAME — Merari is 米拉利 in the Bibles this language already reads; this chapter does not use it
+- Numbers 7: NAME — Zuar is 苏押 in the Bibles this language already reads; this chapter does not use it
+- Numbers 9: NAME — Sinai is 西奈山 in the Bibles this language already reads; this chapter does not use it
+- Numbers 10: NAME — Gershon is 革顺 in the Bibles this language already reads; this chapter does not use it
+- Numbers 10: NAME — Helon is 希伦 in the Bibles this language already reads; this chapter does not use it
+- Numbers 10: NAME — Manasseh is 玛拿西 in the Bibles this language already reads; this chapter does not use it
+- Numbers 10: NAME — Reuel is 流珥 in the Bibles this language already reads; this chapter does not use it
+- Numbers 10: NAME — Sinai is 西奈山 in the Bibles this language already reads; this chapter does not use it
+- Numbers 10: NAME — Zebulun is 西布伦 in the Bibles this language already reads; this chapter does not use it
+- Numbers 13: NAME — Ammiel is 亚米利 in the Bibles this language already reads; this chapter does not use it
+- Numbers 13: NAME — Eshcol is 以实各谷 in the Bibles this language already reads; this chapter does not use it
+- Numbers 13: NAME — Rehob is 利合 in the Bibles this language already reads; this chapter does not use it
+- Numbers 13: NAME — Reuben is 流便 in the Bibles this language already reads; this chapter does not use it
+- Numbers 13: NAME — Shammua is 沙母亚 in the Bibles this language already reads; this chapter does not use it
+- Numbers 13: NAME — Shaphat is 沙法 in the Bibles this language already reads; this chapter does not use it
+- Numbers 13: NAME — Sinai is 西奈山 in the Bibles this language already reads; this chapter does not use it
+- Numbers 13: NAME — Talmai is 达买 in the Bibles this language already reads; this chapter does not use it
+- Numbers 16: NAME — Izhar is 以斯哈 in the Bibles this language already reads; this chapter does not use it
+- Numbers 16: NAME — Kohath is 哥辖 in the Bibles this language already reads; this chapter does not use it
+- Numbers 16: NAME — Korah is 可拉后裔的 in the Bibles this language already reads; this chapter does not use it
+- Numbers 17: NAME — Korah is 可拉后裔的 in the Bibles this language already reads; this chapter does not use it
+- Numbers 17: NAME — Merari is 米拉利 in the Bibles this language already reads; this chapter does not use it
+- Numbers 21: NAME — Jabbok is 雅博河 in the Bibles this language already reads; this chapter does not use it
+- Numbers 21: NAME — Medeba is 米底巴 in the Bibles this language already reads; this chapter does not use it
+- Numbers 21: NAME — Pisgah is 毗斯迦山顶 in the Bibles this language already reads; this chapter does not use it
+- Numbers 23: NAME — Pisgah is 毗斯迦山顶 in the Bibles this language already reads; this chapter does not use it
+- Numbers 24: NAME — Seth is 塞特 in the Bibles this language already reads; this chapter does not use it
+- Numbers 25: NAME — Eleazar is 以利亚撒 in the Bibles this language already reads; this chapter does not use it
+- Numbers 25: NAME — Salu is 撒路 in the Bibles this language already reads; this chapter does not use it
+- Numbers 26: NAME — Ashbel is 亚实别 in the Bibles this language already reads; this chapter does not use it
+- Numbers 26: NAME — Eliab is 以利押 in the Bibles this language already reads; this chapter does not use it
+- Numbers 26: NAME — Hamul is 哈母勒 in the Bibles this language already reads; this chapter does not use it
+- Numbers 26: NAME — Hebron is 希伯仑 in the Bibles this language already reads; this chapter does not use it
+- Numbers 26: NAME — Hoglah is 挪阿 in the Bibles this language already reads; this chapter does not use it
+- Numbers 26: NAME — Kohathites is 属哥辖 in the Bibles this language already reads; this chapter does not use it
+- Numbers 26: NAME — Korah is 可拉后裔的 in the Bibles this language already reads; this chapter does not use it
+- Numbers 26: NAME — Libni is 立尼 in the Bibles this language already reads; this chapter does not use it
+- Numbers 26: NAME — Merari is 米拉利 in the Bibles this language already reads; this chapter does not use it
+- Numbers 26: NAME — Noah is 挪亚 in the Bibles this language already reads; this chapter does not use it
+- Numbers 26: NAME — Reuben is 流便 in the Bibles this language already reads; this chapter does not use it
+- Numbers 26: NAME — Sinai is 西奈山 in the Bibles this language already reads; this chapter does not use it
+- Numbers 26: NAME — Tirzah is 得撒 in the Bibles this language already reads; this chapter does not use it
+- Numbers 26: NAME — Zebulun is 西布伦 in the Bibles this language already reads; this chapter does not use it
+- Numbers 27: NAME — Eleazar is 以利亚撒 in the Bibles this language already reads; this chapter does not use it
+- Numbers 27: NAME — Hoglah is 挪阿 in the Bibles this language already reads; this chapter does not use it
+- Numbers 27: NAME — Joseph is 约瑟 in the Bibles this language already reads; this chapter does not use it
+- Numbers 27: NAME — Korah is 可拉后裔的 in the Bibles this language already reads; this chapter does not use it
+- Numbers 27: NAME — Meribah is 米利巴 in the Bibles this language already reads; this chapter does not use it
+- Numbers 27: NAME — Noah is 挪亚 in the Bibles this language already reads; this chapter does not use it
+- Numbers 27: NAME — Tirzah is 得撒 in the Bibles this language already reads; this chapter does not use it
+- Numbers 31: NAME — Jericho is 耶利哥 in the Bibles this language already reads; this chapter does not use it
+- Numbers 31: NAME — Phinehas is 非尼哈 in the Bibles this language already reads; this chapter does not use it
+- Numbers 32: NAME — Dibon is 底本 in the Bibles this language already reads; this chapter does not use it
+- Numbers 32: NAME — Elealeh is 以利亚利 in the Bibles this language already reads; this chapter does not use it
+- Numbers 32: NAME — Jazer is 雅谢 in the Bibles this language already reads; this chapter does not use it
+- Numbers 32: NAME — Joseph is 约瑟 in the Bibles this language already reads; this chapter does not use it
+- Numbers 32: NAME — Nebo is 尼波 in the Bibles this language already reads; this chapter does not use it
+- Numbers 33: NAME — Ezion-geber is 以旬迦别 in the Bibles this language already reads; this chapter does not use it
+- Numbers 33: NAME — Passover is 逾越节 in the Bibles this language already reads; this chapter does not use it
+- Numbers 33: NAME — Sinai is 西奈山 in the Bibles this language already reads; this chapter does not use it
+- Numbers 34: NAME — Arad is 亚拉得 in the Bibles this language already reads; this chapter does not use it
+- Numbers 34: NAME — Hananel is 哈楠业楼 in the Bibles this language already reads; this chapter does not use it
+- Numbers 34: NAME — Kemuel is 基母利 in the Bibles this language already reads; this chapter does not use it
+- Numbers 34: NAME — Riblah is 利比拉 in the Bibles this language already reads; this chapter does not use it
+- Numbers 36: NAME — Hoglah is 挪阿 in the Bibles this language already reads; this chapter does not use it
+- Numbers 36: NAME — Machir is 玛吉 in the Bibles this language already reads; this chapter does not use it
+- Numbers 36: NAME — Noah is 挪亚 in the Bibles this language already reads; this chapter does not use it
+- Proverbs 10: NAME — Solomon is 所罗门 in the Bibles this language already reads; this chapter does not use it
+- Psalms 7: NAME — Cush is 古实 in the Bibles this language already reads; this chapter does not use it
+- Psalms 110: NAME — David is 大卫 in the Bibles this language already reads; this chapter does not use it
+- Psalms 115: NAME — Hallelujah is 哈利路亚 in the Bibles this language already reads; this chapter does not use it
+- Psalms 116: NAME — Hallelujah is 哈利路亚 in the Bibles this language already reads; this chapter does not use it
+- Psalms 120: NAME — Kedar is 基达 in the Bibles this language already reads; this chapter does not use it
+- Psalms 131: NAME — David is 大卫 in the Bibles this language already reads; this chapter does not use it
+- Psalms 132: NAME — David is 大卫 in the Bibles this language already reads; this chapter does not use it
+- Psalms 133: NAME — Hermon is 黑门山 in the Bibles this language already reads; this chapter does not use it
+- Psalms 139: NAME — David is 大卫 in the Bibles this language already reads; this chapter does not use it
+- Psalms 143: NAME — David is 大卫 in the Bibles this language already reads; this chapter does not use it
+- Psalms 17: NAME — David is 大卫 in the Bibles this language already reads; this chapter does not use it
+- Psalms 23: NAME — David is 大卫 in the Bibles this language already reads; this chapter does not use it
+- Psalms 29: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- Psalms 35: NAME — David is 大卫 in the Bibles this language already reads; this chapter does not use it
+- Psalms 42: NAME — Korah is 可拉后裔的 in the Bibles this language already reads; this chapter does not use it
+- Psalms 48: NAME — Tarshish is 他施 in the Bibles this language already reads; this chapter does not use it
+- Psalms 50: NAME — Asaph is 亚萨 in the Bibles this language already reads; this chapter does not use it
+- Psalms 52: NAME — Abimelech is 亚比米勒 in the Bibles this language already reads; this chapter does not use it
+- Psalms 60: NAME — Aram-Naharaim is 美索不达米亚 in the Bibles this language already reads; this chapter does not use it
+- Psalms 68: NAME — Sinai is 西奈山 in the Bibles this language already reads; this chapter does not use it
+- Psalms 72: NAME — Jesse is 耶西 in the Bibles this language already reads; this chapter does not use it
+- Psalms 72: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- Psalms 72: NAME — Solomon is 所罗门 in the Bibles this language already reads; this chapter does not use it
+- Psalms 72: NAME — Tarshish is 他施 in the Bibles this language already reads; this chapter does not use it
+- Psalms 73: NAME — Zion is 锡安 in the Bibles this language already reads; this chapter does not use it
+- Psalms 76: NAME — Jacob is 雅各 in the Bibles this language already reads; this chapter does not use it
+- Psalms 80: NAME — Joseph is 约瑟 in the Bibles this language already reads; this chapter does not use it
+- Psalms 83: NAME — Kishon is 基顺河 in the Bibles this language already reads; this chapter does not use it
+- Psalms 86: NAME — David is 大卫 in the Bibles this language already reads; this chapter does not use it
+- Psalms 89: NAME — Ethan is 以探 in the Bibles this language already reads; this chapter does not use it
+- Psalms 89: NAME — Hermon is 黑门山 in the Bibles this language already reads; this chapter does not use it
+- Psalms 91: NAME — Almighty is 全能 in the Bibles this language already reads; this chapter does not use it
+- Romans 11: NAME — David is 大卫 in the Bibles this language already reads; this chapter does not use it
+- Romans 16: NAME — Gaius is 该犹 in the Bibles this language already reads; this chapter does not use it
+- Romans 16: NAME — Mary is 马利亚 in the Bibles this language already reads; this chapter does not use it
+- Ruth 4: NAME — Judah is 犹大 in the Bibles this language already reads; this chapter does not use it
+- Song of Songs 1: NAME — Jerusalem is 耶路撒冷 in the Bibles this language already reads; this chapter does not use it
+- Song of Songs 4: NAME — Senir is 示尼珥 in the Bibles this language already reads; this chapter does not use it
+- Song of Songs 5: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- Zechariah 1: NAME — Berechiah is 比利家 in the Bibles this language already reads; this chapter does not use it
+- Zechariah 1: NAME — Darius is 大流士 in the Bibles this language already reads; this chapter does not use it
+- Zechariah 6: NAME — Babylon is 巴比伦 in the Bibles this language already reads; this chapter does not use it
+- Zechariah 6: NAME — Jehozadak is 大祭司约书亚 in the Bibles this language already reads; this chapter does not use it
+- Zechariah 6: NAME — Zephaniah is 西番雅 in the Bibles this language already reads; this chapter does not use it
+- Zechariah 7: NAME — Darius is 大流士 in the Bibles this language already reads; this chapter does not use it
+- Zechariah 9: NAME — Ashdod is 亚实突 in the Bibles this language already reads; this chapter does not use it
+- Zechariah 9: NAME — Ekron is 以革伦 in the Bibles this language already reads; this chapter does not use it
+- Zechariah 9: NAME — Sidon is 西顿 in the Bibles this language already reads; this chapter does not use it
+- Zechariah 10: NAME — Joseph is 约瑟 in the Bibles this language already reads; this chapter does not use it
+- Zechariah 11: NAME — Lebanon is 黎巴嫩 in the Bibles this language already reads; this chapter does not use it
+- Zechariah 14: NAME — Geba is 迦巴 in the Bibles this language already reads; this chapter does not use it
+- Zechariah 14: NAME — Hananel is 哈楠业楼 in the Bibles this language already reads; this chapter does not use it
+- Zephaniah 1: NAME — Gedaliah is 基大利 in the Bibles this language already reads; this chapter does not use it
+- Zephaniah 2: NAME — Ashdod is 亚实突 in the Bibles this language already reads; this chapter does not use it
+- Zephaniah 2: NAME — Ekron is 以革伦 in the Bibles this language already reads; this chapter does not use it
+- Zephaniah 2: NAME — Philistines is 非利士 in the Bibles this language already reads; this chapter does not use it

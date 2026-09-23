@@ -1,6 +1,6 @@
 # Verification report — Spanish (es)
 Chapters checked: 1189
-Flags: 2696
+Flags: 2692
 
 - 1 Chronicles 4:26: SHORT — 17 chars vs 37 source (possible truncation)
 - 1 Corinthians 1:7: SHORT — 84 chars vs 106 source (possible truncation)
@@ -88,7 +88,6 @@ Flags: 2696
 - Daniel 6:11: SHORT — 103 chars vs 152 source (possible truncation)
 - Daniel 6:14: SHORT — 85 chars vs 119 source (possible truncation)
 - Daniel 6:21: SHORT — 57 chars vs 120 source (possible truncation)
-- Deuteronomy 14:29: EMPTY verse
 - Ephesians 2:18: SHORT — 64 chars vs 81 source (possible truncation)
 - Ephesians 3:17: SHORT — 71 chars vs 102 source (possible truncation)
 - Ephesians 4:16: SHORT — 152 chars vs 193 source (possible truncation)
@@ -202,8 +201,6 @@ Flags: 2696
 - Luke 10:1: SHORT — 131 chars vs 166 source (possible truncation)
 - Luke 10:34: SHORT — 117 chars vs 156 source (possible truncation)
 - Luke 11:3: SHORT — 41 chars vs 55 source (possible truncation)
-- Luke 11:7: SHORT — 124 chars vs 158 source (possible truncation)
-- Luke 11:8: SHORT — 83 chars vs 125 source (possible truncation)
 - Luke 12:53: SHORT — 121 chars vs 154 source (possible truncation)
 - Luke 13:9: SHORT — 43 chars vs 64 source (possible truncation)
 - Luke 14:6: SHORT — 33 chars vs 42 source (possible truncation)
@@ -1203,6 +1200,7 @@ Flags: 2696
 - NAME? 'Jehoacim' (3x) vs 'Jehoram' (3x) — same person/place spelled two ways?
 - NAME? 'Jehoakin' (4x) vs 'Joiakin' (2x) — same person/place spelled two ways?
 - NAME? 'Jehoicaz' (4x) vs 'Joiacaz' (3x) — same person/place spelled two ways?
+- NAME? 'Jehoram' (3x) vs 'Jehorám' (2x) — same person/place spelled two ways?
 - NAME? 'Jehoram' (3x) vs 'Joram' (27x) — same person/place spelled two ways?
 - NAME? 'Jerusalém' (1x) vs 'Jerusalén' (60x) — same person/place spelled two ways?
 - NAME? 'Jezebel' (7x) vs 'Jezreel' (6x) — same person/place spelled two ways?
@@ -1428,7 +1426,6 @@ Flags: 2696
 - NAME? 'Será' (2x) vs 'Serás' (5x) — same person/place spelled two ways?
 - NAME? 'Sihón' (1x) vs 'Sijón' (2x) — same person/place spelled two ways?
 - NAME? 'Sina' (1x) vs 'Sinaí' (1x) — same person/place spelled two ways?
-- Deuteronomy 14: ALIGNMENT — 5 of 29 verses hold the text of another verse (18->19, 20->21, 21->22, 22->23, 23->24)
 - NAME? 'Mejor' (10x) vs 'Mejores' (1x) — same person/place spelled two ways?
 - NAME? 'Hijo' (1x) vs 'Hijos' (1x) — same person/place spelled two ways?
 - NAME? 'Aridaí' (1x) vs 'Arisaí' (1x) — same person/place spelled two ways?
@@ -2194,7 +2191,6 @@ Flags: 2696
 - NAME? 'Vendrá' (1x) vs 'Vendrán' (2x) — same person/place spelled two ways?
 - NAME? 'Viene' (1x) vs 'Vienes' (1x) — same person/place spelled two ways?
 - Luke 7: QUOTES — 3 closing » with nothing open (v. 8, 35, 42)
-- Luke 11: ALIGNMENT — 3 of 54 verses hold the text of another verse (6->7, 7->8, 9->10)
 - NAME? 'Ofrecedlos' (1x) vs 'Ofreciendo' (1x) — same person/place spelled two ways?
 - NAME? 'Betania' (4x) vs 'Betsaida' (2x) — same person/place spelled two ways?
 - NAME? 'Betania' (4x) vs 'Betzaida' (1x) — same person/place spelled two ways?
