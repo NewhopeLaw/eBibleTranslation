@@ -3578,7 +3578,14 @@ def main():
     ap.add_argument("--complete-only", action="store_true",
                     help="carry only the languages the whole Bible has been translated into; "
                          "what is shipped (the APKs) should not offer a language with books missing")
+    ap.add_argument("--langs", default="",
+                    help="comma list of target codes to carry, e.g. en,zh (default: every one there is); "
+                         "with --complete-only, naming a language that is not finished is an error")
     a = ap.parse_args()
+    asked = [c.strip() for c in a.langs.split(",") if c.strip()]
+    unknown = [c for c in asked if c not in TARGETS]
+    if unknown:
+        raise SystemExit(f"unknown language code(s): {', '.join(unknown)} - known: {', '.join(TARGETS)}")
     data = {}
     # every chapter of every book: original text always, translations when present
     for meta in sorted(BOOKS.values(), key=lambda m: m["num"]):
@@ -3628,8 +3635,22 @@ def main():
                 print(f"  {code}: {len(gaps)} chapter(s) have verses missing and do not count - "
                       + ", ".join(gaps[:6]) + (" ..." if len(gaps) > 6 else "")
                       + f"; re-run them (scripts/verify.py --lang {code} shows what is gone)")
-        if not counts:
-            print("WARNING: no language is complete, so this page carries the original text alone")
+        # A language asked for by name and quietly left out would be found
+        # missing on the phone it was built for, so it stops the build here.
+        unfinished = [c for c in asked if c not in targets]
+        if unfinished:
+            raise SystemExit("not finished, so not carried: "
+                             + ", ".join(f"{c} ({counts.get(c, dropped.get(c, 0))}/{whole})" for c in unfinished))
+    # A copy made for one household or one church need not carry every
+    # language the project has: each is several megabytes on a phone.
+    if asked:
+        targets = {c: t for c, t in targets.items() if c in asked}
+        for chapters in data.values():
+            for entry in chapters.values():
+                entry["tr"] = {c: v for c, v in entry["tr"].items() if c in targets}
+        counts = {c: n for c, n in counts.items() if c in targets}
+    if a.complete_only and not counts:
+        print("WARNING: no language is complete, so this page carries the original text alone")
     out_dir = Path(a.out)
     out_dir.mkdir(parents=True, exist_ok=True)
     page = (PAGE

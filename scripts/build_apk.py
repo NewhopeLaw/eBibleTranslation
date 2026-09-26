@@ -3,6 +3,7 @@
 
     python scripts/build_apk.py                  # the reader alone (the toolchain must be there)
     python scripts/build_apk.py --full           # the reader with every study layer
+    python scripts/build_apk.py --langs en,zh    # only these languages (default: every finished one)
     python scripts/build_apk.py --check          # say what is installed, as JSON
     python scripts/build_apk.py --setup --accept-android-sdk-license
                                                  # fetch the toolchain into tools/android/, then build
@@ -20,7 +21,11 @@ Both are built with --complete-only, so they carry a language only once the
 whole Bible has been translated into it. Nobody reading on a phone can tell
 which books are missing, and a translation still being written should not be
 read as though it were finished; the build says what it left out and how far
-that language has got.
+that language has got. --langs narrows that to the ones named - a copy for
+one congregation need not carry every language the project has - and naming
+one that is not finished stops the build rather than leave it out unseen. An
+APK of chosen languages is named after them, so it does not overwrite the
+one that carries them all.
 
 Either variant is staged in its own folder, android/reader-assets/ or
 android/full-assets/, so android/app/src/main/assets/ - what sync_assets.sh
@@ -267,7 +272,7 @@ def setup():
 
 
 # ------------------------------------------------------------------ building
-def stage_page(full: bool):
+def stage_page(full: bool, langs_wanted: list[str]):
     """The page and the data files that variant needs, and nothing else.
 
     The reader takes the search indexes only; the full app takes all of
@@ -282,11 +287,13 @@ def stage_page(full: bool):
     cmd = [sys.executable, str(ROOT / "scripts" / "build_site.py"), "--out", str(stage), "--complete-only"]
     if not full:
         cmd.insert(2, "--reader-only")
+    if langs_wanted:
+        cmd += ["--langs", ",".join(langs_wanted)]
     r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace", creationflags=NO_WINDOW)
     say(r.stdout.strip() or r.stderr.strip())
     page = stage / "index.html"
     if r.returncode != 0 or not page.exists():
-        fail("the reader page did not build: " + r.stderr[-400:])
+        fail("the reader page did not build: " + (r.stderr.strip() or r.stdout.strip())[-400:])
     # The same guard as sync_assets.sh: a page this small is a checkout that is
     # behind on output/, and would ship a Bible with books missing.
     if page.stat().st_size < 4_000_000:
@@ -318,7 +325,7 @@ def stage_page(full: bool):
     return chapters
 
 
-def build(tc: dict, chapters: str, full: bool):
+def build(tc: dict, chapters: str, full: bool, langs_wanted: list[str]):
     signed = tc["signed"]
     task = "assembleRelease" if signed else "assembleDebug"
     now = dt.datetime.now()
@@ -368,28 +375,32 @@ def build(tc: dict, chapters: str, full: bool):
         fail("keystore.properties is there but the release came out unsigned - check that it names "
              "storeFile, storePassword, keyAlias and keyPassword (see android/keystore.properties.example)")
     DIST.mkdir(exist_ok=True)
-    dest = DIST / f"eBible-{'full' if full else 'reader'}-{vname}{'' if signed else '-debug'}.apk"
+    only = ("-" + "-".join(langs_wanted)) if langs_wanted else ""
+    dest = DIST / f"eBible-{'full' if full else 'reader'}{only}-{vname}{'' if signed else '-debug'}.apk"
     shutil.copy2(apks[-1], dest)
     say(f"APK: {dest} ({dest.stat().st_size / 1048576:.1f} MB, {kind}, versionCode {vcode})")
     state(state="done", step="", apk=str(dest), size=dest.stat().st_size, kind=kind, version=vname,
-          variant="full" if full else "reader", chapters=chapters, finished=time.time(), error="")
+          variant="full" if full else "reader", langs=langs_wanted, chapters=chapters, finished=time.time(), error="")
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--full", action="store_true",
                     help="carry the study layers too: every file in site/morph/, as they stand now")
+    ap.add_argument("--langs", default="",
+                    help="comma list of languages to carry, e.g. en,zh (default: every finished one)")
     ap.add_argument("--check", action="store_true", help="print what is installed, as JSON, and stop")
     ap.add_argument("--setup", action="store_true", help="fetch the toolchain into tools/android/ first")
     ap.add_argument("--accept-android-sdk-license", action="store_true",
                     help="required with --setup: the SDK platform is only installed on this licence")
     a = ap.parse_args()
+    langs_wanted = [c.strip() for c in a.langs.split(",") if c.strip()]
 
     if a.check:
         print(json.dumps(check(), indent=1))
         return
     state(state="running", step="starting", started=time.time(), error="", apk="",
-          variant="full" if a.full else "reader")
+          variant="full" if a.full else "reader", langs=langs_wanted)
     if a.setup:
         if not a.accept_android_sdk_license:
             fail("--setup installs the Android SDK, which needs --accept-android-sdk-license "
@@ -400,8 +411,8 @@ def main():
         say("missing: " + ", ".join(tc["missing"]))
         state(state="needs-setup", step="", error="missing: " + ", ".join(tc["missing"]), finished=time.time())
         sys.exit(2)
-    chapters = stage_page(a.full)
-    build(tc, chapters, a.full)
+    chapters = stage_page(a.full, langs_wanted)
+    build(tc, chapters, a.full, langs_wanted)
 
 
 if __name__ == "__main__":

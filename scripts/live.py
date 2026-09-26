@@ -547,6 +547,25 @@ def apk_running_elsewhere():
     return found
 
 
+def apk_languages():
+    """Every target with how many chapters it has, against the whole: the
+    choices the APK's language picker offers. Only a finished one can be
+    ticked; build_site.py counts verses and has the last word, this counts
+    files, which is enough to know what to offer."""
+    if time.time() - APK.get("langs_at", 0.0) > 60:
+        whole = 0
+        for f in (ROOT / "sources" / "normalized").glob("*.json"):
+            try:
+                whole += len(json.loads(f.read_text(encoding="utf-8"))["chapters"])
+            except (ValueError, KeyError):
+                pass
+        APK["langs"] = [{"code": c, "name": t["name"], "native": t["native"], "whole": whole,
+                         "have": len(list((ROOT / "output" / c / "json").glob("*.json")))}
+                        for c, t in TARGETS.items()]
+        APK["langs_at"] = time.time()
+    return APK["langs"]
+
+
 def apk_status():
     f = ROOT / "logs" / "apk_build.json"
     try:
@@ -559,10 +578,10 @@ def apk_status():
         # The file says running but nothing is: the build was killed or the
         # dashboard restarted under it. Say so rather than spin forever.
         st.update(state="failed", error=st.get("error") or "the build stopped before it finished - see logs/apk_build.log")
-    return {**st, "running": running, "toolchain": apk_toolchain()}
+    return {**st, "running": running, "toolchain": apk_toolchain(), "languages": apk_languages()}
 
 
-def apk_start(setup=False, full=False):
+def apk_start(setup=False, full=False, langs=()):
     # Two Gradle builds in the same folder fight over its locks and its output,
     # so one at a time - including one started from a terminal.
     if APK["proc"] is not None and APK["proc"].poll() is None:
@@ -573,6 +592,9 @@ def apk_start(setup=False, full=False):
     cmd = [sys.executable, str(ROOT / "scripts" / "build_apk.py")]
     if full:
         cmd.append("--full")
+    langs = [c for c in langs if c in TARGETS]
+    if langs:
+        cmd += ["--langs", ",".join(langs)]
     if setup:
         # Only ever passed after the user said yes to the licence in the dashboard.
         cmd += ["--setup", "--accept-android-sdk-license"]
@@ -582,7 +604,7 @@ def apk_start(setup=False, full=False):
     APK["proc"] = subprocess.Popen(cmd, cwd=str(ROOT), stdout=fh, stderr=fh, stdin=subprocess.DEVNULL,
                                    creationflags=getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0) | NO_WINDOW)
     APK["checked"] = 0.0                     # a setup changes the answer
-    print(f"apk: {'full' if full else 'reader'} build started (pid {APK['proc'].pid})"
+    print(f"apk: {'full' if full else 'reader'} build{' of ' + ','.join(langs) if langs else ''} started (pid {APK['proc'].pid})"
           f"{' with setup' if setup else ''} -> {log.name}")
     return None
 
@@ -880,7 +902,7 @@ class Handler(BaseHTTPRequestHandler):
             self._json({"ok": True, "stopped": work_stop((self._body().get("job") or "").strip() or None)})
         elif self.path == "/apk/build":
             body = self._body()
-            err = apk_start(bool(body.get("setup")), bool(body.get("full")))
+            err = apk_start(bool(body.get("setup")), bool(body.get("full")), body.get("langs") or ())
             self._json({"ok": err is None, "error": err}, 409 if err else 200)
         elif self.path == "/apk/stop":
             err = apk_stop()
@@ -1129,6 +1151,19 @@ body.mobile #text.plain { max-width:none; } body.mobile #text { padding:.9rem 1r
 #apkMsg { font-size:12px; color:var(--muted); max-width:24rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 #apkMsg.err { color:var(--err); }
 #apkMsg.ok { color:var(--fg); }
+#apkLangs { position:relative; }
+#apkLangs summary { list-style:none; cursor:pointer; font-size:12px; padding:.28rem .6rem; border:1px solid var(--border);
+  border-radius:999px; white-space:nowrap; color:var(--fg); }
+#apkLangs summary::-webkit-details-marker { display:none; }
+#apkLangs summary::after { content:" \25BE"; color:var(--muted); }
+#apkLangs.busy summary { opacity:.5; pointer-events:none; }
+#apkLangs .menu { position:absolute; right:0; top:calc(100% + .3rem); z-index:20; min-width:15rem; padding:.45rem;
+  background:var(--card); border:1px solid var(--border); border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,.18);
+  max-height:min(70vh, 30rem); overflow-y:auto; }
+#apkLangs label { display:flex; align-items:center; gap:.5rem; padding:.3rem .35rem; border-radius:6px; font-size:13px; cursor:pointer; }
+#apkLangs label:hover { background:var(--soft); }
+#apkLangs label input { padding:0; margin:0; width:1rem; height:1rem; }
+#apkLangs .hint { font-size:11px; color:var(--muted); margin:.35rem .35rem 0; max-width:15rem; }
 __READALOUD_CSS__
 </style></head><body>
 <div id="app">
@@ -1155,6 +1190,14 @@ __READALOUD_CSS__
       <span data-k="reader" class="on" title="The text alone, in every finished language: about a 11 MB APK, 26 MB on the phone">reader</span>
       <span data-k="full" title="The reader with every study layer built so far - word tags, lexicon, concordance, syntax, cross-references, apparatus, themes, places, chronology: about a 26 MB APK, 78 MB on the phone. The layers are frozen as they stand when it is built.">+ study tools</span>
     </span>
+    <details id="apkLangs">
+      <summary id="apkLangsSum" aria-label="Languages in the APK">all languages</summary>
+      <div class="menu" role="group" aria-label="Languages in the APK">
+        <div id="apkLangList"></div>
+        <p class="hint" id="apkLangsLater"></p>
+        <p class="hint">Only a language with every chapter translated can go in. One finished later is ticked on its own.</p>
+      </div>
+    </details>
     <button id="apkBtn">Make Android APK</button>
     <span id="apkMsg" role="status"></span>
     <button id="apkStop" hidden title="Stop this build and free the machine">stop</button>
@@ -1646,17 +1689,58 @@ for (const el of document.querySelectorAll('#apkKind span')) el.onclick = () => 
   if ($('apkKind').classList.contains('busy')) return;     // not while one is being built
   apkKind = el.dataset.k; localStorage.setItem('apkKind', apkKind); apkBar();
 };
+// What is remembered is the languages left out, not the ones put in, so a
+// language that finishes after the choice was made goes in without asking.
+let apkOut = [];
+try { apkOut = JSON.parse(localStorage.getItem('apkOut') || '[]'); } catch (e) {}
+let apkLangsSeen = [];
+const apkDone = l => l.have >= l.whole && l.whole > 0;
+function apkPicked(){ return apkLangsSeen.filter(l => apkDone(l) && !apkOut.includes(l.code)).map(l => l.code); }
+function apkLangsDraw(langs, busy){
+  apkLangsSeen = langs || [];
+  const done = apkLangsSeen.filter(apkDone), picked = apkPicked();
+  $('apkLangs').classList.toggle('busy', !!busy);
+  if (busy) $('apkLangs').open = false;
+  $('apkLangsSum').textContent = !done.length ? 'no finished language'
+    : picked.length === done.length ? `all ${done.length} languages`
+    : picked.length ? picked.map(c => (apkLangsSeen.find(l => l.code === c) || {}).native || c).join(' · ')
+    : 'no language chosen';
+  $('apkLangsSum').title = 'Languages this APK will carry: ' + (picked.join(', ') || 'none');
+  const list = $('apkLangList');
+  if (list.contains(document.activeElement)) return;      // do not redraw under the reader's finger
+  // Only a finished language can be ticked, so only those are rows; the
+  // ones still being translated are one line underneath, with how far
+  // each has got, so the list stays short as the project adds languages.
+  list.innerHTML = done.map(l => `<label><input type="checkbox" value="${l.code}"${apkOut.includes(l.code) ? '' : ' checked'}>`
+      + `<span>${apkEsc(l.native)}${l.native !== l.name ? ' <span style="color:var(--muted)">' + apkEsc(l.name) + '</span>' : ''}</span></label>`).join('')
+    || '<p class="hint">No language is finished yet: the APK carries the original text alone.</p>';
+  const later = apkLangsSeen.filter(l => !apkDone(l));
+  $('apkLangsLater').textContent = later.length
+    ? 'Still being translated: ' + later.map(l => `${l.native} ${l.have}/${l.whole}`).join(' · ') : '';
+}
+const apkEsc = x => String(x).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'})[c]);
+$('apkLangList').onchange = e => {
+  const c = e.target.value;
+  apkOut = e.target.checked ? apkOut.filter(x => x !== c) : [...new Set([...apkOut, c])];
+  try { localStorage.setItem('apkOut', JSON.stringify(apkOut)); } catch (err) {}
+  apkBar();
+};
+document.addEventListener('click', e => { if ($('apkLangs').open && !$('apkLangs').contains(e.target)) $('apkLangs').open = false; });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('apkLangs').open) { $('apkLangs').open = false; $('apkLangsSum').focus(); } });
 async function apkBar(){
   let s;
   try { s = await (await fetch('/apk')).json(); } catch (e) { apkT = setTimeout(apkBar, 20000); return; }
   const b = $('apkBtn'), m = $('apkMsg'), o = $('apkOpen'), tc = s.toolchain || {};
-  b.disabled = !!s.running;
+  apkLangsDraw(s.languages, s.running);
+  const none = apkLangsSeen.some(apkDone) && !apkPicked().length;
+  b.disabled = !!s.running || none;
   b.textContent = s.running ? 'Building APK…' : 'Make Android APK';
   $('apkKind').classList.toggle('busy', !!s.running);
   for (const el of $('apkKind').children) el.classList.toggle('on', el.dataset.k === apkKind);
   m.className = ''; m.title = '';
   $('apkStop').hidden = !s.running;
   if (s.running) m.textContent = (s.variant === 'full' ? 'with study tools · ' : '') + (s.step || 'working');
+  else if (none) m.textContent = 'tick at least one language';
   else if (s.state === 'done' && s.apk) {
     const name = s.apk.split(/[\\/]/).pop(), mins = Math.round((Date.now() / 1000 - (s.finished || 0)) / 60);
     m.textContent = `ready: ${name} · ${(s.size / 1048576).toFixed(1)} MB · ${mins < 1 ? 'just now' : mins < 90 ? mins + ' min ago' : new Date(s.finished * 1000).toLocaleString()}`;
@@ -1693,7 +1777,10 @@ $('apkBtn').onclick = async () => {
     if (!ok) return;
     setup = true;
   }
-  const r = await post('/apk/build', {setup, full: apkKind === 'full'});
+  // Every finished language ticked is the same as none named: the build
+  // then takes whatever is finished at the moment it runs.
+  const picked = apkPicked(), all = picked.length === apkLangsSeen.filter(apkDone).length;
+  const r = await post('/apk/build', {setup, full: apkKind === 'full', langs: all ? [] : picked});
   if (!r.ok) alert(r.error || 'could not start the build');
   apkBar();
 };
