@@ -78,11 +78,26 @@ def jobs():
                 count_lines(ROOT / "targets" / "themes" / "trajectories.jsonl"), 300,
                 [sys.executable, str(S / "build_theology.py"), "--trajectories", "--pack"]))
     for code in TARGETS:
-        if code == "en":
+        if code == "en" or TARGETS[code].get("mt"):        # the chat model does not write an mt target (README)
             continue
         out.append((f"lexicon-{code}", f"translate the lexicon into {TARGETS[code]['name']}",
                     count_lines(LEX / f"{code}.jsonl"), count_lines(LEX / "entries.jsonl"),
                     [sys.executable, str(S / "translate_lexicon.py"), "--lang", code]))
+    # A language the chat model cannot write is put through a translation model
+    # taught for it (scripts/mt_translate.py), from our English. The job exists
+    # once a taught model does; it resumes, so it is safe in the overnight queue,
+    # and its progress is the chapters on disk, as for any translation.
+    english = len(list((ROOT / "output" / "en" / "json").glob("*.json")))
+    for code, t in TARGETS.items():
+        if not t.get("mt"):
+            continue
+        taught = [m for m in (ROOT / "models" / f"madlad-{code}-names", ROOT / "models" / f"madlad-{code}")
+                  if (m / "config.json").exists()]
+        if not taught:
+            continue
+        out.append((f"translate-{code}", f"put our English into {t['name']} with the model taught from its Bible",
+                    len(list((ROOT / "output" / code / "json").glob("*.json"))), english,
+                    [sys.executable, str(S / "mt_translate.py"), "--lang", code, "--all", "--model", str(taught[0])]))
     out.append(("rebuild", "rebuild every layer and the reader page", 0, 1,
                 [sys.executable, str(S / "build_all.py")]))
     total_left = sum(max(0, t - d) for _, _, d, t, _ in out if t)

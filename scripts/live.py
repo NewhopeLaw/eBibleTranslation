@@ -277,6 +277,57 @@ def start_run(req: dict) -> str | None:
     return None
 
 
+# ------------------------------------------------------------- the model
+# The model is named once, in config.json, and read from there by this
+# dashboard's runs and by every study job when it starts. Changing it used to
+# mean editing the file and restarting; the header now offers the models
+# Ollama has on disk instead. What is written is the one line in config.json,
+# so the choice outlives this server; T.CONFIG is changed in place, so the next
+# chapter this dashboard translates uses it. A job already running keeps the
+# model it started with - it read the file when it began.
+def ollama_base():
+    return T.CONFIG["api_url"].split("/api/")[0]
+
+
+def local_models():
+    """What Ollama has on disk, what it holds in memory, and what config.json names."""
+    try:
+        with urllib.request.urlopen(ollama_base() + "/api/tags", timeout=3) as r:
+            tags = json.load(r).get("models", [])
+        with urllib.request.urlopen(ollama_base() + "/api/ps", timeout=3) as r:
+            loaded = {m["name"] for m in json.load(r).get("models", [])}
+    except Exception as e:                                             # noqa: BLE001
+        return {"ok": False, "error": f"Ollama is not answering ({e})", "model": T.CONFIG["model"], "models": []}
+    models = [{"name": m["name"], "gb": round(m.get("size", 0) / 1e9, 1), "loaded": m["name"] in loaded}
+              for m in sorted(tags, key=lambda m: m["name"])]
+    return {"ok": True, "model": T.CONFIG["model"], "models": models}
+
+
+def set_model(name):
+    """Switch the chat model; the error string if it cannot be done now."""
+    name = (name or "").strip()
+    if not name:
+        return "no model named"
+    with LOCK:
+        if STATE["running"]:
+            return "a run is in progress - stop it before changing the model"
+    have = local_models()
+    if have["ok"] and name not in {m["name"] for m in have["models"]}:
+        return f"Ollama has no model {name!r} - ollama pull it first"
+    path = ROOT / "config.json"
+    text = path.read_text(encoding="utf-8")
+    new, n = re.subn(r'("model"\s*:\s*")[^"]*(")', lambda m: m.group(1) + name + m.group(2), text, count=1)
+    if n != 1:
+        return "config.json has no \"model\" line to change"
+    path.write_text(new, encoding="utf-8")            # only that line: the notes and the layout stay
+    T.CONFIG["model"] = name
+    with LOCK:
+        STATE["model"] = name
+    publish({"type": "model", "model": name})
+    print(f"model: now {name}")
+    return None
+
+
 def chapter_payload(code, ch, lang):
     """Source + every existing translation of one chapter, for browsing."""
     meta = BOOKS.get(code)
@@ -292,7 +343,7 @@ def chapter_payload(code, ch, lang):
         jp = T.json_dir(t) / f"{name}_{int(ch):02d}.json"
         if jp.exists():
             d = json.loads(jp.read_text(encoding="utf-8"))
-            translations[t] = {"verses": d["verses"], "notes": d.get("notes", "")}
+            translations[t] = {"verses": d["verses"], "notes": d.get("notes", ""), "engine": d.get("engine", "")}
     return {"code": code, "book": meta["name"], "chapter": int(ch),
             "chapters": sorted(norm_chapters(meta), key=int),
             "translated": translated_chapters(meta, lang if lang in TARGETS else DEFAULT_TARGET),
@@ -304,6 +355,9 @@ def chapter_payload(code, ch, lang):
 # words, then the dictionary words behind them, then meaning, then the notes
 # that hang off a verse. Each entry: key in the manifest or the work queue.
 LAYERS = [
+    ("translations", "translations by a taught model", [
+        ("karen", "Sgaw Karen, from our English, by the model taught on the Karen Bible", "job:translate-ksw"),
+    ]),
     ("forms", "letters and forms", [
         ("lexeme-inventory", "word forms analysed", "job:lexemes"),
     ]),
@@ -363,7 +417,7 @@ def work_jobs():
 SCRIPT_JOB = {"build_lexemes.py": "lexemes", "build_lexicon.py": "lexicon", "build_domains.py": "domains",
               "build_themes.py": "themes", "build_index.py": "search-index",
               "build_topics.py": "topics", "build_people.py": "people",
-              "build_entries.py": "entries"}
+              "build_entries.py": "entries", "mt_translate.py": "translate-ksw"}
 _scan = {"at": 0.0, "found": {}}
 
 
@@ -839,6 +893,8 @@ class Handler(BaseHTTPRequestHandler):
             self.wfile.write(body)
         elif path == "/state":
             self._json(snapshot(q.get("lang", DEFAULT_TARGET)))
+        elif path == "/models":
+            self._json(local_models())
         elif path == "/source":
             p = chapter_payload(q.get("book", ""), q.get("ch", "1"), q.get("lang", DEFAULT_TARGET))
             self._json(p or {"error": "no such chapter"}, 200 if p else 404)
@@ -895,6 +951,9 @@ class Handler(BaseHTTPRequestHandler):
         elif self.path == "/stop":
             STOP.set()
             self._json({"ok": True})
+        elif self.path == "/model":
+            err = set_model(self._body().get("model"))
+            self._json({"ok": err is None, "error": err}, 409 if err else 200)
         elif self.path == "/work/start":
             err = work_start((self._body().get("job") or "").strip())
             self._json({"ok": err is None, "error": err}, 409 if err else 200)
@@ -971,6 +1030,11 @@ header { display:flex; flex-wrap:wrap; gap:.6rem 1rem; align-items:center; paddi
   background:var(--soft); color:var(--muted); border:1px solid var(--border); white-space:nowrap; }
 .pill.run { background:var(--accent); color:#fff; border-color:var(--accent); animation:pulse 1.4s infinite; }
 .pill.err { background:var(--err); color:#fff; border-color:var(--err); }
+/* The model pill is a select: same shape as its neighbours, native menu, so
+   a keyboard or a screen reader gets the list for nothing. */
+select.pill { cursor:pointer; font:inherit; font-size:12px; font-weight:600; max-width:16rem; text-overflow:ellipsis; }
+select.pill:disabled { cursor:default; opacity:.7; }
+select.pill option { background:var(--card); color:var(--fg); font-weight:400; }
 @keyframes pulse { 50% { opacity:.55; } }
 .group { display:flex; align-items:center; gap:.35rem; padding:.25rem .4rem; border:1px solid var(--border);
   border-radius:10px; background:var(--bg); }
@@ -1168,7 +1232,7 @@ __READALOUD_CSS__
 </style></head><body>
 <div id="app">
 <header>
-  <div class="brand"><b>eBible</b><span class="sub">live translation</span><span class="pill" id="pill">idle</span><span class="pill" id="model"></span></div>
+  <div class="brand"><b>eBible</b><span class="sub">live translation</span><span class="pill" id="pill">idle</span><select class="pill" id="model" title="the model translation runs and new study jobs use; the choice is written to config.json"></select></div>
   <div class="group" id="run"><span class="lbl">Run</span>
     <select id="book"><option value="ALL">All books (canonical order)</option></select>
     <button class="icon" id="prev" title="previous chapter (←)">&#9664;</button>
@@ -1242,6 +1306,7 @@ __READALOUD_CSS__
 const $ = id => document.getElementById(id);
 const LANGS = __LANGS__, TARGETS = __TARGETS__, TCODES = Object.keys(TARGETS);
 const NL = String.fromCharCode(10);
+let engines = {};                                         // {target: model that wrote the chapter on show}
 let S = null, cur = null, browsing = null, lastActive = null, translatedSet = new Set(), pending = false, browseSeq = 0;
 let texts = {};                                   // {target code: "[1] ...\n[2] ..." text} for the chapter on screen
 let tl = localStorage.getItem('liveTl'); if (!TARGETS[tl]) tl = '__DEFAULT__';
@@ -1465,7 +1530,7 @@ function render(){
       if (s.lxx) html += `<div class="row"><span class="lab">LXX</span><span class="txt orig greek">${esc(s.lxx)}</span></div>`;
       for (const t of avail) {
         const e = parsed[t].vs[s.v], act = running && cur.target === t && parsed[t].n === s.v;
-        html += `<div class="row"><span class="lab">${TARGETS[t].native}</span><span class="txt ${act?'active':''}" lang="${t}" dir="${tdir(t)}">${e === undefined ? '…' : ruby(esc(e)) + (act ? '<span class="caret"></span>' : '')}</span></div>`;
+        html += `<div class="row"><span class="lab" title="${esc(engines[t] ? 'written by ' + engines[t] : '')}">${TARGETS[t].native}</span><span class="txt ${act?'active':''}" lang="${t}" dir="${tdir(t)}">${e === undefined ? '…' : ruby(esc(e)) + (act ? '<span class="caret"></span>' : '')}</span></div>`;
       }
       html += '</div>';
     }
@@ -1558,9 +1623,43 @@ function totals(s){
   $('lt_ch').title = Object.entries(lt.by_lang || {}).map(([k,v]) => `${TARGETS[k] ? TARGETS[k].native : k}: ${v}`).join(' · ');
 }
 
+/* The header's model select. The list comes from Ollama each time the menu
+   is opened, so "in memory" is true when read; the configured model is always
+   an option, marked when Ollama does not have it, so a stale config.json is
+   visible rather than silently shown as something else. */
+let modelsOk = false;
+async function loadModels(){
+  const sel = $('model');
+  let r;
+  try { r = await (await fetch('/models')).json(); } catch (e) { r = {ok:false, error:'dashboard not answering', model: sel.value || (S && S.model) || '', models:[]}; }
+  modelsOk = r.ok;
+  const list = r.models.slice();
+  if (!list.some(m => m.name === r.model)) list.unshift({name:r.model, missing:true});
+  sel.innerHTML = '';
+  for (const m of list) {
+    const o = document.createElement('option'); o.value = m.name;
+    o.textContent = m.name + (m.missing ? ' · not installed' : ` · ${m.gb} GB`) + (m.loaded ? ' · in memory' : '');
+    sel.appendChild(o);
+  }
+  sel.value = r.model;
+  sel.disabled = !r.ok || !!(S && S.running);
+  sel.title = r.ok ? 'the model translation runs and new study jobs use; the choice is written to config.json. A job already running keeps the model it started with.'
+                   : r.error + ' - the model cannot be changed until it is';
+}
+$('model').onfocus = loadModels;
+$('model').onchange = async () => {
+  const sel = $('model'), was = S ? S.model : sel.value;
+  const r = await post('/model', {model: sel.value});
+  if (!r.ok) { alert(r.error); sel.value = was; return; }
+  refresh();
+};
+
 function applySnapshot(s){
   S = s;
-  $('model').textContent = s.model;
+  const ms = $('model');
+  if (ms.value !== s.model && [...ms.options].some(o => o.value === s.model)) ms.value = s.model;
+  if (!ms.options.length) { const o = document.createElement('option'); o.value = o.textContent = s.model; ms.appendChild(o); ms.value = s.model; }
+  ms.disabled = s.running || !modelsOk;
   const pill = $('pill');
   pill.textContent = s.running ? s.status : (s.error ? 'error' : s.status);
   pill.className = 'pill' + (s.running ? ' run' : (s.error ? ' err' : ''));
@@ -1629,7 +1728,7 @@ async function browse(){
   browsing = {code, chapter: d.chapter, chapters: d.chapters};
   translatedSet = new Set((d.translated || []).map(String));
   cur = {book: d.book, chapter: d.chapter, verses: d.verses, lang: d.lang, src: d.src, target: tl, started: 0, tokens: 0};
-  texts = {}; for (const t of TCODES) if (d.translations[t]) texts[t] = textFrom(d.translations[t]);
+  texts = {}; engines = {}; for (const t of TCODES) if (d.translations[t]) { texts[t] = textFrom(d.translations[t]); engines[t] = d.translations[t].engine || ''; }
   lastActive = null;
   $('cur').textContent = d.book + ' ' + d.chapter; $('vv').textContent = d.verses;
   $('el').textContent = '—'; $('tok').textContent = '—'; $('tps').textContent = '—';
@@ -1678,6 +1777,7 @@ function connect(){
     else if (m.type === 'warn') { $('pill').textContent = 'retrying'; $('pill').className = 'pill err'; $('pill').title = m.message; console.warn(m.message); }
     else if (m.type === 'done' || m.type === 'skip') { const a = $('strip').querySelector(`a[data-c="${m.chapter}"]`); if (a && cur && cur.book === m.book) { a.classList.remove('on'); a.classList.add('tr'); } refresh(); }
     else if (m.type === 'run') refresh();
+    else if (m.type === 'model') loadModels();
   };
   es.onerror = () => { es.close(); if (ES === es) setTimeout(connect, 2000); };
 }
@@ -1798,6 +1898,7 @@ $('start').onclick = async () => {
 $('stop').onclick = () => post('/stop');
 setInterval(tick, 500);
 connect();
+loadModels();
 __READALOUD_JS__
 </script></body></html>
 """
