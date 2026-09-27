@@ -217,9 +217,13 @@ dialog.sheet::backdrop { background:var(--scrim); }
   text-decoration:none; }
 .rowlist a:hover, .rowlist button:hover { background:var(--soft); }
 .rowlist .on { background:var(--hl); font-weight:700; }
-.rowlist .nm { flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.rowlist .ct { flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis;
-  white-space:nowrap; text-align:end; font:calc(12px * var(--ui)) system-ui,sans-serif; color:var(--muted); }
+/* A row is a name and a note. Both used to be cut to fit one line, which on a
+   phone left "Sources and licen…" beside "what each layer came f…" - two
+   halves of nothing. They wrap instead: the name has the room, the note gives
+   way first, and neither loses its end. */
+.rowlist .nm { flex:1 1 auto; min-width:0; overflow-wrap:anywhere; }
+.rowlist .ct { flex:0 1 auto; min-width:0; max-width:55%; overflow-wrap:anywhere;
+  text-align:end; font:calc(12px * var(--ui))/1.3 system-ui,sans-serif; color:var(--muted); }
 .rowlist .tk { flex:none; font-weight:700; color:var(--accent); }
 .rowlist .missing { color:var(--muted); opacity:.5; pointer-events:none; }
 /* A row that opens onto more rows. The chevron is the only sign, and it turns
@@ -280,11 +284,10 @@ header .who { flex:none; min-height:40px; padding:0 .9rem; border:1px solid var(
 .miles .mile.on { background:var(--hl); }
 .miles .mile .txt { flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:.1rem; }
 .miles .mile .nm { font:600 calc(15px * var(--ui)) system-ui,sans-serif; }
-.miles .mile .ct { font:calc(12px * var(--ui)) system-ui,sans-serif; color:var(--muted); }
+.miles .mile .ct { font:calc(12px * var(--ui)) system-ui,sans-serif; color:var(--muted); max-width:none; text-align:start; }
 .miles .mile .tk { flex:none; font-weight:700; color:var(--accent); }
-/* A story's name is worth two lines; its reference is short and stays whole. */
-.stories .nm { white-space:normal; }
-.stories .ct { flex:none; }
+/* A story's reference is short and stays whole beside its name. */
+.stories .ct { flex:none; max-width:none; }
 .sheet .forget { display:block; margin:1.2rem auto 0; min-height:44px; padding:0 .8rem; border:0; background:none;
   color:var(--muted); cursor:pointer; font:calc(12.5px * var(--ui)) system-ui,sans-serif; text-decoration:underline; }
 /* The medal: a ribbon, a ring, and inside it what was done - one star for a
@@ -344,13 +347,13 @@ nav#books { width:210px; flex:none; padding:1rem .6rem; font:calc(14px * var(--u
 nav#books a { display:block; padding:.35rem .55rem; color:var(--fg);
   text-decoration:none; border-radius:6px; }
 nav#books a:hover { background:var(--card); }
-nav#books a.on { background:var(--accent); color:#fff; }
+nav#books a.on { background:var(--accent); color:var(--on-accent); }
 nav#books .t { margin:.7rem 0 .25rem; font-weight:600; color:var(--muted);
   font-size:calc(12px * var(--ui)); text-transform:uppercase; letter-spacing:.06em; }
 nav#books a.missing { color:var(--muted); opacity:.4; pointer-events:none; }
 nav#books a.untr { color:var(--muted); }
 nav#books a .ct { float:right; font-size:calc(11px * var(--ui)); color:var(--muted); margin-top:.15rem; }
-nav#books a.on .ct { color:#fff; opacity:.85; }
+nav#books a.on .ct { color:var(--on-accent); opacity:.85; }
 .chnav { font:calc(14px * var(--ui)) system-ui,sans-serif; margin:.9rem 0 1.6rem;
   display:flex; flex-wrap:wrap; gap:.3rem; }
 .chnav a { display:inline-flex; align-items:center; justify-content:center;
@@ -422,7 +425,7 @@ main.inter .orig .w[data-m]::before { content:attr(data-m); display:block; font:
 .gs { display:grid; grid-template-columns:repeat(auto-fill,minmax(11rem,1fr)); gap:.5rem .8rem; margin:.6rem 0 1rem; font:calc(13px * var(--ui)) system-ui,sans-serif; }
 .gs label { display:flex; flex-direction:column; gap:.2rem; color:var(--muted); font-size:calc(11px * var(--ui)); text-transform:uppercase; letter-spacing:.05em; }
 .gs select, .gs input { font:calc(14px * var(--ui)) system-ui,sans-serif; padding:.35rem .5rem; border:1px solid var(--border); border-radius:8px; background:var(--card); color:var(--fg); }
-.gs button { grid-column:1 / -1; justify-self:start; font:calc(14px * var(--ui)) system-ui,sans-serif; padding:.45rem 1rem; border:1px solid var(--accent); border-radius:8px; background:var(--accent); color:#fff; cursor:pointer; }
+.gs button { grid-column:1 / -1; justify-self:start; font:calc(14px * var(--ui)) system-ui,sans-serif; min-height:44px; padding:.45rem 1rem; border:1px solid var(--accent); border-radius:8px; background:var(--accent); color:var(--on-accent); cursor:pointer; }
 .hit .orig { display:block; margin-top:.15rem; } .hit mark { background:var(--hl); color:inherit; border-radius:3px; }
 /* The verse number is the button that takes the verse: one tap holds it, a
    second lets it go, and as many as wanted can be held at once. Held, it is
@@ -695,25 +698,25 @@ try {
 </head>
 <body>
 <header>
-  <button class="ib" id="back" aria-label="Back to what you were looking at" title="Back to what you were looking at (Backspace)" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <button class="ib" id="back" aria-label="Back to what you were looking at" data-ta="Back to what you were looking at" title="Back to what you were looking at (Backspace)" data-tt="Back to what you were looking at (Backspace)" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
   <button id="title" aria-haspopup="dialog" aria-expanded="false" aria-controls="navSheet">
     <span class="main" id="titleMain">eBible</span><span class="sub" id="titleSub"></span></button>
   <span class="brand">eBible — from the Hebrew, Aramaic &amp; Greek</span>
   <select id="bookSel" aria-label="Book"></select>
-  <select id="tlSel" title="Translation language" aria-label="Translation language"></select>
-  <span id="hdrSlot"><label class="goto" id="gotoWrap" title="Type a reference: Genesis 2:7, 1 Sam 3, Ps 23 — the page follows as you type"><span>Go to</span><input id="ref" placeholder="Genesis 2:7"></label><span id="qWrap"><input id="q" placeholder="Search the text…" aria-label="Search the text" type="search"></span></span>
-  <button class="fs" id="fsMinus" title="Smaller text" aria-label="Smaller text">A−</button>
-  <button class="fs" id="fsPlus" title="Larger text" aria-label="Larger text">A+</button>
-  <button class="ib adv" id="toolsBtn" aria-label="Tools and study views" title="Tools and study views" aria-haspopup="dialog" aria-expanded="false" aria-controls="toolsSheet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h5M13 7h7M4 17h9M17 17h3"/><circle cx="11" cy="7" r="2.2"/><circle cx="15" cy="17" r="2.2"/></svg></button>
-  <button class="ib" id="gear" aria-label="Display and reading settings" title="Display and reading settings" aria-haspopup="dialog" aria-expanded="false" aria-controls="setSheet"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6M18.4 18.4l-1.6-1.6M7.2 7.2L5.6 5.6"/></svg></button>
-  <button class="who" id="whoHdr" title="A story from the life of Jesus, read aloud">Who is Jesus?</button>
-  <button class="sources" id="sources" title="Source texts, licenses and attributions">Sources &amp; licenses</button>
+  <select id="tlSel" title="Reading language" data-tt="Reading language" aria-label="Reading language" data-ta="Reading language"></select>
+  <span id="hdrSlot"><label class="goto" id="gotoWrap" title="Type a reference — the page follows as you type" data-tt="Type a reference — the page follows as you type"><span data-t="Go to">Go to</span><input id="ref" placeholder="Genesis 2:7"></label><span id="qWrap"><input id="q" placeholder="Search the text…" data-tph="Search the text…" aria-label="Search the text" data-ta="Search the text" type="search"></span></span>
+  <button class="fs" id="fsMinus" title="Smaller text" data-tt="Smaller text" aria-label="Smaller text" data-ta="Smaller text">A−</button>
+  <button class="fs" id="fsPlus" title="Larger text" data-tt="Larger text" aria-label="Larger text" data-ta="Larger text">A+</button>
+  <button class="ib adv" id="toolsBtn" aria-label="Tools and study views" data-ta="Tools and study views" title="Tools and study views" data-tt="Tools and study views" aria-haspopup="dialog" aria-expanded="false" aria-controls="toolsSheet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h5M13 7h7M4 17h9M17 17h3"/><circle cx="11" cy="7" r="2.2"/><circle cx="15" cy="17" r="2.2"/></svg></button>
+  <button class="ib" id="gear" aria-label="Display and reading settings" data-ta="Display and reading settings" title="Display and reading settings" data-tt="Display and reading settings" aria-haspopup="dialog" aria-expanded="false" aria-controls="setSheet"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6M18.4 18.4l-1.6-1.6M7.2 7.2L5.6 5.6"/></svg></button>
+  <button class="who" id="whoHdr" title="A story from the life of Jesus, read aloud" data-tt="A story from the life of Jesus, read aloud" data-t="Who is Jesus?">Who is Jesus?</button>
+  <button class="sources" id="sources" title="Source texts, licenses and attributions" data-tt="Source texts, licenses and attributions" data-t="Sources and licenses">Sources and licenses</button>
 </header>
 <div class="layout">
 <nav id="books" aria-label="Books of the Bible"></nav>
 <main id="main"></main>
 </div>
-<button id="quick" class="adv-hide" aria-label="Display and reading settings" title="Display and reading settings" aria-haspopup="dialog" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6M18.4 18.4l-1.6-1.6M7.2 7.2L5.6 5.6"/></svg></button>
+<button id="quick" aria-label="Display and reading settings" data-ta="Display and reading settings" title="Display and reading settings" data-tt="Display and reading settings" aria-haspopup="dialog" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6M18.4 18.4l-1.6-1.6M7.2 7.2L5.6 5.6"/></svg></button>
 <nav id="tabbar" aria-label="Reader actions"><div class="row">
   <button id="tbBooks" aria-haspopup="dialog" aria-expanded="false" aria-controls="navSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h6.5v14H4zM13.5 5.5H20v14h-6.5z"/></svg></span><span class="lb" data-t="Books">Books</span></button>
   <button id="tbSearch" aria-haspopup="dialog" aria-expanded="false" aria-controls="searchSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.6"/><path d="M16 16l4.4 4.4"/></svg></span><span class="lb" data-t="Search">Search</span></button>
@@ -722,36 +725,36 @@ try {
 </div></nav>
 <dialog class="sheet" id="navSheet" aria-labelledby="navSheetT">
   <div class="grab"><i></i></div>
-  <div class="sh"><span class="st" id="navSheetT">Go to</span>
-    <button class="ib" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="sh"><span class="st" id="navSheetT" data-t="Go to">Go to</span>
+    <button class="ib" data-close aria-label="Close" data-ta="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <div class="bd" id="navBody"><div id="refslot"></div><div id="navDyn"></div></div>
 </dialog>
 <dialog class="sheet" id="searchSheet" aria-labelledby="searchSheetT">
   <div class="grab"><i></i></div>
-  <div class="sh"><span class="st" id="searchSheetT">Search</span>
-    <button class="ib" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="sh"><span class="st" id="searchSheetT" data-t="Search">Search</span>
+    <button class="ib" data-close aria-label="Close" data-ta="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <div class="bd" id="searchBody"><div id="whoSlot"></div><div id="qslot"></div><div id="searchDyn"></div></div>
 </dialog>
 <dialog class="sheet" id="milesSheet" aria-labelledby="milesSheetT">
   <div class="grab"><i></i></div>
-  <div class="sh"><span class="st" id="milesSheetT">Milestones</span>
-    <button class="ib" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="sh"><span class="st" id="milesSheetT" data-t="Milestones">Milestones</span>
+    <button class="ib" data-close aria-label="Close" data-ta="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <div class="bd" id="milesBody"><div id="milesDyn"></div></div>
 </dialog>
 <dialog id="badgeDlg" aria-labelledby="badgeT"></dialog>
 <dialog class="sheet" id="toolsSheet" aria-labelledby="toolsSheetT">
   <div class="grab"><i></i></div>
-  <div class="sh"><span class="st" id="toolsSheetT">Tools</span>
-    <button class="ib" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="sh"><span class="st" id="toolsSheetT" data-t="Tools">Tools</span>
+    <button class="ib" data-close aria-label="Close" data-ta="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <div class="bd" id="toolsBody"><div id="toolsDyn"></div></div>
 </dialog>
 <dialog class="sheet" id="setSheet" aria-labelledby="setSheetT">
   <div class="grab"><i></i></div>
-  <div class="sh"><span class="st" id="setSheetT">Display and reading</span>
-    <button class="ib" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="sh"><span class="st" id="setSheetT" data-t="Display and reading">Display and reading</span>
+    <button class="ib" data-close aria-label="Close" data-ta="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <div class="bd" id="setBody"><div id="setDyn"></div></div>
 </dialog>
-<div id="zoomchip" hidden><span id="zoomlvl" role="status"></span><button id="zoomreset" type="button">Reset</button></div>
+<div id="zoomchip" hidden><span id="zoomlvl" role="status"></span><button id="zoomreset" type="button" data-t="Reset">Reset</button></div>
 <div id="toast" hidden role="status"></div>
 <footer id="credits">
   <h2>Source texts, licenses and attributions</h2>
@@ -872,6 +875,9 @@ function applyChrome(){
   document.querySelectorAll("[data-tph]").forEach(el => { el.placeholder = t(el.dataset.tph); });
   document.querySelectorAll("[data-ta]").forEach(el => { el.setAttribute("aria-label", t(el.dataset.ta)); });
   document.querySelectorAll("[data-tt]").forEach(el => { el.title = t(el.dataset.tt); });
+  // The example reference is written with the book's name as this reader
+  // knows it, since that is the name they are being invited to type.
+  const ref = $("#ref"); if (ref) ref.placeholder = `${bookName("Genesis")} 2:7`;
 }
 function setDl(d){
   if (!haveDisplay.includes(d) || d === dl) return;
@@ -883,7 +889,9 @@ function setDl(d){
    hits is drawn over the chapter without changing the address, so a link back
    to the chapter already in the address would otherwise do nothing at all. */
 function goto(h){ if (location.hash === h) route(); else location.hash = h; }
-function setTl(t){ tl = t; localStorage.setItem("tl", t); $("#tlSel").value = t; if (view === "orig") view = "tr"; route(); rehear(); }
+/* Choosing a translation while reading the original is asking to read it, so
+   the view follows - and is remembered, or the next open was back in Hebrew. */
+function setTl(t){ tl = t; localStorage.setItem("tl", t); $("#tlSel").value = t; if (view === "orig") { view = "tr"; localStorage.setItem("view", view); } route(); rehear(); }
 const tlSel = $("#tlSel");
 tlSel.innerHTML = haveTargets.map(t => `<option value="${t}">${TARGETS[t].native}</option>`).join("");
 tlSel.value = tl;
@@ -893,7 +901,7 @@ if (haveTargets.length < 2) tlSel.style.display = "none";
 /* ---------- skins: a set of colour tokens on <html>, remembered, no reload ----------
    The swatch beside each name is drawn from that skin's own paper and accent,
    so the list shows what it is offering rather than describing it. */
-const SKINS = [["auto", "Match phone", "", ""],
+const SKINS = [["auto", "Follow the phone", "", ""],
                ["light", "Paper white", "#faf8f4", "#654aa8"],
                ["sepia", "Sepia", "#f3ead6", "#7a3d0e"],
                ["dark", "Dark", "#181614", "#bda5f2"],
@@ -936,6 +944,14 @@ function applyMode(){ document.documentElement.setAttribute("data-mode", mode); 
 function setMode(m){ if (READER_ONLY) m = "basic"; mode = m; localStorage.setItem("mode", m); applyMode(); route(); redrawSheet(); }
 applyMode();
 
+/* Names that live in the tables around here - the skins, the spacings, the
+   voice speeds and pitches - and the words a count is followed by, are looked
+   up through t() at the moment they are drawn. They are listed as literals
+   once, here, so that build_ui.py, which reads the marked strings out of
+   this file to know what to translate, asks for them too. */
+const MARKED = [t('Follow the phone'), t('Paper white'), t('Sepia'), t('Dark'), t('Night, true black'), t('High contrast'),
+                t('Tight'), t('Normal'), t('Roomy'), t('Loose'), t('Slow'), t('Steady'), t('Quick'), t('Low'), t('Middle'), t('High'),
+                t('chapter'), t('chapters')];
 /* ---------- text size and line spacing ---------- */
 const SPACING = [[1.5, "Tight"], [1.72, "Normal"], [1.95, "Roomy"], [2.2, "Loose"]];
 const FS_MIN = 16, FS_MAX = 40;         // 40 px is large print on a phone held at arm's length
@@ -960,8 +976,8 @@ $("#fsPlus").onclick  = () => fsStep(1);
 function navRender(current) {
   let html = "", lastT = "";
   for (const b of allBooks) {
-    const t = ORDER[b] <= 39 ? "Old Testament" : "New Testament";
-    if (t !== lastT) { html += `<div class="t">${t}</div>`; lastT = t; }
+    const part = ORDER[b] <= 39 ? t('Old Testament') : t('New Testament');
+    if (part !== lastT) { html += `<div class="t">${esc(part)}</div>`; lastT = part; }
     const nch = DATA[b] ? Object.keys(DATA[b]).length : 0;
     const ntr = DATA[b] ? Object.values(DATA[b]).filter(c => c.tr && c.tr[tl]).length : 0;
     const ct = ntr && ntr < nch ? `<span class="ct">${ntr}/${nch}</span>` : (ntr ? `<span class="ct">✓</span>` : "");
@@ -1261,7 +1277,7 @@ async function showRefs(book, ch, v, ev){
   vpop.style.left = Math.max(8, x) + "px"; vpop.style.top = y + "px";
 }
 document.addEventListener("click", e => { if (!e.target.closest("#vpop") && !e.target.closest("#vbar")) hideRefs(); });
-document.addEventListener("keydown", e => { if (e.key === "Escape") hideRefs(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !vpop.hidden) { hideRefs(); e.stopImmediatePropagation(); } });
 window.addEventListener("hashchange", hideRefs);
 async function renderHarmony(book, ch, head, shown){    // the chapter beside its parallels, verse by verse
   const main = $("#main");
@@ -1530,7 +1546,7 @@ async function showPop(el){
   wpop.style.left = Math.max(8, x) + "px"; wpop.style.top = y + "px";
 }
 document.addEventListener("click", e => { const w = e.target.closest("main .w"); if (w && adv()) { showPop(w); return; } if (!e.target.closest("#wpop")) hidePop(); });
-document.addEventListener("keydown", e => { if (e.key === "Escape") hidePop(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !wpop.hidden) { hidePop(); e.stopImmediatePropagation(); } });
 window.addEventListener("hashchange", hidePop);
 const byNum = {}; for (const b in ORDER) byNum[ORDER[b]] = b;
 function verseHtml(b, ch, v, mark){                      // one source verse with token `mark` highlighted
@@ -1670,21 +1686,23 @@ function renderChapter(book, ch, highlightVerse) {
   /* The heading says what is actually on the screen rather than everything the
      chapter has, because the bar repeats it and a reader in the Septuagint
      should not be told they are reading Hebrew. */
-  const sub = v === "orig" ? L.name : v === "lxx" ? "Septuagint" : v === "hl" ? `${L.name} · Septuagint`
-    : v === "all" ? `${L.name}${lxx ? " + Septuagint" : ""} → ${avail.length} language${avail.length === 1 ? "" : "s"}`
-    : tr ? `${L.name} → ${TARGETS[shown].name}` : L.name;
+  /* The translation is named as its own readers name it, as the trays do: a
+     Thai reader was being told, in English, that this was Thai. */
+  const sub = v === "orig" ? L.name : v === "lxx" ? t('Septuagint') : v === "hl" ? `${L.name} · ${t('Septuagint')}`
+    : v === "all" ? `${L.name}${lxx ? " + " + t('Septuagint') : ""} → ${avail.map(x => TARGETS[x].native).join(" · ")}`
+    : tr ? `${L.name} → ${TARGETS[shown].native}` : L.name;
   setTitle(`${disp(book)} ${ch}`, sub);
   let html = `<h2>${disp(book)} ${ch}<small class="lang">${esc(sub)}</small></h2>`;
   html += `<div class="chnav">` + chs.map(c =>
     `<a href="#${book}/${c}" class="${c==ch?'on':''} ${trOf(book,c)[tl]?'':'untr'}">${c}</a>`).join("") + `</div>`;
   if (src && adv()) {
     html += `<div class="tabs"><a class="${v==='orig'?'on':''}" onclick="setView('orig')">${L.name}</a>`;
-    if (lxx) html += `<a class="${v==='lxx'?'on':''}" onclick="setView('lxx')" title="Swete's Septuagint">Septuagint</a><a class="${v==='hl'?'on':''}" onclick="setView('hl')" title="Hebrew and the Septuagint side by side">Hebrew · Septuagint</a>`;
+    if (lxx) html += `<a class="${v==='lxx'?'on':''}" onclick="setView('lxx')" title="Swete's Septuagint">${esc(t('Septuagint'))}</a><a class="${v==='hl'?'on':''}" onclick="setView('hl')" title="Hebrew and the Septuagint side by side">${esc(t('Hebrew · Septuagint'))}</a>`;
     html += `<span class="sep"></span>`;
-    for (const t of haveTargets)
-      html += `<a class="${v==='tr'&&shown===t?'on':''} ${trs[t]?'':'off'}" onclick="setTl('${t}');setView('tr')">${TARGETS[t].native}</a>`;
-    html += `<span class="sep"></span><a class="${v==='par'?'on':''} ${tr?'':'off'}" onclick="setView('par')">Side by side</a>`;
-    html += `<a class="${v==='all'?'on':''} ${(avail.length + (lxx?1:0))>1?'':'off'}" onclick="setView('all')">Compare</a>`;
+    for (const x of haveTargets)
+      html += `<a class="${v==='tr'&&shown===x?'on':''} ${trs[x]?'':'off'}" onclick="setTl('${x}');setView('tr')">${TARGETS[x].native}</a>`;
+    html += `<span class="sep"></span><a class="${v==='par'?'on':''} ${tr?'':'off'}" onclick="setView('par')">${esc(t('Side by side'))}</a>`;
+    html += `<a class="${v==='all'?'on':''} ${(avail.length + (lxx?1:0))>1?'':'off'}" onclick="setView('all')">${esc(t('Compare'))}</a>`;
     // the analysis tabs, in the order the layers are built: words, then lexemes and meaning, then themes, then arguments, then notes on a verse
     html += `<i class="sep" title="analysis"></i>`;
     html += `<a class="tool ${inter?'on':''}" onclick="toggleInter()" title="words: gloss and parsing under every Hebrew or Greek word">interlinear</a>`;
@@ -1712,15 +1730,16 @@ function renderChapter(book, ch, highlightVerse) {
   }
   main.setAttribute("lang", (v === "orig" || v === "lxx" || v === "hl") ? "" : (shown || "en"));
   main.setAttribute("dir", (v === "tr" && shown) ? tdir(shown) : "ltr");
-  if (!tr) html += `<p class="empty" style="margin:0 0 1.2rem">Not translated yet${src ? ` — showing the ${v === "lxx" ? "Septuagint" : L.name}.` : "."}</p>`;
+  if (!tr) html += `<p class="empty" style="margin:0 0 1.2rem">${esc(TARGETS[tl] ? TARGETS[tl].native : tl)}: ${esc(t('not translated yet'))}`
+    + (src ? ` · ${esc(t('showing'))}: ${esc(v === "lxx" ? t('Septuagint') : L.name)}` : "") + `</p>`;
   /* A chapter the chosen language has not reached falls back to whatever
      translation the chapter does have, which is better than an empty page -
      but it used to do it in silence. The language menu still said 日本語
      while the page was in English, and a reader was left to decide whether
      the app was broken or that was what Japanese looked like. */
   else if (shown !== tl && TARGETS[tl]) html += `<p class="empty" style="margin:0 0 1.2rem">`
-    + `${esc(TARGETS[tl].native || TARGETS[tl].name)}: not translated this far yet`
-    + ` — showing the ${esc(TARGETS[shown].name)}.</p>`;
+    + `${esc(TARGETS[tl].native || TARGETS[tl].name)}: ${esc(t('not translated this far yet'))}`
+    + ` · ${esc(t('showing'))}: ${esc(TARGETS[shown].native)}</p>`;
   if (v === "harm") { renderHarmony(book, ch, html, shown); return; }
   if (v === "map") { renderMap(book, ch, html); return; }
   if (v === "chron") { renderChron(book, ch, html); return; }
@@ -1761,7 +1780,11 @@ function renderChapter(book, ch, highlightVerse) {
     let para = [];
     const flush = () => { if (para.length) { html += `<p class="vv">${para.join(" ")}</p>`; para = []; } };
     for (const n of nums) {
-      const t = trs[shown].verses[n];
+      /* A line break inside a verse is poetry, set line by line. A line break
+         at the end of one is nothing: the model closes most Thai and Spanish
+         verses with a newline, and until it was trimmed every one of them
+         was set as a one-line poem, so a Thai reader never saw a paragraph. */
+      const t = (trs[shown].verses[n] || "").trim();
       const vid = `v-${book}-${ch}-${n}`;
       if (t.includes("\n")) {
         flush();
@@ -1788,14 +1811,29 @@ function renderChapter(book, ch, highlightVerse) {
 }
 
 /* ---------- reference finder ---------- */
-function goRef(input) {
-  const m = input.trim().toLowerCase().match(/^([1-3]?\s*[a-z ]+?)\s*(\d+)?(?::(\d+))?$/);
-  if (!m) return false;
-  let book = ABBREV[m[1].replace(/\s+/g,"")];
-  if (!book) {
-    const t = m[1].trim().replace(/\s+/g,"_").toLowerCase();
-    book = allBooks.find(b => b.toLowerCase().startsWith(t));
+/* A book from the start of its name, in whatever language the reader has:
+   an English abbreviation first, then the English names, then the names the
+   display languages carry - the reader's own first. Spaces and stops are
+   ignored, so "1 sam", "1sam" and "1 Sam." are one thing. */
+const nameKey = s => s.toLowerCase().replace(/[\s._]+/g, "");
+function bookFromName(s){
+  const k = nameKey(s);
+  if (!k) return null;
+  if (ABBREV[k]) return ABBREV[k];
+  const en = allBooks.find(b => nameKey(b).startsWith(k));
+  if (en) return en;
+  for (const l of [dl, ...Object.keys(UI).filter(x => x !== dl)]) {
+    const names = UI[l] && UI[l].books; if (!names) continue;
+    for (const name in names) if (nameKey(names[name]).startsWith(k)) return name.replace(/ /g, "_");
   }
+  return null;
+}
+function goRef(input) {
+  /* Any script for the name: a Thai reader types ปฐมกาล 2:7, and used to be
+     answered by nothing, because only a-z was allowed. */
+  const m = input.trim().match(/^(\d?\s*[\p{L}\p{M}][\p{L}\p{M}\s.]*?)\s*(\d+)?(?:[:：]\s*(\d+))?$/u);
+  if (!m) return false;
+  const book = bookFromName(m[1]);
   if (!book) return false;
   goto(`#${book}/${m[2]||1}${m[3] ? "/"+m[3] : ""}`);
   return true;
@@ -2188,16 +2226,16 @@ async function search(q) {
   const mine = SR = {q, litIds, litSet, whole, direct, via, words: null, more: 0, nLit: lit.length, nAbout: about.length,
                      rest: {lit: lit.slice(FIRST, 500).map(verse)}};
 
-  let html = `<h2>Search: “${esc(q)}”<small class="lang">${TARGETS[tl].name}</small></h2>`
+  let html = `<h2>${esc(t('Search'))}: “${esc(q)}”<small class="lang">${esc(TARGETS[tl].native)}</small></h2>`
     + `<div id="askslot"></div>`
-    + `<div id="entslot">${waiting ? `<p class="sectnote">Looking in the study layers…</p>` : ""}</div>`
+    + `<div id="entslot">${waiting ? `<p class="sectnote">${esc(t('Looking in the study layers…'))}</p>` : ""}</div>`
     + `<div id="wordslot"></div><p class="sectnote" id="jumps"></p><div id="results">`;
-  html += `<div class="sect" id="s-lit">Verses with these words<small>${lit.length}${whole ? "" : "+"}${IDX[tl] ? "" : " · scanned: the index for this text could not be opened, so only the first are found"}</small></div>`;
+  html += `<div class="sect" id="s-lit">${esc(t('Verses with these words'))}<small>${lit.length}${whole ? "" : "+"}${IDX[tl] ? "" : " · " + esc(t('scanned: the index for this text could not be opened, so only the first are found'))}</small></div>`;
   html += lit.length ? lit.slice(0, FIRST).map(verse).join("") + moreBtn("lit", Math.min(lit.length, 500) - FIRST, lit.length - 500)
-        : `<p class="empty" style="margin-top:.5rem">No verse in ${esc(TARGETS[tl].name)} uses them.</p>`;
+        : `<p class="empty" style="margin-top:.5rem">${esc(TARGETS[tl].native)}: ${esc(t('no verse uses these words.'))}</p>`;
   html += `<div id="origslot"></div>`;
   if (about.length) {
-    html += `<div class="sect" id="s-about">Verses about this<small>${about.length}${about.length >= 60 ? "+" : ""} · found by what the verse is about, not by its wording</small></div>`;
+    html += `<div class="sect" id="s-about">${esc(t('Verses about this'))}<small>${about.length}${about.length >= 60 ? "+" : ""} · ${esc(t('found by what the verse is about, not by its wording'))}</small></div>`;
     if (via.length) html += `<p class="sectnote">The verses with “${esc(q)}” are mostly about <b lang="en">${via.map(t => esc(t.k)).join(", ")}</b>; these are the others that are.</p>`;
     html += about.map(verse).join("");
   }
@@ -2445,14 +2483,19 @@ function verseRef(el){
 function verseContent(r){                                // what is actually on the page for that verse
   const d = DATA[r.book] && DATA[r.book][r.ch];
   if (!d) return null;
-  const tr = d.tr && d.tr[tl];
+  // The translation on the page, which is not always the chosen one: a chapter
+  // the chosen language has not reached is shown in whatever language it has
+  // (renderChapter), and what is copied or read out must be that, in that
+  // language, not the Hebrew behind it.
+  const trs = d.tr || {}, lang = trs[tl] ? tl : Object.keys(TARGETS).find(t => trs[t]);
+  const tr = lang && trs[lang];
   // Whatever is on the screen is what is copied and read aloud: in the views
   // that show only the originals, the translation is not there to be quoted.
   if (view !== "orig" && view !== "lxx" && view !== "hl" && tr && tr.verses[r.v])
-    return {txt: tr.verses[r.v].replace(/\n+/g, " "), lang: tl};
+    return {txt: tr.verses[r.v].trim().replace(/\n+/g, " "), lang};
   if (d.src && d.src[r.v])
     return {txt: d.src[r.v], lang: (d.src._lang && d.src._lang[r.v]) || d.lang || "hbo"};
-  return tr && tr.verses[r.v] ? {txt: tr.verses[r.v].replace(/\n+/g, " "), lang: tl} : null;
+  return tr && tr.verses[r.v] ? {txt: tr.verses[r.v].trim().replace(/\n+/g, " "), lang} : null;
 }
 /* The held verses that are actually on the page, in the order they are read
    rather than the order they were tapped.
@@ -2624,13 +2667,13 @@ function drawVbar(){
   if (!sel.length) { vbar.hidden = true; vbar.innerHTML = ""; vbar.className = ""; return; }
   const lang = sel[0].c.lang, voice = speechFor(lang), many = sel.length > 1;
   const ref = selRef(sel);
-  vbar.setAttribute("aria-label", many ? "What to do with these verses" : "What to do with this verse");
+  vbar.setAttribute("aria-label", many ? t('What to do with these verses') : t('What to do with this verse'));
   vbar.innerHTML = `<span class="ref" title="${attr(ref)}">${esc(ref)}</span>`
-    + `<button type="button" data-a="copy">Copy</button>`
-    + `<button type="button" data-a="share">Share</button>`
-    + (voice === "no" ? "" : `<button type="button" data-a="listen">Listen</button>`)
-    + (!many && adv() ? `<button type="button" data-a="refs" title="Cross-references, parallels and text notes">Notes</button>` : "")
-    + `<button type="button" class="x" data-a="close" aria-label="Let go of ${many ? "these verses" : "this verse"}">&#215;</button>`;
+    + `<button type="button" data-a="copy">${esc(t('Copy'))}</button>`
+    + `<button type="button" data-a="share">${esc(t('Share'))}</button>`
+    + (voice === "no" ? "" : `<button type="button" data-a="listen">${esc(t('Listen'))}</button>`)
+    + (!many && adv() ? `<button type="button" data-a="refs" title="${attr(t('Cross-references, parallels and text notes'))}">${esc(t('Notes'))}</button>` : "")
+    + `<button type="button" class="x" data-a="close" aria-label="${attr(many ? t('Let go of these verses') : t('Let go of this verse'))}">&#215;</button>`;
   const quoted = selQuote(sel);
   vbar.querySelector('[data-a="copy"]').onclick = () => { copyText(quoted); };
   vbar.querySelector('[data-a="share"]').onclick = () => { shareText(quoted, ref); };
@@ -2691,7 +2734,10 @@ document.addEventListener("keydown", e => {
   e.preventDefault();
   num.tabIndex = -1; nums[j].tabIndex = 0; nums[j].focus();
 });
-document.addEventListener("keydown", e => { if (e.key === "Escape") dropVerse(); });
+/* Escape undoes one thing, the topmost, as the phone's back button does: a
+   tray or a popup first, and only then the held verses. Without the guard one
+   press closed the tray and let go of the verses underneath it together. */
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !openName) dropVerse(); });
 window.addEventListener("hashchange", dropVerse);
 
 /* The system back button, when the page is in the Android app. The shell asks
@@ -2823,34 +2869,37 @@ function langRows(){
   let h = "";
   for (const t of haveTargets)
     h += row(`data-lang="${t}"`, esc(TARGETS[t].native), esc(TARGETS[t].name), view !== "orig" && tl === t);
-  return h + row(`data-lang="__orig"`, "Original", "Hebrew, Aramaic, Greek", view === "orig");
+  return h + row(`data-lang="__orig"`, esc(t('Original')), esc(t('Hebrew, Aramaic, Greek')), view === "orig");
 }
+/* Counted things are said with the number in front and the word after, in
+   every language alike, so the word can be translated on its own. */
+const countChapters = n => `${n} ${t(n === 1 ? 'chapter' : 'chapters')}`;
 function drawNav(){
   const cur = location.hash.slice(1).split("/"), curBook = cur[0], curCh = cur[1];
   if (!navBook || !DATA[navBook]) navBook = DATA[curBook] ? curBook : srcBooks[0];
-  $("#navSheetT").textContent = navPane === "books" ? "Choose a book" : disp(navBook);
-  let h = `<div class="seg" role="group" aria-label="Books or chapters">
-      <button type="button" data-pane="books" aria-pressed="${navPane === "books"}">Books</button>
-      <button type="button" data-pane="chapters" aria-pressed="${navPane === "chapters"}">Chapters</button></div>`;
+  $("#navSheetT").textContent = navPane === "books" ? t('Choose a book') : disp(navBook);
+  let h = `<div class="seg" role="group" aria-label="${attr(t('Books or chapters'))}">
+      <button type="button" data-pane="books" aria-pressed="${navPane === "books"}">${esc(t('Books'))}</button>
+      <button type="button" data-pane="chapters" aria-pressed="${navPane === "chapters"}">${esc(t('Chapters'))}</button></div>`;
   if (navPane === "books") {
     h += `<div class="rowlist">`;
     let lastT = "";
     for (const bk of allBooks) {
-      const t = ORDER[bk] <= 39 ? "Old Testament" : "New Testament";
-      if (t !== lastT) { h += `<div class="shead">${t}</div>`; lastT = t; }
+      const part = ORDER[bk] <= 39 ? t('Old Testament') : t('New Testament');
+      if (part !== lastT) { h += `<div class="shead">${esc(part)}</div>`; lastT = part; }
       const nch = DATA[bk] ? Object.keys(DATA[bk]).length : 0;
-      if (!nch) { h += `<button type="button" class="missing" disabled><span class="nm">${disp(bk)}</span><span class="ct">not in the source texts</span></button>`; continue; }
+      if (!nch) { h += `<button type="button" class="missing" disabled><span class="nm">${disp(bk)}</span><span class="ct">${esc(t('not in the source texts'))}</span></button>`; continue; }
       const ntr = Object.values(DATA[bk]).filter(c => c.tr && c.tr[tl]).length;
-      const note = !ntr ? `${nch} chapters, original only` : ntr < nch ? `${ntr} of ${nch} translated` : `${nch} chapter${nch === 1 ? "" : "s"}`;
-      h += row(`data-book="${bk}"`, disp(bk), note, bk === navBook);
+      const note = !ntr ? `${countChapters(nch)} · ${t('original only')}` : ntr < nch ? `${ntr} / ${nch} ${t('translated')}` : countChapters(nch);
+      h += row(`data-book="${bk}"`, disp(bk), esc(note), bk === navBook);
     }
     h += `</div>`;
   } else {
     const chs = DATA[navBook] ? chapterList(navBook) : [];
-    h += `<div class="shead">${esc(disp(navBook))} &middot; ${chs.length} chapter${chs.length === 1 ? "" : "s"}</div>`;
+    h += `<div class="shead">${esc(disp(navBook))} &middot; ${esc(countChapters(chs.length))}</div>`;
     h += `<div class="chgrid">` + chs.map(c =>
       `<a href="#${navBook}/${c}" class="${navBook === curBook && c == curCh ? "on" : ""} ${trOf(navBook, c)[tl] ? "" : "untr"}"${navBook === curBook && c == curCh ? ' aria-current="page"' : ""}>${c}</a>`).join("") + `</div>`;
-    h += `<p class="hint">A dashed outline marks a chapter with no ${esc((TARGETS[tl] || {}).name || tl)} yet &mdash; the original is still there to read.</p>`;
+    h += `<p class="hint">${esc((TARGETS[tl] || {}).native || tl)}: ${esc(t('a dashed outline marks a chapter not translated yet — the original is still there to read.'))}</p>`;
     const nb = neighbours(navBook, curBook === navBook ? curCh : chs[0]);
     h += `<div class="shead">${esc(t('Move on'))}</div><div class="rowlist">`;
     if (nb.prev) h += `<a href="#${nb.prev.b}/${nb.prev.c}">&#8592; ${disp(nb.prev.b)} ${nb.prev.c}</a>`;
@@ -2879,19 +2928,19 @@ function drawSearch(){
   const heard = STORIES.filter(s => HEARD[s.id]).length, earned = BADGES.filter(b => EARNED[b.id]).length;
   const voice = speechFor(tl);
   $("#whoSlot").innerHTML =
-    `<button type="button" class="primary who" id="whoGo">${CROSS}Who is Jesus?</button>
-     <p class="hint">A story from his life, read aloud &mdash; twenty of them tell the whole gospel. Heard to the end, a story counts towards a milestone.</p>
-     ${voice === "no" ? `<p class="hint">This device has no voice for ${esc(langName(tl))}, so the stories can be read here but not heard.</p>` : ""}
-     <div class="progress"><span><b>${heard}</b> of ${STORIES.length} stories heard &middot; <b>${earned}</b> of ${BADGES.length} milestones</span>
-       <button type="button" id="whoMiles">Milestones</button></div>
+    `<button type="button" class="primary who" id="whoGo">${CROSS}${esc(t('Who is Jesus?'))}</button>
+     <p class="hint">${esc(t('A story from his life, read aloud — twenty of them tell the whole gospel. Heard to the end, a story counts towards a milestone.'))}</p>
+     ${voice === "no" ? `<p class="hint">${esc((TARGETS[tl] || {}).native || tl)}: ${esc(t('this device has no voice for it, so the stories can be read here but not heard.'))}</p>` : ""}
+     <div class="progress"><span><b>${heard}</b> / ${STORIES.length} ${esc(t('stories heard'))} &middot; <b>${earned}</b> / ${BADGES.length} ${esc(t('milestones'))}</span>
+       <button type="button" id="whoMiles">${esc(t('Milestones'))}</button></div>
      <div class="shead">${esc(t('Look something up'))}</div>`;
   $("#whoGo").onclick = whoIsJesus;
   $("#whoMiles").onclick = () => openSheet("miles");
   $("#searchDyn").innerHTML =
-    `<button type="button" class="primary" id="qGo">Show the results</button>
-     ${READER_ONLY ? "" : `<div class="rowlist"><button type="button" id="qLex"><span class="nm">Our lexicon</span><span class="ct">entries written from the text</span></button></div>`}
-     <p class="hint">Searching the ${esc((TARGETS[tl] || {}).name || tl)} text; two letters is enough. The results are drawn behind this tray as you type.</p>
-     <p class="hint">To jump straight to a reference instead, close this and tap the chapter name at the top: &ldquo;Genesis 2:7&rdquo;, &ldquo;1 Sam 3&rdquo;, &ldquo;Ps 23&rdquo;.</p>`;
+    `<button type="button" class="primary" id="qGo">${esc(t('Show the results'))}</button>
+     ${READER_ONLY ? "" : `<div class="rowlist"><button type="button" id="qLex"><span class="nm">${esc(t('Our lexicon'))}</span><span class="ct">${esc(t('entries written from the text'))}</span></button></div>`}
+     <p class="hint">${esc((TARGETS[tl] || {}).native || tl)}: ${esc(t('two letters is enough. The results are drawn behind this tray as you type.'))}</p>
+     <p class="hint">${esc(t('To jump straight to a reference instead, close this and tap the chapter name at the top:'))} &ldquo;${esc(bookName("Genesis"))} 2:7&rdquo;, &ldquo;${esc(bookName("Psalms"))} 23&rdquo;.</p>`;
   const lex = $("#qLex");
   if (lex) lex.onclick = () => { closeSheet(); browseLexicon(); };
   /* The tray goes away first. It used to close after the search had been set
@@ -2913,32 +2962,32 @@ function drawTools(){
   const avail = Object.keys(TARGETS).filter(t => trs[t]);
   const L = src ? LANGS[d.lang || "hbo"] : null;
   const B = (act, label, note, on, off) =>
-    `<button type="button" data-act="${act}" aria-pressed="${!!on}"${off ? " disabled" : ""}>${label}<small>${note}</small></button>`;
+    `<button type="button" data-act="${act}" aria-pressed="${!!on}"${off ? " disabled" : ""}>${esc(label)}<small>${esc(note)}</small></button>`;
   let h = "";
   if (d) {
     h += `<div class="shead">${esc(disp(book))} ${esc(ch)}</div><div class="tools">`;
-    h += B("v:tr", "Reading", "the translation on its own", view === "tr", !avail.length);
-    if (src) h += B("v:orig", esc(L.name), "the text it was made from", view === "orig", false);
-    if (lxx) h += B("v:lxx", "Septuagint", "the old Greek of this chapter", view === "lxx", false);
-    if (lxx) h += B("v:hl", "Hebrew &middot; Septuagint", "the two side by side", view === "hl", false);
-    h += B("v:par", "Side by side", "original and translation, verse by verse", view === "par", !src || !avail.length);
-    h += B("v:all", "Compare", "every language this chapter has", view === "all", (avail.length + (lxx ? 1 : 0)) < 2);
-    h += B("inter", "Interlinear", "gloss and parsing under each word", inter, !src);
-    h += B("v:themes", "Themes", "what this chapter is about", view === "themes", false);
-    h += B("v:harm", "Parallels", "passages that share its wording", view === "harm", false);
-    h += B("v:map", "Places", "where it happens, on a map", view === "map", false);
-    h += B("v:chron", "Chronology", "the numbers it states", view === "chron", false);
+    h += B("v:tr", t('Reading'), t('the translation on its own'), view === "tr", !avail.length);
+    if (src) h += B("v:orig", L.name, t('the text it was made from'), view === "orig", false);
+    if (lxx) h += B("v:lxx", t('Septuagint'), t('the old Greek of this chapter'), view === "lxx", false);
+    if (lxx) h += B("v:hl", t('Hebrew · Septuagint'), t('the two side by side'), view === "hl", false);
+    h += B("v:par", t('Side by side'), t('original and translation, verse by verse'), view === "par", !src || !avail.length);
+    h += B("v:all", t('Compare'), t('every language this chapter has'), view === "all", (avail.length + (lxx ? 1 : 0)) < 2);
+    h += B("inter", t('Interlinear'), t('gloss and parsing under each word'), inter, !src);
+    h += B("v:themes", t('Themes'), t('what this chapter is about'), view === "themes", false);
+    h += B("v:harm", t('Parallels'), t('passages that share its wording'), view === "harm", false);
+    h += B("v:map", t('Places'), t('where it happens, on a map'), view === "map", false);
+    h += B("v:chron", t('Chronology'), t('the numbers it states'), view === "chron", false);
     h += `</div>`;
   }
   h += `<div class="shead">${esc(t('Across the whole Bible'))}</div><div class="tools">`;
-  h += B("gs", "Grammar search", "words by their form", false, false);
-  h += B("fields", "Fields of meaning", "this project&rsquo;s grouping of its words", false, false);
-  h += B("themes", "All themes", "gathered out of the chapters", false, false);
-  h += B("lexicon", "Our lexicon", "entries written from the text", false, false);
-  h += B("lexemes", "Lexeme inventory", "dictionary words grown from the forms", false, false);
-  h += B("args", "What each book argues", "a book&rsquo;s sections and line of thought", false, false);
-  h += B("sources", "Sources and licenses", "where every layer came from", false, false);
-  h += `</div><p class="hint">Everything here is a reading built on the text, and each page says what it was built from. Basic mode puts all of it away.</p>`;
+  h += B("gs", t('Grammar search'), t('words by their form'), false, false);
+  h += B("fields", t('Fields of meaning'), t("this project's grouping of its words"), false, false);
+  h += B("themes", t('All themes'), t('gathered out of the chapters'), false, false);
+  h += B("lexicon", t('Our lexicon'), t('entries written from the text'), false, false);
+  h += B("lexemes", t('Lexeme inventory'), t('dictionary words grown from the forms'), false, false);
+  h += B("args", t('What each book argues'), t("a book's sections and line of thought"), false, false);
+  h += B("sources", t('Sources and licenses'), t('where every layer came from'), false, false);
+  h += `</div><p class="hint">${esc(t('Everything here is a reading built on the text, and each page says what it was built from. Basic mode puts all of it away.'))}</p>`;
   const dyn = $("#toolsDyn");
   dyn.innerHTML = h;
   dyn.querySelectorAll("[data-act]").forEach(el => el.onclick = () => {
@@ -3059,7 +3108,7 @@ function hearSel(sel, lang){
 }
 function speakUi(){
   const b = vbar.querySelector('[data-a="listen"]');
-  if (b) b.textContent = hearing ? "Stop" : "Listen";
+  if (b) b.textContent = hearing ? t('Stop') : t('Listen');
 }
 /* A reading under way when the language is changed starts again in the new
    language, from the beginning of the same verses: a voice carrying on in
@@ -3170,17 +3219,17 @@ $("#badgeDlg").addEventListener("click", closeBadge);
 function when(t){ try { return new Date(t).toLocaleDateString(undefined, {year: "numeric", month: "short", day: "numeric"}); } catch (e) { return ""; } }
 function drawMiles(){
   const heard = STORIES.filter(s => HEARD[s.id]).length;
-  let h = `<div class="progress"><span><b>${heard}</b> of ${STORIES.length} stories heard to the end</span></div>`;
+  let h = `<div class="progress"><span><b>${heard}</b> / ${STORIES.length} ${esc(t('stories heard to the end'))}</span></div>`;
   h += `<div class="rowlist miles" role="list">`;
   for (const b of BADGES) {
     const on = !!EARNED[b.id];
     h += `<div class="mile${on ? " on" : ""}" role="listitem">${medal(b.tier, on)}<span class="txt"><span class="nm">${esc(b.name)}</span>
-      <span class="ct">${on ? "Earned " + when(EARNED[b.id]) : esc(b.how)}</span></span>${on ? `<span class="tk" aria-hidden="true">&#10003;</span>` : ""}</div>`;
+      <span class="ct">${on ? esc(t('Earned')) + " " + when(EARNED[b.id]) : esc(b.how)}</span></span>${on ? `<span class="tk" aria-hidden="true">&#10003;</span>` : ""}</div>`;
   }
   h += `</div><div class="shead">${esc(t('The twenty stories'))}</div><div class="rowlist stories">`;
-  for (const s of STORIES) h += row(`data-story="${s.id}"`, esc(s.name), HEARD[s.id] ? "heard" : storyRef(s), !!HEARD[s.id]);
-  h += `</div><p class="hint">Tap a story to hear it. It counts when it is heard to the end without being stopped; the button in the search tray picks one you have not heard yet.</p>`;
-  if (heard || BADGES.some(b => EARNED[b.id])) h += `<button type="button" class="forget" id="whoForget">Forget my progress</button>`;
+  for (const s of STORIES) h += row(`data-story="${s.id}"`, esc(s.name), HEARD[s.id] ? esc(t('heard')) : storyRef(s), !!HEARD[s.id]);
+  h += `</div><p class="hint">${esc(t('Tap a story to hear it. It counts when it is heard to the end without being stopped; the button in the search tray picks one you have not heard yet.'))}</p>`;
+  if (heard || BADGES.some(b => EARNED[b.id])) h += `<button type="button" class="forget" id="whoForget">${esc(t('Forget my progress'))}</button>`;
   const dyn = $("#milesDyn");
   dyn.innerHTML = h;
   dyn.querySelectorAll("[data-story]").forEach(el => el.onclick = () => playStory(STORIES.find(s => s.id === el.dataset.story)));
@@ -3198,45 +3247,45 @@ $("#whoHdr").onclick = whoIsJesus;
 /* ---------- the display tray ---------- */
 function drawSettings(){
   let h = READER_ONLY ? "" : `<div class="shead">${esc(t('How much of the reader you want'))}</div>
-    <div class="seg" role="group" aria-label="Mode">
-      <button type="button" data-mode="basic" aria-pressed="${!adv()}">Just read</button>
-      <button type="button" data-mode="advanced" aria-pressed="${adv()}">Everything</button></div>
-    <p class="hint">${adv() ? "Every layer this project has built is switched on: the word tags, the lexicon, the themes, the maps and the rest."
-                            : "The book and nothing else: a chapter, a language, the size of the type. Tapping a word does nothing."}</p>`;
+    <div class="seg" role="group" aria-label="${attr(t('How much of the reader you want'))}">
+      <button type="button" data-mode="basic" aria-pressed="${!adv()}">${esc(t('Just read'))}</button>
+      <button type="button" data-mode="advanced" aria-pressed="${adv()}">${esc(t('Everything'))}</button></div>
+    <p class="hint">${esc(adv() ? t('Every layer this project has built is switched on: the word tags, the lexicon, the themes, the maps and the rest.')
+                                : t('The book and nothing else: a chapter, a language, the size of the type. Tapping a word does nothing.'))}</p>`;
   if (READER_ONLY) h = "";
-  h += `<div class="shead">${esc(t('Skin'))}</div><div class="skins" role="group" aria-label="Skin">`;
+  h += `<div class="shead">${esc(t('Skin'))}</div><div class="skins" role="group" aria-label="${attr(t('Skin'))}">`;
   for (const [id, name, paper, ink] of SKINS) {
     const on = skin === id;
     const sw = id === "auto"
       ? `background:linear-gradient(135deg,#faf8f4 0 50%,#181614 50% 100%)`
       : `background:linear-gradient(135deg,${paper} 0 55%,${ink} 55% 100%)`;
-    h += `<button type="button" data-skin="${id}" aria-pressed="${on}"><span class="sw" style="${sw}"></span>${name}${on ? `<span class="tick" aria-hidden="true">&#10003;</span>` : ""}</button>`;
+    h += `<button type="button" data-skin="${id}" aria-pressed="${on}"><span class="sw" style="${sw}"></span>${esc(t(name))}${on ? `<span class="tick" aria-hidden="true">&#10003;</span>` : ""}</button>`;
   }
   h += `</div>`;
-  h += `<div class="shead">${esc(t('Text size'))}</div><div class="seg" role="group" aria-label="Text size">
-      <button type="button" data-fs="-1"${fs <= FS_MIN ? " disabled" : ""} aria-label="Smaller text">A&minus;</button>
+  h += `<div class="shead">${esc(t('Text size'))}</div><div class="seg" role="group" aria-label="${attr(t('Text size'))}">
+      <button type="button" data-fs="-1"${fs <= FS_MIN ? " disabled" : ""} aria-label="${attr(t('Smaller text'))}">A&minus;</button>
       <span class="val" role="status">${fs} px</span>
-      <button type="button" data-fs="1"${fs >= FS_MAX ? " disabled" : ""} aria-label="Larger text">A+</button></div>
-    <p class="hint">Pinching the page magnifies it as well, for as long as you need it; the reader offers a way back to normal size while it is magnified.</p>`;
-  h += `<div class="shead">${esc(t('Line spacing'))}</div><div class="seg" role="group" aria-label="Line spacing">`
-    + SPACING.map(([v, n]) => `<button type="button" data-lh="${v}" aria-pressed="${Math.abs(lh - v) < .001}">${n}</button>`).join("") + `</div>`;
+      <button type="button" data-fs="1"${fs >= FS_MAX ? " disabled" : ""} aria-label="${attr(t('Larger text'))}">A+</button></div>
+    <p class="hint">${esc(t('Pinching the page magnifies it as well, for as long as you need it; the reader offers a way back to normal size while it is magnified.'))}</p>`;
+  h += `<div class="shead">${esc(t('Line spacing'))}</div><div class="seg" role="group" aria-label="${attr(t('Line spacing'))}">`
+    + SPACING.map(([v, n]) => `<button type="button" data-lh="${v}" aria-pressed="${Math.abs(lh - v) < .001}">${esc(t(n))}</button>`).join("") + `</div>`;
   h += `<div class="langs">`
     + `<div><div class="shead">${esc(t("Display language"))}</div><div class="rowlist">${dlRows()}</div></div>`
     + `<div><div class="shead">${esc(t("Reading language"))}</div><div class="rowlist">${langRows()}</div></div>`
     + `</div>`;
   h += `<div class="shead">${esc(t("Read aloud"))}</div><p class="hint">${PHONE
-      ? "Tap a verse and choose Listen. The voices are the phone\u2019s own, so whichever languages it has installed are the ones it can read; Hebrew and Greek are read with modern voices."
+      ? esc(t("Tap a verse and choose Listen. The voices are the phone's own, so whichever languages it has installed are the ones it can read; Hebrew and Greek are read with modern voices."))
       : ("speechSynthesis" in window)
-      ? (speechFor(tl) === "no" ? esc(noVoiceHelp(tl)) + " Until then the page can be read here but not heard in it."
-         : "Tap a verse and choose Listen, or press and hold it (right-click) for the same in its own language.")
-      : "This browser has no speech voices, so nothing can be read aloud here."}</p>`;
+      ? (speechFor(tl) === "no" ? esc(noVoiceHelp(tl)) + " " + esc(t('Until then the page can be read here but not heard in it.'))
+         : esc(t('Tap a verse and choose Listen, or press and hold it (right-click) for the same in its own language.')))
+      : esc(t('This browser has no speech voices, so nothing can be read aloud here.'))}</p>`;
   if (speechFor(tl) !== "no") {
-    h += `<div class="shead">${esc(t('Voice speed'))}</div><div class="seg" role="group" aria-label="Voice speed">`
-      + SPEEDS.map(([v, n]) => `<button type="button" data-rate="${v}" aria-pressed="${Math.abs(VOICE.rate - v) < .001}">${n}</button>`).join("")
+    h += `<div class="shead">${esc(t('Voice speed'))}</div><div class="seg" role="group" aria-label="${attr(t('Voice speed'))}">`
+      + SPEEDS.map(([v, n]) => `<button type="button" data-rate="${v}" aria-pressed="${Math.abs(VOICE.rate - v) < .001}">${esc(t(n))}</button>`).join("")
       + `</div>`;
-    h += `<div class="shead">${esc(t('Voice pitch'))}</div><div class="seg" role="group" aria-label="Voice pitch">`
-      + PITCHES.map(([v, n]) => `<button type="button" data-pitch="${v}" aria-pressed="${Math.abs(VOICE.pitch - v) < .001}">${n}</button>`).join("")
-      + `</div><p class="hint"><button type="button" id="voiceTry" class="try">Hear it</button> a verse at this setting.</p>`;
+    h += `<div class="shead">${esc(t('Voice pitch'))}</div><div class="seg" role="group" aria-label="${attr(t('Voice pitch'))}">`
+      + PITCHES.map(([v, n]) => `<button type="button" data-pitch="${v}" aria-pressed="${Math.abs(VOICE.pitch - v) < .001}">${esc(t(n))}</button>`).join("")
+      + `</div><p class="hint"><button type="button" id="voiceTry" class="try">${esc(t('Hear it'))}</button> ${esc(t('a verse at this setting.'))}</p>`;
     /* A phone can have a dozen voices for one language, and a list of a dozen
        "Voice 7 · natural · en-US" rows took the tray over for a choice nearly
        nobody makes: the best voice is picked already. So one row says what is
@@ -3262,13 +3311,13 @@ function drawSettings(){
         + row('data-voice=""', "Best this phone has", note(best), !pickName)
         + vs.map((v, i) => row(`data-voice="${attr(v.name)}"`, `Voice ${i + 1}`, note(v), pickName === v.name)).join("")
         + where.replace('class="hint"', 'class="hint" style="margin:.4rem .7rem .3rem"') + `</div></div>`;
-    } else h += where;
+    } else if (PHONE) h += where;          // a computer's voices are not found in a phone's settings
   }
   /* One button, the app's own mark and three words. It stood under a heading
      with a paragraph explaining that the whole Bible goes with it, and the
      explanation was longer than the act: the phone's share sheet says the rest. */
-  if (PHONE) h += `<button type="button" class="primary share" id="setShareApp">${BOOKMARK}Share this Bible</button>`;
-  h += `<div class="shead">${esc(t('About the text'))}</div><div class="rowlist"><button type="button" id="setSrc"><span class="nm">Sources and licenses</span><span class="ct">what each layer came from</span></button></div>`;
+  if (PHONE) h += `<button type="button" class="primary share" id="setShareApp">${BOOKMARK}${esc(t('Share this Bible'))}</button>`;
+  h += `<div class="shead">${esc(t('About the text'))}</div><div class="rowlist"><button type="button" id="setSrc"><span class="nm">${esc(t('Sources and licenses'))}</span><span class="ct">${esc(t('what each layer came from'))}</span></button></div>`;
   const dyn = $("#setDyn");
   dyn.innerHTML = h;
   dyn.querySelectorAll("[data-mode]").forEach(el => el.onclick = () => setMode(el.dataset.mode));
