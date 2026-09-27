@@ -20,6 +20,11 @@ Lord's Prayer), used to measure and to teach, not to ship; `audio/ksw/` holds
 what our voices produce. `words/` holds the word lists with their Karen
 spellings, `reports/` the measurements.
 
+What this session tried, with every YouTube source and what it gave, and
+suggestions for the next attempt, is in `experiment-log.md`. It ends by
+pointing at a channel with the whole Karen Bible read aloud (102 hours),
+not yet used.
+
 The plan for a real voice is in `data-plan.md`: pretrain on Burmese, adapt
 on Karen audio, fine-tune on studio recordings of one Karen speaker. The
 Vietnamese adaptation below did not work well and is kept as a record and a
