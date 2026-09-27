@@ -1,0 +1,314 @@
+[
+ {
+  "en": "To buy",
+  "ksw": "ပှ့ၤ",
+  "in_karen_bible": 532,
+  "confirmed": true,
+  "after": 3.65,
+  "before": 5.75
+ },
+ {
+  "en": "To sell",
+  "ksw": "ဆါ",
+  "in_karen_bible": 931,
+  "confirmed": true,
+  "after": 7.35,
+  "before": 9.75
+ },
+ {
+  "en": "To give",
+  "ksw": "ဟ့ၣ်",
+  "in_karen_bible": 2637,
+  "confirmed": true,
+  "after": 11.35,
+  "before": 12.85
+ },
+ {
+  "en": "To take",
+  "ksw": "ဟံး",
+  "in_karen_bible": 1508,
+  "confirmed": true,
+  "after": 14.45,
+  "before": 15.95
+ },
+ {
+  "en": "To pay",
+  "ksw": "ဟ့ၣ်အပှ့ၤ",
+  "in_karen_bible": 5,
+  "confirmed": false,
+  "after": 17.55,
+  "before": 19.35
+ },
+ {
+  "en": "To stand",
+  "ksw": "ဆၢထၢၣ်",
+  "in_karen_bible": 1386,
+  "confirmed": true,
+  "after": 20.95,
+  "before": 22.55
+ },
+ {
+  "en": "To run",
+  "ksw": "ဃ့ၢ်",
+  "in_karen_bible": 478,
+  "confirmed": true,
+  "after": 24.15,
+  "before": 25.65
+ },
+ {
+  "en": "To leave",
+  "ksw": "ဟးထီၣ်",
+  "in_karen_bible": 1016,
+  "confirmed": false,
+  "after": 27.25,
+  "before": 28.85
+ },
+ {
+  "en": "To walk",
+  "ksw": "ဟး",
+  "in_karen_bible": 2755,
+  "confirmed": true,
+  "after": 30.45,
+  "before": 32.85
+ },
+ {
+  "en": "To return",
+  "ksw": "က့ၤ",
+  "in_karen_bible": 5309,
+  "confirmed": true,
+  "after": 34.45,
+  "before": 35.75
+ },
+ {
+  "en": "To descend",
+  "ksw": "လီၤ",
+  "in_karen_bible": 39819,
+  "confirmed": true,
+  "after": 37.35,
+  "before": 38.85
+ },
+ {
+  "en": "To come",
+  "ksw": "ဟဲ",
+  "in_karen_bible": 4449,
+  "confirmed": true,
+  "after": 40.45,
+  "before": 41.55
+ },
+ {
+  "en": "To go",
+  "ksw": "လဲၤ",
+  "in_karen_bible": 4530,
+  "confirmed": true,
+  "after": 43.15,
+  "before": 44.85
+ },
+ {
+  "en": "Sunday",
+  "ksw": "မုၢ်ဒဲး",
+  "in_karen_bible": 0,
+  "confirmed": false,
+  "after": 45.45,
+  "before": 47.85
+ },
+ {
+  "en": "Friday",
+  "ksw": "မုၢ်ဖီဖး",
+  "in_karen_bible": 0,
+  "confirmed": false,
+  "after": 48.45,
+  "before": 52.75
+ },
+ {
+  "en": "Monday",
+  "ksw": "မုၢ်ဆၣ်",
+  "in_karen_bible": 0,
+  "confirmed": false,
+  "after": 53.35,
+  "before": 55.95
+ },
+ {
+  "en": "Thursday",
+  "ksw": "မုၢ်လ့ၤဧိၤ",
+  "in_karen_bible": 0,
+  "confirmed": false,
+  "after": 56.55,
+  "before": 58.65
+ },
+ {
+  "en": "Wednesday",
+  "ksw": "မုၢ်ပျဲၤ",
+  "in_karen_bible": 1,
+  "confirmed": false,
+  "after": 59.25,
+  "before": 61.95
+ },
+ {
+  "en": "Tuesday",
+  "ksw": "မုၢ်ထူး",
+  "in_karen_bible": 0,
+  "confirmed": false,
+  "after": 62.55,
+  "before": 65.45
+ },
+ {
+  "en": "To ascend",
+  "ksw": "ထီၣ်",
+  "in_karen_bible": 14357,
+  "confirmed": true,
+  "after": 67.05,
+  "before": 68.55
+ },
+ {
+  "en": "I understand",
+  "ksw": "ယနၢ်ပၢၢ်",
+  "in_karen_bible": 6,
+  "confirmed": false,
+  "after": 70.75,
+  "before": 72.95
+ },
+ {
+  "en": "Thank you very much",
+  "ksw": "တၢ်ဘျုးဒိၣ်မး",
+  "in_karen_bible": 0,
+  "confirmed": false,
+  "after": 75.15,
+  "before": 76.65
+ },
+ {
+  "en": "Please",
+  "ksw": "ဝံသးစူၤ",
+  "in_karen_bible": 80,
+  "confirmed": false,
+  "after": 77.25,
+  "before": 79.75
+ },
+ {
+  "en": "Thank you",
+  "ksw": "တၢ်ဘျုး",
+  "in_karen_bible": 181,
+  "confirmed": false,
+  "after": 81.35,
+  "before": 82.05
+ },
+ {
+  "en": "No",
+  "ksw": "တမ့ၢ်ဘၣ်",
+  "in_karen_bible": 1178,
+  "confirmed": false,
+  "after": 82.65,
+  "before": 84.85
+ },
+ {
+  "en": "Yes",
+  "ksw": "မ့ၢ်",
+  "in_karen_bible": 14474,
+  "confirmed": false,
+  "after": 85.45,
+  "before": 87.75
+ },
+ {
+  "en": "OK",
+  "ksw": "ဂ့ၤလံ",
+  "in_karen_bible": 22,
+  "confirmed": false,
+  "after": 88.35,
+  "before": 90.55
+ },
+ {
+  "en": "Good",
+  "ksw": "ဂ့ၤ",
+  "in_karen_bible": 5414,
+  "confirmed": true,
+  "after": 91.15,
+  "before": 92.65
+ },
+ {
+  "en": "I understand",
+  "ksw": "ယနၢ်ပၢၢ်",
+  "in_karen_bible": 6,
+  "confirmed": false,
+  "after": 94.55,
+  "before": 96.55
+ },
+ {
+  "en": "Where",
+  "ksw": "ဖဲလဲၣ်",
+  "in_karen_bible": 193,
+  "confirmed": true,
+  "after": 97.15,
+  "before": 99.55
+ },
+ {
+  "en": "I",
+  "ksw": "ယၤ",
+  "in_karen_bible": 6685,
+  "confirmed": false,
+  "after": 100.15,
+  "before": 101.95
+ },
+ {
+  "en": "We",
+  "ksw": "ပှၤ",
+  "in_karen_bible": 28862,
+  "confirmed": false,
+  "after": 102.55,
+  "before": 104.25
+ },
+ {
+  "en": "You",
+  "ksw": "နၤ",
+  "in_karen_bible": 4135,
+  "confirmed": false,
+  "after": 105.45,
+  "before": 107.45
+ },
+ {
+  "en": "You (plural)",
+  "ksw": "သုဝဲ",
+  "in_karen_bible": 369,
+  "confirmed": false,
+  "after": 109.05,
+  "before": 110.05
+ },
+ {
+  "en": "They",
+  "ksw": "အဝဲသ့ၣ်",
+  "in_karen_bible": 1618,
+  "confirmed": true,
+  "after": 111.05,
+  "before": 113.45
+ },
+ {
+  "en": "Teacher (male)",
+  "ksw": "သရၣ်",
+  "in_karen_bible": 77,
+  "confirmed": true,
+  "after": 114.05,
+  "before": 116.15
+ },
+ {
+  "en": "Teacher (female)",
+  "ksw": "သရၣ်မုၣ်",
+  "in_karen_bible": 0,
+  "confirmed": false,
+  "after": 117.75,
+  "before": 119.25
+ },
+ {
+  "en": "I don't understand",
+  "ksw": "ယနၢ်တပၢၢ်ဘၣ်",
+  "in_karen_bible": 5,
+  "confirmed": false,
+  "after": 121.05,
+  "before": 122.75
+ },
+ {
+  "en": "To sit",
+  "ksw": "ဆ့ၣ်နီၤ",
+  "in_karen_bible": 438,
+  "confirmed": true,
+  "after": 124.35,
+  "before": 128.5
+ }
+]

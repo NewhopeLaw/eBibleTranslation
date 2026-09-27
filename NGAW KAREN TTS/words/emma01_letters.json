@@ -1,0 +1,914 @@
+[
+ {
+  "lesson": "emma/01",
+  "letter": "က",
+  "ipa": "ka˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1000_1.wav",
+  "start": 231.44,
+  "end": 231.74
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "က",
+  "ipa": "ka˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1000_2.wav",
+  "start": 237.37,
+  "end": 237.6
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "က",
+  "ipa": "ka˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1000_3.wav",
+  "start": 241.12,
+  "end": 241.78
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "က",
+  "ipa": "ka˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1000_4.wav",
+  "start": 243.48,
+  "end": 243.65
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "က",
+  "ipa": "ka˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1000_5.wav",
+  "start": 243.84,
+  "end": 243.99
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ခ",
+  "ipa": "kʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1001_1.wav",
+  "start": 244.0,
+  "end": 244.49
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ခ",
+  "ipa": "kʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1001_2.wav",
+  "start": 247.77,
+  "end": 247.94
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ခ",
+  "ipa": "kʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1001_3.wav",
+  "start": 248.27,
+  "end": 248.81
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ခ",
+  "ipa": "kʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1001_4.wav",
+  "start": 251.48,
+  "end": 251.64
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ခ",
+  "ipa": "kʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1001_5.wav",
+  "start": 256.07,
+  "end": 256.5
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ခ",
+  "ipa": "kʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1001_6.wav",
+  "start": 258.73,
+  "end": 259.1
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဂ",
+  "ipa": "ɣa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1002_1.wav",
+  "start": 268.92,
+  "end": 269.21
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဂ",
+  "ipa": "ɣa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1002_2.wav",
+  "start": 269.51,
+  "end": 270.28
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဂ",
+  "ipa": "ɣa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1002_3.wav",
+  "start": 271.97,
+  "end": 272.35
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဂ",
+  "ipa": "ɣa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1002_4.wav",
+  "start": 275.04,
+  "end": 275.52
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဂ",
+  "ipa": "ɣa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1002_5.wav",
+  "start": 277.61,
+  "end": 278.07
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဂ",
+  "ipa": "ɣa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1002_6.wav",
+  "start": 280.3,
+  "end": 281.18
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဃ",
+  "ipa": "xa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1003_1.wav",
+  "start": 292.0,
+  "end": 292.6
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဃ",
+  "ipa": "xa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1003_2.wav",
+  "start": 294.2,
+  "end": 294.45
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဃ",
+  "ipa": "xa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1003_3.wav",
+  "start": 294.77,
+  "end": 295.07
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဃ",
+  "ipa": "xa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1003_4.wav",
+  "start": 298.16,
+  "end": 298.65
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဃ",
+  "ipa": "xa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1003_5.wav",
+  "start": 300.74,
+  "end": 301.22
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဃ",
+  "ipa": "xa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1003_6.wav",
+  "start": 303.66,
+  "end": 304.15
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "င",
+  "ipa": "ŋa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1004_1.wav",
+  "start": 313.3,
+  "end": 313.67
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "င",
+  "ipa": "ŋa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1004_2.wav",
+  "start": 314.98,
+  "end": 315.57
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "င",
+  "ipa": "ŋa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1004_3.wav",
+  "start": 316.87,
+  "end": 317.07
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "င",
+  "ipa": "ŋa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1004_4.wav",
+  "start": 318.51,
+  "end": 319.0
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "င",
+  "ipa": "ŋa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1004_5.wav",
+  "start": 320.92,
+  "end": 321.54
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "င",
+  "ipa": "ŋa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1004_6.wav",
+  "start": 326.1,
+  "end": 326.71
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "စ",
+  "ipa": "sa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1005_1.wav",
+  "start": 336.83,
+  "end": 337.16
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "စ",
+  "ipa": "sa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1005_2.wav",
+  "start": 340.29,
+  "end": 340.73
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "စ",
+  "ipa": "sa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1005_3.wav",
+  "start": 342.69,
+  "end": 343.15
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "စ",
+  "ipa": "sa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1005_4.wav",
+  "start": 348.44,
+  "end": 348.85
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "စ",
+  "ipa": "sa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1005_5.wav",
+  "start": 351.93,
+  "end": 352.35
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "စ",
+  "ipa": "sa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1005_6.wav",
+  "start": 356.2,
+  "end": 356.47
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဆ",
+  "ipa": "sʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1006_1.wav",
+  "start": 360.25,
+  "end": 360.74
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဆ",
+  "ipa": "sʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1006_2.wav",
+  "start": 363.39,
+  "end": 363.86
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဆ",
+  "ipa": "sʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1006_3.wav",
+  "start": 366.62,
+  "end": 367.44
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဆ",
+  "ipa": "sʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1006_4.wav",
+  "start": 370.24,
+  "end": 371.16
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဆ",
+  "ipa": "sʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1006_5.wav",
+  "start": 373.45,
+  "end": 373.91
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ၡ",
+  "ipa": "ʃa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1061_1.wav",
+  "start": 377.93,
+  "end": 378.48
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ၡ",
+  "ipa": "ʃa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1061_2.wav",
+  "start": 380.54,
+  "end": 380.99
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ၡ",
+  "ipa": "ʃa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1061_3.wav",
+  "start": 389.56,
+  "end": 390.07
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ည",
+  "ipa": "ɲa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\100a_1.wav",
+  "start": 393.76,
+  "end": 394.15
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ည",
+  "ipa": "ɲa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\100a_2.wav",
+  "start": 396.21,
+  "end": 396.6
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ည",
+  "ipa": "ɲa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\100a_3.wav",
+  "start": 405.88,
+  "end": 406.28
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "တ",
+  "ipa": "ta˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1010_1.wav",
+  "start": 416.09,
+  "end": 416.72
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "တ",
+  "ipa": "ta˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1010_2.wav",
+  "start": 419.12,
+  "end": 419.8
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ထ",
+  "ipa": "tʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1011_1.wav",
+  "start": 432.64,
+  "end": 432.99
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ထ",
+  "ipa": "tʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1011_2.wav",
+  "start": 435.18,
+  "end": 435.44
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ထ",
+  "ipa": "tʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1011_3.wav",
+  "start": 438.0,
+  "end": 438.74
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ထ",
+  "ipa": "tʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1011_4.wav",
+  "start": 440.68,
+  "end": 441.3
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ထ",
+  "ipa": "tʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1011_5.wav",
+  "start": 443.9,
+  "end": 444.18
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ထ",
+  "ipa": "tʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1011_6.wav",
+  "start": 449.42,
+  "end": 450.12
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဒ",
+  "ipa": "da˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1012_1.wav",
+  "start": 459.13,
+  "end": 459.44
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဒ",
+  "ipa": "da˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1012_2.wav",
+  "start": 461.82,
+  "end": 462.16
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဒ",
+  "ipa": "da˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1012_3.wav",
+  "start": 463.84,
+  "end": 464.26
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဒ",
+  "ipa": "da˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1012_4.wav",
+  "start": 464.46,
+  "end": 465.29
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဒ",
+  "ipa": "da˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1012_5.wav",
+  "start": 466.79,
+  "end": 467.11
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဒ",
+  "ipa": "da˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1012_6.wav",
+  "start": 467.43,
+  "end": 468.13
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "န",
+  "ipa": "na˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1014_1.wav",
+  "start": 474.78,
+  "end": 475.13
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "န",
+  "ipa": "na˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1014_2.wav",
+  "start": 477.29,
+  "end": 477.66
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "န",
+  "ipa": "na˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1014_3.wav",
+  "start": 479.88,
+  "end": 480.88
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "န",
+  "ipa": "na˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1014_4.wav",
+  "start": 482.76,
+  "end": 483.69
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "န",
+  "ipa": "na˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1014_5.wav",
+  "start": 485.59,
+  "end": 485.97
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဖ",
+  "ipa": "pʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1016_1.wav",
+  "start": 504.44,
+  "end": 504.85
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဖ",
+  "ipa": "pʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1016_2.wav",
+  "start": 506.94,
+  "end": 507.27
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဖ",
+  "ipa": "pʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1016_3.wav",
+  "start": 509.8,
+  "end": 510.16
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဖ",
+  "ipa": "pʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1016_4.wav",
+  "start": 510.36,
+  "end": 510.8
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဖ",
+  "ipa": "pʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1016_5.wav",
+  "start": 512.81,
+  "end": 513.12
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဖ",
+  "ipa": "pʰa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1016_6.wav",
+  "start": 513.39,
+  "end": 513.78
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဘ",
+  "ipa": "ba˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1018_1.wav",
+  "start": 520.54,
+  "end": 520.83
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဘ",
+  "ipa": "ba˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1018_2.wav",
+  "start": 525.67,
+  "end": 525.99
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဘ",
+  "ipa": "ba˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1018_3.wav",
+  "start": 526.26,
+  "end": 527.0
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဘ",
+  "ipa": "ba˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1018_4.wav",
+  "start": 528.73,
+  "end": 529.01
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "မ",
+  "ipa": "ma˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1019_1.wav",
+  "start": 533.55,
+  "end": 533.88
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "မ",
+  "ipa": "ma˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1019_2.wav",
+  "start": 536.24,
+  "end": 536.59
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "မ",
+  "ipa": "ma˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1019_3.wav",
+  "start": 541.93,
+  "end": 542.24
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "မ",
+  "ipa": "ma˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1019_4.wav",
+  "start": 542.44,
+  "end": 543.27
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "မ",
+  "ipa": "ma˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1019_5.wav",
+  "start": 544.77,
+  "end": 545.12
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "မ",
+  "ipa": "ma˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1019_6.wav",
+  "start": 547.73,
+  "end": 547.99
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ယ",
+  "ipa": "ja˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101a_1.wav",
+  "start": 553.02,
+  "end": 553.33
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ယ",
+  "ipa": "ja˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101a_2.wav",
+  "start": 556.39,
+  "end": 556.68
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ယ",
+  "ipa": "ja˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101a_3.wav",
+  "start": 559.4,
+  "end": 559.75
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ရ",
+  "ipa": "ra˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101b_1.wav",
+  "start": 562.94,
+  "end": 563.28
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ရ",
+  "ipa": "ra˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101b_2.wav",
+  "start": 565.43,
+  "end": 565.76
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ရ",
+  "ipa": "ra˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101b_3.wav",
+  "start": 567.96,
+  "end": 568.33
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ရ",
+  "ipa": "ra˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101b_4.wav",
+  "start": 568.62,
+  "end": 568.91
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ရ",
+  "ipa": "ra˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101b_5.wav",
+  "start": 571.2,
+  "end": 571.58
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ရ",
+  "ipa": "ra˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101b_6.wav",
+  "start": 571.93,
+  "end": 572.19
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "လ",
+  "ipa": "la˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101c_1.wav",
+  "start": 580.89,
+  "end": 581.28
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "လ",
+  "ipa": "la˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101c_2.wav",
+  "start": 584.36,
+  "end": 584.72
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "လ",
+  "ipa": "la˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101c_3.wav",
+  "start": 589.54,
+  "end": 589.88
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "လ",
+  "ipa": "la˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101c_4.wav",
+  "start": 591.61,
+  "end": 591.98
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဝ",
+  "ipa": "wa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101d_1.wav",
+  "start": 596.05,
+  "end": 596.39
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဝ",
+  "ipa": "wa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101d_2.wav",
+  "start": 597.26,
+  "end": 597.55
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဝ",
+  "ipa": "wa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101d_3.wav",
+  "start": 599.03,
+  "end": 599.4
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဝ",
+  "ipa": "wa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101d_4.wav",
+  "start": 599.56,
+  "end": 600.28
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဝ",
+  "ipa": "wa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101d_5.wav",
+  "start": 602.89,
+  "end": 603.21
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဝ",
+  "ipa": "wa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101d_6.wav",
+  "start": 603.47,
+  "end": 604.17
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဟ",
+  "ipa": "ha˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101f_1.wav",
+  "start": 620.63,
+  "end": 621.1
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဟ",
+  "ipa": "ha˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101f_2.wav",
+  "start": 623.53,
+  "end": 623.95
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဟ",
+  "ipa": "ha˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101f_3.wav",
+  "start": 626.34,
+  "end": 626.76
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဟ",
+  "ipa": "ha˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\101f_4.wav",
+  "start": 635.41,
+  "end": 635.78
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "အ",
+  "ipa": "ʔa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1021_1.wav",
+  "start": 639.83,
+  "end": 639.99
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "အ",
+  "ipa": "ʔa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1021_2.wav",
+  "start": 644.84,
+  "end": 645.0
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "အ",
+  "ipa": "ʔa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1021_3.wav",
+  "start": 648.1,
+  "end": 648.25
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "အ",
+  "ipa": "ʔa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1021_4.wav",
+  "start": 651.53,
+  "end": 651.7
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဧ",
+  "ipa": "ɦa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1027_1.wav",
+  "start": 656.01,
+  "end": 656.16
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဧ",
+  "ipa": "ɦa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1027_2.wav",
+  "start": 659.46,
+  "end": 659.87
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဧ",
+  "ipa": "ɦa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1027_3.wav",
+  "start": 661.95,
+  "end": 662.34
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဧ",
+  "ipa": "ɦa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1027_4.wav",
+  "start": 664.15,
+  "end": 664.59
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဧ",
+  "ipa": "ɦa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1027_5.wav",
+  "start": 664.82,
+  "end": 665.14
+ },
+ {
+  "lesson": "emma/01",
+  "letter": "ဧ",
+  "ipa": "ɦa˧˥",
+  "wav": "NGAW KAREN TTS\\audio\\cuts\\emma_01\\1027_6.wav",
+  "start": 666.92,
+  "end": 667.43
+ }
+]

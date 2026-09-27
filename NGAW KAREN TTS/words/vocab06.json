@@ -1,0 +1,142 @@
+[
+ {
+  "en": "love",
+  "ksw": "တၢ်အဲၣ်",
+  "in_karen_bible": 233,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "to love",
+  "ksw": "အဲၣ်",
+  "in_karen_bible": 835,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "hate",
+  "ksw": "တၢ်သးဟ့",
+  "in_karen_bible": 30,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "to hate",
+  "ksw": "သးဟ့",
+  "in_karen_bible": 232,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "flower",
+  "ksw": "ဖီ",
+  "in_karen_bible": 2405,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "to flower",
+  "ksw": "ဖီထီၣ်",
+  "in_karen_bible": 8,
+  "confirmed": false,
+  "from_screen": true
+ },
+ {
+  "en": "plant",
+  "ksw": "တၢ်မုၢ်တၢ်ဘိ",
+  "in_karen_bible": 1,
+  "confirmed": false,
+  "from_screen": true
+ },
+ {
+  "en": "to plant",
+  "ksw": "သူၣ်လီၤတၢ်",
+  "in_karen_bible": 0,
+  "confirmed": false,
+  "from_screen": true
+ },
+ {
+  "en": "tree",
+  "ksw": "သ့ၣ်",
+  "in_karen_bible": 6386,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "rock",
+  "ksw": "လၢၢ်",
+  "in_karen_bible": 593,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "hand",
+  "ksw": "စုလၣ်",
+  "in_karen_bible": 7,
+  "confirmed": false,
+  "from_screen": true
+ },
+ {
+  "en": "finger",
+  "ksw": "စုနၢ",
+  "in_karen_bible": 11,
+  "confirmed": false,
+  "from_screen": true
+ },
+ {
+  "en": "arm",
+  "ksw": "စုဒ့ၣ်တီၤ",
+  "in_karen_bible": 0,
+  "confirmed": false,
+  "from_screen": true
+ },
+ {
+  "en": "leg",
+  "ksw": "ခီၣ်",
+  "in_karen_bible": 1870,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "foot",
+  "ksw": "ခီၣ်လၣ်",
+  "in_karen_bible": 7,
+  "confirmed": false,
+  "from_screen": true
+ },
+ {
+  "en": "nose",
+  "ksw": "နါစ့ၤ",
+  "in_karen_bible": 5,
+  "confirmed": false,
+  "from_screen": true
+ },
+ {
+  "en": "face",
+  "ksw": "မဲာ်သၣ်",
+  "in_karen_bible": 29,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "ear",
+  "ksw": "နၢ်",
+  "in_karen_bible": 1441,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "head",
+  "ksw": "ခိၣ်",
+  "in_karen_bible": 7155,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "stomach",
+  "ksw": "ကဖု",
+  "in_karen_bible": 7,
+  "confirmed": false,
+  "from_screen": true
+ }
+]

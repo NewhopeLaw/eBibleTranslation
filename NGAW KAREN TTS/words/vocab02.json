@@ -1,0 +1,121 @@
+[
+ {
+  "en": "house",
+  "ksw": "ဟံၣ်",
+  "in_karen_bible": 2603,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "wood",
+  "ksw": "သ့ၣ်",
+  "in_karen_bible": 6386,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "food",
+  "ksw": "တၢ်အီၣ်",
+  "in_karen_bible": 550,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "eat",
+  "ksw": "အီၣ်",
+  "in_karen_bible": 2041,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "drink",
+  "ksw": "အီ",
+  "in_karen_bible": 16011,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "to sleep",
+  "ksw": "မံ",
+  "in_karen_bible": 4979,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "to walk",
+  "ksw": "ဟး",
+  "in_karen_bible": 2755,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "run",
+  "ksw": "ဃ့ၢ်",
+  "in_karen_bible": 478,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "river",
+  "ksw": "ထံကျိ",
+  "in_karen_bible": 152,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "to build",
+  "ksw": "တ့ထီၣ်",
+  "in_karen_bible": 2,
+  "confirmed": false,
+  "from_screen": true
+ },
+ {
+  "en": "path",
+  "ksw": "ကျဲ",
+  "in_karen_bible": 1411,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "snake",
+  "ksw": "ဂုၢ်",
+  "in_karen_bible": 74,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "dog",
+  "ksw": "ထွံၣ်",
+  "in_karen_bible": 85,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "silence",
+  "ksw": "တၢ်ဘှ့ၣ်တၢ်ဘှီၣ်",
+  "in_karen_bible": 0,
+  "confirmed": false,
+  "from_screen": true
+ },
+ {
+  "en": "noise",
+  "ksw": "တၢ်သီၣ်တၢ်သဲ",
+  "in_karen_bible": 1,
+  "confirmed": false,
+  "from_screen": true
+ },
+ {
+  "en": "to hear",
+  "ksw": "နၢ်ဟူ",
+  "in_karen_bible": 917,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "to see",
+  "ksw": "ထံၣ်",
+  "in_karen_bible": 2357,
+  "confirmed": true,
+  "from_screen": true
+ }
+]
