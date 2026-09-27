@@ -98,11 +98,11 @@
   "built": 1789222413.981014
  },
  "lexeme-inventory": {
-  "count": 281,
+  "count": 27065,
   "unit": "dictionary words",
   "note": "our own lexeme inventory",
   "script": "build_lexemes.py",
-  "built": 1789222414.5251663
+  "built": 1790446459.1017675
  },
  "fields": {
   "count": 1080,
@@ -126,10 +126,10 @@
   "built": 1790104099.4405134
  },
  "interface": {
-  "count": 294,
+  "count": 2955,
   "unit": "strings",
   "note": "the reader's own words, and the books' names",
   "script": "build_ui.py",
-  "built": 1790106201.8978622
+  "built": 1790302197.7169602
  }
 }
