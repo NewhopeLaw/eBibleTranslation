@@ -42,5 +42,6 @@
  ],
  "mended_by_hand": [
   20
- ]
+ ],
+ "engine": "qwen3:32b"
 }

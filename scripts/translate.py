@@ -500,7 +500,7 @@ def translate_chapter(meta, ch, verses, prev_translation, system, force=False, l
     json_path.write_text(json.dumps(
         {"book": meta["name"], "chapter": int(ch), "lang": lang,
          "verses": {str(k): v for k, v in sorted(parsed.items())},
-         "notes": notes, "raw": raw}, ensure_ascii=False, indent=1), encoding="utf-8")
+         "notes": notes, "raw": raw, "engine": CONFIG["model"]}, ensure_ascii=False, indent=1), encoding="utf-8")
 
     LOG_PATH.parent.mkdir(exist_ok=True)
     with LOG_PATH.open("a", encoding="utf-8") as f:
@@ -563,6 +563,14 @@ def main():
         ap.error("give a book code or --all")
 
     langs = parse_targets(args.lang)
+    # A target with an "mt" code is written by scripts/mt_translate.py from
+    # the English, because the chat model cannot write it. Asked for by name it
+    # is an error worth explaining; inside "all" it is simply not this driver's.
+    by_mt = [lang for lang in langs if TARGETS[lang].get("mt")]
+    if by_mt and args.lang != "all":
+        raise SystemExit(f"{', '.join(by_mt)}: written by MADLAD-400 from the English, not by the chat model - "
+                         f"python scripts/mt_translate.py --lang {by_mt[0]}")
+    langs = [lang for lang in langs if lang not in by_mt]
     systems = {lang: build_system_prompt(lang) for lang in langs}
     books = sorted(BOOKS, key=lambda c: BOOKS[c]["num"])
     # language-major: the whole request in the first language before the next

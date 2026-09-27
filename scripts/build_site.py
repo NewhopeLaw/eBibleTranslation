@@ -14,6 +14,7 @@ Re-run after translating more chapters; the page embeds all data, no server
 needed — open site/index.html in any browser. This one-file design is what
 the planned Android APK will wrap unchanged.
 """
+import html
 import json
 import sys
 from pathlib import Path
@@ -556,6 +557,7 @@ p.ov { margin:0 0 .6em; }
    do nothing at all in Chinese, Thai, Korean or Persian. */
 [lang="zh"], [lang="ja"] { font-family:Georgia, "Noto Serif CJK SC", "Noto Serif CJK JP", "Source Han Serif", "Yu Mincho", "MS Mincho", "SimSun", "Songti SC", serif; line-height:calc(var(--lh) * 1.134); }
 [lang="th"] { font-family:"Noto Serif Thai", "Leelawadee UI", "Tahoma", sans-serif; line-height:calc(var(--lh) * 1.163); }
+[lang="ksw"] { font-family:"Noto Serif Myanmar", "Noto Sans Myanmar", "Padauk", "Myanmar Text", "Pyidaungsu", sans-serif; line-height:calc(var(--lh) * 1.25); }
 [lang="yue"], [lang="nan"], [lang="hak"] { font-family:Georgia, "Noto Serif CJK TC", "Source Han Serif TC", "PMingLiU", "Microsoft JhengHei", "Songti TC", serif; line-height:calc(var(--lh) * 1.134); }
 [lang="ja-easy"] { font-family:Georgia, "Noto Serif CJK JP", "Source Han Serif", "Yu Mincho", "MS Mincho", serif; line-height:calc(var(--lh) * 1.337); }
 ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
@@ -804,7 +806,7 @@ try {
   <p><b>Chronology:</b> the numbers are extracted from this project's own English translation by pattern, each shown with its verse; nothing is summed into a date.
     The anchor dates are entered by hand from Assyrian, Babylonian, Persian and Roman records and are marked as externally attested. No copyrighted chronology
     (Thiele, Finegan or any other) is used.</p>
-  <p><b>Translations:</b> produced from the Hebrew, Aramaic and Greek above by a local language model, checked and corrected by the project.
+  <p><b>Translations:</b> __MADE__
     Full notes: LEGAL.md in the project repository.</p>
 </footer>
 <script>
@@ -1693,6 +1695,9 @@ function renderChapter(book, ch, highlightVerse) {
     : tr ? `${L.name} → ${TARGETS[shown].native}` : L.name;
   setTitle(`${disp(book)} ${ch}`, sub);
   let html = `<h2>${disp(book)} ${ch}<small class="lang">${esc(sub)}</small></h2>`;
+  /* A translation no human has read is said so, on the page it is read from,
+     not only in a footer nobody scrolls to. */
+  if (tr && v !== "orig" && v !== "lxx" && TARGETS[shown].caveat) html += `<div class="cav tl-cav" lang="en">${esc(TARGETS[shown].caveat)}</div>`;
   html += `<div class="chnav">` + chs.map(c =>
     `<a href="#${book}/${c}" class="${c==ch?'on':''} ${trOf(book,c)[tl]?'':'untr'}">${c}</a>`).join("") + `</div>`;
   if (src && adv()) {
@@ -3577,6 +3582,38 @@ _norm_cache = {}
 UI_FILE = ROOT / "targets" / "ui" / "ui.json"
 
 
+def main_engine(engines):
+    """The model that wrote most of a language's chapters, or None for a language with none."""
+    return max(engines.items(), key=lambda kv: kv[1])[0] if engines else None
+
+
+def made_text(targets, made):
+    """The footer's account of who wrote what, grouped by model and source.
+
+    It used to be one sentence for every language, and it stopped being true
+    the day a second engine wrote one of them from the English instead of the
+    originals. Now it is written from the chapter files at build time.
+    """
+    groups = {}
+    for code, t in targets.items():
+        engine = main_engine(made.get(code))
+        if not engine:
+            continue
+        groups.setdefault((engine, bool(t.get("mt"))), []).append(t["name"])
+    parts = []
+    for (engine, second_hand), names in groups.items():
+        who = names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1]
+        verb = "was" if len(names) == 1 else "were"
+        if second_hand:
+            parts.append(f"{who} {verb} produced from this project's own English translation by {engine}, "
+                         f"a machine translation model, and {'has' if len(names) == 1 else 'have'} not yet "
+                         f"been read by a speaker of the language.")
+        else:
+            parts.append(f"{who} {verb} produced from the Hebrew, Aramaic and Greek above by {engine}, "
+                         f"a language model run on the project's own machine, checked and corrected by the project.")
+    return html.escape(" ".join(parts)) if parts else "none are carried in this copy."
+
+
 def ui_table(targets):
     """The interface in each carried language, written into the page itself.
 
@@ -3645,13 +3682,17 @@ def main():
         for ch in sorted(json.loads(f.read_text(encoding="utf-8"))["chapters"], key=int):
             src, lang = source_chapter(key, ch)
             data.setdefault(key, {})[str(ch)] = {"src": src, "lang": lang, "tr": {}}
-    counts, short = {}, {}
+    counts, short, made = {}, {}, {}
     for code in TARGETS:
         for f in sorted((OUT_ROOT / code / "json").glob("*.json")):
             d = json.loads(f.read_text(encoding="utf-8"))
             key, ch = slug(d["book"]), str(d["chapter"])
             entry = data.setdefault(key, {}).setdefault(ch, {"src": None, "lang": None, "tr": {}})
             entry["tr"][code] = {"verses": d["verses"], "notes": d.get("notes", "")}
+            # Which model wrote it. Every chapter file says (scripts/tag_engine.py
+            # stamped the older ones), and the page tells its readers per language.
+            engines = made.setdefault(code, {})
+            engines[d.get("engine") or "an unrecorded model"] = engines.get(d.get("engine") or "an unrecorded model", 0) + 1
             # A chapter counts as translated when the verses are actually in it.
             # A run that failed - the model answered in the wrong language, or
             # echoed the prompt back - still leaves a file behind, and counting
@@ -3706,7 +3747,12 @@ def main():
             .replace("__DATA__", json.dumps(data, ensure_ascii=False))
             .replace("__ORDER__", json.dumps(ORDER))
             .replace("__LANGS__", json.dumps({**LANGS, "mixed": MIXED}))
-            .replace("__TARGETS__", json.dumps({c: {"name": t["name"], "native": t["native"], "dir": t.get("dir", "ltr")} for c, t in targets.items()}, ensure_ascii=False))
+            .replace("__TARGETS__", json.dumps({c: {"name": t["name"], "native": t["native"], "dir": t.get("dir", "ltr"),
+                                                     "engine": main_engine(made.get(c)),
+                                                     # a second-hand, machine-only translation says so above its text
+                                                     "caveat": t.get("note", "") if t.get("mt") else ""}
+                                                 for c, t in targets.items()}, ensure_ascii=False))
+            .replace("__MADE__", made_text(targets, made))
             .replace("__ABBREV__", json.dumps(
                 {k: v.replace(" ", "_") for k, v in ABBREV.items()}))
             .replace("__UI__", ui_table(targets))
