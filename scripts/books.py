@@ -161,6 +161,13 @@ TARGETS = {
     "ms": {"name": "Malay", "native": "Bahasa Melayu", "latin": True, "ratio": 0.8},
     "ja-easy": {"name": "Easy Japanese", "native": "やさしい日本語", "latin": False, "ratio": 0.3,
                 "note": "yasashii nihongo: short sentences, common words, furigana as {漢字|かんじ}"},
+    # To be written by a translation model from our English (scripts/
+    # mt_translate.py), not by the chat model from the originals: Qwen answers
+    # in Burmese, NLLB-200 has no Karen, and MADLAD-400's "ksw" is Shan (see
+    # README). "mt" marks it as that kind of target; translate.py leaves it
+    # alone. Nothing has been written into output/ksw yet.
+    "ksw": {"name": "Sgaw Karen", "native": "ကညီကျိာ်", "latin": False, "ratio": 0.6, "mt": "ksw",
+            "note": "machine translation from the English, not yet read by a Karen speaker"},
 }
 DEFAULT_TARGET = "en"
 

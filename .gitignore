@@ -52,3 +52,7 @@ sources/references/
 # question is answered once, and kept here because what someone searched their
 # Bible for is theirs.
 logs/ask/
+models/
+audio/
+NGAW KAREN TTS/audio/
+sources/ksw-mason/*.jsonl

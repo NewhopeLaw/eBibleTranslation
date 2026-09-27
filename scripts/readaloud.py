@@ -20,9 +20,10 @@ CSS = r"""
 JS = r"""
 /* ---------- read aloud: right-click a selection or a verse ---------- */
 const TTS_LANG = {en:'en-US', zh:'zh-CN', es:'es-ES', ja:'ja-JP', 'ja-easy':'ja-JP', th:'th-TH', yue:'zh-HK', nan:'zh-TW', hak:'zh-TW',
-                  vi:'vi-VN', ko:'ko-KR', fa:'fa-IR', tr:'tr-TR', id:'id-ID', ms:'ms-MY', hbo:'he-IL', arc:'he-IL', grc:'el-GR', lxx:'el-GR'};
+                  vi:'vi-VN', ko:'ko-KR', fa:'fa-IR', tr:'tr-TR', id:'id-ID', ms:'ms-MY', ksw:'ksw-MM', hbo:'he-IL', arc:'he-IL', grc:'el-GR', lxx:'el-GR'};
 const TTS_NOTE = {nan:'no Hokkien voice exists; read with a Taiwan Mandarin voice', hak:'no Hakka voice exists; read with a Taiwan Mandarin voice',
-                  grc:'Modern Greek pronunciation', hbo:'Modern Hebrew pronunciation', arc:'Modern Hebrew pronunciation'};
+                  grc:'Modern Greek pronunciation', hbo:'Modern Hebrew pronunciation', arc:'Modern Hebrew pronunciation',
+                  ksw:'no phone or computer ships a Sgaw Karen voice yet; a Burmese voice would misread it'};
 let ttsVoices = [];
 if ('speechSynthesis' in window) { ttsVoices = speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => { ttsVoices = speechSynthesis.getVoices(); }; }
 function ttsVoice(bcp){

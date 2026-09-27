@@ -376,6 +376,7 @@ described once in `TARGETS` in `scripts/books.py`:
 | `id` | Indonesian | `prompts/targets/id.txt` | `targets/id/` | `output/id/` |
 | `ms` | Malay | `prompts/targets/ms.txt` | `targets/ms/` | `output/ms/` |
 | `ja-easy` | やさしい日本語 (Easy Japanese: short sentences, furigana on all but the most basic kanji) | `prompts/targets/ja-easy.txt` | `targets/ja-easy/` | `output/ja-easy/` |
+| `ksw` | Sgaw Karen — machine-translated from our English by MADLAD-400, see below | — | — | `output/ksw/` |
 
 Easy Japanese writes furigana as `{漢字|かんじ}`; the reader and dashboard
 render it as ruby text, the markdown output as 漢字（かんじ）. Persian is
@@ -388,6 +389,53 @@ register, punctuation). Glossaries and name tables are seeded with the divine
 names and the most frequent people and places and grow as each translation
 proceeds. To add a language: one line in `TARGETS`, one rules file, one
 glossary, one name table.
+
+Sgaw Karen is the exception: a language the chat model cannot write, so its
+text comes from a translation model taught for it. The chat model writes
+Burmese when asked for Karen, and a wrong answer in Myanmar script passes
+every check the verifier has, so it is not asked. NLLB-200 turned out to know
+Burmese and Shan but no Karen at all. Google's MADLAD-400 lists `ksw`, and
+what it writes under that tag is Shan, with stretches of Burmese and, now and
+then, a memorised line of the Karen Bible that says something else: measured
+against the Karen Bible's Genesis 1 (97 of 100 words carry Karen's own tone
+letters, none carry Shan's), MADLAD's chapter had Karen letters in a seventh of
+its words and Shan letters by the dozen. But its tokenizer spells Karen
+fluently, so it was taught: `scripts/karen_corpus.py` pairs Mason's 1853
+Karen Bible (public domain, `sources/ksw-mason/`) with our English, 27,500
+verses, and `scripts/train_karen.py` fine-tunes MADLAD 3B on them (chrF 33.5
+on held-out chapters, 34.9 after a pass over the mined name table,
+`scripts/karen_names.py`). `scripts/mt_translate.py`, the driver for any
+target marked with an `mt` code (a language put through a translation model
+from our *English*, never from the originals; `translate.py` leaves those
+alone), then wrote all 1,189 chapters with it - fluent Karen in Mason's
+register with the meaning right roughly two times in three, a draft for a
+Karen reader to correct, and every chapter and the reader's footer say so.
+No phone or computer ships a Sgaw Karen voice, so the reader's Listen is not
+offered for it; the voice work is in `NGAW KAREN TTS/`.
+
+Teaching a model Karen: `scripts/karen_corpus.py` reads Mason's 1853 Karen
+Bible (public domain, the SWORD module in `sources/ksw-mason/`) and pairs its
+verses with ours where the numbering agrees, 27,500 pairs; `scripts/train_karen.py`
+fine-tunes MADLAD on them, scores every thirtieth chapter that it never saw,
+and leaves the best model in `models/madlad-ksw/`, which `mt_translate.py`
+then uses by default.
+
+### Voice
+
+No phone or computer ships a Sgaw Karen voice. `scripts/karen_speech.py`
+reads Karen with Meta's offline Burmese voice by respelling each syllable
+into the Burmese spelling with the nearest sounds, then, through the WORLD
+vocoder, giving each syllable the pitch curve and length of its Karen tone -
+six tones where Burmese has four. Its tables (consonants, vowels, six tone
+curves) are the thing to correct by ear against a Karen speaker; the audio
+goes to `audio/ksw/`. A voice that is actually Karen needs a Karen speaker
+recorded, which the phonemizer here is the front end for.
+
+Every chapter's JSON carries `"engine"`: the model that wrote its verses
+(`qwen3:32b` for everything translated so far, the MADLAD checkpoint for
+Karen). `translate.py` and `mt_translate.py` write it; `scripts/tag_engine.py`
+stamped the chapters written before it existed, from the run log. The reader's
+footer and the dashboard's compare rows say it per language.
 
 ### Original languages
 
