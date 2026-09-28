@@ -57,6 +57,65 @@ fallback; the next attempt adapts Burmese.
   `,` `.`) is not in the voice's alphabet and was dropped, so a verse came
   out in one breath; the voice now says each clause separately, with a pause
   between. `emma-v2-recut` retrains from the Burmese voice on the re-cut clips.
+- `check_reading.py` checks a reading against its text syllable by
+  syllable, using the voice's own timings: length, vowel formants against
+  Emma's lesson 3 vowels, and tone against her paradigm. On the Lord's
+  Prayer, `emma-v1` at epoch 200 swallowed 35 of 140 syllables (the light
+  prefixes, 20-50 ms), said 45 with another of her vowels - ိ and ီ as the
+  Burmese /i/, where Karen says /o/ and /ɔ/ - and put 12 tones on the wrong
+  side. Behind it, besides the Burmese vowel values: Meta's alphabet makes
+  the asat ် the same symbol as the blank between letters, so the voice
+  could not tell လၢ /lə/ from တၢ် /ta/ with its falling tone. So Karen is
+  now respelled on the way in (`train_mms.respell`) into the sounds of
+  Emma's course, with each tone a symbol of its own; `emma-v2-recut` was
+  stopped at epoch 24 and `emma-v3-phonics` trains the re-cut clips that way.
+- Emma's lesson 5 read at 720 pixels settles ျ as /l/ (ကျဲ, road); the
+  phonics table had taken /j/, the Burmese value.
+- Calibrated against Karen readers (`calibrate_speakers.py`): five readers of
+  the Lord's Prayer from YouTube, the passage found in each by Meta's MMS
+  forced aligner, measured the same way. Their mean: 5.7 syllables a
+  second, 15 dB between syllables, 4.6 semitones of pitch spread, and the
+  aligner finds the text in them with 0.55-0.72 confidence. The Burmese
+  voice untrained, fed the respelling, sits on that mean (0.57; 6.0, 16.7,
+  4.6). Every fine-tune on Emma's cuts falls away from it - `emma-v1` 0.06
+  to 0.11, `emma-v3-phonics` 0.13 by epoch 25, faster, softer and flatter -
+  so her isolated, softly said syllables teach the voice her softness and
+  lose the text; `emma-v3-phonics` was stopped at epoch 25. The untrained
+  respelled voice is the Karen voice for now (`--model base`): on the
+  Lord's Prayer it swallows 1 syllable of 140 (`emma-v1` 35) and says ိ as
+  /o/ throughout, but has 18 tones on the wrong side, having never heard a
+  Karen tone. Fine-tuning waits for connected speech from a clear reader,
+  which the aligner can now cut from a reading with its text.
+- Tones without training (`karen_tones.py`, `train_mms.retone`): the five
+  readers' pitch on each syllable of the prayer agrees across readers
+  (0.63, a reader against the others' mean), but tone marks alone predict
+  it at 0.0 on unseen verses, and so does Emma's isolated paradigm - in
+  running speech her low unmarked syllable is high. Pitch there is mostly
+  the phrase: a fall of about 5.5 semitones through each clause, a lift on
+  its last syllable, light prefixes and short ə low, high vowels high, and
+  among the marks ၣ် high and ာ် lowest. A linear model of those predicts
+  unseen verses at 0.67. The voice is retuned to it syllable by syllable
+  through WORLD, on its own timings, keeping its sounds: with each verse
+  held out of the fit in turn, the retuned voice follows the readers at
+  0.56 (untouched 0.24; strength 1 0.52, 2 0.54), pitch spread 4.9
+  semitones against their 4.6, aligner 0.54 against 0.57. `karen_speech
+  --engine mms --tones 1.5` is the default.
+- Syllable length the same way (`karen_tones.lengths`,
+  `train_mms.restretch`): the readers agree on which syllables are long
+  (0.63), tone marks alone predict it at 0.25, and the model with the
+  syllable's shape and place predicts unseen verses at 0.66-0.75. What it
+  says: a light prefix is about half an ordinary syllable; aspirated and
+  voiceless onsets lengthen; a clause's last syllable is drawn out and its
+  first clipped; ာ် is long and ၣ် and း short, as Emma teaches, but her
+  long ၤ is ordinary in running speech. The voice's duration predictor is
+  stepped into (`train_mms.infer`, VITS's inference with one step added)
+  and each syllable's frames scaled towards those proportions, the clause's
+  total kept. Each verse held out in turn: syllable lengths follow the
+  readers at 0.35 (untouched 0.14; strength 1.5 0.45 but more uneven than
+  any reader), pitch unchanged at 0.54-0.57, and the aligner finds the text
+  better, 0.60 against 0.57. `--lengths 1` is the default. With tones and
+  lengths on, the Lord's Prayer check: no syllable swallowed, none more
+  than 3 semitones from the readers. Still learnt from one passage.
 
 - The phonetic layer is complete and regular, and Emma Htoo's lessons confirm
   it: every consonant (lesson 1), the nine vowels including the three signs

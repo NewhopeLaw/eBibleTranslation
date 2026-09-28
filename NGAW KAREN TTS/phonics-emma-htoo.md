@@ -118,10 +118,21 @@ The chart on screen pairs each medial sign with the letter it is made from
 (literally "ဂ, its tool-form ှ" and so on): ဂ → ှ, ယ → ၠ, ရ → ြ, လ → ျ,
 ဝ → ွ. That is the table as karen_phonemes has it: ှ is /ɣ/, ၠ is /j/, ြ is
 /r/, ျ is /l/ (Wade) or /j/ in most speakers today, ွ is /w/. She then
-writes example syllables by hand beside each; at the 240-pixel download
-those are not legible, and her captions for this lesson are still held by
-YouTube's rate limit, so her pronunciation of ျ, the one medial whose
-modern value is in question, waits for the captions or a sharper copy.
+types an example word beside each, legible in a 720-pixel copy:
+
+| medial | made from | her word | meaning | reads |
+|---|---|---|---|---|
+| ှ | ဂ | ပှၢ် | forest | /pɣa/ |
+| ၠ | ယ | ကၠိ | school | /kjo/ |
+| ြ | ရ | ကြၢး | should | /krə/ |
+| ျ | လ | ကျဲ | road, path | /klɛ/ |
+| ွ | ဝ | လွံၢ် | four | /lwi/ |
+
+What lesson 5 settles: ျ is /l/, as Wade had it - she makes it from လ, and
+road is ကျဲ, /klɛ/. The /j/ that karen_phonemes had taken as the modern
+value is the Burmese sign's sound, not Karen's; Karen's medial /j/ is ၠ.
+The table now reads ျ as /l/, and the Burmese voice, which says ျ and ြ
+both as /j/, is given each as a sound of its own (train_mms.respell).
 
 ## Lesson "3" (video 8): consonants with the three tone marks ၢ် ၣ် ၤ (QxDGlLCV0zs, 11:27)
 

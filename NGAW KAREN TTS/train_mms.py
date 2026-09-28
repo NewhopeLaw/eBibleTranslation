@@ -12,13 +12,15 @@ It never came clear: two layers of guessing stood between the Karen letters
 and a voice that had never seen them. Meta's MMS Burmese voice
 (facebook/mms-tts-mya) reads the Myanmar script itself - one symbol per
 character, no romanising, no phonemiser - and was trained on Burmese Bible
-readings, the same kind of text we want read. So Karen goes in as written,
-and the fine-tune only has to teach it what Karen does with the letters.
+readings, the same kind of text we want read.
 
-Six of Karen's characters are not in its alphabet, and they are a fifth of
-Mason's text: the tone marks ၤ and ၣ, the vowel ၢ, and ဃ ၡ ၠ. Each is added
-to the text encoder with the embedding of the Burmese symbol nearest to it,
-so it starts as that sound rather than as noise (KAREN_NEW below).
+Karen as written was not enough: Karen gives some Burmese signs other sounds,
+and six of its characters, a fifth of Mason's text, are not in the Burmese
+alphabet at all. So each syllable is respelled on the way in into the sounds
+Emma Htoo's course teaches, in the Burmese spelling of those sounds where
+Burmese has one and in a few new symbols where it does not (respell and
+KAREN_TOKENS below). Each new symbol starts from the Burmese ones nearest it,
+so it begins as a sound rather than as noise.
 
 The training itself is VITS's own, from the code MMS was trained with
 (sources/vits, jaywalnut310/vits, MIT): Meta's released checkpoints load into
@@ -67,12 +69,56 @@ OUT = HERE / "audio" / "ksw"
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(ROOT / "scripts"))
 
-# Karen's characters the Burmese voice lacks, each started from the Burmese
-# symbol that sounds nearest (karen_phonemes gives the Karen sounds): ၤ is a
-# prolonged level tone and ဲ Burmese's long vowel; ၢ is the vowel /ɨ/, nearest
-# a long ာ; ၣ rises, and ံ is the nearest mark that sits on a syllable's end;
-# ဃ /x/ is nearest ခ, ၡ /ʃ/ nearest သ with its hiss, ၠ the medial /j/ nearest ျ.
-KAREN_NEW = {"ၤ": "ဲ", "ၢ": "ာ", "ၣ": "ံ", "ဃ": "ခ", "ၡ": "သ", "ၠ": "ျ"}
+# How Karen reaches the voice: respelled into the sounds Emma Htoo teaches
+# (phonics-emma-htoo.md), written the way the Burmese voice already says them.
+# Fed letter for letter, the voice read Karen's reused vowel signs with their
+# Burmese values - ိ and ီ came out as /i/, which in Karen are /o/ and /ɔ/
+# (reports/reading_check_*) - and could not see the tone marks at all: Meta's
+# alphabet makes the asat ် symbol 0, the same id as the blank between
+# letters, so လၢ (/lə/) and တၢ် (/ta/, falling) differed by two blanks and
+# ဒ် (/də/) looked like ဒ (/da/). So each syllable is parsed (karen_phonemes)
+# and written out again:
+#   vowel   the Burmese spelling of her sound: ံ /i/ as ီ, ိ /o/ as ို, ီ /ɔ/
+#           as ော, ့ /e/ as ေ (lesson 3); ါ ာ and the bare consonant /a/ as
+#           ာ, so a light prefix syllable (တ- က-) still has a vowel; ၢ and
+#           a lone ် /ə/ as a symbol of their own, which Burmese lacks.
+#   tone    each of the five marks one symbol of its own (lesson 4, video 11).
+#   onset   as written, but ၡ /ʃ/ as Burmese ရှ, and ဃ /x/ its own symbol.
+#   medial  ှ ွ as written; ၠ /j/ as Burmese ျ, which is /j/; Karen's ျ is
+#           /l/ and ြ /r/ (lesson 5: ကျဲ road, ကြၢး should), which Burmese
+#           says /j/, so each is a symbol of its own.
+# The new symbols live in the private-use area. Each starts from the Burmese
+# symbols named beside it, averaged: the vowel ə between ာ and ု, the high
+# tones ၢ် ၣ် from Burmese's high း, the short tones ာ် း from its short
+# creaky ့, and ၤ from the blank, a tone that starts as nothing and is
+# learnt.
+SCHWA, T_KEPHO, T_EU, T_HATHI, T_LOW, T_VISARGA, MED_L, MED_R, GHA = (chr(0xE000 + i) for i in range(1, 10))
+KAREN_TOKENS = {SCHWA: ["ာ", "ု"], T_KEPHO: ["်"], T_EU: ["း"], T_HATHI: ["း"], T_LOW: ["့"], T_VISARGA: ["့"],
+                MED_L: ["လ"], MED_R: ["ရ"], GHA: ["ခ"]}
+SPELL_VOWEL = {"": "ာ", "ါ": "ါ", "ာ": "ာ", "ံ": "ီ", "ၢ": SCHWA, "်": SCHWA, "ု": "ု", "ူ": "ူ",
+               "့": "ေ", "ဲ": "ဲ", "ိ": "ို", "ီ": "ော"}
+SPELL_TONE = {"": "", "ၤ": T_KEPHO, "ၢ်": T_EU, "ၣ်": T_HATHI, "ာ်": T_LOW, "း": T_VISARGA}
+SPELL_ONSET = {"ၡ": "ရှ", "ဃ": GHA}
+SPELL_MEDIAL = {"ၠ": "ျ", "ျ": MED_L, "ြ": MED_R}
+
+
+def respell(karen):
+    """Karen text as (source, respelled) pieces: a syllable at a time, and
+    anything that is not a syllable (a space, a stray mark) as itself."""
+    import karen_phonemes as kp
+    text, out, i = unicodedata.normalize("NFC", karen), [], 0
+    while i < len(text):
+        m = kp.SYLLABLE.match(text, i)
+        if not m:
+            out.append((text[i], " " if text[i].isspace() else text[i]))
+            i += 1
+            continue
+        cons, meds, vowel, mark = m.group(1), m.group(2) or "", m.group(3) or "", m.group(4) or ""
+        out.append((m.group(0), SPELL_ONSET.get(cons, cons) + "".join(SPELL_MEDIAL.get(x, x) for x in meds)
+                    + SPELL_VOWEL[vowel] + SPELL_TONE[mark]))
+        i = m.end()
+    return out
+
 
 MIN_SECONDS = 0.6      # the training window is 8192 samples, 0.51 s at 16 kHz
 MAX_SECONDS = 12.0
@@ -118,23 +164,32 @@ def base_symbols():
 
 
 class Text:
-    """Karen text to symbol ids, as MMS does it: each known character is one
-    id, anything else is dropped, and with add_blank a blank (id 0) goes
-    between every pair and at both ends."""
+    """Karen text to symbol ids, as MMS does it: each known symbol one id,
+    anything else dropped, and with add_blank a blank (id 0) between every
+    pair and at both ends. A voice whose alphabet has the Karen symbols is
+    fed respelled Karen (respell); the first runs (emma-v1), letter for
+    letter. `units`, a list, gets for each symbol said the piece of the text
+    it came from, so a reading can be timed back onto its syllables."""
 
     def __init__(self, symbols, add_blank=True):
         self.symbols = symbols
         self.ids = {s: i for i, s in enumerate(symbols)}
         self.add_blank = add_blank
+        self.karen = SCHWA in self.ids
         self.dropped = {}
 
-    def __call__(self, karen):
+    def __call__(self, karen, units=None):
+        # not stripped: speak() ends a clause on a space on purpose
+        pieces = respell(karen) if self.karen else [(ch, ch) for ch in unicodedata.normalize("NFC", karen)]
         out = []
-        for ch in unicodedata.normalize("NFC", karen.strip()):
-            if ch in self.ids:
-                out.append(self.ids[ch])
-            else:
-                self.dropped[ch] = self.dropped.get(ch, 0) + 1
+        for n, (source, spelled) in enumerate(pieces):
+            for ch in spelled:
+                if ch in self.ids:
+                    out.append(self.ids[ch])
+                    if units is not None:
+                        units.append((n, source))
+                else:
+                    self.dropped[ch] = self.dropped.get(ch, 0) + 1
         if self.add_blank:
             spaced = [0] * (len(out) * 2 + 1)
             spaced[1::2] = out
@@ -287,6 +342,7 @@ def load_data(rows, text, fs, recut=True):
     data, padded = [], 0
     cutter = Recut(fs) if recut else None
     for src, karen in rows:
+        karen = karen.strip()
         ids = text(karen)
         if len(ids) < 3:
             continue
@@ -314,8 +370,8 @@ def build(cfg, n_symbols, device):
 
 
 def extend_embedding(state, symbols):
-    """Grow the text embedding from Meta's alphabet to ours, each new row a
-    copy of its Burmese neighbour's."""
+    """Grow the text embedding from Meta's alphabet to ours, each new row
+    the average of the Burmese symbols it starts from (KAREN_TOKENS)."""
     import torch
     emb = state["enc_p.emb.weight"]
     have = emb.shape[0]
@@ -323,14 +379,14 @@ def extend_embedding(state, symbols):
         return state
     rows = [emb]
     for s in symbols[have:]:
-        rows.append(emb[symbols.index(KAREN_NEW[s])].unsqueeze(0).clone())
+        rows.append(emb[[symbols.index(b) for b in KAREN_TOKENS[s]]].mean(0, keepdim=True).clone())
     state["enc_p.emb.weight"] = torch.cat(rows)
     return state
 
 
 def karen_symbols():
     base = base_symbols()
-    return base + [s for s in KAREN_NEW if s not in base]
+    return base + list(KAREN_TOKENS)
 
 
 def load_generator(path, device):
@@ -357,7 +413,7 @@ class MmsKaren:
     model: a checkpoint, None for the newest, or "base" for Meta's Burmese
     voice with the Karen letters added and nothing learnt."""
 
-    def __init__(self, model=None, deterministic=True, pace=1.0, device=None):
+    def __init__(self, model=None, deterministic=True, pace=1.0, device=None, clarity=0.0, tones=0.0, lengths=0.0):
         import torch
         self.torch = torch
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
@@ -366,36 +422,185 @@ class MmsKaren:
         self.fs = cfg["data"]["sampling_rate"]
         self.noise, self.noise_w = (0.0, 0.0) if deterministic else (0.667, 0.8)
         self.pace = pace
+        self.clarity = clarity
+        self.tones = tones
+        self.lengths = lengths
 
-    def say(self, karen):
-        return speak(self.net, self.text, karen, self.fs, self.device, self.noise, self.noise_w, self.pace)
+    def say(self, karen, timings=None):
+        return speak(self.net, self.text, karen, self.fs, self.device, self.noise, self.noise_w, self.pace, timings, self.clarity, self.tones,
+                     self.lengths)
 
 
 # Mason punctuates with the ASCII comma and full stop (and sometimes ၊ ။),
 # none of which the voice has a symbol for, so they were being dropped and a
 # verse came out as one breath. Each clause is said on its own instead, ending
-# on a space so its last syllable is not the last thing the voice sees, with
-# karen_speech's pauses between.
-PAUSE = {",": 0.28, "၊": 0.28, ".": 0.5, "။": 0.5}
+# on a space so its last syllable is not the last thing the voice sees, with a
+# pause between. karen_speech's pauses (0.28 and 0.5 s) were dead air to the
+# ear, and a verse's closing pause stacked on the gap between verses to make a
+# second of silence, so the pauses are shorter and none follows the last clause:
+# what comes after a verse is the caller's to decide.
+PAUSE = {",": 0.15, "၊": 0.15, ".": 0.3, "။": 0.3}
 
 
-def speak(net, text, karen, fs, device, noise=0.667, noise_w=0.8, pace=1.0):
+def enunciate(y, fs, onsets, clarity):
+    """Lift the consonants. Emma Htoo speaks softly and calmly, pleasant to
+    hear and soft to learn from - her onsets rise over about 90 ms where the
+    Burmese Bible voice's rise over 70 - and the voice learnt her softness.
+    `clarity` 1 raises the band above 2 kHz, where bursts and hisses live,
+    by 4 dB, and each syllable's first 60 ms (its consonant and the release
+    into the vowel) by a further 3 dB, falling away over the vowel; 0 leaves
+    the voice as it is. The syllable starts are the voice's own timings."""
+    if clarity <= 0 or not len(y):
+        return y
+    from scipy.signal import butter, sosfilt
+    hi = sosfilt(butter(2, 2000, "highpass", fs=fs, output="sos"), y)
+    y = y + hi * (10 ** (clarity * 4 / 20) - 1)
+    gain = np.ones_like(y)
+    lift, n, ramp = 10 ** (clarity * 3 / 20) - 1, int(0.06 * fs), int(0.005 * fs)
+    shape = np.concatenate([np.linspace(0, 1, ramp), 0.5 + 0.5 * np.cos(np.linspace(0, np.pi, n))])
+    for t in onsets:
+        a = int(t * fs) - ramp
+        lo, hi_ = max(0, a), min(len(y), a + len(shape))
+        if hi_ > lo:
+            gain[lo:hi_] = np.maximum(gain[lo:hi_], 1 + lift * shape[lo - a:hi_ - a])
+    return y * gain
+
+
+def retone(y, fs, clause, clause_last, pieces, scale):
+    """Give a clause the pitch Karen readers give it (karen_tones): each
+    syllable, from its start to the next one's, follows its target curve in
+    semitones about the voice's own median; `scale` 1 is the readers' mean,
+    more exaggerates it. WORLD takes the voice apart into pitch, timbre and
+    breath and puts it back with the new pitch, so the sounds and their
+    timing are the voice's own. Unvoiced stretches stay unvoiced."""
+    import pyworld as pw
+    import karen_tones as kt
+    tg = kt.targets(clause, clause_last)
+    if scale <= 0 or not pieces or len(pieces) != len(tg):
+        return y
+    x = np.ascontiguousarray(y, dtype=np.float64)
+    f0, t = pw.dio(x, fs, f0_floor=70, f0_ceil=500, frame_period=5)
+    f0 = pw.stonemask(x, f0, t, fs)
+    voiced = f0 > 0
+    if voiced.sum() < 5:
+        return y
+    sp, ap = pw.cheaptrick(x, f0, t, fs), pw.d4c(x, f0, t, fs)
+    track = np.full(len(f0), np.nan)
+    starts = [t0 for _, t0, _ in pieces] + [pieces[-1][2]]
+    for k, ((_, t0, _), (a_, m_, e_)) in enumerate(zip(pieces, tg)):
+        a, b = int(t0 * 200), min(len(f0), int(max(starts[k + 1], t0 + 0.02) * 200))
+        if b > a:
+            pos = np.linspace(0, 1, b - a)
+            track[a:b] = np.where(pos < 0.5, a_ + (m_ - a_) * pos / 0.5, m_ + (e_ - m_) * (pos - 0.5) / 0.5)
+    known = np.flatnonzero(~np.isnan(track))
+    track = np.interp(np.arange(len(track)), known, track[known])
+    track = np.convolve(track, np.ones(6) / 6, mode="same")               # 30 ms: syllables join, not step
+    f0 = np.where(voiced, np.median(f0[voiced]) * 2 ** (scale * track / 12), 0.0)
+    out = pw.synthesize(f0, sp, ap, fs, frame_period=5)
+    return np.pad(out, (0, max(0, len(y) - len(out))))[:len(y)]
+
+
+def infer(net, ids, device, noise, noise_w, pace, adjust=None):
+    """VITS's own inference (SynthesizerTrn.infer), with one step added: the
+    frames the duration predictor gives each symbol pass through `adjust`
+    before they are fixed, so a syllable can be held longer or shorter
+    without the rest of the voice changing."""
+    import torch
+    commons, _, _ = load_vits()
+    x = torch.LongTensor(ids).unsqueeze(0).to(device)
+    x, m_p, logs_p, x_mask = net.enc_p(x, torch.LongTensor([len(ids)]).to(device))
+    logw = net.dp(x, x_mask, g=None, reverse=True, noise_scale=noise_w) if net.use_sdp else net.dp(x, x_mask, g=None)
+    w = torch.exp(logw) * x_mask * pace
+    if adjust is not None:
+        w = adjust(w)
+    w_ceil = torch.ceil(w)
+    y_lengths = torch.clamp_min(torch.sum(w_ceil, [1, 2]), 1).long()
+    y_mask = torch.unsqueeze(commons.sequence_mask(y_lengths, None), 1).to(x_mask.dtype)
+    attn = commons.generate_path(w_ceil, torch.unsqueeze(x_mask, 2) * torch.unsqueeze(y_mask, -1))
+    m_p = torch.matmul(attn.squeeze(1), m_p.transpose(1, 2)).transpose(1, 2)
+    logs_p = torch.matmul(attn.squeeze(1), logs_p.transpose(1, 2)).transpose(1, 2)
+    z_p = m_p + torch.randn_like(m_p) * torch.exp(logs_p) * noise
+    z = net.flow(z_p, y_mask, g=None, reverse=True)
+    return net.dec(z * y_mask, g=None), attn
+
+
+def restretch(clause, clause_last, units, add_blank, scale):
+    """An `adjust` for infer: each syllable's frames scaled towards the
+    length Karen readers give it (karen_tones.lengths) - a light prefix
+    about half an ordinary syllable, ာ် long, ၣ် and း short, a clause's
+    last syllable drawn out - keeping the clause's total, so the rate
+    stays the voice's. `scale` 1 takes the readers' proportions; 0 leaves
+    the voice's own."""
+    import karen_phonemes as kp
+    import karen_tones as kt
+    want = kt.lengths(clause, clause_last)
+    step, first = (2, 1) if add_blank else (1, 0)
+    starts = {}
+    for i, (n, source) in enumerate(units):
+        starts.setdefault((n, source), i * step + first)
+    order = sorted(starts.items(), key=lambda kv: kv[1])
+    spans = []
+    for j, ((n, source), k) in enumerate(order):
+        end = order[j + 1][1] if j + 1 < len(order) else None
+        if kp.SYLLABLE.fullmatch(source):
+            spans.append((k, end))
+
+    def adjust(w):
+        if scale <= 0 or len(spans) != len(want):
+            return w
+        w = w.clone()
+        d = w[0, 0]
+        cur = np.array([float(d[a:b].sum()) for a, b in spans])
+        if (cur <= 0).any():
+            return w
+        factor = (np.array(want) / (cur / cur.mean())) ** scale
+        factor *= cur.sum() / (cur * factor).sum()
+        for (a, b), f in zip(spans, factor):
+            d[a:b] *= float(f)
+        return w
+    return adjust
+
+
+def speak(net, text, karen, fs, device, noise=0.667, noise_w=0.8, pace=1.0, timings=None, clarity=0.0, tones=0.0,
+          lengths=0.0):
+    """`timings`, a list, gets one (clause, piece, start s, end s) per piece
+    of text the voice said - a syllable for a respelling voice, a character
+    for the first runs: VITS decides how many frames each symbol lasts, so
+    these are where each one is, not an estimate. `clarity`: enunciate;
+    `tones`: retone, and `lengths`: restretch, for a voice fed respelled Karen."""
     import re
     import torch
-    parts = []
-    for clause, mark in re.findall(r"([^,.၊။]+)([,.၊။]?)", karen):
-        if not clause.strip():
-            continue
-        ids = text(clause.strip() + " ")
+    import karen_phonemes as kp
+    parts, at, hop = [], 0, base_config()["data"]["hop_length"]
+    found = [(c, m) for c, m in re.findall(r"([^,.၊။]+)([,.၊။]?)", karen) if c.strip()]
+    for n_clause, (clause, mark) in enumerate(found):
+        units = []
+        ids = text(clause.strip() + " ", units)
+        adjust = restretch(clause.strip(), n_clause == len(found) - 1, units, text.add_blank, lengths)             if lengths and text.karen else None
         with torch.no_grad():
-            y = net.infer(torch.LongTensor(ids).unsqueeze(0).to(device), torch.LongTensor([len(ids)]).to(device),
-                          noise_scale=noise, noise_scale_w=noise_w, length_scale=pace)[0]
+            y, attn = infer(net, ids, device, noise, noise_w, pace, adjust)
         y = y[0, 0].float().cpu().numpy().astype(np.float64)
+        frames = attn[0, 0].sum(0).cpu().numpy()                      # per symbol, blanks between
+        edges = np.concatenate([[0], np.cumsum(frames)]) * hop / fs
+        step, first = (2, 1) if text.add_blank else (1, 0)
+        spans = {}
+        for i, unit in enumerate(units):
+            k = i * step + first
+            spans[unit] = (spans.get(unit, (edges[k],))[0], edges[k + 1])
+        pieces = [(piece, t0, t1) for (_, piece), (t0, t1) in sorted(spans.items()) if piece.strip()]
+        if tones and text.karen:
+            y = retone(y, fs, clause.strip(), n_clause == len(found) - 1,
+                       [p for p in pieces if kp.SYLLABLE.fullmatch(p[0])], tones)
+        # a syllable starts at a piece that starts with a consonant letter
+        y = enunciate(y, fs, [t0 for piece, t0, _ in pieces if piece[0] in kp.CONSONANTS], clarity)
+        if timings is not None:
+            timings += [(clause.strip(), piece, at + t0, at + t1) for piece, t0, t1 in pieces]
         n = min(len(y) // 4, int(fs * FADE))
         if n:
             y[-n:] *= np.linspace(1, 0, n)
         parts += [y, np.zeros(int(fs * PAUSE.get(mark, 0.0)))]
-    return np.concatenate(parts) if parts else np.zeros(1)
+        at += (len(y) + len(parts[-1])) / fs
+    return np.concatenate(parts[:-1]) if parts else np.zeros(1)
 
 
 def latest_checkpoint():

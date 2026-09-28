@@ -287,8 +287,15 @@ def main():
     ap.add_argument("--pace", type=float, default=None, help="piper: 1.0 is the voice's own speed, 1.1 a tenth slower (the default)")
     ap.add_argument("--engine", choices=["burmese", "piper", "mms"], default="burmese",
                     help="burmese: Meta's Burmese voice respelled and retuned; piper: a Vietnamese neural voice fed Karen phonemes; "
-                         "mms: the Burmese voice fine-tuned on Karen (train_mms.py)")
-    ap.add_argument("--model", help="mms: the checkpoint to read with (default: the newest run)")
+                         "mms: Meta's Burmese voice fed Karen respelled into Emma Htoo's sounds (train_mms.py)")
+    ap.add_argument("--model", default="base",
+                    help="mms: base (the default), the Burmese voice untrained - every fine-tune on the lesson cuts "
+                         "did worse against Karen readers - or a checkpoint")
+    ap.add_argument("--clarity", type=float, default=0.0, help="mms: lift the consonants, 0 (the voice as learnt) to about 2")
+    ap.add_argument("--lengths", type=float, default=1.0,
+                    help="mms: hold each syllable as long as Karen readers do (karen_tones), 0 off; 1.5 follows them closer but more unevenly")
+    ap.add_argument("--tones", type=float, default=1.5,
+                    help="mms: retune pitch to Karen readers' (karen_tones), 0 off; 1.5 followed them closest on unseen verses")
     ap.add_argument("--show", action="store_true", help="print each syllable's respelling and tone")
     a = ap.parse_args()
     if a.text:
@@ -311,7 +318,7 @@ def main():
         import numpy as np
         if a.engine == "mms":
             from train_mms import MmsKaren
-            voice = MmsKaren(a.model, deterministic=False, pace=a.pace or 1.0)
+            voice = MmsKaren(a.model, deterministic=False, pace=a.pace or 1.0, clarity=a.clarity, tones=a.tones, lengths=a.lengths)
         else:
             voice = PiperKaren(deterministic=False, pace=a.pace)
         parts = []
@@ -320,7 +327,9 @@ def main():
                 print("KAREN", k)
                 if a.engine == "piper":
                     print("  " + "".join(voice.kp.piper(voice.kp.syllables(k))))
-            parts += [voice.say(k), np.zeros(int(voice.fs * 0.5))]
+            # between verses: the mms voice pauses inside a verse at its own
+            # punctuation, so its verse gap is a full stop's, not the Piper half second
+            parts += [voice.say(k), np.zeros(int(voice.fs * (0.3 if a.engine == "mms" else 0.5)))]
         audio = np.concatenate(parts)
         audio = audio / max(1e-9, np.abs(audio).max()) * 0.9
         items = [("syl", None) for k in karen for it in syllables(k) if it[0] == "syl"]

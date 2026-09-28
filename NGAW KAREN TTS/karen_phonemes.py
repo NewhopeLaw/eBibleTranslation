@@ -50,9 +50,12 @@ CONSONANTS = {"က": "k", "ခ": "kʰ", "ဂ": "ɣ", "ဃ": "x", "င": "ŋ", "�
               "တ": "t", "ထ": "tʰ", "ဒ": "d", "န": "n", "ပ": "p", "ဖ": "pʰ", "ဘ": "b", "မ": "m",
               "ယ": "j", "ရ": "r", "လ": "l", "ဝ": "w", "သ": "θ", "ဟ": "h", "အ": "ʔ", "ဧ": "ɦ"}
 MEDIALS = {"ှ": "ɣ", "ၠ": "j", "ျ": "l", "ြ": "r", "ွ": "w"}
-# ျ is /l/ in Wade's Karen and /j/ in most mouths today; the modern reading is
-# taken, and ကျ is the affricate the language article lists.
-MODERN = {"ျ": "j"}
+# ျ is /l/ in Wade's Karen, and /l/ in Emma Htoo's: her lesson 5 makes it from
+# လ and gives ကျဲ, road, /klɛ/ (phonics-emma-htoo.md). The "modern" /j/ that
+# was taken here from the language article is Burmese's value for the sign,
+# not Karen's; the medial /j/ is ၠ (her ကၠိ, school). ကၠ is still the
+# affricate the article lists.
+MODERN = {}
 AFFRICATE = {("k", "j"): "tʃ", ("kʰ", "j"): "tʃʰ"}
 VOWELS = {"": "a", "ါ": "a", "ာ": "a", "ံ": "i", "ၢ": "ə", "်": "ə", "ု": "ɨ", "ူ": "u", "့": "e", "ဲ": "ɛ", "ိ": "o", "ီ": "ɔ"}
 # The six tones. "name" is Wade's 1861 description, kept as the label; "chao"
