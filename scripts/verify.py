@@ -140,6 +140,7 @@ def name_inventory(chapters_out):
 
 QUOTES = [("“", "”"), ("「", "」"), ("『", "』"), ("«", "»")]
 WORDS = re.compile(r"[^\W\d_]{4,}", re.UNICODE)
+UNSPACED = {"zh", "yue", "nan", "hak", "ja", "ja-easy", "th"}   # written without spaces between words
 _refs = {}
 
 
@@ -154,6 +155,27 @@ def reference(lang):
                     out.setdefault((b["english"], v["chapter"]), {})[str(v["verse"])] = v["text"]
         _refs[lang] = out or None
     return _refs[lang]
+
+
+def tokens(text, lang):
+    """What two translations of a verse are compared by.
+
+    Words, where the language puts spaces between them. Chinese, Japanese and
+    Thai do not, and a "word" there came out as a whole clause, which two
+    translations never share - so the check below saw nothing in the Chinese
+    at all, while John 6 told the feeding of the five thousand twice and ran
+    two verses behind from there to the end. In those scripts it is pairs of
+    characters: 生命的粮 and 生命之粮 share 生命 and 命的 though no clause is
+    the same.
+    """
+    if lang in UNSPACED:
+        chars = re.findall(f"[{SCRIPTS[lang][0]}]", text)
+        return {a + b for a, b in zip(chars, chars[1:])}
+    return set(WORDS.findall(text.lower()))
+
+
+def jaccard(a, b):
+    return len(a & b) / max(len(a | b), 1)
 
 
 def check_alignment(lang, outs, flags):
@@ -174,44 +196,70 @@ def check_alignment(lang, outs, flags):
     ref_all = reference(lang)
     if not ref_all:
         return
+    unspaced = lang in UNSPACED
     for out in outs:
         ref = ref_all.get((out["book"], int(out["chapter"])))
         if not ref or len(ref) != len(out["verses"]):
             continue
+        ours = {n: tokens(t, lang) for n, t in out["verses"].items()}
+        theirs = {k: tokens(r, lang) for k, r in ref.items()}
+        same = {n: jaccard(w, theirs.get(n, set())) for n, w in ours.items()}
         moved = []
-        for n, t in out["verses"].items():
-            w = set(WORDS.findall(t.lower()))
-            if len(w) < 4:
+        for n, w in ours.items():
+            if len(w) < (5 if unspaced else 4):
                 continue
-            scores = {}
-            for k in range(int(n) - 2, int(n) + 3):
-                r = ref.get(str(k))
-                if r:
-                    rw = set(WORDS.findall(r.lower()))
-                    scores[k] = len(w & rw) / max(len(w | rw), 1)
+            reach = 3 if unspaced else 2
+            scores = {k: jaccard(w, theirs[str(k)])
+                      for k in range(int(n) - reach, int(n) + reach + 1) if str(k) in theirs}
             if not scores:
                 continue
             at = max(scores, key=scores.get)
+            if at == int(n):
+                continue
+            if unspaced:
+                # Two translations of one verse share far fewer character
+                # pairs than they would words, so the bar is lower - but the
+                # verse must also have taken its neighbour's words from the
+                # neighbour itself. A refrain (Psalm 24:7 and 9, the seals of
+                # Revelation 6) matches the verse next door and its own
+                # equally well; a verse that slipped matches the next one
+                # better than that verse's own translation does.
+                if scores[at] > 0.2 and scores[at] - same[n] > 0.1 and scores[at] > same.get(str(at), 0):
+                    moved.append((n, at))
             # Beating its own number is not enough. Neighbouring verses in a
             # genealogy or a psalm share most of their words, and the one next
             # door wins by a hair often enough to cry wolf all through the Old
             # Testament. It has to win clearly.
-            if at != int(n) and scores[at] > 0.35 and scores[at] - scores.get(int(n), 0) > 0.15:
+            elif scores[at] > 0.35 and scores[at] - scores.get(int(n), 0) > 0.15:
                 moved.append((n, at))
-        # A real shift is systematic: a run of verses all displaced the same
-        # way, because one verse was split or merged and the rest followed.
-        deltas = Counter(at - int(n) for n, at in moved)
-        if moved and deltas.most_common(1)[0][1] < max(3, 0.6 * len(moved)):
-            continue                     # scattered near-misses, not a shift
-        # A chapter numbered differently from its first verse is not a fault
-        # but a tradition: the Hebrew counts a psalm's superscription as verse
-        # one and the English does not, and the whole psalm slides by one.
-        if moved and min(int(n) for n, _a in moved) <= 2:
+        if not moved:
             continue
-        if len(moved) >= 3:
-            where = ", ".join(f"{n}->{at}" for n, at in moved[:6]) + ("..." if len(moved) > 6 else "")
-            flags.append(f"{out['book']} {out['chapter']}: ALIGNMENT — {len(moved)} of "
-                         f"{len(out['verses'])} verses hold the text of another verse ({where})")
+        deltas = Counter(at - int(n) for n, at in moved)
+        first = min(int(n) for n, _a in moved)
+        if unspaced:
+            # A chapter numbered differently from its first verse is not a
+            # fault but a tradition: the Hebrew counts a psalm's superscription
+            # as verse one, and gives Deuteronomy 29:1 to chapter 28, and the
+            # whole chapter slides by one. That is every verse moved the same
+            # way from the start - not two verses near the top run together,
+            # which is how Joshua 1 went wrong.
+            if first <= 2 and len(deltas) == 1 and len(moved) >= 0.4 * len(out["verses"]):
+                continue
+        else:
+            # A real shift is systematic: a run of verses all displaced the
+            # same way, because one verse was split or merged and the rest
+            # followed.
+            if deltas.most_common(1)[0][1] < max(3, 0.6 * len(moved)):
+                continue                 # scattered near-misses, not a shift
+            # A chapter numbered differently from its first verse is not a
+            # fault but a tradition: the Hebrew counts a psalm's superscription
+            # as verse one and the English does not, and the whole psalm
+            # slides by one.
+            if first <= 2 or len(moved) < 3:
+                continue
+        where = ", ".join(f"{n}->{at}" for n, at in moved[:6]) + ("..." if len(moved) > 6 else "")
+        flags.append(f"{out['book']} {out['chapter']}: ALIGNMENT — {len(moved)} of "
+                     f"{len(out['verses'])} verses hold the text of another verse ({where})")
 
 
 def check_quotes(outs, flags):
