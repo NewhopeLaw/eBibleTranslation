@@ -1,0 +1,343 @@
+[nan] zh + table + qwen3.5:35b-a3b
+  Matthew 1 [nan]: exists, skipping
+  Matthew 2 [nan]: exists, skipping
+  Matthew 3 [nan]: exists, skipping
+  Matthew 4 [nan]: exists, skipping
+  Matthew 5 [nan]: exists, skipping
+  Matthew 6 [nan]: exists, skipping
+  Matthew 7 [nan]: exists, skipping
+  Matthew 8 [nan]: exists, skipping
+  Matthew 9 [nan]: exists, skipping
+  Matthew 10 [nan]: exists, skipping
+  Matthew 11 [nan]: exists, skipping
+  Matthew 12 [nan]: exists, skipping
+  Matthew 13 [nan]: exists, skipping
+  Matthew 14 [nan]: exists, skipping
+  Matthew 15 [nan]: exists, skipping
+  Matthew 16 [nan]: exists, skipping
+  Matthew 17 [nan]: exists, skipping
+  Matthew 18 [nan]: exists, skipping
+  Matthew 19 [nan]: exists, skipping
+  Matthew 20 [nan]: exists, skipping
+  Matthew 21 [nan]: exists, skipping
+  Matthew 22 [nan]: exists, skipping
+  Matthew 23 [nan]: exists, skipping
+  Matthew 24 [nan]: exists, skipping
+  Matthew 25 [nan]: exists, skipping
+  Matthew 26 [nan]: exists, skipping
+  Matthew 27 [nan]: exists, skipping
+  Matthew 28 [nan]: exists, skipping
+  Mark 1 [nan]: exists, skipping
+  Mark 2 [nan]: exists, skipping
+  Mark 3 [nan]: exists, skipping
+  Mark 4 [nan]: exists, skipping
+  Mark 5 [nan]: exists, skipping
+  Mark 6 [nan]: exists, skipping
+  Mark 7 [nan]: exists, skipping
+  Mark 8 [nan]: exists, skipping
+  Mark 9 [nan]: exists, skipping
+  Mark 10 [nan]: exists, skipping
+  Mark 11 [nan]: exists, skipping
+  Mark 12 [nan]: exists, skipping
+  Mark 13 [nan]: exists, skipping
+  Mark 14 [nan]: exists, skipping
+  Mark 15 [nan]: exists, skipping
+  Mark 16 [nan]: exists, skipping
+  Luke 1 [nan]: exists, skipping
+  Luke 2 [nan]: exists, skipping
+  Luke 3 [nan]: exists, skipping
+  Luke 4 [nan]: exists, skipping
+  Luke 5 [nan]: exists, skipping
+  Luke 6 [nan]: exists, skipping
+  Luke 7 [nan]: exists, skipping
+  Luke 8 [nan]: exists, skipping
+  Luke 9 [nan]: exists, skipping
+  Luke 10 [nan]: exists, skipping
+  Luke 11 [nan]: exists, skipping
+  Luke 12 [nan]: exists, skipping
+  Luke 13 [nan]: exists, skipping
+  Luke 14 [nan]: exists, skipping
+  Luke 15 [nan]: exists, skipping
+  Luke 16 [nan]: exists, skipping
+  Luke 17 [nan]: exists, skipping
+  Luke 18 [nan]: exists, skipping
+  Luke 19 [nan]: exists, skipping
+  Luke 20 [nan]: exists, skipping
+  Luke 21 [nan]: exists, skipping
+  Luke 22 [nan]: exists, skipping
+  Luke 23 [nan]: exists, skipping
+  Luke 24 [nan]: exists, skipping
+  John 1 [nan]: exists, skipping
+  John 2 [nan]: exists, skipping
+  John 3 [nan]: exists, skipping
+  John 4 [nan]: exists, skipping
+  John 5 [nan]: exists, skipping
+  John 6 [nan]: exists, skipping
+  John 7 [nan]: exists, skipping
+  John 8 [nan]: exists, skipping
+  John 9 [nan]: exists, skipping
+  John 10 [nan]: exists, skipping
+  John 11 [nan]: exists, skipping
+  John 12 [nan]: exists, skipping
+  John 13 [nan]: exists, skipping
+  John 14 [nan]: exists, skipping
+  John 15 [nan]: exists, skipping
+  John 16 [nan]: exists, skipping
+  John 17 [nan]: exists, skipping
+  John 18 [nan]: exists, skipping
+  John 19 [nan]: exists, skipping
+  John 20 [nan]: exists, skipping
+  John 21 [nan]: exists, skipping
+  Acts 1 [nan]: exists, skipping
+  Acts 2 [nan]: exists, skipping
+  Acts 3 [nan]: exists, skipping
+  Acts 4 [nan]: exists, skipping
+  Acts 5 [nan]: exists, skipping
+  Acts 6 [nan]: exists, skipping
+  Acts 7 [nan]: exists, skipping
+  Acts 8 [nan]: exists, skipping
+  Acts 9 [nan]: exists, skipping
+  Acts 10 [nan]: exists, skipping
+  Acts 11 [nan]: exists, skipping
+  Acts 12 [nan]: exists, skipping
+  Acts 13 [nan]: exists, skipping
+  Acts 14 [nan]: exists, skipping
+  Acts 15 [nan]: exists, skipping
+  Acts 16 [nan]: exists, skipping
+  Acts 17 [nan]: exists, skipping
+  Acts 18 [nan]: exists, skipping
+  Acts 19 [nan]: exists, skipping
+  Acts 20 [nan]: exists, skipping
+  Acts 21 [nan]: exists, skipping
+  Acts 22 [nan]: exists, skipping
+  Acts 23 [nan]: exists, skipping
+  Acts 24 [nan]: exists, skipping
+  Acts 25 [nan]: exists, skipping
+  Acts 26 [nan]: exists, skipping
+  Acts 27 [nan]: exists, skipping
+  Acts 28 [nan]: exists, skipping
+  Romans 1 [nan]: exists, skipping
+  Romans 2 [nan]: exists, skipping
+  Romans 3 [nan]: exists, skipping
+  Romans 4 [nan]: exists, skipping
+  Romans 5 [nan]: exists, skipping
+  Romans 6 [nan]: exists, skipping
+  Romans 7 [nan]: exists, skipping
+  Romans 8 [nan]: exists, skipping
+  Romans 9 [nan]: exists, skipping
+  Romans 10 [nan]: exists, skipping
+  Romans 11 [nan]: exists, skipping
+  Romans 12 [nan]: exists, skipping
+  Romans 13 [nan]: exists, skipping
+  Romans 14 [nan]: exists, skipping
+  Romans 15 [nan]: exists, skipping
+  Romans 16 [nan]: exists, skipping
+  1 Corinthians 1 [nan]: exists, skipping
+  1 Corinthians 2 [nan]: exists, skipping
+  1 Corinthians 3 [nan]: exists, skipping
+  1 Corinthians 4 [nan]: exists, skipping
+  1 Corinthians 5 [nan]: exists, skipping
+  1 Corinthians 6 [nan]: exists, skipping
+  1 Corinthians 7 [nan]: exists, skipping
+  1 Corinthians 8 [nan]: exists, skipping
+  1 Corinthians 9 [nan]: exists, skipping
+  1 Corinthians 10 [nan]: exists, skipping
+  1 Corinthians 11 [nan]: exists, skipping
+  1 Corinthians 12 [nan]: exists, skipping
+  1 Corinthians 13 [nan]: exists, skipping
+  1 Corinthians 14 [nan]: exists, skipping
+  1 Corinthians 15 [nan]: exists, skipping
+  1 Corinthians 16 [nan]: exists, skipping
+  2 Corinthians 1 [nan]: exists, skipping
+  2 Corinthians 2 [nan]: exists, skipping
+  2 Corinthians 3 [nan]: exists, skipping
+  2 Corinthians 4 [nan]: exists, skipping
+  2 Corinthians 5 [nan]: exists, skipping
+  2 Corinthians 6 [nan]: exists, skipping
+  2 Corinthians 7 [nan]: exists, skipping
+  2 Corinthians 8 [nan]: exists, skipping
+  2 Corinthians 9 [nan]: exists, skipping
+  2 Corinthians 10 [nan]: exists, skipping
+  2 Corinthians 11 [nan]: exists, skipping
+  2 Corinthians 12 [nan]: exists, skipping
+  2 Corinthians 13 [nan]: exists, skipping
+  Galatians 1 [nan]: exists, skipping
+  Galatians 2 [nan]: exists, skipping
+  Galatians 3 [nan]: exists, skipping
+  Galatians 4 [nan]: exists, skipping
+  Galatians 5 [nan]: exists, skipping
+  Galatians 6 [nan]: exists, skipping
+  Ephesians 1 [nan]: exists, skipping
+  Ephesians 2 [nan]: exists, skipping
+  Ephesians 3 [nan]: exists, skipping
+  Ephesians 4 [nan]: exists, skipping
+  Ephesians 5 [nan]: exists, skipping
+  Ephesians 6 [nan]: exists, skipping
+  Philippians 1 [nan]: exists, skipping
+  Philippians 2 [nan]: exists, skipping
+  Philippians 3 [nan]: exists, skipping
+  Philippians 4 [nan]: exists, skipping
+  Colossians 1 [nan]: exists, skipping
+  Colossians 2 [nan]: exists, skipping
+  Colossians 3 [nan]: exists, skipping
+  Colossians 4 [nan]: exists, skipping
+  1 Thessalonians 1 [nan]: exists, skipping
+  1 Thessalonians 2 [nan]: exists, skipping
+  1 Thessalonians 3 [nan]: exists, skipping
+  1 Thessalonians 4 [nan]: exists, skipping
+  1 Thessalonians 5 [nan]: exists, skipping
+  2 Thessalonians 1 [nan]: exists, skipping
+  2 Thessalonians 2 [nan]: exists, skipping
+  2 Thessalonians 3 [nan]: exists, skipping
+  1 Timothy 1 [nan]: exists, skipping
+  1 Timothy 2 [nan]: exists, skipping
+  1 Timothy 3 [nan]: exists, skipping
+  1 Timothy 4 [nan]: exists, skipping
+  1 Timothy 5 [nan]: exists, skipping
+  1 Timothy 6 [nan]: exists, skipping
+  2 Timothy 1 [nan]: exists, skipping
+  2 Timothy 2 [nan]: exists, skipping
+  2 Timothy 3 [nan]: exists, skipping
+  2 Timothy 4 [nan]: exists, skipping
+  Titus 1 [nan]: exists, skipping
+  Titus 2 [nan]: exists, skipping
+  Titus 3 [nan]: exists, skipping
+  Philemon 1 [nan]: exists, skipping
+  Hebrews 1 [nan]: exists, skipping
+  Hebrews 2 [nan]: exists, skipping
+  Hebrews 3 [nan]: exists, skipping
+  Hebrews 4 [nan]: exists, skipping
+  Hebrews 5 [nan]: exists, skipping
+  Hebrews 6 [nan]: exists, skipping
+  Hebrews 7 [nan]: exists, skipping
+  Hebrews 8 [nan]: exists, skipping
+  Hebrews 9 [nan]: exists, skipping
+  Hebrews 10 [nan]: exists, skipping
+  Hebrews 11 [nan]: exists, skipping
+  Hebrews 12 [nan]: exists, skipping
+  Hebrews 13 [nan]: exists, skipping
+  James 1 [nan]: exists, skipping
+  James 2 [nan]: exists, skipping
+  James 3 [nan]: exists, skipping
+  James 4 [nan]: exists, skipping
+  James 5 [nan]: exists, skipping
+  1 Peter 1 [nan]: exists, skipping
+  1 Peter 2 [nan]: exists, skipping
+  1 Peter 3 [nan]: exists, skipping
+  1 Peter 4 [nan]: exists, skipping
+  1 Peter 5 [nan]: exists, skipping
+  2 Peter 1 [nan]: exists, skipping
+  2 Peter 2 [nan]: 22/22 vv, 23s, 129 words replaced, Mandarin left 0.5 -> 0.4 per 100 chars, model changed 3 verses
+  2 Peter 3 [nan]: 18/18 vv, 14s, 117 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 2 verses
+  1 John 1 [nan]: 10/10 vv, 10s, 72 words replaced, Mandarin left 1.6 -> 1.3 per 100 chars, model changed 2 verses
+  1 John 2 [nan]: 29/29 vv, 14s, 223 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 11 verses
+  1 John 3 [nan]: 24/24 vv, 10s, 171 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 11 verses
+  1 John 4 [nan]: 21/21 vv, 10s, 156 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 1 verses, kept the draft for 1 (1: more Mandarin)
+  1 John 5 [nan]: 21/21 vv, 13s, 143 words replaced, Mandarin left 0.2 -> 0.2 per 100 chars, model changed 0 verses
+  2 John 1 [nan]: 13/13 vv, 13s, 65 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 1 verses
+  3 John 1 [nan]: 15/15 vv, 8s, 51 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 1 verses
+  Jude 1 [nan]: 25/25 vv, 13s, 153 words replaced, Mandarin left 0.3 -> 0.2 per 100 chars, model changed 3 verses
+  Revelation 1 [nan]: 20/20 vv, 12s, 117 words replaced, Mandarin left 0.8 -> 0.5 per 100 chars, model changed 3 verses
+  Revelation 2 [nan]: 29/29 vv, 14s, 144 words replaced, Mandarin left 0.9 -> 1.0 per 100 chars, model changed 3 verses, kept the draft for 1 (10: more Mandarin)
+  Revelation 3 [nan]: 22/22 vv, 12s, 135 words replaced, Mandarin left 0.9 -> 0.8 per 100 chars, model changed 1 verses, kept the draft for 1 (1: more Mandarin)
+  Revelation 4 [nan]: 11/11 vv, 6s, 42 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 1 verses
+  Revelation 5 [nan]: 14/14 vv, 12s, 86 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 2 verses, kept the draft for 7 (1: more Mandarin, 2: more Mandarin, 5: more Mandarin, 6: more Mandarin, 8: more Mandarin, 9: more Mandarin, 14: more Mandarin)
+  Revelation 6 [nan]: 17/17 vv, 12s, 104 words replaced, Mandarin left 1.6 -> 1.3 per 100 chars, model changed 6 verses, kept the draft for 7 (1: more Mandarin, 3: more Mandarin, 5: more Mandarin, 6: more Mandarin, 7: more Mandarin, 9: more Mandarin, 12: more Mandarin)
+  Revelation 7 [nan]: 17/17 vv, 13s, 92 words replaced, Mandarin left 0.1 -> 0.0 per 100 chars, model changed 4 verses, kept the draft for 1 (2: more Mandarin)
+  Revelation 8 [nan]: 13/13 vv, 9s, 66 words replaced, Mandarin left 0.2 -> 0.2 per 100 chars, model changed 1 verses, kept the draft for 1 (1: more Mandarin)
+  Revelation 9 [nan]: 21/21 vv, 12s, 105 words replaced, Mandarin left 0.1 -> 0.1 per 100 chars, model changed 1 verses
+  Revelation 10 [nan]: 11/11 vv, 9s, 75 words replaced, Mandarin left 0.6 -> 0.2 per 100 chars, model changed 2 verses
+  Revelation 11 [nan]: 19/19 vv, 16s, 121 words replaced, Mandarin left 0.7 -> 0.5 per 100 chars, model changed 1 verses
+  Revelation 12 [nan]: 18/18 vv, 8s, 116 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 1 verses
+  Revelation 13 [nan]: 18/18 vv, 9s, 99 words replaced, Mandarin left 1.5 -> 1.3 per 100 chars, model changed 2 verses
+  Revelation 14 [nan]: 20/20 vv, 12s, 133 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 3 verses
+  Revelation 15 [nan]: 8/8 vv, 11s, 39 words replaced, Mandarin left 0.6 -> 0.3 per 100 chars, model changed 3 verses, kept the draft for 1 (1: more Mandarin)
+  Revelation 16 [nan]: 21/21 vv, 10s, 124 words replaced, Mandarin left 0.5 -> 0.4 per 100 chars, model changed 13 verses, kept the draft for 1 (13: more Mandarin)
+  Revelation 17 [nan]: 18/18 vv, 13s, 115 words replaced, Mandarin left 0.1 -> 0.1 per 100 chars, model changed 2 verses, kept the draft for 3 (3: more Mandarin, 4: more Mandarin, 5: more Mandarin)
+  Revelation 18 [nan]: 24/24 vv, 16s, 154 words replaced, Mandarin left 0.3 -> 0.2 per 100 chars, model changed 3 verses
+  Revelation 19 [nan]: 21/21 vv, 17s, 130 words replaced, Mandarin left 0.5 -> 0.4 per 100 chars, model changed 2 verses
+  Revelation 20 [nan]: 15/15 vv, 15s, 103 words replaced, Mandarin left 0.5 -> 0.2 per 100 chars, model changed 4 verses
+  Revelation 21 [nan]: 27/27 vv, 12s, 138 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 1 verses
+  Revelation 22 [nan]: 21/21 vv, 13s, 121 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 0 verses, kept the draft for 1 (2: more Mandarin)
+  Genesis 1 [nan]: 31/31 vv, 7s, 120 words replaced, Mandarin left 0.8 -> 0.6 per 100 chars, model changed 14 verses
+  Genesis 2 [nan]: 25/25 vv, 11s, 112 words replaced, Mandarin left 1.9 -> 1.8 per 100 chars, model changed 6 verses, kept the draft for 2 (18: more Mandarin, 22: more Mandarin)
+  Genesis 3 [nan]: 24/24 vv, 12s, 154 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 1 verses
+  Genesis 4 [nan]: 26/26 vv, 7s, 110 words replaced, Mandarin left 2.0 -> 1.4 per 100 chars, model changed 8 verses
+  Genesis 5 [nan]: 32/32 vv, 8s, 77 words replaced, Mandarin left 0.1 -> 0.1 per 100 chars, model changed 2 verses, kept the draft for 2 (3: more Mandarin, 28: more Mandarin)
+  Genesis 6 [nan]: 22/22 vv, 11s, 96 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 7 verses
+  Genesis 7 [nan]: 24/24 vv, 12s, 80 words replaced, Mandarin left 1.9 -> 1.9 per 100 chars, model changed 24 verses
+  Genesis 8 [nan]: 22/22 vv, 10s, 83 words replaced, Mandarin left 0.6 -> 0.5 per 100 chars, model changed 19 verses, kept the draft for 3 (4: more Mandarin, 5: more Mandarin, 14: more Mandarin)
+  Genesis 9 [nan]: 29/29 vv, 9s, 123 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 29 verses
+  Genesis 10 [nan]: 32/32 vv, 9s, 83 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 31 verses, kept the draft for 1 (8: more Mandarin)
+  Genesis 11 [nan]: 32/32 vv, 8s, 140 words replaced, Mandarin left 0.8 -> 0.5 per 100 chars, model changed 32 verses
+  Genesis 12 [nan]: 20/20 vv, 11s, 92 words replaced, Mandarin left 1.7 -> 1.5 per 100 chars, model changed 19 verses, kept the draft for 1 (15: more Mandarin)
+  Genesis 13 [nan]: 18/18 vv, 8s, 69 words replaced, Mandarin left 1.4 -> 1.3 per 100 chars, model changed 17 verses, kept the draft for 1 (15: more Mandarin)
+  Genesis 14 [nan]: 24/24 vv, 12s, 106 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 23 verses, kept the draft for 1 (9: more Mandarin)
+  Genesis 15 [nan]: 21/21 vv, 10s, 79 words replaced, Mandarin left 2.4 -> 2.3 per 100 chars, model changed 21 verses
+  Genesis 16 [nan]: 16/16 vv, 9s, 96 words replaced, Mandarin left 1.2 -> 1.0 per 100 chars, model changed 14 verses, kept the draft for 2 (1: more Mandarin, 2: more Mandarin)
+  Genesis 17 [nan]: 27/27 vv, 10s, 130 words replaced, Mandarin left 0.5 -> 0.4 per 100 chars, model changed 1 verses
+  Genesis 18 [nan]: 33/33 vv, 13s, 210 words replaced, Mandarin left 1.2 -> 1.1 per 100 chars, model changed 4 verses, kept the draft for 3 (2: more Mandarin, 10: more Mandarin, 14: more Mandarin)
+  Genesis 19 [nan]: 38/38 vv, 13s, 224 words replaced, Mandarin left 2.2 -> 1.9 per 100 chars, model changed 6 verses
+  Genesis 20 [nan]: 18/18 vv, 10s, 110 words replaced, Mandarin left 1.5 -> 1.1 per 100 chars, model changed 7 verses, kept the draft for 1 (4: more Mandarin)
+  Genesis 21 [nan]: 34/34 vv, 10s, 185 words replaced, Mandarin left 1.1 -> 0.9 per 100 chars, model changed 32 verses, kept the draft for 2 (2: more Mandarin, 6: more Mandarin)
+  Genesis 22 [nan]: 24/24 vv, 11s, 130 words replaced, Mandarin left 1.4 -> 1.1 per 100 chars, model changed 24 verses
+  Genesis 23 [nan]: 20/20 vv, 8s, 77 words replaced, Mandarin left 0.9 -> 0.6 per 100 chars, model changed 19 verses, kept the draft for 1 (4: more Mandarin)
+  Genesis 24 [nan]: 67/67 vv, 17s, 432 words replaced, Mandarin left 1.9 -> 1.6 per 100 chars, model changed 8 verses
+  Genesis 25 [nan]: 34/34 vv, 9s, 134 words replaced, Mandarin left 1.1 -> 0.8 per 100 chars, model changed 34 verses
+  Genesis 26 [nan]: 35/35 vv, 18s, 207 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 34 verses
+  Genesis 27 [nan]: 46/46 vv, 15s, 240 words replaced, Mandarin left 0.8 -> 0.7 per 100 chars, model changed 45 verses, kept the draft for 1 (25: more Mandarin)
+  Genesis 28 [nan]: 22/22 vv, 9s, 89 words replaced, Mandarin left 1.3 -> 1.2 per 100 chars, model changed 22 verses
+  Genesis 29 [nan]: 35/35 vv, 14s, 190 words replaced, Mandarin left 2.3 -> 1.8 per 100 chars, model changed 34 verses, kept the draft for 1 (1: length)
+  Genesis 30 [nan]: 43/43 vv, 13s, 234 words replaced, Mandarin left 1.8 -> 1.6 per 100 chars, model changed 42 verses
+  Genesis 31 [nan]: 54/54 vv, 15s, 297 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 54 verses
+  Genesis 32 [nan]: 33/33 vv, 10s, 183 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 32 verses
+  Genesis 33 [nan]: 20/20 vv, 10s, 117 words replaced, Mandarin left 0.8 -> 0.4 per 100 chars, model changed 20 verses
+  Genesis 34 [nan]: 31/31 vv, 10s, 212 words replaced, Mandarin left 0.9 -> 0.7 per 100 chars, model changed 5 verses
+  Genesis 35 [nan]: 29/29 vv, 9s, 144 words replaced, Mandarin left 0.7 -> 0.4 per 100 chars, model changed 5 verses
+  Genesis 36 [nan]: 43/43 vv, 12s, 123 words replaced, Mandarin left 0.1 -> 0.1 per 100 chars, model changed 14 verses
+  Genesis 37 [nan]: 36/36 vv, 61s, 252 words replaced, Mandarin left 2.1 -> 1.8 per 100 chars, model changed 3 verses, kept the draft for 1 (4: more Mandarin)
+  Genesis 38 [nan]: 30/30 vv, 25s, 224 words replaced, Mandarin left 1.3 -> 0.9 per 100 chars, model changed 4 verses
+  Genesis 39 [nan]: 23/23 vv, 13s, 120 words replaced, Mandarin left 2.1 -> 1.4 per 100 chars, model changed 8 verses
+  Genesis 40 [nan]: 23/23 vv, 23s, 102 words replaced, Mandarin left 2.3 -> 1.8 per 100 chars, model changed 7 verses, kept the draft for 5 (5: more Mandarin, 10: more Mandarin, 12: more Mandarin, 16: more Mandarin, 18: more Mandarin)
+  Genesis 41 [nan]: 57/57 vv, 21s, 263 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 4 verses, kept the draft for 3 (5: more Mandarin, 7: more Mandarin, 15: more Mandarin)
+  Genesis 42 [nan]: 38/38 vv, 14s, 324 words replaced, Mandarin left 1.0 -> 0.8 per 100 chars, model changed 4 verses
+  Genesis 43 [nan]: 34/34 vv, 15s, 287 words replaced, Mandarin left 1.4 -> 1.1 per 100 chars, model changed 11 verses, kept the draft for 1 (6: more Mandarin)
+  Genesis 44 [nan]: 34/34 vv, 16s, 274 words replaced, Mandarin left 1.1 -> 0.9 per 100 chars, model changed 3 verses
+  Genesis 45 [nan]: 28/28 vv, 11s, 199 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 5 verses
+  Genesis 46 [nan]: 34/34 vv, 11s, 150 words replaced, Mandarin left 0.2 -> 0.2 per 100 chars, model changed 0 verses
+  Genesis 47 [nan]: 31/31 vv, 9s, 222 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 0 verses
+  Genesis 48 [nan]: 22/22 vv, 11s, 160 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 17 verses, kept the draft for 5 (1: more Mandarin, 5: more Mandarin, 8: more Mandarin, 10: more Mandarin, 12: more Mandarin)
+  Genesis 49 [nan]: 33/33 vv, 13s, 152 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 33 verses
+  Genesis 50 [nan]: 26/26 vv, 11s, 164 words replaced, Mandarin left 0.4 -> 0.4 per 100 chars, model changed 26 verses
+  Exodus 1 [nan]: 22/22 vv, 8s, 83 words replaced, Mandarin left 0.3 -> 0.0 per 100 chars, model changed 12 verses, kept the draft for 2 (4: more Mandarin, 8: more Mandarin)
+  Exodus 2 [nan]: 25/25 vv, 12s, 165 words replaced, Mandarin left 1.1 -> 0.8 per 100 chars, model changed 4 verses, kept the draft for 1 (2: more Mandarin)
+  Exodus 3 [nan]: 22/22 vv, 12s, 142 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 2 verses
+  Exodus 4 [nan]: 31/31 vv, 14s, 147 words replaced, Mandarin left 2.7 -> 2.6 per 100 chars, model changed 9 verses, kept the draft for 2 (4: more Mandarin, 20: more Mandarin)
+  Exodus 5 [nan]: 23/23 vv, 11s, 168 words replaced, Mandarin left 1.3 -> 0.9 per 100 chars, model changed 7 verses
+  Exodus 6 [nan]: 30/30 vv, 11s, 118 words replaced, Mandarin left 2.6 -> 2.5 per 100 chars, model changed 3 verses
+  Exodus 7 [nan]: 29/29 vv, 7s, 107 words replaced, Mandarin left 2.4 -> 1.8 per 100 chars, model changed 7 verses
+  Exodus 8 [nan]: 28/28 vv, 14s, 137 words replaced, Mandarin left 2.8 -> 2.3 per 100 chars, model changed 13 verses, kept the draft for 1 (9: more Mandarin)
+  Exodus 9 [nan]: 35/35 vv, 10s, 161 words replaced, Mandarin left 2.4 -> 2.4 per 100 chars, model changed 1 verses
+  Exodus 10 [nan]: 29/29 vv, 15s, 197 words replaced, Mandarin left 2.5 -> 2.3 per 100 chars, model changed 6 verses
+  Exodus 11 [nan]: 10/10 vv, 7s, 52 words replaced, Mandarin left 2.6 -> 1.7 per 100 chars, model changed 5 verses
+  Exodus 12 [nan]: 51/51 vv, 13s, 221 words replaced, Mandarin left 1.8 -> 1.7 per 100 chars, model changed 3 verses, kept the draft for 1 (2: more Mandarin)
+  Exodus 13 [nan]: 22/22 vv, 10s, 123 words replaced, Mandarin left 2.2 -> 2.2 per 100 chars, model changed 1 verses
+  Exodus 14 [nan]: 31/31 vv, 14s, 163 words replaced, Mandarin left 2.0 -> 1.8 per 100 chars, model changed 11 verses
+  Exodus 15 [nan]: 27/27 vv, 10s, 124 words replaced, Mandarin left 2.4 -> 2.2 per 100 chars, model changed 12 verses
+  Exodus 16 [nan]: 36/36 vv, 17s, 216 words replaced, Mandarin left 3.2 -> 3.1 per 100 chars, model changed 5 verses, kept the draft for 1 (1: more Mandarin)
+  Exodus 17 [nan]: 16/16 vv, 8s, 81 words replaced, Mandarin left 2.6 -> 2.3 per 100 chars, model changed 2 verses
+  Exodus 18 [nan]: 27/27 vv, 11s, 131 words replaced, Mandarin left 1.7 -> 1.4 per 100 chars, model changed 7 verses
+  Exodus 19 [nan]: 25/25 vv, 14s, 139 words replaced, Mandarin left 2.2 -> 2.2 per 100 chars, model changed 0 verses, kept the draft for 1 (1: more Mandarin)
+  Exodus 20 [nan]: 26/26 vv, 8s, 97 words replaced, Mandarin left 1.7 -> 1.6 per 100 chars, model changed 2 verses
+  Exodus 21 [nan]: 37/37 vv, 11s, 139 words replaced, Mandarin left 1.9 -> 1.9 per 100 chars, model changed 1 verses
+  Exodus 22 [nan]: 30/30 vv, 9s, 108 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 2 verses
+  Exodus 23 [nan]: 33/33 vv, 15s, 149 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 1 verses
+  Exodus 24 [nan]: 18/18 vv, 9s, 80 words replaced, Mandarin left 2.0 -> 2.0 per 100 chars, model changed 2 verses
+  Exodus 25 [nan]: 40/40 vv, 16s, 141 words replaced, Mandarin left 1.2 -> 1.0 per 100 chars, model changed 4 verses
+  Exodus 26 [nan]: 37/37 vv, 12s, 135 words replaced, Mandarin left 1.8 -> 1.7 per 100 chars, model changed 5 verses
+  Exodus 27 [nan]: 21/21 vv, 11s, 84 words replaced, Mandarin left 0.5 -> 0.0 per 100 chars, model changed 4 verses
+  Exodus 28 [nan]: 43/43 vv, 16s, 234 words replaced, Mandarin left 0.8 -> 0.6 per 100 chars, model changed 4 verses
+  Exodus 29 [nan]: 46/46 vv, 17s, 296 words replaced, Mandarin left 2.1 -> 1.4 per 100 chars, model changed 15 verses
+  Exodus 30 [nan]: 38/38 vv, 13s, 123 words replaced, Mandarin left 1.4 -> 1.3 per 100 chars, model changed 2 verses
+  Exodus 31 [nan]: 18/18 vv, 9s, 56 words replaced, Mandarin left 2.1 -> 2.1 per 100 chars, model changed 17 verses, kept the draft for 1 (13: more Mandarin)
+  Exodus 32 [nan]: 35/35 vv, 11s, 190 words replaced, Mandarin left 2.1 -> 1.7 per 100 chars, model changed 35 verses

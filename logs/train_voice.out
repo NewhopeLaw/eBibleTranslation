@@ -1,0 +1,16 @@
++-----------------------------------------------------------------+
+|   | Name    | Type                     | Params | Mode  | FLOPs |
+|---+---------+--------------------------+--------+-------+-------|
+| 0 | model_g | SynthesizerTrn           | 23.7 M | train |     0 |
+| 1 | model_d | MultiPeriodDiscriminator | 46.7 M | train |     0 |
++-----------------------------------------------------------------+
+Trainable params: 70.4 M                                                       
+Non-trainable params: 0                                                        
+Total params: 70.4 M                                                           
+Total estimated model params size (MB): 281.644                                
+Modules in train mode: 504                                                     
+Modules in eval mode: 0                                                        
+Total FLOPs: 0                                                                 
+Epoch 299/299 ---------------- 5/5 0:00:01 • 0:00:00 3.16it/s v_num: 2.000     
+                                                              val_mos: 1.725   
+C:\Users\Newho\AppData\Local\Programs\Python\Python312\python.exe -m piper.train fit --data.csv_path D:\Home\4. AI\eBibleTranslation\NGAW KAREN TTS\audio\train\metadata.csv --data.audio_dir D:\Home\4. AI\eBibleTranslation\NGAW KAREN TTS\audio\train --data.cache_dir D:\Home\4. AI\eBibleTranslation\NGAW KAREN TTS\audio\train\cache --data.config_path D:\Home\4. AI\eBibleTranslation\NGAW KAREN TTS\audio\train\base_config.json --data.voice_name karen --data.espeak_voice vi --data.dataset_type phoneme_ids --data.phonemes_path D:\Home\4. AI\eBibleTranslation\NGAW KAREN TTS\audio\train\phonemes.json --data.batch_size 8 --data.validation_split 0.05 --data.num_workers 0 --model.sample_rate 22050 --trainer.accelerator gpu --trainer.devices 1 --trainer.max_epochs 300 --trainer.check_val_every_n_epoch 10 --trainer.log_every_n_steps 5 --trainer.default_root_dir D:\Home\4. AI\eBibleTranslation\models\piper\karen-runs --model.warmstart_ckpt models/piper/karen-runs/lightning_logs/version_1/checkpoints/epoch=79-step=4640.ckpt

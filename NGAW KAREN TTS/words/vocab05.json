@@ -1,0 +1,149 @@
+[
+ {
+  "en": "cry",
+  "ksw": "ဟီၣ်",
+  "in_karen_bible": 2055,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "laugh",
+  "ksw": "နံၤ",
+  "in_karen_bible": 3498,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "happy",
+  "ksw": "သးဖှံ",
+  "in_karen_bible": 2,
+  "confirmed": false,
+  "from_screen": true
+ },
+ {
+  "en": "sad",
+  "ksw": "သးအုး",
+  "in_karen_bible": 186,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "today (noun)",
+  "ksw": "တနံၤအံၤ",
+  "in_karen_bible": 378,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "today (adverb)",
+  "ksw": "တနံၤအံၤ",
+  "in_karen_bible": 378,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "tomorrow (noun)",
+  "ksw": "ခဲမုၢ်ဆ့ၣ်",
+  "in_karen_bible": 0,
+  "confirmed": false,
+  "from_screen": true
+ },
+ {
+  "en": "tomorrow (adverb)",
+  "ksw": "လၢခဲမုၢ်ဆ့ၣ်",
+  "in_karen_bible": 0,
+  "confirmed": false,
+  "from_screen": true
+ },
+ {
+  "en": "yesterday (noun)",
+  "ksw": "မဟါကၢ်",
+  "in_karen_bible": 0,
+  "confirmed": false,
+  "from_screen": true
+ },
+ {
+  "en": "yesterday (adverb)",
+  "ksw": "ဖဲမဟါကၢ်",
+  "in_karen_bible": 0,
+  "confirmed": false,
+  "from_screen": true
+ },
+ {
+  "en": "month",
+  "ksw": "လါ",
+  "in_karen_bible": 1129,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "week",
+  "ksw": "တနွံ",
+  "in_karen_bible": 4,
+  "confirmed": false,
+  "from_screen": true
+ },
+ {
+  "en": "fish (noun)",
+  "ksw": "ညၣ်",
+  "in_karen_bible": 536,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "fish (verb)",
+  "ksw": "ဖီၣ်ညၣ်",
+  "in_karen_bible": 0,
+  "confirmed": false,
+  "from_screen": true
+ },
+ {
+  "en": "cow",
+  "ksw": "ကျီၢ်",
+  "in_karen_bible": 2,
+  "confirmed": false,
+  "from_screen": true
+ },
+ {
+  "en": "bird",
+  "ksw": "ထိၣ်",
+  "in_karen_bible": 579,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "fire (noun)",
+  "ksw": "မ့ၣ်အူ",
+  "in_karen_bible": 1099,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "smoke (noun)",
+  "ksw": "မ့ၣ်အူလုၢ်",
+  "in_karen_bible": 0,
+  "confirmed": false,
+  "from_screen": true
+ },
+ {
+  "en": "smoke (verb)",
+  "ksw": "အီ",
+  "in_karen_bible": 16011,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "sun",
+  "ksw": "မုၢ်",
+  "in_karen_bible": 7895,
+  "confirmed": true,
+  "from_screen": true
+ },
+ {
+  "en": "moon",
+  "ksw": "လါ",
+  "in_karen_bible": 1129,
+  "confirmed": true,
+  "from_screen": true
+ }
+]

@@ -33,6 +33,16 @@ NORM_DIR = ROOT / "sources" / "normalized"
 LOG_PATH = ROOT / "logs" / "translate.jsonl"
 WORK_LOG_PATH = ROOT / "logs" / "work.jsonl"   # one line per model call made by a study job
 WORK_JOB = None                                # which queue job is calling; the builder sets it
+MODEL = None                                   # --model: one run's choice, over config.json's
+
+
+def model_for(lang=None):
+    """The model that writes a language. One model is not best at every
+    language: qwen3:32b, asked for Hakka, wrote Cantonese and Mandarin with
+    hardly a Hakka word in it, where qwen3.5 wrote recognisable Hakka. So
+    config.json can name a model per language under "lang_models", and a run
+    can name one with --model; everything else uses "model"."""
+    return MODEL or CONFIG.get("lang_models", {}).get(lang) or CONFIG["model"]
 
 SUP = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
 VERSE_RE = re.compile(r"^\[(\d+)\]\s*(.*)$")
@@ -293,7 +303,7 @@ def log_work(resp, seconds, job=None):
         WORK_LOG_PATH.parent.mkdir(exist_ok=True)
         with WORK_LOG_PATH.open("a", encoding="utf-8") as f:
             f.write(json.dumps({"ts": time.strftime("%Y-%m-%dT%H:%M:%S"), "t": round(time.time(), 3),
-                                "job": job or WORK_JOB or "work", "model": CONFIG["model"],
+                                "job": job or WORK_JOB or "work", "model": resp.get("model") or CONFIG["model"],
                                 "seconds": round(seconds, 1),
                                 "prompt_tokens": resp.get("prompt_eval_count"),
                                 "output_tokens": resp.get("eval_count")}) + "\n")
@@ -301,12 +311,13 @@ def log_work(resp, seconds, job=None):
         print(f"    work log: {e}", file=sys.stderr)
 
 
-def call_model(system, user, options=None):
-    """Call the model. Raises LoopError as soon as the output is seen to be
-    looping: mid-stream when streaming (the connection is dropped, which makes
-    Ollama stop generating), otherwise once the reply is in."""
+def call_model(system, user, options=None, model=None):
+    """Call the model (config.json's, unless one is named). Raises LoopError as
+    soon as the output is seen to be looping: mid-stream when streaming (the
+    connection is dropped, which makes Ollama stop generating), otherwise once
+    the reply is in."""
     payload = {
-        "model": CONFIG["model"],
+        "model": model or CONFIG["model"],
         "stream": on_token is not None,
         "think": CONFIG.get("think", False),
         "options": model_options(options),
@@ -443,13 +454,14 @@ def translate_chapter(meta, ch, verses, prev_translation, system, force=False, l
     emit(type="start", book=meta["name"], chapter=int(ch), verses=len(expected),
          lang=chapter_lang(meta, verses), target=lang)
     t0 = time.time()
+    model = model_for(lang)
     max_attempts = CONFIG.get("max_attempts", 3)
     attempts, fix, options, looped = 0, "", None, None
     best = None                      # (score, raw, resp, parsed, notes, missing, extra, loop)
     while attempts < max_attempts:
         attempts += 1
         try:
-            raw, resp = call_model(system, user + ("\n\n" + fix if fix else ""), options)
+            raw, resp = call_model(system, user + ("\n\n" + fix if fix else ""), options, model)
             loop = None
         except LoopError as e:
             raw, resp, loop = e.text, {}, e.unit
@@ -500,13 +512,13 @@ def translate_chapter(meta, ch, verses, prev_translation, system, force=False, l
     json_path.write_text(json.dumps(
         {"book": meta["name"], "chapter": int(ch), "lang": lang,
          "verses": {str(k): v for k, v in sorted(parsed.items())},
-         "notes": notes, "raw": raw}, ensure_ascii=False, indent=1), encoding="utf-8")
+         "notes": notes, "raw": raw, "engine": model}, ensure_ascii=False, indent=1), encoding="utf-8")
 
     LOG_PATH.parent.mkdir(exist_ok=True)
     with LOG_PATH.open("a", encoding="utf-8") as f:
         f.write(json.dumps({
             "ts": time.strftime("%Y-%m-%dT%H:%M:%S"), "book": meta["name"], "chapter": int(ch),
-            "lang": lang, "model": CONFIG["model"], "seconds": round(dt, 1), "attempts": attempts,
+            "lang": lang, "model": model, "seconds": round(dt, 1), "attempts": attempts,
             "prompt_tokens": resp.get("prompt_eval_count"), "output_tokens": resp.get("eval_count"),
             "missing": missing, "extra": extra, "loop": (loop.strip()[:80] if loop else None)}) + "\n")
     status = "OK" if not (missing or extra or loop) else (
@@ -558,12 +570,26 @@ def main():
     ap.add_argument("--keep-going", action="store_true",
                     help="never give up: on any error wait and retry the same book (resume skips "
                          "finished chapters) until everything requested is done or Ctrl-C")
+    ap.add_argument("--model", help="the Ollama model for this run, e.g. qwen3.5:35b-a3b (default: config.json's "
+                                    "lang_models entry for the language, else its model)")
     args = ap.parse_args()
     if not (args.all or args.book):
         ap.error("give a book code or --all")
+    global MODEL
+    MODEL = args.model
 
     langs = parse_targets(args.lang)
+    # A target with an "mt" code is written by scripts/mt_translate.py from
+    # the English, because the chat model cannot write it. Asked for by name it
+    # is an error worth explaining; inside "all" it is simply not this driver's.
+    by_mt = [lang for lang in langs if TARGETS[lang].get("mt")]
+    if by_mt and args.lang != "all":
+        raise SystemExit(f"{', '.join(by_mt)}: written by MADLAD-400 from the English, not by the chat model - "
+                         f"python scripts/mt_translate.py --lang {by_mt[0]}")
+    langs = [lang for lang in langs if lang not in by_mt]
     systems = {lang: build_system_prompt(lang) for lang in langs}
+    for lang in langs:
+        print(f"[{lang}] {model_for(lang)}")
     books = sorted(BOOKS, key=lambda c: BOOKS[c]["num"])
     # language-major: the whole request in the first language before the next
     jobs = [(code, None if args.all else args.chapters, lang)

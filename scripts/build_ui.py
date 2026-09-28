@@ -131,7 +131,7 @@ def ask_book(lang, name):
     for _ in range(5):
         t0 = time.time()
         try:
-            raw, resp = T.call_model(system, user, {"temperature": 0.6})
+            raw, resp = T.call_model(system, user, {"temperature": 0.6}, T.model_for(lang))
         except T.LoopError:
             continue
         T.log_work(resp, time.time() - t0, job="ui")
@@ -185,7 +185,7 @@ def ask(lang, kind, items):
     for attempt in range(1, TRIES + 1):
         t0 = time.time()
         try:
-            raw, resp = T.call_model(system, user, {"temperature": 0.2} if attempt > 1 else None)
+            raw, resp = T.call_model(system, user, {"temperature": 0.2} if attempt > 1 else None, T.model_for(lang))
         except T.LoopError:
             continue
         T.log_work(resp, time.time() - t0, job="ui")
@@ -197,9 +197,14 @@ def ask(lang, kind, items):
             n = int(m.group(1))
             if 1 <= n <= len(items):
                 got[items[n - 1]] = m.group(2).strip()
-        # Every line back, and none of them still in English: a reply that
-        # echoes the prompt is worse than no reply, because it looks translated.
-        if len(got) == len(items) and not any(v == k for k, v in got.items() if len(k) > 3):
+        # Every line back, and not still in English: a reply that echoes the
+        # prompt is worse than no reply, because it looks translated. One word
+        # left as it was is not an echo, though - Spanish says Normal, Sepia
+        # and Original with the same letters English does, and a batch holding
+        # them was refused three times over for being right. An echo is a
+        # quarter of the batch or more coming back unchanged.
+        same = sum(1 for k, v in got.items() if len(k) > 3 and v == k)
+        if len(got) == len(items) and same * 4 < len(items):
             return got
         print(f"    {lang}/{kind}: reply gave {len(got)} of {len(items)}, asking again ({attempt}/{TRIES})",
               file=sys.stderr)

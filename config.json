@@ -1,6 +1,8 @@
 {
   "api_url": "http://127.0.0.1:11434/api/chat",
   "model": "qwen3:32b",
+  "lang_models": {"hak": "qwen3.5:35b-a3b", "nan": "qwen3.5:35b-a3b"},
+  "_lang_models_notes": "A language named here is written by that model instead; translate.py --model overrides both for one run. Hakka: qwen3:32b wrote Cantonese and Mandarin for it (John 1, 2026-09-27), qwen3.5 recognisable if imperfect Hakka.",
   "think": false,
   "temperature": 0.6,
   "num_ctx": 24576,

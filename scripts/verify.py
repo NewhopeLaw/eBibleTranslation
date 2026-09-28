@@ -56,10 +56,12 @@ MARKS = re.compile(r"[֑-ׇ̀-ͯ]")   # Hebrew points/accents, Greek combining m
 # check looks only for Hebrew and Greek. Japanese is CJK plus its kana; the
 # Chinese targets are Han script alone.
 HAN, KANA, HANGUL = r"一-鿿㐀-䶿豈-﫿", r"぀-ヿ", r"가-힯"
+MYANMAR = r"က-႟ꧠ-꧿ꩠ-ꩿ"   # the Myanmar block and its two extensions; Sgaw Karen's own tone letters sit in the first
 SCRIPTS = {"th": (r"฀-๿", "Thai"), "ja": (HAN + KANA, "Japanese"), "ja-easy": (HAN + KANA, "Japanese"),
            "ko": (HANGUL + HAN, "Korean"), "fa": (r"؀-ۿ", "Arabic-script"),
-           "zh": (HAN, "Han"), "yue": (HAN, "Han"), "nan": (HAN, "Han"), "hak": (HAN, "Han")}
-OTHERS = r"฀-๿" + HAN + KANA + HANGUL + r"Ѐ-ӿ؀-ۿऀ-ॿ"
+           "zh": (HAN, "Han"), "yue": (HAN, "Han"), "nan": (HAN, "Han"), "hak": (HAN, "Han"),
+           "ksw": (MYANMAR, "Myanmar")}
+OTHERS = r"฀-๿" + HAN + KANA + HANGUL + MYANMAR + r"Ѐ-ӿ؀-ۿऀ-ॿ"
 LATIN_WORD = re.compile(r"[A-Za-z]{4,}")
 CAP_TOKEN = re.compile(r"\b[A-ZÁÉÍÓÚÑ][a-záéíóúñ]{2,}\b")
 

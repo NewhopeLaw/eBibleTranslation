@@ -1,0 +1,30 @@
+{
+ "plain": 0.1975137768694881,
+ "joint": 0.4245367965360398,
+ "mapping": {
+  "": {
+   "vi": "5",
+   "vi_long": false
+  },
+  "ၤ": {
+   "vi": "2",
+   "vi_long": false
+  },
+  "ၢ်": {
+   "vi": "2",
+   "vi_long": false
+  },
+  "ၣ်": {
+   "vi": "5",
+   "vi_long": false
+  },
+  "ာ်": {
+   "vi": "6",
+   "vi_long": false
+  },
+  "း": {
+   "vi": "ɜ",
+   "vi_long": false
+  }
+ }
+}
