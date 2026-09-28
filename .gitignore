@@ -63,3 +63,9 @@ site-test/
 sources/taiwanese-tts/
 sources/taigi-dict/
 site/.build/
+# The built reader and its search indexes are made from what is committed
+# (build_site.py, build_index.py) and had grown past GitHub's 50 MB file
+# limit; they stay on the machine that built them. Every other file under
+# site/morph/ is a study layer the model wrote over hours, and stays in git.
+site/index.html
+site/morph/idx_*.js

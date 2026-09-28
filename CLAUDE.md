@@ -26,14 +26,15 @@ The pages themselves are ordinary front-end work:
 
 ### Looking at a change
 
-`site/index.html` is committed prebuilt and carries the whole text through
-`site/morph/*.js`, so any checkout can serve `site/` over a static server and
-open the reader as a user sees it. The translations under `output/` are in git
-too, so `python scripts/build_site.py` rebuilds the full reader anywhere — but
-check the build line reports every translated chapter (1189 in English at the
-time of writing) before committing the result; a checkout that is behind on
-`output/` would shrink the reader. Prefer to commit the generator change and let
-the PC, which always has the latest chapters, commit the rebuild.
+`site/index.html` is not in git — it passed GitHub's 50 MB file limit — and
+neither are the search indexes (`site/morph/idx_*.js`); both are built from
+what is committed. The translations under `output/` are in git, so
+`python scripts/build_site.py --complete-only` and `python scripts/build_index.py`
+make the full reader on any checkout, and `site/` can then be served over a
+static server and opened as a user sees it. Check the build line reports every
+translated chapter (1189 in English at the time of writing): a checkout that is
+behind on `output/` would build a smaller reader. The rest of `site/morph/` is
+the study layers the model wrote, and those stay committed.
 
 Dashboard changes are the same: the page can be read and edited anywhere, but it
 is only seen working with a model behind it, on the PC.

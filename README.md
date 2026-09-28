@@ -509,7 +509,9 @@ with the target language); verifier reports in `logs/verify_<lang>.md`.
 ## Reader / search (site/index.html)
 
 `scripts/build_site.py` embeds every translated chapter into a single
-self-contained HTML file — full-text search, a reference finder
+self-contained HTML file. The file is not committed - at fifty megabytes it
+passed GitHub's limit - so a fresh checkout builds it first (`--complete-only`
+for a copy to hand out), and `scripts/build_index.py` for the search indexes — full-text search, a reference finder
 ("Genesis 2:7", "1 sam 3:10"), and a chapter reader. No server, no network:
 open the file in any browser, or as its own window with `start_reader.cmd`
 (the dashboard also serves it at <http://localhost:8766/reader>).
