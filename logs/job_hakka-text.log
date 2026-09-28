@@ -688,3 +688,438 @@
   Esther 1 [hak]: 22/22 vv, 16s, 157 words replaced, Mandarin left 0.6 -> 0.5 per 100 chars, model changed 22 verses
   Esther 2 [hak]: 23/23 vv, 13s, 169 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 23 verses
   Esther 3 [hak]: 15/15 vv, 7s, 103 words replaced, Mandarin left 1.7 -> 1.7 per 100 chars, model changed 15 verses
+  Esther 4 [hak]: 17/17 vv, 11s, 115 words replaced, Mandarin left 2.2 -> 1.8 per 100 chars, model changed 16 verses, kept the draft for 1 (14: more Mandarin)
+  Esther 5 [hak]: 14/14 vv, 9s, 121 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 14 verses
+  Esther 6 [hak]: 14/14 vv, 11s, 117 words replaced, Mandarin left 0.7 -> 0.5 per 100 chars, model changed 14 verses
+  Esther 7 [hak]: 10/10 vv, 9s, 87 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 10 verses
+  Esther 8 [hak]: 17/17 vv, 12s, 137 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 17 verses
+  Esther 9 [hak]: 32/32 vv, 13s, 187 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 31 verses, kept the draft for 1 (4: more Mandarin)
+  Esther 10 [hak]: 3/3 vv, 7s, 15 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 3 verses
+  Job 1 [hak]: 22/22 vv, 11s, 133 words replaced, Mandarin left 0.9 -> 0.6 per 100 chars, model changed 18 verses, kept the draft for 4 (1: more Mandarin, 2: more Mandarin, 3: more Mandarin, 4: more Mandarin)
+  Job 2 [hak]: 13/13 vv, 8s, 92 words replaced, Mandarin left 0.8 -> 0.6 per 100 chars, model changed 13 verses
+  Job 3 [hak]: 26/26 vv, 7s, 133 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 26 verses
+  Job 4 [hak]: 21/21 vv, 6s, 101 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 21 verses
+  Job 5 [hak]: 27/27 vv, 7s, 110 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 27 verses
+  Job 6 [hak]: 30/30 vv, 12s, 182 words replaced, Mandarin left 0.9 -> 0.5 per 100 chars, model changed 30 verses
+  Job 7 [hak]: 21/21 vv, 11s, 135 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 21 verses
+  Job 8 [hak]: 22/22 vv, 8s, 85 words replaced, Mandarin left 0.4 -> 0.4 per 100 chars, model changed 22 verses
+  Job 9 [hak]: 35/35 vv, 12s, 193 words replaced, Mandarin left 0.7 -> 0.5 per 100 chars, model changed 35 verses
+  Job 10 [hak]: 22/22 vv, 11s, 130 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 22 verses
+  Job 11 [hak]: 20/20 vv, 8s, 70 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 19 verses
+  Job 12 [hak]: 25/25 vv, 8s, 102 words replaced, Mandarin left 1.3 -> 1.1 per 100 chars, model changed 25 verses
+  Job 13 [hak]: 28/28 vv, 12s, 167 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 28 verses
+  Job 14 [hak]: 22/22 vv, 5s, 92 words replaced, Mandarin left 0.5 -> 0.4 per 100 chars, model changed 22 verses
+  Job 15 [hak]: 35/35 vv, 15s, 164 words replaced, Mandarin left 0.4 -> 0.4 per 100 chars, model changed 35 verses
+  Job 16 [hak]: 22/22 vv, 14s, 147 words replaced, Mandarin left 1.7 -> 1.6 per 100 chars, model changed 22 verses
+  Job 17 [hak]: 16/16 vv, 8s, 77 words replaced, Mandarin left 1.9 -> 0.8 per 100 chars, model changed 16 verses
+  Job 18 [hak]: 21/21 vv, 9s, 105 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 21 verses
+  Job 19 [hak]: 29/29 vv, 8s, 167 words replaced, Mandarin left 1.3 -> 1.0 per 100 chars, model changed 29 verses
+  Job 20 [hak]: 29/29 vv, 9s, 155 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 29 verses
+  Job 21 [hak]: 34/34 vv, 11s, 166 words replaced, Mandarin left 1.3 -> 0.9 per 100 chars, model changed 34 verses
+  Job 22 [hak]: 30/30 vv, 10s, 120 words replaced, Mandarin left 0.9 -> 0.7 per 100 chars, model changed 30 verses
+  Job 23 [hak]: 17/17 vv, 8s, 113 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 17 verses
+  Job 24 [hak]: 25/25 vv, 11s, 134 words replaced, Mandarin left 0.6 -> 0.4 per 100 chars, model changed 25 verses
+  Job 25 [hak]: 6/6 vv, 9s, 26 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 6 verses
+  Job 26 [hak]: 14/14 vv, 6s, 64 words replaced, Mandarin left 0.3 -> 0.0 per 100 chars, model changed 14 verses
+  Job 27 [hak]: 23/23 vv, 11s, 125 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 23 verses
+  Job 28 [hak]: 28/28 vv, 11s, 120 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 28 verses
+  Job 29 [hak]: 25/25 vv, 10s, 126 words replaced, Mandarin left 0.4 -> 0.4 per 100 chars, model changed 25 verses
+  Job 30 [hak]: 31/31 vv, 14s, 163 words replaced, Mandarin left 1.1 -> 0.8 per 100 chars, model changed 31 verses
+  Job 31 [hak]: 40/40 vv, 13s, 212 words replaced, Mandarin left 1.0 -> 0.9 per 100 chars, model changed 40 verses
+  Job 32 [hak]: 22/22 vv, 13s, 138 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 21 verses, kept the draft for 1 (2: more Mandarin)
+  Job 33 [hak]: 33/33 vv, 13s, 148 words replaced, Mandarin left 1.0 -> 0.4 per 100 chars, model changed 33 verses
+  Job 34 [hak]: 37/37 vv, 11s, 191 words replaced, Mandarin left 0.4 -> 0.3 per 100 chars, model changed 36 verses
+  Job 35 [hak]: 16/16 vv, 7s, 72 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 16 verses
+  Job 36 [hak]: 33/33 vv, 20s, 139 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 33 verses
+  Job 37 [hak]: 24/24 vv, 9s, 115 words replaced, Mandarin left 1.4 -> 1.0 per 100 chars, model changed 3 verses
+  Job 38 [hak]: 41/41 vv, 10s, 149 words replaced, Mandarin left 0.5 -> 0.2 per 100 chars, model changed 3 verses
+  Job 39 [hak]: 30/30 vv, 9s, 111 words replaced, Mandarin left 0.9 -> 0.7 per 100 chars, model changed 2 verses
+  Job 40 [hak]: 32/32 vv, 11s, 128 words replaced, Mandarin left 1.2 -> 0.9 per 100 chars, model changed 4 verses
+  Job 41 [hak]: 26/26 vv, 6s, 122 words replaced, Mandarin left 1.3 -> 0.8 per 100 chars, model changed 5 verses
+  Job 42 [hak]: 17/17 vv, 9s, 112 words replaced, Mandarin left 2.1 -> 2.1 per 100 chars, model changed 2 verses
+  Psalms 1 [hak]: 6/6 vv, 9s, 32 words replaced, Mandarin left 1.8 -> 1.2 per 100 chars, model changed 6 verses
+  Psalms 2 [hak]: 12/12 vv, 8s, 59 words replaced, Mandarin left 2.6 -> 1.6 per 100 chars, model changed 12 verses
+  Psalms 3 [hak]: 9/9 vv, 9s, 50 words replaced, Mandarin left 2.7 -> 2.7 per 100 chars, model changed 9 verses
+  Psalms 4 [hak]: 9/9 vv, 8s, 42 words replaced, Mandarin left 2.8 -> 2.0 per 100 chars, model changed 9 verses
+  Psalms 5 [hak]: 13/13 vv, 10s, 79 words replaced, Mandarin left 2.6 -> 2.4 per 100 chars, model changed 13 verses
+  Psalms 6 [hak]: 11/11 vv, 6s, 44 words replaced, Mandarin left 4.6 -> 3.6 per 100 chars, model changed 8 verses, kept the draft for 3 (3: more Mandarin, 4: more Mandarin, 10: more Mandarin)
+  Psalms 7 [hak]: 18/18 vv, 9s, 118 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 18 verses
+  Psalms 8 [hak]: 10/10 vv, 8s, 36 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 10 verses
+  Psalms 9 [hak]: 21/21 vv, 12s, 80 words replaced, Mandarin left 2.3 -> 2.1 per 100 chars, model changed 21 verses
+  Psalms 10 [hak]: 18/18 vv, 10s, 100 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 18 verses
+  Psalms 11 [hak]: 7/7 vv, 7s, 46 words replaced, Mandarin left 3.1 -> 2.2 per 100 chars, model changed 7 verses
+  Psalms 12 [hak]: 9/9 vv, 7s, 47 words replaced, Mandarin left 2.3 -> 2.3 per 100 chars, model changed 9 verses
+  Psalms 13 [hak]: 6/6 vv, 5s, 38 words replaced, Mandarin left 3.0 -> 3.0 per 100 chars, model changed 4 verses, kept the draft for 2 (2: more Mandarin, 6: more Mandarin)
+  Psalms 14 [hak]: 7/7 vv, 12s, 76 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 7 verses
+  Psalms 15 [hak]: 5/5 vv, 5s, 31 words replaced, Mandarin left 1.4 -> 0.7 per 100 chars, model changed 5 verses
+  Psalms 16 [hak]: 11/11 vv, 7s, 78 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 11 verses
+  Psalms 17 [hak]: 15/15 vv, 11s, 85 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 15 verses
+  Psalms 18 [hak]: 51/51 vv, 11s, 297 words replaced, Mandarin left 2.0 -> 2.0 per 100 chars, model changed 51 verses
+  Psalms 19 [hak]: 15/15 vv, 10s, 63 words replaced, Mandarin left 1.7 -> 1.7 per 100 chars, model changed 15 verses
+  Psalms 20 [hak]: 10/10 vv, 10s, 48 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 10 verses
+  Psalms 21 [hak]: 14/14 vv, 10s, 59 words replaced, Mandarin left 2.2 -> 2.2 per 100 chars, model changed 14 verses
+  Psalms 22 [hak]: 32/32 vv, 9s, 198 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 32 verses
+  Psalms 23 [hak]: 6/6 vv, 7s, 34 words replaced, Mandarin left 1.9 -> 1.3 per 100 chars, model changed 6 verses
+  Psalms 24 [hak]: 10/10 vv, 4s, 59 words replaced, Mandarin left 3.3 -> 3.3 per 100 chars, model changed 10 verses
+  Psalms 25 [hak]: 22/22 vv, 13s, 127 words replaced, Mandarin left 2.0 -> 2.0 per 100 chars, model changed 22 verses
+  Psalms 26 [hak]: 12/12 vv, 9s, 53 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 12 verses
+  Psalms 27 [hak]: 14/14 vv, 9s, 117 words replaced, Mandarin left 2.7 -> 2.5 per 100 chars, model changed 13 verses, kept the draft for 1 (1: more Mandarin)
+  Psalms 28 [hak]: 9/9 vv, 13s, 89 words replaced, Mandarin left 3.0 -> 1.9 per 100 chars, model changed 8 verses, kept the draft for 1 (6: more Mandarin)
+  Psalms 29 [hak]: 11/11 vv, 7s, 39 words replaced, Mandarin left 6.2 -> 6.2 per 100 chars, model changed 11 verses
+  Psalms 30 [hak]: 13/13 vv, 6s, 70 words replaced, Mandarin left 3.5 -> 3.2 per 100 chars, model changed 13 verses
+  Psalms 31 [hak]: 25/25 vv, 11s, 162 words replaced, Mandarin left 1.6 -> 1.5 per 100 chars, model changed 25 verses
+  Psalms 32 [hak]: 11/11 vv, 6s, 74 words replaced, Mandarin left 1.8 -> 1.8 per 100 chars, model changed 11 verses
+  Psalms 33 [hak]: 22/22 vv, 9s, 91 words replaced, Mandarin left 3.5 -> 2.9 per 100 chars, model changed 20 verses, kept the draft for 2 (1: more Mandarin, 6: more Mandarin)
+  Psalms 34 [hak]: 23/23 vv, 8s, 100 words replaced, Mandarin left 3.9 -> 3.3 per 100 chars, model changed 23 verses
+  Psalms 35 [hak]: 28/28 vv, 12s, 191 words replaced, Mandarin left 1.7 -> 1.6 per 100 chars, model changed 28 verses
+  Psalms 36 [hak]: 13/13 vv, 10s, 63 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 13 verses
+  Psalms 37 [hak]: 40/40 vv, 10s, 164 words replaced, Mandarin left 2.3 -> 2.3 per 100 chars, model changed 39 verses, kept the draft for 1 (3: more Mandarin)
+  Psalms 38 [hak]: 23/23 vv, 8s, 130 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 23 verses
+  Psalms 39 [hak]: 14/14 vv, 7s, 99 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 14 verses
+  Psalms 40 [hak]: 18/18 vv, 8s, 126 words replaced, Mandarin left 1.8 -> 1.8 per 100 chars, model changed 18 verses
+  Psalms 41 [hak]: 14/14 vv, 6s, 90 words replaced, Mandarin left 2.1 -> 2.1 per 100 chars, model changed 14 verses
+  Psalms 42 [hak]: 12/12 vv, 7s, 105 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 12 verses
+  Psalms 43 [hak]: 5/5 vv, 5s, 54 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 5 verses
+  Psalms 44 [hak]: 27/27 vv, 8s, 146 words replaced, Mandarin left 0.5 -> 0.2 per 100 chars, model changed 27 verses
+  Psalms 45 [hak]: 18/18 vv, 8s, 82 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 18 verses
+  Psalms 46 [hak]: 12/12 vv, 8s, 58 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 12 verses
+  Psalms 47 [hak]: 10/10 vv, 6s, 33 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 10 verses
+  Psalms 48 [hak]: 15/15 vv, 6s, 71 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 15 verses
+  Psalms 49 [hak]: 21/21 vv, 7s, 121 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 21 verses
+  Psalms 50 [hak]: 23/23 vv, 7s, 129 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 23 verses
+  Psalms 51 [hak]: 21/21 vv, 8s, 100 words replaced, Mandarin left 0.2 -> 0.2 per 100 chars, model changed 21 verses
+  Psalms 52 [hak]: 11/11 vv, 16s, 53 words replaced, Mandarin left 0.7 -> 0.3 per 100 chars, model changed 11 verses
+  Psalms 53 [hak]: 7/7 vv, 7s, 45 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 7 verses
+  Psalms 54 [hak]: 9/9 vv, 5s, 49 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 9 verses
+  Psalms 55 [hak]: 24/24 vv, 13s, 126 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 24 verses
+  Psalms 56 [hak]: 14/14 vv, 12s, 104 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 14 verses
+  Psalms 57 [hak]: 12/12 vv, 7s, 76 words replaced, Mandarin left 0.6 -> 0.0 per 100 chars, model changed 12 verses
+  Psalms 58 [hak]: 12/12 vv, 4s, 69 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 12 verses
+  Psalms 59 [hak]: 18/18 vv, 7s, 134 words replaced, Mandarin left 0.4 -> 0.4 per 100 chars, model changed 18 verses
+  Psalms 60 [hak]: 14/14 vv, 7s, 77 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 14 verses
+  Psalms 61 [hak]: 9/9 vv, 5s, 45 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 9 verses
+  Psalms 62 [hak]: 13/13 vv, 7s, 92 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 13 verses
+  Psalms 63 [hak]: 12/12 vv, 5s, 66 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 12 verses
+  Psalms 64 [hak]: 11/11 vv, 8s, 53 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 11 verses
+  Psalms 65 [hak]: 14/14 vv, 9s, 39 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 14 verses
+  Psalms 66 [hak]: 20/20 vv, 10s, 86 words replaced, Mandarin left 0.7 -> 0.4 per 100 chars, model changed 19 verses
+  Psalms 67 [hak]: 8/8 vv, 7s, 23 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 8 verses
+  Psalms 68 [hak]: 36/36 vv, 15s, 169 words replaced, Mandarin left 0.4 -> 0.4 per 100 chars, model changed 36 verses
+  Psalms 69 [hak]: 37/37 vv, 11s, 209 words replaced, Mandarin left 1.1 -> 1.0 per 100 chars, model changed 37 verses
+  Psalms 70 [hak]: 6/6 vv, 5s, 35 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 5 verses, kept the draft for 1 (1: more Mandarin)
+  Psalms 71 [hak]: 24/24 vv, 11s, 158 words replaced, Mandarin left 1.4 -> 1.3 per 100 chars, model changed 24 verses
+  Psalms 72 [hak]: 20/20 vv, 7s, 86 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 20 verses
+  Psalms 73 [hak]: 28/28 vv, 15s, 146 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 27 verses
+  Psalms 74 [hak]: 23/23 vv, 6s, 101 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 23 verses
+  Psalms 75 [hak]: 11/11 vv, 6s, 59 words replaced, Mandarin left 0.4 -> 0.4 per 100 chars, model changed 1 verses
+  Psalms 76 [hak]: 13/13 vv, 7s, 49 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 1 verses
+  Psalms 77 [hak]: 21/21 vv, 12s, 122 words replaced, Mandarin left 0.4 -> 0.4 per 100 chars, model changed 1 verses
+  Psalms 78 [hak]: 72/72 vv, 13s, 369 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 3 verses
+  Psalms 79 [hak]: 13/13 vv, 12s, 85 words replaced, Mandarin left 2.0 -> 1.7 per 100 chars, model changed 3 verses
+  Psalms 80 [hak]: 20/20 vv, 15s, 90 words replaced, Mandarin left 0.4 -> 0.2 per 100 chars, model changed 2 verses
+  Psalms 81 [hak]: 17/17 vv, 8s, 100 words replaced, Mandarin left 1.2 -> 0.9 per 100 chars, model changed 2 verses
+  Psalms 82 [hak]: 8/8 vv, 10s, 37 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 2 verses
+  Psalms 83 [hak]: 19/19 vv, 11s, 60 words replaced, Mandarin left 0.7 -> 0.5 per 100 chars, model changed 1 verses
+  Psalms 84 [hak]: 13/13 vv, 8s, 69 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 2 verses
+  Psalms 85 [hak]: 14/14 vv, 8s, 57 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 1 verses
+  Psalms 86 [hak]: 17/17 vv, 8s, 101 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 3 verses, kept the draft for 1 (4: more Mandarin)
+  Psalms 87 [hak]: 7/7 vv, 7s, 39 words replaced, Mandarin left 1.0 -> 1.1 per 100 chars, model changed 1 verses, kept the draft for 1 (2: more Mandarin)
+  Psalms 88 [hak]: 19/19 vv, 13s, 90 words replaced, Mandarin left 1.2 -> 1.0 per 100 chars, model changed 4 verses, kept the draft for 2 (2: more Mandarin, 15: more Mandarin)
+  Psalms 89 [hak]: 53/53 vv, 15s, 283 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 0 verses
+  Psalms 90 [hak]: 17/17 vv, 10s, 81 words replaced, Mandarin left 0.2 -> 0.0 per 100 chars, model changed 2 verses
+  Psalms 91 [hak]: 16/16 vv, 13s, 86 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 1 verses
+  Psalms 92 [hak]: 16/16 vv, 6s, 53 words replaced, Mandarin left 1.9 -> 1.9 per 100 chars, model changed 2 verses, kept the draft for 1 (2: more Mandarin)
+  Psalms 93 [hak]: 5/5 vv, 9s, 16 words replaced, Mandarin left 3.4 -> 3.4 per 100 chars, model changed 3 verses
+  Psalms 94 [hak]: 23/23 vv, 6s, 107 words replaced, Mandarin left 2.7 -> 2.7 per 100 chars, model changed 2 verses
+  Psalms 95 [hak]: 11/11 vv, 7s, 74 words replaced, Mandarin left 2.2 -> 1.5 per 100 chars, model changed 3 verses
+  Psalms 96 [hak]: 13/13 vv, 8s, 44 words replaced, Mandarin left 3.8 -> 3.8 per 100 chars, model changed 2 verses, kept the draft for 1 (1: more Mandarin)
+  Psalms 97 [hak]: 12/12 vv, 6s, 46 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 1 verses
+  Psalms 98 [hak]: 9/9 vv, 8s, 39 words replaced, Mandarin left 2.3 -> 2.3 per 100 chars, model changed 2 verses
+  Psalms 99 [hak]: 9/9 vv, 4s, 65 words replaced, Mandarin left 2.5 -> 2.5 per 100 chars, model changed 2 verses
+  Psalms 100 [hak]: 5/5 vv, 7s, 37 words replaced, Mandarin left 2.7 -> 2.7 per 100 chars, model changed 0 verses
+  Psalms 101 [hak]: 8/8 vv, 8s, 62 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 1 verses
+  Psalms 102 [hak]: 29/29 vv, 13s, 135 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 2 verses
+  Psalms 103 [hak]: 22/22 vv, 8s, 113 words replaced, Mandarin left 2.4 -> 2.4 per 100 chars, model changed 1 verses
+  Psalms 104 [hak]: 35/35 vv, 10s, 103 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 4 verses
+  Psalms 105 [hak]: 45/45 vv, 12s, 213 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 2 verses
+  Psalms 106 [hak]: 48/48 vv, 10s, 235 words replaced, Mandarin left 2.0 -> 2.0 per 100 chars, model changed 1 verses
+  Psalms 107 [hak]: 43/43 vv, 10s, 185 words replaced, Mandarin left 1.5 -> 1.3 per 100 chars, model changed 6 verses
+  Psalms 108 [hak]: 14/14 vv, 8s, 72 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 0 verses
+  Psalms 109 [hak]: 31/31 vv, 12s, 173 words replaced, Mandarin left 1.4 -> 1.2 per 100 chars, model changed 2 verses
+  Psalms 110 [hak]: 7/7 vv, 5s, 31 words replaced, Mandarin left 2.2 -> 2.2 per 100 chars, model changed 3 verses
+  Psalms 111 [hak]: 10/10 vv, 6s, 67 words replaced, Mandarin left 1.9 -> 1.9 per 100 chars, model changed 1 verses
+  Psalms 112 [hak]: 10/10 vv, 4s, 40 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 1 verses
+  Psalms 113 [hak]: 9/9 vv, 8s, 33 words replaced, Mandarin left 4.1 -> 4.1 per 100 chars, model changed 1 verses
+  Psalms 114 [hak]: 8/8 vv, 5s, 17 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 4 verses
+  Psalms 115 [hak]: 18/18 vv, 7s, 106 words replaced, Mandarin left 3.5 -> 3.5 per 100 chars, model changed 4 verses
+  Psalms 116 [hak]: 19/19 vv, 9s, 91 words replaced, Mandarin left 3.5 -> 3.5 per 100 chars, model changed 2 verses
+  Psalms 117 [hak]: 2/2 vv, 6s, 12 words replaced, Mandarin left 3.9 -> 3.9 per 100 chars, model changed 1 verses
+  Psalms 118 [hak]: 29/29 vv, 8s, 125 words replaced, Mandarin left 5.0 -> 5.0 per 100 chars, model changed 1 verses
+  Psalms 119 [hak]: 176/176 vv, 30s, 773 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 2 verses, kept the draft for 2 (166: more Mandarin, 174: more Mandarin)
+  Psalms 120 [hak]: 7/7 vv, 6s, 33 words replaced, Mandarin left 2.6 -> 2.5 per 100 chars, model changed 3 verses, kept the draft for 1 (2: more Mandarin)
+  Psalms 121 [hak]: 8/8 vv, 15s, 28 words replaced, Mandarin left 3.1 -> 3.1 per 100 chars, model changed 6 verses
+  Psalms 122 [hak]: 9/9 vv, 8s, 35 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 1 verses
+  Psalms 123 [hak]: 4/4 vv, 6s, 25 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 2 verses
+  Psalms 124 [hak]: 8/8 vv, 12s, 32 words replaced, Mandarin left 2.1 -> 2.1 per 100 chars, model changed 2 verses
+  Psalms 125 [hak]: 5/5 vv, 7s, 17 words replaced, Mandarin left 4.8 -> 3.4 per 100 chars, model changed 2 verses, kept the draft for 1 (2: more Mandarin)
+  Psalms 126 [hak]: 6/6 vv, 6s, 25 words replaced, Mandarin left 3.2 -> 3.2 per 100 chars, model changed 2 verses, kept the draft for 3 (2: more Mandarin, 3: more Mandarin, 4: more Mandarin)
+  Psalms 127 [hak]: 5/5 vv, 9s, 26 words replaced, Mandarin left 3.7 -> 3.7 per 100 chars, model changed 5 verses
+  Psalms 128 [hak]: 6/6 vv, 4s, 25 words replaced, Mandarin left 1.8 -> 1.8 per 100 chars, model changed 6 verses
+  Psalms 129 [hak]: 8/8 vv, 6s, 34 words replaced, Mandarin left 2.1 -> 2.1 per 100 chars, model changed 8 verses
+  Psalms 130 [hak]: 8/8 vv, 8s, 28 words replaced, Mandarin left 2.3 -> 2.3 per 100 chars, model changed 8 verses
+  Psalms 131 [hak]: 3/3 vv, 5s, 22 words replaced, Mandarin left 1.9 -> 1.9 per 100 chars, model changed 3 verses
+  Psalms 132 [hak]: 18/18 vv, 12s, 97 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 17 verses, kept the draft for 1 (6: more Mandarin)
+  Psalms 133 [hak]: 3/3 vv, 6s, 12 words replaced, Mandarin left 3.4 -> 3.4 per 100 chars, model changed 2 verses, kept the draft for 1 (1: more Mandarin)
+  Psalms 134 [hak]: 3/3 vv, 3s, 13 words replaced, Mandarin left 6.8 -> 6.8 per 100 chars, model changed 3 verses
+  Psalms 135 [hak]: 21/21 vv, 8s, 95 words replaced, Mandarin left 3.7 -> 3.7 per 100 chars, model changed 14 verses, kept the draft for 7 (1: more Mandarin, 2: more Mandarin, 3: more Mandarin, 4: more Mandarin, 6: more Mandarin, 19: more Mandarin, 20: more Mandarin)
+  Psalms 136 [hak]: 26/26 vv, 6s, 106 words replaced, Mandarin left 1.0 -> 0.4 per 100 chars, model changed 25 verses, kept the draft for 1 (8: length)
+  Psalms 137 [hak]: 9/9 vv, 8s, 49 words replaced, Mandarin left 3.8 -> 3.0 per 100 chars, model changed 9 verses
+  Psalms 138 [hak]: 8/8 vv, 4s, 34 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 7 verses
+  Psalms 139 [hak]: 24/24 vv, 9s, 138 words replaced, Mandarin left 0.5 -> 0.3 per 100 chars, model changed 24 verses
+  Psalms 140 [hak]: 14/14 vv, 11s, 65 words replaced, Mandarin left 1.8 -> 1.8 per 100 chars, model changed 14 verses
+  Psalms 141 [hak]: 10/10 vv, 10s, 73 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 10 verses
+  Psalms 142 [hak]: 8/8 vv, 4s, 47 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 8 verses
+  Psalms 143 [hak]: 12/12 vv, 7s, 77 words replaced, Mandarin left 1.3 -> 1.1 per 100 chars, model changed 12 verses
+  Psalms 144 [hak]: 15/15 vv, 7s, 98 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 15 verses
+  Psalms 145 [hak]: 21/21 vv, 8s, 96 words replaced, Mandarin left 2.1 -> 2.1 per 100 chars, model changed 21 verses
+  Psalms 146 [hak]: 10/10 vv, 5s, 58 words replaced, Mandarin left 4.5 -> 4.5 per 100 chars, model changed 10 verses
+  Psalms 147 [hak]: 20/20 vv, 6s, 90 words replaced, Mandarin left 1.8 -> 1.8 per 100 chars, model changed 19 verses, kept the draft for 1 (1: more Mandarin)
+  Psalms 148 [hak]: 14/14 vv, 6s, 64 words replaced, Mandarin left 1.9 -> 1.6 per 100 chars, model changed 14 verses
+  Psalms 149 [hak]: 9/9 vv, 7s, 32 words replaced, Mandarin left 3.0 -> 2.0 per 100 chars, model changed 9 verses
+  Psalms 150 [hak]: 6/6 vv, 8s, 26 words replaced, Mandarin left 2.4 -> 2.4 per 100 chars, model changed 6 verses
+  Proverbs 1 [hak]: 33/33 vv, 12s, 127 words replaced, Mandarin left 0.8 -> 0.7 per 100 chars, model changed 2 verses
+  Proverbs 2 [hak]: 22/22 vv, 10s, 67 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 0 verses
+  Proverbs 3 [hak]: 35/35 vv, 12s, 151 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 2 verses
+  Proverbs 4 [hak]: 27/27 vv, 9s, 134 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 3 verses
+  Proverbs 5 [hak]: 23/23 vv, 9s, 102 words replaced, Mandarin left 0.6 -> 0.4 per 100 chars, model changed 2 verses
+  Proverbs 6 [hak]: 35/35 vv, 11s, 149 words replaced, Mandarin left 0.8 -> 0.7 per 100 chars, model changed 35 verses
+  Proverbs 7 [hak]: 27/27 vv, 15s, 141 words replaced, Mandarin left 0.8 -> 0.5 per 100 chars, model changed 27 verses
+  Proverbs 8 [hak]: 36/36 vv, 11s, 179 words replaced, Mandarin left 0.5 -> 0.4 per 100 chars, model changed 36 verses
+  Proverbs 9 [hak]: 18/18 vv, 8s, 69 words replaced, Mandarin left 1.3 -> 0.5 per 100 chars, model changed 18 verses
+  Proverbs 10 [hak]: 32/32 vv, 11s, 106 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 32 verses
+  Proverbs 11 [hak]: 31/31 vv, 11s, 96 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 31 verses
+  Proverbs 12 [hak]: 28/28 vv, 9s, 101 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 28 verses
+  Proverbs 13 [hak]: 25/25 vv, 14s, 73 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 25 verses
+  Proverbs 14 [hak]: 35/35 vv, 16s, 118 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 1 verses
+  Proverbs 15 [hak]: 33/33 vv, 10s, 96 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 2 verses
+  Proverbs 16 [hak]: 33/33 vv, 7s, 119 words replaced, Mandarin left 1.7 -> 1.7 per 100 chars, model changed 1 verses, kept the draft for 3 (1: more Mandarin, 6: more Mandarin, 7: more Mandarin)
+  Proverbs 17 [hak]: 28/28 vv, 10s, 101 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 1 verses
+  Proverbs 18 [hak]: 24/24 vv, 9s, 74 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 2 verses
+  Proverbs 19 [hak]: 29/29 vv, 12s, 105 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 2 verses
+  Proverbs 20 [hak]: 30/30 vv, 19s, 124 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 2 verses, kept the draft for 1 (1: more Mandarin)
+  Proverbs 21 [hak]: 31/31 vv, 10s, 135 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 1 verses
+  Proverbs 22 [hak]: 29/29 vv, 9s, 107 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 1 verses
+  Proverbs 23 [hak]: 35/35 vv, 13s, 161 words replaced, Mandarin left 0.4 -> 0.3 per 100 chars, model changed 2 verses
+  Proverbs 24 [hak]: 34/34 vv, 12s, 134 words replaced, Mandarin left 0.4 -> 0.4 per 100 chars, model changed 2 verses
+  Proverbs 25 [hak]: 28/28 vv, 10s, 112 words replaced, Mandarin left 0.8 -> 0.7 per 100 chars, model changed 4 verses
+  Proverbs 26 [hak]: 28/28 vv, 10s, 86 words replaced, Mandarin left 0.5 -> 0.4 per 100 chars, model changed 3 verses
+  Proverbs 27 [hak]: 27/27 vv, 11s, 105 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 1 verses
+  Proverbs 28 [hak]: 28/28 vv, 11s, 90 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 2 verses
+  Proverbs 29 [hak]: 27/27 vv, 8s, 73 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 3 verses
+  Proverbs 30 [hak]: 33/33 vv, 14s, 160 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 33 verses
+  Proverbs 31 [hak]: 31/31 vv, 9s, 150 words replaced, Mandarin left 0.1 -> 0.1 per 100 chars, model changed 30 verses, kept the draft for 1 (1: more Mandarin)
+  Ecclesiastes 1 [hak]: 18/18 vv, 17s, 70 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 3 verses
+  Ecclesiastes 2 [hak]: 26/26 vv, 20s, 205 words replaced, Mandarin left 0.8 -> 0.7 per 100 chars, model changed 2 verses
+  Ecclesiastes 3 [hak]: 22/22 vv, 26s, 115 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 0 verses, kept the draft for 1 (8: more Mandarin)
+  Ecclesiastes 4 [hak]: 17/17 vv, 9s, 93 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 1 verses
+  Ecclesiastes 5 [hak]: 19/19 vv, 10s, 120 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 1 verses
+  Ecclesiastes 6 [hak]: 12/12 vv, 9s, 87 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 0 verses
+  Ecclesiastes 7 [hak]: 29/29 vv, 14s, 142 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 1 verses
+  Ecclesiastes 8 [hak]: 17/17 vv, 11s, 114 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 17 verses
+  Ecclesiastes 9 [hak]: 18/18 vv, 12s, 129 words replaced, Mandarin left 0.6 -> 0.4 per 100 chars, model changed 18 verses
+  Ecclesiastes 10 [hak]: 20/20 vv, 10s, 89 words replaced, Mandarin left 0.4 -> 0.4 per 100 chars, model changed 20 verses
+  Ecclesiastes 11 [hak]: 10/10 vv, 9s, 59 words replaced, Mandarin left 1.4 -> 0.8 per 100 chars, model changed 10 verses
+  Ecclesiastes 12 [hak]: 14/14 vv, 11s, 56 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 14 verses
+  Song of Songs 1 [hak]: 17/17 vv, 11s, 92 words replaced, Mandarin left 0.2 -> 0.0 per 100 chars, model changed 2 verses, kept the draft for 1 (2: more Mandarin)
+  Song of Songs 2 [hak]: 17/17 vv, 8s, 112 words replaced, Mandarin left 0.7 -> 0.2 per 100 chars, model changed 3 verses
+  Song of Songs 3 [hak]: 11/11 vv, 7s, 86 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 1 verses
+  Song of Songs 4 [hak]: 16/16 vv, 9s, 124 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 5 verses
+  Song of Songs 5 [hak]: 16/16 vv, 10s, 170 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 16 verses
+  Song of Songs 6 [hak]: 12/12 vv, 11s, 79 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 12 verses
+  Song of Songs 7 [hak]: 14/14 vv, 7s, 70 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 14 verses
+  Song of Songs 8 [hak]: 14/14 vv, 12s, 91 words replaced, Mandarin left 0.2 -> 0.2 per 100 chars, model changed 11 verses, kept the draft for 3 (7: more Mandarin, 8: more Mandarin, 11: more Mandarin)
+  Isaiah 1 [hak]: 31/31 vv, 14s, 222 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 1 verses
+  Isaiah 2 [hak]: 22/22 vv, 13s, 141 words replaced, Mandarin left 1.9 -> 1.5 per 100 chars, model changed 4 verses
+  Isaiah 3 [hak]: 26/26 vv, 9s, 189 words replaced, Mandarin left 1.0 -> 0.8 per 100 chars, model changed 2 verses
+  Isaiah 4 [hak]: 6/6 vv, 7s, 33 words replaced, Mandarin left 2.5 -> 1.7 per 100 chars, model changed 2 verses
+  Isaiah 5 [hak]: 30/30 vv, 12s, 195 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 1 verses
+  Isaiah 6 [hak]: 13/13 vv, 11s, 77 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 5 verses, kept the draft for 1 (5: more Mandarin)
+  Isaiah 7 [hak]: 25/25 vv, 9s, 141 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 1 verses
+  Isaiah 8 [hak]: 23/23 vv, 11s, 161 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 0 verses
+  Isaiah 9 [hak]: 20/20 vv, 11s, 138 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 1 verses
+  Isaiah 10 [hak]: 34/34 vv, 15s, 238 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 0 verses
+  Isaiah 11 [hak]: 16/16 vv, 8s, 95 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 0 verses
+  Isaiah 12 [hak]: 6/6 vv, 10s, 47 words replaced, Mandarin left 1.9 -> 1.9 per 100 chars, model changed 3 verses
+  Isaiah 13 [hak]: 22/22 vv, 11s, 140 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 1 verses
+  Isaiah 14 [hak]: 32/32 vv, 15s, 233 words replaced, Mandarin left 1.0 -> 0.9 per 100 chars, model changed 4 verses
+  Isaiah 15 [hak]: 9/9 vv, 10s, 50 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 3 verses
+  Isaiah 16 [hak]: 14/14 vv, 9s, 96 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 1 verses
+  Isaiah 17 [hak]: 14/14 vv, 11s, 85 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 6 verses
+  Isaiah 18 [hak]: 7/7 vv, 5s, 65 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 1 verses
+  Isaiah 19 [hak]: 25/25 vv, 13s, 125 words replaced, Mandarin left 1.8 -> 1.8 per 100 chars, model changed 2 verses
+  Isaiah 20 [hak]: 6/6 vv, 9s, 45 words replaced, Mandarin left 1.9 -> 1.5 per 100 chars, model changed 3 verses, kept the draft for 2 (2: more Mandarin, 3: more Mandarin)
+  Isaiah 21 [hak]: 17/17 vv, 6s, 99 words replaced, Mandarin left 2.2 -> 1.7 per 100 chars, model changed 3 verses, kept the draft for 2 (2: more Mandarin, 10: more Mandarin)
+  Isaiah 22 [hak]: 25/25 vv, 7s, 149 words replaced, Mandarin left 2.4 -> 2.2 per 100 chars, model changed 9 verses, kept the draft for 1 (9: more Mandarin)
+  Isaiah 23 [hak]: 18/18 vv, 9s, 99 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 1 verses
+  Isaiah 24 [hak]: 23/23 vv, 10s, 109 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 23 verses
+  Isaiah 25 [hak]: 12/12 vv, 8s, 84 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 12 verses
+  Isaiah 26 [hak]: 21/21 vv, 7s, 120 words replaced, Mandarin left 1.9 -> 1.7 per 100 chars, model changed 19 verses, kept the draft for 2 (10: more Mandarin, 15: more Mandarin)
+  Isaiah 27 [hak]: 13/13 vv, 7s, 102 words replaced, Mandarin left 1.0 -> 0.8 per 100 chars, model changed 13 verses
+  Isaiah 28 [hak]: 29/29 vv, 10s, 177 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 29 verses
+  Isaiah 29 [hak]: 24/24 vv, 16s, 166 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 23 verses
+  Isaiah 30 [hak]: 33/33 vv, 18s, 241 words replaced, Mandarin left 1.0 -> 0.9 per 100 chars, model changed 33 verses
+  Isaiah 31 [hak]: 9/9 vv, 12s, 76 words replaced, Mandarin left 1.8 -> 1.5 per 100 chars, model changed 9 verses
+  Isaiah 32 [hak]: 20/20 vv, 13s, 99 words replaced, Mandarin left 0.2 -> 0.2 per 100 chars, model changed 20 verses
+  Isaiah 33 [hak]: 24/24 vv, 11s, 169 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 24 verses
+  Isaiah 34 [hak]: 17/17 vv, 12s, 127 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 17 verses
+  Isaiah 35 [hak]: 10/10 vv, 9s, 82 words replaced, Mandarin left 1.6 -> 1.2 per 100 chars, model changed 10 verses
+  Isaiah 36 [hak]: 22/22 vv, 11s, 183 words replaced, Mandarin left 1.6 -> 1.5 per 100 chars, model changed 22 verses
+  Isaiah 37 [hak]: 38/38 vv, 16s, 273 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 38 verses
+  Isaiah 38 [hak]: 22/22 vv, 9s, 157 words replaced, Mandarin left 2.2 -> 2.2 per 100 chars, model changed 22 verses
+  Isaiah 39 [hak]: 8/8 vv, 7s, 76 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 8 verses
+  Isaiah 40 [hak]: 31/31 vv, 10s, 238 words replaced, Mandarin left 1.5 -> 1.3 per 100 chars, model changed 31 verses
+  Isaiah 41 [hak]: 29/29 vv, 12s, 238 words replaced, Mandarin left 1.3 -> 1.1 per 100 chars, model changed 29 verses
+  Isaiah 42 [hak]: 25/25 vv, 9s, 197 words replaced, Mandarin left 1.8 -> 1.8 per 100 chars, model changed 25 verses
+  Isaiah 43 [hak]: 28/28 vv, 16s, 247 words replaced, Mandarin left 1.9 -> 1.7 per 100 chars, model changed 27 verses, kept the draft for 1 (9: more Mandarin)
+  Isaiah 44 [hak]: 28/28 vv, 12s, 248 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 1 verses
+  Isaiah 45 [hak]: 25/25 vv, 10s, 239 words replaced, Mandarin left 2.3 -> 2.3 per 100 chars, model changed 1 verses
+  Isaiah 46 [hak]: 13/13 vv, 9s, 129 words replaced, Mandarin left 0.7 -> 0.8 per 100 chars, model changed 2 verses
+  Isaiah 47 [hak]: 15/15 vv, 7s, 127 words replaced, Mandarin left 1.0 -> 0.7 per 100 chars, model changed 4 verses
+  Isaiah 48 [hak]: 22/22 vv, 10s, 189 words replaced, Mandarin left 1.9 -> 1.5 per 100 chars, model changed 5 verses
+  Isaiah 49 [hak]: 26/26 vv, 12s, 245 words replaced, Mandarin left 2.0 -> 1.4 per 100 chars, model changed 26 verses
+  Isaiah 50 [hak]: 11/11 vv, 8s, 113 words replaced, Mandarin left 2.7 -> 2.7 per 100 chars, model changed 11 verses
+  Isaiah 51 [hak]: 23/23 vv, 9s, 211 words replaced, Mandarin left 1.5 -> 1.3 per 100 chars, model changed 23 verses
+  Isaiah 52 [hak]: 15/15 vv, 7s, 112 words replaced, Mandarin left 1.8 -> 1.6 per 100 chars, model changed 15 verses
+  Isaiah 53 [hak]: 12/12 vv, 6s, 130 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 11 verses, kept the draft for 1 (1: more Mandarin)
+  Isaiah 54 [hak]: 17/17 vv, 7s, 138 words replaced, Mandarin left 2.3 -> 2.3 per 100 chars, model changed 17 verses
+  Isaiah 55 [hak]: 13/13 vv, 10s, 110 words replaced, Mandarin left 1.7 -> 1.5 per 100 chars, model changed 13 verses
+  Isaiah 56 [hak]: 12/12 vv, 6s, 101 words replaced, Mandarin left 2.4 -> 1.5 per 100 chars, model changed 12 verses
+  Isaiah 57 [hak]: 21/21 vv, 15s, 157 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 21 verses
+  Isaiah 58 [hak]: 14/14 vv, 10s, 125 words replaced, Mandarin left 1.4 -> 1.2 per 100 chars, model changed 14 verses
+  Isaiah 59 [hak]: 21/21 vv, 8s, 170 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 21 verses
+  Isaiah 60 [hak]: 22/22 vv, 10s, 171 words replaced, Mandarin left 1.6 -> 1.4 per 100 chars, model changed 22 verses
+  Isaiah 61 [hak]: 11/11 vv, 9s, 109 words replaced, Mandarin left 1.9 -> 1.9 per 100 chars, model changed 11 verses
+  Isaiah 62 [hak]: 12/12 vv, 9s, 93 words replaced, Mandarin left 2.9 -> 1.9 per 100 chars, model changed 12 verses
+  Isaiah 63 [hak]: 19/19 vv, 9s, 155 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 19 verses
+  Isaiah 64 [hak]: 11/11 vv, 4s, 63 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 11 verses
+  Isaiah 65 [hak]: 25/25 vv, 13s, 253 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 25 verses
+  Isaiah 66 [hak]: 24/24 vv, 16s, 267 words replaced, Mandarin left 1.8 -> 1.7 per 100 chars, model changed 24 verses
+  Jeremiah 1 [hak]: 19/19 vv, 11s, 154 words replaced, Mandarin left 2.2 -> 2.2 per 100 chars, model changed 1 verses
+  Jeremiah 2 [hak]: 37/37 vv, 14s, 307 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 3 verses
+  Jeremiah 3 [hak]: 25/25 vv, 13s, 243 words replaced, Mandarin left 2.0 -> 2.0 per 100 chars, model changed 1 verses
+  Jeremiah 4 [hak]: 31/31 vv, 13s, 227 words replaced, Mandarin left 1.6 -> 1.3 per 100 chars, model changed 4 verses
+  Jeremiah 5 [hak]: 31/31 vv, 22s, 280 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 2 verses, kept the draft for 1 (1: more Mandarin)
+  Jeremiah 6 [hak]: 30/30 vv, 25s, 238 words replaced, Mandarin left 1.2 -> 1.0 per 100 chars, model changed 5 verses
+  Jeremiah 7 [hak]: 34/34 vv, 20s, 296 words replaced, Mandarin left 2.1 -> 2.0 per 100 chars, model changed 1 verses
+  Jeremiah 8 [hak]: 23/23 vv, 9s, 200 words replaced, Mandarin left 1.2 -> 1.0 per 100 chars, model changed 4 verses
+  Jeremiah 9 [hak]: 25/25 vv, 16s, 222 words replaced, Mandarin left 1.8 -> 1.8 per 100 chars, model changed 2 verses
+  Jeremiah 10 [hak]: 25/25 vv, 15s, 183 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 1 verses
+  Jeremiah 11 [hak]: 23/23 vv, 10s, 214 words replaced, Mandarin left 1.7 -> 1.7 per 100 chars, model changed 2 verses
+  Jeremiah 12 [hak]: 17/17 vv, 12s, 141 words replaced, Mandarin left 2.1 -> 2.1 per 100 chars, model changed 17 verses
+  Jeremiah 13 [hak]: 27/27 vv, 12s, 194 words replaced, Mandarin left 2.1 -> 2.1 per 100 chars, model changed 1 verses
+  Jeremiah 14 [hak]: 22/22 vv, 10s, 178 words replaced, Mandarin left 1.6 -> 1.5 per 100 chars, model changed 1 verses
+  Jeremiah 15 [hak]: 21/21 vv, 11s, 167 words replaced, Mandarin left 1.7 -> 1.2 per 100 chars, model changed 3 verses, kept the draft for 1 (2: more Mandarin)
+  Jeremiah 16 [hak]: 21/21 vv, 12s, 165 words replaced, Mandarin left 2.2 -> 2.2 per 100 chars, model changed 1 verses
+  Jeremiah 17 [hak]: 27/27 vv, 10s, 194 words replaced, Mandarin left 1.8 -> 1.7 per 100 chars, model changed 1 verses
+  Jeremiah 18 [hak]: 23/23 vv, 13s, 183 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 4 verses
+  Jeremiah 19 [hak]: 15/15 vv, 7s, 149 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 1 verses, kept the draft for 1 (1: more Mandarin)
+  Jeremiah 20 [hak]: 18/18 vv, 10s, 167 words replaced, Mandarin left 2.6 -> 2.2 per 100 chars, model changed 3 verses
+  Jeremiah 21 [hak]: 14/14 vv, 13s, 124 words replaced, Mandarin left 1.6 -> 1.4 per 100 chars, model changed 2 verses
+  Jeremiah 22 [hak]: 30/30 vv, 10s, 224 words replaced, Mandarin left 1.8 -> 1.8 per 100 chars, model changed 4 verses, kept the draft for 2 (1: more Mandarin, 2: more Mandarin)
+  Jeremiah 23 [hak]: 40/40 vv, 13s, 417 words replaced, Mandarin left 2.4 -> 2.4 per 100 chars, model changed 4 verses, kept the draft for 1 (11: more Mandarin)
+  Jeremiah 24 [hak]: 10/10 vv, 7s, 97 words replaced, Mandarin left 2.2 -> 2.2 per 100 chars, model changed 2 verses
+  Jeremiah 25 [hak]: 38/38 vv, 16s, 237 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 2 verses
+  Jeremiah 26 [hak]: 24/24 vv, 10s, 168 words replaced, Mandarin left 2.6 -> 2.6 per 100 chars, model changed 1 verses
+  Jeremiah 27 [hak]: 22/22 vv, 17s, 195 words replaced, Mandarin left 2.1 -> 2.1 per 100 chars, model changed 1 verses, kept the draft for 1 (1: more Mandarin)
+  Jeremiah 28 [hak]: 17/17 vv, 10s, 96 words replaced, Mandarin left 3.4 -> 3.4 per 100 chars, model changed 16 verses, kept the draft for 1 (1: more Mandarin)
+  Jeremiah 29 [hak]: 32/32 vv, 14s, 287 words replaced, Mandarin left 1.9 -> 1.8 per 100 chars, model changed 5 verses
+  Jeremiah 30 [hak]: 24/24 vv, 14s, 190 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 1 verses
+  Jeremiah 31 [hak]: 40/40 vv, 18s, 335 words replaced, Mandarin left 2.0 -> 1.9 per 100 chars, model changed 1 verses
+  Jeremiah 32 [hak]: 44/44 vv, 18s, 350 words replaced, Mandarin left 1.8 -> 1.7 per 100 chars, model changed 2 verses
+  Jeremiah 33 [hak]: 26/26 vv, 11s, 204 words replaced, Mandarin left 2.2 -> 2.2 per 100 chars, model changed 2 verses
+  Jeremiah 34 [hak]: 22/22 vv, 10s, 219 words replaced, Mandarin left 1.9 -> 1.6 per 100 chars, model changed 3 verses
+  Jeremiah 35 [hak]: 19/19 vv, 9s, 199 words replaced, Mandarin left 2.1 -> 1.9 per 100 chars, model changed 7 verses
+  Jeremiah 36 [hak]: 32/32 vv, 10s, 208 words replaced, Mandarin left 2.3 -> 2.3 per 100 chars, model changed 2 verses
+  Jeremiah 37 [hak]: 21/21 vv, 8s, 127 words replaced, Mandarin left 2.0 -> 1.7 per 100 chars, model changed 6 verses
+  Jeremiah 38 [hak]: 28/28 vv, 9s, 228 words replaced, Mandarin left 2.0 -> 2.0 per 100 chars, model changed 0 verses, kept the draft for 1 (6: more Mandarin)
+  Jeremiah 39 [hak]: 18/18 vv, 9s, 102 words replaced, Mandarin left 1.3 -> 0.8 per 100 chars, model changed 14 verses
+  Jeremiah 40 [hak]: 16/16 vv, 13s, 168 words replaced, Mandarin left 1.0 -> 0.7 per 100 chars, model changed 4 verses
+  Jeremiah 41 [hak]: 18/18 vv, 5s, 123 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 1 verses
+  Jeremiah 42 [hak]: 22/22 vv, 10s, 232 words replaced, Mandarin left 2.0 -> 2.0 per 100 chars, model changed 1 verses
+  Jeremiah 43 [hak]: 13/13 vv, 6s, 95 words replaced, Mandarin left 2.0 -> 1.5 per 100 chars, model changed 5 verses, kept the draft for 2 (1: more Mandarin, 2: more Mandarin)
+  Jeremiah 44 [hak]: 30/30 vv, 12s, 282 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 2 verses
+  Jeremiah 45 [hak]: 5/5 vv, 5s, 35 words replaced, Mandarin left 2.1 -> 2.1 per 100 chars, model changed 0 verses
+  Jeremiah 46 [hak]: 28/28 vv, 10s, 206 words replaced, Mandarin left 1.8 -> 1.6 per 100 chars, model changed 3 verses
+  Jeremiah 47 [hak]: 7/7 vv, 6s, 51 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 2 verses
+  Jeremiah 48 [hak]: 47/47 vv, 12s, 278 words replaced, Mandarin left 1.3 -> 1.1 per 100 chars, model changed 3 verses
+  Jeremiah 49 [hak]: 39/39 vv, 13s, 333 words replaced, Mandarin left 1.8 -> 1.8 per 100 chars, model changed 2 verses
+  Jeremiah 50 [hak]: 46/46 vv, 17s, 403 words replaced, Mandarin left 1.6 -> 1.5 per 100 chars, model changed 2 verses
+  Jeremiah 51 [hak]: 64/64 vv, 16s, 470 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 1 verses
+  Jeremiah 52 [hak]: 34/34 vv, 9s, 152 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 1 verses
+  Lamentations 1 [hak]: 22/22 vv, 9s, 214 words replaced, Mandarin left 1.5 -> 1.4 per 100 chars, model changed 22 verses
+  Lamentations 2 [hak]: 22/22 vv, 10s, 208 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 22 verses
+  Lamentations 3 [hak]: 66/66 vv, 12s, 289 words replaced, Mandarin left 1.8 -> 1.6 per 100 chars, model changed 66 verses
+  Lamentations 4 [hak]: 22/22 vv, 11s, 182 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 22 verses
+  Lamentations 5 [hak]: 22/22 vv, 8s, 88 words replaced, Mandarin left 1.0 -> 0.6 per 100 chars, model changed 22 verses
+  Ezekiel 1 [hak]: 28/28 vv, 8s, 144 words replaced, Mandarin left 0.4 -> 0.4 per 100 chars, model changed 28 verses
+  Ezekiel 2 [hak]: 10/10 vv, 6s, 97 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 2 verses
+  Ezekiel 3 [hak]: 27/27 vv, 10s, 250 words replaced, Mandarin left 1.2 -> 1.1 per 100 chars, model changed 4 verses
+  Ezekiel 4 [hak]: 17/17 vv, 8s, 120 words replaced, Mandarin left 1.4 -> 1.2 per 100 chars, model changed 5 verses
+  Ezekiel 5 [hak]: 17/17 vv, 9s, 163 words replaced, Mandarin left 1.8 -> 1.8 per 100 chars, model changed 3 verses, kept the draft for 1 (1: more Mandarin)
+  Ezekiel 6 [hak]: 14/14 vv, 7s, 130 words replaced, Mandarin left 1.9 -> 1.6 per 100 chars, model changed 3 verses
+  Ezekiel 7 [hak]: 27/27 vv, 8s, 211 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 0 verses
+  Ezekiel 8 [hak]: 18/18 vv, 8s, 151 words replaced, Mandarin left 1.8 -> 1.6 per 100 chars, model changed 1 verses
+  Ezekiel 9 [hak]: 11/11 vv, 4s, 87 words replaced, Mandarin left 1.0 -> 0.8 per 100 chars, model changed 4 verses, kept the draft for 1 (2: more Mandarin)
+  Ezekiel 10 [hak]: 22/22 vv, 6s, 109 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 2 verses, kept the draft for 1 (1: more Mandarin)
+  Ezekiel 11 [hak]: 25/25 vv, 9s, 202 words replaced, Mandarin left 3.4 -> 3.2 per 100 chars, model changed 25 verses
+  Ezekiel 12 [hak]: 28/28 vv, 12s, 240 words replaced, Mandarin left 2.2 -> 2.0 per 100 chars, model changed 28 verses
+  Ezekiel 13 [hak]: 23/23 vv, 9s, 223 words replaced, Mandarin left 2.3 -> 2.3 per 100 chars, model changed 23 verses
+  Ezekiel 14 [hak]: 23/23 vv, 10s, 218 words replaced, Mandarin left 2.3 -> 1.5 per 100 chars, model changed 23 verses
+  Ezekiel 15 [hak]: 8/8 vv, 7s, 62 words replaced, Mandarin left 3.1 -> 3.1 per 100 chars, model changed 8 verses
+  Ezekiel 16 [hak]: 63/63 vv, 15s, 432 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 63 verses
+  Ezekiel 17 [hak]: 24/24 vv, 9s, 165 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 24 verses
+  Ezekiel 18 [hak]: 32/32 vv, 11s, 243 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 32 verses
+  Ezekiel 19 [hak]: 14/14 vv, 5s, 70 words replaced, Mandarin left 0.2 -> 0.0 per 100 chars, model changed 14 verses
+  Ezekiel 20 [hak]: 44/44 vv, 19s, 538 words replaced, Mandarin left 1.7 -> 1.6 per 100 chars, model changed 43 verses
+  Ezekiel 21 [hak]: 37/37 vv, 10s, 221 words replaced, Mandarin left 1.9 -> 1.5 per 100 chars, model changed 7 verses
+  Ezekiel 22 [hak]: 31/31 vv, 11s, 194 words replaced, Mandarin left 2.4 -> 2.4 per 100 chars, model changed 31 verses
+  Ezekiel 23 [hak]: 49/49 vv, 14s, 386 words replaced, Mandarin left 0.9 -> 0.8 per 100 chars, model changed 49 verses
+  Ezekiel 24 [hak]: 27/27 vv, 9s, 198 words replaced, Mandarin left 2.9 -> 2.8 per 100 chars, model changed 27 verses
+  Ezekiel 25 [hak]: 17/17 vv, 7s, 132 words replaced, Mandarin left 2.5 -> 2.5 per 100 chars, model changed 17 verses
+  Ezekiel 26 [hak]: 21/21 vv, 7s, 128 words replaced, Mandarin left 2.0 -> 2.0 per 100 chars, model changed 21 verses
+  Ezekiel 27 [hak]: 36/36 vv, 7s, 134 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 36 verses
+  Ezekiel 28 [hak]: 26/26 vv, 8s, 178 words replaced, Mandarin left 2.2 -> 2.2 per 100 chars, model changed 26 verses
+  Ezekiel 29 [hak]: 21/21 vv, 7s, 151 words replaced, Mandarin left 2.2 -> 2.2 per 100 chars, model changed 21 verses
+  Ezekiel 30 [hak]: 26/26 vv, 8s, 145 words replaced, Mandarin left 2.8 -> 2.7 per 100 chars, model changed 25 verses, kept the draft for 1 (6: more Mandarin)
+  Ezekiel 31 [hak]: 18/18 vv, 7s, 147 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 17 verses, kept the draft for 1 (18: more Mandarin)
+  Ezekiel 32 [hak]: 32/32 vv, 9s, 280 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 32 verses
+  Ezekiel 33 [hak]: 33/33 vv, 10s, 263 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 33 verses
+  Ezekiel 34 [hak]: 31/31 vv, 9s, 306 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 30 verses
+  Ezekiel 35 [hak]: 15/15 vv, 6s, 84 words replaced, Mandarin left 2.2 -> 2.2 per 100 chars, model changed 14 verses, kept the draft for 1 (10: more Mandarin)
+  Ezekiel 36 [hak]: 38/38 vv, 11s, 331 words replaced, Mandarin left 2.1 -> 2.2 per 100 chars, model changed 37 verses, kept the draft for 1 (3: more Mandarin)
+  Ezekiel 37 [hak]: 28/28 vv, 8s, 261 words replaced, Mandarin left 2.3 -> 2.0 per 100 chars, model changed 28 verses
+  Ezekiel 38 [hak]: 23/23 vv, 8s, 182 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 23 verses
+  Ezekiel 39 [hak]: 29/29 vv, 9s, 235 words replaced, Mandarin left 2.1 -> 1.7 per 100 chars, model changed 29 verses
+  Ezekiel 40 [hak]: 49/49 vv, 13s, 307 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 49 verses
+  Ezekiel 41 [hak]: 26/26 vv, 6s, 160 words replaced, Mandarin left 0.1 -> 0.1 per 100 chars, model changed 26 verses
+  Ezekiel 42 [hak]: 20/20 vv, 5s, 124 words replaced, Mandarin left 0.6 -> 0.5 per 100 chars, model changed 20 verses
+  Ezekiel 43 [hak]: 27/27 vv, 8s, 219 words replaced, Mandarin left 0.9 -> 0.8 per 100 chars, model changed 27 verses
+  Ezekiel 44 [hak]: 31/31 vv, 14s, 289 words replaced, Mandarin left 1.4 -> 1.3 per 100 chars, model changed 6 verses
+  Ezekiel 45 [hak]: 25/25 vv, 7s, 168 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 2 verses, kept the draft for 1 (2: more Mandarin)
+  Ezekiel 46 [hak]: 24/24 vv, 7s, 186 words replaced, Mandarin left 0.9 -> 0.8 per 100 chars, model changed 1 verses
+  Ezekiel 47 [hak]: 23/23 vv, 7s, 136 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 0 verses
+  Ezekiel 48 [hak]: 35/35 vv, 11s, 170 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 1 verses
+  Daniel 1 [hak]: 21/21 vv, 6s, 110 words replaced, Mandarin left 1.2 -> 1.0 per 100 chars, model changed 3 verses
+  Daniel 2 [hak]: 49/49 vv, 15s, 355 words replaced, Mandarin left 1.6 -> 1.4 per 100 chars, model changed 9 verses, kept the draft for 1 (31: length)
+  Daniel 3 [hak]: 33/33 vv, 12s, 212 words replaced, Mandarin left 0.6 -> 0.5 per 100 chars, model changed 3 verses, kept the draft for 1 (1: more Mandarin)
+  Daniel 4 [hak]: 34/34 vv, 9s, 279 words replaced, Mandarin left 0.8 -> 0.7 per 100 chars, model changed 2 verses, kept the draft for 1 (2: more Mandarin)
+  Daniel 5 [hak]: 30/30 vv, 9s, 199 words replaced, Mandarin left 0.9 -> 0.8 per 100 chars, model changed 10 verses, kept the draft for 1 (3: more Mandarin)
+  Daniel 6 [hak]: 29/29 vv, 8s, 180 words replaced, Mandarin left 1.6 -> 1.5 per 100 chars, model changed 1 verses
+  Daniel 7 [hak]: 28/28 vv, 7s, 140 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 3 verses
+  Daniel 8 [hak]: 27/27 vv, 8s, 211 words replaced, Mandarin left 0.4 -> 0.4 per 100 chars, model changed 2 verses, kept the draft for 1 (1: more Mandarin)
+  Daniel 9 [hak]: 27/27 vv, 11s, 259 words replaced, Mandarin left 0.4 -> 0.3 per 100 chars, model changed 1 verses
+  Daniel 10 [hak]: 21/21 vv, 7s, 190 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 0 verses, kept the draft for 2 (2: more Mandarin, 3: more Mandarin)
+  Daniel 11 [hak]: 45/45 vv, 13s, 271 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 3 verses, kept the draft for 2 (4: more Mandarin, 10: more Mandarin)
+  Daniel 12 [hak]: 13/13 vv, 6s, 71 words replaced, Mandarin left 0.2 -> 0.2 per 100 chars, model changed 1 verses
+  Hosea 1 [hak]: 9/9 vv, 7s, 63 words replaced, Mandarin left 2.4 -> 2.4 per 100 chars, model changed 9 verses
+  Hosea 2 [hak]: 25/25 vv, 8s, 261 words replaced, Mandarin left 1.9 -> 1.6 per 100 chars, model changed 25 verses
