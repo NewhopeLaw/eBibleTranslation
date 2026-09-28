@@ -57,3 +57,9 @@ models/
 audio/
 NGAW KAREN TTS/audio/
 sources/ksw-mason/*.jsonl
+sources/hakka-tts/
+sources/hakka-dict/
+site-test/
+sources/taiwanese-tts/
+sources/taigi-dict/
+site/.build/

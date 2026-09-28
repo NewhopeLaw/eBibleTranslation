@@ -131,7 +131,7 @@ def ask_book(lang, name):
     for _ in range(5):
         t0 = time.time()
         try:
-            raw, resp = T.call_model(system, user, {"temperature": 0.6})
+            raw, resp = T.call_model(system, user, {"temperature": 0.6}, T.model_for(lang))
         except T.LoopError:
             continue
         T.log_work(resp, time.time() - t0, job="ui")
@@ -185,7 +185,7 @@ def ask(lang, kind, items):
     for attempt in range(1, TRIES + 1):
         t0 = time.time()
         try:
-            raw, resp = T.call_model(system, user, {"temperature": 0.2} if attempt > 1 else None)
+            raw, resp = T.call_model(system, user, {"temperature": 0.2} if attempt > 1 else None, T.model_for(lang))
         except T.LoopError:
             continue
         T.log_work(resp, time.time() - t0, job="ui")

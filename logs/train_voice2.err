@@ -1,0 +1,24 @@
+W0927 10:30:28.135000 62712 site-packages\torch\utils\flop_counter.py:29] triton not found; flop counting will not work for triton kernels
+C:\Users\Newho\AppData\Local\Programs\Python\Python312\Lib\site-packages\lightning\fabric\utilities\seed.py:44: No seed found, seed set to 0
+Seed set to 0
+C:\Users\Newho\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\utils\weight_norm.py:144: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.
+  WeightNorm.apply(module, name, dim)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+\U0001f4a1 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+\U0001f4a1 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+INFO:piper.train.vits.dataset:Processed 692 utterance(s)
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+INFO:piper.train.vits.lightning:[warmstart] Copied 784 parameters from D:\Home\4. AI\eBibleTranslation\models\piper\vi_VN-vais1000-medium.clean.ckpt (0 skipped; new modules such as the MRD start fresh)
+C:\Users\Newho\AppData\Local\Programs\Python\Python312\Lib\site-packages\lightning\pytorch\utilities\_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+W0927 10:30:41.729000 183060 site-packages\torch\utils\flop_counter.py:29] triton not found; flop counting will not work for triton kernels
+W0927 10:30:53.237000 182476 site-packages\torch\utils\flop_counter.py:29] triton not found; flop counting will not work for triton kernels
+W0927 10:31:04.819000 184752 site-packages\torch\utils\flop_counter.py:29] triton not found; flop counting will not work for triton kernels
+W0927 10:31:15.336000 52872 site-packages\torch\utils\flop_counter.py:29] triton not found; flop counting will not work for triton kernels
+W0927 10:31:27.908000 184736 site-packages\torch\utils\flop_counter.py:29] triton not found; flop counting will not work for triton kernels
+W0927 10:31:39.600000 185856 site-packages\torch\utils\flop_counter.py:29] triton not found; flop counting will not work for triton kernels
+W0927 10:31:51.132000 24964 site-packages\torch\utils\flop_counter.py:29] triton not found; flop counting will not work for triton kernels
+W0927 10:32:02.596000 34840 site-packages\torch\utils\flop_counter.py:29] triton not `Trainer.fit` stopped: `max_epochs=400` reached.
+els
+Using cache found in C:\Users\Newho/.cache\torch\hub\tarepan_SpeechMOS_v1.2.0
+`Trainer.fit` stopped: `max_epochs=150` reached.

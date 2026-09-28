@@ -1,0 +1,71 @@
+2026-09-27 01:39:51 names: 775 added 4 times each from names.en.json
+2026-09-27 01:39:52 start: base models\madlad-ksw, 29697 training pairs, 903 held out from 34 chapters (Genesis 16 ... 2 Peter 3), 1.0 epochs, batch 8x4, lr 2e-05
+2026-09-27 01:44:30     Genesis 16:1  EN  Sarai, the wife of Abram, did not bear children for him. She had an Egyptian servant named
+2026-09-27 01:44:30       KAREN ဒီးစီၤအၤဘြၣ်အမါနီၢ်စၤရဲတဆံးစၢ်ဘၣ်အဖိလၢအဂီၢ်ဘၣ်. ဒီးအဝဲဒၣ်အိၣ်ဒီးအကုၢ်ပိာ်မုၣ်တဂၤပှၤအဲၤကူပတ
+2026-09-27 01:44:30       MODEL ဒီးစီၤအၤဘရိၣ်အမါစီၤစၤရၤန့ၣ်တဖှံဘၣ်အီၤဘၣ်. ဒီးစီၤအၤဘရိၣ်မ့ၢ်ပှၤအဲၤကူပတူးဖိအစုပူၤ, ဒီးစီၤဃၤဃ
+2026-09-27 01:44:30     Genesis 16:2  EN  Sarai said to Abram, "Look, the LORD has withheld from me the ability to bear children. Pl
+2026-09-27 01:44:30       KAREN ဒီးနီၢ်စၤရဲစံးဘၣ်စီၤအၤဘြၤ, ကွၢ်ကွၢ်, ယွၤတြီယၤဒ်သိးယသုတဆံးစၢ်တၢ်တဂ့ၤလီၤ. လဲၤနုာ်စာ်ဆူယကုၢ်ပ
+2026-09-27 01:44:30       MODEL ဒီးစီၤစၤရၤစံးဝဲလၢစီၤအၤဘရိၣ်, မၤသးဒ်န့ၣ်ဒီးကွၢ်ကွၢ်, ယွၤပာ်ကိၢ်တၢ်ဂီၤလၢယၤလီၤ. မၤသးဒ်န့ၣ်ဒီး
+2026-09-27 01:44:30     Genesis 16:3  EN  Sarai, the wife of Abram, took Hagar the Egyptian, her servant, after Abram had lived ten 
+2026-09-27 01:44:30       KAREN ဒီးလၢစီၤအၤဘြၣ်အိၣ်ဝဲလၢကီၢ်ကနၤဧၣ်အနံၣ်တဆံအလီၢ်ခံန့ၣ်, စီၤအၤဘြၣ်အမါနီၢ်စၤရဲဟံးန့ၢ်အကုၢ်ပိာ်မ
+2026-09-27 01:44:30       MODEL ဒီးစီၤအၤဘရိၣ်အမါစီၤစၤရၤပာ်ပှၤအံၣ်စရ့လးဖိစီၤဃၤဃၣ်, ဒီးစီၤအၤဘရိၣ်အိၣ်တဆံခံနံၣ်လၢကီၢ်ကၤနၣ်အပူ
+2026-09-27 01:44:30 before training: chrF 33.5 on 240 held-out verses
+2026-09-27 01:45:46 update 50/929: loss 3.030, 1.5s each, about 22 min left
+2026-09-27 01:46:58 update 100/929: loss 2.969, 1.5s each, about 20 min left
+2026-09-27 01:48:13 update 150/929: loss 2.966, 1.5s each, about 19 min left
+2026-09-27 01:49:24 update 200/929: loss 2.979, 1.5s each, about 18 min left
+2026-09-27 01:50:47 update 250/929: loss 2.935, 1.5s each, about 17 min left
+2026-09-27 01:52:03 update 300/929: loss 2.941, 1.5s each, about 16 min left
+2026-09-27 01:55:56     Genesis 16:1  EN  Sarai, the wife of Abram, did not bear children for him. She had an Egyptian servant named
+2026-09-27 01:55:56       KAREN ဒီးစီၤအၤဘြၣ်အမါနီၢ်စၤရဲတဆံးစၢ်ဘၣ်အဖိလၢအဂီၢ်ဘၣ်. ဒီးအဝဲဒၣ်အိၣ်ဒီးအကုၢ်ပိာ်မုၣ်တဂၤပှၤအဲၤကူပတ
+2026-09-27 01:55:56       MODEL ဒီးစီၤအၤဘရိၣ်အမါစီၤစၤရၤမၤသးဘၣ်အီၤဘၣ်. ဒီးစီၤအၤဘရိၣ်အပၢ်မ့ၢ်စီၤဃၤဃၣ်လီၤ.
+2026-09-27 01:55:56     Genesis 16:2  EN  Sarai said to Abram, "Look, the LORD has withheld from me the ability to bear children. Pl
+2026-09-27 01:55:56       KAREN ဒီးနီၢ်စၤရဲစံးဘၣ်စီၤအၤဘြၤ, ကွၢ်ကွၢ်, ယွၤတြီယၤဒ်သိးယသုတဆံးစၢ်တၢ်တဂ့ၤလီၤ. လဲၤနုာ်စာ်ဆူယကုၢ်ပ
+2026-09-27 01:55:56       MODEL ဒီးစီၤစၤရၤစံးဝဲလၢစီၤအၤဘရိၣ်, မၤသးဒ်န့ၣ်ဒီးကွၢ်ကွၢ်, ယွၤပာ်ခူသူၣ်ယသး, မ်နဟဲဆူယအံၣ်စရ့လးဖိအစ
+2026-09-27 01:55:56     Genesis 16:3  EN  Sarai, the wife of Abram, took Hagar the Egyptian, her servant, after Abram had lived ten 
+2026-09-27 01:55:56       KAREN ဒီးလၢစီၤအၤဘြၣ်အိၣ်ဝဲလၢကီၢ်ကနၤဧၣ်အနံၣ်တဆံအလီၢ်ခံန့ၣ်, စီၤအၤဘြၣ်အမါနီၢ်စၤရဲဟံးန့ၢ်အကုၢ်ပိာ်မ
+2026-09-27 01:55:56       MODEL ဒီးစီၤအၤဘရိၣ်အမါစီၤစၤရၤပာ်ပှၤအံၣ်စရ့လးဖိစီၤဃၤဃၣ်, ဒီးစီၤအၤဘရိၣ်အိၣ်တဆံနံၣ်လၢကီၢ်ကၤနၣ်အပူၤဒ
+2026-09-27 01:55:56 update 300: chrF 34.9 (best so far, saved)
+2026-09-27 01:57:16 update 350/929: loss 2.963, 2.2s each, about 21 min left
+2026-09-27 01:58:31 update 400/929: loss 2.942, 2.1s each, about 19 min left
+2026-09-27 01:59:54 update 450/929: loss 2.960, 2.1s each, about 16 min left
+2026-09-27 02:01:09 update 500/929: loss 2.947, 2.0s each, about 14 min left
+2026-09-27 02:02:39 update 550/929: loss 2.922, 2.0s each, about 12 min left
+2026-09-27 02:04:01 update 600/929: loss 2.903, 2.0s each, about 11 min left
+2026-09-27 02:08:30     Genesis 16:1  EN  Sarai, the wife of Abram, did not bear children for him. She had an Egyptian servant named
+2026-09-27 02:08:30       KAREN ဒီးစီၤအၤဘြၣ်အမါနီၢ်စၤရဲတဆံးစၢ်ဘၣ်အဖိလၢအဂီၢ်ဘၣ်. ဒီးအဝဲဒၣ်အိၣ်ဒီးအကုၢ်ပိာ်မုၣ်တဂၤပှၤအဲၤကူပတ
+2026-09-27 02:08:30       MODEL ဒီးစီၤအၤဘရိၣ်အမါစီၤစၤရၤန့ၣ်တဖှံဘၣ်အီၤဘၣ်. ဒီးစီၤအၤဘရိၣ်အပၢ်မ့ၢ်စီၤဃၤဃၣ်လီၤ.
+2026-09-27 02:08:30     Genesis 16:2  EN  Sarai said to Abram, "Look, the LORD has withheld from me the ability to bear children. Pl
+2026-09-27 02:08:30       KAREN ဒီးနီၢ်စၤရဲစံးဘၣ်စီၤအၤဘြၤ, ကွၢ်ကွၢ်, ယွၤတြီယၤဒ်သိးယသုတဆံးစၢ်တၢ်တဂ့ၤလီၤ. လဲၤနုာ်စာ်ဆူယကုၢ်ပ
+2026-09-27 02:08:30       MODEL ဒီးစီၤစၤရၤစံးဝဲလၢစီၤအၤဘရိၣ်, မၤသးဒ်န့ၣ်ဒီးကွၢ်ကွၢ်, ယွၤမၤကိၢ်တၢ်ဂီၤလၢယၤလီၤ. မၤသးဒ်န့ၣ်ဒီးဟ
+2026-09-27 02:08:30     Genesis 16:3  EN  Sarai, the wife of Abram, took Hagar the Egyptian, her servant, after Abram had lived ten 
+2026-09-27 02:08:30       KAREN ဒီးလၢစီၤအၤဘြၣ်အိၣ်ဝဲလၢကီၢ်ကနၤဧၣ်အနံၣ်တဆံအလီၢ်ခံန့ၣ်, စီၤအၤဘြၣ်အမါနီၢ်စၤရဲဟံးန့ၢ်အကုၢ်ပိာ်မ
+2026-09-27 02:08:30       MODEL ဒီးစီၤအၤဘရိၣ်အမါစီၤစၤရၤဒုးဟဲစိာ်ပှၤအံၣ်စရ့လးဖိစီၤဃၤဃၣ်, ဒီးစီၤအၤဘရိၣ်အိၣ်တဆံနံၣ်လၢကီၢ်ကၤနၣ
+2026-09-27 02:08:30 update 600: chrF 34.0
+2026-09-27 02:09:44 update 650/929: loss 2.911, 2.3s each, about 11 min left
+2026-09-27 02:10:58 update 700/929: loss 2.944, 2.3s each, about 9 min left
+2026-09-27 02:12:12 update 750/929: loss 2.941, 2.2s each, about 7 min left
+2026-09-27 02:13:24 update 800/929: loss 2.941, 2.2s each, about 5 min left
+2026-09-27 02:14:46 update 850/929: loss 2.955, 2.1s each, about 3 min left
+2026-09-27 02:15:59 update 900/929: loss 2.894, 2.1s each, about 1 min left
+2026-09-27 02:20:26     Genesis 16:1  EN  Sarai, the wife of Abram, did not bear children for him. She had an Egyptian servant named
+2026-09-27 02:20:26       KAREN ဒီးစီၤအၤဘြၣ်အမါနီၢ်စၤရဲတဆံးစၢ်ဘၣ်အဖိလၢအဂီၢ်ဘၣ်. ဒီးအဝဲဒၣ်အိၣ်ဒီးအကုၢ်ပိာ်မုၣ်တဂၤပှၤအဲၤကူပတ
+2026-09-27 02:20:26       MODEL ဒီးစီၤအၤဘရိၣ်အမါစီၤစၤရၤန့ၣ်တဖှံဘၣ်အီၤဘၣ်. ဒီးစီၤအၤဘရိၣ်အပၢ်မ့ၢ်ပှၤအံၣ်စရ့လးဖိအစုပူၤတဂၤ, ဒီ
+2026-09-27 02:20:26     Genesis 16:2  EN  Sarai said to Abram, "Look, the LORD has withheld from me the ability to bear children. Pl
+2026-09-27 02:20:26       KAREN ဒီးနီၢ်စၤရဲစံးဘၣ်စီၤအၤဘြၤ, ကွၢ်ကွၢ်, ယွၤတြီယၤဒ်သိးယသုတဆံးစၢ်တၢ်တဂ့ၤလီၤ. လဲၤနုာ်စာ်ဆူယကုၢ်ပ
+2026-09-27 02:20:26       MODEL ဒီးစီၤစၤရၤစံးဝဲလၢစီၤအၤဘရိၣ်, မၤသးဒ်န့ၣ်ဒီး, ကွၢ်ကွၢ်, ယွၤပာ်လီၤကွံာ်ယသးလၢယၤလီၤ. မၤသးဒ်န့ၣ်
+2026-09-27 02:20:26     Genesis 16:3  EN  Sarai, the wife of Abram, took Hagar the Egyptian, her servant, after Abram had lived ten 
+2026-09-27 02:20:26       KAREN ဒီးလၢစီၤအၤဘြၣ်အိၣ်ဝဲလၢကီၢ်ကနၤဧၣ်အနံၣ်တဆံအလီၢ်ခံန့ၣ်, စီၤအၤဘြၣ်အမါနီၢ်စၤရဲဟံးန့ၢ်အကုၢ်ပိာ်မ
+2026-09-27 02:20:26       MODEL ဒီးစီၤအၤဘရိၣ်အမါစီၤစၤရၤဒုးဟဲစိာ်ပှၤအံၣ်စရ့လးဖိစီၤဃၤဃၣ်, ဒီးစီၤအၤဘရိၣ်အိၣ်တဆံနံၣ်လၢကီၢ်ကၤနၣ
+2026-09-27 02:20:26 update 900: chrF 33.9
+2026-09-27 02:37:40     Genesis 16:1  EN  Sarai, the wife of Abram, did not bear children for him. She had an Egyptian servant named
+2026-09-27 02:37:40       KAREN ဒီးစီၤအၤဘြၣ်အမါနီၢ်စၤရဲတဆံးစၢ်ဘၣ်အဖိလၢအဂီၢ်ဘၣ်. ဒီးအဝဲဒၣ်အိၣ်ဒီးအကုၢ်ပိာ်မုၣ်တဂၤပှၤအဲၤကူပတ
+2026-09-27 02:37:40       MODEL ဒီးစီၤအၤဘရိၣ်အမါစီၤစၤရၤန့ၣ်တဖှံဘၣ်အီၤဘၣ်. ဒီးစီၤအၤဘရိၣ်အပၢ်မ့ၢ်ပှၤအံၣ်စရ့လးဖိအစုပူၤတဂၤ, ဒီ
+2026-09-27 02:37:40     Genesis 16:2  EN  Sarai said to Abram, "Look, the LORD has withheld from me the ability to bear children. Pl
+2026-09-27 02:37:40       KAREN ဒီးနီၢ်စၤရဲစံးဘၣ်စီၤအၤဘြၤ, ကွၢ်ကွၢ်, ယွၤတြီယၤဒ်သိးယသုတဆံးစၢ်တၢ်တဂ့ၤလီၤ. လဲၤနုာ်စာ်ဆူယကုၢ်ပ
+2026-09-27 02:37:40       MODEL ဒီးစီၤစၤရၤစံးဝဲလၢစီၤအၤဘရိၣ်, မၤသးဒ်န့ၣ်ဒီး, ကွၢ်ကွၢ်, ယွၤပာ်ခူသူၣ်ယသး, မ်နဟဲဆူယအံၣ်စရ့လးဖိ
+2026-09-27 02:37:40     Genesis 16:3  EN  Sarai, the wife of Abram, took Hagar the Egyptian, her servant, after Abram had lived ten 
+2026-09-27 02:37:40       KAREN ဒီးလၢစီၤအၤဘြၣ်အိၣ်ဝဲလၢကီၢ်ကနၤဧၣ်အနံၣ်တဆံအလီၢ်ခံန့ၣ်, စီၤအၤဘြၣ်အမါနီၢ်စၤရဲဟံးန့ၢ်အကုၢ်ပိာ်မ
+2026-09-27 02:37:40       MODEL ဒီးစီၤအၤဘရိၣ်အမါစီၤစၤရၤဒုးဟဲစိာ်ပှၤအံၣ်စရ့လးဖိစီၤဃၤဃၣ်, ဒီးစီၤအၤဘရိၣ်အိၣ်ဆံဆံလၢကီၢ်ကၤနၣ်အပ
+2026-09-27 02:37:40 update 929: chrF 32.3
+2026-09-27 02:37:40 done: best chrF 34.9; model in models\madlad-ksw-names

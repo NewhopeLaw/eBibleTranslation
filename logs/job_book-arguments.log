@@ -1,0 +1,11 @@
+book arguments: 4 done, 9 ready (1 books still being read chapter by chapter)
+  Deuteronomy: 4 sections, 5 concerns [1/9, 21s each]
+  Joshua: 3 sections, 5 concerns [2/9, 15s each]
+  Judges: 5 sections, 5 concerns [3/9, 14s each]
+  Ruth: 3 sections, 5 concerns [4/9, 13s each]
+  1 Samuel: 5 sections, 5 concerns [5/9, 13s each]
+  2 Samuel: 5 sections, 5 concerns [6/9, 13s each]
+  1 Kings: 2 sections, 5 concerns [7/9, 12s each]
+  2 Kings: 4 sections, 5 concerns [8/9, 12s each]
+  1 Chronicles: 3 sections, 5 concerns [9/9, 11s each]
+theology: 13 book arguments, 2 theme trajectories -> site/morph/theology.js

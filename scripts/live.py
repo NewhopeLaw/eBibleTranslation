@@ -106,8 +106,20 @@ def chapter_counts(lang):
 _life = {"mtime": None, "data": None}
 
 
+FROM_ZH_JOB = {"hak": "hakka-text", "nan": "taiwanese-text"}
+
+
+def hakka_line(r):
+    """A translate.jsonl line written by scripts/from_zh.py (the Hakka or the
+    Taiwanese made from our Mandarin). Its chapter counts as a translation,
+    but its model calls are a TTS processing job's (FROM_ZH_JOB) and are
+    counted with the model work, not here."""
+    return str(r.get("model") or "").startswith("zh+table")
+
+
 def lifetime():
-    """Totals over every chapter ever logged in logs/translate.jsonl."""
+    """Totals over every chapter ever logged in logs/translate.jsonl (the
+    Hakka job's chapters counted, its tokens left to work_tokens)."""
     p = T.LOG_PATH
     if not p.exists():
         return {"chapters": 0, "output_tokens": 0, "prompt_tokens": 0, "seconds": 0, "tps": None, "by_lang": {}}
@@ -121,10 +133,12 @@ def lifetime():
                 continue
             lg = r.get("lang", "en")
             d["chapters"] += 1
+            d["by_lang"][lg] = d["by_lang"].get(lg, 0) + 1
+            if hakka_line(r):
+                continue
             d["output_tokens"] += r.get("output_tokens") or 0
             d["prompt_tokens"] += r.get("prompt_tokens") or 0
             d["seconds"] += r.get("seconds") or 0
-            d["by_lang"][lg] = d["by_lang"].get(lg, 0) + 1
         d["tps"] = round(d["output_tokens"] / d["seconds"], 1) if d["seconds"] else None
         _life.update(mtime=m, data=d)
     return _life["data"]
@@ -358,6 +372,22 @@ LAYERS = [
     ("translations", "translations by a taught model", [
         ("karen", "Sgaw Karen, from our English, by the model taught on the Karen Bible", "job:translate-ksw"),
     ]),
+    # Not a study layer: the voices, and the Hakka text the Hakka voice reads.
+    # Each is a long job of its own, started and stopped here (work.py keeps
+    # them out of the overnight queue), and none has a view in the reader.
+    ("tts", "TTS processing", [
+        ("hakka-translation", "Hakka made from our Mandarin by word replacement, then mended by the model "
+                              "(scripts/hakka_from_zh.py --all, New Testament first)", "job:hakka-text"),
+        ("hakka-reading", "every Hakka chapter read aloud with the FormoSpeech Sixian voice, into audio/hak "
+                          "(scripts/hakka_speech.py --all); a chapter changed since it was read is read again",
+         "job:hakka-voice"),
+        ("taiwanese-translation", "Taiwanese made from our Mandarin by word replacement, then mended by the model "
+                                  "(scripts/taiwanese_from_zh.py --all, New Testament first)", "job:taiwanese-text"),
+        ("taiwanese-reading", "every Taiwanese chapter read aloud with the SuíSiann voice (ga642381's Tacotron2), "
+                              "into audio/nan (scripts/taiwanese_speech.py --all)", "job:taiwanese-voice"),
+        ("karen-voice", "the Sgaw Karen voice being taught (NGAW KAREN TTS/train_mms.py): carries the newest run "
+                        "on from its last checkpoint to the epochs it was set for", "job:karen-voice"),
+    ]),
     ("forms", "letters and forms", [
         ("lexeme-inventory", "word forms analysed", "job:lexemes"),
     ]),
@@ -417,7 +447,9 @@ def work_jobs():
 SCRIPT_JOB = {"build_lexemes.py": "lexemes", "build_lexicon.py": "lexicon", "build_domains.py": "domains",
               "build_themes.py": "themes", "build_index.py": "search-index",
               "build_topics.py": "topics", "build_people.py": "people",
-              "build_entries.py": "entries", "mt_translate.py": "translate-ksw"}
+              "build_entries.py": "entries", "mt_translate.py": "translate-ksw",
+              "hakka_from_zh.py": "hakka-text", "hakka_speech.py": "hakka-voice",
+              "taiwanese_from_zh.py": "taiwanese-text", "taiwanese_speech.py": "taiwanese-voice"}
 _scan = {"at": 0.0, "found": {}}
 
 
@@ -471,6 +503,8 @@ def foreign_jobs():
             job = f"lexicon-{m.group(1)}" if m else None
         elif "work.py" in cmd and "--only" not in cmd and "--list" not in cmd:
             job = "queue"
+        elif "train_mms.py" in cmd and "--train" in cmd:      # --say only reads a line aloud
+            job = "karen-voice"
         if job:
             found.setdefault(job, []).append(info["pid"])
     _scan.update(at=time.time(), found=found)
@@ -530,34 +564,60 @@ _wtok = {"mtime": None, "size": None, "data": None}
 def work_tokens():
     """What the analysis has cost the model, counted apart from the
     translation: every call the study jobs logged in logs/work.jsonl, and the
-    part of it that belongs to this session of the dashboard."""
+    part of it that belongs to this session of the dashboard. The Hakka job
+    (TTS processing) logs a line per chapter in translate.jsonl instead; its
+    calls are read from there and counted here as hakka-text."""
     empty = {"calls": 0, "output_tokens": 0, "prompt_tokens": 0, "seconds": 0.0, "tps": None, "by_job": {},
              "session": {"calls": 0, "output_tokens": 0, "prompt_tokens": 0, "seconds": 0.0, "tps": None}}
-    p = T.WORK_LOG_PATH
-    if not p.exists():
+    p, tp = T.WORK_LOG_PATH, T.LOG_PATH
+    files = [f for f in (p, tp) if f.exists()]
+    if not files:
         return empty
-    st = p.stat()
-    if (_wtok["mtime"], _wtok["size"]) != (st.st_mtime, st.st_size):
+    key = tuple((f.stat().st_mtime, f.stat().st_size) for f in files)
+    if _wtok["mtime"] != key:
         d = json.loads(json.dumps(empty))                   # a fresh copy of the shape above
-        for line in p.read_text(encoding="utf-8", errors="replace").splitlines():
-            try:
-                r = json.loads(line)
-            except json.JSONDecodeError:
-                continue
+        rows = []
+        if p.exists():
+            rows += p.read_text(encoding="utf-8", errors="replace").splitlines()
+        hakka = []
+        if tp.exists():
+            for line in tp.read_text(encoding="utf-8", errors="replace").splitlines():
+                if '"zh+table' not in line:               # cheap test before parsing 5,000 lines
+                    continue
+                try:
+                    r = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                if hakka_line(r) and r.get("attempts"):   # a table-only chapter asked the model nothing
+                    try:
+                        t = time.mktime(time.strptime(r["ts"], "%Y-%m-%dT%H:%M:%S"))
+                    except (KeyError, ValueError):
+                        t = 0
+                    hakka.append({**r, "job": FROM_ZH_JOB.get(r.get("lang"), "hakka-text"), "t": t,
+                                  "calls": r["attempts"]})
+        for line in rows + hakka:
+            if isinstance(line, dict):
+                r = line
+            else:
+                try:
+                    r = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
             out, pro, sec = r.get("output_tokens") or 0, r.get("prompt_tokens") or 0, r.get("seconds") or 0
             job = r.get("job") or "work"
+            calls = r.get("calls") or 1
             for t in (d, d["session"]) if (r.get("t") or 0) >= STARTED else (d,):
-                t["calls"] += 1
+                t["calls"] += calls
                 t["output_tokens"] += out
                 t["prompt_tokens"] += pro
                 t["seconds"] += sec
             b = d["by_job"].setdefault(job, {"calls": 0, "output_tokens": 0})
-            b["calls"] += 1
+            b["calls"] += calls
             b["output_tokens"] += out
         for t in (d, d["session"]):
             t["seconds"] = round(t["seconds"], 1)
             t["tps"] = round(t["output_tokens"] / t["seconds"], 1) if t["seconds"] else None
-        _wtok.update(mtime=st.st_mtime, size=st.st_size, data=d)
+        _wtok.update(mtime=key, data=d)
     return _wtok["data"]
 
 
@@ -725,7 +785,8 @@ def work_progress():
                             "built": m.get("built"), "job": jobname,
                             "running": bool(jobname) and worker_running(jobname),
                             "mine": bool(jobname) and jobname in WORKERS and WORKERS[jobname].poll() is None,
-                            "startable": bool(jobname) and jobname in table})
+                            "startable": bool(jobname) and jobname in table,
+                            "view": gkey != "tts"})
         out.append({"group": gkey, "label": glabel, "items": entries})
     running = [i["key"] for g in out for i in g["items"] if i["running"]]
     return {"groups": out, "now": time.time(), "anyrunning": bool(running), "running": running,
@@ -735,12 +796,54 @@ def work_progress():
 REBUILD_LOCK = threading.Lock()
 
 
+BUILDING = {"thread": None}
+
+
 def rebuild_site() -> str:
+    """Build the reader beside the one being served (site/.build/) and swap it
+    in whole once it is written, so a request never reads half a page: the
+    page is ~50 MB now it carries every language, and takes a minute."""
     with REBUILD_LOCK:
-        r = subprocess.run([sys.executable, str(ROOT / "scripts" / "build_site.py")],
+        tmp = ROOT / "site" / ".build"
+        tmp.mkdir(exist_ok=True)
+        r = subprocess.run([sys.executable, str(ROOT / "scripts" / "build_site.py"), "--out", str(tmp)],
                            capture_output=True, text=True, encoding="utf-8", errors="replace",
                            creationflags=NO_WINDOW)
+        built = tmp / "index.html"
+        if r.returncode == 0 and built.exists():
+            for _ in range(20):                    # Windows refuses the swap while the old page is being read
+                try:
+                    os.replace(built, ROOT / "site" / "index.html")
+                    break
+                except PermissionError:
+                    time.sleep(0.5)
     return (r.stdout + r.stderr).strip()
+
+
+def reader_building() -> bool:
+    t = BUILDING["thread"]
+    return bool(t and t.is_alive())
+
+
+def rebuild_in_background():
+    """Start a rebuild of the reader unless one is running. The reader used to
+    be rebuilt inside the request for it, and with the Hakka and Taiwanese
+    jobs writing a chapter a minute it was nearly always out of date: the
+    dashboard's frame waited a minute or more for 50 MB, gave up, and stayed
+    blank (2026-09-28). Now the page is served as it stands and the new one
+    follows; the frame reloads once when it is ready (showReader)."""
+    if reader_building():
+        return
+    def run():
+        print("reader: " + rebuild_site())
+    BUILDING["thread"] = threading.Thread(target=run, daemon=True)
+    BUILDING["thread"].start()
+
+
+def reader_state():
+    f = ROOT / "site" / "index.html"
+    return {"stale": reader_stale(), "building": reader_building(),
+            "built": f.stat().st_mtime if f.exists() else 0}
 
 
 def reader_stale() -> bool:
@@ -920,13 +1023,16 @@ class Handler(BaseHTTPRequestHandler):
         elif path == "/apk":
             self._json(apk_status())
         elif path == "/reader-stale":
-            self._json({"stale": reader_stale()})
+            self._json(reader_state())
         elif path == "/ask":
             self._json(ask_status())
-        elif path in ("/reader", "/compare"):          # the offline reader; rebuilt first when translations are newer
-            if path == "/reader" and reader_stale():
-                print("reader: " + rebuild_site())
+        elif path in ("/reader", "/compare"):          # the offline reader, served as it stands; rebuilt behind it when stale
             f = ROOT / "site" / ("index.html" if path == "/reader" else "compare.html")
+            if path == "/reader":
+                if not f.exists():
+                    print("reader: " + rebuild_site())     # nothing to serve yet: this once, the request waits
+                elif reader_stale():
+                    rebuild_in_background()
             if not f.exists():
                 self._json({"error": f"{f.name} could not be built — see the console"}, 404)
                 return
@@ -954,6 +1060,10 @@ class Handler(BaseHTTPRequestHandler):
         elif self.path == "/model":
             err = set_model(self._body().get("model"))
             self._json({"ok": err is None, "error": err}, 409 if err else 200)
+        elif self.path == "/reader/rebuild":            # read mode opened on a stale reader: rebuild behind it
+            if reader_stale():
+                rebuild_in_background()
+            self._json({"ok": True, **reader_state()})
         elif self.path == "/work/start":
             err = work_start((self._body().get("job") or "").strip())
             self._json({"ok": err is None, "error": err}, 409 if err else 200)
@@ -1063,6 +1173,8 @@ label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); fo
 #work .j b { color:var(--fg); font-weight:600; font-variant-numeric:tabular-nums; }
 #work .j .nm { cursor:pointer; text-decoration:underline dotted var(--border); text-underline-offset:2px; }
 #work .j .nm:hover { color:var(--accent); text-decoration-color:var(--accent); }
+#work .j .nm.plain { cursor:default; text-decoration:none; }         /* a TTS job: nothing in the reader to open */
+#work .j .nm.plain:hover { color:inherit; }
 #work .j .b { width:3.6rem; height:5px; background:var(--border); border-radius:3px; overflow:hidden; }
 #work .j .b i { display:block; height:100%; background:var(--accent); transition:width .4s; }
 #work .j.full .b i { background:var(--ok); }
@@ -1344,10 +1456,29 @@ function applyDevice(){
 }
 $('device').querySelectorAll('span').forEach(x => x.onclick = () => { device = x.dataset.d; applyDevice(); });
 window.addEventListener('resize', () => { if (device === 'mobile') applyDevice(); });
-async function showReader(){                       // loaded once and kept; reloaded when translations are newer
+/* The reader is loaded once and kept. It is served as it stands and, when
+   translations are newer, rebuilt behind it on the server; once that rebuild
+   is done the frame reloads, once, keeping its place (the chapter is in the
+   address). It used to be rebuilt while the frame waited, and a frame kept
+   waiting a minute for 50 MB gave up and stayed blank. */
+let readerWatch = false;
+async function showReader(){
   const rd = $('reader');
-  if (!rd.src) { rd.src = '/reader'; return; }
-  try { if ((await (await fetch('/reader-stale')).json()).stale) rd.contentWindow.location.reload(); } catch (e) {}
+  if (!rd.src) rd.src = '/reader';
+  if (readerWatch) return;
+  let s;
+  try { s = await (await fetch('/reader-stale')).json(); } catch (e) { return; }
+  if (!s.stale && !s.building) return;
+  readerWatch = true;
+  try {
+    if (!s.building) s = await post('/reader/rebuild', {});
+    const since = s.built;
+    for (let i = 0; i < 120 && mode === 'read'; i++) {
+      await new Promise(r => setTimeout(r, 5000));
+      try { s = await (await fetch('/reader-stale')).json(); } catch (e) { continue; }
+      if (!s.building) { if (s.built > since) rd.contentWindow.location.reload(); break; }
+    }
+  } finally { readerWatch = false; }
 }
 $('handle').onclick = () => { panel.open = !panel.open; applyPanel(); };
 $('mode').querySelectorAll('span').forEach(x => x.onclick = () => { mode = x.dataset.m; applyMode(); });
@@ -1596,7 +1727,9 @@ async function workBar(){
         : (done >= total ? "" : `<button title="start this job" onclick="workStart('${it.job}')">\u25b6</button>`)) : "";
     const spent = it.job && byJob[it.job];
     const tok = spent ? ` <span class="tk" title="${esc(fmtN(spent.output_tokens) + ' tokens out over ' + fmtN(spent.calls) + ' calls')}">${fmtN(spent.output_tokens)} tok</span>` : "";
-    return `<span class="j ${cls}" title="${esc(tip)}"><span class="nm" onclick="showLayer('${it.key}')" title="show what this has produced">${esc(it.key.replace(/-/g, ' '))}</span> <span class="b"><i style="width:${pct.toFixed(1)}%"></i></span> ${num}${tok}${btn}</span>`;
+    const nm = it.view === false ? `<span class="nm plain">${esc(it.key.replace(/-/g, ' '))}</span>`
+      : `<span class="nm" onclick="showLayer('${it.key}')" title="show what this has produced">${esc(it.key.replace(/-/g, ' '))}</span>`;
+    return `<span class="j ${cls}" title="${esc(tip)}">${nm} <span class="b"><i style="width:${pct.toFixed(1)}%"></i></span> ${num}${tok}${btn}</span>`;
   }).join('') + `</div>`).join('')
     + workTotals(w.tokens);                 // the counter closes the area, under the last rung
 }

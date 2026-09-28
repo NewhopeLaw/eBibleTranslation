@@ -1,0 +1,16 @@
++-----------------------------------------------------------------+
+|   | Name    | Type                     | Params | Mode  | FLOPs |
+|---+---------+--------------------------+--------+-------+-------|
+| 0 | model_g | SynthesizerTrn           | 30.2 M | train |     0 |
+| 1 | model_d | MultiPeriodDiscriminator | 46.7 M | train |     0 |
++-----------------------------------------------------------------+
+Trainable params: 77.0 M                                                       
+Non-trainable params: 0                                                        
+Total params: 77.0 M                                                           
+Total estimated model params size (MB): 307.831                                
+Modules in train mode: 512                                                     
+Modules in eval mode: 0                                                        
+Total FLOPs: 0                                                                 
+Epoch 399/399 ---------------- 54/54 0:00:16 •       3.35it/s v_num: 3.000     
+                                     0:00:00                  val_mos: 1.711   
+C:\Users\Newho\AppData\Local\Programs\Python\Python312\python.exe -m piper.train fit --data.csv_path D:\Home\4. AI\eBibleTranslation\NGAW KAREN TTS\audio\train\metadata.csv --data.audio_dir D:\Home\4. AI\eBibleTranslation\NGAW KAREN TTS\audio\train --data.cache_dir D:\Home\4. AI\eBibleTranslation\NGAW KAREN TTS\audio\train\cache --data.config_path D:\Home\4. AI\eBibleTranslation\NGAW KAREN TTS\audio\train\base_config.json --data.voice_name karen --data.espeak_voice vi --data.dataset_type phoneme_ids --data.phonemes_path D:\Home\4. AI\eBibleTranslation\NGAW KAREN TTS\audio\train\phonemes.json --data.batch_size 24 --data.validation_split 0.05 --data.num_workers 4 --model.sample_rate 22050 --model.num_speakers 2 --trainer.accelerator gpu --trainer.devices 1 --trainer.max_epochs 150 --trainer.check_val_every_n_epoch 10 --trainer.log_every_n_steps 5 --trainer.default_root_dir D:\Home\4. AI\eBibleTranslation\models\piper\karen-runs --model.warmstart_ckpt D:\Home\4. AI\eBibleTranslation\models\piper\vi_VN-vais1000-medium.clean.ckpt

@@ -51,6 +51,11 @@ Runs against any Ollama endpoint; configured in `config.json`.
   but echoes the ESV/KJV; needs the avatar's vLLM stopped
   (`docker stop nemoclaw-vllm` / `docker start nemoclaw-vllm`). Candidate for
   poetry/prophets spot passes.
+- **Per language: `lang_models`** — a language can be written by another
+  model than the rest. `qwen3:32b` wrote Cantonese and Mandarin when asked
+  for Hakka, so `hak` goes to `qwen3.5:35b-a3b`. `translate.py --model <name>`
+  overrides both for one run; `mend.py` and `build_ui.py` follow the same
+  choice. The dashboard's model select changes only `model`.
 
 **Running it on the 5090 PC:** see [PORT.md](PORT.md) — setup checklist and
 the Tailscale shared-folder options (~5× faster there).
@@ -64,6 +69,14 @@ scripts/translate.py  Gen 1-3 --lang zh ... into Chinese (es, ja, th; a comma li
 scripts/translate.py  --all [--lang all] the whole Bible, canonical order
 scripts/translate.py  --all --lang all --keep-going   ...and never stop on an error:
                                         wait, retry, resume — until done or Ctrl-C
+scripts/translate.py  John 1 --lang hak --model gemma3:27b   ...with another model for this run
+scripts/hakka_from_zh.py John 1         Hakka from our Mandarin: word replacement (targets/hak/replace.json
+                                        + the MOE Sixian dictionary), then the model mends what is left
+scripts/hakka_speech.py  John 1         read a Hakka chapter aloud (FormoSpeech voice) -> audio/hak/
+scripts/taiwanese_from_zh.py John 1     Taiwanese the same way (targets/nan/replace.json + the MOE Taiwanese
+                                        dictionary); both run on scripts/from_zh.py
+scripts/taiwanese_speech.py  John 1     read a Taiwanese chapter aloud (ga642381's SuíSiann voice) -> audio/nan/
+                                        (all four are TTS processing jobs on the dashboard; --all for the lot)
 scripts/add_lxx.py    [--fetch]         attach the Septuagint to the normalized OT
 scripts/verify.py     [--lang zh] [Gen [1-3]]  flag missing/dup verses, untranslated
                                         text, truncation, name inconsistencies

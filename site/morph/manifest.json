@@ -84,18 +84,18 @@
   "built": 1789222959.9168882
  },
  "book-arguments": {
-  "count": 4,
+  "count": 13,
   "unit": "books",
   "note": "what each book argues",
   "script": "build_theology.py",
-  "built": 1789222413.977014
+  "built": 1790617058.8864908
  },
  "trajectories": {
   "count": 2,
   "unit": "themes",
   "note": "how a theme develops across the canon",
   "script": "build_theology.py",
-  "built": 1789222413.981014
+  "built": 1790617058.8920226
  },
  "lexeme-inventory": {
   "count": 27065,

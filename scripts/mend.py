@@ -172,7 +172,7 @@ def mend(code, ch, wanted, lang, system, dry=False, force=False):
                 f"{TARGETS[lang]['name']}: spell each name with {TARGETS[lang]['name']} letters, "
                 f"and use a plain {TARGETS[lang]['name']} word where you had a foreign one.")
             try:
-                raw, resp = T.call_model(system, ask, {"temperature": 0.2} if said else None)
+                raw, resp = T.call_model(system, ask, {"temperature": 0.2} if said else None, T.model_for(lang))
             except T.LoopError:
                 said.append("loop")
                 continue

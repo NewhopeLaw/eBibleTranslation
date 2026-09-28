@@ -1,0 +1,20 @@
+W0927 09:29:19.914000 80796 site-packages\torch\utils\flop_counter.py:29] triton not found; flop counting will not work for triton kernels
+C:\Users\Newho\AppData\Local\Programs\Python\Python312\Lib\site-packages\lightning\fabric\utilities\seed.py:44: No seed found, seed set to 0
+Seed set to 0
+C:\Users\Newho\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\utils\weight_norm.py:144: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.
+  WeightNorm.apply(module, name, dim)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+\U0001f4a1 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+\U0001f4a1 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+INFO:piper.train.vits.dataset:Processing utterances...
+INFO:piper.train.vits.dataset:Processed 53 utterance(s)
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+INFO:piper.train.vits.lightning:[warmstart] Copied 784 parameters from models/piper/karen-runs/lightning_logs/version_1/checkpoints/epoch=79-step=4640.ckpt (0 skipped; new modules such as the MRD start fresh)
+C:\Users\Newho\AppData\Local\Programs\Python\Python312\Lib\site-packages\lightning\pytorch\utilities\_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+C:\Users\Newho\AppData\Local\Programs\Python\Python312\Lib\site-packages\lightning\pytorch\trainer\connectors\data_connector.py:434: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=27` in the `DataLoader` to improve performance.
+C:\Users\Newho\AppData\Local\Programs\Python\Python312\Lib\site-packages\lightning\pytorch\trainer\connectors\data_connector.py:434: The 'train_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=27` in the `DataLoader` to improve performance.
+Using cache found in C:\Users\Newho/.cache\torch\hub\tarepan_SpeechMOS_v1.2.0
+C:\Users\Newho\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\utils\weight_norm.py:144: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.
+  WeightNorm.apply(module, name, dim)
+`Trainer.fit` stopped: `max_epochs=300` reached.
