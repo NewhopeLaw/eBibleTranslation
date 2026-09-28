@@ -10,7 +10,8 @@ in layers, each layer testable against a Karen speaker:
 | 2 | A borrowed voice reads those sounds: Meta's Burmese voice respelled and retuned, or a Piper neural voice trained on Vietnamese fed the phonemes | `karen_speech.py` |
 | 3 | Test any voice against a Karen speaker, word by word, by ear and by pitch | `karen_voice_test.py` |
 | 4 | Cut lesson recordings into words with known spellings: the syllabary and the training data | `karen_lessons.py` |
-| 5 | Fit the tone table to the speaker, then fine-tune a Piper voice on the Karen cuts | `tune_tones` reports, `train_voice.py` |
+| 5 | Fine-tune Meta's Burmese voice on the Karen cuts: it reads the Myanmar script as written, so no phoneme layer | `train_mms.py` |
+| 5a | (retired) Fit the tone table and fine-tune the Piper Vietnamese voice | `fit_tones.py`, `train_voice.py` |
 | 6 | Emma Htoo's course, read for her pronunciation and phonics; the check at the end | `phonics-emma-htoo.md` |
 
 The audio under `audio/` is not in git: `audio/reference/` holds recordings of
@@ -31,6 +32,31 @@ Vietnamese adaptation below did not work well and is kept as a record and a
 fallback; the next attempt adapts Burmese.
 
 ## Where things stand (2026-09-27)
+
+- The Vietnamese route is retired: two layers of guessing (phonemes, then a
+  tone mapping) between the Karen letters and a voice that never saw them,
+  and neither fine-tune came clear. The voice is now fine-tuned from Meta's
+  MMS Burmese one (`train_mms.py`), which takes Karen text as written; the
+  six Karen characters it lacks (ၤ ၢ ၣ ဃ ၡ ၠ, a fifth of Mason's text) are
+  added, each starting from its nearest Burmese symbol. Trained with VITS's
+  own code on Meta's released generator and discriminator. The Burmese model
+  is CC BY-NC 4.0, and so is what is made from it. Yardstick on the
+  vocabulary test (`karen_voice_test.py --engine`, mean pitch correlation over
+  39 words): the Piper Vietnamese voice 0.31, the untrained Burmese voice
+  -0.02. First run, `emma-v1`: Emma's confirmed cuts, 21.7 minutes with the
+  short ones padded with silence, 200 epochs; held-out mel loss fell all the
+  way (0.444 at epoch 5 to 0.397 at 200). On the vocabulary test it scores
+  0.04 to 0.15 by checkpoint (best at epoch 100), under Piper's 0.31; on
+  Emma's 102 held-out cuts every voice, Piper included, sits near 0.1, so
+  her isolated syllables cannot rank voices by pitch. The ear decides.
+- To the ear `emma-v1` cut its enunciation off, for two reasons. The lesson
+  cuts ended 26 dB under the word's peak, while the tone was still fading
+  (the room is about 40 dB down), so the voice learnt to stop syllables
+  short; `train_mms.py` now cuts each clip again from the full lesson out to
+  the quiet, 91 ms longer at the median. And Mason's punctuation (ASCII
+  `,` `.`) is not in the voice's alphabet and was dropped, so a verse came
+  out in one breath; the voice now says each clause separately, with a pause
+  between. `emma-v2-recut` retrains from the Burmese voice on the re-cut clips.
 
 - The phonetic layer is complete and regular, and Emma Htoo's lessons confirm
   it: every consonant (lesson 1), the nine vowels including the three signs
@@ -94,6 +120,14 @@ fallback; the next attempt adapts Burmese.
     python "NGAW KAREN TTS/karen_phonemes.py" Gen 1 1-3                 # notation
     python "NGAW KAREN TTS/karen_speech.py" Matt 6 9-13 --engine piper    # audio/ksw/*.wav
     python "NGAW KAREN TTS/karen_voice_test.py" "NGAW KAREN TTS/audio/reference/vocab1.wav" --words "NGAW KAREN TTS/words/vocab1.json" --floor -18 --engine piper
+    python "NGAW KAREN TTS/train_mms.py" --train --epochs 200 --name emma-v1          # models/mms/karen-runs/emma-v1
+    python "NGAW KAREN TTS/karen_speech.py" Gen 1 1-5 --engine mms                     # the newest checkpoint
+    python "NGAW KAREN TTS/karen_voice_test.py" "NGAW KAREN TTS/audio/reference/vocab1.wav" --words "NGAW KAREN TTS/words/vocab1.json" --floor -18 --engine mms --model <run>/G_e0200.pth
 
 Needs: torch, transformers, pyworld, piper-tts, numpy, scipy, yt-dlp,
-imageio-ffmpeg; the Piper voices under `models/piper/` (rhasspy/piper-voices).
+imageio-ffmpeg, librosa, monotonic-alignment-search; the Piper voices under
+`models/piper/` (rhasspy/piper-voices); for `train_mms.py`, VITS
+(`git clone https://github.com/jaywalnut310/vits sources/vits`) and Meta's
+Burmese checkpoints in `models/mms/mya/` (mya.tar.gz from
+dl.fbaipublicfiles.com/mms/tts/, and D_100000.pth from facebook/mms-tts's
+full_models/mya on Hugging Face).

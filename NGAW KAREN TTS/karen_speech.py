@@ -285,8 +285,10 @@ def main():
     ap.add_argument("--out", help="where to write the .wav")
     ap.add_argument("--plain", action="store_true", help="no retuning: the Burmese voice's nearest tones")
     ap.add_argument("--pace", type=float, default=None, help="piper: 1.0 is the voice's own speed, 1.1 a tenth slower (the default)")
-    ap.add_argument("--engine", choices=["burmese", "piper"], default="burmese",
-                    help="burmese: Meta's Burmese voice respelled and retuned; piper: a Vietnamese neural voice fed Karen phonemes")
+    ap.add_argument("--engine", choices=["burmese", "piper", "mms"], default="burmese",
+                    help="burmese: Meta's Burmese voice respelled and retuned; piper: a Vietnamese neural voice fed Karen phonemes; "
+                         "mms: the Burmese voice fine-tuned on Karen (train_mms.py)")
+    ap.add_argument("--model", help="mms: the checkpoint to read with (default: the newest run)")
     ap.add_argument("--show", action="store_true", help="print each syllable's respelling and tone")
     a = ap.parse_args()
     if a.text:
@@ -305,20 +307,25 @@ def main():
             raise SystemExit("no such verses in the Karen Bible")
         out = Path(a.out or AUDIO / f"{BOOKS[a.book]['name'].replace(' ', '_')}_{a.chapter:02d}"
                    f"{'_' + a.verses if a.verses else ''}{'_plain' if a.plain else ''}.wav")
-    if a.engine == "piper":
+    if a.engine in ("piper", "mms"):
         import numpy as np
-        voice = PiperKaren(deterministic=False, pace=a.pace)
+        if a.engine == "mms":
+            from train_mms import MmsKaren
+            voice = MmsKaren(a.model, deterministic=False, pace=a.pace or 1.0)
+        else:
+            voice = PiperKaren(deterministic=False, pace=a.pace)
         parts = []
         for k in karen:
             if a.show:
                 print("KAREN", k)
-                print("  " + "".join(voice.kp.piper(voice.kp.syllables(k))))
+                if a.engine == "piper":
+                    print("  " + "".join(voice.kp.piper(voice.kp.syllables(k))))
             parts += [voice.say(k), np.zeros(int(voice.fs * 0.5))]
         audio = np.concatenate(parts)
         audio = audio / max(1e-9, np.abs(audio).max()) * 0.9
         items = [("syl", None) for k in karen for it in syllables(k) if it[0] == "syl"]
         if not a.out:
-            out = out.with_name(out.stem + "_piper" + out.suffix)
+            out = out.with_name(out.stem + "_" + a.engine + out.suffix)
         write_wav(audio, voice.fs, out)
         print(f"{len(karen)} verse(s), {len(items)} syllables, {len(audio) / voice.fs:.0f}s of audio -> {out}")
         return

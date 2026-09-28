@@ -109,7 +109,8 @@ def main():
     ap.add_argument("--per-word", type=int, default=1, help="sayings per word in the recording")
     ap.add_argument("--pick", type=int, default=1, help="which saying to use, 1-based")
     ap.add_argument("--floor", type=float, default=-38, help="silence threshold, dB below the loudest frame")
-    ap.add_argument("--engine", choices=["burmese", "piper"], default="burmese", help="which of our voices to test")
+    ap.add_argument("--engine", choices=["burmese", "piper", "mms"], default="burmese", help="which of our voices to test")
+    ap.add_argument("--model", help="mms: the checkpoint to test (default: the newest run; \"base\" for the untrained Burmese voice)")
     a = ap.parse_args()
 
     wav, fs = read_wav(a.recording)
@@ -157,13 +158,17 @@ def main():
             print("fewer stretches than words: lower --floor, or check --per-word; matching the first ones in order")
         chosen = [segs[i * a.per_word + (a.pick - 1)] for i in range(min(len(words), len(segs) // a.per_word))]
 
-    voice = PiperKaren() if a.engine == "piper" else Voice()
+    if a.engine == "mms":
+        from train_mms import MmsKaren
+        voice = MmsKaren(a.model)
+    else:
+        voice = PiperKaren() if a.engine == "piper" else Voice()
     # Each speaker's middle pitch over every word, the zero of the semitone scale below
     def middle(tracks):
         allv = np.concatenate(tracks) if tracks else np.array([])
         return float(np.median(allv)) if len(allv) else 180.0
     human_base = middle([pitch(wav[s:e], fs) for s, e in chosen])
-    renders = [voice.say(w["ksw"]) if a.engine == "piper" else render(syllables(w["ksw"]), voice) for w in words]
+    renders = [render(syllables(w["ksw"]), voice) if a.engine == "burmese" else voice.say(w["ksw"]) for w in words]
     ours_base = middle([pitch(r, voice.fs) for r in renders])
     print(f"speaker's middle pitch {human_base:.0f} Hz, our voice's {ours_base:.0f} Hz")
     rows, ab = [], []
@@ -184,7 +189,7 @@ def main():
         if w.get("confirmed") and hc is not None:
             per_tone.setdefault(last_tone(w["ksw"]), []).append((hc, hdur))
 
-    out = Path(a.recording).with_name(Path(a.recording).stem + ("_ab_piper.wav" if a.engine == "piper" else "_ab.wav"))
+    out = Path(a.recording).with_name(Path(a.recording).stem + ("_ab.wav" if a.engine == "burmese" else f"_ab_{a.engine}.wav"))
     write_wav(np.concatenate(ab), voice.fs, out)
 
     lines = [f"# Karen voice against a speaker: {Path(a.recording).name}", "",
@@ -209,7 +214,7 @@ def main():
             lines.append(f"| {mark or '(none)'} {spec['name']} | {len(got)} | {meas} | {length:.2f} | {spec['pitch']} |")
         else:
             lines.append(f"| {mark or '(none)'} {spec['name']} | 0 | - | - | {spec['pitch']} |")
-    report = REPORT if a.engine == "burmese" else REPORT.with_name("karen_voice_test_piper.md")
+    report = REPORT if a.engine == "burmese" else REPORT.with_name(f"karen_voice_test_{a.engine}.md")
     report.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"side by side -> {out}\nreport -> {report}")
     for line in lines[6:6 + len(rows) + 2]:
