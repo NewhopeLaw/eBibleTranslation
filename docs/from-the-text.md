@@ -67,6 +67,50 @@ with a comparison against the reference before the next begins.
 Themes, book arguments, trajectories, parallels, places and chronology do not
 depend on the lexeme set and are untouched.
 
+## What the method is, and what it is not
+
+The order of the steps is the old order of philology: the text fixed, then its
+grammar, then a lexicon written from usage, then fields of meaning — the
+Masoretes, then Ḥayyuj and Kimḥi, then Gesenius and BDB, then Louw–Nida. Writing
+each entry from the lexeme's occurrences rather than from its root is the
+correction Barr pressed in 1961. The shape is sound. But scholarship has never
+been built quite this way, and five differences should be kept in mind when the
+comparisons are read.
+
+1. **Scholarship is a circle, not a ladder.** A parse depends on what the word
+   means and where it stands — homographs, the vav-consecutive, the Aramaic of
+   Daniel and Ezra are settled from above as much as from below — and a revised
+   meaning sends scholars back to revise the parse. Our chain runs one way; for
+   now the comparison against the reference is the only thing that looks back
+   down it.
+
+2. **Scholarship reads outside the text.** The modern lexicons lean on the
+   cognate languages (Ugaritic, Akkadian, Arabic), on the Septuagint and the
+   other ancient versions, and on inscriptions. Reading from the text alone is
+   closer to the medieval grammarians than to HALOT. It is a choice we have made,
+   and the place it will show is the hapax legomena — some 1,500 words in the
+   Hebrew Bible that occur once, many of which the text by itself cannot explain.
+   Where our reading of one of those differs from the reference, the difference
+   may be the method's limit rather than the model's error.
+
+3. **The model is not free of the tradition.** It learned its Hebrew and Greek
+   from BDB, Strong's, the commentaries and the English Bibles. When it agrees
+   with the reference, some of that agreement is remembered, not found, so the
+   agreement rate overstates what reading the text on its own would give. The
+   disagreements are the more telling half of every comparison, and a high score
+   is not by itself evidence that the method works.
+
+4. **Scholarship keeps its doubts on the page.** Lexicons print *dub.*, *cf.* and
+   rival derivations; critical editions carry an apparatus. Our layers hold one
+   answer per form, and a confident wrong answer looks the same as a right one
+   (אֵלֹנ is Hebrew, and is not a word). Where the model is unsure, or offers more
+   than one reading, that is worth keeping.
+
+5. **Scholarship establishes the text first.** Textual criticism comes before
+   grammar. We take the Masoretic text as morphhb gives it, as most translations
+   do and as the versification already does; that is a decision, not a neutral
+   starting point.
+
 ## Decisions made
 
 - The parse comes from the model, not from the reference (step 2), so the chain
@@ -86,6 +130,12 @@ depend on the lexeme set and are untouched.
   inventory's disagreement report shows how the model handles the hard forms.
 - Total cost after the inventory: on the order of 60–70 GPU hours, most of it
   the lexicon.
+- A pass back down the chain: once entries and fields exist, whether to put the
+  parses the model was least sure of back to it with the meaning and the
+  context in hand, as a scholar would revise them.
+- Whether the inventory and the parse should record the model's alternatives or
+  its confidence alongside its answer, so that doubt is not flattened into a
+  single reading.
 
 ## Where things stand
 
