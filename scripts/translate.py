@@ -134,12 +134,18 @@ def emit(**ev):
 
 
 # ---------------------------------------------------------------- targets
+# Where chapters are written. A trial of a new language (scripts/trial_lang.py)
+# points this elsewhere, one tree per model, so that two models' attempts at
+# the same chapter sit side by side and neither is taken for the translation.
+OUT_ROOT = ROOT / "output"
+
+
 def out_dir(lang):
-    return ROOT / "output" / lang
+    return OUT_ROOT / lang
 
 
 def json_dir(lang):
-    return ROOT / "output" / lang / "json"
+    return OUT_ROOT / lang / "json"
 
 
 def target_files(lang):

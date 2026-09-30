@@ -161,6 +161,12 @@ TARGETS = {
     "ms": {"name": "Malay", "native": "Bahasa Melayu", "latin": True, "ratio": 0.8},
     "ja-easy": {"name": "Easy Japanese", "native": "やさしい日本語", "latin": False, "ratio": 0.3,
                 "note": "yasashii nihongo: short sentences, common words, furigana as {漢字|かんじ}"},
+    # On trial: a few chapters from each candidate model, scored against a
+    # reference Bible, before any model is given the whole of it (scripts/
+    # trial_lang.py). "trial" keeps it out of the queue's lexicon jobs, which
+    # would otherwise spend 10,000 calls on a language not yet decided on.
+    "my": {"name": "Burmese", "native": "မြန်မာ", "latin": False, "ratio": 0.6, "trial": True,
+           "note": "literary Burmese, Unicode (not Zawgyi)"},
     # To be written by a translation model from our English (scripts/
     # mt_translate.py), not by the chat model from the originals: Qwen answers
     # in Burmese, NLLB-200 has no Karen, and MADLAD-400's "ksw" is Shan (see

@@ -69,3 +69,8 @@ site/.build/
 # site/morph/ is a study layer the model wrote over hours, and stays in git.
 site/index.html
 site/morph/idx_*.js
+
+# Judson Burmese Bible from eBible.org, a yardstick for the Burmese trial (scripts/trial_lang.py); fetched, not ours to ship
+sources/mya-judson/
+# Burmese Common Language Bible (Bible Society of Myanmar, 2005) from eBible.org, the modern yardstick for the same trial
+sources/mya-cl/
