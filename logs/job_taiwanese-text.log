@@ -341,3 +341,436 @@
   Exodus 30 [nan]: 38/38 vv, 13s, 123 words replaced, Mandarin left 1.4 -> 1.3 per 100 chars, model changed 2 verses
   Exodus 31 [nan]: 18/18 vv, 9s, 56 words replaced, Mandarin left 2.1 -> 2.1 per 100 chars, model changed 17 verses, kept the draft for 1 (13: more Mandarin)
   Exodus 32 [nan]: 35/35 vv, 11s, 190 words replaced, Mandarin left 2.1 -> 1.7 per 100 chars, model changed 35 verses
+  Exodus 33 [nan]: 23/23 vv, 9s, 129 words replaced, Mandarin left 2.0 -> 1.9 per 100 chars, model changed 23 verses
+  Exodus 34 [nan]: 35/35 vv, 11s, 222 words replaced, Mandarin left 1.7 -> 1.7 per 100 chars, model changed 34 verses
+  Exodus 35 [nan]: 35/35 vv, 9s, 97 words replaced, Mandarin left 2.3 -> 2.3 per 100 chars, model changed 34 verses
+  Exodus 36 [nan]: 38/38 vv, 10s, 116 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 38 verses
+  Exodus 37 [nan]: 29/29 vv, 10s, 84 words replaced, Mandarin left 0.3 -> 0.1 per 100 chars, model changed 29 verses
+  Exodus 38 [nan]: 31/31 vv, 14s, 107 words replaced, Mandarin left 0.2 -> 0.1 per 100 chars, model changed 31 verses
+  Exodus 39 [nan]: 43/43 vv, 8s, 117 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 39 verses, kept the draft for 3 (6: more Mandarin, 14: more Mandarin, 18: more Mandarin)
+  Exodus 40 [nan]: 38/38 vv, 10s, 101 words replaced, Mandarin left 2.5 -> 1.7 per 100 chars, model changed 38 verses
+  Leviticus 1 [nan]: 17/17 vv, 6s, 80 words replaced, Mandarin left 4.5 -> 2.4 per 100 chars, model changed 13 verses
+  Leviticus 2 [nan]: 16/16 vv, 7s, 65 words replaced, Mandarin left 5.6 -> 4.9 per 100 chars, model changed 6 verses
+  Leviticus 3 [nan]: 17/17 vv, 6s, 80 words replaced, Mandarin left 4.1 -> 4.1 per 100 chars, model changed 4 verses, kept the draft for 1 (1: more Mandarin)
+  Leviticus 4 [nan]: 35/35 vv, 11s, 141 words replaced, Mandarin left 2.8 -> 2.2 per 100 chars, model changed 13 verses, kept the draft for 1 (27: more Mandarin)
+  Leviticus 5 [nan]: 26/26 vv, 11s, 151 words replaced, Mandarin left 3.3 -> 3.2 per 100 chars, model changed 3 verses
+  Leviticus 6 [nan]: 23/23 vv, 9s, 129 words replaced, Mandarin left 3.0 -> 3.0 per 100 chars, model changed 0 verses
+  Leviticus 7 [nan]: 38/38 vv, 10s, 142 words replaced, Mandarin left 3.7 -> 3.0 per 100 chars, model changed 11 verses, kept the draft for 1 (11: more Mandarin)
+  Leviticus 8 [nan]: 36/36 vv, 12s, 184 words replaced, Mandarin left 1.9 -> 1.7 per 100 chars, model changed 2 verses
+  Leviticus 9 [nan]: 24/24 vv, 9s, 109 words replaced, Mandarin left 2.9 -> 2.9 per 100 chars, model changed 1 verses
+  Leviticus 10 [nan]: 20/20 vv, 7s, 132 words replaced, Mandarin left 2.4 -> 2.3 per 100 chars, model changed 2 verses
+  Leviticus 11 [nan]: 47/47 vv, 11s, 270 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 1 verses
+  Leviticus 12 [nan]: 8/8 vv, 6s, 39 words replaced, Mandarin left 1.8 -> 1.1 per 100 chars, model changed 4 verses, kept the draft for 1 (3: more Mandarin)
+  Leviticus 13 [nan]: 59/59 vv, 14s, 340 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 0 verses, kept the draft for 1 (2: more Mandarin)
+  Leviticus 14 [nan]: 57/57 vv, 15s, 218 words replaced, Mandarin left 1.3 -> 1.1 per 100 chars, model changed 6 verses
+  Leviticus 15 [nan]: 33/33 vv, 9s, 131 words replaced, Mandarin left 0.9 -> 0.7 per 100 chars, model changed 14 verses, kept the draft for 1 (9: more Mandarin)
+  Leviticus 16 [nan]: 34/34 vv, 9s, 162 words replaced, Mandarin left 2.1 -> 2.0 per 100 chars, model changed 9 verses, kept the draft for 1 (1: more Mandarin)
+  Leviticus 17 [nan]: 16/16 vv, 6s, 89 words replaced, Mandarin left 4.3 -> 3.5 per 100 chars, model changed 5 verses
+  Leviticus 18 [nan]: 30/30 vv, 9s, 174 words replaced, Mandarin left 1.0 -> 1.1 per 100 chars, model changed 15 verses, kept the draft for 1 (6: more Mandarin)
+  Leviticus 19 [nan]: 37/37 vv, 10s, 192 words replaced, Mandarin left 2.4 -> 2.4 per 100 chars, model changed 0 verses
+  Leviticus 20 [nan]: 27/27 vv, 10s, 176 words replaced, Mandarin left 1.8 -> 1.0 per 100 chars, model changed 6 verses
+  Leviticus 21 [nan]: 24/24 vv, 8s, 120 words replaced, Mandarin left 1.7 -> 1.6 per 100 chars, model changed 2 verses
+  Leviticus 22 [nan]: 33/33 vv, 10s, 157 words replaced, Mandarin left 3.4 -> 3.3 per 100 chars, model changed 6 verses
+  Leviticus 23 [nan]: 44/44 vv, 13s, 171 words replaced, Mandarin left 4.2 -> 4.2 per 100 chars, model changed 3 verses, kept the draft for 3 (15: more Mandarin, 16: more Mandarin, 17: more Mandarin)
+  Leviticus 24 [nan]: 23/23 vv, 5s, 86 words replaced, Mandarin left 2.8 -> 2.6 per 100 chars, model changed 2 verses, kept the draft for 2 (4: more Mandarin, 5: more Mandarin)
+  Leviticus 25 [nan]: 55/55 vv, 10s, 196 words replaced, Mandarin left 0.8 -> 0.7 per 100 chars, model changed 2 verses, kept the draft for 4 (4: more Mandarin, 5: more Mandarin, 8: more Mandarin, 9: more Mandarin)
+  Leviticus 26 [nan]: 46/46 vv, 11s, 208 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 1 verses
+  Leviticus 27 [nan]: 34/34 vv, 10s, 135 words replaced, Mandarin left 3.2 -> 3.2 per 100 chars, model changed 0 verses
+  Numbers 1 [nan]: 54/54 vv, 12s, 91 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 3 verses, kept the draft for 1 (4: more Mandarin)
+  Numbers 2 [nan]: 34/34 vv, 11s, 88 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 0 verses
+  Numbers 3 [nan]: 51/51 vv, 16s, 136 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 7 verses, kept the draft for 7 (15: more Mandarin, 22: more Mandarin, 28: more Mandarin, 34: more Mandarin, 39: more Mandarin, 41: more Mandarin, 43: more Mandarin)
+  Numbers 4 [nan]: 49/49 vv, 12s, 166 words replaced, Mandarin left 1.1 -> 0.9 per 100 chars, model changed 4 verses
+  Numbers 5 [nan]: 31/31 vv, 10s, 169 words replaced, Mandarin left 2.4 -> 2.1 per 100 chars, model changed 3 verses
+  Numbers 6 [nan]: 27/27 vv, 10s, 120 words replaced, Mandarin left 3.1 -> 3.1 per 100 chars, model changed 1 verses
+  Numbers 7 [nan]: 89/89 vv, 17s, 149 words replaced, Mandarin left 0.4 -> 0.2 per 100 chars, model changed 3 verses
+  Numbers 8 [nan]: 26/26 vv, 10s, 87 words replaced, Mandarin left 3.6 -> 3.5 per 100 chars, model changed 5 verses, kept the draft for 1 (2: more Mandarin)
+  Numbers 9 [nan]: 23/23 vv, 9s, 115 words replaced, Mandarin left 2.2 -> 2.1 per 100 chars, model changed 2 verses
+  Numbers 10 [nan]: 36/36 vv, 10s, 127 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 1 verses, kept the draft for 4 (14: more Mandarin, 18: more Mandarin, 22: more Mandarin, 25: more Mandarin)
+  Numbers 11 [nan]: 35/35 vv, 11s, 201 words replaced, Mandarin left 2.5 -> 2.5 per 100 chars, model changed 1 verses, kept the draft for 1 (4: more Mandarin)
+  Numbers 12 [nan]: 16/16 vv, 7s, 85 words replaced, Mandarin left 1.7 -> 1.5 per 100 chars, model changed 4 verses
+  Numbers 13 [nan]: 33/33 vv, 9s, 129 words replaced, Mandarin left 0.4 -> 0.4 per 100 chars, model changed 4 verses, kept the draft for 1 (2: more Mandarin)
+  Numbers 14 [nan]: 45/45 vv, 12s, 253 words replaced, Mandarin left 2.3 -> 2.2 per 100 chars, model changed 2 verses
+  Numbers 15 [nan]: 41/41 vv, 7s, 154 words replaced, Mandarin left 3.9 -> 3.5 per 100 chars, model changed 10 verses, kept the draft for 1 (27: more Mandarin)
+  Numbers 16 [nan]: 35/35 vv, 9s, 203 words replaced, Mandarin left 2.3 -> 2.2 per 100 chars, model changed 3 verses
+  Numbers 17 [nan]: 28/28 vv, 7s, 104 words replaced, Mandarin left 2.6 -> 2.4 per 100 chars, model changed 19 verses
+  Numbers 18 [nan]: 32/32 vv, 9s, 167 words replaced, Mandarin left 2.8 -> 2.5 per 100 chars, model changed 8 verses
+  Numbers 19 [nan]: 22/22 vv, 7s, 137 words replaced, Mandarin left 1.1 -> 0.6 per 100 chars, model changed 3 verses, kept the draft for 3 (9: more Mandarin, 17: more Mandarin, 18: more Mandarin)
+  Numbers 20 [nan]: 29/29 vv, 7s, 162 words replaced, Mandarin left 1.9 -> 1.7 per 100 chars, model changed 4 verses, kept the draft for 1 (5: more Mandarin)
+  Numbers 21 [nan]: 35/35 vv, 10s, 155 words replaced, Mandarin left 1.3 -> 1.0 per 100 chars, model changed 5 verses
+  Numbers 22 [nan]: 41/41 vv, 20s, 220 words replaced, Mandarin left 1.7 -> 1.7 per 100 chars, model changed 4 verses, kept the draft for 2 (34: length, 35: length)
+  Numbers 23 [nan]: 30/30 vv, 9s, 199 words replaced, Mandarin left 1.1 -> 1.0 per 100 chars, model changed 5 verses, kept the draft for 2 (4: more Mandarin, 14: more Mandarin)
+  Numbers 24 [nan]: 25/25 vv, 6s, 105 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 2 verses
+  Numbers 25 [nan]: 19/19 vv, 6s, 80 words replaced, Mandarin left 1.3 -> 1.0 per 100 chars, model changed 4 verses
+  Numbers 26 [nan]: 65/65 vv, 12s, 122 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 30 verses, kept the draft for 1 (4: more Mandarin)
+  Numbers 27 [nan]: 23/23 vv, 5s, 123 words replaced, Mandarin left 4.4 -> 4.3 per 100 chars, model changed 5 verses
+  Numbers 28 [nan]: 31/31 vv, 6s, 85 words replaced, Mandarin left 2.4 -> 2.4 per 100 chars, model changed 1 verses, kept the draft for 1 (2: more Mandarin)
+  Numbers 29 [nan]: 39/39 vv, 10s, 168 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 1 verses
+  Numbers 30 [nan]: 17/17 vv, 6s, 125 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 1 verses, kept the draft for 2 (3: more Mandarin, 4: more Mandarin)
+  Numbers 31 [nan]: 54/54 vv, 16s, 149 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 4 verses, kept the draft for 1 (8: more Mandarin)
+  Numbers 32 [nan]: 42/42 vv, 11s, 213 words replaced, Mandarin left 1.9 -> 1.9 per 100 chars, model changed 3 verses
+  Numbers 33 [nan]: 56/56 vv, 10s, 138 words replaced, Mandarin left 0.6 -> 0.5 per 100 chars, model changed 2 verses
+  Numbers 34 [nan]: 29/29 vv, 6s, 90 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 0 verses
+  Numbers 35 [nan]: 34/34 vv, 11s, 181 words replaced, Mandarin left 0.9 -> 0.8 per 100 chars, model changed 2 verses
+  Numbers 36 [nan]: 13/13 vv, 4s, 67 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 1 verses
+  Deuteronomy 1 [nan]: 46/46 vv, 11s, 295 words replaced, Mandarin left 2.5 -> 2.3 per 100 chars, model changed 6 verses
+  Deuteronomy 2 [nan]: 37/37 vv, 11s, 222 words replaced, Mandarin left 1.7 -> 1.7 per 100 chars, model changed 1 verses
+  Deuteronomy 3 [nan]: 29/29 vv, 8s, 187 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 1 verses
+  Deuteronomy 4 [nan]: 49/49 vv, 14s, 346 words replaced, Mandarin left 2.0 -> 2.0 per 100 chars, model changed 9 verses, kept the draft for 11 (1: more Mandarin, 7: more Mandarin, 8: more Mandarin, 9: more Mandarin, 12: more Mandarin, 15: more Mandarin, 23: more Mandarin, 31: more Mandarin, 33: more Mandarin, 34: more Mandarin, 47: more Mandarin)
+  Deuteronomy 5 [nan]: 33/33 vv, 8s, 195 words replaced, Mandarin left 2.7 -> 2.5 per 100 chars, model changed 4 verses
+  Deuteronomy 6 [nan]: 25/25 vv, 6s, 143 words replaced, Mandarin left 3.3 -> 3.2 per 100 chars, model changed 11 verses, kept the draft for 1 (12: more Mandarin)
+  Deuteronomy 7 [nan]: 26/26 vv, 8s, 181 words replaced, Mandarin left 2.6 -> 2.6 per 100 chars, model changed 1 verses, kept the draft for 1 (1: more Mandarin)
+  Deuteronomy 8 [nan]: 20/20 vv, 8s, 107 words replaced, Mandarin left 2.9 -> 2.8 per 100 chars, model changed 3 verses
+  Deuteronomy 9 [nan]: 29/29 vv, 8s, 168 words replaced, Mandarin left 3.2 -> 3.2 per 100 chars, model changed 1 verses
+  Deuteronomy 10 [nan]: 22/22 vv, 8s, 136 words replaced, Mandarin left 2.7 -> 2.6 per 100 chars, model changed 2 verses, kept the draft for 1 (20: more Mandarin)
+  Deuteronomy 11 [nan]: 32/32 vv, 10s, 226 words replaced, Mandarin left 2.9 -> 2.9 per 100 chars, model changed 1 verses
+  Deuteronomy 12 [nan]: 31/31 vv, 14s, 316 words replaced, Mandarin left 2.2 -> 2.2 per 100 chars, model changed 0 verses
+  Deuteronomy 13 [nan]: 19/19 vv, 7s, 140 words replaced, Mandarin left 2.2 -> 1.9 per 100 chars, model changed 16 verses, kept the draft for 2 (2: more Mandarin, 5: more Mandarin)
+  Deuteronomy 14 [nan]: 29/29 vv, 10s, 131 words replaced, Mandarin left 1.9 -> 1.9 per 100 chars, model changed 1 verses
+  Deuteronomy 15 [nan]: 23/23 vv, 8s, 135 words replaced, Mandarin left 2.0 -> 2.0 per 100 chars, model changed 0 verses
+  Deuteronomy 16 [nan]: 22/22 vv, 7s, 118 words replaced, Mandarin left 2.3 -> 2.3 per 100 chars, model changed 0 verses
+  Deuteronomy 17 [nan]: 20/20 vv, 8s, 112 words replaced, Mandarin left 1.9 -> 1.7 per 100 chars, model changed 20 verses
+  Deuteronomy 18 [nan]: 22/22 vv, 6s, 113 words replaced, Mandarin left 3.1 -> 3.1 per 100 chars, model changed 22 verses
+  Deuteronomy 19 [nan]: 21/21 vv, 6s, 110 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 21 verses
+  Deuteronomy 20 [nan]: 20/20 vv, 5s, 157 words replaced, Mandarin left 1.7 -> 1.7 per 100 chars, model changed 20 verses
+  Deuteronomy 21 [nan]: 23/23 vv, 8s, 143 words replaced, Mandarin left 1.4 -> 1.3 per 100 chars, model changed 23 verses
+  Deuteronomy 22 [nan]: 29/29 vv, 9s, 169 words replaced, Mandarin left 1.2 -> 1.0 per 100 chars, model changed 25 verses, kept the draft for 4 (14: more Mandarin, 19: more Mandarin, 23: more Mandarin, 28: more Mandarin)
+  Deuteronomy 23 [nan]: 26/26 vv, 7s, 127 words replaced, Mandarin left 1.9 -> 1.9 per 100 chars, model changed 22 verses, kept the draft for 4 (1: more Mandarin, 2: more Mandarin, 3: more Mandarin, 4: more Mandarin)
+  Deuteronomy 24 [nan]: 22/22 vv, 6s, 149 words replaced, Mandarin left 1.7 -> 1.7 per 100 chars, model changed 22 verses
+  Deuteronomy 25 [nan]: 19/19 vv, 6s, 105 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 19 verses
+  Deuteronomy 26 [nan]: 19/19 vv, 7s, 124 words replaced, Mandarin left 3.4 -> 3.1 per 100 chars, model changed 19 verses
+  Deuteronomy 27 [nan]: 26/26 vv, 8s, 169 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 26 verses
+  Deuteronomy 28 [nan]: 69/69 vv, 17s, 258 words replaced, Mandarin left 2.2 -> 2.2 per 100 chars, model changed 66 verses, kept the draft for 3 (36: more Mandarin, 64: more Mandarin, 68: more Mandarin)
+  Deuteronomy 29 [nan]: 28/28 vv, 8s, 172 words replaced, Mandarin left 2.5 -> 2.5 per 100 chars, model changed 28 verses
+  Deuteronomy 30 [nan]: 20/20 vv, 5s, 115 words replaced, Mandarin left 3.0 -> 3.0 per 100 chars, model changed 20 verses
+  Deuteronomy 31 [nan]: 30/30 vv, 10s, 224 words replaced, Mandarin left 2.1 -> 2.0 per 100 chars, model changed 30 verses
+  Deuteronomy 32 [nan]: 52/52 vv, 14s, 251 words replaced, Mandarin left 0.8 -> 0.7 per 100 chars, model changed 52 verses
+  Deuteronomy 33 [nan]: 29/29 vv, 8s, 145 words replaced, Mandarin left 1.0 -> 0.9 per 100 chars, model changed 29 verses
+  Deuteronomy 34 [nan]: 12/12 vv, 4s, 45 words replaced, Mandarin left 1.9 -> 1.9 per 100 chars, model changed 12 verses
+  Joshua 1 [nan]: 18/18 vv, 6s, 127 words replaced, Mandarin left 2.4 -> 2.4 per 100 chars, model changed 17 verses, kept the draft for 1 (1: more Mandarin)
+  Joshua 2 [nan]: 24/24 vv, 8s, 161 words replaced, Mandarin left 2.2 -> 2.1 per 100 chars, model changed 23 verses, kept the draft for 1 (1: length)
+  Joshua 3 [nan]: 17/17 vv, 6s, 100 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 17 verses
+  Joshua 4 [nan]: 24/24 vv, 6s, 108 words replaced, Mandarin left 1.7 -> 1.7 per 100 chars, model changed 24 verses
+  Joshua 5 [nan]: 15/15 vv, 6s, 97 words replaced, Mandarin left 1.7 -> 1.7 per 100 chars, model changed 14 verses
+  Joshua 6 [nan]: 27/27 vv, 8s, 153 words replaced, Mandarin left 2.4 -> 2.2 per 100 chars, model changed 23 verses, kept the draft for 4 (4: more Mandarin, 6: more Mandarin, 8: more Mandarin, 13: more Mandarin)
+  Joshua 7 [nan]: 26/26 vv, 9s, 171 words replaced, Mandarin left 1.7 -> 1.5 per 100 chars, model changed 24 verses, kept the draft for 1 (1: more Mandarin)
+  Joshua 8 [nan]: 35/35 vv, 10s, 192 words replaced, Mandarin left 0.7 -> 0.6 per 100 chars, model changed 35 verses
+  Joshua 9 [nan]: 27/27 vv, 9s, 213 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 27 verses
+  Joshua 10 [nan]: 43/43 vv, 11s, 233 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 43 verses
+  Joshua 11 [nan]: 23/23 vv, 10s, 103 words replaced, Mandarin left 1.9 -> 1.7 per 100 chars, model changed 23 verses
+  Joshua 12 [nan]: 24/24 vv, 10s, 26 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 24 verses
+  Joshua 13 [nan]: 33/33 vv, 8s, 108 words replaced, Mandarin left 2.0 -> 1.9 per 100 chars, model changed 33 verses
+  Joshua 14 [nan]: 15/15 vv, 8s, 76 words replaced, Mandarin left 2.7 -> 2.6 per 100 chars, model changed 14 verses, kept the draft for 1 (9: more Mandarin)
+  Joshua 15 [nan]: 63/63 vv, 14s, 167 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 62 verses, kept the draft for 1 (4: length)
+  Joshua 16 [nan]: 10/10 vv, 6s, 34 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 10 verses
+  Joshua 17 [nan]: 18/18 vv, 8s, 110 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 18 verses
+  Joshua 18 [nan]: 28/28 vv, 7s, 102 words replaced, Mandarin left 1.3 -> 0.9 per 100 chars, model changed 27 verses, kept the draft for 1 (2: more Mandarin)
+  Joshua 19 [nan]: 51/51 vv, 10s, 120 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 51 verses
+  Joshua 20 [nan]: 9/9 vv, 6s, 69 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 9 verses
+  Joshua 21 [nan]: 45/45 vv, 19s, 154 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 45 verses
+  Joshua 22 [nan]: 34/34 vv, 14s, 268 words replaced, Mandarin left 2.3 -> 2.3 per 100 chars, model changed 34 verses
+  Joshua 23 [nan]: 16/16 vv, 9s, 154 words replaced, Mandarin left 3.4 -> 3.4 per 100 chars, model changed 16 verses
+  Joshua 24 [nan]: 33/33 vv, 12s, 249 words replaced, Mandarin left 2.0 -> 2.0 per 100 chars, model changed 33 verses
+  Judges 1 [nan]: 36/36 vv, 10s, 205 words replaced, Mandarin left 1.0 -> 0.8 per 100 chars, model changed 6 verses, kept the draft for 2 (4: more Mandarin, 33: more Mandarin)
+  Judges 2 [nan]: 23/23 vv, 9s, 145 words replaced, Mandarin left 2.9 -> 2.9 per 100 chars, model changed 2 verses
+  Judges 3 [nan]: 31/31 vv, 9s, 132 words replaced, Mandarin left 2.5 -> 2.5 per 100 chars, model changed 1 verses, kept the draft for 1 (3: more Mandarin)
+  Judges 4 [nan]: 24/24 vv, 7s, 145 words replaced, Mandarin left 1.1 -> 1.0 per 100 chars, model changed 3 verses
+  Judges 5 [nan]: 31/31 vv, 9s, 126 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 0 verses
+  Judges 6 [nan]: 40/40 vv, 10s, 215 words replaced, Mandarin left 2.3 -> 2.2 per 100 chars, model changed 3 verses, kept the draft for 2 (14: more Mandarin, 21: length)
+  Judges 7 [nan]: 25/25 vv, 11s, 163 words replaced, Mandarin left 2.3 -> 2.2 per 100 chars, model changed 4 verses
+  Judges 8 [nan]: 35/35 vv, 15s, 230 words replaced, Mandarin left 1.0 -> 0.8 per 100 chars, model changed 6 verses, kept the draft for 3 (11: more Mandarin, 12: more Mandarin, 14: more Mandarin)
+  Judges 9 [nan]: 57/57 vv, 13s, 303 words replaced, Mandarin left 0.7 -> 0.3 per 100 chars, model changed 13 verses
+  Judges 10 [nan]: 18/18 vv, 6s, 71 words replaced, Mandarin left 1.6 -> 1.5 per 100 chars, model changed 6 verses
+  Judges 11 [nan]: 40/40 vv, 10s, 224 words replaced, Mandarin left 1.3 -> 1.1 per 100 chars, model changed 3 verses
+  Judges 12 [nan]: 15/15 vv, 4s, 92 words replaced, Mandarin left 0.7 -> 0.5 per 100 chars, model changed 5 verses
+  Judges 13 [nan]: 25/25 vv, 8s, 193 words replaced, Mandarin left 1.6 -> 1.5 per 100 chars, model changed 5 verses, kept the draft for 1 (2: more Mandarin)
+  Judges 14 [nan]: 20/20 vv, 8s, 179 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 4 verses, kept the draft for 2 (10: more Mandarin, 12: more Mandarin)
+  Judges 15 [nan]: 20/20 vv, 7s, 134 words replaced, Mandarin left 1.6 -> 1.2 per 100 chars, model changed 6 verses
+  Judges 16 [nan]: 31/31 vv, 9s, 222 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 2 verses, kept the draft for 2 (1: more Mandarin, 4: more Mandarin)
+  Judges 17 [nan]: 13/13 vv, 4s, 73 words replaced, Mandarin left 2.2 -> 1.7 per 100 chars, model changed 5 verses, kept the draft for 2 (7: more Mandarin, 8: more Mandarin)
+  Judges 18 [nan]: 31/31 vv, 8s, 236 words replaced, Mandarin left 0.7 -> 0.3 per 100 chars, model changed 3 verses, kept the draft for 1 (2: more Mandarin)
+  Judges 19 [nan]: 30/30 vv, 7s, 271 words replaced, Mandarin left 1.4 -> 1.1 per 100 chars, model changed 4 verses
+  Judges 20 [nan]: 48/48 vv, 11s, 220 words replaced, Mandarin left 1.1 -> 1.0 per 100 chars, model changed 6 verses, kept the draft for 1 (10: more Mandarin)
+  Judges 21 [nan]: 25/25 vv, 9s, 141 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 7 verses
+  Ruth 1 [nan]: 22/22 vv, 8s, 188 words replaced, Mandarin left 0.9 -> 0.6 per 100 chars, model changed 19 verses, kept the draft for 3 (1: more Mandarin, 2: more Mandarin, 4: more Mandarin)
+  Ruth 2 [nan]: 23/23 vv, 10s, 167 words replaced, Mandarin left 1.3 -> 1.0 per 100 chars, model changed 23 verses
+  Ruth 3 [nan]: 18/18 vv, 10s, 129 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 18 verses
+  Ruth 4 [nan]: 22/22 vv, 11s, 105 words replaced, Mandarin left 1.6 -> 1.4 per 100 chars, model changed 22 verses
+  1 Samuel 1 [nan]: 28/28 vv, 11s, 168 words replaced, Mandarin left 3.3 -> 3.3 per 100 chars, model changed 1 verses
+  1 Samuel 2 [nan]: 36/36 vv, 9s, 220 words replaced, Mandarin left 1.8 -> 1.8 per 100 chars, model changed 14 verses, kept the draft for 21 (1: more Mandarin, 2: more Mandarin, 3: more Mandarin, 5: more Mandarin, 10: more Mandarin, 11: more Mandarin, 12: more Mandarin, 15: more Mandarin, 16: more Mandarin, 17: more Mandarin, 18: more Mandarin, 20: more Mandarin, 21: more Mandarin, 25: more Mandarin, 27: more Mandarin, 28: more Mandarin, 30: more Mandarin, 32: more Mandarin, 33: more Mandarin, 34: more Mandarin, 35: more Mandarin)
+  1 Samuel 3 [nan]: 21/21 vv, 9s, 119 words replaced, Mandarin left 3.1 -> 2.7 per 100 chars, model changed 3 verses
+  1 Samuel 4 [nan]: 22/22 vv, 6s, 164 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 2 verses
+  1 Samuel 5 [nan]: 12/12 vv, 5s, 91 words replaced, Mandarin left 1.6 -> 0.9 per 100 chars, model changed 8 verses, kept the draft for 3 (3: more Mandarin, 4: more Mandarin, 6: more Mandarin)
+  1 Samuel 6 [nan]: 21/21 vv, 7s, 163 words replaced, Mandarin left 2.8 -> 2.4 per 100 chars, model changed 9 verses
+  1 Samuel 7 [nan]: 17/17 vv, 6s, 74 words replaced, Mandarin left 2.6 -> 2.4 per 100 chars, model changed 3 verses
+  1 Samuel 8 [nan]: 22/22 vv, 6s, 137 words replaced, Mandarin left 2.0 -> 2.0 per 100 chars, model changed 2 verses
+  1 Samuel 9 [nan]: 27/27 vv, 9s, 189 words replaced, Mandarin left 2.1 -> 1.8 per 100 chars, model changed 8 verses, kept the draft for 4 (1: more Mandarin, 2: more Mandarin, 3: more Mandarin, 15: more Mandarin)
+  1 Samuel 10 [nan]: 27/27 vv, 9s, 190 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 3 verses
+  1 Samuel 11 [nan]: 15/15 vv, 4s, 99 words replaced, Mandarin left 2.2 -> 1.8 per 100 chars, model changed 3 verses
+  1 Samuel 12 [nan]: 25/25 vv, 10s, 208 words replaced, Mandarin left 3.5 -> 3.5 per 100 chars, model changed 2 verses
+  1 Samuel 13 [nan]: 23/23 vv, 29s, 101 words replaced, Mandarin left 0.8 -> 0.5 per 100 chars, model changed 7 verses
+  1 Samuel 14 [nan]: 52/52 vv, 15s, 361 words replaced, Mandarin left 1.1 -> 1.0 per 100 chars, model changed 4 verses
+  1 Samuel 15 [nan]: 35/35 vv, 8s, 147 words replaced, Mandarin left 2.4 -> 2.3 per 100 chars, model changed 5 verses
+  1 Samuel 16 [nan]: 23/23 vv, 7s, 152 words replaced, Mandarin left 2.1 -> 1.9 per 100 chars, model changed 22 verses, kept the draft for 1 (1: more Mandarin)
+  1 Samuel 17 [nan]: 58/58 vv, 11s, 292 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 2 verses, kept the draft for 10 (4: more Mandarin, 8: more Mandarin, 10: more Mandarin, 12: more Mandarin, 13: more Mandarin, 14: more Mandarin, 17: more Mandarin, 18: more Mandarin, 25: more Mandarin, 29: more Mandarin)
+  1 Samuel 18 [nan]: 30/30 vv, 7s, 153 words replaced, Mandarin left 2.1 -> 2.1 per 100 chars, model changed 30 verses
+  1 Samuel 19 [nan]: 24/24 vv, 6s, 141 words replaced, Mandarin left 1.2 -> 1.1 per 100 chars, model changed 24 verses
+  1 Samuel 20 [nan]: 42/42 vv, 9s, 247 words replaced, Mandarin left 1.5 -> 1.2 per 100 chars, model changed 41 verses, kept the draft for 1 (14: more Mandarin)
+  1 Samuel 21 [nan]: 16/16 vv, 4s, 115 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 16 verses
+  1 Samuel 22 [nan]: 23/23 vv, 6s, 184 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 23 verses
+  1 Samuel 23 [nan]: 28/28 vv, 7s, 160 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 28 verses
+  1 Samuel 24 [nan]: 23/23 vv, 6s, 95 words replaced, Mandarin left 2.0 -> 2.0 per 100 chars, model changed 23 verses
+  1 Samuel 25 [nan]: 44/44 vv, 10s, 284 words replaced, Mandarin left 1.4 -> 1.3 per 100 chars, model changed 9 verses, kept the draft for 2 (3: more Mandarin, 5: more Mandarin)
+  1 Samuel 26 [nan]: 25/25 vv, 8s, 149 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 9 verses
+  1 Samuel 27 [nan]: 12/12 vv, 3s, 74 words replaced, Mandarin left 0.2 -> 0.2 per 100 chars, model changed 12 verses
+  1 Samuel 28 [nan]: 25/25 vv, 6s, 139 words replaced, Mandarin left 2.2 -> 2.1 per 100 chars, model changed 24 verses, kept the draft for 1 (8: more Mandarin)
+  1 Samuel 29 [nan]: 11/11 vv, 6s, 92 words replaced, Mandarin left 0.5 -> 0.3 per 100 chars, model changed 11 verses
+  1 Samuel 30 [nan]: 31/31 vv, 9s, 195 words replaced, Mandarin left 1.9 -> 1.9 per 100 chars, model changed 31 verses
+  1 Samuel 31 [nan]: 13/13 vv, 4s, 91 words replaced, Mandarin left 1.4 -> 1.0 per 100 chars, model changed 13 verses
+  2 Samuel 1 [nan]: 27/27 vv, 6s, 150 words replaced, Mandarin left 1.2 -> 1.0 per 100 chars, model changed 25 verses, kept the draft for 2 (2: more Mandarin, 15: more Mandarin)
+  2 Samuel 2 [nan]: 32/32 vv, 11s, 152 words replaced, Mandarin left 1.0 -> 0.7 per 100 chars, model changed 32 verses
+  2 Samuel 3 [nan]: 39/39 vv, 11s, 226 words replaced, Mandarin left 1.1 -> 0.9 per 100 chars, model changed 37 verses, kept the draft for 2 (2: more Mandarin, 7: more Mandarin)
+  2 Samuel 4 [nan]: 12/12 vv, 5s, 85 words replaced, Mandarin left 0.9 -> 0.7 per 100 chars, model changed 12 verses
+  2 Samuel 5 [nan]: 25/25 vv, 6s, 94 words replaced, Mandarin left 1.5 -> 1.4 per 100 chars, model changed 24 verses, kept the draft for 1 (2: more Mandarin)
+  2 Samuel 6 [nan]: 23/23 vv, 7s, 116 words replaced, Mandarin left 2.3 -> 1.9 per 100 chars, model changed 23 verses
+  2 Samuel 7 [nan]: 29/29 vv, 8s, 124 words replaced, Mandarin left 1.8 -> 1.8 per 100 chars, model changed 29 verses
+  2 Samuel 8 [nan]: 18/18 vv, 6s, 68 words replaced, Mandarin left 0.8 -> 0.6 per 100 chars, model changed 18 verses
+  2 Samuel 9 [nan]: 13/13 vv, 4s, 81 words replaced, Mandarin left 0.9 -> 0.7 per 100 chars, model changed 10 verses, kept the draft for 3 (2: more Mandarin, 3: more Mandarin, 12: more Mandarin)
+  2 Samuel 10 [nan]: 19/19 vv, 7s, 79 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 19 verses
+  2 Samuel 11 [nan]: 27/27 vv, 7s, 161 words replaced, Mandarin left 1.7 -> 1.4 per 100 chars, model changed 25 verses, kept the draft for 2 (2: more Mandarin, 27: more Mandarin)
+  2 Samuel 12 [nan]: 31/31 vv, 8s, 188 words replaced, Mandarin left 1.9 -> 1.9 per 100 chars, model changed 31 verses
+  2 Samuel 13 [nan]: 39/39 vv, 9s, 278 words replaced, Mandarin left 1.0 -> 0.9 per 100 chars, model changed 36 verses, kept the draft for 3 (1: more Mandarin, 3: more Mandarin, 13: more Mandarin)
+  2 Samuel 14 [nan]: 33/33 vv, 11s, 192 words replaced, Mandarin left 1.7 -> 1.6 per 100 chars, model changed 33 verses
+  2 Samuel 15 [nan]: 37/37 vv, 10s, 224 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 37 verses
+  2 Samuel 16 [nan]: 23/23 vv, 9s, 142 words replaced, Mandarin left 1.6 -> 1.2 per 100 chars, model changed 22 verses, kept the draft for 1 (1: more Mandarin)
+  2 Samuel 17 [nan]: 29/29 vv, 10s, 193 words replaced, Mandarin left 0.5 -> 0.4 per 100 chars, model changed 27 verses, kept the draft for 2 (3: more Mandarin, 12: more Mandarin)
+  2 Samuel 18 [nan]: 32/32 vv, 10s, 192 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 32 verses
+  2 Samuel 19 [nan]: 44/44 vv, 15s, 269 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 44 verses
+  2 Samuel 20 [nan]: 26/26 vv, 10s, 138 words replaced, Mandarin left 1.3 -> 1.1 per 100 chars, model changed 25 verses
+  2 Samuel 21 [nan]: 22/22 vv, 11s, 148 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 22 verses
+  2 Samuel 22 [nan]: 51/51 vv, 9s, 149 words replaced, Mandarin left 1.7 -> 1.6 per 100 chars, model changed 50 verses, kept the draft for 1 (1: more Mandarin)
+  2 Samuel 23 [nan]: 39/39 vv, 12s, 174 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 38 verses, kept the draft for 1 (8: more Mandarin)
+  2 Samuel 24 [nan]: 25/25 vv, 9s, 104 words replaced, Mandarin left 2.2 -> 2.2 per 100 chars, model changed 25 verses
+  1 Kings 1 [nan]: 53/53 vv, 14s, 284 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 1 verses
+  1 Kings 2 [nan]: 46/46 vv, 15s, 232 words replaced, Mandarin left 2.2 -> 1.8 per 100 chars, model changed 5 verses, kept the draft for 2 (2: more Mandarin, 4: more Mandarin)
+  1 Kings 3 [nan]: 28/28 vv, 10s, 161 words replaced, Mandarin left 1.8 -> 1.8 per 100 chars, model changed 26 verses, kept the draft for 2 (1: more Mandarin, 2: more Mandarin)
+  1 Kings 4 [nan]: 20/20 vv, 8s, 55 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 20 verses
+  1 Kings 5 [nan]: 32/32 vv, 10s, 127 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 32 verses
+  1 Kings 6 [nan]: 38/38 vv, 10s, 126 words replaced, Mandarin left 0.6 -> 0.5 per 100 chars, model changed 37 verses, kept the draft for 1 (1: more Mandarin)
+  1 Kings 7 [nan]: 51/51 vv, 11s, 197 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 12 verses, kept the draft for 19 (13: more Mandarin, 14: more Mandarin, 16: more Mandarin, 17: more Mandarin, 18: more Mandarin, 20: more Mandarin, 23: more Mandarin, 27: more Mandarin, 30: more Mandarin, 32: more Mandarin, 34: more Mandarin, 36: more Mandarin, 37: more Mandarin, 38: more Mandarin, 39: more Mandarin, 41: more Mandarin, 42: more Mandarin, 43: more Mandarin, 44: more Mandarin)
+  1 Kings 8 [nan]: 66/66 vv, 18s, 284 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 12 verses
+  1 Kings 9 [nan]: 28/28 vv, 11s, 125 words replaced, Mandarin left 1.9 -> 1.9 per 100 chars, model changed 7 verses, kept the draft for 1 (1: more Mandarin)
+  1 Kings 10 [nan]: 29/29 vv, 9s, 139 words replaced, Mandarin left 1.1 -> 1.0 per 100 chars, model changed 1 verses
+  1 Kings 11 [nan]: 43/43 vv, 12s, 213 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 4 verses
+  1 Kings 12 [nan]: 33/33 vv, 12s, 214 words replaced, Mandarin left 0.9 -> 0.8 per 100 chars, model changed 4 verses
+  1 Kings 13 [nan]: 34/34 vv, 11s, 207 words replaced, Mandarin left 2.6 -> 2.6 per 100 chars, model changed 0 verses
+  1 Kings 14 [nan]: 31/31 vv, 10s, 162 words replaced, Mandarin left 1.2 -> 1.1 per 100 chars, model changed 4 verses, kept the draft for 1 (3: more Mandarin)
+  1 Kings 15 [nan]: 34/34 vv, 11s, 163 words replaced, Mandarin left 1.0 -> 0.9 per 100 chars, model changed 3 verses
+  1 Kings 16 [nan]: 34/34 vv, 11s, 148 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 8 verses, kept the draft for 3 (19: more Mandarin, 25: more Mandarin, 30: more Mandarin)
+  1 Kings 17 [nan]: 24/24 vv, 8s, 125 words replaced, Mandarin left 2.6 -> 2.2 per 100 chars, model changed 3 verses
+  1 Kings 18 [nan]: 46/46 vv, 12s, 241 words replaced, Mandarin left 2.2 -> 2.1 per 100 chars, model changed 6 verses, kept the draft for 1 (3: more Mandarin)
+  1 Kings 19 [nan]: 21/21 vv, 9s, 127 words replaced, Mandarin left 1.7 -> 1.6 per 100 chars, model changed 2 verses, kept the draft for 2 (4: more Mandarin, 9: more Mandarin)
+  1 Kings 20 [nan]: 43/43 vv, 17s, 278 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 2 verses
+  1 Kings 21 [nan]: 29/29 vv, 16s, 173 words replaced, Mandarin left 1.9 -> 1.5 per 100 chars, model changed 8 verses
+  1 Kings 22 [nan]: 54/54 vv, 29s, 267 words replaced, Mandarin left 2.3 -> 2.3 per 100 chars, model changed 2 verses
+  2 Kings 1 [nan]: 18/18 vv, 12s, 103 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 2 verses
+  2 Kings 2 [nan]: 25/25 vv, 10s, 164 words replaced, Mandarin left 1.8 -> 1.6 per 100 chars, model changed 6 verses
+  2 Kings 3 [nan]: 27/27 vv, 10s, 140 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 1 verses
+  2 Kings 4 [nan]: 44/44 vv, 12s, 278 words replaced, Mandarin left 1.6 -> 1.0 per 100 chars, model changed 12 verses
+  2 Kings 5 [nan]: 27/27 vv, 12s, 176 words replaced, Mandarin left 1.1 -> 0.9 per 100 chars, model changed 11 verses, kept the draft for 8 (1: more Mandarin, 2: more Mandarin, 5: more Mandarin, 7: more Mandarin, 10: more Mandarin, 22: more Mandarin, 23: more Mandarin, 24: more Mandarin)
+  2 Kings 6 [nan]: 33/33 vv, 11s, 238 words replaced, Mandarin left 1.7 -> 1.7 per 100 chars, model changed 4 verses, kept the draft for 4 (2: more Mandarin, 3: more Mandarin, 5: more Mandarin, 8: more Mandarin)
+  2 Kings 7 [nan]: 20/20 vv, 10s, 154 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 2 verses
+  2 Kings 8 [nan]: 29/29 vv, 10s, 157 words replaced, Mandarin left 0.8 -> 0.7 per 100 chars, model changed 2 verses
+  2 Kings 9 [nan]: 37/37 vv, 10s, 242 words replaced, Mandarin left 1.8 -> 1.5 per 100 chars, model changed 6 verses, kept the draft for 2 (1: more Mandarin, 19: more Mandarin)
+  2 Kings 10 [nan]: 36/36 vv, 11s, 239 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 2 verses
+  2 Kings 11 [nan]: 20/20 vv, 7s, 129 words replaced, Mandarin left 1.2 -> 1.1 per 100 chars, model changed 2 verses
+  2 Kings 12 [nan]: 22/22 vv, 8s, 95 words replaced, Mandarin left 1.2 -> 1.1 per 100 chars, model changed 4 verses, kept the draft for 1 (10: more Mandarin)
+  2 Kings 13 [nan]: 25/25 vv, 8s, 116 words replaced, Mandarin left 1.2 -> 0.9 per 100 chars, model changed 3 verses
+  2 Kings 14 [nan]: 29/29 vv, 9s, 130 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 1 verses
+  2 Kings 15 [nan]: 38/38 vv, 13s, 156 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 1 verses
+  2 Kings 16 [nan]: 20/20 vv, 7s, 90 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 3 verses
+  2 Kings 17 [nan]: 41/41 vv, 11s, 214 words replaced, Mandarin left 2.1 -> 2.1 per 100 chars, model changed 1 verses
+  2 Kings 18 [nan]: 37/37 vv, 11s, 227 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 0 verses
+  2 Kings 19 [nan]: 37/37 vv, 15s, 210 words replaced, Mandarin left 1.2 -> 1.3 per 100 chars, model changed 1 verses
+  2 Kings 20 [nan]: 21/21 vv, 9s, 135 words replaced, Mandarin left 2.3 -> 2.3 per 100 chars, model changed 2 verses
+  2 Kings 21 [nan]: 26/26 vv, 10s, 128 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 4 verses
+  2 Kings 22 [nan]: 20/20 vv, 6s, 97 words replaced, Mandarin left 2.2 -> 2.2 per 100 chars, model changed 2 verses
+  2 Kings 23 [nan]: 37/37 vv, 16s, 180 words replaced, Mandarin left 1.5 -> 1.4 per 100 chars, model changed 2 verses
+  2 Kings 24 [nan]: 20/20 vv, 7s, 72 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 0 verses
+  2 Kings 25 [nan]: 30/30 vv, 11s, 148 words replaced, Mandarin left 1.0 -> 0.8 per 100 chars, model changed 4 verses
+  1 Chronicles 1 [nan]: 54/54 vv, 12s, 84 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 2 verses
+  1 Chronicles 2 [nan]: 55/55 vv, 12s, 144 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 1 verses, kept the draft for 8 (3: more Mandarin, 4: more Mandarin, 6: more Mandarin, 13: more Mandarin, 14: more Mandarin, 15: more Mandarin, 25: more Mandarin, 34: more Mandarin)
+  1 Chronicles 3 [nan]: 24/24 vv, 11s, 57 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 1 verses
+  1 Chronicles 4 [nan]: 43/43 vv, 12s, 62 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 6 verses
+  1 Chronicles 5 [nan]: 41/41 vv, 9s, 135 words replaced, Mandarin left 0.1 -> 0.0 per 100 chars, model changed 30 verses
+  1 Chronicles 6 [nan]: 66/66 vv, 12s, 139 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 66 verses
+  1 Chronicles 7 [nan]: 40/40 vv, 15s, 195 words replaced, Mandarin left 0.1 -> 0.1 per 100 chars, model changed 4 verses
+  1 Chronicles 8 [nan]: 40/40 vv, 7s, 102 words replaced, Mandarin left 0.2 -> 0.0 per 100 chars, model changed 25 verses, kept the draft for 1 (38: more Mandarin)
+  1 Chronicles 9 [nan]: 44/44 vv, 12s, 136 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 0 verses
+  1 Chronicles 10 [nan]: 14/14 vv, 6s, 74 words replaced, Mandarin left 1.7 -> 1.2 per 100 chars, model changed 6 verses
+  1 Chronicles 11 [nan]: 47/47 vv, 9s, 112 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 1 verses
+  1 Chronicles 12 [nan]: 41/41 vv, 13s, 129 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 2 verses
+  1 Chronicles 13 [nan]: 14/14 vv, 4s, 73 words replaced, Mandarin left 1.9 -> 1.7 per 100 chars, model changed 4 verses
+  1 Chronicles 14 [nan]: 17/17 vv, 6s, 73 words replaced, Mandarin left 1.2 -> 0.8 per 100 chars, model changed 5 verses
+  1 Chronicles 15 [nan]: 29/29 vv, 10s, 101 words replaced, Mandarin left 0.4 -> 0.3 per 100 chars, model changed 6 verses, kept the draft for 1 (11: more Mandarin)
+  1 Chronicles 16 [nan]: 43/43 vv, 10s, 177 words replaced, Mandarin left 2.0 -> 2.0 per 100 chars, model changed 0 verses, kept the draft for 1 (3: more Mandarin)
+  1 Chronicles 17 [nan]: 27/27 vv, 9s, 138 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 2 verses
+  1 Chronicles 18 [nan]: 17/17 vv, 6s, 53 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 2 verses
+  1 Chronicles 19 [nan]: 19/19 vv, 8s, 93 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 2 verses
+  1 Chronicles 20 [nan]: 8/8 vv, 6s, 48 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 3 verses, kept the draft for 1 (6: more Mandarin)
+  1 Chronicles 21 [nan]: 30/30 vv, 16s, 134 words replaced, Mandarin left 3.5 -> 3.4 per 100 chars, model changed 2 verses
+  1 Chronicles 22 [nan]: 19/19 vv, 14s, 117 words replaced, Mandarin left 2.3 -> 2.3 per 100 chars, model changed 18 verses, kept the draft for 1 (6: more Mandarin)
+  1 Chronicles 23 [nan]: 32/32 vv, 20s, 81 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 32 verses
+  1 Chronicles 24 [nan]: 31/31 vv, 11s, 89 words replaced, Mandarin left 0.2 -> 0.2 per 100 chars, model changed 30 verses
+  1 Chronicles 25 [nan]: 31/31 vv, 11s, 90 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 31 verses
+  1 Chronicles 26 [nan]: 32/32 vv, 13s, 119 words replaced, Mandarin left 0.4 -> 0.4 per 100 chars, model changed 30 verses, kept the draft for 2 (2: more Mandarin, 9: more Mandarin)
+  1 Chronicles 27 [nan]: 34/34 vv, 11s, 83 words replaced, Mandarin left 0.1 -> 0.1 per 100 chars, model changed 21 verses, kept the draft for 13 (1: more Mandarin, 2: more Mandarin, 3: more Mandarin, 4: more Mandarin, 5: more Mandarin, 7: more Mandarin, 8: more Mandarin, 9: more Mandarin, 10: more Mandarin, 11: more Mandarin, 12: more Mandarin, 13: more Mandarin, 15: more Mandarin)
+  1 Chronicles 28 [nan]: 21/21 vv, 8s, 128 words replaced, Mandarin left 1.6 -> 1.4 per 100 chars, model changed 21 verses
+  1 Chronicles 29 [nan]: 30/30 vv, 12s, 154 words replaced, Mandarin left 2.4 -> 2.3 per 100 chars, model changed 29 verses, kept the draft for 1 (1: more Mandarin)
+  2 Chronicles 1 [nan]: 18/18 vv, 13s, 88 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 8 verses
+  2 Chronicles 2 [nan]: 17/17 vv, 10s, 94 words replaced, Mandarin left 1.1 -> 0.9 per 100 chars, model changed 17 verses
+  2 Chronicles 3 [nan]: 17/17 vv, 6s, 72 words replaced, Mandarin left 0.3 -> 0.2 per 100 chars, model changed 10 verses, kept the draft for 7 (2: more Mandarin, 4: more Mandarin, 10: more Mandarin, 11: more Mandarin, 12: more Mandarin, 13: more Mandarin, 16: more Mandarin)
+  2 Chronicles 4 [nan]: 22/22 vv, 11s, 59 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 14 verses, kept the draft for 8 (1: more Mandarin, 6: more Mandarin, 7: more Mandarin, 8: more Mandarin, 12: more Mandarin, 13: more Mandarin, 14: more Mandarin, 15: more Mandarin)
+  2 Chronicles 5 [nan]: 14/14 vv, 11s, 64 words replaced, Mandarin left 2.1 -> 1.4 per 100 chars, model changed 14 verses
+  2 Chronicles 6 [nan]: 42/42 vv, 15s, 183 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 41 verses, kept the draft for 1 (1: more Mandarin)
+  2 Chronicles 7 [nan]: 22/22 vv, 12s, 94 words replaced, Mandarin left 1.8 -> 1.8 per 100 chars, model changed 21 verses, kept the draft for 1 (1: more Mandarin)
+  2 Chronicles 8 [nan]: 18/18 vv, 11s, 100 words replaced, Mandarin left 1.0 -> 0.8 per 100 chars, model changed 16 verses, kept the draft for 2 (1: more Mandarin, 2: more Mandarin)
+  2 Chronicles 9 [nan]: 31/31 vv, 12s, 148 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 31 verses
+  2 Chronicles 10 [nan]: 19/19 vv, 7s, 129 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 18 verses, kept the draft for 1 (9: length)
+  2 Chronicles 11 [nan]: 23/23 vv, 8s, 89 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 22 verses, kept the draft for 1 (1: more Mandarin)
+  2 Chronicles 12 [nan]: 16/16 vv, 10s, 70 words replaced, Mandarin left 2.1 -> 2.1 per 100 chars, model changed 15 verses, kept the draft for 1 (1: more Mandarin)
+  2 Chronicles 13 [nan]: 23/23 vv, 13s, 130 words replaced, Mandarin left 1.7 -> 1.6 per 100 chars, model changed 22 verses
+  2 Chronicles 14 [nan]: 14/14 vv, 6s, 73 words replaced, Mandarin left 1.8 -> 1.8 per 100 chars, model changed 13 verses, kept the draft for 1 (8: more Mandarin)
+  2 Chronicles 15 [nan]: 19/19 vv, 10s, 101 words replaced, Mandarin left 1.9 -> 1.9 per 100 chars, model changed 19 verses
+  2 Chronicles 16 [nan]: 14/14 vv, 6s, 68 words replaced, Mandarin left 2.1 -> 1.8 per 100 chars, model changed 14 verses
+  2 Chronicles 17 [nan]: 19/19 vv, 7s, 75 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 19 verses
+  2 Chronicles 18 [nan]: 34/34 vv, 11s, 191 words replaced, Mandarin left 2.4 -> 2.1 per 100 chars, model changed 34 verses
+  2 Chronicles 19 [nan]: 11/11 vv, 6s, 86 words replaced, Mandarin left 2.4 -> 2.4 per 100 chars, model changed 11 verses
+  2 Chronicles 20 [nan]: 37/37 vv, 12s, 260 words replaced, Mandarin left 1.7 -> 1.7 per 100 chars, model changed 37 verses
+  2 Chronicles 21 [nan]: 20/20 vv, 11s, 113 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 20 verses
+  2 Chronicles 22 [nan]: 12/12 vv, 8s, 81 words replaced, Mandarin left 1.0 -> 0.8 per 100 chars, model changed 12 verses
+  2 Chronicles 23 [nan]: 21/21 vv, 10s, 135 words replaced, Mandarin left 0.9 -> 0.8 per 100 chars, model changed 20 verses
+  2 Chronicles 24 [nan]: 27/27 vv, 11s, 154 words replaced, Mandarin left 2.9 -> 2.8 per 100 chars, model changed 27 verses
+  2 Chronicles 25 [nan]: 28/28 vv, 9s, 141 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 28 verses
+  2 Chronicles 26 [nan]: 23/23 vv, 8s, 107 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 22 verses, kept the draft for 1 (8: length)
+  2 Chronicles 27 [nan]: 9/9 vv, 6s, 46 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 8 verses, kept the draft for 1 (3: more Mandarin)
+  2 Chronicles 28 [nan]: 27/27 vv, 9s, 181 words replaced, Mandarin left 2.0 -> 2.0 per 100 chars, model changed 27 verses
+  2 Chronicles 29 [nan]: 36/36 vv, 16s, 149 words replaced, Mandarin left 2.4 -> 2.1 per 100 chars, model changed 35 verses
+  2 Chronicles 30 [nan]: 27/27 vv, 13s, 125 words replaced, Mandarin left 2.2 -> 2.1 per 100 chars, model changed 25 verses, kept the draft for 2 (1: more Mandarin, 13: more Mandarin)
+  2 Chronicles 31 [nan]: 21/21 vv, 10s, 112 words replaced, Mandarin left 2.2 -> 2.1 per 100 chars, model changed 21 verses
+  2 Chronicles 32 [nan]: 33/33 vv, 16s, 216 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 33 verses
+  2 Chronicles 33 [nan]: 25/25 vv, 11s, 136 words replaced, Mandarin left 2.1 -> 2.1 per 100 chars, model changed 24 verses
+  2 Chronicles 34 [nan]: 33/33 vv, 17s, 183 words replaced, Mandarin left 2.1 -> 2.1 per 100 chars, model changed 33 verses
+  2 Chronicles 35 [nan]: 27/27 vv, 25s, 160 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 26 verses
+  2 Chronicles 36 [nan]: 23/23 vv, 21s, 123 words replaced, Mandarin left 1.7 -> 1.7 per 100 chars, model changed 23 verses
+  Ezra 1 [nan]: 11/11 vv, 13s, 40 words replaced, Mandarin left 2.1 -> 2.1 per 100 chars, model changed 1 verses
+  Ezra 2 [nan]: 70/70 vv, 31s, 65 words replaced, Mandarin left 0.1 -> 0.1 per 100 chars, model changed 2 verses
+  Ezra 3 [nan]: 13/13 vv, 9s, 75 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 0 verses
+  Ezra 4 [nan]: 24/24 vv, 13s, 133 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 4 verses
+  Ezra 5 [nan]: 17/17 vv, 11s, 121 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 9 verses
+  Ezra 6 [nan]: 22/22 vv, 12s, 92 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 1 verses
+  Ezra 7 [nan]: 28/28 vv, 11s, 127 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 3 verses, kept the draft for 1 (14: more Mandarin)
+  Ezra 8 [nan]: 36/36 vv, 13s, 190 words replaced, Mandarin left 0.7 -> 0.6 per 100 chars, model changed 3 verses, kept the draft for 2 (15: more Mandarin, 18: more Mandarin)
+  Ezra 9 [nan]: 15/15 vv, 9s, 152 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 5 verses
+  Ezra 10 [nan]: 44/44 vv, 14s, 167 words replaced, Mandarin left 0.3 -> 0.2 per 100 chars, model changed 4 verses
+  Nehemiah 1 [nan]: 11/11 vv, 8s, 67 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 3 verses, kept the draft for 2 (2: more Mandarin, 9: more Mandarin)
+  Nehemiah 2 [nan]: 20/20 vv, 8s, 145 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 3 verses
+  Nehemiah 3 [nan]: 38/38 vv, 15s, 251 words replaced, Mandarin left 0.1 -> 0.1 per 100 chars, model changed 1 verses
+  Nehemiah 4 [nan]: 17/17 vv, 7s, 121 words replaced, Mandarin left 0.8 -> 0.7 per 100 chars, model changed 2 verses
+  Nehemiah 5 [nan]: 19/19 vv, 11s, 155 words replaced, Mandarin left 1.1 -> 0.7 per 100 chars, model changed 6 verses, kept the draft for 1 (7: more Mandarin)
+  Nehemiah 6 [nan]: 19/19 vv, 13s, 121 words replaced, Mandarin left 0.7 -> 0.3 per 100 chars, model changed 8 verses
+  Nehemiah 7 [nan]: 72/72 vv, 11s, 85 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 1 verses
+  Nehemiah 8 [nan]: 18/18 vv, 12s, 113 words replaced, Mandarin left 1.2 -> 1.0 per 100 chars, model changed 3 verses, kept the draft for 1 (6: more Mandarin)
+  Nehemiah 9 [nan]: 37/37 vv, 16s, 268 words replaced, Mandarin left 1.1 -> 1.0 per 100 chars, model changed 3 verses, kept the draft for 1 (3: more Mandarin)
+  Nehemiah 10 [nan]: 40/40 vv, 11s, 92 words replaced, Mandarin left 0.6 -> 0.6 per 100 chars, model changed 11 verses
+  Nehemiah 11 [nan]: 36/36 vv, 11s, 116 words replaced, Mandarin left 0.2 -> 0.2 per 100 chars, model changed 3 verses
+  Nehemiah 12 [nan]: 47/47 vv, 15s, 146 words replaced, Mandarin left 0.1 -> 0.1 per 100 chars, model changed 1 verses
+  Nehemiah 13 [nan]: 31/31 vv, 13s, 199 words replaced, Mandarin left 1.3 -> 1.2 per 100 chars, model changed 2 verses
+  Esther 1 [nan]: 22/22 vv, 16s, 125 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 22 verses
+  Esther 2 [nan]: 23/23 vv, 17s, 131 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 23 verses
+  Esther 3 [nan]: 15/15 vv, 10s, 71 words replaced, Mandarin left 0.8 -> 0.7 per 100 chars, model changed 15 verses
+  Esther 4 [nan]: 17/17 vv, 9s, 100 words replaced, Mandarin left 1.8 -> 1.5 per 100 chars, model changed 17 verses
+  Esther 5 [nan]: 14/14 vv, 8s, 95 words replaced, Mandarin left 0.2 -> 0.2 per 100 chars, model changed 14 verses
+  Esther 6 [nan]: 14/14 vv, 10s, 92 words replaced, Mandarin left 0.5 -> 0.3 per 100 chars, model changed 14 verses
+  Esther 7 [nan]: 10/10 vv, 7s, 70 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 9 verses, kept the draft for 1 (2: more Mandarin)
+  Esther 8 [nan]: 17/17 vv, 11s, 106 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 17 verses
+  Esther 9 [nan]: 32/32 vv, 12s, 168 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 32 verses
+  Esther 10 [nan]: 3/3 vv, 6s, 12 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 3 verses
+  Job 1 [nan]: 22/22 vv, 9s, 128 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 22 verses
+  Job 2 [nan]: 13/13 vv, 8s, 82 words replaced, Mandarin left 0.6 -> 0.4 per 100 chars, model changed 12 verses, kept the draft for 1 (3: more Mandarin)
+  Job 3 [nan]: 26/26 vv, 7s, 104 words replaced, Mandarin left 0.6 -> 0.5 per 100 chars, model changed 26 verses
+  Job 4 [nan]: 21/21 vv, 12s, 77 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 21 verses
+  Job 5 [nan]: 27/27 vv, 5s, 91 words replaced, Mandarin left 0.2 -> 0.2 per 100 chars, model changed 27 verses
+  Job 6 [nan]: 30/30 vv, 10s, 91 words replaced, Mandarin left 0.7 -> 0.1 per 100 chars, model changed 30 verses
+  Job 7 [nan]: 21/21 vv, 5s, 73 words replaced, Mandarin left 0.2 -> 0.2 per 100 chars, model changed 21 verses
+  Job 8 [nan]: 22/22 vv, 11s, 59 words replaced, Mandarin left 0.2 -> 0.2 per 100 chars, model changed 22 verses
+  Job 9 [nan]: 35/35 vv, 15s, 162 words replaced, Mandarin left 0.3 -> 0.1 per 100 chars, model changed 35 verses
+  Job 10 [nan]: 22/22 vv, 15s, 63 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 21 verses, kept the draft for 1 (1: more Mandarin)
+  Job 11 [nan]: 20/20 vv, 16s, 62 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 19 verses
+  Job 12 [nan]: 25/25 vv, 9s, 95 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 25 verses
+  Job 13 [nan]: 28/28 vv, 10s, 100 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 28 verses
+  Job 14 [nan]: 22/22 vv, 9s, 72 words replaced, Mandarin left 0.6 -> 0.4 per 100 chars, model changed 22 verses
+  Job 15 [nan]: 35/35 vv, 14s, 126 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 35 verses
+  Job 16 [nan]: 22/22 vv, 9s, 76 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 22 verses
+  Job 17 [nan]: 16/16 vv, 7s, 54 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 16 verses
+  Job 18 [nan]: 21/21 vv, 9s, 91 words replaced, Mandarin left 0.9 -> 0.5 per 100 chars, model changed 21 verses
+  Job 19 [nan]: 29/29 vv, 7s, 101 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 29 verses
+  Job 20 [nan]: 29/29 vv, 10s, 133 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 29 verses
+  Job 21 [nan]: 34/34 vv, 8s, 146 words replaced, Mandarin left 1.4 -> 1.0 per 100 chars, model changed 34 verses
+  Job 22 [nan]: 30/30 vv, 8s, 92 words replaced, Mandarin left 0.4 -> 0.4 per 100 chars, model changed 30 verses
+  Job 23 [nan]: 17/17 vv, 6s, 73 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 17 verses
+  Job 24 [nan]: 25/25 vv, 10s, 118 words replaced, Mandarin left 0.2 -> 0.0 per 100 chars, model changed 25 verses
+  Job 25 [nan]: 6/6 vv, 5s, 31 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 6 verses
+  Job 26 [nan]: 14/14 vv, 5s, 51 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 14 verses
+  Job 27 [nan]: 23/23 vv, 7s, 88 words replaced, Mandarin left 0.4 -> 0.2 per 100 chars, model changed 23 verses
+  Job 28 [nan]: 28/28 vv, 11s, 128 words replaced, Mandarin left 0.2 -> 0.2 per 100 chars, model changed 28 verses
+  Job 29 [nan]: 25/25 vv, 11s, 66 words replaced, Mandarin left 0.0 -> 0.0 per 100 chars, model changed 25 verses
+  Job 30 [nan]: 31/31 vv, 10s, 79 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 31 verses
+  Job 31 [nan]: 40/40 vv, 11s, 116 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 40 verses
+  Job 32 [nan]: 22/22 vv, 5s, 99 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 18 verses, kept the draft for 4 (1: more Mandarin, 2: more Mandarin, 3: more Mandarin, 5: more Mandarin)
+  Job 33 [nan]: 33/33 vv, 16s, 96 words replaced, Mandarin left 0.6 -> 0.0 per 100 chars, model changed 33 verses
+  Job 34 [nan]: 37/37 vv, 10s, 154 words replaced, Mandarin left 0.2 -> 0.1 per 100 chars, model changed 36 verses
+  Job 35 [nan]: 16/16 vv, 8s, 59 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 16 verses
+  Job 36 [nan]: 33/33 vv, 8s, 115 words replaced, Mandarin left 0.3 -> 0.3 per 100 chars, model changed 33 verses
+  Job 37 [nan]: 24/24 vv, 17s, 92 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 1 verses
+  Job 38 [nan]: 41/41 vv, 12s, 105 words replaced, Mandarin left 0.5 -> 0.2 per 100 chars, model changed 3 verses
+  Job 39 [nan]: 30/30 vv, 10s, 117 words replaced, Mandarin left 0.6 -> 0.5 per 100 chars, model changed 8 verses
+  Job 40 [nan]: 32/32 vv, 14s, 103 words replaced, Mandarin left 1.1 -> 0.8 per 100 chars, model changed 4 verses
+  Job 41 [nan]: 26/26 vv, 9s, 96 words replaced, Mandarin left 0.9 -> 0.4 per 100 chars, model changed 6 verses
+  Job 42 [nan]: 17/17 vv, 7s, 88 words replaced, Mandarin left 2.1 -> 2.1 per 100 chars, model changed 2 verses
+  Psalms 1 [nan]: 6/6 vv, 5s, 30 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 6 verses
+  Psalms 2 [nan]: 12/12 vv, 8s, 39 words replaced, Mandarin left 2.4 -> 1.7 per 100 chars, model changed 12 verses
+  Psalms 3 [nan]: 9/9 vv, 7s, 22 words replaced, Mandarin left 2.7 -> 2.7 per 100 chars, model changed 9 verses
+  Psalms 4 [nan]: 9/9 vv, 7s, 25 words replaced, Mandarin left 2.8 -> 2.0 per 100 chars, model changed 9 verses
+  Psalms 5 [nan]: 13/13 vv, 9s, 42 words replaced, Mandarin left 2.2 -> 2.0 per 100 chars, model changed 11 verses, kept the draft for 2 (4: more Mandarin, 6: more Mandarin)
+  Psalms 6 [nan]: 11/11 vv, 6s, 19 words replaced, Mandarin left 4.6 -> 4.2 per 100 chars, model changed 10 verses, kept the draft for 1 (5: more Mandarin)
+  Psalms 7 [nan]: 18/18 vv, 10s, 58 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 18 verses
+  Psalms 8 [nan]: 10/10 vv, 8s, 23 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 10 verses
+  Psalms 9 [nan]: 21/21 vv, 10s, 49 words replaced, Mandarin left 2.2 -> 2.2 per 100 chars, model changed 21 verses
+  Psalms 10 [nan]: 18/18 vv, 6s, 89 words replaced, Mandarin left 1.1 -> 1.0 per 100 chars, model changed 18 verses
+  Psalms 11 [nan]: 7/7 vv, 9s, 38 words replaced, Mandarin left 3.2 -> 2.3 per 100 chars, model changed 7 verses
+  Psalms 12 [nan]: 9/9 vv, 8s, 31 words replaced, Mandarin left 2.0 -> 1.9 per 100 chars, model changed 9 verses
+  Psalms 13 [nan]: 6/6 vv, 7s, 15 words replaced, Mandarin left 3.0 -> 1.8 per 100 chars, model changed 6 verses
+  Psalms 14 [nan]: 7/7 vv, 10s, 56 words replaced, Mandarin left 1.4 -> 1.4 per 100 chars, model changed 7 verses
+  Psalms 15 [nan]: 5/5 vv, 11s, 30 words replaced, Mandarin left 1.4 -> 0.7 per 100 chars, model changed 5 verses
+  Psalms 16 [nan]: 11/11 vv, 7s, 39 words replaced, Mandarin left 1.0 -> 1.0 per 100 chars, model changed 11 verses
+  Psalms 17 [nan]: 15/15 vv, 6s, 39 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 15 verses
+  Psalms 18 [nan]: 51/51 vv, 13s, 153 words replaced, Mandarin left 1.9 -> 1.7 per 100 chars, model changed 51 verses
+  Psalms 19 [nan]: 15/15 vv, 9s, 43 words replaced, Mandarin left 1.8 -> 1.8 per 100 chars, model changed 14 verses, kept the draft for 1 (8: more Mandarin)
+  Psalms 20 [nan]: 10/10 vv, 7s, 30 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 10 verses
+  Psalms 21 [nan]: 14/14 vv, 7s, 46 words replaced, Mandarin left 2.3 -> 2.3 per 100 chars, model changed 11 verses, kept the draft for 3 (2: more Mandarin, 10: more Mandarin, 14: more Mandarin)
+  Psalms 22 [nan]: 32/32 vv, 9s, 108 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 32 verses
+  Psalms 23 [nan]: 6/6 vv, 7s, 15 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 5 verses, kept the draft for 1 (1: more Mandarin)
+  Psalms 24 [nan]: 10/10 vv, 7s, 41 words replaced, Mandarin left 3.3 -> 3.4 per 100 chars, model changed 10 verses
+  Psalms 25 [nan]: 22/22 vv, 17s, 49 words replaced, Mandarin left 2.0 -> 2.0 per 100 chars, model changed 22 verses
+  Psalms 26 [nan]: 12/12 vv, 10s, 33 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 12 verses
+  Psalms 27 [nan]: 14/14 vv, 10s, 58 words replaced, Mandarin left 2.7 -> 2.7 per 100 chars, model changed 14 verses
+  Psalms 28 [nan]: 9/9 vv, 8s, 47 words replaced, Mandarin left 2.3 -> 2.3 per 100 chars, model changed 9 verses
+  Psalms 29 [nan]: 11/11 vv, 8s, 33 words replaced, Mandarin left 6.3 -> 6.2 per 100 chars, model changed 11 verses
+  Psalms 30 [nan]: 13/13 vv, 7s, 26 words replaced, Mandarin left 2.9 -> 2.9 per 100 chars, model changed 12 verses, kept the draft for 1 (4: more Mandarin)
+  Psalms 31 [nan]: 25/25 vv, 10s, 72 words replaced, Mandarin left 1.6 -> 1.5 per 100 chars, model changed 25 verses
+  Psalms 32 [nan]: 11/11 vv, 9s, 34 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 11 verses
+  Psalms 33 [nan]: 22/22 vv, 9s, 73 words replaced, Mandarin left 3.0 -> 2.8 per 100 chars, model changed 22 verses
+  Psalms 34 [nan]: 23/23 vv, 13s, 69 words replaced, Mandarin left 4.0 -> 3.6 per 100 chars, model changed 23 verses
+  Psalms 35 [nan]: 28/28 vv, 8s, 103 words replaced, Mandarin left 1.5 -> 1.4 per 100 chars, model changed 28 verses
+  Psalms 36 [nan]: 13/13 vv, 4s, 46 words replaced, Mandarin left 1.2 -> 1.2 per 100 chars, model changed 13 verses
+  Psalms 37 [nan]: 40/40 vv, 12s, 144 words replaced, Mandarin left 1.9 -> 1.8 per 100 chars, model changed 40 verses

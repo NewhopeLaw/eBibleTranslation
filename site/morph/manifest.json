@@ -28,11 +28,11 @@
   "built": 1789189625.7489722
  },
  "lexicon": {
-  "count": 1101,
+  "count": 10684,
   "unit": "entries",
   "note": "our own lexicon, written from the text",
   "script": "build_lexicon.py",
-  "built": 1790103825.0793247
+  "built": 1790642722.9043539
  },
  "search-index": {
   "count": 11481325,
@@ -77,25 +77,25 @@
   "built": 1789189702.5611591
  },
  "themes": {
-  "count": 265,
+  "count": 630,
   "unit": "themes",
   "note": "what the chapters are about",
   "script": "build_themes.py",
-  "built": 1789222959.9168882
+  "built": 1790712195.4379056
  },
  "book-arguments": {
-  "count": 13,
+  "count": 66,
   "unit": "books",
   "note": "what each book argues",
   "script": "build_theology.py",
-  "built": 1790617058.8864908
+  "built": 1790716393.6406026
  },
  "trajectories": {
-  "count": 2,
+  "count": 350,
   "unit": "themes",
   "note": "how a theme develops across the canon",
   "script": "build_theology.py",
-  "built": 1790617058.8920226
+  "built": 1790716393.6451662
  },
  "lexeme-inventory": {
   "count": 27065,
@@ -105,11 +105,11 @@
   "built": 1790446459.1017675
  },
  "fields": {
-  "count": 1080,
+  "count": 16940,
   "unit": "lexemes sorted",
   "note": "fields of meaning",
   "script": "build_domains.py",
-  "built": 1789222507.2809596
+  "built": 1790708785.5344024
  },
  "vectors": {
   "count": 31152,
