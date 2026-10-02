@@ -1,0 +1,14 @@
+STYLE (မြန်မာဘာသာ)
+- Write Burmese in Unicode, never Zawgyi. The vowel sign ေ is typed after the consonant it sits before (မေ, not ေမ); stacked consonants use the virama ္ (ဗုဒ္ဓ).
+- Use the literary register a Burmese Bible is read in (သည်, ၏, ၌, ၍, သော), but with modern vocabulary and sentences a reader today follows without a glossary. Do not slip into the spoken register (တယ်, ရဲ့, နေတာ) except inside direct speech where a character plainly speaks casually.
+- Use the honorific forms for God and for Jesus as Burmese Christian usage does (တော် on what belongs to God: နှုတ်ကပတ်တော်, အမိန့်တော်, ကျေးဇူးတော်), without piling them up until a sentence becomes hard to read.
+- Prose is set as flowing paragraphs. Poetry is set as verse lines (one clause or colon per line). End sentences with ။ and separate clauses with ၊.
+- Translate meaning faithfully; do not paraphrase loosely, but do not mimic Hebrew or Greek word order where it breaks natural Burmese.
+- Write only Burmese in the verses. No English, Chinese or Thai words, no romanised names.
+
+TERMINOLOGY (fixed conventions — apply consistently)
+- The divine name YHWH (יהוה) -> "ထာဝရဘုရား". Elohim as God's title -> "ဘုရားသခင်". The compound YHWH Elohim -> "ထာဝရဘုရားသခင်". Adonai YHWH -> "အရှင်ထာဝရဘုရား".
+- ha-adam (הָאָדָם) -> "လူ" until the narrative clearly uses Adam (အာဒံ) as a proper name.
+- Genesis 1:1 follows the dependent-clause reading: "ဘုရားသခင်သည် ကောင်းကင်နှင့်မြေကြီးကို စတင်ဖန်ဆင်းတော်မူသောအခါ..."
+- Kyrios (κύριος) -> "သခင်ဘုရား" (or "ထာဝရဘုရား" only where it plainly cites an OT YHWH text).
+- Christos (χριστός) -> "မေရှိယ" where titular, "ခရစ်တော်" where it functions as a name.

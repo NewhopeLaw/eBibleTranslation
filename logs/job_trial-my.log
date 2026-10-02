@@ -1,0 +1,53 @@
+trial-my: starting — try the candidate models on a few Burmese chapters and score them (0/12 done)
+    John 1 [my]: attempt 1 missing=[51] extra=[], retrying (2/3)
+    John 1 [my]: attempt 2 missing=[47, 48, 49, 50, 51] extra=[], retrying (3/3)
+`torch_dtype` is deprecated! Use `dtype` instead!
+[my] qwen3:32b
+  Genesis 1 [my]: 31/31 vv, 142s, 6725 tokens out [OK]
+  Ruth 1 [my]: 22/22 vv, 105s, 5655 tokens out [OK]
+  Psalms 23 [my]: 6/6 vv, 29s, 1521 tokens out [OK]
+  John 1 [my]: 50/51 vv, 427s, 8192 tokens out [WARN missing=[51] extra=[]]
+[my] qwen3.5:35b-a3b
+  Genesis 1 [my]: 31/31 vv, 29s, 3036 tokens out [OK]
+  Ruth 1 [my]: 22/22 vv, 16s, 3273 tokens out [OK]
+  Psalms 23 [my]: 6/6 vv, 9s, 1830 tokens out [OK]
+  John 1 [my]: 51/51 vv, 22s, 4546 tokens out [OK]
+[my] nllb-200
+  Genesis 1 [my] nllb-200: 31 vv, 22s
+  Ruth 1 [my] nllb-200: 22 vv, 14s
+  Psalms 23 [my] nllb-200: 6 vv, 3s
+  John 1 [my] nllb-200: 51 vv, 100s
+# Burmese trial
+
+Written 2026-09-30 11:01 by scripts/trial_lang.py. Each model translated the same chapters; chrF is measured against Judson 1835 and Common Language 2005 and ranks the models rather than grading them (see the script's docstring).
+
+| model | chapter | verses | chrF Judson 1835 | chrF Common Language 2005 | in script % | Zawgyi verses | spoken-register words |
+|---|---|---|---|---|---|---|---|
+| nllb-200 | Genesis 1 | 31/31 | 47.8 | 40.0 | 100 | 0 | 0 |
+| nllb-200 | Ruth 1 | 22/22 | 44.8 | 36.3 | 100 | 0 | 0 |
+| nllb-200 | Psalms 23 | 6/6 | 48.3 | 30.4 | 100 | 0 | 0 |
+| nllb-200 | John 1 | 51/51 | 52.3 | 53.9 | 100 | 2 | 0 |
+| qwen3-32b | Genesis 1 | 31/31 | 31.8 | 31.9 | 100 | 0 | 0 |
+| qwen3-32b | Ruth 1 | 22/22 | 32.8 | 32.9 | 100 | 0 | 1 |
+| qwen3-32b | Psalms 23 | 6/6 | 26.7 | 24.4 | 100 | 0 | 0 |
+| qwen3-32b | John 1 | 50/51 | 33.4 | 30.7 | 100 | 0 | 0 |
+| qwen3.5-35b-a3b | Genesis 1 | 31/31 | 38.0 | 38.0 | 100 | 0 | 0 |
+| qwen3.5-35b-a3b | Ruth 1 | 22/22 | 36.2 | 37.3 | 100 | 0 | 0 |
+| qwen3.5-35b-a3b | Psalms 23 | 6/6 | 36.0 | 32.4 | 100 | 0 | 0 |
+| qwen3.5-35b-a3b | John 1 | 51/51 | 34.7 | 33.7 | 100 | 0 | 0 |
+| (Judson 1835, a human translation) | Genesis 1 | 31/31 | - | 43.0 | 100 | 0 | 0 |
+| (Judson 1835, a human translation) | Ruth 1 | 22/22 | - | 41.7 | 100 | 0 | 0 |
+| (Judson 1835, a human translation) | Psalms 23 | 6/6 | - | 38.0 | 100 | 0 | 0 |
+| (Judson 1835, a human translation) | John 1 | 51/51 | - | 52.1 | 100 | 0 | 0 |
+| (Common Language 2005, a human translation) | Genesis 1 | 30/31 | 37.7 | - | 100 | 0 | 0 |
+| (Common Language 2005, a human translation) | Ruth 1 | 21/22 | 45.1 | - | 100 | 0 | 0 |
+| (Common Language 2005, a human translation) | Psalms 23 | 6/6 | 44.7 | - | 100 | 0 | 0 |
+| (Common Language 2005, a human translation) | John 1 | 51/51 | 54.9 | - | 100 | 0 | 0 |
+
+Mean chrF against Judson 1835: nllb-200 48.3, (Common Language 2005, a human translation) 45.6, qwen3.5-35b-a3b 36.2, qwen3-32b 31.2
+
+Mean chrF against Common Language 2005: (Judson 1835, a human translation) 43.7, nllb-200 40.1, qwen3.5-35b-a3b 35.4, qwen3-32b 30.0
+
+written to trials\my\report.md
+trial-my: finished in 16 min (exit 0)
+queue done

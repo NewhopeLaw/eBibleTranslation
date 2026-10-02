@@ -109,7 +109,7 @@
   "unit": "lexemes sorted",
   "note": "fields of meaning",
   "script": "build_domains.py",
-  "built": 1790708785.5344024
+  "built": 1790791200.8219404
  },
  "vectors": {
   "count": 31152,

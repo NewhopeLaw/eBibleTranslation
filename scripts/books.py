@@ -161,6 +161,14 @@ TARGETS = {
     "ms": {"name": "Malay", "native": "Bahasa Melayu", "latin": True, "ratio": 0.8},
     "ja-easy": {"name": "Easy Japanese", "native": "やさしい日本語", "latin": False, "ratio": 0.3,
                 "note": "yasashii nihongo: short sentences, common words, furigana as {漢字|かんじ}"},
+    # Written by NLLB-200 from our English (scripts/mt_translate.py). A trial
+    # of four chapters (scripts/trial_lang.py, trials/my/report.md) put it
+    # well ahead of both Qwens, which wrote fluent Burmese that at times said
+    # the opposite of the text. The "mt" code is NLLB's name for Burmese.
+    # "trial": True on a target instead runs that trial and keeps the queue's
+    # lexicon jobs off a language not yet decided on.
+    "my": {"name": "Burmese", "native": "မြန်မာ", "latin": False, "ratio": 0.6, "mt": "mya_Mymr",
+           "note": "machine translation from the English (NLLB-200), not yet read by a Burmese speaker"},
     # To be written by a translation model from our English (scripts/
     # mt_translate.py), not by the chat model from the originals: Qwen answers
     # in Burmese, NLLB-200 has no Karen, and MADLAD-400's "ksw" is Shan (see

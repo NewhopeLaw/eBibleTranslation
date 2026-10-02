@@ -1123,3 +1123,1193 @@
   Daniel 12 [hak]: 13/13 vv, 6s, 71 words replaced, Mandarin left 0.2 -> 0.2 per 100 chars, model changed 1 verses
   Hosea 1 [hak]: 9/9 vv, 7s, 63 words replaced, Mandarin left 2.4 -> 2.4 per 100 chars, model changed 9 verses
   Hosea 2 [hak]: 25/25 vv, 8s, 261 words replaced, Mandarin left 1.9 -> 1.6 per 100 chars, model changed 25 verses
+[hak] zh + table + qwen3.5:35b-a3b
+  Matthew 1 [hak]: exists, skipping
+  Matthew 2 [hak]: exists, skipping
+  Matthew 3 [hak]: exists, skipping
+  Matthew 4 [hak]: exists, skipping
+  Matthew 5 [hak]: exists, skipping
+  Matthew 6 [hak]: exists, skipping
+  Matthew 7 [hak]: exists, skipping
+  Matthew 8 [hak]: exists, skipping
+  Matthew 9 [hak]: exists, skipping
+  Matthew 10 [hak]: exists, skipping
+  Matthew 11 [hak]: exists, skipping
+  Matthew 12 [hak]: exists, skipping
+  Matthew 13 [hak]: exists, skipping
+  Matthew 14 [hak]: exists, skipping
+  Matthew 15 [hak]: exists, skipping
+  Matthew 16 [hak]: exists, skipping
+  Matthew 17 [hak]: exists, skipping
+  Matthew 18 [hak]: exists, skipping
+  Matthew 19 [hak]: exists, skipping
+  Matthew 20 [hak]: exists, skipping
+  Matthew 21 [hak]: exists, skipping
+  Matthew 22 [hak]: exists, skipping
+  Matthew 23 [hak]: exists, skipping
+  Matthew 24 [hak]: exists, skipping
+  Matthew 25 [hak]: exists, skipping
+  Matthew 26 [hak]: exists, skipping
+  Matthew 27 [hak]: exists, skipping
+  Matthew 28 [hak]: exists, skipping
+  Mark 1 [hak]: exists, skipping
+  Mark 2 [hak]: exists, skipping
+  Mark 3 [hak]: exists, skipping
+  Mark 4 [hak]: exists, skipping
+  Mark 5 [hak]: exists, skipping
+  Mark 6 [hak]: exists, skipping
+  Mark 7 [hak]: exists, skipping
+  Mark 8 [hak]: exists, skipping
+  Mark 9 [hak]: exists, skipping
+  Mark 10 [hak]: exists, skipping
+  Mark 11 [hak]: exists, skipping
+  Mark 12 [hak]: exists, skipping
+  Mark 13 [hak]: exists, skipping
+  Mark 14 [hak]: exists, skipping
+  Mark 15 [hak]: exists, skipping
+  Mark 16 [hak]: exists, skipping
+  Luke 1 [hak]: exists, skipping
+  Luke 2 [hak]: exists, skipping
+  Luke 3 [hak]: exists, skipping
+  Luke 4 [hak]: exists, skipping
+  Luke 5 [hak]: exists, skipping
+  Luke 6 [hak]: exists, skipping
+  Luke 7 [hak]: exists, skipping
+  Luke 8 [hak]: exists, skipping
+  Luke 9 [hak]: exists, skipping
+  Luke 10 [hak]: exists, skipping
+  Luke 11 [hak]: exists, skipping
+  Luke 12 [hak]: exists, skipping
+  Luke 13 [hak]: exists, skipping
+  Luke 14 [hak]: exists, skipping
+  Luke 15 [hak]: exists, skipping
+  Luke 16 [hak]: exists, skipping
+  Luke 17 [hak]: exists, skipping
+  Luke 18 [hak]: exists, skipping
+  Luke 19 [hak]: exists, skipping
+  Luke 20 [hak]: exists, skipping
+  Luke 21 [hak]: exists, skipping
+  Luke 22 [hak]: exists, skipping
+  Luke 23 [hak]: exists, skipping
+  Luke 24 [hak]: exists, skipping
+  John 1 [hak]: exists, skipping
+  John 2 [hak]: exists, skipping
+  John 3 [hak]: exists, skipping
+  John 4 [hak]: exists, skipping
+  John 5 [hak]: exists, skipping
+  John 6 [hak]: exists, skipping
+  John 7 [hak]: exists, skipping
+  John 8 [hak]: exists, skipping
+  John 9 [hak]: exists, skipping
+  John 10 [hak]: exists, skipping
+  John 11 [hak]: exists, skipping
+  John 12 [hak]: exists, skipping
+  John 13 [hak]: exists, skipping
+  John 14 [hak]: exists, skipping
+  John 15 [hak]: exists, skipping
+  John 16 [hak]: exists, skipping
+  John 17 [hak]: exists, skipping
+  John 18 [hak]: exists, skipping
+  John 19 [hak]: exists, skipping
+  John 20 [hak]: exists, skipping
+  John 21 [hak]: exists, skipping
+  Acts 1 [hak]: exists, skipping
+  Acts 2 [hak]: exists, skipping
+  Acts 3 [hak]: exists, skipping
+  Acts 4 [hak]: exists, skipping
+  Acts 5 [hak]: exists, skipping
+  Acts 6 [hak]: exists, skipping
+  Acts 7 [hak]: exists, skipping
+  Acts 8 [hak]: exists, skipping
+  Acts 9 [hak]: exists, skipping
+  Acts 10 [hak]: exists, skipping
+  Acts 11 [hak]: exists, skipping
+  Acts 12 [hak]: exists, skipping
+  Acts 13 [hak]: exists, skipping
+  Acts 14 [hak]: exists, skipping
+  Acts 15 [hak]: exists, skipping
+  Acts 16 [hak]: exists, skipping
+  Acts 17 [hak]: exists, skipping
+  Acts 18 [hak]: exists, skipping
+  Acts 19 [hak]: exists, skipping
+  Acts 20 [hak]: exists, skipping
+  Acts 21 [hak]: exists, skipping
+  Acts 22 [hak]: exists, skipping
+  Acts 23 [hak]: exists, skipping
+  Acts 24 [hak]: exists, skipping
+  Acts 25 [hak]: exists, skipping
+  Acts 26 [hak]: exists, skipping
+  Acts 27 [hak]: exists, skipping
+  Acts 28 [hak]: exists, skipping
+  Romans 1 [hak]: exists, skipping
+  Romans 2 [hak]: exists, skipping
+  Romans 3 [hak]: exists, skipping
+  Romans 4 [hak]: exists, skipping
+  Romans 5 [hak]: exists, skipping
+  Romans 6 [hak]: exists, skipping
+  Romans 7 [hak]: exists, skipping
+  Romans 8 [hak]: exists, skipping
+  Romans 9 [hak]: exists, skipping
+  Romans 10 [hak]: exists, skipping
+  Romans 11 [hak]: exists, skipping
+  Romans 12 [hak]: exists, skipping
+  Romans 13 [hak]: exists, skipping
+  Romans 14 [hak]: exists, skipping
+  Romans 15 [hak]: exists, skipping
+  Romans 16 [hak]: exists, skipping
+  1 Corinthians 1 [hak]: exists, skipping
+  1 Corinthians 2 [hak]: exists, skipping
+  1 Corinthians 3 [hak]: exists, skipping
+  1 Corinthians 4 [hak]: exists, skipping
+  1 Corinthians 5 [hak]: exists, skipping
+  1 Corinthians 6 [hak]: exists, skipping
+  1 Corinthians 7 [hak]: exists, skipping
+  1 Corinthians 8 [hak]: exists, skipping
+  1 Corinthians 9 [hak]: exists, skipping
+  1 Corinthians 10 [hak]: exists, skipping
+  1 Corinthians 11 [hak]: exists, skipping
+  1 Corinthians 12 [hak]: exists, skipping
+  1 Corinthians 13 [hak]: exists, skipping
+  1 Corinthians 14 [hak]: exists, skipping
+  1 Corinthians 15 [hak]: exists, skipping
+  1 Corinthians 16 [hak]: exists, skipping
+  2 Corinthians 1 [hak]: exists, skipping
+  2 Corinthians 2 [hak]: exists, skipping
+  2 Corinthians 3 [hak]: exists, skipping
+  2 Corinthians 4 [hak]: exists, skipping
+  2 Corinthians 5 [hak]: exists, skipping
+  2 Corinthians 6 [hak]: exists, skipping
+  2 Corinthians 7 [hak]: exists, skipping
+  2 Corinthians 8 [hak]: exists, skipping
+  2 Corinthians 9 [hak]: exists, skipping
+  2 Corinthians 10 [hak]: exists, skipping
+  2 Corinthians 11 [hak]: exists, skipping
+  2 Corinthians 12 [hak]: exists, skipping
+  2 Corinthians 13 [hak]: exists, skipping
+  Galatians 1 [hak]: exists, skipping
+  Galatians 2 [hak]: exists, skipping
+  Galatians 3 [hak]: exists, skipping
+  Galatians 4 [hak]: exists, skipping
+  Galatians 5 [hak]: exists, skipping
+  Galatians 6 [hak]: exists, skipping
+  Ephesians 1 [hak]: exists, skipping
+  Ephesians 2 [hak]: exists, skipping
+  Ephesians 3 [hak]: exists, skipping
+  Ephesians 4 [hak]: exists, skipping
+  Ephesians 5 [hak]: exists, skipping
+  Ephesians 6 [hak]: exists, skipping
+  Philippians 1 [hak]: exists, skipping
+  Philippians 2 [hak]: exists, skipping
+  Philippians 3 [hak]: exists, skipping
+  Philippians 4 [hak]: exists, skipping
+  Colossians 1 [hak]: exists, skipping
+  Colossians 2 [hak]: exists, skipping
+  Colossians 3 [hak]: exists, skipping
+  Colossians 4 [hak]: exists, skipping
+  1 Thessalonians 1 [hak]: exists, skipping
+  1 Thessalonians 2 [hak]: exists, skipping
+  1 Thessalonians 3 [hak]: exists, skipping
+  1 Thessalonians 4 [hak]: exists, skipping
+  1 Thessalonians 5 [hak]: exists, skipping
+  2 Thessalonians 1 [hak]: exists, skipping
+  2 Thessalonians 2 [hak]: exists, skipping
+  2 Thessalonians 3 [hak]: exists, skipping
+  1 Timothy 1 [hak]: exists, skipping
+  1 Timothy 2 [hak]: exists, skipping
+  1 Timothy 3 [hak]: exists, skipping
+  1 Timothy 4 [hak]: exists, skipping
+  1 Timothy 5 [hak]: exists, skipping
+  1 Timothy 6 [hak]: exists, skipping
+  2 Timothy 1 [hak]: exists, skipping
+  2 Timothy 2 [hak]: exists, skipping
+  2 Timothy 3 [hak]: exists, skipping
+  2 Timothy 4 [hak]: exists, skipping
+  Titus 1 [hak]: exists, skipping
+  Titus 2 [hak]: exists, skipping
+  Titus 3 [hak]: exists, skipping
+  Philemon 1 [hak]: exists, skipping
+  Hebrews 1 [hak]: exists, skipping
+  Hebrews 2 [hak]: exists, skipping
+  Hebrews 3 [hak]: exists, skipping
+  Hebrews 4 [hak]: exists, skipping
+  Hebrews 5 [hak]: exists, skipping
+  Hebrews 6 [hak]: exists, skipping
+  Hebrews 7 [hak]: exists, skipping
+  Hebrews 8 [hak]: exists, skipping
+  Hebrews 9 [hak]: exists, skipping
+  Hebrews 10 [hak]: exists, skipping
+  Hebrews 11 [hak]: exists, skipping
+  Hebrews 12 [hak]: exists, skipping
+  Hebrews 13 [hak]: exists, skipping
+  James 1 [hak]: exists, skipping
+  James 2 [hak]: exists, skipping
+  James 3 [hak]: exists, skipping
+  James 4 [hak]: exists, skipping
+  James 5 [hak]: exists, skipping
+  1 Peter 1 [hak]: exists, skipping
+  1 Peter 2 [hak]: exists, skipping
+  1 Peter 3 [hak]: exists, skipping
+  1 Peter 4 [hak]: exists, skipping
+  1 Peter 5 [hak]: exists, skipping
+  2 Peter 1 [hak]: exists, skipping
+  2 Peter 2 [hak]: exists, skipping
+  2 Peter 3 [hak]: exists, skipping
+  1 John 1 [hak]: exists, skipping
+  1 John 2 [hak]: exists, skipping
+  1 John 3 [hak]: exists, skipping
+  1 John 4 [hak]: exists, skipping
+  1 John 5 [hak]: exists, skipping
+  2 John 1 [hak]: exists, skipping
+  3 John 1 [hak]: exists, skipping
+  Jude 1 [hak]: exists, skipping
+  Revelation 1 [hak]: exists, skipping
+  Revelation 2 [hak]: exists, skipping
+  Revelation 3 [hak]: exists, skipping
+  Revelation 4 [hak]: exists, skipping
+  Revelation 5 [hak]: exists, skipping
+  Revelation 6 [hak]: exists, skipping
+  Revelation 7 [hak]: exists, skipping
+  Revelation 8 [hak]: exists, skipping
+  Revelation 9 [hak]: exists, skipping
+  Revelation 10 [hak]: exists, skipping
+  Revelation 11 [hak]: exists, skipping
+  Revelation 12 [hak]: exists, skipping
+  Revelation 13 [hak]: exists, skipping
+  Revelation 14 [hak]: exists, skipping
+  Revelation 15 [hak]: exists, skipping
+  Revelation 16 [hak]: exists, skipping
+  Revelation 17 [hak]: exists, skipping
+  Revelation 18 [hak]: exists, skipping
+  Revelation 19 [hak]: exists, skipping
+  Revelation 20 [hak]: exists, skipping
+  Revelation 21 [hak]: exists, skipping
+  Revelation 22 [hak]: exists, skipping
+  Genesis 1 [hak]: exists, skipping
+  Genesis 2 [hak]: exists, skipping
+  Genesis 3 [hak]: exists, skipping
+  Genesis 4 [hak]: exists, skipping
+  Genesis 5 [hak]: exists, skipping
+  Genesis 6 [hak]: exists, skipping
+  Genesis 7 [hak]: exists, skipping
+  Genesis 8 [hak]: exists, skipping
+  Genesis 9 [hak]: exists, skipping
+  Genesis 10 [hak]: exists, skipping
+  Genesis 11 [hak]: exists, skipping
+  Genesis 12 [hak]: exists, skipping
+  Genesis 13 [hak]: exists, skipping
+  Genesis 14 [hak]: exists, skipping
+  Genesis 15 [hak]: exists, skipping
+  Genesis 16 [hak]: exists, skipping
+  Genesis 17 [hak]: exists, skipping
+  Genesis 18 [hak]: exists, skipping
+  Genesis 19 [hak]: exists, skipping
+  Genesis 20 [hak]: exists, skipping
+  Genesis 21 [hak]: exists, skipping
+  Genesis 22 [hak]: exists, skipping
+  Genesis 23 [hak]: exists, skipping
+  Genesis 24 [hak]: exists, skipping
+  Genesis 25 [hak]: exists, skipping
+  Genesis 26 [hak]: exists, skipping
+  Genesis 27 [hak]: exists, skipping
+  Genesis 28 [hak]: exists, skipping
+  Genesis 29 [hak]: exists, skipping
+  Genesis 30 [hak]: exists, skipping
+  Genesis 31 [hak]: exists, skipping
+  Genesis 32 [hak]: exists, skipping
+  Genesis 33 [hak]: exists, skipping
+  Genesis 34 [hak]: exists, skipping
+  Genesis 35 [hak]: exists, skipping
+  Genesis 36 [hak]: exists, skipping
+  Genesis 37 [hak]: exists, skipping
+  Genesis 38 [hak]: exists, skipping
+  Genesis 39 [hak]: exists, skipping
+  Genesis 40 [hak]: exists, skipping
+  Genesis 41 [hak]: exists, skipping
+  Genesis 42 [hak]: exists, skipping
+  Genesis 43 [hak]: exists, skipping
+  Genesis 44 [hak]: exists, skipping
+  Genesis 45 [hak]: exists, skipping
+  Genesis 46 [hak]: exists, skipping
+  Genesis 47 [hak]: exists, skipping
+  Genesis 48 [hak]: exists, skipping
+  Genesis 49 [hak]: exists, skipping
+  Genesis 50 [hak]: exists, skipping
+  Exodus 1 [hak]: exists, skipping
+  Exodus 2 [hak]: exists, skipping
+  Exodus 3 [hak]: exists, skipping
+  Exodus 4 [hak]: exists, skipping
+  Exodus 5 [hak]: exists, skipping
+  Exodus 6 [hak]: exists, skipping
+  Exodus 7 [hak]: exists, skipping
+  Exodus 8 [hak]: exists, skipping
+  Exodus 9 [hak]: exists, skipping
+  Exodus 10 [hak]: exists, skipping
+  Exodus 11 [hak]: exists, skipping
+  Exodus 12 [hak]: exists, skipping
+  Exodus 13 [hak]: exists, skipping
+  Exodus 14 [hak]: exists, skipping
+  Exodus 15 [hak]: exists, skipping
+  Exodus 16 [hak]: exists, skipping
+  Exodus 17 [hak]: exists, skipping
+  Exodus 18 [hak]: exists, skipping
+  Exodus 19 [hak]: exists, skipping
+  Exodus 20 [hak]: exists, skipping
+  Exodus 21 [hak]: exists, skipping
+  Exodus 22 [hak]: exists, skipping
+  Exodus 23 [hak]: exists, skipping
+  Exodus 24 [hak]: exists, skipping
+  Exodus 25 [hak]: exists, skipping
+  Exodus 26 [hak]: exists, skipping
+  Exodus 27 [hak]: exists, skipping
+  Exodus 28 [hak]: exists, skipping
+  Exodus 29 [hak]: exists, skipping
+  Exodus 30 [hak]: exists, skipping
+  Exodus 31 [hak]: exists, skipping
+  Exodus 32 [hak]: exists, skipping
+  Exodus 33 [hak]: exists, skipping
+  Exodus 34 [hak]: exists, skipping
+  Exodus 35 [hak]: exists, skipping
+  Exodus 36 [hak]: exists, skipping
+  Exodus 37 [hak]: exists, skipping
+  Exodus 38 [hak]: exists, skipping
+  Exodus 39 [hak]: exists, skipping
+  Exodus 40 [hak]: exists, skipping
+  Leviticus 1 [hak]: exists, skipping
+  Leviticus 2 [hak]: exists, skipping
+  Leviticus 3 [hak]: exists, skipping
+  Leviticus 4 [hak]: exists, skipping
+  Leviticus 5 [hak]: exists, skipping
+  Leviticus 6 [hak]: exists, skipping
+  Leviticus 7 [hak]: exists, skipping
+  Leviticus 8 [hak]: exists, skipping
+  Leviticus 9 [hak]: exists, skipping
+  Leviticus 10 [hak]: exists, skipping
+  Leviticus 11 [hak]: exists, skipping
+  Leviticus 12 [hak]: exists, skipping
+  Leviticus 13 [hak]: exists, skipping
+  Leviticus 14 [hak]: exists, skipping
+  Leviticus 15 [hak]: exists, skipping
+  Leviticus 16 [hak]: exists, skipping
+  Leviticus 17 [hak]: exists, skipping
+  Leviticus 18 [hak]: exists, skipping
+  Leviticus 19 [hak]: exists, skipping
+  Leviticus 20 [hak]: exists, skipping
+  Leviticus 21 [hak]: exists, skipping
+  Leviticus 22 [hak]: exists, skipping
+  Leviticus 23 [hak]: exists, skipping
+  Leviticus 24 [hak]: exists, skipping
+  Leviticus 25 [hak]: exists, skipping
+  Leviticus 26 [hak]: exists, skipping
+  Leviticus 27 [hak]: exists, skipping
+  Numbers 1 [hak]: exists, skipping
+  Numbers 2 [hak]: exists, skipping
+  Numbers 3 [hak]: exists, skipping
+  Numbers 4 [hak]: exists, skipping
+  Numbers 5 [hak]: exists, skipping
+  Numbers 6 [hak]: exists, skipping
+  Numbers 7 [hak]: exists, skipping
+  Numbers 8 [hak]: exists, skipping
+  Numbers 9 [hak]: exists, skipping
+  Numbers 10 [hak]: exists, skipping
+  Numbers 11 [hak]: exists, skipping
+  Numbers 12 [hak]: exists, skipping
+  Numbers 13 [hak]: exists, skipping
+  Numbers 14 [hak]: exists, skipping
+  Numbers 15 [hak]: exists, skipping
+  Numbers 16 [hak]: exists, skipping
+  Numbers 17 [hak]: exists, skipping
+  Numbers 18 [hak]: exists, skipping
+  Numbers 19 [hak]: exists, skipping
+  Numbers 20 [hak]: exists, skipping
+  Numbers 21 [hak]: exists, skipping
+  Numbers 22 [hak]: exists, skipping
+  Numbers 23 [hak]: exists, skipping
+  Numbers 24 [hak]: exists, skipping
+  Numbers 25 [hak]: exists, skipping
+  Numbers 26 [hak]: exists, skipping
+  Numbers 27 [hak]: exists, skipping
+  Numbers 28 [hak]: exists, skipping
+  Numbers 29 [hak]: exists, skipping
+  Numbers 30 [hak]: exists, skipping
+  Numbers 31 [hak]: exists, skipping
+  Numbers 32 [hak]: exists, skipping
+  Numbers 33 [hak]: exists, skipping
+  Numbers 34 [hak]: exists, skipping
+  Numbers 35 [hak]: exists, skipping
+  Numbers 36 [hak]: exists, skipping
+  Deuteronomy 1 [hak]: exists, skipping
+  Deuteronomy 2 [hak]: exists, skipping
+  Deuteronomy 3 [hak]: exists, skipping
+  Deuteronomy 4 [hak]: exists, skipping
+  Deuteronomy 5 [hak]: exists, skipping
+  Deuteronomy 6 [hak]: exists, skipping
+  Deuteronomy 7 [hak]: exists, skipping
+  Deuteronomy 8 [hak]: exists, skipping
+  Deuteronomy 9 [hak]: exists, skipping
+  Deuteronomy 10 [hak]: exists, skipping
+  Deuteronomy 11 [hak]: exists, skipping
+  Deuteronomy 12 [hak]: exists, skipping
+  Deuteronomy 13 [hak]: exists, skipping
+  Deuteronomy 14 [hak]: exists, skipping
+  Deuteronomy 15 [hak]: exists, skipping
+  Deuteronomy 16 [hak]: exists, skipping
+  Deuteronomy 17 [hak]: exists, skipping
+  Deuteronomy 18 [hak]: exists, skipping
+  Deuteronomy 19 [hak]: exists, skipping
+  Deuteronomy 20 [hak]: exists, skipping
+  Deuteronomy 21 [hak]: exists, skipping
+  Deuteronomy 22 [hak]: exists, skipping
+  Deuteronomy 23 [hak]: exists, skipping
+  Deuteronomy 24 [hak]: exists, skipping
+  Deuteronomy 25 [hak]: exists, skipping
+  Deuteronomy 26 [hak]: exists, skipping
+  Deuteronomy 27 [hak]: exists, skipping
+  Deuteronomy 28 [hak]: exists, skipping
+  Deuteronomy 29 [hak]: exists, skipping
+  Deuteronomy 30 [hak]: exists, skipping
+  Deuteronomy 31 [hak]: exists, skipping
+  Deuteronomy 32 [hak]: exists, skipping
+  Deuteronomy 33 [hak]: exists, skipping
+  Deuteronomy 34 [hak]: exists, skipping
+  Joshua 1 [hak]: exists, skipping
+  Joshua 2 [hak]: exists, skipping
+  Joshua 3 [hak]: exists, skipping
+  Joshua 4 [hak]: exists, skipping
+  Joshua 5 [hak]: exists, skipping
+  Joshua 6 [hak]: exists, skipping
+  Joshua 7 [hak]: exists, skipping
+  Joshua 8 [hak]: exists, skipping
+  Joshua 9 [hak]: exists, skipping
+  Joshua 10 [hak]: exists, skipping
+  Joshua 11 [hak]: exists, skipping
+  Joshua 12 [hak]: exists, skipping
+  Joshua 13 [hak]: exists, skipping
+  Joshua 14 [hak]: exists, skipping
+  Joshua 15 [hak]: exists, skipping
+  Joshua 16 [hak]: exists, skipping
+  Joshua 17 [hak]: exists, skipping
+  Joshua 18 [hak]: exists, skipping
+  Joshua 19 [hak]: exists, skipping
+  Joshua 20 [hak]: exists, skipping
+  Joshua 21 [hak]: exists, skipping
+  Joshua 22 [hak]: exists, skipping
+  Joshua 23 [hak]: exists, skipping
+  Joshua 24 [hak]: exists, skipping
+  Judges 1 [hak]: exists, skipping
+  Judges 2 [hak]: exists, skipping
+  Judges 3 [hak]: exists, skipping
+  Judges 4 [hak]: exists, skipping
+  Judges 5 [hak]: exists, skipping
+  Judges 6 [hak]: exists, skipping
+  Judges 7 [hak]: exists, skipping
+  Judges 8 [hak]: exists, skipping
+  Judges 9 [hak]: exists, skipping
+  Judges 10 [hak]: exists, skipping
+  Judges 11 [hak]: exists, skipping
+  Judges 12 [hak]: exists, skipping
+  Judges 13 [hak]: exists, skipping
+  Judges 14 [hak]: exists, skipping
+  Judges 15 [hak]: exists, skipping
+  Judges 16 [hak]: exists, skipping
+  Judges 17 [hak]: exists, skipping
+  Judges 18 [hak]: exists, skipping
+  Judges 19 [hak]: exists, skipping
+  Judges 20 [hak]: exists, skipping
+  Judges 21 [hak]: exists, skipping
+  Ruth 1 [hak]: exists, skipping
+  Ruth 2 [hak]: exists, skipping
+  Ruth 3 [hak]: exists, skipping
+  Ruth 4 [hak]: exists, skipping
+  1 Samuel 1 [hak]: exists, skipping
+  1 Samuel 2 [hak]: exists, skipping
+  1 Samuel 3 [hak]: exists, skipping
+  1 Samuel 4 [hak]: exists, skipping
+  1 Samuel 5 [hak]: exists, skipping
+  1 Samuel 6 [hak]: exists, skipping
+  1 Samuel 7 [hak]: exists, skipping
+  1 Samuel 8 [hak]: exists, skipping
+  1 Samuel 9 [hak]: exists, skipping
+  1 Samuel 10 [hak]: exists, skipping
+  1 Samuel 11 [hak]: exists, skipping
+  1 Samuel 12 [hak]: exists, skipping
+  1 Samuel 13 [hak]: exists, skipping
+  1 Samuel 14 [hak]: exists, skipping
+  1 Samuel 15 [hak]: exists, skipping
+  1 Samuel 16 [hak]: exists, skipping
+  1 Samuel 17 [hak]: exists, skipping
+  1 Samuel 18 [hak]: exists, skipping
+  1 Samuel 19 [hak]: exists, skipping
+  1 Samuel 20 [hak]: exists, skipping
+  1 Samuel 21 [hak]: exists, skipping
+  1 Samuel 22 [hak]: exists, skipping
+  1 Samuel 23 [hak]: exists, skipping
+  1 Samuel 24 [hak]: exists, skipping
+  1 Samuel 25 [hak]: exists, skipping
+  1 Samuel 26 [hak]: exists, skipping
+  1 Samuel 27 [hak]: exists, skipping
+  1 Samuel 28 [hak]: exists, skipping
+  1 Samuel 29 [hak]: exists, skipping
+  1 Samuel 30 [hak]: exists, skipping
+  1 Samuel 31 [hak]: exists, skipping
+  2 Samuel 1 [hak]: exists, skipping
+  2 Samuel 2 [hak]: exists, skipping
+  2 Samuel 3 [hak]: exists, skipping
+  2 Samuel 4 [hak]: exists, skipping
+  2 Samuel 5 [hak]: exists, skipping
+  2 Samuel 6 [hak]: exists, skipping
+  2 Samuel 7 [hak]: exists, skipping
+  2 Samuel 8 [hak]: exists, skipping
+  2 Samuel 9 [hak]: exists, skipping
+  2 Samuel 10 [hak]: exists, skipping
+  2 Samuel 11 [hak]: exists, skipping
+  2 Samuel 12 [hak]: exists, skipping
+  2 Samuel 13 [hak]: exists, skipping
+  2 Samuel 14 [hak]: exists, skipping
+  2 Samuel 15 [hak]: exists, skipping
+  2 Samuel 16 [hak]: exists, skipping
+  2 Samuel 17 [hak]: exists, skipping
+  2 Samuel 18 [hak]: exists, skipping
+  2 Samuel 19 [hak]: exists, skipping
+  2 Samuel 20 [hak]: exists, skipping
+  2 Samuel 21 [hak]: exists, skipping
+  2 Samuel 22 [hak]: exists, skipping
+  2 Samuel 23 [hak]: exists, skipping
+  2 Samuel 24 [hak]: exists, skipping
+  1 Kings 1 [hak]: exists, skipping
+  1 Kings 2 [hak]: exists, skipping
+  1 Kings 3 [hak]: exists, skipping
+  1 Kings 4 [hak]: exists, skipping
+  1 Kings 5 [hak]: exists, skipping
+  1 Kings 6 [hak]: exists, skipping
+  1 Kings 7 [hak]: exists, skipping
+  1 Kings 8 [hak]: exists, skipping
+  1 Kings 9 [hak]: exists, skipping
+  1 Kings 10 [hak]: exists, skipping
+  1 Kings 11 [hak]: exists, skipping
+  1 Kings 12 [hak]: exists, skipping
+  1 Kings 13 [hak]: exists, skipping
+  1 Kings 14 [hak]: exists, skipping
+  1 Kings 15 [hak]: exists, skipping
+  1 Kings 16 [hak]: exists, skipping
+  1 Kings 17 [hak]: exists, skipping
+  1 Kings 18 [hak]: exists, skipping
+  1 Kings 19 [hak]: exists, skipping
+  1 Kings 20 [hak]: exists, skipping
+  1 Kings 21 [hak]: exists, skipping
+  1 Kings 22 [hak]: exists, skipping
+  2 Kings 1 [hak]: exists, skipping
+  2 Kings 2 [hak]: exists, skipping
+  2 Kings 3 [hak]: exists, skipping
+  2 Kings 4 [hak]: exists, skipping
+  2 Kings 5 [hak]: exists, skipping
+  2 Kings 6 [hak]: exists, skipping
+  2 Kings 7 [hak]: exists, skipping
+  2 Kings 8 [hak]: exists, skipping
+  2 Kings 9 [hak]: exists, skipping
+  2 Kings 10 [hak]: exists, skipping
+  2 Kings 11 [hak]: exists, skipping
+  2 Kings 12 [hak]: exists, skipping
+  2 Kings 13 [hak]: exists, skipping
+  2 Kings 14 [hak]: exists, skipping
+  2 Kings 15 [hak]: exists, skipping
+  2 Kings 16 [hak]: exists, skipping
+  2 Kings 17 [hak]: exists, skipping
+  2 Kings 18 [hak]: exists, skipping
+  2 Kings 19 [hak]: exists, skipping
+  2 Kings 20 [hak]: exists, skipping
+  2 Kings 21 [hak]: exists, skipping
+  2 Kings 22 [hak]: exists, skipping
+  2 Kings 23 [hak]: exists, skipping
+  2 Kings 24 [hak]: exists, skipping
+  2 Kings 25 [hak]: exists, skipping
+  1 Chronicles 1 [hak]: exists, skipping
+  1 Chronicles 2 [hak]: exists, skipping
+  1 Chronicles 3 [hak]: exists, skipping
+  1 Chronicles 4 [hak]: exists, skipping
+  1 Chronicles 5 [hak]: exists, skipping
+  1 Chronicles 6 [hak]: exists, skipping
+  1 Chronicles 7 [hak]: exists, skipping
+  1 Chronicles 8 [hak]: exists, skipping
+  1 Chronicles 9 [hak]: exists, skipping
+  1 Chronicles 10 [hak]: exists, skipping
+  1 Chronicles 11 [hak]: exists, skipping
+  1 Chronicles 12 [hak]: exists, skipping
+  1 Chronicles 13 [hak]: exists, skipping
+  1 Chronicles 14 [hak]: exists, skipping
+  1 Chronicles 15 [hak]: exists, skipping
+  1 Chronicles 16 [hak]: exists, skipping
+  1 Chronicles 17 [hak]: exists, skipping
+  1 Chronicles 18 [hak]: exists, skipping
+  1 Chronicles 19 [hak]: exists, skipping
+  1 Chronicles 20 [hak]: exists, skipping
+  1 Chronicles 21 [hak]: exists, skipping
+  1 Chronicles 22 [hak]: exists, skipping
+  1 Chronicles 23 [hak]: exists, skipping
+  1 Chronicles 24 [hak]: exists, skipping
+  1 Chronicles 25 [hak]: exists, skipping
+  1 Chronicles 26 [hak]: exists, skipping
+  1 Chronicles 27 [hak]: exists, skipping
+  1 Chronicles 28 [hak]: exists, skipping
+  1 Chronicles 29 [hak]: exists, skipping
+  2 Chronicles 1 [hak]: exists, skipping
+  2 Chronicles 2 [hak]: exists, skipping
+  2 Chronicles 3 [hak]: exists, skipping
+  2 Chronicles 4 [hak]: exists, skipping
+  2 Chronicles 5 [hak]: exists, skipping
+  2 Chronicles 6 [hak]: exists, skipping
+  2 Chronicles 7 [hak]: exists, skipping
+  2 Chronicles 8 [hak]: exists, skipping
+  2 Chronicles 9 [hak]: exists, skipping
+  2 Chronicles 10 [hak]: exists, skipping
+  2 Chronicles 11 [hak]: exists, skipping
+  2 Chronicles 12 [hak]: exists, skipping
+  2 Chronicles 13 [hak]: exists, skipping
+  2 Chronicles 14 [hak]: exists, skipping
+  2 Chronicles 15 [hak]: exists, skipping
+  2 Chronicles 16 [hak]: exists, skipping
+  2 Chronicles 17 [hak]: exists, skipping
+  2 Chronicles 18 [hak]: exists, skipping
+  2 Chronicles 19 [hak]: exists, skipping
+  2 Chronicles 20 [hak]: exists, skipping
+  2 Chronicles 21 [hak]: exists, skipping
+  2 Chronicles 22 [hak]: exists, skipping
+  2 Chronicles 23 [hak]: exists, skipping
+  2 Chronicles 24 [hak]: exists, skipping
+  2 Chronicles 25 [hak]: exists, skipping
+  2 Chronicles 26 [hak]: exists, skipping
+  2 Chronicles 27 [hak]: exists, skipping
+  2 Chronicles 28 [hak]: exists, skipping
+  2 Chronicles 29 [hak]: exists, skipping
+  2 Chronicles 30 [hak]: exists, skipping
+  2 Chronicles 31 [hak]: exists, skipping
+  2 Chronicles 32 [hak]: exists, skipping
+  2 Chronicles 33 [hak]: exists, skipping
+  2 Chronicles 34 [hak]: exists, skipping
+  2 Chronicles 35 [hak]: exists, skipping
+  2 Chronicles 36 [hak]: exists, skipping
+  Ezra 1 [hak]: exists, skipping
+  Ezra 2 [hak]: exists, skipping
+  Ezra 3 [hak]: exists, skipping
+  Ezra 4 [hak]: exists, skipping
+  Ezra 5 [hak]: exists, skipping
+  Ezra 6 [hak]: exists, skipping
+  Ezra 7 [hak]: exists, skipping
+  Ezra 8 [hak]: exists, skipping
+  Ezra 9 [hak]: exists, skipping
+  Ezra 10 [hak]: exists, skipping
+  Nehemiah 1 [hak]: exists, skipping
+  Nehemiah 2 [hak]: exists, skipping
+  Nehemiah 3 [hak]: exists, skipping
+  Nehemiah 4 [hak]: exists, skipping
+  Nehemiah 5 [hak]: exists, skipping
+  Nehemiah 6 [hak]: exists, skipping
+  Nehemiah 7 [hak]: exists, skipping
+  Nehemiah 8 [hak]: exists, skipping
+  Nehemiah 9 [hak]: exists, skipping
+  Nehemiah 10 [hak]: exists, skipping
+  Nehemiah 11 [hak]: exists, skipping
+  Nehemiah 12 [hak]: exists, skipping
+  Nehemiah 13 [hak]: exists, skipping
+  Esther 1 [hak]: exists, skipping
+  Esther 2 [hak]: exists, skipping
+  Esther 3 [hak]: exists, skipping
+  Esther 4 [hak]: exists, skipping
+  Esther 5 [hak]: exists, skipping
+  Esther 6 [hak]: exists, skipping
+  Esther 7 [hak]: exists, skipping
+  Esther 8 [hak]: exists, skipping
+  Esther 9 [hak]: exists, skipping
+  Esther 10 [hak]: exists, skipping
+  Job 1 [hak]: exists, skipping
+  Job 2 [hak]: exists, skipping
+  Job 3 [hak]: exists, skipping
+  Job 4 [hak]: exists, skipping
+  Job 5 [hak]: exists, skipping
+  Job 6 [hak]: exists, skipping
+  Job 7 [hak]: exists, skipping
+  Job 8 [hak]: exists, skipping
+  Job 9 [hak]: exists, skipping
+  Job 10 [hak]: exists, skipping
+  Job 11 [hak]: exists, skipping
+  Job 12 [hak]: exists, skipping
+  Job 13 [hak]: exists, skipping
+  Job 14 [hak]: exists, skipping
+  Job 15 [hak]: exists, skipping
+  Job 16 [hak]: exists, skipping
+  Job 17 [hak]: exists, skipping
+  Job 18 [hak]: exists, skipping
+  Job 19 [hak]: exists, skipping
+  Job 20 [hak]: exists, skipping
+  Job 21 [hak]: exists, skipping
+  Job 22 [hak]: exists, skipping
+  Job 23 [hak]: exists, skipping
+  Job 24 [hak]: exists, skipping
+  Job 25 [hak]: exists, skipping
+  Job 26 [hak]: exists, skipping
+  Job 27 [hak]: exists, skipping
+  Job 28 [hak]: exists, skipping
+  Job 29 [hak]: exists, skipping
+  Job 30 [hak]: exists, skipping
+  Job 31 [hak]: exists, skipping
+  Job 32 [hak]: exists, skipping
+  Job 33 [hak]: exists, skipping
+  Job 34 [hak]: exists, skipping
+  Job 35 [hak]: exists, skipping
+  Job 36 [hak]: exists, skipping
+  Job 37 [hak]: exists, skipping
+  Job 38 [hak]: exists, skipping
+  Job 39 [hak]: exists, skipping
+  Job 40 [hak]: exists, skipping
+  Job 41 [hak]: exists, skipping
+  Job 42 [hak]: exists, skipping
+  Psalms 1 [hak]: exists, skipping
+  Psalms 2 [hak]: exists, skipping
+  Psalms 3 [hak]: exists, skipping
+  Psalms 4 [hak]: exists, skipping
+  Psalms 5 [hak]: exists, skipping
+  Psalms 6 [hak]: exists, skipping
+  Psalms 7 [hak]: exists, skipping
+  Psalms 8 [hak]: exists, skipping
+  Psalms 9 [hak]: exists, skipping
+  Psalms 10 [hak]: exists, skipping
+  Psalms 11 [hak]: exists, skipping
+  Psalms 12 [hak]: exists, skipping
+  Psalms 13 [hak]: exists, skipping
+  Psalms 14 [hak]: exists, skipping
+  Psalms 15 [hak]: exists, skipping
+  Psalms 16 [hak]: exists, skipping
+  Psalms 17 [hak]: exists, skipping
+  Psalms 18 [hak]: exists, skipping
+  Psalms 19 [hak]: exists, skipping
+  Psalms 20 [hak]: exists, skipping
+  Psalms 21 [hak]: exists, skipping
+  Psalms 22 [hak]: exists, skipping
+  Psalms 23 [hak]: exists, skipping
+  Psalms 24 [hak]: exists, skipping
+  Psalms 25 [hak]: exists, skipping
+  Psalms 26 [hak]: exists, skipping
+  Psalms 27 [hak]: exists, skipping
+  Psalms 28 [hak]: exists, skipping
+  Psalms 29 [hak]: exists, skipping
+  Psalms 30 [hak]: exists, skipping
+  Psalms 31 [hak]: exists, skipping
+  Psalms 32 [hak]: exists, skipping
+  Psalms 33 [hak]: exists, skipping
+  Psalms 34 [hak]: exists, skipping
+  Psalms 35 [hak]: exists, skipping
+  Psalms 36 [hak]: exists, skipping
+  Psalms 37 [hak]: exists, skipping
+  Psalms 38 [hak]: exists, skipping
+  Psalms 39 [hak]: exists, skipping
+  Psalms 40 [hak]: exists, skipping
+  Psalms 41 [hak]: exists, skipping
+  Psalms 42 [hak]: exists, skipping
+  Psalms 43 [hak]: exists, skipping
+  Psalms 44 [hak]: exists, skipping
+  Psalms 45 [hak]: exists, skipping
+  Psalms 46 [hak]: exists, skipping
+  Psalms 47 [hak]: exists, skipping
+  Psalms 48 [hak]: exists, skipping
+  Psalms 49 [hak]: exists, skipping
+  Psalms 50 [hak]: exists, skipping
+  Psalms 51 [hak]: exists, skipping
+  Psalms 52 [hak]: exists, skipping
+  Psalms 53 [hak]: exists, skipping
+  Psalms 54 [hak]: exists, skipping
+  Psalms 55 [hak]: exists, skipping
+  Psalms 56 [hak]: exists, skipping
+  Psalms 57 [hak]: exists, skipping
+  Psalms 58 [hak]: exists, skipping
+  Psalms 59 [hak]: exists, skipping
+  Psalms 60 [hak]: exists, skipping
+  Psalms 61 [hak]: exists, skipping
+  Psalms 62 [hak]: exists, skipping
+  Psalms 63 [hak]: exists, skipping
+  Psalms 64 [hak]: exists, skipping
+  Psalms 65 [hak]: exists, skipping
+  Psalms 66 [hak]: exists, skipping
+  Psalms 67 [hak]: exists, skipping
+  Psalms 68 [hak]: exists, skipping
+  Psalms 69 [hak]: exists, skipping
+  Psalms 70 [hak]: exists, skipping
+  Psalms 71 [hak]: exists, skipping
+  Psalms 72 [hak]: exists, skipping
+  Psalms 73 [hak]: exists, skipping
+  Psalms 74 [hak]: exists, skipping
+  Psalms 75 [hak]: exists, skipping
+  Psalms 76 [hak]: exists, skipping
+  Psalms 77 [hak]: exists, skipping
+  Psalms 78 [hak]: exists, skipping
+  Psalms 79 [hak]: exists, skipping
+  Psalms 80 [hak]: exists, skipping
+  Psalms 81 [hak]: exists, skipping
+  Psalms 82 [hak]: exists, skipping
+  Psalms 83 [hak]: exists, skipping
+  Psalms 84 [hak]: exists, skipping
+  Psalms 85 [hak]: exists, skipping
+  Psalms 86 [hak]: exists, skipping
+  Psalms 87 [hak]: exists, skipping
+  Psalms 88 [hak]: exists, skipping
+  Psalms 89 [hak]: exists, skipping
+  Psalms 90 [hak]: exists, skipping
+  Psalms 91 [hak]: exists, skipping
+  Psalms 92 [hak]: exists, skipping
+  Psalms 93 [hak]: exists, skipping
+  Psalms 94 [hak]: exists, skipping
+  Psalms 95 [hak]: exists, skipping
+  Psalms 96 [hak]: exists, skipping
+  Psalms 97 [hak]: exists, skipping
+  Psalms 98 [hak]: exists, skipping
+  Psalms 99 [hak]: exists, skipping
+  Psalms 100 [hak]: exists, skipping
+  Psalms 101 [hak]: exists, skipping
+  Psalms 102 [hak]: exists, skipping
+  Psalms 103 [hak]: exists, skipping
+  Psalms 104 [hak]: exists, skipping
+  Psalms 105 [hak]: exists, skipping
+  Psalms 106 [hak]: exists, skipping
+  Psalms 107 [hak]: exists, skipping
+  Psalms 108 [hak]: exists, skipping
+  Psalms 109 [hak]: exists, skipping
+  Psalms 110 [hak]: exists, skipping
+  Psalms 111 [hak]: exists, skipping
+  Psalms 112 [hak]: exists, skipping
+  Psalms 113 [hak]: exists, skipping
+  Psalms 114 [hak]: exists, skipping
+  Psalms 115 [hak]: exists, skipping
+  Psalms 116 [hak]: exists, skipping
+  Psalms 117 [hak]: exists, skipping
+  Psalms 118 [hak]: exists, skipping
+  Psalms 119 [hak]: exists, skipping
+  Psalms 120 [hak]: exists, skipping
+  Psalms 121 [hak]: exists, skipping
+  Psalms 122 [hak]: exists, skipping
+  Psalms 123 [hak]: exists, skipping
+  Psalms 124 [hak]: exists, skipping
+  Psalms 125 [hak]: exists, skipping
+  Psalms 126 [hak]: exists, skipping
+  Psalms 127 [hak]: exists, skipping
+  Psalms 128 [hak]: exists, skipping
+  Psalms 129 [hak]: exists, skipping
+  Psalms 130 [hak]: exists, skipping
+  Psalms 131 [hak]: exists, skipping
+  Psalms 132 [hak]: exists, skipping
+  Psalms 133 [hak]: exists, skipping
+  Psalms 134 [hak]: exists, skipping
+  Psalms 135 [hak]: exists, skipping
+  Psalms 136 [hak]: exists, skipping
+  Psalms 137 [hak]: exists, skipping
+  Psalms 138 [hak]: exists, skipping
+  Psalms 139 [hak]: exists, skipping
+  Psalms 140 [hak]: exists, skipping
+  Psalms 141 [hak]: exists, skipping
+  Psalms 142 [hak]: exists, skipping
+  Psalms 143 [hak]: exists, skipping
+  Psalms 144 [hak]: exists, skipping
+  Psalms 145 [hak]: exists, skipping
+  Psalms 146 [hak]: exists, skipping
+  Psalms 147 [hak]: exists, skipping
+  Psalms 148 [hak]: exists, skipping
+  Psalms 149 [hak]: exists, skipping
+  Psalms 150 [hak]: exists, skipping
+  Proverbs 1 [hak]: exists, skipping
+  Proverbs 2 [hak]: exists, skipping
+  Proverbs 3 [hak]: exists, skipping
+  Proverbs 4 [hak]: exists, skipping
+  Proverbs 5 [hak]: exists, skipping
+  Proverbs 6 [hak]: exists, skipping
+  Proverbs 7 [hak]: exists, skipping
+  Proverbs 8 [hak]: exists, skipping
+  Proverbs 9 [hak]: exists, skipping
+  Proverbs 10 [hak]: exists, skipping
+  Proverbs 11 [hak]: exists, skipping
+  Proverbs 12 [hak]: exists, skipping
+  Proverbs 13 [hak]: exists, skipping
+  Proverbs 14 [hak]: exists, skipping
+  Proverbs 15 [hak]: exists, skipping
+  Proverbs 16 [hak]: exists, skipping
+  Proverbs 17 [hak]: exists, skipping
+  Proverbs 18 [hak]: exists, skipping
+  Proverbs 19 [hak]: exists, skipping
+  Proverbs 20 [hak]: exists, skipping
+  Proverbs 21 [hak]: exists, skipping
+  Proverbs 22 [hak]: exists, skipping
+  Proverbs 23 [hak]: exists, skipping
+  Proverbs 24 [hak]: exists, skipping
+  Proverbs 25 [hak]: exists, skipping
+  Proverbs 26 [hak]: exists, skipping
+  Proverbs 27 [hak]: exists, skipping
+  Proverbs 28 [hak]: exists, skipping
+  Proverbs 29 [hak]: exists, skipping
+  Proverbs 30 [hak]: exists, skipping
+  Proverbs 31 [hak]: exists, skipping
+  Ecclesiastes 1 [hak]: exists, skipping
+  Ecclesiastes 2 [hak]: exists, skipping
+  Ecclesiastes 3 [hak]: exists, skipping
+  Ecclesiastes 4 [hak]: exists, skipping
+  Ecclesiastes 5 [hak]: exists, skipping
+  Ecclesiastes 6 [hak]: exists, skipping
+  Ecclesiastes 7 [hak]: exists, skipping
+  Ecclesiastes 8 [hak]: exists, skipping
+  Ecclesiastes 9 [hak]: exists, skipping
+  Ecclesiastes 10 [hak]: exists, skipping
+  Ecclesiastes 11 [hak]: exists, skipping
+  Ecclesiastes 12 [hak]: exists, skipping
+  Song of Songs 1 [hak]: exists, skipping
+  Song of Songs 2 [hak]: exists, skipping
+  Song of Songs 3 [hak]: exists, skipping
+  Song of Songs 4 [hak]: exists, skipping
+  Song of Songs 5 [hak]: exists, skipping
+  Song of Songs 6 [hak]: exists, skipping
+  Song of Songs 7 [hak]: exists, skipping
+  Song of Songs 8 [hak]: exists, skipping
+  Isaiah 1 [hak]: exists, skipping
+  Isaiah 2 [hak]: exists, skipping
+  Isaiah 3 [hak]: exists, skipping
+  Isaiah 4 [hak]: exists, skipping
+  Isaiah 5 [hak]: exists, skipping
+  Isaiah 6 [hak]: exists, skipping
+  Isaiah 7 [hak]: exists, skipping
+  Isaiah 8 [hak]: exists, skipping
+  Isaiah 9 [hak]: exists, skipping
+  Isaiah 10 [hak]: exists, skipping
+  Isaiah 11 [hak]: exists, skipping
+  Isaiah 12 [hak]: exists, skipping
+  Isaiah 13 [hak]: exists, skipping
+  Isaiah 14 [hak]: exists, skipping
+  Isaiah 15 [hak]: exists, skipping
+  Isaiah 16 [hak]: exists, skipping
+  Isaiah 17 [hak]: exists, skipping
+  Isaiah 18 [hak]: exists, skipping
+  Isaiah 19 [hak]: exists, skipping
+  Isaiah 20 [hak]: exists, skipping
+  Isaiah 21 [hak]: exists, skipping
+  Isaiah 22 [hak]: exists, skipping
+  Isaiah 23 [hak]: exists, skipping
+  Isaiah 24 [hak]: exists, skipping
+  Isaiah 25 [hak]: exists, skipping
+  Isaiah 26 [hak]: exists, skipping
+  Isaiah 27 [hak]: exists, skipping
+  Isaiah 28 [hak]: exists, skipping
+  Isaiah 29 [hak]: exists, skipping
+  Isaiah 30 [hak]: exists, skipping
+  Isaiah 31 [hak]: exists, skipping
+  Isaiah 32 [hak]: exists, skipping
+  Isaiah 33 [hak]: exists, skipping
+  Isaiah 34 [hak]: exists, skipping
+  Isaiah 35 [hak]: exists, skipping
+  Isaiah 36 [hak]: exists, skipping
+  Isaiah 37 [hak]: exists, skipping
+  Isaiah 38 [hak]: exists, skipping
+  Isaiah 39 [hak]: exists, skipping
+  Isaiah 40 [hak]: exists, skipping
+  Isaiah 41 [hak]: exists, skipping
+  Isaiah 42 [hak]: exists, skipping
+  Isaiah 43 [hak]: exists, skipping
+  Isaiah 44 [hak]: exists, skipping
+  Isaiah 45 [hak]: exists, skipping
+  Isaiah 46 [hak]: exists, skipping
+  Isaiah 47 [hak]: exists, skipping
+  Isaiah 48 [hak]: exists, skipping
+  Isaiah 49 [hak]: exists, skipping
+  Isaiah 50 [hak]: exists, skipping
+  Isaiah 51 [hak]: exists, skipping
+  Isaiah 52 [hak]: exists, skipping
+  Isaiah 53 [hak]: exists, skipping
+  Isaiah 54 [hak]: exists, skipping
+  Isaiah 55 [hak]: exists, skipping
+  Isaiah 56 [hak]: exists, skipping
+  Isaiah 57 [hak]: exists, skipping
+  Isaiah 58 [hak]: exists, skipping
+  Isaiah 59 [hak]: exists, skipping
+  Isaiah 60 [hak]: exists, skipping
+  Isaiah 61 [hak]: exists, skipping
+  Isaiah 62 [hak]: exists, skipping
+  Isaiah 63 [hak]: exists, skipping
+  Isaiah 64 [hak]: exists, skipping
+  Isaiah 65 [hak]: exists, skipping
+  Isaiah 66 [hak]: exists, skipping
+  Jeremiah 1 [hak]: exists, skipping
+  Jeremiah 2 [hak]: exists, skipping
+  Jeremiah 3 [hak]: exists, skipping
+  Jeremiah 4 [hak]: exists, skipping
+  Jeremiah 5 [hak]: exists, skipping
+  Jeremiah 6 [hak]: exists, skipping
+  Jeremiah 7 [hak]: exists, skipping
+  Jeremiah 8 [hak]: exists, skipping
+  Jeremiah 9 [hak]: exists, skipping
+  Jeremiah 10 [hak]: exists, skipping
+  Jeremiah 11 [hak]: exists, skipping
+  Jeremiah 12 [hak]: exists, skipping
+  Jeremiah 13 [hak]: exists, skipping
+  Jeremiah 14 [hak]: exists, skipping
+  Jeremiah 15 [hak]: exists, skipping
+  Jeremiah 16 [hak]: exists, skipping
+  Jeremiah 17 [hak]: exists, skipping
+  Jeremiah 18 [hak]: exists, skipping
+  Jeremiah 19 [hak]: exists, skipping
+  Jeremiah 20 [hak]: exists, skipping
+  Jeremiah 21 [hak]: exists, skipping
+  Jeremiah 22 [hak]: exists, skipping
+  Jeremiah 23 [hak]: exists, skipping
+  Jeremiah 24 [hak]: exists, skipping
+  Jeremiah 25 [hak]: exists, skipping
+  Jeremiah 26 [hak]: exists, skipping
+  Jeremiah 27 [hak]: exists, skipping
+  Jeremiah 28 [hak]: exists, skipping
+  Jeremiah 29 [hak]: exists, skipping
+  Jeremiah 30 [hak]: exists, skipping
+  Jeremiah 31 [hak]: exists, skipping
+  Jeremiah 32 [hak]: exists, skipping
+  Jeremiah 33 [hak]: exists, skipping
+  Jeremiah 34 [hak]: exists, skipping
+  Jeremiah 35 [hak]: exists, skipping
+  Jeremiah 36 [hak]: exists, skipping
+  Jeremiah 37 [hak]: exists, skipping
+  Jeremiah 38 [hak]: exists, skipping
+  Jeremiah 39 [hak]: exists, skipping
+  Jeremiah 40 [hak]: exists, skipping
+  Jeremiah 41 [hak]: exists, skipping
+  Jeremiah 42 [hak]: exists, skipping
+  Jeremiah 43 [hak]: exists, skipping
+  Jeremiah 44 [hak]: exists, skipping
+  Jeremiah 45 [hak]: exists, skipping
+  Jeremiah 46 [hak]: exists, skipping
+  Jeremiah 47 [hak]: exists, skipping
+  Jeremiah 48 [hak]: exists, skipping
+  Jeremiah 49 [hak]: exists, skipping
+  Jeremiah 50 [hak]: exists, skipping
+  Jeremiah 51 [hak]: exists, skipping
+  Jeremiah 52 [hak]: exists, skipping
+  Lamentations 1 [hak]: exists, skipping
+  Lamentations 2 [hak]: exists, skipping
+  Lamentations 3 [hak]: exists, skipping
+  Lamentations 4 [hak]: exists, skipping
+  Lamentations 5 [hak]: exists, skipping
+  Ezekiel 1 [hak]: exists, skipping
+  Ezekiel 2 [hak]: exists, skipping
+  Ezekiel 3 [hak]: exists, skipping
+  Ezekiel 4 [hak]: exists, skipping
+  Ezekiel 5 [hak]: exists, skipping
+  Ezekiel 6 [hak]: exists, skipping
+  Ezekiel 7 [hak]: exists, skipping
+  Ezekiel 8 [hak]: exists, skipping
+  Ezekiel 9 [hak]: exists, skipping
+  Ezekiel 10 [hak]: exists, skipping
+  Ezekiel 11 [hak]: exists, skipping
+  Ezekiel 12 [hak]: exists, skipping
+  Ezekiel 13 [hak]: exists, skipping
+  Ezekiel 14 [hak]: exists, skipping
+  Ezekiel 15 [hak]: exists, skipping
+  Ezekiel 16 [hak]: exists, skipping
+  Ezekiel 17 [hak]: exists, skipping
+  Ezekiel 18 [hak]: exists, skipping
+  Ezekiel 19 [hak]: exists, skipping
+  Ezekiel 20 [hak]: exists, skipping
+  Ezekiel 21 [hak]: exists, skipping
+  Ezekiel 22 [hak]: exists, skipping
+  Ezekiel 23 [hak]: exists, skipping
+  Ezekiel 24 [hak]: exists, skipping
+  Ezekiel 25 [hak]: exists, skipping
+  Ezekiel 26 [hak]: exists, skipping
+  Ezekiel 27 [hak]: exists, skipping
+  Ezekiel 28 [hak]: exists, skipping
+  Ezekiel 29 [hak]: exists, skipping
+  Ezekiel 30 [hak]: exists, skipping
+  Ezekiel 31 [hak]: exists, skipping
+  Ezekiel 32 [hak]: exists, skipping
+  Ezekiel 33 [hak]: exists, skipping
+  Ezekiel 34 [hak]: exists, skipping
+  Ezekiel 35 [hak]: exists, skipping
+  Ezekiel 36 [hak]: exists, skipping
+  Ezekiel 37 [hak]: exists, skipping
+  Ezekiel 38 [hak]: exists, skipping
+  Ezekiel 39 [hak]: exists, skipping
+  Ezekiel 40 [hak]: exists, skipping
+  Ezekiel 41 [hak]: exists, skipping
+  Ezekiel 42 [hak]: exists, skipping
+  Ezekiel 43 [hak]: exists, skipping
+  Ezekiel 44 [hak]: exists, skipping
+  Ezekiel 45 [hak]: exists, skipping
+  Ezekiel 46 [hak]: exists, skipping
+  Ezekiel 47 [hak]: exists, skipping
+  Ezekiel 48 [hak]: exists, skipping
+  Daniel 1 [hak]: exists, skipping
+  Daniel 2 [hak]: exists, skipping
+  Daniel 3 [hak]: exists, skipping
+  Daniel 4 [hak]: exists, skipping
+  Daniel 5 [hak]: exists, skipping
+  Daniel 6 [hak]: exists, skipping
+  Daniel 7 [hak]: exists, skipping
+  Daniel 8 [hak]: exists, skipping
+  Daniel 9 [hak]: exists, skipping
+  Daniel 10 [hak]: exists, skipping
+  Daniel 11 [hak]: exists, skipping
+  Daniel 12 [hak]: exists, skipping
+  Hosea 1 [hak]: exists, skipping
+  Hosea 2 [hak]: exists, skipping
+  Hosea 3 [hak]: 5/5 vv, 21s, 36 words replaced, Mandarin left 2.0 -> 2.0 per 100 chars, model changed 4 verses, kept the draft for 1 (1: more Mandarin)
+  Hosea 4 [hak]: 19/19 vv, 34s, 145 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 19 verses
+  Hosea 5 [hak]: 15/15 vv, 35s, 95 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 15 verses
+  Hosea 6 [hak]: 11/11 vv, 34s, 67 words replaced, Mandarin left 0.9 -> 0.6 per 100 chars, model changed 11 verses
+  Hosea 7 [hak]: 16/16 vv, 32s, 118 words replaced, Mandarin left 0.4 -> 0.4 per 100 chars, model changed 16 verses
+  Hosea 8 [hak]: 14/14 vv, 30s, 109 words replaced, Mandarin left 0.4 -> 0.4 per 100 chars, model changed 14 verses
+  Hosea 9 [hak]: 17/17 vv, 36s, 149 words replaced, Mandarin left 1.0 -> 0.8 per 100 chars, model changed 16 verses, kept the draft for 1 (5: more Mandarin)
+  Hosea 10 [hak]: 15/15 vv, 35s, 122 words replaced, Mandarin left 0.6 -> 0.3 per 100 chars, model changed 15 verses
+  Hosea 11 [hak]: 11/11 vv, 33s, 94 words replaced, Mandarin left 0.7 -> 0.7 per 100 chars, model changed 11 verses
+  Hosea 12 [hak]: 15/15 vv, 29s, 86 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 15 verses
+  Hosea 13 [hak]: 15/15 vv, 30s, 97 words replaced, Mandarin left 0.2 -> 0.2 per 100 chars, model changed 15 verses
+  Hosea 14 [hak]: 10/10 vv, 32s, 89 words replaced, Mandarin left 1.4 -> 1.2 per 100 chars, model changed 9 verses, kept the draft for 1 (4: more Mandarin)
+  Joel 1 [hak]: 20/20 vv, 35s, 113 words replaced, Mandarin left 2.0 -> 1.5 per 100 chars, model changed 2 verses, kept the draft for 2 (1: more Mandarin, 3: more Mandarin)
+  Joel 2 [hak]: 27/27 vv, 34s, 224 words replaced, Mandarin left 1.9 -> 1.9 per 100 chars, model changed 2 verses, kept the draft for 1 (2: more Mandarin)
+  Joel 3 [hak]: 5/5 vv, 32s, 40 words replaced, Mandarin left 2.8 -> 2.8 per 100 chars, model changed 1 verses
+  Joel 4 [hak]: 21/21 vv, 35s, 150 words replaced, Mandarin left 2.2 -> 1.8 per 100 chars, model changed 2 verses
+  Amos 1 [hak]: 15/15 vv, 32s, 82 words replaced, Mandarin left 2.9 -> 2.1 per 100 chars, model changed 7 verses
+  Amos 2 [hak]: 16/16 vv, 36s, 96 words replaced, Mandarin left 1.9 -> 1.4 per 100 chars, model changed 6 verses
+  Amos 3 [hak]: 15/15 vv, 34s, 96 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 0 verses
+  Amos 4 [hak]: 13/13 vv, 34s, 131 words replaced, Mandarin left 2.5 -> 2.2 per 100 chars, model changed 2 verses
+  Amos 5 [hak]: 27/27 vv, 33s, 154 words replaced, Mandarin left 1.8 -> 1.7 per 100 chars, model changed 2 verses
+  Amos 6 [hak]: 14/14 vv, 29s, 77 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 1 verses
+  Amos 7 [hak]: 17/17 vv, 36s, 105 words replaced, Mandarin left 2.4 -> 2.0 per 100 chars, model changed 6 verses, kept the draft for 1 (4: more Mandarin)
+  Amos 8 [hak]: 14/14 vv, 32s, 83 words replaced, Mandarin left 2.5 -> 2.2 per 100 chars, model changed 2 verses, kept the draft for 2 (1: more Mandarin, 2: more Mandarin)
+  Amos 9 [hak]: 15/15 vv, 35s, 127 words replaced, Mandarin left 1.9 -> 1.8 per 100 chars, model changed 2 verses
+  Obadiah 1 [hak]: 21/21 vv, 36s, 128 words replaced, Mandarin left 1.3 -> 1.3 per 100 chars, model changed 0 verses
+  Jonah 1 [hak]: 16/16 vv, 30s, 111 words replaced, Mandarin left 2.5 -> 2.5 per 100 chars, model changed 1 verses
+  Jonah 2 [hak]: 11/11 vv, 29s, 59 words replaced, Mandarin left 2.7 -> 2.4 per 100 chars, model changed 11 verses
+  Jonah 3 [hak]: 10/10 vv, 32s, 55 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 10 verses
+  Jonah 4 [hak]: 11/11 vv, 35s, 64 words replaced, Mandarin left 2.1 -> 1.9 per 100 chars, model changed 11 verses
+  Micah 1 [hak]: 16/16 vv, 37s, 130 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 16 verses
+  Micah 2 [hak]: 13/13 vv, 35s, 108 words replaced, Mandarin left 1.5 -> 1.3 per 100 chars, model changed 13 verses
+  Micah 3 [hak]: 12/12 vv, 29s, 86 words replaced, Mandarin left 2.0 -> 1.9 per 100 chars, model changed 11 verses, kept the draft for 1 (5: more Mandarin)
+  Micah 4 [hak]: 14/14 vv, 31s, 98 words replaced, Mandarin left 2.5 -> 1.9 per 100 chars, model changed 14 verses
+  Micah 5 [hak]: 14/14 vv, 32s, 72 words replaced, Mandarin left 0.9 -> 0.9 per 100 chars, model changed 14 verses
+  Micah 6 [hak]: 16/16 vv, 32s, 125 words replaced, Mandarin left 1.6 -> 1.5 per 100 chars, model changed 16 verses
+  Micah 7 [hak]: 20/20 vv, 34s, 147 words replaced, Mandarin left 0.8 -> 0.8 per 100 chars, model changed 20 verses
+  Nahum 1 [hak]: 14/14 vv, 31s, 83 words replaced, Mandarin left 1.8 -> 1.8 per 100 chars, model changed 14 verses
+  Nahum 2 [hak]: 14/14 vv, 34s, 87 words replaced, Mandarin left 0.5 -> 0.5 per 100 chars, model changed 14 verses
+  Nahum 3 [hak]: 19/19 vv, 34s, 112 words replaced, Mandarin left 1.0 -> 0.9 per 100 chars, model changed 17 verses, kept the draft for 2 (1: more Mandarin, 8: more Mandarin)
+  Habakkuk 1 [hak]: 17/17 vv, 33s, 83 words replaced, Mandarin left 1.6 -> 1.4 per 100 chars, model changed 2 verses
+  Habakkuk 2 [hak]: 20/20 vv, 33s, 111 words replaced, Mandarin left 1.2 -> 1.1 per 100 chars, model changed 1 verses
+  Habakkuk 3 [hak]: 19/19 vv, 30s, 101 words replaced, Mandarin left 1.0 -> 0.8 per 100 chars, model changed 2 verses, kept the draft for 1 (2: more Mandarin)
+  Zephaniah 1 [hak]: 18/18 vv, 31s, 142 words replaced, Mandarin left 1.9 -> 1.9 per 100 chars, model changed 18 verses
+  Zephaniah 2 [hak]: 15/15 vv, 32s, 108 words replaced, Mandarin left 1.7 -> 1.5 per 100 chars, model changed 15 verses
+  Zephaniah 3 [hak]: 20/20 vv, 31s, 200 words replaced, Mandarin left 1.8 -> 1.4 per 100 chars, model changed 20 verses
+  Haggai 1 [hak]: 15/15 vv, 32s, 91 words replaced, Mandarin left 3.1 -> 3.1 per 100 chars, model changed 15 verses
+  Haggai 2 [hak]: 23/23 vv, 33s, 199 words replaced, Mandarin left 2.5 -> 2.5 per 100 chars, model changed 21 verses, kept the draft for 2 (1: more Mandarin, 10: more Mandarin)
+  Zechariah 1 [hak]: 17/17 vv, 35s, 158 words replaced, Mandarin left 2.5 -> 2.5 per 100 chars, model changed 1 verses
+  Zechariah 2 [hak]: 17/17 vv, 34s, 143 words replaced, Mandarin left 2.9 -> 2.3 per 100 chars, model changed 3 verses
+  Zechariah 3 [hak]: 10/10 vv, 33s, 88 words replaced, Mandarin left 2.8 -> 2.3 per 100 chars, model changed 3 verses
+  Zechariah 4 [hak]: 14/14 vv, 34s, 111 words replaced, Mandarin left 1.5 -> 1.5 per 100 chars, model changed 2 verses, kept the draft for 1 (2: more Mandarin)
+  Zechariah 5 [hak]: 11/11 vv, 33s, 96 words replaced, Mandarin left 0.9 -> 0.7 per 100 chars, model changed 4 verses, kept the draft for 4 (1: more Mandarin, 2: more Mandarin, 7: more Mandarin, 9: more Mandarin)
+  Zechariah 6 [hak]: 15/15 vv, 32s, 86 words replaced, Mandarin left 2.2 -> 2.0 per 100 chars, model changed 4 verses
+  Zechariah 7 [hak]: 14/14 vv, 32s, 99 words replaced, Mandarin left 2.5 -> 2.5 per 100 chars, model changed 1 verses
+  Zechariah 8 [hak]: 23/23 vv, 34s, 196 words replaced, Mandarin left 2.5 -> 2.5 per 100 chars, model changed 0 verses
+  Zechariah 9 [hak]: 17/17 vv, 34s, 119 words replaced, Mandarin left 1.7 -> 1.6 per 100 chars, model changed 3 verses
+  Zechariah 10 [hak]: 12/12 vv, 33s, 93 words replaced, Mandarin left 2.2 -> 2.2 per 100 chars, model changed 1 verses
+  Zechariah 11 [hak]: 17/17 vv, 32s, 142 words replaced, Mandarin left 1.7 -> 1.4 per 100 chars, model changed 2 verses
+  Zechariah 12 [hak]: 14/14 vv, 35s, 75 words replaced, Mandarin left 1.1 -> 1.1 per 100 chars, model changed 0 verses
+  Zechariah 13 [hak]: 9/9 vv, 35s, 87 words replaced, Mandarin left 2.2 -> 2.2 per 100 chars, model changed 0 verses
+  Zechariah 14 [hak]: 21/21 vv, 35s, 129 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 1 verses
+  Malachi 1 [hak]: 14/14 vv, 35s, 157 words replaced, Mandarin left 3.3 -> 3.1 per 100 chars, model changed 3 verses
+  Malachi 2 [hak]: 17/17 vv, 32s, 173 words replaced, Mandarin left 1.8 -> 1.7 per 100 chars, model changed 2 verses, kept the draft for 1 (2: more Mandarin)
+  Malachi 3 [hak]: 24/24 vv, 34s, 245 words replaced, Mandarin left 1.6 -> 1.6 per 100 chars, model changed 24 verses

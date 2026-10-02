@@ -134,12 +134,18 @@ def emit(**ev):
 
 
 # ---------------------------------------------------------------- targets
+# Where chapters are written. A trial of a new language (scripts/trial_lang.py)
+# points this elsewhere, one tree per model, so that two models' attempts at
+# the same chapter sit side by side and neither is taken for the translation.
+OUT_ROOT = ROOT / "output"
+
+
 def out_dir(lang):
-    return ROOT / "output" / lang
+    return OUT_ROOT / lang
 
 
 def json_dir(lang):
-    return ROOT / "output" / lang / "json"
+    return OUT_ROOT / lang / "json"
 
 
 def target_files(lang):
@@ -584,7 +590,7 @@ def main():
     # is an error worth explaining; inside "all" it is simply not this driver's.
     by_mt = [lang for lang in langs if TARGETS[lang].get("mt")]
     if by_mt and args.lang != "all":
-        raise SystemExit(f"{', '.join(by_mt)}: written by MADLAD-400 from the English, not by the chat model - "
+        raise SystemExit(f"{', '.join(by_mt)}: written by a translation model from the English, not by the chat model - "
                          f"python scripts/mt_translate.py --lang {by_mt[0]}")
     langs = [lang for lang in langs if lang not in by_mt]
     systems = {lang: build_system_prompt(lang) for lang in langs}
