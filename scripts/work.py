@@ -25,6 +25,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from books import TARGETS   # noqa: E402
 from trial_lang import trial_total   # noqa: E402
+from mt_translate import default_model   # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 LEX = ROOT / "targets" / "lexicon"
@@ -158,15 +159,13 @@ def jobs():
     # and its progress is the chapters on disk, as for any translation.
     english = len(list((ROOT / "output" / "en" / "json").glob("*.json")))
     for code, t in TARGETS.items():
-        if not t.get("mt"):
+        model = default_model(code) if t.get("mt") else None
+        # Karen's fallback, MADLAD as it comes, writes Shan: only a taught model is queued.
+        if not model or (code == "ksw" and not Path(model).exists()):
             continue
-        taught = [m for m in (ROOT / "models" / f"madlad-{code}-names", ROOT / "models" / f"madlad-{code}")
-                  if (m / "config.json").exists()]
-        if not taught:
-            continue
-        out.append((f"translate-{code}", f"put our English into {t['name']} with the model taught from its Bible",
+        out.append((f"translate-{code}", f"put our English into {t['name']} with {Path(model).name}",
                     len(list((ROOT / "output" / code / "json").glob("*.json"))), english,
-                    [sys.executable, str(S / "mt_translate.py"), "--lang", code, "--all", "--model", str(taught[0])]))
+                    [sys.executable, str(S / "mt_translate.py"), "--lang", code, "--all", "--model", model]))
     mandarin = len(list((ROOT / "output" / "zh" / "json").glob("*.json")))
     hak_text, hak_voiced = voiced_counts("hak")
     out.append(("hakka-text", "make the Hakka from our Mandarin: word replacement, then the model mends what is left",

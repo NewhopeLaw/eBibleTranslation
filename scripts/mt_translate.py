@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Put the English into a language the chat model cannot write, with MADLAD-400.
+"""Put the English into a language the chat model cannot write well, with a translation model.
 
     python scripts/mt_translate.py --lang ksw --all         # the whole Bible, resuming
+    python scripts/mt_translate.py --lang my --all          # Burmese, with NLLB-200
     python scripts/mt_translate.py --lang ksw Gen 1-3       # a book, or some chapters
     python scripts/mt_translate.py --lang ksw --force John  # redo what is already there
     python scripts/mt_translate.py --lang ksw --model google/madlad400-3b-mt
@@ -23,6 +24,11 @@ means something else (README, "Target languages"). The driver is written for
 MADLAD's kind of model - a tag in front of the text - and waits for one
 trained on the Karen Bible; the checks below caught the Shan, which is why
 they stay.
+
+Burmese is the other case: the chat models write it fluently, and in a
+four-chapter trial now and then said the opposite of the text, where NLLB-200
+wrote Bible Burmese (trials/my/report.md). Its two faults there, Zawgyi and
+syllable spacing, are dealt with below.
 
 The output has the same shape as translate.py's, so verify.py, build_site.py
 and build_apk.py take it up unchanged:
@@ -58,12 +64,55 @@ from verify import SCRIPTS                                                  # no
 
 ROOT = Path(__file__).resolve().parent.parent
 LOG_PATH = ROOT / "logs" / "mt.jsonl"
-# The model taught Karen by scripts/train_karen.py, when it exists; MADLAD as
-# it comes otherwise, which writes Shan (see above) and is only a fallback.
-_TAUGHT = [m for m in (ROOT / "models" / "madlad-ksw-names", ROOT / "models" / "madlad-ksw") if (m / "config.json").exists()]
-DEFAULT_MODEL = str(_TAUGHT[0]) if _TAUGHT else "google/madlad400-3b-mt"
 PIECE_CHARS = 240            # a prose stretch longer than this is cut at sentence ends
 SENTENCE_END = re.compile(r"[.!?;:][\"”’')\]]*\s+")
+
+# Burmese from NLLB-200. It won a four-chapter trial against both Qwens
+# (trials/my/report.md), and did two things wrong there that are mended here
+# rather than left to a reader: it wrote two verses of John 1 in Zawgyi, the
+# pre-Unicode Burmese encoding it met on the web, and it spaced almost all of
+# John 1 syllable by syllable, as some Burmese Bibles online are spaced.
+# Zawgyi borrows letters Unicode keeps for Mon, Shan and Karen (U+105A-109F)
+# for its stacked forms, and standard Burmese never uses them, so no token
+# holding one may be generated: a model that cannot write ၾ, ႔ or ႏ cannot stay
+# in Zawgyi. Karen needs those letters, so this is Burmese's alone.
+NLLB = ROOT / "models" / "nllb-200-distilled-1.3B"
+BANNED = {"my": re.compile("[ၚ-႟]")}
+# Zawgyi also keeps ေ and ြ where they are drawn, before the consonant; one at
+# the start of a word is Zawgyi whatever letters surround it.
+ZAWGYI = re.compile(r"(^|[\s၊။])[ေျ]|ေျ")
+MY = "က-႟"
+# NLLB leaves a name it has never seen in English letters ("Yachin", "Maon,
+# Carmel, Zif"): 21 verses in the first 16,554. Such a verse is tried again,
+# and if it still holds English it is named in the log for mending by hand.
+LATIN = re.compile(r"[A-Za-z]{2,}")
+
+
+def default_model(lang):
+    """The model that writes a language: for Karen the one scripts/train_karen.py
+    taught, when it exists, else MADLAD as it comes, which writes Shan (see
+    above) and is only a fallback; for Burmese NLLB-200, when on disk."""
+    if lang == "ksw":
+        taught = [m for m in (ROOT / "models" / "madlad-ksw-names", ROOT / "models" / "madlad-ksw")
+                  if (m / "config.json").exists()]
+        return str(taught[0]) if taught else "google/madlad400-3b-mt"
+    if lang == "my" and (NLLB / "config.json").exists():
+        return str(NLLB)
+    return None
+
+
+def tidy(lang, text):
+    """Burmese as a reader expects it. A syllable-spaced verse (more than one
+    space in eight characters; ordinary Burmese spaces only between phrases)
+    is closed up and given back a space after each ၊ and ။; any verse loses the
+    space NLLB sets before them and before the particles ၌ ၍ ၏, which are
+    written onto the word they follow."""
+    if lang != "my":
+        return text
+    if text.count(" ") * 8 > len(text):
+        text = re.sub(f"(?<=[{MY}]) +(?=[{MY}])", "", text)
+        text = re.sub(r"([၊။])(?=[^\s\"”’)])", r"\1 ", text)
+    return re.sub(r" +([၊။၌၍၏])", r"\1", text).strip()
 
 # A Windows console still defaults to a code page that cannot hold a Karen
 # letter, and a verse printed for information must not be what stops a run.
@@ -144,6 +193,8 @@ def engine_label(model_name):
     name = str(model_name).replace(chr(92), "/").rstrip("/").split("/")[-1]
     if name.startswith("madlad-"):
         return f"MADLAD-400 3B taught from the Karen Bible ({name})"
+    if name.startswith("nllb-200"):
+        return f"NLLB-200 ({name.removeprefix('nllb-200-')}), from our English"
     return name
 
 
@@ -160,21 +211,34 @@ def english_verses(book, ch):
 
 
 class Translator:
-    """MADLAD-400 is a T5: the target is named by a tag in front of the text,
-    "<2ksw> In the beginning...", and there is nothing to force at the start
-    of the answer."""
+    """Two kinds of model. MADLAD-400 is a T5: the target is named by a tag in
+    front of the text, "<2ksw> In the beginning...", and there is nothing to
+    force at the start of the answer. NLLB-200 is told the source language
+    by its tokenizer and the target by the first token of the answer, which
+    is forced to the language's code ("mya_Mymr")."""
 
     def __init__(self, model_name, lang, batch):
         import torch
-        from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+        from transformers import AutoConfig, AutoModelForSeq2SeqLM, AutoTokenizer
 
         self.torch = torch
         self.batch = batch
+        self.lang = lang
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.tok = AutoTokenizer.from_pretrained(model_name)
-        self.tag = f"<2{TARGETS[lang]['mt']}> "
-        if self.tag.strip() not in self.tok.get_vocab():
-            raise SystemExit(f"{model_name} has no tag {self.tag.strip()} - it does not write {TARGETS[lang]['name']}")
+        code = TARGETS[lang]["mt"]
+        self.nllb = AutoConfig.from_pretrained(model_name).model_type == "m2m_100"
+        if self.nllb:
+            self.tok = AutoTokenizer.from_pretrained(model_name, src_lang="eng_Latn")
+            self.tag, self.first = "", {"forced_bos_token_id": self.tok.convert_tokens_to_ids(code)}
+            known = code in self.tok.get_vocab()
+        else:
+            self.tok = AutoTokenizer.from_pretrained(model_name)
+            self.tag, self.first = f"<2{code}> ", {}
+            known = self.tag.strip() in self.tok.get_vocab()
+        if not known:
+            raise SystemExit(f"{model_name} has no code {code} - it does not write {TARGETS[lang]['name']}")
+        banned = BANNED.get(lang)
+        self.banned = [[i] for piece, i in self.tok.get_vocab().items() if banned and banned.search(piece)]
         dtype = torch.bfloat16 if self.device == "cuda" else torch.float32
         self.model = AutoModelForSeq2SeqLM.from_pretrained(model_name, torch_dtype=dtype).to(self.device).eval()
         own = SCRIPTS.get(lang)
@@ -187,7 +251,9 @@ class Translator:
         longest = int(enc["input_ids"].shape[1])
         # Karen in this tokenizer runs to two or three times the English's tokens,
         # and a cap that cuts the beams off leaves a truncated one winning.
-        opts = dict(num_beams=4, max_new_tokens=min(384, longest * 3 + 30))
+        opts = dict(num_beams=4, max_new_tokens=min(384, longest * 3 + 30), **self.first)
+        if self.banned:
+            opts["bad_words_ids"] = self.banned
         opts.update(extra)
         with self.torch.no_grad():
             gen = self.model.generate(**enc, **opts)
@@ -220,6 +286,8 @@ class Translator:
 
     def stumbled(self, text):
         if self.own and not self.own.search(text):
+            return True
+        if self.lang == "my" and (ZAWGYI.search(tidy("my", text)) or LATIN.search(text)):
             return True
         return bool(find_loop(text)) or bool(stutter(text))
 
@@ -254,9 +322,11 @@ def translate_chapter(tr, lang, book, ch, model_name, force):
         text = ""
         for piece, glue in zip(done[a:b], glues[n]):
             text += glue + piece
-        parsed[n] = text.strip()
+        parsed[n] = tidy(lang, text.strip())
     bare = [n for n, t in parsed.items() if tr.own and not tr.own.search(t)]
     loops = [n for n, t in parsed.items() if find_loop(t)]
+    zawgyi = [n for n, t in parsed.items() if lang == "my" and ZAWGYI.search(t)]
+    latin = [n for n, t in parsed.items() if lang == "my" and LATIN.search(t)]
     dt = time.time() - t0
 
     md_path.parent.mkdir(parents=True, exist_ok=True)
@@ -271,9 +341,11 @@ def translate_chapter(tr, lang, book, ch, model_name, force):
     with LOG_PATH.open("a", encoding="utf-8") as f:
         f.write(json.dumps({"ts": time.strftime("%Y-%m-%dT%H:%M:%S"), "book": meta["name"], "chapter": ch,
                             "lang": lang, "model": model_name, "seconds": round(dt, 1),
-                            "verses": len(parsed), "pieces": len(flat), "bare": bare, "loop": loops}) + "\n")
-    status = "OK" if not (bare or loops) else "WARN " + " ".join(
-        s for s in (f"no-script={bare}" if bare else "", f"loop={loops}" if loops else "") if s)
+                            "verses": len(parsed), "pieces": len(flat), "bare": bare, "loop": loops,
+                            "zawgyi": zawgyi, "latin": latin}) + "\n")
+    status = "OK" if not (bare or loops or zawgyi or latin) else "WARN " + " ".join(
+        s for s in (f"no-script={bare}" if bare else "", f"loop={loops}" if loops else "",
+                    f"zawgyi={zawgyi}" if zawgyi else "", f"english={latin}" if latin else "") if s)
     print(f"  {meta['name']} {ch} [{lang}]: {len(parsed)} vv in {len(flat)} pieces, {dt:.0f}s [{status}]", flush=True)
     return parsed
 
@@ -284,7 +356,7 @@ def main():
     ap.add_argument("chapters", nargs="?", help="chapter or range, e.g. 1-3")
     ap.add_argument("--all", action="store_true", help="every book in order")
     ap.add_argument("--lang", required=True, help="a target marked mt in TARGETS, e.g. ksw")
-    ap.add_argument("--model", default=DEFAULT_MODEL)
+    ap.add_argument("--model", help="default: the language's own (see default_model)")
     ap.add_argument("--batch", type=int, default=6, help="pieces per model call (memory: see above)")
     ap.add_argument("--force", action="store_true", help="redo chapters already written")
     args = ap.parse_args()
@@ -297,6 +369,9 @@ def main():
                          f"{', '.join(c for c, t in TARGETS.items() if t.get('mt')) or 'none'})")
     if args.book and args.book not in BOOKS:
         raise SystemExit(f"unknown book {args.book!r}")
+    args.model = args.model or default_model(args.lang)
+    if not args.model:
+        raise SystemExit(f"no model on disk writes {target['name']}; name one with --model")
 
     books = sorted(BOOKS, key=lambda c: BOOKS[c]["num"]) if args.all else [args.book]
     jobs = []

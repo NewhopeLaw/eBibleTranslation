@@ -60,7 +60,7 @@ MYANMAR = r"က-႟ꧠ-꧿ꩠ-ꩿ"   # the Myanmar block and its two extensions;
 SCRIPTS = {"th": (r"฀-๿", "Thai"), "ja": (HAN + KANA, "Japanese"), "ja-easy": (HAN + KANA, "Japanese"),
            "ko": (HANGUL + HAN, "Korean"), "fa": (r"؀-ۿ", "Arabic-script"),
            "zh": (HAN, "Han"), "yue": (HAN, "Han"), "nan": (HAN, "Han"), "hak": (HAN, "Han"),
-           "ksw": (MYANMAR, "Myanmar")}
+           "ksw": (MYANMAR, "Myanmar"), "my": (MYANMAR, "Myanmar")}
 OTHERS = r"฀-๿" + HAN + KANA + HANGUL + MYANMAR + r"Ѐ-ӿ؀-ۿऀ-ॿ"
 LATIN_WORD = re.compile(r"[A-Za-z]{4,}")
 CAP_TOKEN = re.compile(r"\b[A-ZÁÉÍÓÚÑ][a-záéíóúñ]{2,}\b")
