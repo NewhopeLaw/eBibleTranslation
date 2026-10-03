@@ -1,0 +1,21 @@
+{
+ "book": "Psalms",
+ "chapter": 52,
+ "lang": "en",
+ "verses": {
+  "1": "For the Chief Musician. A maskil of David.",
+  "2": "When Doeg the Edomite came and told Saul, saying, David has come to the house of Abimelech.",
+  "3": "What profit is there in your boasting, O mighty one? The steadfast love of God remains all day long.",
+  "4": "Your tongue plots destruction, like a sharpened razor that works deceit.",
+  "5": "You love evil more than good, falsehood more than speaking righteousness. Selah.",
+  "6": "You love all words of destruction, a deceitful tongue.",
+  "7": "Therefore, God will cast you down forever. He will uproot you and remove you from your tent, and your root from the land of the living. Selah.",
+  "8": "Then the righteous will see and fear, and laugh upon him.",
+  "9": "Behold, the man who does not set God as his stronghold, but trusts in the abundance of his riches and strengthens himself in his own destruction.",
+  "10": "But I am like an olive tree in God’s house. I have put my trust in the steadfast love of God forever, and for evermore.",
+  "11": "I will praise you forever, for you have done it. I will wait for your name, because it is good, in the presence of your faithful ones.\n"
+ },
+ "notes": "Notes\n- v. 3: \"The steadfast love of God remains all day long\" — the Hebrew לְכָל־הַיּֽוֹם (\"for all the day\") is rendered to match the poetic contrast with the transient deceit of the wicked.\n- v. 5: \"Selah\" — retained in the translation as a poetic or musical marker, as is customary.\n- v. 9: \"Behold, the man who does not set God as his stronghold\" — the Hebrew לֹא־יָשִׂים אֱלֹהִים מָֽעוּזּוֹ is translated to read naturally in English while preserving the metaphor of divine refuge.\n- v. 10: \"I have put my trust in the steadfast love of God forever, and for evermore\" — the doubling of the phrase (עוֹלָם וָעֶֽד) is rendered to emphasize the enduring nature of the psalmist's hope.",
+ "raw": "[1] For the Chief Musician. A maskil of David.\n[2] When Doeg the Edomite came and told Saul, saying, David has come to the house of Abimelech.\n[3] What profit is there in your boasting, O mighty one? The steadfast love of God remains all day long.\n[4] Your tongue plots destruction, like a sharpened razor that works deceit.\n[5] You love evil more than good, falsehood more than speaking righteousness. Selah.\n[6] You love all words of destruction, a deceitful tongue.\n[7] Therefore, God will cast you down forever. He will uproot you and remove you from your tent, and your root from the land of the living. Selah.\n[8] Then the righteous will see and fear, and laugh upon him.\n[9] Behold, the man who does not set God as his stronghold, but trusts in the abundance of his riches and strengthens himself in his own destruction.\n[10] But I am like an olive tree in God’s house. I have put my trust in the steadfast love of God forever, and for evermore.\n[11] I will praise you forever, for you have done it. I will wait for your name, because it is good, in the presence of your faithful ones.\n\n---\nNotes\n- v. 3: \"The steadfast love of God remains all day long\" — the Hebrew לְכָל־הַיּֽוֹם (\"for all the day\") is rendered to match the poetic contrast with the transient deceit of the wicked.\n- v. 5: \"Selah\" — retained in the translation as a poetic or musical marker, as is customary.\n- v. 9: \"Behold, the man who does not set God as his stronghold\" — the Hebrew לֹא־יָשִׂים אֱלֹהִים מָֽעוּזּוֹ is translated to read naturally in English while preserving the metaphor of divine refuge.\n- v. 10: \"I have put my trust in the steadfast love of God forever, and for evermore\" — the doubling of the phrase (עוֹלָם וָעֶֽד) is rendered to emphasize the enduring nature of the psalmist's hope.",
+ "engine": "qwen3:32b"
+}

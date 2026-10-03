@@ -1,0 +1,32 @@
+{
+ "book": "Psalms",
+ "chapter": 103,
+ "lang": "es",
+ "verses": {
+  "1": "Bendice, alma mía, al SEÑOR, y todo lo que hay en mí, su nombre santo.",
+  "2": "Bendice, alma mía, al SEÑOR, y no olvides ninguna de sus bondades.",
+  "3": "El que perdona todas tus maldades, el que sana todas tus afecciones,",
+  "4": "el que rescata tu vida de la corrupción, el que te unge con amor leal y con misericordia.",
+  "5": "El que sacia tu deseo con el bien, y renueva tu juventud como la de un halcón.",
+  "6": "El SEÑOR hace justicia, y dicta sentencias para todos los oprimidos.",
+  "7": "Reveló sus caminos a Moisés, e hizo conocer sus obras a los hijos de Israel.",
+  "8": "El SEÑOR es compasivo y misericordioso, lento para airarse y rico en amor.",
+  "9": "No se enojará para siempre, ni prolongará su ira.",
+  "10": "No nos trató según nuestros pecados, ni nos castigó según nuestras maldades.",
+  "11": "Porque tan alto es su amor sobre los que le temen, como el cielo sobre la tierra.",
+  "12": "Tan lejos ha alejado nuestras transgresiones de nosotros como el oriente está del occidente.",
+  "13": "Como un padre compadece a sus hijos, así el SEÑOR compadece a los que le temen.",
+  "14": "Porque él conoce nuestra fragilidad, se acuerda de que somos polvo.",
+  "15": "El hombre es como la hierba, sus días como el brote del campo.",
+  "16": "Al soplar sobre él el viento, no queda más rastro, ni reconoce ya su lugar.",
+  "17": "Mas el amor del SEÑOR dura para siempre, y su justicia hasta las generaciones futuras,",
+  "18": "para los que guardan su pacto y recuerdan de cumplir sus mandatos.",
+  "19": "El SEÑOR ha puesto su trono en los cielos, y su reino domina sobre todo.",
+  "20": "Bendigan al SEÑOR, ángeles suyos, poderosos en fuerza, que cumplen su palabra y oyen la voz de sus mandatos.",
+  "21": "Bendigan al SEÑOR, todas sus huestes, sus siervos que hacen su voluntad.",
+  "22": "Bendigan al SEÑOR, todos sus creados, en todos los lugares de su reinado. Bendice, alma mía, al SEÑOR.\n"
+ },
+ "notes": "Notes  \n- v. 1: La palabra «נַפְשִׁי» se traduce como «alma mía» en un sentido metafórico y no literal, ya que el contexto no sugiere un uso teológico de la palabra.  \n- v. 5: El término «עֶדְיֵךְ» se traduce como «tu deseo» en lugar de «tu juventud», ya que el texto implica un deseo insaciable por lo bueno.  \n- v. 11: La comparación con el cielo y la tierra se mantiene tal cual, respetando el estilo poético del salmo.  \n- v. 15: «חָצִיר» se traduce como «hierba» y no como «grama», para mantener una imágen más general y natural.  \n- v. 17: La frase «לִבְנֵי בָנִים» se interpreta como «hasta las generaciones futuras» en lugar de «a hijos de hijos», para transmitir la idea de duración más allá de una generación.",
+ "raw": "[1] Bendice, alma mía, al SEÑOR, y todo lo que hay en mí, su nombre santo.  \n[2] Bendice, alma mía, al SEÑOR, y no olvides ninguna de sus bondades.  \n[3] El que perdona todas tus maldades, el que sana todas tus afecciones,  \n[4] el que rescata tu vida de la corrupción, el que te unge con amor leal y con misericordia.  \n[5] El que sacia tu deseo con el bien, y renueva tu juventud como la de un halcón.  \n[6] El SEÑOR hace justicia, y dicta sentencias para todos los oprimidos.  \n[7] Reveló sus caminos a Moisés, e hizo conocer sus obras a los hijos de Israel.  \n[8] El SEÑOR es compasivo y misericordioso, lento para airarse y rico en amor.  \n[9] No se enojará para siempre, ni prolongará su ira.  \n[10] No nos trató según nuestros pecados, ni nos castigó según nuestras maldades.  \n[11] Porque tan alto es su amor sobre los que le temen, como el cielo sobre la tierra.  \n[12] Tan lejos ha alejado nuestras transgresiones de nosotros como el oriente está del occidente.  \n[13] Como un padre compadece a sus hijos, así el SEÑOR compadece a los que le temen.  \n[14] Porque él conoce nuestra fragilidad, se acuerda de que somos polvo.  \n[15] El hombre es como la hierba, sus días como el brote del campo.  \n[16] Al soplar sobre él el viento, no queda más rastro, ni reconoce ya su lugar.  \n[17] Mas el amor del SEÑOR dura para siempre, y su justicia hasta las generaciones futuras,  \n[18] para los que guardan su pacto y recuerdan de cumplir sus mandatos.  \n[19] El SEÑOR ha puesto su trono en los cielos, y su reino domina sobre todo.  \n[20] Bendigan al SEÑOR, ángeles suyos, poderosos en fuerza, que cumplen su palabra y oyen la voz de sus mandatos.  \n[21] Bendigan al SEÑOR, todas sus huestes, sus siervos que hacen su voluntad.  \n[22] Bendigan al SEÑOR, todos sus creados, en todos los lugares de su reinado. Bendice, alma mía, al SEÑOR.  \n\n---  \nNotes  \n- v. 1: La palabra «נַפְשִׁי» se traduce como «alma mía» en un sentido metafórico y no literal, ya que el contexto no sugiere un uso teológico de la palabra.  \n- v. 5: El término «עֶדְיֵךְ» se traduce como «tu deseo» en lugar de «tu juventud», ya que el texto implica un deseo insaciable por lo bueno.  \n- v. 11: La comparación con el cielo y la tierra se mantiene tal cual, respetando el estilo poético del salmo.  \n- v. 15: «חָצִיר» se traduce como «hierba» y no como «grama», para mantener una imágen más general y natural.  \n- v. 17: La frase «לִבְנֵי בָנִים» se interpreta como «hasta las generaciones futuras» en lugar de «a hijos de hijos», para transmitir la idea de duración más allá de una generación.",
+ "engine": "qwen3:32b"
+}

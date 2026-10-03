@@ -1,0 +1,10 @@
+# Psalms 88
+
+¹ Canción de salmo de los hijos de Core. Para el director musical. Sobre el instrumento de Mahalat. Para recordar. De Heman el israelita. ² SEÑOR, Dios mío de salvación, clamé de día, y en la noche delante de ti. ³ Entre ti entra mi oración; inclina tu oído a mi ruego, SEÑOR. ⁴ Porque mi alma está llena de males, y mis días se acercan al Seol. ⁵ Me contaron con los que descienden al abismo, me hice como un hombre sin ayuda. ⁶ Entre los muertos soy libre, como heridos echados a dormir en la tumba, cuyo recuerdo ya no tienes, y ellos mismos se separaron de tu mano. ⁷ Me arrojaste al hoyo más profundo, en tinieblas, en la sombra de la muerte. ⁸ Sobre mí se apoyó tu ira, y todos tus castigos me atacaste. Selá. ⁹ Me alejaste de mis conocidos, me hiciste un aborrecimiento para ellos; fui entregado y no pude salir. ¹⁰ Mis ojos se debilitaron por la miseria; clamé a ti, SEÑOR, con toda la jornada; extendí mis manos hacia ti. ¹¹ ¿Harás maravillas para los muertos? ¿Se levantarán los que están en el abismo y te alabarán? Selá. ¹² ¿Se contará en la tumba tu amor leal? ¿Tu fidelidad en la desgracia? ¹³ ¿Se conocerán en la oscuridad tus prodigios? ¿Tu justicia en la tierra olvidada? ¹⁴ Y yo, SEÑOR, a ti clamo, y al amanecer mi oración te precede. ¹⁵ ¿Por qué, SEÑOR, me abandonas? ¿Por qué escondes tu rostro de mí? ¹⁶ Soy pobre y afligido desde mi juventud; subí y fui humillado, y me desgarré. ¹⁷ Sobre mí pasaron tus iras, y tus terrores me conmovieron. ¹⁸ Me rodearon como el agua todo el día; me cercaron juntos. ¹⁹ Me alejaste de mi amigo, y mis conocidos de la oscuridad.
+
+---
+
+Notes
+- v. 1: "Sobre el instrumento de Mahalat. Para recordar" refleja el uso del término "lamnatse'ach al ma'achat le'anot", que se interpreta como una indicación musical y temática. 
+- v. 8 y 11: Se utilizó "Selá" según el uso tradicional en los salmos para denotar una pausa o reflexión.
+- v. 19: "De la oscuridad" se traduce de "mechashavet", que se refiere a la oscuridad o a la aflicción prolongada.

@@ -1,0 +1,27 @@
+{
+ "book": "Psalms",
+ "chapter": 86,
+ "lang": "en",
+ "verses": {
+  "1": "A prayer of David. The LORD, incline your ear; answer me, for I am poor and in want.",
+  "2": "Keep my life, for I am righteous; save your servant, O my God, who puts his trust in you.",
+  "3": "Be gracious to me, O Lord, for I call out to you all day long.",
+  "4": "Gladden the heart of your servant, for to you, O Lord, I have lifted up my soul.",
+  "5": "For you, O Lord, are good and forgiving, and rich in steadfast love to all who call upon you.",
+  "6": "Attend, O LORD, to my prayer, and give ear to my plea for mercy.",
+  "7": "In the day of my trouble I call upon you, for you will answer me.",
+  "8": "There is none like you among the gods, O Lord, and there is nothing like your works.",
+  "9": "All the nations you have made will come and worship before you, O Lord, and will honor your name.",
+  "10": "For you are great and do wondrous things; you alone are God.",
+  "11": "Teach me your way, O Lord, and I will walk in your truth; give me an undivided heart to revere your name.",
+  "12": "I will thank you, O Lord my God, with my whole heart, and I will glorify your name forever.",
+  "13": "For your steadfast love is great toward me, and you have rescued my soul from the depths below.",
+  "14": "The wicked rose up against me, and a band of violent men sought my life, and they did not set you before them.",
+  "15": "But you, O Lord, are a God merciful and gracious, slow to anger and abounding in steadfast love and truth.",
+  "16": "Turn to me and be gracious to me, grant your might to your servant, and save the son of your handmaid.",
+  "17": "Make with me a sign for good, that those who hate me may see and be put to shame, for you, O Lord, have helped me and comforted me.\n"
+ },
+ "notes": "Notes\n- v. 1: \"A prayer of David\" is a common psalm title; the Hebrew \"תְּפִלָּה\" is rendered as \"prayer\".\n- v. 11: \"undivided heart\" reflects the Hebrew \"לְבָבִי לְיִרְאָה\" which means \"my heart to fear.\"\n- v. 12: \"glorify your name\" is a standard rendering for \"כַּבְּדוּ לִשְׁמֶֽךָ.\"\n- v. 13: \"the depths below\" is an interpretive rendering of \"מִשְּׁאוֹל תַּחְתִּיָּֽה\" to reflect the Hebrew concept of Sheol and the lowest place.\n- v. 16: \"the son of your handmaid\" is a respectful and interpretive rendering of \"בֶּן־אֲמָתֶֽךָ\" to reflect the familial metaphor.",
+ "raw": "[1] A prayer of David. The LORD, incline your ear; answer me, for I am poor and in want.\n[2] Keep my life, for I am righteous; save your servant, O my God, who puts his trust in you.\n[3] Be gracious to me, O Lord, for I call out to you all day long.\n[4] Gladden the heart of your servant, for to you, O Lord, I have lifted up my soul.\n[5] For you, O Lord, are good and forgiving, and rich in steadfast love to all who call upon you.\n[6] Attend, O LORD, to my prayer, and give ear to my plea for mercy.\n[7] In the day of my trouble I call upon you, for you will answer me.\n[8] There is none like you among the gods, O Lord, and there is nothing like your works.\n[9] All the nations you have made will come and worship before you, O Lord, and will honor your name.\n[10] For you are great and do wondrous things; you alone are God.\n[11] Teach me your way, O Lord, and I will walk in your truth; give me an undivided heart to revere your name.\n[12] I will thank you, O Lord my God, with my whole heart, and I will glorify your name forever.\n[13] For your steadfast love is great toward me, and you have rescued my soul from the depths below.\n[14] The wicked rose up against me, and a band of violent men sought my life, and they did not set you before them.\n[15] But you, O Lord, are a God merciful and gracious, slow to anger and abounding in steadfast love and truth.\n[16] Turn to me and be gracious to me, grant your might to your servant, and save the son of your handmaid.\n[17] Make with me a sign for good, that those who hate me may see and be put to shame, for you, O Lord, have helped me and comforted me.\n\n---\nNotes\n- v. 1: \"A prayer of David\" is a common psalm title; the Hebrew \"תְּפִלָּה\" is rendered as \"prayer\".\n- v. 11: \"undivided heart\" reflects the Hebrew \"לְבָבִי לְיִרְאָה\" which means \"my heart to fear.\"\n- v. 12: \"glorify your name\" is a standard rendering for \"כַּבְּדוּ לִשְׁמֶֽךָ.\"\n- v. 13: \"the depths below\" is an interpretive rendering of \"מִשְּׁאוֹל תַּחְתִּיָּֽה\" to reflect the Hebrew concept of Sheol and the lowest place.\n- v. 16: \"the son of your handmaid\" is a respectful and interpretive rendering of \"בֶּן־אֲמָתֶֽךָ\" to reflect the familial metaphor.",
+ "engine": "qwen3:32b"
+}

@@ -1,0 +1,28 @@
+{
+ "book": "Psalms",
+ "chapter": 59,
+ "lang": "en",
+ "verses": {
+  "1": "For the Chief Musician. Do not destroy. A maskil of David, when he sent word to Saul and the house of Saul sought to kill him.",
+  "2": "Deliver me from my enemies, God. Rescue me from those who rise up against me.",
+  "3": "Deliver me from evildoers, and save me from men of blood.",
+  "4": "For behold, they lie in wait for my life. They gather against me, strong men, though I have done no wrong, nor have I sinned, O LORD.",
+  "5": "Without guilt they run and set ambushes. Wake up to meet me, and see!",
+  "6": "And you, O LORD God of hosts, God of Israel, rouse yourself to punish all the nations. Do not show mercy to any evildoers. Selah.",
+  "7": "They return at evening. They growl like a dog, and circle the city.",
+  "8": "Behold, they speak with their mouths. A sword is in their lips. For who hears?",
+  "9": "And you, O LORD, laugh at them. You mock all the nations.",
+  "10": "My strength I will guard to you, for you are my God, my place of refuge.",
+  "11": "My God, his steadfast love will go before me. My God will show me in my enemies.",
+  "12": "Do not destroy them, lest they forget your law. Scatter them by your power, and bring them down, O my Defender, LORD.",
+  "13": "Their sin is in their mouths, the talk of their lips. Let them be caught in their pride. Let them be punished by their deception and falsehood.",
+  "14": "Consume them in wrath, destroy them, so that they may not exist. Let them know that God rules over Jacob, to the ends of the earth. Selah.",
+  "15": "They return at evening. They growl like a dog, and circle the city.",
+  "16": "They are scattered to eat. If they are satisfied, they will growl.",
+  "17": "But I will sing of your strength, and I will rejoice in your steadfast love at morning, for you have been my place of refuge, my shelter in the day of distress.",
+  "18": "My strength, to you I will sing. For you are my God, my place of refuge, my steadfast love."
+ },
+ "notes": "Notes\n- v. 1: The phrase \"when he sent word to Saul and the house of Saul sought to kill him\" is a historical title, explained in the context of 1 Samuel 19.\n- v. 6: \"Selah\" is retained as is, since its function and meaning are unclear but it is a fixed feature in the text.\n- v. 12: \"Defender\" is used for מָגִנֵּנוּ to convey protection, consistent with the root meaning.\n- v. 14: \"Consume them in wrath, destroy them\" reflects the poetic parallelism of the Hebrew, with כַּלֵּה repeated.\n- v. 17-18: The repetition of \"my place of refuge\" and \"my steadfast love\" reflects the psalmist's emphasis on divine loyalty and protection.",
+ "raw": "[1] For the Chief Musician. Do not destroy. A maskil of David, when he sent word to Saul and the house of Saul sought to kill him.\n[2] Deliver me from my enemies, God. Rescue me from those who rise up against me.\n[3] Deliver me from evildoers, and save me from men of blood.\n[4] For behold, they lie in wait for my life. They gather against me, strong men, though I have done no wrong, nor have I sinned, O LORD.\n[5] Without guilt they run and set ambushes. Wake up to meet me, and see!\n[6] And you, O LORD God of hosts, God of Israel, rouse yourself to punish all the nations. Do not show mercy to any evildoers. Selah.\n[7] They return at evening. They growl like a dog, and circle the city.\n[8] Behold, they speak with their mouths. A sword is in their lips. For who hears?\n[9] And you, O LORD, laugh at them. You mock all the nations.\n[10] My strength I will guard to you, for you are my God, my place of refuge.\n[11] My God, his steadfast love will go before me. My God will show me in my enemies.\n[12] Do not destroy them, lest they forget your law. Scatter them by your power, and bring them down, O my Defender, LORD.\n[13] Their sin is in their mouths, the talk of their lips. Let them be caught in their pride. Let them be punished by their deception and falsehood.\n[14] Consume them in wrath, destroy them, so that they may not exist. Let them know that God rules over Jacob, to the ends of the earth. Selah.\n[15] They return at evening. They growl like a dog, and circle the city.\n[16] They are scattered to eat. If they are satisfied, they will growl.\n[17] But I will sing of your strength, and I will rejoice in your steadfast love at morning, for you have been my place of refuge, my shelter in the day of distress.\n[18] My strength, to you I will sing. For you are my God, my place of refuge, my steadfast love.\n---\nNotes\n- v. 1: The phrase \"when he sent word to Saul and the house of Saul sought to kill him\" is a historical title, explained in the context of 1 Samuel 19.\n- v. 6: \"Selah\" is retained as is, since its function and meaning are unclear but it is a fixed feature in the text.\n- v. 12: \"Defender\" is used for מָגִנֵּנוּ to convey protection, consistent with the root meaning.\n- v. 14: \"Consume them in wrath, destroy them\" reflects the poetic parallelism of the Hebrew, with כַּלֵּה repeated.\n- v. 17-18: The repetition of \"my place of refuge\" and \"my steadfast love\" reflects the psalmist's emphasis on divine loyalty and protection.",
+ "engine": "qwen3:32b"
+}

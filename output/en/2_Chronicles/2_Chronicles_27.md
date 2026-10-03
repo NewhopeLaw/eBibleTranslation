@@ -1,0 +1,9 @@
+# 2 Chronicles 27
+
+¹ Jotham was twenty-five years old when he began to reign, and he reigned sixteen years in Jerusalem. His mother’s name was Jerushah, daughter of Sadok. ² He did what was right in the eyes of the LORD, just as all that his father Uzziah had done. Yet he did not enter the temple of the LORD, and the people were still corrupt. ³ He built the upper gate of the house of the LORD, and on the wall of Ophel he built many works. He also built cities. ⁴ He built cities in the hill country of Judah and in the forests, and he built villages and towers. ⁵ He fought against the king of the children of Ammon, and he prevailed over them. That year the children of Ammon gave him a hundred talents of silver, ten thousand cors of wheat, and ten thousand of barley. This was what the children of Ammon gave him in the first, second, and third years. ⁶ Jotham strengthened himself, for he had prepared his ways before the LORD his God. ⁷ The rest of the acts of Jotham, and his wars and his ways, indeed they are written in the Book of the Kings of Israel and Judah. ⁸ Jotham was twenty-five years old when he began to reign, and he reigned sixteen years in Jerusalem. ⁹ Jotham lay down with his ancestors and was buried in the city of David. Ahaz his son reigned in his place.
+
+---
+
+Notes
+- v. 2: "The people were still corrupt" reflects the Hebrew "ve'od ha'am machshitim," which literally means "and the people were still destroying" or "corrupting." The translation captures the sense of ongoing moral or spiritual corruption.
+- v. 5: The Hebrew text does not number the years in the same way as the Septuagint. The Septuagint includes a different structure, but the Hebrew here indicates that the tribute continued in the first, second, and third years. The verse is translated as a direct rendering of the Hebrew.

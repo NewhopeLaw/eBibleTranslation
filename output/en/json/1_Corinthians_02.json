@@ -1,0 +1,26 @@
+{
+ "book": "1 Corinthians",
+ "chapter": 2,
+ "lang": "en",
+ "verses": {
+  "1": "When I came to you, brothers, I did not come with superiority of speech or wisdom, declaring to you the testimony of God.",
+  "2": "For I resolved to know nothing among you except Jesus the Messiah and him crucified.",
+  "3": "And I came among you in weakness, in fear, and in great trembling,",
+  "4": "and my message and my proclamation were not in persuasive wisdom, but in proof of the Spirit and power,",
+  "5": "so that your faith might not be in the wisdom of humans, but in the power of God.",
+  "6": "We speak wisdom among the mature, but not the wisdom of this age or the rulers of this age who are being nullified;",
+  "7": "but we speak God's wisdom in mystery, the wisdom hidden, which God predestined before the ages for our glory;",
+  "8": "a wisdom no ruler of this age knew, for if he had known, he would not have crucified the Lord of glory.",
+  "9": "But just as it is written, “What eye has not seen, and ear has not heard, and into the heart of a human has not come, what God has prepared for those who love him.”",
+  "10": "For God revealed it to us through the Spirit, for the Spirit searches everything, even the depths of God.",
+  "11": "For who knows the things of a human except the spirit of the human that is in him? So also no one knows the things of God except the Spirit of God.",
+  "12": "Now we have not received the spirit of the world, but the Spirit from God, that we might know the things given to us by God.",
+  "13": "And we speak these things not in humanly taught words of wisdom, but in taught words of the Spirit, comparing spiritual things with spiritual.",
+  "14": "But the natural person does not accept the things of the Spirit of God, for they are foolishness to him, and he cannot understand them, because they are spiritually discerned.",
+  "15": "But the spiritual person discerns all things, yet is himself discerned by no one.",
+  "16": "For who has known the mind of the Lord, so as to instruct him? But we have the mind of Christ."
+ },
+ "notes": "Notes\n- v. 6: “rulers of this age” reflects the Greek “ἀρχόντων τοῦ αἰῶνος τούτου” as spiritual authorities being set aside, not political ones.\n- v. 11: “spirit of the human” and “Spirit of God” are differentiated deliberately to emphasize the contrast between the human and divine.\n- v. 13: “taught words of the Spirit” and “spiritual things with spiritual” preserve the double use of “πνευματικοῖς” for rhetorical effect.\n- v. 16: “mind of Christ” is a deliberate rendering of “νοῦν Χριστοῦ” to avoid overliteralism like “the mind of the Lord.”",
+ "raw": "[1] When I came to you, brothers, I did not come with superiority of speech or wisdom, declaring to you the testimony of God.\n[2] For I resolved to know nothing among you except Jesus the Messiah and him crucified.\n[3] And I came among you in weakness, in fear, and in great trembling,\n[4] and my message and my proclamation were not in persuasive wisdom, but in proof of the Spirit and power,\n[5] so that your faith might not be in the wisdom of humans, but in the power of God.\n[6] We speak wisdom among the mature, but not the wisdom of this age or the rulers of this age who are being nullified;\n[7] but we speak God's wisdom in mystery, the wisdom hidden, which God predestined before the ages for our glory;\n[8] a wisdom no ruler of this age knew, for if he had known, he would not have crucified the Lord of glory.\n[9] But just as it is written, “What eye has not seen, and ear has not heard, and into the heart of a human has not come, what God has prepared for those who love him.”\n[10] For God revealed it to us through the Spirit, for the Spirit searches everything, even the depths of God.\n[11] For who knows the things of a human except the spirit of the human that is in him? So also no one knows the things of God except the Spirit of God.\n[12] Now we have not received the spirit of the world, but the Spirit from God, that we might know the things given to us by God.\n[13] And we speak these things not in humanly taught words of wisdom, but in taught words of the Spirit, comparing spiritual things with spiritual.\n[14] But the natural person does not accept the things of the Spirit of God, for they are foolishness to him, and he cannot understand them, because they are spiritually discerned.\n[15] But the spiritual person discerns all things, yet is himself discerned by no one.\n[16] For who has known the mind of the Lord, so as to instruct him? But we have the mind of Christ.\n---\nNotes\n- v. 6: “rulers of this age” reflects the Greek “ἀρχόντων τοῦ αἰῶνος τούτου” as spiritual authorities being set aside, not political ones.\n- v. 11: “spirit of the human” and “Spirit of God” are differentiated deliberately to emphasize the contrast between the human and divine.\n- v. 13: “taught words of the Spirit” and “spiritual things with spiritual” preserve the double use of “πνευματικοῖς” for rhetorical effect.\n- v. 16: “mind of Christ” is a deliberate rendering of “νοῦν Χριστοῦ” to avoid overliteralism like “the mind of the Lord.”",
+ "engine": "qwen3:32b"
+}

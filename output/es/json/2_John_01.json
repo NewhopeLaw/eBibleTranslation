@@ -1,0 +1,23 @@
+{
+ "book": "2 John",
+ "chapter": 1,
+ "lang": "es",
+ "verses": {
+  "1": "El anciano a la elegida, la señora, y a sus hijos, a los que yo amo en verdad, y no solo yo, sino también todos los que conocen la verdad:",
+  "2": "por la verdad que permanece en nosotros, y que estará con nosotros por siempre.",
+  "3": "Que esté con nosotros la gracia, la misericordia y la paz, de parte de Dios el Padre, y de parte de Jesucristo, el Hijo del Padre, en verdad y en amor.",
+  "4": "Me alegré mucho al ver que entre tus hijos hay quienes caminan en verdad, como nos ha mandado el Padre.",
+  "5": "Ahora, señora, te pido no como escribiendo una orden nueva, sino aquella que teníamos desde el principio, que nos amemos los unos a los otros.",
+  "6": "Y esta es la amor: que caminemos según sus mandamientos. Este es el mandamiento, como ya oíste desde el principio, de que en él caminemos.",
+  "7": "Porque muchos falsos maestros han salido al mundo, los que no reconocen a Jesucristo haber venido en carne. Este es el falso maestro, y el anticristo.",
+  "8": "Cuiden por sí mismos, para que no pierdan lo que han trabajado, sino que reciban un premio completo.",
+  "9": "Todo el que avanza y no permanece en la enseñanza de Cristo, no tiene a Dios. El que permanece en la enseñanza, este tiene al Padre y al Hijo.",
+  "10": "Y si alguien viene a ustedes y no trae esta enseñanza, no lo reciban en la casa, ni les alegren.",
+  "11": "Porque el que le dice a tal hombre: «¡Alegre!», coopera con los malos hechos suyos.",
+  "12": "Tenía muchas cosas que escribirles, pero no quise hacerlo por carta y tinta, sino que espero ir a ustedes y hablar boca a boca, para que esté llena su alegría.",
+  "13": "Saluda a ti los hijos de tu hermana elegida.\n"
+ },
+ "notes": "Notes\n- v. 1: La construcción griega sugiere una forma informal y personal de saludo, por lo que se usó \"la señora\" en lugar de un título formal.\n- v. 10: La expresión «χαίρειν» se traduce como «alegre» en lugar de «saludar», para mantener el significado de la frase bíblica en español.\n- v. 13: Se asume que \"hermana elegida\" se refiere a una persona conocida por el autor y por el destinatario.",
+ "raw": "[1] El anciano a la elegida, la señora, y a sus hijos, a los que yo amo en verdad, y no solo yo, sino también todos los que conocen la verdad:\n[2] por la verdad que permanece en nosotros, y que estará con nosotros por siempre.\n[3] Que esté con nosotros la gracia, la misericordia y la paz, de parte de Dios el Padre, y de parte de Jesucristo, el Hijo del Padre, en verdad y en amor.\n[4] Me alegré mucho al ver que entre tus hijos hay quienes caminan en verdad, como nos ha mandado el Padre.\n[5] Ahora, señora, te pido no como escribiendo una orden nueva, sino aquella que teníamos desde el principio, que nos amemos los unos a los otros.\n[6] Y esta es la amor: que caminemos según sus mandamientos. Este es el mandamiento, como ya oíste desde el principio, de que en él caminemos.\n[7] Porque muchos falsos maestros han salido al mundo, los que no reconocen a Jesucristo haber venido en carne. Este es el falso maestro, y el anticristo.\n[8] Cuiden por sí mismos, para que no pierdan lo que han trabajado, sino que reciban un premio completo.\n[9] Todo el que avanza y no permanece en la enseñanza de Cristo, no tiene a Dios. El que permanece en la enseñanza, este tiene al Padre y al Hijo.\n[10] Y si alguien viene a ustedes y no trae esta enseñanza, no lo reciban en la casa, ni les alegren.\n[11] Porque el que le dice a tal hombre: «¡Alegre!», coopera con los malos hechos suyos.\n[12] Tenía muchas cosas que escribirles, pero no quise hacerlo por carta y tinta, sino que espero ir a ustedes y hablar boca a boca, para que esté llena su alegría.\n[13] Saluda a ti los hijos de tu hermana elegida.\n\n---\nNotes\n- v. 1: La construcción griega sugiere una forma informal y personal de saludo, por lo que se usó \"la señora\" en lugar de un título formal.\n- v. 10: La expresión «χαίρειν» se traduce como «alegre» en lugar de «saludar», para mantener el significado de la frase bíblica en español.\n- v. 13: Se asume que \"hermana elegida\" se refiere a una persona conocida por el autor y por el destinatario.",
+ "engine": "qwen3:32b"
+}

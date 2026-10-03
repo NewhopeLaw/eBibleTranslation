@@ -1,0 +1,11 @@
+# Exodus 11
+
+¹ El SEÑOR dijo a Moisés: «Aún una plaga más traeré sobre Faraón y sobre Egipto. Después de eso, Faraón soltará a ustedes, como si los arrojara a todos de su tierra». ² «Habla ahora al oído del pueblo, y que cada hombre pida a su vecino y cada mujer a su amiga joyas de plata y de oro». ³ El SEÑOR dio a su pueblo gracia a los ojos de los egipcios. Además, Moisés era un hombre muy respetado en la tierra de Egipto, tanto ante los siervos de Faraón como ante el pueblo. ⁴ Moisés dijo: «Así habla el SEÑOR: a medianoche yo entraré en el corazón de Egipto. ⁵ Morirá todo primogénito en la tierra de Egipto, desde el primogénito de Faraón que está sentado en su trono, hasta el primogénito de la sierva que se inclina al molino, y también todo primogénito de ganado». ⁶ Habrá un grito muy grande en toda la tierra de Egipto, como no ha habido antes, ni habrá otro como éste. ⁷ Pero a todos los hijos de Israel no ladrará un perro, ni a un hombre ni a una bestia, para que sepáis que el SEÑOR hace una diferencia entre Egipto e Israel. ⁸ «Todos tus siervos vendrán a mí y se inclinarán ante mí, diciendo: 'Ve tú y todo el pueblo que está contigo, y luego yo saldré'. Moisés salió de la presencia de Faraón con ira». ⁹ El SEÑOR dijo a Moisés: «Faraón no escuchará a ustedes, para que yo multiplique mis señales y maravillas en la tierra de Egipto». ¹⁰ Moisés y Aarón hicieron todos estos milagros delante de Faraón, y el SEÑOR endureció el corazón de Faraón, y no soltó a los hijos de Israel de su tierra.
+
+---
+
+Notes
+- v. 1: La expresión "שִׁלְּחוֹ כָּלָה גָּרֵשׁ יְגָרֵשׁ אֶתְכֶם" se ha traducido como "como si los arrojara a todos de su tierra" para reflejar la idea metafórica del texto.
+- v. 5: La frase "מִבְּכוֹר פַּרְעֹה... עַד בְּכוֹר הַשִּׁפְחָה" se ha interpretado como "desde el primogénito de Faraón... hasta el primogénito de la sierva" manteniéndose fiel al texto hebreo.
+- v. 7: La expresión "לֹא יֶֽחֱרַץ־כֶּלֶב לְשֹׁנוֹ" se ha traducido como "no ladrará un perro, ni a un hombre ni a una bestia" siguiendo una interpretación natural del texto.
+- v. 9: La expresión "לְמַעַן רְבוֹת מוֹפְתַי" se ha traducido como "para que yo multiplique mis señales" manteniéndose fiel al verbo "רָבָה" (multiplicar).

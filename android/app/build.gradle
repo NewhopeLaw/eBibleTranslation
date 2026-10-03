@@ -2,20 +2,107 @@ plugins {
     id "com.android.application"
 }
 
+// The release key never lives in the repository. When keystore.properties is
+// present (see keystore.properties.example) the release build is signed with
+// it; when it is absent the build still runs and simply produces an unsigned
+// artefact, so anyone can check out this folder and build a debug APK.
+def keystoreProps = new Properties()
+def keystoreFile = rootProject.file("keystore.properties")
+if (keystoreFile.exists()) keystoreFile.withInputStream { keystoreProps.load(it) }
+
+// scripts/build_apk.py (and the dashboard's button) builds either variant -
+// the reader alone, or the reader with every study layer - from its own staged
+// copy of the page, named here by -PappAssets, so src/main/assets is left to
+// sync_assets.sh. The same script passes a version code that rises with every
+// build, so each APK installs over the last; a plain build keeps the numbers
+// below.
+def appAssets = project.findProperty("appAssets")
+def versionCodeProp = project.findProperty("versionCode")
+def versionNameProp = project.findProperty("versionName")
+
 android {
     namespace "org.ebible.reader"
-    compileSdk 34
+    compileSdk 36
 
     defaultConfig {
         applicationId "org.ebible.reader"
-        minSdk 24
-        targetSdk 34
-        versionCode 1
-        versionName "0.1"
+        minSdk 24            // Android 7.0: old enough to cover cheap and second-hand phones, new enough for a modern WebView
+        targetSdk 36         // what Play asks of every new app and update from 31 August 2026
+        versionCode versionCodeProp ? (versionCodeProp as Integer) : 1
+        versionName versionNameProp ?: "1.0"
     }
+
+    sourceSets {
+        main {
+            if (appAssets) assets.srcDirs = [appAssets]
+        }
+    }
+
+    signingConfigs {
+        release {
+            if (keystoreProps.containsKey("storeFile")) {
+                storeFile file(keystoreProps["storeFile"])
+                storePassword keystoreProps["storePassword"]
+                keyAlias keystoreProps["keyAlias"]
+                keyPassword keystoreProps["keyPassword"]
+            }
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            // There is very little of our own code to shrink, but R8 also
+            // strips the parts of the androidx libraries we never call, which
+            // is most of them.
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            if (keystoreProps.containsKey("storeFile")) signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        buildConfig = false     // nothing reads BuildConfig; the debuggable flag comes from ApplicationInfo instead
+    }
+
+    lint {
+        // A mistake in a wrapper this small is worth stopping for, and the
+        // release that goes to Play should not be the first place anyone reads
+        // the lint report.
+        abortOnError = true
+        checkReleaseBuilds = true
+    }
+}
+
+dependencies {
+    // None of our own code is Kotlin, but the androidx libraries are, and they
+    // ask for different versions of its standard library: the older one still
+    // ships kotlin-stdlib-jdk8, whose classes moved into kotlin-stdlib in 1.8,
+    // so the build stops on duplicate classes. The Kotlin BOM holds all of them
+    // to one version, where the jdk8 artefact is an empty shim.
+    implementation platform("org.jetbrains.kotlin:kotlin-bom:1.9.24")
+
+    implementation "androidx.core:core:1.13.1"                // window insets, edge to edge, system bar appearance
+    implementation "androidx.activity:activity:1.9.3"           // ComponentActivity and the back dispatcher the predictive gesture needs
+    implementation "androidx.core:core-splashscreen:1.0.1"      // the Android 12 splash, back to Android 7
+}
+
+// The page is the app. Building without it produces an APK that opens on an
+// error screen, which is a confusing thing to discover on a phone, so say it
+// here instead.
+def readerPage = appAssets ? file("${appAssets}/index.html") : file("src/main/assets/index.html")
+def checkAssets = tasks.register("checkAssets") {
+    doLast {
+        if (!readerPage.exists()) {
+            throw new GradleException(appAssets
+                ? "${readerPage} is missing - run scripts/build_apk.py, which stages it"
+                : "src/main/assets/index.html is missing - run ./sync_assets.sh first")
         }
     }
 }
+tasks.named("preBuild") { dependsOn checkAssets }

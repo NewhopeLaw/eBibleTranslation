@@ -1,0 +1,28 @@
+{
+ "book": "Psalms",
+ "chapter": 10,
+ "lang": "es",
+ "verses": {
+  "1": "¿Por qué, SEÑOR, permaneces lejos? ¿Por qué guardas silencio en las angustias?",
+  "2": "El malvado, en su arrogancia, persigue al necesitado; se enreda en las trampas que ha urdido.",
+  "3": "Porque el malvado se gloría en lo que desea, y el codicioso maldice al SEÑOR.",
+  "4": "El malvado, alzado con su orgullo, no busca a Dios; todas sus maquinaciones son inútiles.",
+  "5": "Sus caminos se desvanecen siempre, y tus juicios están muy altos sobre él. Todos sus enemigos lo miran y retroceden.",
+  "6": "Dijo en su corazón: «No me moveré; de generación en generación no habrá maldad en mí».",
+  "7": "Su boca está llena de mentiras y engaño; bajo su lengua hay trabajo y maldad.",
+  "8": "Él se sienta en emboscadas en las plazas, en los escondites mata al inocente. Sus ojos acechan al desvalido.",
+  "9": "Como león en la guarida, acecha en la cabaña; acecha al necesitado, para atraparlo con su red.",
+  "10": "Se desploma, cae, y es atrapado en sus artimañas; la violencia de sus manos lo destruirá.",
+  "11": "Dijo en su corazón: «Dios no se acuerda, el Señor ocultó su rostro, no ha de verlo para siempre».",
+  "12": "Levántate, SEÑOR, Dios, extiende tu mano; no olvides al humilde.",
+  "13": "¿Por qué odia el malvado a Dios? El SEÑOR ha dicho en su corazón: «No lo juzgaré».",
+  "14": "Viste, porque tú ves el trabajo y la aflicción; tú lo miras para entregarlo en tus manos. Tú eres el que abandona al huérfano al cuidado de los demás.",
+  "15": "Rompe la fuerza del malvado y del perverso; busca su maldad, y no la encuentres.",
+  "16": "El SEÑOR reina para siempre y para siempre; las naciones perecerán de su tierra.",
+  "17": "Escuchaste, SEÑOR, la esperanza del humilde; tú acomodarás su corazón, atenderás con oído atento.",
+  "18": "Justificarás al huérfano y al afligido, para que no haya más quien los atormente sobre la tierra.\n"
+ },
+ "notes": "Notes  \n- v. 3: «maldice al SEÑOR» es una interpretación del verbo נִאֵץ, que puede significar \"despreciar\" u \"ofender\", pero el contexto sugiere una maldición directa.  \n- v. 13: La frase «El SEÑOR ha dicho en su corazón» no se refiere a una decisión divina real, sino a la ilusión del malvado de que Dios no actuará.  \n- v. 14: El texto sugiere que el malvado confía en que Dios no interviene, pero el salmista responde con la confianza en que Dios sí actúa.  \n- v. 18: La expresión «no haya más» (בַּל־יוֹסִיף) sugiere una acción decisiva de Dios que pone fin al mal, no solo una promesa futura.",
+ "raw": "[1] ¿Por qué, SEÑOR, permaneces lejos? ¿Por qué guardas silencio en las angustias?\n[2] El malvado, en su arrogancia, persigue al necesitado; se enreda en las trampas que ha urdido.\n[3] Porque el malvado se gloría en lo que desea, y el codicioso maldice al SEÑOR.\n[4] El malvado, alzado con su orgullo, no busca a Dios; todas sus maquinaciones son inútiles.\n[5] Sus caminos se desvanecen siempre, y tus juicios están muy altos sobre él. Todos sus enemigos lo miran y retroceden.\n[6] Dijo en su corazón: «No me moveré; de generación en generación no habrá maldad en mí».\n[7] Su boca está llena de mentiras y engaño; bajo su lengua hay trabajo y maldad.\n[8] Él se sienta en emboscadas en las plazas, en los escondites mata al inocente. Sus ojos acechan al desvalido.\n[9] Como león en la guarida, acecha en la cabaña; acecha al necesitado, para atraparlo con su red.\n[10] Se desploma, cae, y es atrapado en sus artimañas; la violencia de sus manos lo destruirá.\n[11] Dijo en su corazón: «Dios no se acuerda, el Señor ocultó su rostro, no ha de verlo para siempre».\n[12] Levántate, SEÑOR, Dios, extiende tu mano; no olvides al humilde.\n[13] ¿Por qué odia el malvado a Dios? El SEÑOR ha dicho en su corazón: «No lo juzgaré».\n[14] Viste, porque tú ves el trabajo y la aflicción; tú lo miras para entregarlo en tus manos. Tú eres el que abandona al huérfano al cuidado de los demás.\n[15] Rompe la fuerza del malvado y del perverso; busca su maldad, y no la encuentres.\n[16] El SEÑOR reina para siempre y para siempre; las naciones perecerán de su tierra.\n[17] Escuchaste, SEÑOR, la esperanza del humilde; tú acomodarás su corazón, atenderás con oído atento.\n[18] Justificarás al huérfano y al afligido, para que no haya más quien los atormente sobre la tierra.\n\n---\nNotes  \n- v. 3: «maldice al SEÑOR» es una interpretación del verbo נִאֵץ, que puede significar \"despreciar\" u \"ofender\", pero el contexto sugiere una maldición directa.  \n- v. 13: La frase «El SEÑOR ha dicho en su corazón» no se refiere a una decisión divina real, sino a la ilusión del malvado de que Dios no actuará.  \n- v. 14: El texto sugiere que el malvado confía en que Dios no interviene, pero el salmista responde con la confianza en que Dios sí actúa.  \n- v. 18: La expresión «no haya más» (בַּל־יוֹסִיף) sugiere una acción decisiva de Dios que pone fin al mal, no solo una promesa futura.",
+ "engine": "qwen3:32b"
+}

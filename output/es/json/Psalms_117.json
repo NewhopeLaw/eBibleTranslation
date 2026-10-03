@@ -1,0 +1,12 @@
+{
+ "book": "Psalms",
+ "chapter": 117,
+ "lang": "es",
+ "verses": {
+  "1": "Alaben al SEÑOR todas las naciones, den su alabanza a él todos los pueblos.\n",
+  "2": "Porque su amor leal es poderoso sobre nosotros, y la verdad del SEÑOR permanece para siempre.\n"
+ },
+ "notes": "Notes  \n- v. 2: La expresión *gavar alaynu* («es poderoso sobre nosotros») se interpreta como una forma enfática de decir que el amor leal de Dios se manifiesta con intensidad sobre los destinatarios. La traducción no sigue el orden literal del hebreo para mantener el español natural.",
+ "raw": "[1] Alaben al SEÑOR todas las naciones, den su alabanza a él todos los pueblos.\n\n[2] Porque su amor leal es poderoso sobre nosotros, y la verdad del SEÑOR permanece para siempre.\n\n---  \nNotes  \n- v. 2: La expresión *gavar alaynu* («es poderoso sobre nosotros») se interpreta como una forma enfática de decir que el amor leal de Dios se manifiesta con intensidad sobre los destinatarios. La traducción no sigue el orden literal del hebreo para mantener el español natural.",
+ "engine": "qwen3:32b"
+}

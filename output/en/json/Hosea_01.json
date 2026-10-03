@@ -1,0 +1,19 @@
+{
+ "book": "Hosea",
+ "chapter": 1,
+ "lang": "en",
+ "verses": {
+  "1": "The word of the LORD that came to Hosea son of Beeri in the days of Uzziah, Jotham, Ahaz, and Hezekiah, kings of Judah, and in the days of Jeroboam son of Joash, king of Israel.",
+  "2": "When the word of the LORD began to come to Hosea, the LORD said to Hosea, \"Go, take for yourself a wife of harlotry and children of harlotry, for the land is committing harlotry by turning away from the LORD.\"",
+  "3": "So he went and took Gomer daughter of Diblaim, and she conceived and bore him a son.",
+  "4": "The LORD said to Hosea, \"Name his name Jezreel, for soon I will punish the blood of Jezreel on the house of Jehu and will bring to an end the kingdom of the house of Israel.\"",
+  "5": "On that day I will break the bow of Israel in the valley of Jezreel.",
+  "6": "She conceived again and bore a daughter, and the LORD said to Hosea, \"Name her name No Mercy, for I will no longer show mercy to the house of Israel, for I will oppose them and not be their advocate anymore.\"",
+  "7": "But I will show mercy to the house of Judah, and I will save them through the LORD their God, not through bow or sword, not through war, horses, or horsemen.",
+  "8": "When No Mercy had weaned the child, she conceived again and bore a son.",
+  "9": "The LORD said, \"Name his name Not My People, for you are not my people and I will not be your God.\""
+ },
+ "notes": "Notes\n- v. 2: \"take for yourself a wife of harlotry\" – the Hebrew uses זְנוּנִים, a plural form, but the context is singular: a wife who commits harlotry.\n- v. 4: \"the house of Jehu\" – Jehu is the ancestor of the dynasty ruling Israel at the time of Hosea; the reference to his blood is symbolic, indicating the end of the dynasty.\n- v. 7: \"not through bow or sword, not through war, horses, or horsemen\" – the Septuagint adds \"not through the might of Egypt\" which is absent in the Hebrew; the chosen rendering follows the Hebrew.",
+ "raw": "[1] The word of the LORD that came to Hosea son of Beeri in the days of Uzziah, Jotham, Ahaz, and Hezekiah, kings of Judah, and in the days of Jeroboam son of Joash, king of Israel.  \n[2] When the word of the LORD began to come to Hosea, the LORD said to Hosea, \"Go, take for yourself a wife of harlotry and children of harlotry, for the land is committing harlotry by turning away from the LORD.\"  \n[3] So he went and took Gomer daughter of Diblaim, and she conceived and bore him a son.  \n[4] The LORD said to Hosea, \"Name his name Jezreel, for soon I will punish the blood of Jezreel on the house of Jehu and will bring to an end the kingdom of the house of Israel.\"  \n[5] On that day I will break the bow of Israel in the valley of Jezreel.  \n[6] She conceived again and bore a daughter, and the LORD said to Hosea, \"Name her name No Mercy, for I will no longer show mercy to the house of Israel, for I will oppose them and not be their advocate anymore.\"  \n[7] But I will show mercy to the house of Judah, and I will save them through the LORD their God, not through bow or sword, not through war, horses, or horsemen.  \n[8] When No Mercy had weaned the child, she conceived again and bore a son.  \n[9] The LORD said, \"Name his name Not My People, for you are not my people and I will not be your God.\"  \n---\nNotes\n- v. 2: \"take for yourself a wife of harlotry\" – the Hebrew uses זְנוּנִים, a plural form, but the context is singular: a wife who commits harlotry.\n- v. 4: \"the house of Jehu\" – Jehu is the ancestor of the dynasty ruling Israel at the time of Hosea; the reference to his blood is symbolic, indicating the end of the dynasty.\n- v. 7: \"not through bow or sword, not through war, horses, or horsemen\" – the Septuagint adds \"not through the might of Egypt\" which is absent in the Hebrew; the chosen rendering follows the Hebrew.",
+ "engine": "qwen3:32b"
+}

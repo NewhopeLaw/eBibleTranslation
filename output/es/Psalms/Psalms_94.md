@@ -1,0 +1,11 @@
+# Psalms 94
+
+¹ Dios vengador es el SEÑOR, Dios vengador ha aparecido. ² Eleva, oh juez de la tierra, devuelve el castigo al altivo. ³ ¿Hasta cuándo, oh SEÑOR, ¿hasta cuándo los malvados se ensoberbecen? ⁴ Hablan, emiten discursos, todos los que obran la maldad se afirman. ⁵ Han abatido a tu pueblo, oh SEÑOR, han afligido a tu heredad. ⁶ Han matado a la viuda y al extranjero, han dado muerte al huérfano. ⁷ Y dijeron: «No verá el SEÑOR, ni entenderá el Dios de Jacob». ⁸ Consideren, necios del pueblo, ¿cuándo entenderán ustedes? ⁹ ¿El que puso oído, no oirá? ¿O el que formó el ojo, no verá? ¹⁰ ¿El que enseña a las naciones, no corregirá? ¿El que instruye al hombre en la ciencia? ¹¹ El SEÑOR conoce los pensamientos de los hombres, porque son vanidad. ¹² Bienaventurado el hombre a quien tú, SEÑOR, le enseñes, y de tu Torá lo instruyas. ¹³ Para calmarle de días malos, hasta que abra el malvado su fosa. ¹⁴ Porque no abandonará el SEÑOR a su pueblo, ni dejará de lado su herencia. ¹⁵ Hasta que la justicia regrese a la justicia, y los rectos de corazón estén tras ella. ¹⁶ ¿Quién se alzará contra mí con los que obran el mal? ¿Quién se presentará en ayuda mía contra los que obran la maldad? ¹⁷ Si no fuera por el SEÑOR que me ayuda, pronto habría habitado la tumba mi alma. ¹⁸ Dije: «Mi pie se resbaló», pero tu amor leal, oh SEÑOR, me sostuvo. ¹⁹ En mis angustias múltiples dentro de mí, tus consuelos me aliviaron el alma. ²⁰ ¿Se unirá contigo el trono de la maldad, el que urde iniquidad conforme a mandato? ²¹ Pretenden matar al justo, y condenar la sangre inocente. ²² Y el SEÑOR fue para mí un refugio, y mi Dios, una roca de seguridad. ²³ Devolvió sobre ellos su iniquidad, y en su maldad los destruirá el SEÑOR nuestro Dios.
+
+---
+
+Notes  
+- v. 12: La palabra hebrea "תּיַסְּרֶנּוּ" (tis'renu) deriva de "יָסַר" (yasar), que significa "corregir" o "enseñar", y se traduce aquí como "enseñar".  
+- v. 17: La frase hebrea "לִּי" (li) se traduce como "para mí", reflejando la forma reflexiva del verbo.  
+- v. 20: La palabra "כִּסֵּא" (kise) se interpreta como "trono", y "יֹצֵר עָמָל" (yotser 'amal) se entiende como "que urde iniquidad".  
+- v. 23: La repetición de "יַצְמִיתֵם" en el texto se mantiene en la traducción para respetar el énfasis poético original.

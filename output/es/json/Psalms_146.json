@@ -1,0 +1,20 @@
+{
+ "book": "Psalms",
+ "chapter": 146,
+ "lang": "es",
+ "verses": {
+  "1": "Alaba al SEÑOR, alma mía.",
+  "2": "Alabaré al SEÑOR mientras viva, cantaré al Dios mío mientras esté yo.",
+  "3": "No confiéis en príncipes, ni en hijos de hombre, que no tienen salvación.",
+  "4": "Sale su espíritu y vuelve a su tierra, aquel día perecerán sus pensamientos.",
+  "5": "Bienaventurado el que toma al SEÑOR por ayuda, cuya esperanza está en Dios su Dios.",
+  "6": "El que hace los cielos y la tierra, el mar y cuanto hay en ellos, el que guarda la verdad para siempre.",
+  "7": "El que hace justicia a los oprimidos, da pan al hambriento. El SEÑOR libera a los presos.",
+  "8": "El SEÑOR abre los ojos de los ciegos, el SEÑOR levanta a los doblados, el SEÑOR ama a los justos.",
+  "9": "El SEÑOR cuida a los forasteros, sostiene al huérfano y a la viuda, y dobla la senda de los malvados.",
+  "10": "Reinara el SEÑOR por siempre, tu Dios, Sión, de generación en generación. Alaba al SEÑOR.\n"
+ },
+ "notes": "Notes  \n- v. 1: «Hal-lú-jah» se traduce como «Alaba al SEÑOR» para mantener la alusión a la exclamación de alabanza, que en hebreo es un mandato dirigido a la comunidad.  \n- v. 4: «Eshtonotav» se interpreta como «pensamientos» para reflejar la idea de que al morir el hombre, se pierde su plan y sus proyectos.  \n- v. 10: «Sión» se mantiene como nombre propio sin adaptar.  \n- v. 7: «Asurim» se traduce como «presos» en vez de «atados», para mayor claridad en español moderno.",
+ "raw": "[1] Alaba al SEÑOR, alma mía.  \n[2] Alabaré al SEÑOR mientras viva, cantaré al Dios mío mientras esté yo.  \n[3] No confiéis en príncipes, ni en hijos de hombre, que no tienen salvación.  \n[4] Sale su espíritu y vuelve a su tierra, aquel día perecerán sus pensamientos.  \n[5] Bienaventurado el que toma al SEÑOR por ayuda, cuya esperanza está en Dios su Dios.  \n[6] El que hace los cielos y la tierra, el mar y cuanto hay en ellos, el que guarda la verdad para siempre.  \n[7] El que hace justicia a los oprimidos, da pan al hambriento. El SEÑOR libera a los presos.  \n[8] El SEÑOR abre los ojos de los ciegos, el SEÑOR levanta a los doblados, el SEÑOR ama a los justos.  \n[9] El SEÑOR cuida a los forasteros, sostiene al huérfano y a la viuda, y dobla la senda de los malvados.  \n[10] Reinara el SEÑOR por siempre, tu Dios, Sión, de generación en generación. Alaba al SEÑOR.  \n\n---  \nNotes  \n- v. 1: «Hal-lú-jah» se traduce como «Alaba al SEÑOR» para mantener la alusión a la exclamación de alabanza, que en hebreo es un mandato dirigido a la comunidad.  \n- v. 4: «Eshtonotav» se interpreta como «pensamientos» para reflejar la idea de que al morir el hombre, se pierde su plan y sus proyectos.  \n- v. 10: «Sión» se mantiene como nombre propio sin adaptar.  \n- v. 7: «Asurim» se traduce como «presos» en vez de «atados», para mayor claridad en español moderno.",
+ "engine": "qwen3:32b"
+}

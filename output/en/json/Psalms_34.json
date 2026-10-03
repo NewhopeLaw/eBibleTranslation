@@ -1,0 +1,33 @@
+{
+ "book": "Psalms",
+ "chapter": 34,
+ "lang": "en",
+ "verses": {
+  "1": "Of David, when he changed his appearance before Abimelech, who drove him away, and he went out.\n",
+  "2": "I will bless the LORD at all times; his praise is always on my lips.\n",
+  "3": "Let my soul glory in the LORD. Let the humble hear and rejoice.\n",
+  "4": "Magnify the LORD together with me, let us exalt his name together.\n",
+  "5": "I sought the LORD, and he answered me; he rescued me from all my fears.\n",
+  "6": "Look to him and be radiant; let your faces never be ashamed.\n",
+  "7": "This poor one called out, and the LORD heard him and rescued him from all his troubles.\n",
+  "8": "The angel of the LORD encamps around those who fear him, and he rescues them.\n",
+  "9": "Taste and see that the LORD is good. Happy is the person who takes refuge in him.\n",
+  "10": "Fear the LORD, you who are his holy ones, for there is no lack for those who fear him.\n",
+  "11": "The rich became poor and hungry, but those who seek the LORD will lack no good thing.\n",
+  "12": "Come, children, listen to me; I will teach you the fear of the LORD.\n",
+  "13": "Who is the person who desires life, who loves to see good days?\n",
+  "14": "Keep your tongue from evil, and your lips from speaking deceit.\n",
+  "15": "Turn away from evil and do good; seek peace and pursue it.\n",
+  "16": "The eyes of the LORD are on the righteous, and his ears are open to their cry.\n",
+  "17": "But the face of the LORD is against those who do evil, to cut off from the earth the memory of them.\n",
+  "18": "The righteous cry, and the LORD hears them and rescues them from all their troubles.\n",
+  "19": "The LORD is near to the broken in heart, and he saves those who are crushed in spirit.\n",
+  "20": "Many are the sorrows of the righteous, but the LORD rescues them from them all.\n",
+  "21": "The LORD guards all their bones, not one of them will be broken.\n",
+  "22": "The death of the wicked is evil, and all who hate the righteous will come to ruin.\n",
+  "23": "The LORD redeems the soul of his servants, and all who trust in him will not be held guilty.\n"
+ },
+ "notes": "Notes\n- v. 1: \"Of David\" is a title indicating authorship or association. The phrase \"when he changed his appearance\" reflects the Hebrew expression \"בְּשַׁנּוֹתוֹ\" (in his changing), referring to a narrative event in 1 Samuel 21.\n- v. 8: \"The angel of the LORD\" is a standard rendering for מַלְאַךְ־יְהוָה, a figure often identified as a divine messenger or manifestation.\n- v. 17: \"The face of the LORD is against\" reflects the Hebrew \"פְּנֵי יְהוָה בְּ\", a phrase used in poetic contrast to \"the eyes of the LORD are on.\"\n- v. 21: \"Not one of them will be broken\" is a poetic and symbolic way of saying the righteous are fully protected; this is a loose allusion to the suffering and resurrection of Jesus in the New Testament, though the Hebrew text does not imply such a reference.",
+ "raw": "[1] Of David, when he changed his appearance before Abimelech, who drove him away, and he went out.\n\n[2] I will bless the LORD at all times; his praise is always on my lips.\n\n[3] Let my soul glory in the LORD. Let the humble hear and rejoice.\n\n[4] Magnify the LORD together with me, let us exalt his name together.\n\n[5] I sought the LORD, and he answered me; he rescued me from all my fears.\n\n[6] Look to him and be radiant; let your faces never be ashamed.\n\n[7] This poor one called out, and the LORD heard him and rescued him from all his troubles.\n\n[8] The angel of the LORD encamps around those who fear him, and he rescues them.\n\n[9] Taste and see that the LORD is good. Happy is the person who takes refuge in him.\n\n[10] Fear the LORD, you who are his holy ones, for there is no lack for those who fear him.\n\n[11] The rich became poor and hungry, but those who seek the LORD will lack no good thing.\n\n[12] Come, children, listen to me; I will teach you the fear of the LORD.\n\n[13] Who is the person who desires life, who loves to see good days?\n\n[14] Keep your tongue from evil, and your lips from speaking deceit.\n\n[15] Turn away from evil and do good; seek peace and pursue it.\n\n[16] The eyes of the LORD are on the righteous, and his ears are open to their cry.\n\n[17] But the face of the LORD is against those who do evil, to cut off from the earth the memory of them.\n\n[18] The righteous cry, and the LORD hears them and rescues them from all their troubles.\n\n[19] The LORD is near to the broken in heart, and he saves those who are crushed in spirit.\n\n[20] Many are the sorrows of the righteous, but the LORD rescues them from them all.\n\n[21] The LORD guards all their bones, not one of them will be broken.\n\n[22] The death of the wicked is evil, and all who hate the righteous will come to ruin.\n\n[23] The LORD redeems the soul of his servants, and all who trust in him will not be held guilty.\n\n---\nNotes\n- v. 1: \"Of David\" is a title indicating authorship or association. The phrase \"when he changed his appearance\" reflects the Hebrew expression \"בְּשַׁנּוֹתוֹ\" (in his changing), referring to a narrative event in 1 Samuel 21.\n- v. 8: \"The angel of the LORD\" is a standard rendering for מַלְאַךְ־יְהוָה, a figure often identified as a divine messenger or manifestation.\n- v. 17: \"The face of the LORD is against\" reflects the Hebrew \"פְּנֵי יְהוָה בְּ\", a phrase used in poetic contrast to \"the eyes of the LORD are on.\"\n- v. 21: \"Not one of them will be broken\" is a poetic and symbolic way of saying the righteous are fully protected; this is a loose allusion to the suffering and resurrection of Jesus in the New Testament, though the Hebrew text does not imply such a reference.",
+ "engine": "qwen3:32b"
+}

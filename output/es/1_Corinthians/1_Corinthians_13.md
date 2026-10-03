@@ -1,0 +1,9 @@
+# 1 Corinthians 13
+
+¹ Si hablo con las lenguas de los humanos y hasta las de los ángeles, pero no tengo amor, soy como un metal hueco o un tambor que suena vacío. ² Y si tengo profecía, y conozco todos los misterios y toda la sabiduría, y si tengo tanta fe que puedo mover montañas, pero no tengo amor, no soy nada. ³ Y si repartiera todo lo que tengo a los pobres, o incluso entregara mi cuerpo para que lo quemaran, pero no tengo amor, nada de eso me sirve. ⁴ El amor es paciente, es bondadoso. El amor no es celoso, no se pavonea ni se hincha de orgullo. ⁵ No actúa con grosería, no busca su propio interés, no se enoja, no lleva cuentas de las ofensas. ⁶ No se alegra con la injusticia, sino que se regocija con la verdad. ⁷ Todo lo disculpa, todo lo cree, todo lo espera, todo lo soporta. ⁸ El amor nunca falla. Aunque las profecías se acaben, aunque las lenguas se silencien, aunque el conocimiento desaparezca, ⁹ porque ahora conocemos solo en parte, y ahora profetizamos solo en parte; ¹⁰ pero cuando llegue lo perfecto, lo que era incompleto se acabará. ¹¹ Cuando era niño, hablaba, pensaba y razonaba como niño; pero cuando crecí, dejé atrás las cosas de niño. ¹² Ahora vemos como a través de un espejo, enigmas y sombras; pero entonces veremos cara a cara. Ahora conozco a medias, pero entonces conoceré como soy conocido. ¹³ Ahora quedan la fe, la esperanza y el amor, pero el más grande de estos es el amor.
+
+---
+
+Notes  
+- v. 8: La expresión "lo que era incompleto se acabará" traduce el griego "τὸ ἐκ μέρους καταργηθήσεται", donde "καταργηθήσεται" se entiende como "será anulado" o "dejará de ser", no como "será perfeccionado".  
+- v. 13: "el más grande de estos es el amor" refleja la jerarquía expresada por "μείζων δὲ τούτων ἡ ἀγάπη", manteniendo el contraste entre "más grande" y los tres valores mencionados.

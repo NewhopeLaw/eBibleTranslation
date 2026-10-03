@@ -1,0 +1,19 @@
+{
+ "book": "Psalms",
+ "chapter": 61,
+ "lang": "en",
+ "verses": {
+  "1": "For the Chief Musician. In instrumental music. Of David.",
+  "2": "Hear my prayer, O God. Attend to my plea.",
+  "3": "From the ends of the earth I cry to you. My heart is overwhelmed. In a high rock you raise me up, you lead me.",
+  "4": "For you have become my refuge, a tower of strength from the face of an enemy.",
+  "5": "I will dwell in your tent forever. I will hide in the shelter of your wings. Selah.",
+  "6": "For you, O God, have heard my prayers. You have given an inheritance to those who fear your name.",
+  "7": "Days upon days of a king you will add to his years, even to the age of generation and generation.",
+  "8": "The one who sits in the presence of God will dwell there forever. Mercy and truth will guard him.",
+  "9": "So I will sing your name forever, to pay my vows, day after day.\n"
+ },
+ "notes": "Notes\n- v. 5: \"Selah\" is retained as is, following the Hebrew manuscript.",
+ "raw": "[1] For the Chief Musician. In instrumental music. Of David.\n[2] Hear my prayer, O God. Attend to my plea.\n[3] From the ends of the earth I cry to you. My heart is overwhelmed. In a high rock you raise me up, you lead me.\n[4] For you have become my refuge, a tower of strength from the face of an enemy.\n[5] I will dwell in your tent forever. I will hide in the shelter of your wings. Selah.\n[6] For you, O God, have heard my prayers. You have given an inheritance to those who fear your name.\n[7] Days upon days of a king you will add to his years, even to the age of generation and generation.\n[8] The one who sits in the presence of God will dwell there forever. Mercy and truth will guard him.\n[9] So I will sing your name forever, to pay my vows, day after day.\n\n---\nNotes\n- v. 5: \"Selah\" is retained as is, following the Hebrew manuscript.",
+ "engine": "qwen3:32b"
+}

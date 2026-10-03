@@ -1,0 +1,10 @@
+# 3 John 1
+
+¹ The elder to Gaio the beloved, whom I love in truth. ² Beloved, I pray that all may go well with you and that you may be in good health, just as your soul is well. ³ I have greatly rejoiced at the coming of the brothers, who have borne witness to your truth, just as you walk in truth. ⁴ I have no greater joy than to hear that my children walk in truth. ⁵ Beloved, you are doing what is faithful when you do something for the brothers, especially for strangers. ⁶ These have testified about your love before the assembly, and you will do well to send them on their way in a manner worthy of God. ⁷ For they went out for the sake of his name, taking nothing from the nations. ⁸ We therefore ought to receive such people, so that we may become coworkers in the truth. ⁹ I wrote something to the assembly, but the one who loves to have the first place among them, Diotrephes, does not accept us. ¹⁰ Therefore, if I come, I will call to mind his deeds that he does, speaking evil and misleading us with his words; and not only does he himself refuse to receive the brothers, he also prevents those who want to and casts them out of the assembly. ¹¹ Beloved, do not imitate what is evil, but what is good. The one who does good comes from God; the one who does evil has not seen God. ¹² Demetrius is testified to by all, and by the truth itself. And we too testify, and you know that our testimony is true. ¹³ I had many things to write to you, but I do not want to write them with ink and pen. ¹⁴ But I hope to see you soon, and I will speak to you face to face. ¹⁵ Peace to you. The friends greet you. Greet the friends individually by name.
+
+---
+
+Notes
+- v. 1: "The elder" is a general title (πρεσβύτερος) used here rather than a specific name.  
+- v. 9: "Diotrephes" is a name not found elsewhere in the New Testament.  
+- v. 13: "With ink and pen" is a literal rendering of the Greek, which uses "black" (μέλανος) metaphorically for ink. The phrase emphasizes the physicality of writing rather than sending a letter.

@@ -1,0 +1,25 @@
+{
+ "book": "3 John",
+ "chapter": 1,
+ "lang": "en",
+ "verses": {
+  "1": "The elder to Gaio the beloved, whom I love in truth.",
+  "2": "Beloved, I pray that all may go well with you and that you may be in good health, just as your soul is well.",
+  "3": "I have greatly rejoiced at the coming of the brothers, who have borne witness to your truth, just as you walk in truth.",
+  "4": "I have no greater joy than to hear that my children walk in truth.",
+  "5": "Beloved, you are doing what is faithful when you do something for the brothers, especially for strangers.",
+  "6": "These have testified about your love before the assembly, and you will do well to send them on their way in a manner worthy of God.",
+  "7": "For they went out for the sake of his name, taking nothing from the nations.",
+  "8": "We therefore ought to receive such people, so that we may become coworkers in the truth.",
+  "9": "I wrote something to the assembly, but the one who loves to have the first place among them, Diotrephes, does not accept us.",
+  "10": "Therefore, if I come, I will call to mind his deeds that he does, speaking evil and misleading us with his words; and not only does he himself refuse to receive the brothers, he also prevents those who want to and casts them out of the assembly.",
+  "11": "Beloved, do not imitate what is evil, but what is good. The one who does good comes from God; the one who does evil has not seen God.",
+  "12": "Demetrius is testified to by all, and by the truth itself. And we too testify, and you know that our testimony is true.",
+  "13": "I had many things to write to you, but I do not want to write them with ink and pen.",
+  "14": "But I hope to see you soon, and I will speak to you face to face.",
+  "15": "Peace to you. The friends greet you. Greet the friends individually by name.\n"
+ },
+ "notes": "Notes\n- v. 1: \"The elder\" is a general title (πρεσβύτερος) used here rather than a specific name.  \n- v. 9: \"Diotrephes\" is a name not found elsewhere in the New Testament.  \n- v. 13: \"With ink and pen\" is a literal rendering of the Greek, which uses \"black\" (μέλανος) metaphorically for ink. The phrase emphasizes the physicality of writing rather than sending a letter.",
+ "raw": "[1] The elder to Gaio the beloved, whom I love in truth.  \n[2] Beloved, I pray that all may go well with you and that you may be in good health, just as your soul is well.  \n[3] I have greatly rejoiced at the coming of the brothers, who have borne witness to your truth, just as you walk in truth.  \n[4] I have no greater joy than to hear that my children walk in truth.  \n[5] Beloved, you are doing what is faithful when you do something for the brothers, especially for strangers.  \n[6] These have testified about your love before the assembly, and you will do well to send them on their way in a manner worthy of God.  \n[7] For they went out for the sake of his name, taking nothing from the nations.  \n[8] We therefore ought to receive such people, so that we may become coworkers in the truth.  \n[9] I wrote something to the assembly, but the one who loves to have the first place among them, Diotrephes, does not accept us.  \n[10] Therefore, if I come, I will call to mind his deeds that he does, speaking evil and misleading us with his words; and not only does he himself refuse to receive the brothers, he also prevents those who want to and casts them out of the assembly.  \n[11] Beloved, do not imitate what is evil, but what is good. The one who does good comes from God; the one who does evil has not seen God.  \n[12] Demetrius is testified to by all, and by the truth itself. And we too testify, and you know that our testimony is true.  \n[13] I had many things to write to you, but I do not want to write them with ink and pen.  \n[14] But I hope to see you soon, and I will speak to you face to face.  \n[15] Peace to you. The friends greet you. Greet the friends individually by name.  \n\n---\nNotes\n- v. 1: \"The elder\" is a general title (πρεσβύτερος) used here rather than a specific name.  \n- v. 9: \"Diotrephes\" is a name not found elsewhere in the New Testament.  \n- v. 13: \"With ink and pen\" is a literal rendering of the Greek, which uses \"black\" (μέλανος) metaphorically for ink. The phrase emphasizes the physicality of writing rather than sending a letter.",
+ "engine": "qwen3:32b"
+}

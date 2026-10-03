@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The one folder anything is ever shared out of: a copy of our own APK,
+     written there by the share-the-app button and by nothing else. -->
+<paths>
+    <cache-path name="share" path="share/" />
+</paths>

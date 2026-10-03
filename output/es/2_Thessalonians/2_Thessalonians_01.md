@@ -1,0 +1,9 @@
+# 2 Thessalonians 1
+
+¹ Pablo, Silasano y Timoteo a la asamblea de los tesalonicenses, en Dios Padre nuestro y en el Señor Jesucristo: ² Gracia y paz de parte de Dios Padre y del Señor Jesucristo. ³ Deberíamos siempre dar gracias a Dios por ustedes, hermanos, como corresponde, porque su fe crece cada vez más y la caridad de cada uno de ustedes hacia los demás abunda. ⁴ Por eso nosotros nos jactamos de ustedes en las asambleas de Dios por su paciencia y fe en todas las persecuciones y pruebas a las que se someten. ⁵ Esto es una señal de la justa condena de Dios, para que ustedes sean dignos del reino por el cual también sufren, ⁶ porque es justo delante de Dios que se pague a quienes los persiguen con la misma clase de sufrimiento. ⁷ Y a ustedes, quienes son perseguidos, les dará alivio con nosotros, cuando se revele el Señor Jesucristo desde el cielo, acompañado por la poderosa fuerza de sus ángeles. ⁸ Con fuego devorador castigará a los que no conocen a Dios y a los que no obedecen el evangelio de nuestro Señor Jesucristo. ⁹ Estos pagarán con destrucción eterna, lejos de la presencia del Señor y de la gloria de su poder. ¹⁰ Cuando él venga a ser glorificado entre sus santos y admirado por todos los creyentes, porque nuestro testimonio sobre ustedes fue creído en aquel día. ¹¹ Por eso siempre oramos por ustedes, para que el Dios que los llamó los haga dignos de su vocación, y que llene en ustedes toda buena obra y todo acto de fe con poder. ¹² Así el nombre de nuestro Señor Jesucristo será glorificado en ustedes, y ustedes en él, por la gracia de nuestro Dios y del Señor Jesucristo.
+
+---
+
+Notes  
+- v. 1: «Σιλουανὸς» se ha traducido como «Silasano» según la variante griega y el uso habitual en textos bíblicos en español.  
+- v. 8: La expresión «φλογὶ πυρός» se ha traducido como «con fuego devorador» para reflejar la intensidad del castigo mencionado.

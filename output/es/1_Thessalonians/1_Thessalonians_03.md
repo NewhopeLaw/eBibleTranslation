@@ -1,0 +1,10 @@
+# 1 Thessalonians 3
+
+¹ Por tanto, sin más dilación, nos alegramos de haber sido dejados atrás solos en Atenas, ² y enviamos a Timoteo, nuestro hermano y colaborador de Dios en el evangelio del Cristo, para que les afirmara y les animara en la fe que tienen, ³ para que nadie se inquiete por medio de estas tribulaciones. Ustedes mismos saben que esto es lo que sucede: ⁴ porque cuando estábamos con ustedes, les advertimos que sufriríamos, y así ha ocurrido, y ustedes lo saben. ⁵ Por eso, sin más dilación, también yo enviamos a Timoteo para que conociera la fe que tienen, para que quizás el que pone a prueba no los haya tentado, y nuestro trabajo no haya resultado en vano. ⁶ Pero ahora, al llegar Timoteo a nosotros desde ustedes y anunciarnos la fe y el amor que tienen, y que siempre tienen buen recuerdo nuestro y anhelan vernos, como también nosotros a ustedes, ⁷ por eso fuimos consolados, hermanos, en toda nuestra necesidad y tribulación por medio de su fe, ⁸ porque ahora vivimos si ustedes permanecen firmes en el Señor. ⁹ Porque, ¿qué gratitud podemos agradecer a Dios por ustedes, por toda la alegría con que nos alegramos delante de nuestro Dios, ¹⁰ noche y día rogando con insistencia para poder ver su rostro y completar las faltas de su fe? ¹¹ El mismo Dios y Padre nuestro, y el Señor nuestro Jesucristo, dirijan el camino hacia ustedes, ¹² y el Señor los haga abundar y superar en amor los unos hacia los otros, como también nosotros hacia ustedes, ¹³ para que fortalezcan sus corazones sin reproche en santidad delante de Dios y nuestro Padre, en la venida de nuestro Señor Jesucristo con todos los santos suyos.
+
+---
+
+Notes  
+- v. 5: La frase «mή πως ἐπείρασεν ὑμᾶς ὁ πειράζων» se traduce como «para que quizás el que pone a prueba no los haya tentado», respetando el tono de preocupación y oración del autor.  
+- v. 12: La palabra «πλεονάσαι» se ha traducido como «haga abundar», en lugar de «llene», para capturar el sentido de superabundancia en amor.  
+- v. 13: Se ha elegido «sin reproche» para «ἀμέμπτους» en lugar de «irreprochables», para mantener la coherencia con el estilo conversacional y moderno del texto.

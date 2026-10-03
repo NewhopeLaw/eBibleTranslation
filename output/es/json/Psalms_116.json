@@ -1,0 +1,29 @@
+{
+ "book": "Psalms",
+ "chapter": 116,
+ "lang": "es",
+ "verses": {
+  "1": "He amado porque el SEÑOR escuchó mi voz, escuchó mis ruegos.\n",
+  "2": "Porque atendió su oído a mí, y en los días de mi angustia grité.\n",
+  "3": "Me rodearon cuerdas de muerte, me encontraron trampas del Seol, hallé aflicción y angustia.\n",
+  "4": "Y en el nombre del SEÑOR llamé: ¡Ah, SEÑOR, sálvame la vida!\n",
+  "5": "El SEÑOR es misericordioso y justo, nuestro Dios es lleno de compasión.\n",
+  "6": "El SEÑOR guarda a los pequeños. Aunque me humillaran, me salvó.\n",
+  "7": "Vuelve, alma mía, a tu descanso, porque el SEÑOR ha actuado contigo con bondad.\n",
+  "8": "Porque me libró de la muerte, mis ojos de lágrimas, mis pies de resbalar.\n",
+  "9": "Caminaré delante del SEÑOR en las tierras de los vivos.\n",
+  "10": "Afiere mi confianza, porque dije: «¡He sido muy humillado!»\n",
+  "11": "Dije en mi apuro: «Todo hombre es falso.»\n",
+  "12": "¿Qué ofreceré al SEÑOR por todo lo que me ha dado?\n",
+  "13": "Levantaré la copa de salvación y llamaré en el nombre del SEÑOR.\n",
+  "14": "Pagaré mis votos al SEÑOR, delante de todo su pueblo.\n",
+  "15": "Precioso es en los ojos del SEÑOR la muerte de sus fieles.\n",
+  "16": "¡Ah, SEÑOR, porque yo soy tu siervo, yo tu siervo, hijo de tu sierva! Tú me abriste las manos para librarme.\n",
+  "17": "Sacrificaré un sacrificio de acción de gracias al SEÑOR, y llamaré en el nombre del SEÑOR.\n",
+  "18": "Pagaré mis votos al SEÑOR, delante de todo su pueblo.\n",
+  "19": "En las cortinas del templo del SEÑOR, en medio de ti, Jerusalén, ¡aleluya!\n"
+ },
+ "notes": "Notes\n- v. 10: La expresión «Afiere mi confianza» es una interpretación del verbo hebreo (אֱמַנְתִּי) que puede significar \"confié\" o \"me aferré a la confianza\". Se elige una voz activa para mantener la coherencia narrativa.\n- v. 19: La palabra hebrea \"חַצְרוֹת\" (cortinas) se interpreta como \"cortinas\" en lugar de \"atrios\" o \"puertas\", para mantener una lectura natural en español.\n- v. 15: La traducción de \"יָקָר\" como \"precioso\" es una interpretación contextual. También podría ser \"valioso\" o \"importante\", pero \"precioso\" refleja mejor el valor emocional y espiritual en este contexto.",
+ "raw": "[1] He amado porque el SEÑOR escuchó mi voz, escuchó mis ruegos.\n\n[2] Porque atendió su oído a mí, y en los días de mi angustia grité.\n\n[3] Me rodearon cuerdas de muerte, me encontraron trampas del Seol, hallé aflicción y angustia.\n\n[4] Y en el nombre del SEÑOR llamé: ¡Ah, SEÑOR, sálvame la vida!\n\n[5] El SEÑOR es misericordioso y justo, nuestro Dios es lleno de compasión.\n\n[6] El SEÑOR guarda a los pequeños. Aunque me humillaran, me salvó.\n\n[7] Vuelve, alma mía, a tu descanso, porque el SEÑOR ha actuado contigo con bondad.\n\n[8] Porque me libró de la muerte, mis ojos de lágrimas, mis pies de resbalar.\n\n[9] Caminaré delante del SEÑOR en las tierras de los vivos.\n\n[10] Afiere mi confianza, porque dije: «¡He sido muy humillado!»\n\n[11] Dije en mi apuro: «Todo hombre es falso.»\n\n[12] ¿Qué ofreceré al SEÑOR por todo lo que me ha dado?\n\n[13] Levantaré la copa de salvación y llamaré en el nombre del SEÑOR.\n\n[14] Pagaré mis votos al SEÑOR, delante de todo su pueblo.\n\n[15] Precioso es en los ojos del SEÑOR la muerte de sus fieles.\n\n[16] ¡Ah, SEÑOR, porque yo soy tu siervo, yo tu siervo, hijo de tu sierva! Tú me abriste las manos para librarme.\n\n[17] Sacrificaré un sacrificio de acción de gracias al SEÑOR, y llamaré en el nombre del SEÑOR.\n\n[18] Pagaré mis votos al SEÑOR, delante de todo su pueblo.\n\n[19] En las cortinas del templo del SEÑOR, en medio de ti, Jerusalén, ¡aleluya!\n\n---\nNotes\n- v. 10: La expresión «Afiere mi confianza» es una interpretación del verbo hebreo (אֱמַנְתִּי) que puede significar \"confié\" o \"me aferré a la confianza\". Se elige una voz activa para mantener la coherencia narrativa.\n- v. 19: La palabra hebrea \"חַצְרוֹת\" (cortinas) se interpreta como \"cortinas\" en lugar de \"atrios\" o \"puertas\", para mantener una lectura natural en español.\n- v. 15: La traducción de \"יָקָר\" como \"precioso\" es una interpretación contextual. También podría ser \"valioso\" o \"importante\", pero \"precioso\" refleja mejor el valor emocional y espiritual en este contexto.",
+ "engine": "qwen3:32b"
+}

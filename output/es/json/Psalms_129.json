@@ -1,0 +1,18 @@
+{
+ "book": "Psalms",
+ "chapter": 129,
+ "lang": "es",
+ "verses": {
+  "1": "Canción de las escalas. Muchas veces me hostigaron desde mi juventud, que lo diga Israel.\n",
+  "2": "Muchas veces me hostigaron desde mi juventud, pero no pudieron derrotarme.\n",
+  "3": "Sobre mi espalda aranaron, extendieron sus crueles designios.\n",
+  "4": "El SEÑOR es justo, cortó las raíces de los malvados.\n",
+  "5": "Que se avergüencen y retrocedan todos los que odian a Sión.\n",
+  "6": "Que sean como el césped de los tejados, que antes de ser recogido se secó.\n",
+  "7": "El que recogía no llenó su mano, ni el que metía la hoz recogió tanto.\n",
+  "8": "Y no dijeron los que pasaban: «Que la bendición del SEÑOR venga sobre nosotros, que nos bendigamos con el nombre del SEÑOR».\n"
+ },
+ "notes": "Notes\n- v. 1: La repetición de \"Muchas veces me hostigaron desde mi juventud\" en los versos 1 y 2 se mantiene fiel al texto hebreo, que reitera el mismo contenido para énfasis, algo común en la poesía bíblica.",
+ "raw": "[1] Canción de las escalas. Muchas veces me hostigaron desde mi juventud, que lo diga Israel.\n\n[2] Muchas veces me hostigaron desde mi juventud, pero no pudieron derrotarme.\n\n[3] Sobre mi espalda aranaron, extendieron sus crueles designios.\n\n[4] El SEÑOR es justo, cortó las raíces de los malvados.\n\n[5] Que se avergüencen y retrocedan todos los que odian a Sión.\n\n[6] Que sean como el césped de los tejados, que antes de ser recogido se secó.\n\n[7] El que recogía no llenó su mano, ni el que metía la hoz recogió tanto.\n\n[8] Y no dijeron los que pasaban: «Que la bendición del SEÑOR venga sobre nosotros, que nos bendigamos con el nombre del SEÑOR».\n\n---\nNotes\n- v. 1: La repetición de \"Muchas veces me hostigaron desde mi juventud\" en los versos 1 y 2 se mantiene fiel al texto hebreo, que reitera el mismo contenido para énfasis, algo común en la poesía bíblica.",
+ "engine": "qwen3:32b"
+}

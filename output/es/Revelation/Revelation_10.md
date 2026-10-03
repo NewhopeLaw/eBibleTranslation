@@ -1,0 +1,11 @@
+# Revelation 10
+
+¹ Vi a otro ángel poderoso bajando del cielo, envuelto en una nube, y había un arco iris sobre su cabeza, y su rostro era como el sol, y sus pies como columnas de fuego, ² y sostenía en su mano un libro abierto. Puso su pie derecho sobre el mar, y el izquierdo sobre la tierra, ³ y gritó con gran voz, como si un león rugiera. Y cuando gritó, hablaron las siete voces, cada una con su propia voz. ⁴ Y cuando hablaron las siete voces, estaba a punto de escribir, cuando escuché una voz del cielo que decía: «Sellado está lo que dijeron las siete voces; no lo escribas». ⁵ El ángel, al que vi de pie sobre el mar y sobre la tierra, levantó su mano derecha hacia el cielo, ⁶ y juró por el que vive para siempre y para siempre, quien creó el cielo y lo que en él hay, la tierra y lo que en ella hay, el mar y lo que en él hay, diciendo: «Ya no habrá más tiempo», ⁷ sino que en los días de la voz del séptimo ángel, cuando esté a punto de tocar la trompeta, se cumplirá el misterio de Dios, como anunció a sus siervos los profetas. ⁸ La voz que escuché del cielo, habló de nuevo conmigo, diciéndome: «Ve, toma el libro que está abierto en la mano del ángel que está de pie sobre el mar y sobre la tierra». ⁹ Y fui hacia el ángel y le dije que me diera el libro. Me respondió: «Toma y cómetelo, y será amargo en tu vientre, pero dulce en tu boca, como miel». ¹⁰ Tomé el libro de la mano del ángel y lo comí, y en mi boca era dulce como la miel. Y cuando lo comí, mi vientre se llenó de amargura. ¹¹ Me dijeron: «Debes profetizar otra vez a muchas naciones, pueblos, lenguas y reyes».
+
+---
+
+Notes  
+- v. 1: La descripción del ángel tiene rasgos simbólicos y apocalípticos que se traducen de manera literal, manteniendo la fuerza visual y metafórica del texto original.  
+- v. 4: La decisión de no escribir lo dicho por las siete voces se traduce con claridad narrativa, evitando la ambigüedad del verbo "sellar".  
+- v. 6: La expresión "para siempre y para siempre" refleja el original griego "τοὺς αἰῶνας τῶν αἰώνων", manteniendo el énfasis en la eternidad.  
+- v. 9-10: Se ha respetado la dualidad entre lo dulce en la boca y lo amargo en el vientre, traduciendo la experiencia de forma coherente con el simbolismo bíblico.

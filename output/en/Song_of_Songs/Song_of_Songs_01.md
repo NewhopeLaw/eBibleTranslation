@@ -1,0 +1,11 @@
+# Song of Songs 1
+
+¹ The Song of Songs, the song which pertains to Solomon. ² Kiss me with the kisses of your mouth, for your love is better than wine. ³ The fragrance of your perfumes is pleasant. Your name is oil poured out. Therefore, the young women love you. ⁴ Draw me after you, we will run. He has brought me into the chambers of the king, we will rejoice and be glad in you. We will remember your love more than wine. Rightly do they love you. ⁵ I am dark but beautiful, daughters of Jerusalem, like the tents of Kedar, like the curtains of Solomon. ⁶ Do not gaze at me because I am sun-darkened, for the sun has scorched me. My brothers were angry with me. They made me a guardian of vineyards, but I did not keep my own vineyard. ⁷ Tell me, beloved of my soul, where you pasture, where you make your sheep rest at midday, so that I will not be like one who hides from the flocks of your companions. ⁸ If you do not know, O most beautiful among women, follow the footsteps of the flock and tend your goats beside the tents of the shepherds. ⁹ My beloved is like a colt on Pharaoh’s chariots. ¹⁰ How beautiful are your cheeks with ornaments, your neck with pendants! ¹¹ We will make you ornaments of gold, with settings of silver. ¹² Until the king came to his couch, my nard gave forth its fragrance. ¹³ My beloved has given me a bundle of myrrh to lie between my breasts. ¹⁴ My beloved has given me a cluster of the vine in the vineyards of Ein Gedi. ¹⁵ Behold, you are beautiful, my beloved; behold, you are beautiful. Your eyes are doves. ¹⁶ Behold, you are handsome, my beloved, yes, pleasant. And our bed is green. ¹⁷ Our couches are cedars, our pillows are firs.
+
+---
+
+Notes
+- v. 1: "The Song of Songs" is a title meaning "the most excellent song" or "the chief of songs." The phrase "which pertains to Solomon" may refer to authorship, association, or setting.
+- v. 9: "My beloved is like a colt on Pharaoh’s chariots" — The Hebrew uses a metaphor comparing the beloved to a powerful or noble steed. The Septuagint renders it more abstractly as "like a colt," but the Hebrew metaphor is retained.
+- v. 14: "Ein Gedi" is a specific geographic location; it is preserved as is per the name table.
+- v. 17: "Our couches are cedars, our pillows are firs" — The metaphor of the bed and its furnishings is retained as a poetic image.

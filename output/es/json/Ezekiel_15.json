@@ -1,0 +1,18 @@
+{
+ "book": "Ezekiel",
+ "chapter": 15,
+ "lang": "es",
+ "verses": {
+  "1": "Vino la palabra de YHWH a mí, diciendo:\n",
+  "2": "Hijo del hombre, ¿qué puede ser el árbol de la vid en comparación con cualquier otro árbol de los que hay en los árboles del bosque?\n",
+  "3": "¿Se tomará de él madera para hacer un trabajo útil? ¿O se tomará de él un clavo para colgar algo en él?\n",
+  "4": "He aquí, se le entrega a la llama para ser consumido. La llama come sus dos extremidades y su interior se ennegrece. ¿Podrá servir para algo útil?\n",
+  "5": "He aquí, aunque estuviera entero, no serviría para nada útil. Y si la llama lo consume completamente y se ennegrece, tampoco servirá para algo útil.\n",
+  "6": "Por tanto, así dice el Señor YHWH: Así como el árbol de la vid entre los árboles del bosque, que he entregado a la llama para que lo consuma, así he entregado a los habitantes de Jerusalén.\n",
+  "7": "Y pondré mi rostro contra ellos. Saldrán del fuego, pero el fuego los devorará, y conoceréis que yo soy YHWH al poner mi rostro contra ellos.\n",
+  "8": "Y haré la tierra desolada, porque han cometido traición — oráculo del Señor YHWH.\n"
+ },
+ "notes": "Notes\n- v. 3: \"clavo\" para *yetad* (יָתֵד) es la traducción directa, pero el uso metafórico sugiere \"para colgar algo útil\" más que un clavo literal.\n- v. 6: \"entregado a la llama\" refleja el sentido de destrucción inútil, en paralelo con la condena de Jerusalén.\n- v. 8: \"porque han cometido traición\" traduce *ma'al* (מָעֲלוּ), que aquí se entiende como traición o infidelidad, común en contextos teológicos.",
+ "raw": "[1] Vino la palabra de YHWH a mí, diciendo:\n\n[2] Hijo del hombre, ¿qué puede ser el árbol de la vid en comparación con cualquier otro árbol de los que hay en los árboles del bosque?\n\n[3] ¿Se tomará de él madera para hacer un trabajo útil? ¿O se tomará de él un clavo para colgar algo en él?\n\n[4] He aquí, se le entrega a la llama para ser consumido. La llama come sus dos extremidades y su interior se ennegrece. ¿Podrá servir para algo útil?\n\n[5] He aquí, aunque estuviera entero, no serviría para nada útil. Y si la llama lo consume completamente y se ennegrece, tampoco servirá para algo útil.\n\n[6] Por tanto, así dice el Señor YHWH: Así como el árbol de la vid entre los árboles del bosque, que he entregado a la llama para que lo consuma, así he entregado a los habitantes de Jerusalén.\n\n[7] Y pondré mi rostro contra ellos. Saldrán del fuego, pero el fuego los devorará, y conoceréis que yo soy YHWH al poner mi rostro contra ellos.\n\n[8] Y haré la tierra desolada, porque han cometido traición — oráculo del Señor YHWH.\n\n---\nNotes\n- v. 3: \"clavo\" para *yetad* (יָתֵד) es la traducción directa, pero el uso metafórico sugiere \"para colgar algo útil\" más que un clavo literal.\n- v. 6: \"entregado a la llama\" refleja el sentido de destrucción inútil, en paralelo con la condena de Jerusalén.\n- v. 8: \"porque han cometido traición\" traduce *ma'al* (מָעֲלוּ), que aquí se entiende como traición o infidelidad, común en contextos teológicos.",
+ "engine": "qwen3:32b"
+}

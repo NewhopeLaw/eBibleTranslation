@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The window is only ever a frame around the page, so it is given the
+         page's own background and nothing else: no action bar, no title, no
+         second opinion about colour. The bars are painted transparent and the
+         activity draws behind them; MainActivity keeps the content clear of
+         them with the real insets. -->
+    <style name="Theme.EBible" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/page_bg</item>
+        <item name="android:colorAccent">@color/page_accent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <!-- A first guess so the bar icons are legible before the page has
+             reported its own colour; MainActivity corrects it once it has. -->
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <!-- The theme the activity is launched with. The splash screen library
+         hands over to Theme.EBible as soon as the activity is up, on Android 12
+         through the platform API and on everything older through its own
+         drawing of the same thing. -->
+    <style name="Theme.EBible.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/page_bg</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_mark_splash</item>
+        <item name="postSplashScreenTheme">@style/Theme.EBible</item>
+    </style>
+</resources>

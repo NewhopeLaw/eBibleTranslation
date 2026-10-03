@@ -1,0 +1,30 @@
+{
+ "book": "Psalms",
+ "chapter": 147,
+ "lang": "es",
+ "verses": {
+  "1": "Alaba al SEÑOR, porque es bueno el canto. Alaba nuestro Dios, porque es hermosa su gloria.",
+  "2": "El que edifica Jerusalén, el que reúne a los dispersos de Israel.",
+  "3": "El que cura los corazones quebrantados, el que venda sus dolores.",
+  "4": "El que cuenta el número de las estrellas, a todas les pone nombre.",
+  "5": "Grande es nuestro Señor y poderoso su vigor, incontable es su entendimiento.",
+  "6": "El que anima al humilde, el que abate a los malvados hasta la tierra.",
+  "7": "Cantad al SEÑOR con agradecimiento, dad música a nuestro Dios con el arpa.",
+  "8": "El que cubre los cielos con nubes, el que prepara la lluvia para la tierra, el que hace brotar hierba en las montañas y pasto para el ganado,",
+  "9": "el que da alimento a las bestias, a los que graznan y llaman a Él.",
+  "10": "No se deleita en la fuerza del caballo, ni en las piernas del hombre.",
+  "11": "El SEÑOR se goza en los que le temen, en todos los que esperan en su amor leal.",
+  "12": "Alabad a Jerusalén al SEÑOR, dad gracias a Dios vuestro en Sión.",
+  "13": "Porque Él ha fortalecido los cerrojos de tus puertas, ha bendecido a tus hijos dentro de ti.",
+  "14": "Ha fijado tu frontera en paz, te satura con grasa de trigo.",
+  "15": "El que envía su palabra a la tierra, y corre su mensaje con rapidez.",
+  "16": "El que nieva como lana blanca, espolvorea como polvo negro.",
+  "17": "El que lanza su frío como cuerdas, antes de la helada, ¿quién podrá resistir?",
+  "18": "El que envía su palabra y derrite los ríos, hace que el viento corra con agua.",
+  "19": "El que declara sus palabras a Jacob, sus decretos y juicios a Israel.",
+  "20": "No ha hecho así a ningún otro pueblo, ni conoce sus juicios. Alabad al SEÑOR.\n"
+ },
+ "notes": "Notes  \n- v. 1: La construcción del verso refleja un estilo poético repetitivo y exclamativo, típico del Salmo, respetando la estructura hebrea.  \n- v. 9: \"bene de orév\" se traduce como \"los que graznan\" para mantener el juego de palabras y el tono poético, refiriéndose a las aves.  \n- v. 15: \"mehéret\" se traduce como \"con rapidez\", en lugar de \"muy pronto\", para mantener el paralelismo con \"arroja su palabra\" y respetar el contexto.  \n- v. 16-18: La descripción meteorológica es literal y fiel al texto, evitando interpretaciones teológicas.  \n- v. 20: Se mantiene la estructura exclamativa final del Salmo como en el verso 1.",
+ "raw": "[1] Alaba al SEÑOR, porque es bueno el canto. Alaba nuestro Dios, porque es hermosa su gloria.  \n[2] El que edifica Jerusalén, el que reúne a los dispersos de Israel.  \n[3] El que cura los corazones quebrantados, el que venda sus dolores.  \n[4] El que cuenta el número de las estrellas, a todas les pone nombre.  \n[5] Grande es nuestro Señor y poderoso su vigor, incontable es su entendimiento.  \n[6] El que anima al humilde, el que abate a los malvados hasta la tierra.  \n[7] Cantad al SEÑOR con agradecimiento, dad música a nuestro Dios con el arpa.  \n[8] El que cubre los cielos con nubes, el que prepara la lluvia para la tierra, el que hace brotar hierba en las montañas y pasto para el ganado,  \n[9] el que da alimento a las bestias, a los que graznan y llaman a Él.  \n[10] No se deleita en la fuerza del caballo, ni en las piernas del hombre.  \n[11] El SEÑOR se goza en los que le temen, en todos los que esperan en su amor leal.  \n[12] Alabad a Jerusalén al SEÑOR, dad gracias a Dios vuestro en Sión.  \n[13] Porque Él ha fortalecido los cerrojos de tus puertas, ha bendecido a tus hijos dentro de ti.  \n[14] Ha fijado tu frontera en paz, te satura con grasa de trigo.  \n[15] El que envía su palabra a la tierra, y corre su mensaje con rapidez.  \n[16] El que nieva como lana blanca, espolvorea como polvo negro.  \n[17] El que lanza su frío como cuerdas, antes de la helada, ¿quién podrá resistir?  \n[18] El que envía su palabra y derrite los ríos, hace que el viento corra con agua.  \n[19] El que declara sus palabras a Jacob, sus decretos y juicios a Israel.  \n[20] No ha hecho así a ningún otro pueblo, ni conoce sus juicios. Alabad al SEÑOR.  \n\n---  \nNotes  \n- v. 1: La construcción del verso refleja un estilo poético repetitivo y exclamativo, típico del Salmo, respetando la estructura hebrea.  \n- v. 9: \"bene de orév\" se traduce como \"los que graznan\" para mantener el juego de palabras y el tono poético, refiriéndose a las aves.  \n- v. 15: \"mehéret\" se traduce como \"con rapidez\", en lugar de \"muy pronto\", para mantener el paralelismo con \"arroja su palabra\" y respetar el contexto.  \n- v. 16-18: La descripción meteorológica es literal y fiel al texto, evitando interpretaciones teológicas.  \n- v. 20: Se mantiene la estructura exclamativa final del Salmo como en el verso 1.",
+ "engine": "qwen3:32b"
+}

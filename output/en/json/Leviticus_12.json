@@ -1,0 +1,18 @@
+{
+ "book": "Leviticus",
+ "chapter": 12,
+ "lang": "en",
+ "verses": {
+  "1": "And the LORD spoke to Moses, saying:\n",
+  "2": "Speak to the people of Israel, saying: When a woman conceives and gives birth to a male, she will be unclean for seven days, as in the days of her menstruation, she will be unclean.\n",
+  "3": "And on the eighth day the flesh of his foreskin must be circumcised.\n",
+  "4": "And thirty days and three days she will remain in the blood of her purification. She must not touch anything holy, and she must not enter the sanctuary until the days of her purification are completed.\n",
+  "5": "But if she gives birth to a female, she will be unclean for two weeks as in her menstrual period, and she will remain in the blood of her purification for sixty days and six days.\n",
+  "6": "And when the days of her purification are completed, whether for a son or for a daughter, she will bring a one-year-old lamb for a burnt offering and a dove or a pigeon for a sin offering to the entrance of the Tent of Meeting to the priest.\n",
+  "7": "And he will present them before the LORD, and the priest will atone for her before the LORD, and she will be cleansed from the source of her blood. This is the law for the one who gives birth, whether to a male or a female.\n",
+  "8": "But if she is unable to find the means to bring a lamb, she will take two doves or two young pigeons, one for a burnt offering and one for a sin offering. The priest will atone for her, and she will be cleansed.\n"
+ },
+ "notes": "Notes\n- v. 4: \"in the blood of her purification\" renders the phrase \"בִּדְמֵי טָהֳרָה\" literally and clearly, capturing the connection between the woman's ritual impurity and the period of cleansing.\n- v. 8: \"young pigeons\" for בְּנֵי יוֹנָה is a direct translation, while \"doves\" for תֹּר is retained as a distinct term per the glossary.",
+ "raw": "[1] And the LORD spoke to Moses, saying:\n\n[2] Speak to the people of Israel, saying: When a woman conceives and gives birth to a male, she will be unclean for seven days, as in the days of her menstruation, she will be unclean.\n\n[3] And on the eighth day the flesh of his foreskin must be circumcised.\n\n[4] And thirty days and three days she will remain in the blood of her purification. She must not touch anything holy, and she must not enter the sanctuary until the days of her purification are completed.\n\n[5] But if she gives birth to a female, she will be unclean for two weeks as in her menstrual period, and she will remain in the blood of her purification for sixty days and six days.\n\n[6] And when the days of her purification are completed, whether for a son or for a daughter, she will bring a one-year-old lamb for a burnt offering and a dove or a pigeon for a sin offering to the entrance of the Tent of Meeting to the priest.\n\n[7] And he will present them before the LORD, and the priest will atone for her before the LORD, and she will be cleansed from the source of her blood. This is the law for the one who gives birth, whether to a male or a female.\n\n[8] But if she is unable to find the means to bring a lamb, she will take two doves or two young pigeons, one for a burnt offering and one for a sin offering. The priest will atone for her, and she will be cleansed.\n\n---\nNotes\n- v. 4: \"in the blood of her purification\" renders the phrase \"בִּדְמֵי טָהֳרָה\" literally and clearly, capturing the connection between the woman's ritual impurity and the period of cleansing.\n- v. 8: \"young pigeons\" for בְּנֵי יוֹנָה is a direct translation, while \"doves\" for תֹּר is retained as a distinct term per the glossary.",
+ "engine": "qwen3:32b"
+}

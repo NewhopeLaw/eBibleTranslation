@@ -1,0 +1,10 @@
+# Psalms 25
+
+¹ A ti, SEÑOR, alzo mi vida. ² Mi Dios, en ti he confiado, no sea yo avergonzado, ni se burlen de mí mis enemigos. ³ Porque todos los que esperan en ti no serán avergonzados, los que transgreden por vanidad serán avergonzados. ⁴ Tus caminos, SEÑOR, muéstramelos, tus senderos enséñamelos. ⁵ Guíame por tu verdad y enséñame, porque tú eres el Dios que me salva; en ti espero todo el día. ⁶ Acuérdate de tus misericordias y de tus amores, porque son desde la eternidad. ⁷ No recuerdes los pecados de mi juventud ni mis transgresiones; por tu amor acuérdate de mí, por tu bondad, SEÑOR. ⁸ Bueno y recto es el SEÑOR, por eso enseña a los pecadores el camino. ⁹ Guiará a los humildes en justicia, y les enseñará a los humildes su camino. ¹⁰ Todas las sendas del SEÑOR son amor leal y verdad, para los que guardan su pacto y sus testimonios. ¹¹ Por tu nombre, SEÑOR, perdona mi culpa, porque es muy grande. ¹² ¿Quién es este hombre que teme al SEÑOR? Le enseñará por el camino que ha elegido. ¹³ Su alma se apoyará en el bien, y su descendencia heredará la tierra. ¹⁴ El secreto del SEÑOR es para los que le temen, y su pacto para hacerlos conocerlo. ¹⁵ Mis ojos siempre están en el SEÑOR, porque él saca mis pies de la red. ¹⁶ Mira hacia mí y ten misericordia, porque soy huérfano y pobre. ¹⁷ Demasiadas son las angustias de mi corazón; sácame de mis aflicciones. ¹⁸ Mira mi humillación y mi trabajo, y lleva a cabo todas mis culpas. ¹⁹ Mira mis enemigos, porque son muchos, y el odio injusto me odian. ²⁰ Guarda mi vida y sálzame; no sea yo avergonzado, porque he esperado en ti. ²¹ Inocentes y rectos se unieron a mí, porque esperé en ti, SEÑOR. ²² Salva, Dios, a Israel de todas sus angustias.
+
+---
+
+Notes
+- v. 7: La forma hebrea "חַטֹּאות נְעוּרַי" se entiende como "pecados de mi juventud" y se traduce en consonancia con el sentido natural en español.
+- v. 12: La traducción mantiene el tono interrogativo y el carácter didáctico del salmo, como es habitual en este tipo de textos.
+- v. 14: "סוֹד" se traduce como "secreto" en lugar de "consejo" o "alianza", que también son posibles, pero "secreto" resuena mejor con el contexto de revelación divina.

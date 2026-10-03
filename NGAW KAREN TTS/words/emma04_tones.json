@@ -1,0 +1,326 @@
+[
+ {
+  "lesson": "emma/04",
+  "mark": "ၢ်",
+  "tone": "heavy falling",
+  "start": 60.8,
+  "end": 61.37,
+  "st_start_mid_end": [
+   -1.4,
+   0.8,
+   0.7
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ၢ်",
+  "tone": "heavy falling",
+  "start": 61.48,
+  "end": 62.22,
+  "st_start_mid_end": [
+   0.4,
+   -0.1,
+   -1.6
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ၢ်",
+  "tone": "heavy falling",
+  "start": 64.16,
+  "end": 64.62,
+  "st_start_mid_end": [
+   0.3,
+   0.2,
+   -2.0
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ၢ်",
+  "tone": "heavy falling",
+  "start": 64.85,
+  "end": 65.62,
+  "st_start_mid_end": [
+   1.4,
+   -0.2,
+   -1.6
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ၢ်",
+  "tone": "heavy falling",
+  "start": 69.35,
+  "end": 69.91,
+  "st_start_mid_end": [
+   2.9,
+   0.1,
+   1.0
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ၢ်",
+  "tone": "heavy falling",
+  "start": 70.18,
+  "end": 70.98,
+  "st_start_mid_end": [
+   0.9,
+   0.2,
+   -1.1
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ၤ",
+  "tone": "level, prolonged",
+  "start": 74.3,
+  "end": 74.51,
+  "st_start_mid_end": [
+   1.1,
+   -0.5,
+   -0.9
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ၤ",
+  "tone": "level, prolonged",
+  "start": 75.05,
+  "end": 75.71,
+  "st_start_mid_end": [
+   1.6,
+   -0.3,
+   -1.5
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ၤ",
+  "tone": "level, prolonged",
+  "start": 77.95,
+  "end": 78.19,
+  "st_start_mid_end": [
+   2.8,
+   -0.4,
+   0.2
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ၤ",
+  "tone": "level, prolonged",
+  "start": 78.83,
+  "end": 79.49,
+  "st_start_mid_end": [
+   0.7,
+   -0.6,
+   -1.9
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ၤ",
+  "tone": "level, prolonged",
+  "start": 81.7,
+  "end": 81.93,
+  "st_start_mid_end": [
+   3.3,
+   -0.7,
+   -0.4
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ၤ",
+  "tone": "level, prolonged",
+  "start": 82.56,
+  "end": 83.12,
+  "st_start_mid_end": [
+   1.3,
+   -12.1,
+   -1.8
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "း",
+  "tone": "abrupt, mid",
+  "start": 85.73,
+  "end": 86.14,
+  "st_start_mid_end": [
+   -11.5,
+   3.5,
+   3.3
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "း",
+  "tone": "abrupt, mid",
+  "start": 86.24,
+  "end": 86.69,
+  "st_start_mid_end": [
+   2.6,
+   0.4,
+   3.6
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "း",
+  "tone": "abrupt, mid",
+  "start": 88.87,
+  "end": 89.23,
+  "st_start_mid_end": [
+   0.5,
+   3.5,
+   3.6
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "း",
+  "tone": "abrupt, mid",
+  "start": 92.25,
+  "end": 92.81,
+  "st_start_mid_end": [
+   -8.8,
+   2.6,
+   5.4
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "း",
+  "tone": "abrupt, mid",
+  "start": 92.98,
+  "end": 93.47,
+  "st_start_mid_end": [
+   2.0,
+   -5.1,
+   12.3
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ၣ်",
+  "tone": "circumflex",
+  "start": 97.07,
+  "end": 97.43,
+  "st_start_mid_end": [
+   0.1,
+   -1.0,
+   1.5
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ၣ်",
+  "tone": "circumflex",
+  "start": 97.98,
+  "end": 98.72,
+  "st_start_mid_end": [
+   0.5,
+   0.0,
+   0.3
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ၣ်",
+  "tone": "circumflex",
+  "start": 100.68,
+  "end": 101.08,
+  "st_start_mid_end": [
+   -10.2,
+   -0.2,
+   0.5
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ၣ်",
+  "tone": "circumflex",
+  "start": 101.69,
+  "end": 102.42,
+  "st_start_mid_end": [
+   0.6,
+   -0.3,
+   -1.1
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ၣ်",
+  "tone": "circumflex",
+  "start": 104.56,
+  "end": 104.85,
+  "st_start_mid_end": [
+   -9.5,
+   0.8,
+   0.0
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ၣ်",
+  "tone": "circumflex",
+  "start": 105.54,
+  "end": 106.16,
+  "st_start_mid_end": [
+   2.3,
+   0.1,
+   -1.9
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ာ်",
+  "tone": "abrupt, low",
+  "start": 108.56,
+  "end": 108.83,
+  "st_start_mid_end": [
+   -1.6,
+   3.9,
+   2.2
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ာ်",
+  "tone": "abrupt, low",
+  "start": 109.17,
+  "end": 109.93,
+  "st_start_mid_end": [
+   -0.7,
+   0.3,
+   -0.4
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ာ်",
+  "tone": "abrupt, low",
+  "start": 111.8,
+  "end": 112.09,
+  "st_start_mid_end": [
+   3.9,
+   3.1,
+   5.2
+  ]
+ },
+ {
+  "lesson": "emma/04",
+  "mark": "ာ်",
+  "tone": "abrupt, low",
+  "start": 112.6,
+  "end": 113.38,
+  "st_start_mid_end": [
+   0.3,
+   -0.1,
+   -2.6
+  ]
+ }
+]

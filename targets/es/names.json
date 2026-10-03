@@ -1,0 +1,21 @@
+{
+  "_comment": "Grafías fijas en español de los nombres propios, para que todos los libros coincidan. Formas hebreas/griegas -> grafía española fija. Crece con el proyecto.",
+  "names": {
+    "אדם": "Adán", "חוה": "Eva", "קין": "Caín", "הבל": "Abel", "שת": "Set",
+    "נח": "Noé", "שם": "Sem", "חם": "Cam", "יפת": "Jafet",
+    "אברהם / אברם": "Abraham / Abram", "שרה / שרי": "Sara / Sarai",
+    "יצחק": "Isaac", "ישמעאל": "Ismael", "הגר": "Agar", "לוט": "Lot",
+    "יעקב": "Jacob", "עשו": "Esaú", "רבקה": "Rebeca", "לאה": "Lea", "רחל": "Raquel",
+    "יוסף": "José", "יהודה": "Judá", "בנימין": "Benjamín", "לבן": "Labán",
+    "משה": "Moisés", "אהרן": "Aarón", "מרים": "Miriam", "יהושע": "Josué",
+    "שאול": "Saúl", "דוד": "David", "שלמה": "Salomón", "שמואל": "Samuel",
+    "אליהו": "Elías", "אלישע": "Eliseo", "ישעיהו": "Isaías", "ירמיהו": "Jeremías",
+    "יחזקאל": "Ezequiel", "דניאל": "Daniel",
+    "מצרים": "Egipto", "כנען": "Canaán", "ירושלם": "Jerusalén", "בבל": "Babilonia",
+    "אשור": "Asiria", "פרעה": "el faraón", "ירדן": "el Jordán", "אפרת / בית לחם": "Efrata / Belén",
+    "Ἰησοῦς": "Jesús", "Πέτρος": "Pedro", "Παῦλος": "Pablo", "Ἰωάννης": "Juan",
+    "Μαρία / Μαριάμ": "María", "Ἰάκωβος": "Jacobo (Santiago solo en el título del libro)",
+    "Ἀνδρέας": "Andrés", "Ἰούδας": "Judas", "Πιλᾶτος": "Pilato", "Ἡρῴδης": "Herodes",
+    "Γαλιλαία": "Galilea", "Ναζαρέτ": "Nazaret", "Ῥώμη": "Roma"
+  }
+}

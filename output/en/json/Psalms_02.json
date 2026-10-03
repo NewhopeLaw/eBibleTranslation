@@ -1,0 +1,22 @@
+{
+ "book": "Psalms",
+ "chapter": 2,
+ "lang": "en",
+ "verses": {
+  "1": "Why do the nations rage and the peoples conspire in vain?",
+  "2": "The kings of the earth have taken their stand, and the rulers have gathered together against the LORD and against His anointed.",
+  "3": "Let us tear their bonds apart and cast their ropes from us.",
+  "4": "The One who dwells in the heavens will laugh; the Lord will mock them.",
+  "5": "Then He will speak to them in His anger, and in His fury He will alarm them.",
+  "6": "But I have set My king on Mount Zion, My holy hill.",
+  "7": "I will declare the decree of the LORD: He said to Me, “You are My son; today I have begotten You.”",
+  "8": "Ask of Me, and I will give You the nations as Your inheritance, and the ends of the earth as Your possession.",
+  "9": "You will shepherd them with a rod of iron, as clay vessels You will shatter them.",
+  "10": "Now then, you kings, be wise; take warning, all you rulers of the earth.",
+  "11": "Serve the LORD with fear, and rejoice with trembling.",
+  "12": "Kiss the Son, lest He be angry and you perish from the way, when His anger flares suddenly. How blessed are all who take refuge in Him!\n"
+ },
+ "notes": "Notes\n- v. 2: \"His anointed\" is used for *mashiach*, following the glossary.\n- v. 7: \"I will declare the decree\" is a rendering of *asapher*, which can mean \"declare\" or \"proclaim.\"\n- v. 9: \"Rod of iron\" and \"as clay vessels\" preserve the poetic imagery in the Hebrew without adding interpretive clarification.",
+ "raw": "[1] Why do the nations rage and the peoples conspire in vain?\n[2] The kings of the earth have taken their stand, and the rulers have gathered together against the LORD and against His anointed.\n[3] Let us tear their bonds apart and cast their ropes from us.\n[4] The One who dwells in the heavens will laugh; the Lord will mock them.\n[5] Then He will speak to them in His anger, and in His fury He will alarm them.\n[6] But I have set My king on Mount Zion, My holy hill.\n[7] I will declare the decree of the LORD: He said to Me, “You are My son; today I have begotten You.”\n[8] Ask of Me, and I will give You the nations as Your inheritance, and the ends of the earth as Your possession.\n[9] You will shepherd them with a rod of iron, as clay vessels You will shatter them.\n[10] Now then, you kings, be wise; take warning, all you rulers of the earth.\n[11] Serve the LORD with fear, and rejoice with trembling.\n[12] Kiss the Son, lest He be angry and you perish from the way, when His anger flares suddenly. How blessed are all who take refuge in Him!\n\n---\nNotes\n- v. 2: \"His anointed\" is used for *mashiach*, following the glossary.\n- v. 7: \"I will declare the decree\" is a rendering of *asapher*, which can mean \"declare\" or \"proclaim.\"\n- v. 9: \"Rod of iron\" and \"as clay vessels\" preserve the poetic imagery in the Hebrew without adding interpretive clarification.",
+ "engine": "qwen3:32b"
+}

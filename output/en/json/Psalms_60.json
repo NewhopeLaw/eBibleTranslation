@@ -1,0 +1,24 @@
+{
+ "book": "Psalms",
+ "chapter": 60,
+ "lang": "en",
+ "verses": {
+  "1": "For the Chief Musician. On Shushan Eduth. A maskil of David, to teach.",
+  "2": "When he stirred up Aram-Naharaim and Aram-Tzovah, and Yoav returned and struck Edom in the Valley of Salt, twelve thousand.",
+  "3": "God, you have forsaken us. You have scattered us. You have raged and shown us no mercy.",
+  "4": "You have shaken the earth, you have broken it. You have shattered its foundations, for it has been weakened.",
+  "5": "You have shown your people hardships. You have given us a wine of confusion.",
+  "6": "You have given a sign to your fears, to escape from the bowstring. Selah.",
+  "7": "That your beloved may be rescued, save with your right hand and give ear to me.",
+  "8": "God has spoken in his holy one. I will rejoice and divide Shechem, and I will measure the valley of the tents.",
+  "9": "Mine is Gilead, and mine is Manasseh, and Ephraim is the strength of my head. Judah is my ruler.",
+  "10": "Moab is the basin of my washing. On Edom I will cast my shoe. Over me the Philistines have shouted.",
+  "11": "Who will lead me into the city of siege? Who will guide me to Edom?",
+  "12": "Is it not you, O God, who have cast us off? And will you not go out, O God, with our armies?",
+  "13": "Give us help from distress, and vain is the salvation of man.",
+  "14": "In God we will do might, and he will trample our adversaries."
+ },
+ "notes": "Notes\n- v. 8: \"Shechem\" is a proper name, and the phrase \"divide Shechem\" reflects the historical reference to the city's division.\n- v. 10: \"Moab is the basin of my washing\" is a metaphor interpreted from the Hebrew, reflecting a poetic expression of conquest or humiliation.\n- v. 12: \"O God, who have cast us off\" reflects the meaning of the verb zanach, which can mean \"forsake\" or \"abandon,\" used in a context of lament.",
+ "raw": "[1] For the Chief Musician. On Shushan Eduth. A maskil of David, to teach.\n[2] When he stirred up Aram-Naharaim and Aram-Tzovah, and Yoav returned and struck Edom in the Valley of Salt, twelve thousand.\n[3] God, you have forsaken us. You have scattered us. You have raged and shown us no mercy.\n[4] You have shaken the earth, you have broken it. You have shattered its foundations, for it has been weakened.\n[5] You have shown your people hardships. You have given us a wine of confusion.\n[6] You have given a sign to your fears, to escape from the bowstring. Selah.\n[7] That your beloved may be rescued, save with your right hand and give ear to me.\n[8] God has spoken in his holy one. I will rejoice and divide Shechem, and I will measure the valley of the tents.\n[9] Mine is Gilead, and mine is Manasseh, and Ephraim is the strength of my head. Judah is my ruler.\n[10] Moab is the basin of my washing. On Edom I will cast my shoe. Over me the Philistines have shouted.\n[11] Who will lead me into the city of siege? Who will guide me to Edom?\n[12] Is it not you, O God, who have cast us off? And will you not go out, O God, with our armies?\n[13] Give us help from distress, and vain is the salvation of man.\n[14] In God we will do might, and he will trample our adversaries.\n---\nNotes\n- v. 8: \"Shechem\" is a proper name, and the phrase \"divide Shechem\" reflects the historical reference to the city's division.\n- v. 10: \"Moab is the basin of my washing\" is a metaphor interpreted from the Hebrew, reflecting a poetic expression of conquest or humiliation.\n- v. 12: \"O God, who have cast us off\" reflects the meaning of the verb zanach, which can mean \"forsake\" or \"abandon,\" used in a context of lament.",
+ "engine": "qwen3:32b"
+}

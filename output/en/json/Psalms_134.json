@@ -1,0 +1,13 @@
+{
+ "book": "Psalms",
+ "chapter": 134,
+ "lang": "en",
+ "verses": {
+  "1": "A song of ascents. Behold, bless the LORD, all you servants of the LORD, who stand in the house of the LORD in the night.\n",
+  "2": "Lift up your hands to the holy place and bless the LORD.\n",
+  "3": "May the LORD bless you from Zion, the one who made the heavens and the earth.\n"
+ },
+ "notes": "Notes\n- v. 1: The phrase \"הִנֵּה\" (\"Behold\") is retained for its emphatic function. The term \"בֵּית־יְהוָה\" is rendered \"the house of the LORD\" to reflect its liturgical setting.\n- v. 3: \"מִצִּיּוֹן\" is translated as \"from Zion\" to maintain its geographic and symbolic reference.",
+ "raw": "[1] A song of ascents. Behold, bless the LORD, all you servants of the LORD, who stand in the house of the LORD in the night.\n\n[2] Lift up your hands to the holy place and bless the LORD.\n\n[3] May the LORD bless you from Zion, the one who made the heavens and the earth.\n\n---\nNotes\n- v. 1: The phrase \"הִנֵּה\" (\"Behold\") is retained for its emphatic function. The term \"בֵּית־יְהוָה\" is rendered \"the house of the LORD\" to reflect its liturgical setting.\n- v. 3: \"מִצִּיּוֹן\" is translated as \"from Zion\" to maintain its geographic and symbolic reference.",
+ "engine": "qwen3:32b"
+}

@@ -1,0 +1,24 @@
+{
+ "book": "Psalms",
+ "chapter": 41,
+ "lang": "en",
+ "verses": {
+  "1": "To the choirmaster. A psalm of David.",
+  "2": "Happy is the one who shows concern for the poor and the needy; in a day of trouble, the LORD will deliver them.",
+  "3": "The LORD will protect them and preserve them in the land; He will not give them over to the hand of their enemy.",
+  "4": "The LORD will support them on the bed of affliction; You have turned all their couch away as they lie ill.",
+  "5": "I said, \"O LORD, be gracious to me; heal my soul, for I have sinned against You.\"",
+  "6": "My enemies speak evil about me: \"When will he die and his name be forgotten?\"",
+  "7": "When someone comes to see me, he speaks idly, his heart gathers up wrongdoing for himself. He goes out and spreads it abroad.",
+  "8": "All my enemies conspire together against me. They plot evil against me.",
+  "9": "They have laid a treacherous charge against me: \"The one who lies down will not rise again.\"",
+  "10": "Even the man who was my friend, in whom I trusted, the one who ate my bread, has turned his heel against me.",
+  "11": "But You, O LORD, be gracious to me and raise me up, and I will repay them.",
+  "12": "By this I know that You delight in me: that my enemy does not triumph over me.",
+  "13": "And in my innocence You uphold me, and You place me before You forever.",
+  "14": "Praise be to the LORD, the God of Israel, from eternity to eternity. Amen and Amen."
+ },
+ "notes": "Notes  \n- v. 10: \"the one who ate my bread\" reflects the Hebrew idiom for a close companion, not a literal meal.  \n- v. 14: \"Amen and Amen\" is included as in the Hebrew, which uses the doubled form for emphasis.",
+ "raw": "[1] To the choirmaster. A psalm of David.  \n[2] Happy is the one who shows concern for the poor and the needy; in a day of trouble, the LORD will deliver them.  \n[3] The LORD will protect them and preserve them in the land; He will not give them over to the hand of their enemy.  \n[4] The LORD will support them on the bed of affliction; You have turned all their couch away as they lie ill.  \n[5] I said, \"O LORD, be gracious to me; heal my soul, for I have sinned against You.\"  \n[6] My enemies speak evil about me: \"When will he die and his name be forgotten?\"  \n[7] When someone comes to see me, he speaks idly, his heart gathers up wrongdoing for himself. He goes out and spreads it abroad.  \n[8] All my enemies conspire together against me. They plot evil against me.  \n[9] They have laid a treacherous charge against me: \"The one who lies down will not rise again.\"  \n[10] Even the man who was my friend, in whom I trusted, the one who ate my bread, has turned his heel against me.  \n[11] But You, O LORD, be gracious to me and raise me up, and I will repay them.  \n[12] By this I know that You delight in me: that my enemy does not triumph over me.  \n[13] And in my innocence You uphold me, and You place me before You forever.  \n[14] Praise be to the LORD, the God of Israel, from eternity to eternity. Amen and Amen.  \n---  \nNotes  \n- v. 10: \"the one who ate my bread\" reflects the Hebrew idiom for a close companion, not a literal meal.  \n- v. 14: \"Amen and Amen\" is included as in the Hebrew, which uses the doubled form for emphasis.",
+ "engine": "qwen3:32b"
+}

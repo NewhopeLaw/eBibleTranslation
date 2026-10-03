@@ -1,0 +1,8 @@
+# 1 Timothy 2
+
+¹ Os exhorto, pues, antes que nada, a hacer súplicas, oraciones, intercesiones, y gracias por todos los seres humanos, ² por los reyes y por todos los que ejercen el poder, para que podamos llevar una vida tranquila y serena en toda piedad y respeto. ³ Esto es lo bueno y aceptable delante de nuestro Salvador Dios, ⁴ quien quiere que todos los seres humanos sean salvos y vengan al conocimiento de la verdad. ⁵ Hay un solo Dios, y un solo mediador entre Dios y los seres humanos, el hombre Cristo Jesús, ⁶ quien se dio a sí mismo como rescate por todos, en un momento oportuno, ⁷ para lo cual fui nombrado yo como anuncio y apóstol—hablo la verdad, no miento—como maestro de los gentiles en fe y verdad. ⁸ Quiero, pues, que los hombres oren en todo lugar, levantando manos santas sin ira ni disputa. ⁹ De la misma manera, las mujeres deben vestirse con decoro, con modestia y sobriedad; no con trenzas ni con oro ni con perlas ni con vestidos lujosos, ¹⁰ sino con lo que es digno de mujeres que anuncian piedad por medio de obras buenas. ¹¹ La mujer aprenda en silencio con toda sumisión. ¹² No permito que enseñe ni que tenga autoridad sobre el hombre, sino que esté en silencio. ¹³ Porque Adán fue formado primero, y luego Eva; ¹⁴ y Adán no fue engañado, sino que la mujer, habiendo sido engañada, incurrió en la transgresión. ¹⁵ Pero será salvada por medio del parto, si permanece en la fe, en el amor y en la santidad, con sobriedad.
+
+---
+
+Notes
+- v. 15: La traducción de "σωθήσεται διὰ τῆς τεκνογονίας" como "pero será salvada por medio del parto" refleja una interpretación que vincula la salvación de la mujer al contexto de la maternidad, aunque en el griego el texto es neutral y podría interpretarse de diversas maneras teológicas o simbólicas.

@@ -1,0 +1,10 @@
+# Job 4
+
+¹ Eliphaz the Temanite responded and said: ² Is your mind so full of words that none can silence you? Must you be so full of talk? ³ Indeed, you have often corrected many, and your strong hands have supported the weak. ⁴ You have raised the one who stumbled with a word, and you have strengthened the feeble with your knees. ⁵ But now the calamity you sought has come upon you, and you are shaken. ⁶ Is it not your fear that deceives you, your hope and the lawlessness of your ways? ⁷ Recall now: who was pure and perished? Where were the upright ever destroyed? ⁸ As I have seen those who plow iniquity, and those who sow trouble reap it. ⁹ They are swept away by the command of God and consumed by the wind of His anger. ¹⁰ The roar of the lion, the voice of the leopard, and the teeth of the lion are broken. ¹¹ The lion perishes for lack of prey, and the cubs of the lion are scattered. ¹² A word came to me in secret, and my ear received it by a whisper. ¹³ It came to me in visions of the night, in dreams that fell upon men in sleep. ¹⁴ Fear gripped me and trembling, and my bones were shaken. ¹⁵ A wind came upon my face; my skin bristled and my flesh stood on end. ¹⁶ It stood but I could not recognize it. Its form was before my eyes, yet I saw no face. I heard a voice. ¹⁷ Is man just before God? Is a man pure in the Maker of him? ¹⁸ Behold, even in His servants He does not trust, and His angels He charges with error. ¹⁹ How much more those who dwell in houses of clay, whose foundation is in the dust, who are crushed before the moth! ²⁰ From morning to evening they are broken; without wisdom, they perish. ²¹ Are they not brought forth only to die, lacking understanding?
+
+---
+
+Notes
+- v. 16: The Hebrew is ambiguous whether the voice is divine or a vision; I have rendered it as a generic voice to avoid assuming the identity.
+- v. 18: “charge with error” reflects the metaphor of God placing a stumbling block in the path of His angels, suggesting their fallibility. This is a metaphorical rendering.
+- v. 19: “crushed before the moth” follows the Hebrew but may be a metaphor for fragility and insignificance.

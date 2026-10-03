@@ -1,0 +1,12 @@
+# Job 2
+
+¹ Sucedió un día que los hijos de Dios vinieron a presentarse delante del SEÑOR, y el Satanás también estuvo entre ellos para presentarse delante del SEÑOR. ² El SEÑOR le dijo al Satanás: «¿De dónde vienes?» El Satanás respondió al SEÑOR: «De andar por la tierra y de recorrerla.» ³ El SEÑOR le dijo al Satanás: «¿Has puesto tu atención en mi siervo Job? No hay otro como él en la tierra; es íntegro, recto, teme a Dios y se aparta del mal. Y aún mantiene su integridad. Pero tú te propusiste desalentarlo sin motivo alguno.» ⁴ El Satanás respondió al SEÑOR: «La piel cubre la piel; lo que un hombre tiene, él lo pondrá por su vida.» ⁵ «Sin embargo, extiende tu mano y toca su carne y sus huesos; verás si no te bendice en tu rostro.» ⁶ El SEÑOR le dijo al Satanás: «He aquí, está en tu mano, pero a su vida no la tomes.» ⁷ El Satanás salió de la presencia del SEÑOR y golpeó a Job con una plaga muy mala, desde la planta del pie hasta la cabeza. ⁸ Job se tomó un trozo de cerámica para rascarse y se sentó entre el polvo. ⁹ Su esposa le dijo: «¿Aún mantienes tu integridad? Bendice a Dios y muere.» ¹⁰ Job le respondió: «Tú hablas como una de las mujeres necias. ¿Aceptaremos el bien de la mano de Dios, y no aceptaremos el mal? En todo esto Job no pecó con sus labios contra Dios.» ¹¹ Los tres amigos de Job, Elifaz el temanita, Bildad el suhita y Zofar el naamita, al enterarse de toda la tragedia que le había ocurrido, vinieron cada uno desde su tierra para visitarlo, para consolarlo y acompañarlo. ¹² Al verlo desde lejos, no lo reconocieron, y gritaron con gran voz, lloraron y se rasgaron cada uno su ropa, y arrojaron polvo sobre sus cabezas desde el cielo. ¹³ Se sentaron junto a él en la tierra durante siete días y siete noches, y ninguno de ellos le habló, pues veían que el dolor era muy grande.
+
+---
+
+Notes  
+- v. 4: La frase hebrea «עוֹר בְּעַד־עוֹר» se traduce como «La piel cubre la piel», que es una expresión metafórica que sugiere que un hombre pondrá su vida por lo que posee.  
+- v. 5: «עַצְמוֹ וְעַל בְּשָׂרוֹ» se interpreta como «su carne y sus huesos», refiriéndose a Job.  
+- v. 8: «חֶרֶשׂ» se traduce como «trozo de cerámica», en lugar de «escarbadiente», para mantener una interpretación natural y contextual.  
+- v. 9: La esposa no es nombrada, por lo que se usa «su esposa» en lugar de un nombre propio.  
+- v. 13: «הַשָּׁמָֽיְמָה» se traduce como «desde el cielo», refiriéndose a la altura desde la cual arrojaron el polvo.

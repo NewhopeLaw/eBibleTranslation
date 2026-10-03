@@ -1,0 +1,20 @@
+{
+ "book": "Psalms",
+ "chapter": 141,
+ "lang": "es",
+ "verses": {
+  "1": "Al SEÑOR llamé, escucha hasta que yo duela; oye mi voz cuando te clamo.",
+  "2": "Que mi oración se dirija como incienso delante de ti, como ofrenda vespertina la elevación de mis manos.",
+  "3": "Pón, SEÑOR, una guardia en mi boca, una puerta de guardia a mis labios.",
+  "4": "No aparte mi corazón a palabras malas, ni se entretenga en mañas con el pecador, ni ande con los que obran la maldad, ni participe con sus elegidos.",
+  "5": "El justo me enseñará en amor leal, y me corregirá; pero el aceite de los impíos no sea para ungir mi cabeza, porque aún y aún mi oración está en sus bienaventuranzas.",
+  "6": "Se alegraron con la violencia los que me juzgan, escucharán mis palabras, porque son agradables.",
+  "7": "Como si se partiera y se rompiera en la tierra, se esparcieron nuestros huesos junto al Seol.",
+  "8": "Porque a ti, SEÑOR, SEÑOR, miran mis ojos; en ti confié, no me abandones.",
+  "9": "Guarda, SEÑOR, de la trampa que me han tendido, y de las redes de los que obran la maldad.",
+  "10": "Caerán en su lazo los impíos; yo solo hasta que pase.\n"
+ },
+ "notes": "Notes\n- v. 5: La expresión «el aceite de los impíos» se interpreta como una metáfora de la falsa bendición o adulación que los impíos podrían ofrecer, no como ungüento físico.\n- v. 7: La traducción refleja una interpretación de la imagen poética, donde se compara el sufrimiento y la desolación con la tierra abierta y los huesos esparcidos en el Seol, lugar de la muerte.\n- v. 10: La expresión «hasta que pase» traduce el conceptuado final del salmo, expresando la esperanza del autor de sobrevivir a la aflicción.",
+ "raw": "[1] Al SEÑOR llamé, escucha hasta que yo duela; oye mi voz cuando te clamo.\n[2] Que mi oración se dirija como incienso delante de ti, como ofrenda vespertina la elevación de mis manos.\n[3] Pón, SEÑOR, una guardia en mi boca, una puerta de guardia a mis labios.\n[4] No aparte mi corazón a palabras malas, ni se entretenga en mañas con el pecador, ni ande con los que obran la maldad, ni participe con sus elegidos.\n[5] El justo me enseñará en amor leal, y me corregirá; pero el aceite de los impíos no sea para ungir mi cabeza, porque aún y aún mi oración está en sus bienaventuranzas.\n[6] Se alegraron con la violencia los que me juzgan, escucharán mis palabras, porque son agradables.\n[7] Como si se partiera y se rompiera en la tierra, se esparcieron nuestros huesos junto al Seol.\n[8] Porque a ti, SEÑOR, SEÑOR, miran mis ojos; en ti confié, no me abandones.\n[9] Guarda, SEÑOR, de la trampa que me han tendido, y de las redes de los que obran la maldad.\n[10] Caerán en su lazo los impíos; yo solo hasta que pase.\n\n---\nNotes\n- v. 5: La expresión «el aceite de los impíos» se interpreta como una metáfora de la falsa bendición o adulación que los impíos podrían ofrecer, no como ungüento físico.\n- v. 7: La traducción refleja una interpretación de la imagen poética, donde se compara el sufrimiento y la desolación con la tierra abierta y los huesos esparcidos en el Seol, lugar de la muerte.\n- v. 10: La expresión «hasta que pase» traduce el conceptuado final del salmo, expresando la esperanza del autor de sobrevivir a la aflicción.",
+ "engine": "qwen3:32b"
+}

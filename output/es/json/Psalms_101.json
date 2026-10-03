@@ -1,0 +1,18 @@
+{
+ "book": "Psalms",
+ "chapter": 101,
+ "lang": "es",
+ "verses": {
+  "1": "Salmo de David. Amor leal y justicia cantaré a ti, SEÑOR, te entonaré salmos.\n",
+  "2": "Pensaré en la senda de lo íntegro: ¿cuándo vendrás a mí? Caminaré con corazón puro en medio de mi casa.\n",
+  "3": "No pondré delante de mis ojos cosa perversa, hacer torcidos aborrezco; no me pegará el corazón inclinado.\n",
+  "4": "El corazón encorvado se apartará de mí, el mal no conoceré.\n",
+  "5": "Al que murmura en secreto a su compañero, a él le daré muerte; al que tiene ojos altivos y corazón codicioso, con él no comeré.\n",
+  "6": "Mis ojos están en los fieles de la tierra, para sentarme con ellos. El que camina por la senda íntegra, él me asistirá.\n",
+  "7": "No habitará en mi casa el que hace vanagloria, el que habla mentiras no permanecerá delante de mis ojos.\n",
+  "8": "De mañana mataré a todos los perversos de la tierra, para expulsar de la ciudad del SEÑOR a todos los que practican la maldad.\n"
+ },
+ "notes": "Notes  \n- v. 6: \"él me asistirá\" refleja el sentido de \"יְשָׁרְתֵֽנִי\" (me servirá/será fiel conmigo), adaptado naturalmente en español.  \n- v. 8: \"mataré\" es una interpretación directa de «אַצְמִית», que aquí se usa en un contexto metafórico o poético de condena, no necesariamente literal.",
+ "raw": "[1] Salmo de David. Amor leal y justicia cantaré a ti, SEÑOR, te entonaré salmos.\n\n[2] Pensaré en la senda de lo íntegro: ¿cuándo vendrás a mí? Caminaré con corazón puro en medio de mi casa.\n\n[3] No pondré delante de mis ojos cosa perversa, hacer torcidos aborrezco; no me pegará el corazón inclinado.\n\n[4] El corazón encorvado se apartará de mí, el mal no conoceré.\n\n[5] Al que murmura en secreto a su compañero, a él le daré muerte; al que tiene ojos altivos y corazón codicioso, con él no comeré.\n\n[6] Mis ojos están en los fieles de la tierra, para sentarme con ellos. El que camina por la senda íntegra, él me asistirá.\n\n[7] No habitará en mi casa el que hace vanagloria, el que habla mentiras no permanecerá delante de mis ojos.\n\n[8] De mañana mataré a todos los perversos de la tierra, para expulsar de la ciudad del SEÑOR a todos los que practican la maldad.\n\n---  \nNotes  \n- v. 6: \"él me asistirá\" refleja el sentido de \"יְשָׁרְתֵֽנִי\" (me servirá/será fiel conmigo), adaptado naturalmente en español.  \n- v. 8: \"mataré\" es una interpretación directa de «אַצְמִית», que aquí se usa en un contexto metafórico o poético de condena, no necesariamente literal.",
+ "engine": "qwen3:32b"
+}

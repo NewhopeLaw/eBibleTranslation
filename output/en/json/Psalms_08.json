@@ -1,0 +1,20 @@
+{
+ "book": "Psalms",
+ "chapter": 8,
+ "lang": "en",
+ "verses": {
+  "1": "For the chief musician, on the lyre. A psalm by David.",
+  "2": "LORD our Master, how majestic is your name over all the earth, for your glory is raised above the heavens.",
+  "3": "From the mouths of infants and nursing babies you have established strength, for the sake of your adversaries, to silence the enemy and the avenger.",
+  "4": "When I look at the heavens, the work of your fingers, the moon and the stars, which you have set in place,",
+  "5": "what is the human that you remember him, or the son of man that you take notice of him?",
+  "6": "You have made him only a little lower than the divine, and with glory and majesty you have crowned him.",
+  "7": "You have set him over the works of your hands; you have placed all things under his feet,",
+  "8": "sheep and oxen, all of them, and also the beasts of the field,",
+  "9": "the birds of the heavens and the fish of the sea, whatever passes along the paths of the seas.",
+  "10": "LORD our Master, how majestic is your name over all the earth.\n"
+ },
+ "notes": "Notes\n- v. 6: The Hebrew term \"אֱלֹהִים\" is translated here as \"the divine\" to avoid confusion with the name of the God of Israel, while preserving the poetic contrast in the original text.\n- v. 7: \"תַּמְשִׁילֵהוּ\" is translated as \"You have set him\" to reflect the poetic voice rather than a literal \"rule over\" or \"govern,\" which might mislead the reader.",
+ "raw": "[1] For the chief musician, on the lyre. A psalm by David.\n[2] LORD our Master, how majestic is your name over all the earth, for your glory is raised above the heavens.\n[3] From the mouths of infants and nursing babies you have established strength, for the sake of your adversaries, to silence the enemy and the avenger.\n[4] When I look at the heavens, the work of your fingers, the moon and the stars, which you have set in place,\n[5] what is the human that you remember him, or the son of man that you take notice of him?\n[6] You have made him only a little lower than the divine, and with glory and majesty you have crowned him.\n[7] You have set him over the works of your hands; you have placed all things under his feet,\n[8] sheep and oxen, all of them, and also the beasts of the field,\n[9] the birds of the heavens and the fish of the sea, whatever passes along the paths of the seas.\n[10] LORD our Master, how majestic is your name over all the earth.\n\n---\nNotes\n- v. 6: The Hebrew term \"אֱלֹהִים\" is translated here as \"the divine\" to avoid confusion with the name of the God of Israel, while preserving the poetic contrast in the original text.\n- v. 7: \"תַּמְשִׁילֵהוּ\" is translated as \"You have set him\" to reflect the poetic voice rather than a literal \"rule over\" or \"govern,\" which might mislead the reader.",
+ "engine": "qwen3:32b"
+}

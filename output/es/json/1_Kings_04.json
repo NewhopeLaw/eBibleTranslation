@@ -1,0 +1,30 @@
+{
+ "book": "1 Kings",
+ "chapter": 4,
+ "lang": "es",
+ "verses": {
+  "1": "Y el rey Salomón reinó sobre todo Israel.\n",
+  "2": "Estos son los oficiales que estaban a su cargo: Azarías hijo de Sadoc, sacerdote;\n",
+  "3": "Elihoréf y Ahijá, hijos de Sisaí, escribanos; Jehosafat hijo de Ahilud, el historiador;\n",
+  "4": "y Benaya hijo de Joiadá, sobre el ejército; Sadoc y Abiatar, sacerdotes;\n",
+  "5": "y Azarías hijo de Natán, sobre los encargados; y Zabud hijo de Natán, consejero personal del rey;\n",
+  "6": "Ahihur sobre la casa, y Adoniram hijo de Abda, sobre los impuestos.\n",
+  "7": "A Salomón le fueron dados doce encargados sobre todo Israel, y ellos mantenían al rey y a su casa. Cada mes, uno de ellos se encargaba del mantenimiento.\n",
+  "8": "Estos eran sus nombres: Ben-Hur, en la región de Efraím;\n",
+  "9": "Ben-Deker, en Makatz y en Saalbím y Bethsames y Elon, hasta Beit-Hanan;\n",
+  "10": "Ben-Yesed, en Arobót, Sokeh y toda la tierra de Hefer;\n",
+  "11": "Ben-Abinadab, que tenía a todo Napat, y a Dor, y a Taft, cuya esposa era la hija de Salomón;\n",
+  "12": "Baana hijo de Ahilud, en Taanac y en Meguido, y en toda la casa de Saún, que está junto a Tarsán, debajo de Esrael, desde Beit-Saún hasta Abel-Meholah, hasta el otro lado de Yakméam;\n",
+  "13": "Ben-Geber, en Ramot de Galaad, a quien pertenecía el territorio de Jafer, hijo de Manasé, que incluye el valle de Argób en Basán, sesenta ciudades con muros y baras de bronce;\n",
+  "14": "Ahinadab hijo de Idó, en Machanajim;\n",
+  "15": "Ahimaat, en Nafatáli, y también tomó a Basemát, hija de Salomón, como esposa;\n",
+  "16": "Baana hijo de Husai, en Asur y en Alovot;\n",
+  "17": "Jehosafat hijo de Parúa, en Isacar;\n",
+  "18": "Siméon hijo de Ael, en Benjamín;\n",
+  "19": "Geber hijo de Uri, en la tierra de Galaad, en la tierra de Sehón, rey de los amorrheos, y de Og, rey de Basán, y un encargado en la tierra.\n",
+  "20": "Judá e Israel eran tan numerosos como la arena que hay sobre el mar: comían y bebían y se alegraban.\n"
+ },
+ "notes": "Notes\n- v. 11: La frase «cuya esposa era la hija de Salomón» se ha colocado en paréntesis para clarificar que se refiere al encargado Ben-Abinadab, según la estructura del texto hebreo.\n- v. 19: La palabra hebrea «סִיחוֹן» (sehón) se traduce como «Sehón» en lugar de «Sihón» por coherencia con el sistema de transliteración utilizado en el texto bíblico.",
+ "raw": "[1] Y el rey Salomón reinó sobre todo Israel.\n\n[2] Estos son los oficiales que estaban a su cargo: Azarías hijo de Sadoc, sacerdote;\n\n[3] Elihoréf y Ahijá, hijos de Sisaí, escribanos; Jehosafat hijo de Ahilud, el historiador;\n\n[4] y Benaya hijo de Joiadá, sobre el ejército; Sadoc y Abiatar, sacerdotes;\n\n[5] y Azarías hijo de Natán, sobre los encargados; y Zabud hijo de Natán, consejero personal del rey;\n\n[6] Ahihur sobre la casa, y Adoniram hijo de Abda, sobre los impuestos.\n\n[7] A Salomón le fueron dados doce encargados sobre todo Israel, y ellos mantenían al rey y a su casa. Cada mes, uno de ellos se encargaba del mantenimiento.\n\n[8] Estos eran sus nombres: Ben-Hur, en la región de Efraím;\n\n[9] Ben-Deker, en Makatz y en Saalbím y Bethsames y Elon, hasta Beit-Hanan;\n\n[10] Ben-Yesed, en Arobót, Sokeh y toda la tierra de Hefer;\n\n[11] Ben-Abinadab, que tenía a todo Napat, y a Dor, y a Taft, cuya esposa era la hija de Salomón;\n\n[12] Baana hijo de Ahilud, en Taanac y en Meguido, y en toda la casa de Saún, que está junto a Tarsán, debajo de Esrael, desde Beit-Saún hasta Abel-Meholah, hasta el otro lado de Yakméam;\n\n[13] Ben-Geber, en Ramot de Galaad, a quien pertenecía el territorio de Jafer, hijo de Manasé, que incluye el valle de Argób en Basán, sesenta ciudades con muros y baras de bronce;\n\n[14] Ahinadab hijo de Idó, en Machanajim;\n\n[15] Ahimaat, en Nafatáli, y también tomó a Basemát, hija de Salomón, como esposa;\n\n[16] Baana hijo de Husai, en Asur y en Alovot;\n\n[17] Jehosafat hijo de Parúa, en Isacar;\n\n[18] Siméon hijo de Ael, en Benjamín;\n\n[19] Geber hijo de Uri, en la tierra de Galaad, en la tierra de Sehón, rey de los amorrheos, y de Og, rey de Basán, y un encargado en la tierra.\n\n[20] Judá e Israel eran tan numerosos como la arena que hay sobre el mar: comían y bebían y se alegraban.\n\n---\nNotes\n- v. 11: La frase «cuya esposa era la hija de Salomón» se ha colocado en paréntesis para clarificar que se refiere al encargado Ben-Abinadab, según la estructura del texto hebreo.\n- v. 19: La palabra hebrea «סִיחוֹן» (sehón) se traduce como «Sehón» en lugar de «Sihón» por coherencia con el sistema de transliteración utilizado en el texto bíblico.",
+ "engine": "qwen3:32b"
+}

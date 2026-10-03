@@ -1,0 +1,11 @@
+# Zechariah 10
+
+¹ Rogad al SEÑOR por la lluvia, en la estación de la siega. El SEÑOR hace prodigios, y hará llover sobre ellos, a cada uno le dará hierba en el campo. ² Porque los adivinos han hablado maldad, los videntes han tenido visiones falsas, y han hablado vanidades vacías, dieron consuelos en vano. Por eso, se dispersaron como ovejas, y se debilitaron, porque no había pastor. ³ Mi ira ardió contra los pastores, y contra los machos cimbrearé, porque el SEÑOR de los ejércitos visitará a su rebaño, a la casa de Judá, y los pondrá como un caballo veloz en la guerra. ⁴ De él saldrá la punta de lanza, de él la clavija, de él el arco de guerra, y de él saldrá todo guerrero junto. ⁵ Y serán como guerreros que tapan con barro las calzadas en la guerra, y pelearán, porque el SEÑOR está con ellos, y harán retroceder a los jinetes. ⁶ Y fortaleceré a la casa de Judá, y a la casa de José salvaré, y los asentará, porque los he amado, y serán como los que no he abandonado. Porque yo soy el SEÑOR su Dios, y los escucharé. ⁷ Y serán como guerreros de Efraím, y se alegrará su corazón como el vino, y sus hijos verán y se regocijarán, y se alegrará su corazón en el SEÑOR. ⁸ Les marcaré y los reuniré, porque los redimiré, y se multiplicarán como antes fueron. ⁹ Y los sembraré entre las naciones, y los que estén lejos recordarán mi nombre, criarán a sus hijos y regresarán. ¹⁰ Y los traeré de la tierra de Egipto, y de Asiria los reuniré, y los llevaré a la tierra de Galaad y a Libano, y no se encontrará ninguno entre ellos. ¹¹ Y pasarán por el mar angosto y harán retroceder las olas del mar, y secarán todos los ríos, y será quitada la arrogancia de Asiria, y el cetro de Egipto desaparecerá. ¹² Y los fortaleceré en el SEÑOR su Dios, y caminarán en su nombre, dice el SEÑOR.
+
+---
+
+Notes
+- v. 1: La traducción de "malqosh" se ha interpretado como "estación de la siega", lo cual es coherente con el contexto agrícola.
+- v. 4: La repetición de "mimenu" (de él) se ha distribuido para no sonar redundante en español, manteniendo el paralelismo original.
+- v. 11: "Yasar" se ha traducido como "angosto", que es una interpretación contextual de "estrecho", manteniendo el sentido de dificultad para cruzar el mar.
+- v. 12: "Yitgabe'u" se ha traducido como "caminarán" en lugar de "se gloriarán", para mantener el tono de acción y progreso en el texto.

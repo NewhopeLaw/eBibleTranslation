@@ -1,0 +1,32 @@
+{
+ "book": "Psalms",
+ "chapter": 33,
+ "lang": "en",
+ "verses": {
+  "1": "Rejoice in the LORD, you upright ones. It is good for those who are righteous to praise.\n",
+  "2": "Give thanks to the LORD with the lyre, with a ten-stringed harp, sing to him.\n",
+  "3": "Sing to him a new song, play skillfully with a loud sound.\n",
+  "4": "For the word of the LORD is upright, and all his works are in faithfulness.\n",
+  "5": "He loves righteousness and judgment. The steadfast love of the LORD fills the earth.\n",
+  "6": "By the word of the LORD the heavens were made, and by the breath of his mouth all their host.\n",
+  "7": "He gathers the waters of the sea as a heap, and puts the depths into storehouses.\n",
+  "8": "Let all the earth fear the LORD, and let all the inhabitants of the world tremble before him.\n",
+  "9": "For he spoke, and it came to be; he commanded, and it stood firm.\n",
+  "10": "The LORD frustrates the counsel of the nations; he nullifies the plans of the peoples.\n",
+  "11": "The counsel of the LORD stands forever, the thoughts of his heart through all generations.\n",
+  "12": "Happy is the nation whose God is the LORD, the people he has chosen as his heritage.\n",
+  "13": "From heaven the LORD looks, he sees all the children of humanity.\n",
+  "14": "From the place of his dwelling he looks out over all the inhabitants of the earth.\n",
+  "15": "The one who fashions their hearts together, the one who understands all their works.\n",
+  "16": "A king is not saved by a great army, a warrior is not delivered by great strength.\n",
+  "17": "A horse is a false hope for rescue, in the abundance of its strength it cannot be saved.\n",
+  "18": "Behold, the eyes of the LORD are on those who fear him, on those who wait for his steadfast love.\n",
+  "19": "To deliver their lives from death, and to keep them alive in famine.\n",
+  "20": "Our soul has waited for the LORD, he is our help and our shield.\n",
+  "21": "For in him our heart rejoices, because we trust in his holy name.\n",
+  "22": "Let your steadfast love, LORD, be upon us, just as we have hoped in you.\n"
+ },
+ "notes": "Notes\n- v. 5: \"steadfast love\" reflects חסד, a central theological term.\n- v. 16-17: The contrast between human strength and divine faithfulness is central to the psalm’s message; the rendering follows the literal Hebrew but preserves the thematic contrast.",
+ "raw": "[1] Rejoice in the LORD, you upright ones. It is good for those who are righteous to praise.\n\n[2] Give thanks to the LORD with the lyre, with a ten-stringed harp, sing to him.\n\n[3] Sing to him a new song, play skillfully with a loud sound.\n\n[4] For the word of the LORD is upright, and all his works are in faithfulness.\n\n[5] He loves righteousness and judgment. The steadfast love of the LORD fills the earth.\n\n[6] By the word of the LORD the heavens were made, and by the breath of his mouth all their host.\n\n[7] He gathers the waters of the sea as a heap, and puts the depths into storehouses.\n\n[8] Let all the earth fear the LORD, and let all the inhabitants of the world tremble before him.\n\n[9] For he spoke, and it came to be; he commanded, and it stood firm.\n\n[10] The LORD frustrates the counsel of the nations; he nullifies the plans of the peoples.\n\n[11] The counsel of the LORD stands forever, the thoughts of his heart through all generations.\n\n[12] Happy is the nation whose God is the LORD, the people he has chosen as his heritage.\n\n[13] From heaven the LORD looks, he sees all the children of humanity.\n\n[14] From the place of his dwelling he looks out over all the inhabitants of the earth.\n\n[15] The one who fashions their hearts together, the one who understands all their works.\n\n[16] A king is not saved by a great army, a warrior is not delivered by great strength.\n\n[17] A horse is a false hope for rescue, in the abundance of its strength it cannot be saved.\n\n[18] Behold, the eyes of the LORD are on those who fear him, on those who wait for his steadfast love.\n\n[19] To deliver their lives from death, and to keep them alive in famine.\n\n[20] Our soul has waited for the LORD, he is our help and our shield.\n\n[21] For in him our heart rejoices, because we trust in his holy name.\n\n[22] Let your steadfast love, LORD, be upon us, just as we have hoped in you.\n\n---\nNotes\n- v. 5: \"steadfast love\" reflects חסד, a central theological term.\n- v. 16-17: The contrast between human strength and divine faithfulness is central to the psalm’s message; the rendering follows the literal Hebrew but preserves the thematic contrast.",
+ "engine": "qwen3:32b"
+}

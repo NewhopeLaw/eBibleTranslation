@@ -1,0 +1,33 @@
+{
+ "book": "Proverbs",
+ "chapter": 5,
+ "lang": "en",
+ "verses": {
+  "1": "My son, give attention to my wisdom; incline your ear to my understanding.",
+  "2": "That you may keep discretion and instruction, and that my words may guard you.",
+  "3": "For a harlot offers her lips like honey, and her mouth is smoother than oil.",
+  "4": "But in the end she is bitter as gall, sharp as a two-edged sword.",
+  "5": "Her feet descend to death, her steps lead to Sheol, and her paths are not known.",
+  "6": "She leads away the path of life, her tracks are unsteady and not recognizable.",
+  "7": "Now then, my sons, listen to me, and do not turn away from my words.",
+  "8": "Keep your distance from her, do not draw near to the entrance of her house.",
+  "9": "Lest you give your honor to another, your years to the cruel.",
+  "10": "Lest strangers be satisfied with your strength, and your toils be in the house of another.",
+  "11": "You will be in anguish in the end, when your flesh and bones are worn out.",
+  "12": "And you will say, \"How I hated discipline! My heart resented correction!",
+  "13": "I did not listen to the voice of my teacher, nor did I incline my ear to my instructor.\"",
+  "14": "I was nearly ruined by all evil, in the midst of a crowd and a gathering.",
+  "15": "Drink water from your own cistern, and flowing waters from your own well.",
+  "16": "Let your fountains overflow in the streets, let your streams flow in the public squares.",
+  "17": "Let them belong to you alone, and no stranger share in them.",
+  "18": "Let your fountain be blessed, and rejoice with the wife of your youth.",
+  "19": "A loving hind, a graceful doe— may her breasts satisfy you at all times, may you be intoxicated always in her love.",
+  "20": "And why, my son, should you be drawn to a strange woman, embrace the bosom of another?",
+  "21": "For the ways of a man are before the eyes of the LORD, and He searches out all his steps.",
+  "22": "The iniquities of the wicked will catch him, and he will be ensnared in the cords of his own sins.",
+  "23": "He will die without instruction, and in the abundance of his folly he will be lost."
+ },
+ "notes": "Notes\n- v. 3: \"her lips like honey\" is a common metaphor in Hebrew, and \"honey\" is used as a direct translation of דְּבַשׁ.\n- v. 19: \"a loving hind, a graceful doe\" renders אַיֶּלֶת אֲהָבִים and יַעֲלַת־חֵן, respectively. \"hind\" and \"doe\" are traditional renderings of these terms in English Bibles.\n- v. 21: \"before the eyes of the LORD\" is a direct translation of נֹכַח עֵינֵי יְהוָה, preserving the active sense of divine observation.",
+ "raw": "[1] My son, give attention to my wisdom; incline your ear to my understanding.\n[2] That you may keep discretion and instruction, and that my words may guard you.\n[3] For a harlot offers her lips like honey, and her mouth is smoother than oil.\n[4] But in the end she is bitter as gall, sharp as a two-edged sword.\n[5] Her feet descend to death, her steps lead to Sheol, and her paths are not known.\n[6] She leads away the path of life, her tracks are unsteady and not recognizable.\n[7] Now then, my sons, listen to me, and do not turn away from my words.\n[8] Keep your distance from her, do not draw near to the entrance of her house.\n[9] Lest you give your honor to another, your years to the cruel.\n[10] Lest strangers be satisfied with your strength, and your toils be in the house of another.\n[11] You will be in anguish in the end, when your flesh and bones are worn out.\n[12] And you will say, \"How I hated discipline! My heart resented correction!\n[13] I did not listen to the voice of my teacher, nor did I incline my ear to my instructor.\"\n[14] I was nearly ruined by all evil, in the midst of a crowd and a gathering.\n[15] Drink water from your own cistern, and flowing waters from your own well.\n[16] Let your fountains overflow in the streets, let your streams flow in the public squares.\n[17] Let them belong to you alone, and no stranger share in them.\n[18] Let your fountain be blessed, and rejoice with the wife of your youth.\n[19] A loving hind, a graceful doe— may her breasts satisfy you at all times, may you be intoxicated always in her love.\n[20] And why, my son, should you be drawn to a strange woman, embrace the bosom of another?\n[21] For the ways of a man are before the eyes of the LORD, and He searches out all his steps.\n[22] The iniquities of the wicked will catch him, and he will be ensnared in the cords of his own sins.\n[23] He will die without instruction, and in the abundance of his folly he will be lost.\n---\nNotes\n- v. 3: \"her lips like honey\" is a common metaphor in Hebrew, and \"honey\" is used as a direct translation of דְּבַשׁ.\n- v. 19: \"a loving hind, a graceful doe\" renders אַיֶּלֶת אֲהָבִים and יַעֲלַת־חֵן, respectively. \"hind\" and \"doe\" are traditional renderings of these terms in English Bibles.\n- v. 21: \"before the eyes of the LORD\" is a direct translation of נֹכַח עֵינֵי יְהוָה, preserving the active sense of divine observation.",
+ "engine": "qwen3:32b"
+}

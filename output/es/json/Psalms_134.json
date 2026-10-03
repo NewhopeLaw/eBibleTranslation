@@ -1,0 +1,13 @@
+{
+ "book": "Psalms",
+ "chapter": 134,
+ "lang": "es",
+ "verses": {
+  "1": "Canción de las escalas. Mira, bendigan al SEÑOR todos los siervos del SEÑOR que permanecen en la casa de YHWH durante la noche.\n",
+  "2": "Alzad vuestras manos hacia lo santo y bendigan al SEÑOR.\n",
+  "3": "Que el SEÑOR os bendiga desde Sión, el que hizo el cielo y la tierra.\n"
+ },
+ "notes": "Notes\n- v. 1: La construcción hebrea sugiere una invitación o instrucción directa a los siervos de YHWH. Se ha conservado el estilo oratorio y ceremonial del texto original.\n- v. 3: La frase \"el que hizo el cielo y la tierra\" refleja un uso común de atribuir autoridad y grandeza divina a YHWH, y se ha traducido literalmente para mantener su fuerza teológica.",
+ "raw": "[1] Canción de las escalas. Mira, bendigan al SEÑOR todos los siervos del SEÑOR que permanecen en la casa de YHWH durante la noche.\n\n[2] Alzad vuestras manos hacia lo santo y bendigan al SEÑOR.\n\n[3] Que el SEÑOR os bendiga desde Sión, el que hizo el cielo y la tierra.\n\n---\nNotes\n- v. 1: La construcción hebrea sugiere una invitación o instrucción directa a los siervos de YHWH. Se ha conservado el estilo oratorio y ceremonial del texto original.\n- v. 3: La frase \"el que hizo el cielo y la tierra\" refleja un uso común de atribuir autoridad y grandeza divina a YHWH, y se ha traducido literalmente para mantener su fuerza teológica.",
+ "engine": "qwen3:32b"
+}

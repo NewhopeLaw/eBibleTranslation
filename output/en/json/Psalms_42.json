@@ -1,0 +1,22 @@
+{
+ "book": "Psalms",
+ "chapter": 42,
+ "lang": "en",
+ "verses": {
+  "1": "To the choirmaster. A masked psalm of the sons of Korah.",
+  "2": "Like a deer that pants for the streams of water, so my soul pants for you, O God.",
+  "3": "My soul is thirsty for the living God. When will I come and see the face of God?",
+  "4": "My tears have become my food day and night, while they say to me every day, “Where is your God?”",
+  "5": "These things I remember, and I pour out my soul: how I would go through the desolate place and come to the house of God, with a voice of joy and praise, among the voices of those who are celebrating.",
+  "6": "Why are you downcast, O my soul? And why do you groan within me? Hope in God, for I will still praise Him, the salvation of my face and my God.",
+  "7": "My soul is troubled within me; therefore I will remember You from the land of Jordan and from Hermon, from Mount Mizar.",
+  "8": "Deep calls to deep at the sound of Your waterfalls; all Your waves and breakers have gone over me.",
+  "9": "By day the Lord will complete His steadfast love, and at night His song will be with me—a prayer to the God of my life.",
+  "10": "I say to God, my rock, “Why have You forgotten me? Why must I walk in gloom, oppressed by my enemy?”",
+  "11": "My enemies, in their pride, have crushed me; all day they say to me, “Where is your God?”",
+  "12": "Why are you downcast, O my soul? And why do you groan within me? Hope in God, for I will still praise Him, the salvation of my face and my God.\n"
+ },
+ "notes": "Notes\n- v. 1: \"A masked psalm\" (maskil) is a traditional rendering for מַשְׂכִּיל, indicating a reflective or instructive psalm.\n- v. 5: “Come to the house of God” reflects the poetic structure and intent of the Hebrew, which uses metaphor to express longing for worship and divine presence.\n- v. 7: “Mount Mizar” is a possible variant or poetic reference; the Hebrew term מִצְעָר is uncertain, but “Mount Mizar” is a plausible interpretation.\n- v. 8: “Deep calls to deep” captures the poetic parallelism in תְּהוֹם־אֶל־תְּהוֹם. The reference to waterfalls and waves enhances the imagery of overwhelming emotion.",
+ "raw": "[1] To the choirmaster. A masked psalm of the sons of Korah.\n[2] Like a deer that pants for the streams of water, so my soul pants for you, O God.\n[3] My soul is thirsty for the living God. When will I come and see the face of God?\n[4] My tears have become my food day and night, while they say to me every day, “Where is your God?”\n[5] These things I remember, and I pour out my soul: how I would go through the desolate place and come to the house of God, with a voice of joy and praise, among the voices of those who are celebrating.\n[6] Why are you downcast, O my soul? And why do you groan within me? Hope in God, for I will still praise Him, the salvation of my face and my God.\n[7] My soul is troubled within me; therefore I will remember You from the land of Jordan and from Hermon, from Mount Mizar.\n[8] Deep calls to deep at the sound of Your waterfalls; all Your waves and breakers have gone over me.\n[9] By day the Lord will complete His steadfast love, and at night His song will be with me—a prayer to the God of my life.\n[10] I say to God, my rock, “Why have You forgotten me? Why must I walk in gloom, oppressed by my enemy?”\n[11] My enemies, in their pride, have crushed me; all day they say to me, “Where is your God?”\n[12] Why are you downcast, O my soul? And why do you groan within me? Hope in God, for I will still praise Him, the salvation of my face and my God.\n\n---\nNotes\n- v. 1: \"A masked psalm\" (maskil) is a traditional rendering for מַשְׂכִּיל, indicating a reflective or instructive psalm.\n- v. 5: “Come to the house of God” reflects the poetic structure and intent of the Hebrew, which uses metaphor to express longing for worship and divine presence.\n- v. 7: “Mount Mizar” is a possible variant or poetic reference; the Hebrew term מִצְעָר is uncertain, but “Mount Mizar” is a plausible interpretation.\n- v. 8: “Deep calls to deep” captures the poetic parallelism in תְּהוֹם־אֶל־תְּהוֹם. The reference to waterfalls and waves enhances the imagery of overwhelming emotion.",
+ "engine": "qwen3:32b"
+}

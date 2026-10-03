@@ -1,0 +1,23 @@
+{
+ "book": "Psalms",
+ "chapter": 76,
+ "lang": "es",
+ "verses": {
+  "1": "Para el director musical. Con instrumentos. Salmo de Asaf. Canción.\n",
+  "2": "Dios es reconocido en Judá, su nombre es grande en Israel.\n",
+  "3": "Y hubo paz en su lugar, y su morada estaba en Sión.\n",
+  "4": "Allí partió los cuernos de los arcos, escudo, espada y guerra. Selah.\n",
+  "5": "Brillante eres tú, más que las montañas eternas.\n",
+  "6": "Se tambalearon todos los de corazón insensato, durmieron su sueño y no encontraron nada, ni todos los hombres valientes con sus manos.\n",
+  "7": "Desde tu ira, Dios de Jacob, se estremecieron los que subían a caballo.\n",
+  "8": "Tú eres temible, y ¿quién se pondrá firme ante tu ira?\n",
+  "9": "Desde los cielos tú pronunciaste el juicio; la tierra temió y se quedó en silencio.\n",
+  "10": "Cuando se levantara Dios para juicio, para salvar a todos los humildes de corazón. Selah.\n",
+  "11": "Porque el arrepentimiento del hombre te traerá ofrenda, y el remanente del arrepentimiento será fiesta para ti.\n",
+  "12": "Juraron y pagaron al Señor, nuestro Dios; todos los que te rodean llevarán ofrendas al temor.\n",
+  "13": "Roba el espíritu a los soberbios; temible eres tú ante los reyes de la tierra.\n"
+ },
+ "notes": "Notes\n- v. 11: «arrepentimiento» y «fiesta» se usan para traducir *chamá* y *chemá* en contextos de ofrenda y celebración, siguiendo el sentido ritual del texto sin caer en traducciones forzadas.\n- v. 5: «montañas eternas» refleja *haréreti taréf*, donde *taréf* se entiende como antiguo o eterno, no como un nombre propio.\n- v. 12: «juraron y pagaron» refleja el doble sentido de *nidadu ve-shallemu*, que implica compromiso y cumplimiento, y «al temor» traduce *lamorá*, que puede significar reverencia o respeto.",
+ "raw": "[1] Para el director musical. Con instrumentos. Salmo de Asaf. Canción.\n\n[2] Dios es reconocido en Judá, su nombre es grande en Israel.\n\n[3] Y hubo paz en su lugar, y su morada estaba en Sión.\n\n[4] Allí partió los cuernos de los arcos, escudo, espada y guerra. Selah.\n\n[5] Brillante eres tú, más que las montañas eternas.\n\n[6] Se tambalearon todos los de corazón insensato, durmieron su sueño y no encontraron nada, ni todos los hombres valientes con sus manos.\n\n[7] Desde tu ira, Dios de Jacob, se estremecieron los que subían a caballo.\n\n[8] Tú eres temible, y ¿quién se pondrá firme ante tu ira?\n\n[9] Desde los cielos tú pronunciaste el juicio; la tierra temió y se quedó en silencio.\n\n[10] Cuando se levantara Dios para juicio, para salvar a todos los humildes de corazón. Selah.\n\n[11] Porque el arrepentimiento del hombre te traerá ofrenda, y el remanente del arrepentimiento será fiesta para ti.\n\n[12] Juraron y pagaron al Señor, nuestro Dios; todos los que te rodean llevarán ofrendas al temor.\n\n[13] Roba el espíritu a los soberbios; temible eres tú ante los reyes de la tierra.\n\n---\nNotes\n- v. 11: «arrepentimiento» y «fiesta» se usan para traducir *chamá* y *chemá* en contextos de ofrenda y celebración, siguiendo el sentido ritual del texto sin caer en traducciones forzadas.\n- v. 5: «montañas eternas» refleja *haréreti taréf*, donde *taréf* se entiende como antiguo o eterno, no como un nombre propio.\n- v. 12: «juraron y pagaron» refleja el doble sentido de *nidadu ve-shallemu*, que implica compromiso y cumplimiento, y «al temor» traduce *lamorá*, que puede significar reverencia o respeto.",
+ "engine": "qwen3:32b"
+}

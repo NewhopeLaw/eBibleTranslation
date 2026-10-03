@@ -1,0 +1,26 @@
+{
+ "book": "1 Timothy",
+ "chapter": 4,
+ "lang": "en",
+ "verses": {
+  "1": "The Spirit clearly says that in the last times, some will fall away from the faith, giving heed to deceiving spirits and teachings of demons,",
+  "2": "under the guise of lying liars, whose own conscience has been seared as with a hot iron,",
+  "3": "forbidding marriage and commanding abstinence from foods that God created to be received with thanksgiving by those who believe and have come to know the truth.",
+  "4": "For every creation of God is good, and nothing is to be rejected if received with thanksgiving,",
+  "5": "for it is sanctified by the word of God and by prayer.",
+  "6": "If you hold to these things, you will be a good servant of Christ Jesus, nourished with the words of the faith and the good teaching that you have followed,",
+  "7": "but avoid worldly and empty myths. Rather, discipline yourself for the sake of godliness,",
+  "8": "for bodily training is of some benefit, but godliness is of value in every way, holding promise for both the present life and the life to come.",
+  "9": "The saying is trustworthy and deserves full acceptance,",
+  "10": "for we labor and suffer reproach because we have put our hope in the living God, who is the Savior of all people, especially of those who believe.",
+  "11": "Command these things and teach them.",
+  "12": "Let no one despise you for your youth, but be an example to the believers in speech, in conduct, in love, in faith, in purity.",
+  "13": "Until I come, devote yourself to the reading, to exhortation, and to teaching.",
+  "14": "Do not neglect the gift that is in you, which was given to you through prophecy with the laying on of hands by the elders.",
+  "15": "Devote yourself to these things, so that your progress is evident to everyone;",
+  "16": "keep watch over yourself and over the teaching. Continue in them, for in doing so you will save both yourself and those who listen to you.\n"
+ },
+ "notes": "Notes\n- v. 3: \"commanding abstinence from foods\" reflects the Greek \"ἀπέχεσθαι βρωμάτων,\" literally \"to abstain from foods.\"\n- v. 12: \"be an example\" renders \"τύπος γίνου,\" where \"τύπος\" (tupos) is best understood here as \"model\" or \"example,\" not \"type.\"\n- v. 14: \"the gift that is in you\" refers to the office or role Timothy was given; \"χαρίσματος\" (charismatos) is \"gift\" in the pastoral context.",
+ "raw": "[1] The Spirit clearly says that in the last times, some will fall away from the faith, giving heed to deceiving spirits and teachings of demons,\n[2] under the guise of lying liars, whose own conscience has been seared as with a hot iron,\n[3] forbidding marriage and commanding abstinence from foods that God created to be received with thanksgiving by those who believe and have come to know the truth.\n[4] For every creation of God is good, and nothing is to be rejected if received with thanksgiving,\n[5] for it is sanctified by the word of God and by prayer.\n[6] If you hold to these things, you will be a good servant of Christ Jesus, nourished with the words of the faith and the good teaching that you have followed,\n[7] but avoid worldly and empty myths. Rather, discipline yourself for the sake of godliness,\n[8] for bodily training is of some benefit, but godliness is of value in every way, holding promise for both the present life and the life to come.\n[9] The saying is trustworthy and deserves full acceptance,\n[10] for we labor and suffer reproach because we have put our hope in the living God, who is the Savior of all people, especially of those who believe.\n[11] Command these things and teach them.\n[12] Let no one despise you for your youth, but be an example to the believers in speech, in conduct, in love, in faith, in purity.\n[13] Until I come, devote yourself to the reading, to exhortation, and to teaching.\n[14] Do not neglect the gift that is in you, which was given to you through prophecy with the laying on of hands by the elders.\n[15] Devote yourself to these things, so that your progress is evident to everyone;\n[16] keep watch over yourself and over the teaching. Continue in them, for in doing so you will save both yourself and those who listen to you.\n\n---\nNotes\n- v. 3: \"commanding abstinence from foods\" reflects the Greek \"ἀπέχεσθαι βρωμάτων,\" literally \"to abstain from foods.\"\n- v. 12: \"be an example\" renders \"τύπος γίνου,\" where \"τύπος\" (tupos) is best understood here as \"model\" or \"example,\" not \"type.\"\n- v. 14: \"the gift that is in you\" refers to the office or role Timothy was given; \"χαρίσματος\" (charismatos) is \"gift\" in the pastoral context.",
+ "engine": "qwen3:32b"
+}

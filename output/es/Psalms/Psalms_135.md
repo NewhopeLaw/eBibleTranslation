@@ -1,0 +1,12 @@
+# Psalms 135
+
+¹ ¡Alaben a YHWH! ¡Alaben el nombre del SEÑOR! ¡Alaben, siervos del SEÑOR! ² Que permanecen en la casa del SEÑOR, en las atrios de la casa de nuestro Dios. ³ ¡Alaben a YHWH, porque YHWH es bueno! ¡Canten alabanzas a su nombre, porque es hermoso! ⁴ Porque YHWH se ha escogido a Jacob para sí, a Israel como posesión especial suya. ⁵ Porque yo sé que YHWH es grande, y que nuestro Señor es más que todos los dioses. ⁶ Todo lo que YHWH quiso lo hizo, en el cielo y en la tierra, en el mar y en todas las profundidades. ⁷ El que eleva las nubes hasta el extremo de la tierra, el que hace relámpagos para la lluvia, el que saca los vientos de sus tesoros. ⁸ El que golpeó a los primogénitos de Egipto, desde hombre hasta bestia. ⁹ El que envió señales y prodigios en medio de ti, Egipto, contra Faraón y contra todos sus siervos. ¹⁰ El que derrotó a muchos pueblos y mató reyes poderosos, ¹¹ al rey Sijón de los amorrheos y al rey Og de Basán, y a todos los reinos de Canaán. ¹² Y les dio su tierra como herencia, una herencia a Israel, su pueblo. ¹³ El SEÑOR, tu nombre, permanece para siempre, el SEÑOR, tu memoria, de generación en generación. ¹⁴ Porque juzga a su pueblo y tiene misericordia sobre sus siervos. ¹⁵ Las imágenes de los pueblos son plata y oro, hechas por manos humanas. ¹⁶ Tienen boca, pero no hablan; tienen ojos, pero no ven. ¹⁷ Tienen oídos, pero no escuchan; no hay espíritu en sus bocas. ¹⁸ Que así sean sus mismos fabricantes, y todos los que en ellos confían. ¹⁹ ¡Casa de Israel, bendigan al SEÑOR! ¡Casa de Aarón, bendigan al SEÑOR! ²⁰ ¡Casa de Leví, bendigan al SEÑOR! ¡Todas las que temen al SEÑOR, bendigan al SEÑOR! ²¹ Bendito sea el SEÑOR desde Sión, el que habita en Jerusalén. ¡Alaben a YHWH!
+
+---
+
+Notes
+- v. 1: La forma "הַלְלוּ" se ha traducido como "¡Alaben!" en lugar de "¡Aleluya!" para mantener la coherencia con la tradición hebrea y el uso en otros salmos (como el Salmo 134).
+- v. 11: "סיחון" se ha traducido como "Sijón", forma común en salmos, en lugar de "Sesón", que también es una posibilidad.
+- v. 13: Se ha seguido la interpretación de que "שִׁמְךָ" y "זִכְרְךָ" se refieren a "tu nombre" y "tu memoria", atribuyéndolos a YHWH.
+- v. 15: La traducción de "עֲצַבֵּי" como "imágenes" refleja el uso del término para referirse a ídolos o dioses falsos.
+- v. 18: Se ha mantenido la paralelismo con el versículo 15, refiriéndose a los fabricantes de ídolos.

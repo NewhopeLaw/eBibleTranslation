@@ -2,11 +2,15 @@
 sources/morphhb/
 sources/byzantine-majority-text/
 sources/SBLGNT/
+sources/lxx/
+sources/vits/
 
 # transient logs (translate.jsonl and verify_report.md ARE tracked)
 logs/pull_*.log
 logs/gen_run.log
 logs/gen_redo*.log
+logs/apk_build.log
+logs/apk_build.json
 nohup.out
 
 # python / android build junk
@@ -15,3 +19,58 @@ android/.gradle/
 android/build/
 android/app/build/
 android/local.properties
+.claude/
+logs/app.log
+logs/webview/
+sources/STEPBible-Data/
+sources/openbible/
+sources/macula/
+# the Android build: its toolchain (scripts/build_apk.py --setup) and the APKs it makes
+tools/
+dist/
+
+# The CCC&TSPM CD-ROM (CCCPBible/) and what was extracted from it. The
+# 新标点和合本 is public domain and is kept; the 现代中文译本, the NRSV and
+# the GNT are not, and neither are the installers and the Access databases
+# that carry all four, so they stay on this machine. They are held under the
+# CD-ROM's own licence and are read by a person checking a translation - not
+# by anything in the pipeline, which translates from the Hebrew and Greek.
+CCCPBible/*
+!CCCPBible/README.md
+!CCCPBible/和合本_新标点_简体.csv
+!CCCPBible/和合本_新标点_简体.json
+!CCCPBible/和合本_新标点_简体.txt
+
+# A shortcut to the dashboard on this machine, not part of the project.
+eBible * live translation.url
+
+# Reference Bibles fetched by scripts/get_references.py. Public domain, but
+# they are a reference read on this machine, not something this project
+# republishes: what leaves here is a list of name spellings.
+sources/references/
+
+# What was asked of the model through the PC search (scripts/ask.py): kept so a
+# question is answered once, and kept here because what someone searched their
+# Bible for is theirs.
+logs/ask/
+models/
+audio/
+NGAW KAREN TTS/audio/
+sources/ksw-mason/*.jsonl
+sources/hakka-tts/
+sources/hakka-dict/
+site-test/
+sources/taiwanese-tts/
+sources/taigi-dict/
+site/.build/
+# The built reader and its search indexes are made from what is committed
+# (build_site.py, build_index.py) and had grown past GitHub's 50 MB file
+# limit; they stay on the machine that built them. Every other file under
+# site/morph/ is a study layer the model wrote over hours, and stays in git.
+site/index.html
+site/morph/idx_*.js
+
+# Judson Burmese Bible from eBible.org, a yardstick for the Burmese trial (scripts/trial_lang.py); fetched, not ours to ship
+sources/mya-judson/
+# Burmese Common Language Bible (Bible Society of Myanmar, 2005) from eBible.org, the modern yardstick for the same trial
+sources/mya-cl/

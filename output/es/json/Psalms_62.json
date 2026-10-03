@@ -1,0 +1,23 @@
+{
+ "book": "Psalms",
+ "chapter": 62,
+ "lang": "es",
+ "verses": {
+  "1": "Al director del coro. Sobre «Canción». Salmo de David.\n",
+  "2": "Solo en Dios permanece mi alma; de él es mi salvación.\n",
+  "3": "Solo él es mi roca y mi salvación, mi refugio; no me inclinaré mucho.\n",
+  "4": "¿Hasta cuándo atacarán al hombre? Todos ustedes lo matan, como un muro inclinado, como un muro al que se empuja.\n",
+  "5": "Solo buscan deshonrarlo, hablan vaciedades con sus labios, maldicen con su corazón. Selah.\n",
+  "6": "Solo en Dios permanece mi alma; de él es mi esperanza.\n",
+  "7": "Solo él es mi roca y mi salvación, mi refugio; no me inclinaré.\n",
+  "8": "En Dios está mi salvación y mi gloria, la roca de mi fortaleza, el Dios que me salva.\n",
+  "9": "Confíen en él, pueblo todo; derramen delante de él sus corazones, porque Dios es nuestro refugio. Selah.\n",
+  "10": "Solo son vanidad los hijos de los humanos, son mentira los hijos de los humanos, en balanzas para engañar; todos son vanidad juntos.\n",
+  "11": "No confíen en la codicia ni en el robo, no se turben por la riqueza, si fluye, no añadan el corazón.\n",
+  "12": "Una sola cosa ha dicho Dios, dos cosas he oído: que el poder pertenece a Dios.\n",
+  "13": "Y a ti, Señor, pertenece el amor leal, porque tú recompensas a cada uno según sus obras.\n"
+ },
+ "notes": "Notes\n- v. 4: La traducción de \"תְּהֽוֹתְתוּ\" como \"atacarán\" refleja el uso de la raíz \"הָתָה\" en sentido de conspirar o atacar.\n- v. 5: \"יְבָרֵכוּ וּבְקִרְבָּם יְקַלְלוּ\" se ha traducido con claridad, manteniendo el contraste entre palabras buenas y pensamientos malos.\n- v. 12: La traducción de \"אַחַת\" como \"una sola cosa\" y \"שְׁתַּֽיִם\" como \"dos cosas\" refleja el juego numérico en el texto original.\n- v. 13: \"אֲדֹנָי\" se traduce como \"Señor\" con mayúscula en honor a su uso como título reverente.\n- v. 11-12: Se ha mantenido la estructura paralela para respetar el estilo poético del salmo.",
+ "raw": "[1] Al director del coro. Sobre «Canción». Salmo de David.\n\n[2] Solo en Dios permanece mi alma; de él es mi salvación.\n\n[3] Solo él es mi roca y mi salvación, mi refugio; no me inclinaré mucho.\n\n[4] ¿Hasta cuándo atacarán al hombre? Todos ustedes lo matan, como un muro inclinado, como un muro al que se empuja.\n\n[5] Solo buscan deshonrarlo, hablan vaciedades con sus labios, maldicen con su corazón. Selah.\n\n[6] Solo en Dios permanece mi alma; de él es mi esperanza.\n\n[7] Solo él es mi roca y mi salvación, mi refugio; no me inclinaré.\n\n[8] En Dios está mi salvación y mi gloria, la roca de mi fortaleza, el Dios que me salva.\n\n[9] Confíen en él, pueblo todo; derramen delante de él sus corazones, porque Dios es nuestro refugio. Selah.\n\n[10] Solo son vanidad los hijos de los humanos, son mentira los hijos de los humanos, en balanzas para engañar; todos son vanidad juntos.\n\n[11] No confíen en la codicia ni en el robo, no se turben por la riqueza, si fluye, no añadan el corazón.\n\n[12] Una sola cosa ha dicho Dios, dos cosas he oído: que el poder pertenece a Dios.\n\n[13] Y a ti, Señor, pertenece el amor leal, porque tú recompensas a cada uno según sus obras.\n\n---\nNotes\n- v. 4: La traducción de \"תְּהֽוֹתְתוּ\" como \"atacarán\" refleja el uso de la raíz \"הָתָה\" en sentido de conspirar o atacar.\n- v. 5: \"יְבָרֵכוּ וּבְקִרְבָּם יְקַלְלוּ\" se ha traducido con claridad, manteniendo el contraste entre palabras buenas y pensamientos malos.\n- v. 12: La traducción de \"אַחַת\" como \"una sola cosa\" y \"שְׁתַּֽיִם\" como \"dos cosas\" refleja el juego numérico en el texto original.\n- v. 13: \"אֲדֹנָי\" se traduce como \"Señor\" con mayúscula en honor a su uso como título reverente.\n- v. 11-12: Se ha mantenido la estructura paralela para respetar el estilo poético del salmo.",
+ "engine": "qwen3:32b"
+}

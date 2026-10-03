@@ -1,0 +1,19 @@
+{
+ "book": "Psalms",
+ "chapter": 149,
+ "lang": "en",
+ "verses": {
+  "1": "Praise the LORD. Sing to the LORD a new song; praise His praise in the assembly of the faithful.\n",
+  "2": "Let Israel rejoice in its Maker; let the sons of Zion be glad in their King.\n",
+  "3": "Let them praise His name in dance; with tambourine and lyre, let them sing to Him.\n",
+  "4": "For the LORD delights in His people; He exalts the humble in salvation.\n",
+  "5": "Let the faithful rejoice in glory; let them sing for joy on their beds.\n",
+  "6": "Let the praises of God be in their throats; let two-edged swords be in their hands.\n",
+  "7": "To carry out judgment on the nations, to execute reproofs among the peoples.\n",
+  "8": "To bind their kings with chains, their nobles with fetters of iron.\n",
+  "9": "To carry out on them a judgment written; this is the glory for all His faithful ones. Praise the LORD!\n"
+ },
+ "notes": "Notes\n- v. 1: The term הַלְלוּ יָהּ is a poetic contraction of הַלְלוּ יָהּ (Praise the LORD). The phrase שִׁיר חָדָשׁ (a new song) is standard in praise psalms.\n- v. 6: \"two-edged swords\" (פִּיפִיּוֹת) is a poetic term for weapons of war, rendered clearly based on contextual and semantic understanding.",
+ "raw": "[1] Praise the LORD. Sing to the LORD a new song; praise His praise in the assembly of the faithful.\n\n[2] Let Israel rejoice in its Maker; let the sons of Zion be glad in their King.\n\n[3] Let them praise His name in dance; with tambourine and lyre, let them sing to Him.\n\n[4] For the LORD delights in His people; He exalts the humble in salvation.\n\n[5] Let the faithful rejoice in glory; let them sing for joy on their beds.\n\n[6] Let the praises of God be in their throats; let two-edged swords be in their hands.\n\n[7] To carry out judgment on the nations, to execute reproofs among the peoples.\n\n[8] To bind their kings with chains, their nobles with fetters of iron.\n\n[9] To carry out on them a judgment written; this is the glory for all His faithful ones. Praise the LORD!\n\n---\nNotes\n- v. 1: The term הַלְלוּ יָהּ is a poetic contraction of הַלְלוּ יָהּ (Praise the LORD). The phrase שִׁיר חָדָשׁ (a new song) is standard in praise psalms.\n- v. 6: \"two-edged swords\" (פִּיפִיּוֹת) is a poetic term for weapons of war, rendered clearly based on contextual and semantic understanding.",
+ "engine": "qwen3:32b"
+}

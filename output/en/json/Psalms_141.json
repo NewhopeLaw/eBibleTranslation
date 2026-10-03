@@ -1,0 +1,20 @@
+{
+ "book": "Psalms",
+ "chapter": 141,
+ "lang": "en",
+ "verses": {
+  "1": "To the Chief Musician. A Psalm of David. O LORD, I have cried out to you; hear me, I beg you. Give ear to the sound of my plea when I call upon you.\n",
+  "2": "Let my prayer be set before you like incense, and the lifting of my hands as an evening offering.\n",
+  "3": "Set a guard, O LORD, over my mouth; place a door of silence around my lips.\n",
+  "4": "Do not incline my heart to any evil thing, to meditate on wickedness with those who work iniquity, nor let me consort with their chosen ones.\n",
+  "5": "Let the righteous correct me with kindness and reprove me, but let the oil of the wicked not anoint my head. For even now and again, my prayer is in their blessings.\n",
+  "6": "Let the mighty ones fall into the snares they have set; let them hear my words, for they are sweet to me.\n",
+  "7": "As dust is scattered on the earth, so may our bones be scattered at the mouth of Sheol.\n",
+  "8": "For to you, O LORD, my Lord, my eyes look; I have put my trust in you. Let not my soul be put to shame.\n",
+  "9": "Keep me from the trap they have laid for me and from the snares of those who work iniquity.\n",
+  "10": "Let the wicked fall into their own net; I will be alone until I pass over.\n"
+ },
+ "notes": "Notes\n- v. 3: \"door of silence\" is a rendering of נִצְּרָה, literally \"door of the lips\" or \"latch of the lips,\" used metaphorically to express restraint.\n- v. 4: \"to meditate on wickedness\" reflects the meaning of הִתְעוֹלֵל עֲלִלוֹת, which combines the idea of devising schemes and engaging in wrongdoing.\n- v. 5: \"the oil of the wicked\" refers to anointing with oil, a metaphor for receiving honor or benefit from wickedness, which the psalmist rejects.\n- v. 6: \"they are sweet to me\" reflects the idea that the words of the wicked are pleasing to the psalmist's adversaries, not to the psalmist himself.\n- v. 7: \"mouth of Sheol\" reflects the Hebrew שְׁאֽוֹל, a poetic reference to the place of the dead.",
+ "raw": "[1] To the Chief Musician. A Psalm of David. O LORD, I have cried out to you; hear me, I beg you. Give ear to the sound of my plea when I call upon you.\n\n[2] Let my prayer be set before you like incense, and the lifting of my hands as an evening offering.\n\n[3] Set a guard, O LORD, over my mouth; place a door of silence around my lips.\n\n[4] Do not incline my heart to any evil thing, to meditate on wickedness with those who work iniquity, nor let me consort with their chosen ones.\n\n[5] Let the righteous correct me with kindness and reprove me, but let the oil of the wicked not anoint my head. For even now and again, my prayer is in their blessings.\n\n[6] Let the mighty ones fall into the snares they have set; let them hear my words, for they are sweet to me.\n\n[7] As dust is scattered on the earth, so may our bones be scattered at the mouth of Sheol.\n\n[8] For to you, O LORD, my Lord, my eyes look; I have put my trust in you. Let not my soul be put to shame.\n\n[9] Keep me from the trap they have laid for me and from the snares of those who work iniquity.\n\n[10] Let the wicked fall into their own net; I will be alone until I pass over.\n\n---\nNotes\n- v. 3: \"door of silence\" is a rendering of נִצְּרָה, literally \"door of the lips\" or \"latch of the lips,\" used metaphorically to express restraint.\n- v. 4: \"to meditate on wickedness\" reflects the meaning of הִתְעוֹלֵל עֲלִלוֹת, which combines the idea of devising schemes and engaging in wrongdoing.\n- v. 5: \"the oil of the wicked\" refers to anointing with oil, a metaphor for receiving honor or benefit from wickedness, which the psalmist rejects.\n- v. 6: \"they are sweet to me\" reflects the idea that the words of the wicked are pleasing to the psalmist's adversaries, not to the psalmist himself.\n- v. 7: \"mouth of Sheol\" reflects the Hebrew שְׁאֽוֹל, a poetic reference to the place of the dead.",
+ "engine": "qwen3:32b"
+}

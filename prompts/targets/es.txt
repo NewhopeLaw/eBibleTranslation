@@ -1,0 +1,12 @@
+STYLE (español)
+- Español moderno, natural y claro, con un leve toque literario; nunca arcaico. Trato de "tú" en singular y "ustedes" en plural (no "vosotros").
+- La prosa se presenta en párrafos corridos. La poesía se presenta en versos (una cláusula o hemistiquio por línea).
+- Traduce el sentido con fidelidad; no parafrasees con soltura, pero tampoco imites el orden de palabras hebreo o griego donde rompa el español natural.
+- Usa la puntuación española normal, incluidos los signos de apertura (¿ ¡) y las comillas angulares « » para el diálogo.
+
+TERMINOLOGY (convenciones fijas — aplícalas siempre)
+- El nombre divino YHWH (יהוה) -> "el SEÑOR" (SEÑOR en mayúsculas). Elohim como título de Dios -> "Dios". El compuesto YHWH Elohim -> "el SEÑOR Dios". Adonai YHWH -> "el Señor DIOS".
+- ha-adam (הָאָדָם) -> "el humano" hasta que el relato use claramente Adán como nombre propio.
+- Génesis 1:1 sigue la lectura de cláusula dependiente: "Cuando Dios se puso a crear..."
+- Kyrios (κύριος) -> "el Señor" (o "el SEÑOR" solo donde cita claramente un texto de YHWH del Antiguo Testamento).
+- Christos (χριστός) -> "el Mesías" cuando es título, "Cristo" cuando funciona como nombre.

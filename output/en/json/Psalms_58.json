@@ -1,0 +1,22 @@
+{
+ "book": "Psalms",
+ "chapter": 58,
+ "lang": "en",
+ "verses": {
+  "1": "For the Chief Musician. Do not destroy. A maskil of David.",
+  "2": "Do you speak of justice, people of upright judgment? Do you judge honestly, children of men?",
+  "3": "Yet in their hearts they plot evil. On earth their hands weave violence.",
+  "4": "The wicked are estranged from the womb. They stray from the womb, uttering lies.",
+  "5": "Their rage is like the serpent. Like a deaf adder that stops its ear,",
+  "6": "which does not listen to the voice of those who speak a poison, a potion, mixed by a wise one.",
+  "7": "Let God crush their teeth in their mouth. Let the LORD shatter the grinding teeth of the lions.",
+  "8": "Let them be like water that flows away. Let their arrows be scattered as they fall.",
+  "9": "Let them be like a snared bird, snatched in a net. Let fire fall upon them, and they see no sun.",
+  "10": "Before they realize your thorns, they are like green briers, like burning thorns consumed in a moment.",
+  "11": "The righteous will rejoice when he sees vengeance. The upright will wash their hands in the blood of the wicked.",
+  "12": "And people will say, \"Indeed, there is fruit for the righteous. Indeed, there is a God who judges in the earth.\""
+ },
+ "notes": "Notes\n- v. 11: \"The righteous will rejoice when he sees vengeance\" — the Hebrew uses נָקָם (nakam), often translated as \"vengeance\" or \"revenge,\" which is retained here for clarity and fidelity.\n- v. 12: \"Indeed, there is fruit for the righteous\" — the translation of פְּרִי (peri) as \"fruit\" is literal, reflecting its metaphorical use in the psalm.",
+ "raw": "[1] For the Chief Musician. Do not destroy. A maskil of David.\n[2] Do you speak of justice, people of upright judgment? Do you judge honestly, children of men?\n[3] Yet in their hearts they plot evil. On earth their hands weave violence.\n[4] The wicked are estranged from the womb. They stray from the womb, uttering lies.\n[5] Their rage is like the serpent. Like a deaf adder that stops its ear,\n[6] which does not listen to the voice of those who speak a poison, a potion, mixed by a wise one.\n[7] Let God crush their teeth in their mouth. Let the LORD shatter the grinding teeth of the lions.\n[8] Let them be like water that flows away. Let their arrows be scattered as they fall.\n[9] Let them be like a snared bird, snatched in a net. Let fire fall upon them, and they see no sun.\n[10] Before they realize your thorns, they are like green briers, like burning thorns consumed in a moment.\n[11] The righteous will rejoice when he sees vengeance. The upright will wash their hands in the blood of the wicked.\n[12] And people will say, \"Indeed, there is fruit for the righteous. Indeed, there is a God who judges in the earth.\"\n---\nNotes\n- v. 11: \"The righteous will rejoice when he sees vengeance\" — the Hebrew uses נָקָם (nakam), often translated as \"vengeance\" or \"revenge,\" which is retained here for clarity and fidelity.\n- v. 12: \"Indeed, there is fruit for the righteous\" — the translation of פְּרִי (peri) as \"fruit\" is literal, reflecting its metaphorical use in the psalm.",
+ "engine": "qwen3:32b"
+}

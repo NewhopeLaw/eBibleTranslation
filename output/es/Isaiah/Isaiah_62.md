@@ -1,0 +1,11 @@
+# Isaiah 62
+
+¹ Por amor de Sión no guardaré silencio, y por amor de Jerusalén no callaré hasta que su justicia brille como la aurora, y su salvación arda como una antorcha. ² Y verán las naciones tu justicia, y todos los reyes tu gloria. Y te llamarán con un nombre nuevo, que la boca del SEÑOR lo pondrá. ³ Y serás una corona de belleza en la mano del SEÑOR, y una diadema de realeza en la palma de tu Dios. ⁴ Ya no se te llamará Abandonada, ni a tu tierra se le dirá ya más Desolada. Porque a ti se te llamará Mi deleite está en ella, y a tu tierra se le llamará Casada, porque el SEÑOR se deleita en ti, y tu tierra será habitada. ⁵ Como marido que se casa con una virgen, así te posarán tus hijos. Y como se alegra un novio sobre su novia, así se alegrará sobre ti tu Dios. ⁶ En las murallas tuyas, Jerusalén, he puesto guardias para siempre, que no callarán día ni noche. Y quienes recuerdan al SEÑOR no callarán nunca. ⁷ No los dejen callar a ellos, hasta que establezca y hasta que ponga a Jerusalén como alabanza en la tierra. ⁸ Juró el SEÑOR por su diestra y por el brazo de su fortaleza: «Jamás entregaré otra vez tu grano como alimento a tus enemigos, ni permitiré que los hijos de naciones beban el vino al que tú has trabajado». ⁹ Porque los que lo recogen lo comerán, y lo alabarán al SEÑOR. Y los que lo recogen lo beberán en mis atrios sagrados. ¹⁰ Pasen, pasen por las puertas, preparen el camino al pueblo. Sáquenlo, sáquenlo, pavimenten la senda, levanten piedras de la montaña, alzando una señal hacia los pueblos. ¹¹ He aquí que el SEÑOR ha hecho oír hasta el fin de la tierra: «Decid a la hija de Sión: He aquí, tu salvador viene, lleva su recompensa contigo, y su obra va delante de Él». ¹² Y se les llamará Pueblo Santo, Redimido por el SEÑOR. Y a ti se te llamará Ciudad Buscada, No Abandonada.
+
+---
+
+Notes  
+- v. 1: La expresión «como la aurora» y «como una antorcha» se usan para transmitir la metáfora visual del texto original.  
+- v. 5: La analogía del marido y la virgen refleja el compromiso amoroso del SEÑOR con Sión, y se mantiene en tono poético.  
+- v. 8: La promesa se traduce de forma clara, evitando ambigüedades sobre la propiedad y el uso de la tierra.  
+- v. 12: Se elige el término «Redimido por el SEÑOR» para el nombre nuevo del pueblo, siguiendo el texto hebreo.

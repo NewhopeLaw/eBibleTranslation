@@ -1,0 +1,38 @@
+{
+  "_comment": "Key Hebrew/Aramaic/Greek terms with their fixed Burmese renderings, injected into every prompt. Drawn from Judson's usage as far as it is known here; to be checked against the Judson text once it is in sources/, and grown as the translation proceeds.",
+  "hebrew": {
+    "יהוה (YHWH)": "ထာဝရဘုရား",
+    "אלהים (elohim, as title of God)": "ဘုရားသခင်",
+    "יהוה אלהים": "ထာဝရဘုရားသခင်",
+    "אדני יהוה (adonai YHWH)": "အရှင်ထာဝရဘုရား",
+    "האדם (ha-adam)": "လူ (until used as the proper name အာဒံ)",
+    "חסד (hesed)": "မပြောင်းလဲသောမေတ္တာ",
+    "נפש (nephesh)": "by context: အသက်, ကိုယ်, စိတ်, အလို — not automatically ဝိညာဉ်",
+    "רוח (ruach)": "by context: ထွက်သက်, လေ, ဝိညာဉ် (ဝိညာဉ်တော် when it is God's)",
+    "תהום (tehom)": "နက်နဲရာ",
+    "תהו ובהו (tohu va-bohu)": "ပုံသဏ္ဌာန်မရှိ ဟင်းလင်းဖြစ်",
+    "ברית (berit)": "ပဋိညာဉ်",
+    "תורה (torah)": "by context: ပညတ်တရား / သွန်သင်ချက်",
+    "שלום (shalom)": "ငြိမ်သက်ခြင်း (or ချမ်းသာ by context)",
+    "שאול (sheol)": "မရဏာနိုင်ငံ",
+    "צרעת (tsara'at)": "နူနာ",
+    "היכל (heikhal)": "by context: ဗိမာန်တော် / နန်းတော်"
+  },
+  "greek": {
+    "κύριος (kyrios)": "သခင်ဘုရား",
+    "χριστός (christos)": "မေရှိယ (title) / ခရစ်တော် (as a name)",
+    "λόγος (logos, John 1)": "နှုတ်ကပတ်တော်",
+    "ἀγάπη (agapē)": "မေတ္တာ",
+    "ἐκκλησία (ekklēsia)": "အသင်းတော်",
+    "βασιλεία τοῦ θεοῦ": "ဘုရားသခင်၏နိုင်ငံတော်",
+    "εὐαγγέλιον (euangelion)": "ဧဝံဂေလိတရား",
+    "μετάνοια (metanoia)": "နောင်တရခြင်း",
+    "πνεῦμα (pneuma)": "by context: ဝိညာဉ် / ဝိညာဉ်တော်, ထွက်သက်, လေ",
+    "πνεῦμα ἅγιον": "သန့်ရှင်းသောဝိညာဉ်တော်",
+    "χάρις (charis)": "ကျေးဇူးတော်",
+    "ἁμαρτία (hamartia)": "အပြစ်",
+    "δικαιοσύνη (dikaiosynē)": "ဖြောင့်မတ်ခြင်း",
+    "πίστις (pistis)": "ယုံကြည်ခြင်း",
+    "ζωὴ αἰώνιος": "ထာဝရအသက်"
+  }
+}

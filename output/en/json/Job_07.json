@@ -1,0 +1,31 @@
+{
+ "book": "Job",
+ "chapter": 7,
+ "lang": "en",
+ "verses": {
+  "1": "Is human life on earth not a military campaign? Are a person’s days not like those of a hired worker?",
+  "2": "Like a servant who longs for the shade, and like a hired worker who waits for their wages,",
+  "3": "so I have spent my months in futility, and my nights of toil are numbered for me.",
+  "4": "When I lie down, I ask, When will I rise? The night wears on, and I am filled with restlessness until evening.",
+  "5": "My flesh is clothed with rot and my skin is a patchwork of festering wounds—it cannot heal.",
+  "6": "My days are swifter than a weaver’s shuttle, and my hope has come to an end.",
+  "7": "Remember that my spirit is my life—and my eyes will no longer see good.",
+  "8": "The eye that watches me will no longer see me. You, LORD, look at me, and I am no more.",
+  "9": "Like a dissipating cloud, I am gone. Like one who descends to Sheol, I will not rise again.",
+  "10": "I will not return to my home, and the place where I was will no longer know me.",
+  "11": "I will not hold my peace. My mouth must speak in my anguish, and I must pour out the bitterness of my soul.",
+  "12": "Am I the sea, or a great serpent, that you have set a guard over me?",
+  "13": "I said, My bed will comfort me; my couch will ease my pain.",
+  "14": "But you send me dreams and terrify me with visions.",
+  "15": "You choose my heart for a target and crush my bones.",
+  "16": "I have no desire to live forever. Turn away from me, for my days are but emptiness.",
+  "17": "What is humanity, that you take such notice of them, or the son of man, that you set your mind on him?",
+  "18": "Yet you examine him every morning and test him at every moment?",
+  "19": "How long will you not look away from me? How long before you let me go, until I swallow my spittle in my pain?",
+  "20": "If I have sinned, what have I done to you, O Keeper of humanity? Why have you made me your target? Why do I bear your burden?",
+  "21": "And why do you not remove my iniquity and clear my sin? For now I shall lie down in the dust, and at dawn I will no longer be.\n"
+ },
+ "notes": "Notes\n- v. 5: \"patchwork of festering wounds\" reflects the Hebrew \"גּוּשׁ עָפָר\", often translated as \"boils of dust\", but here rendered in a way that conveys the idea of a skin covered in patchy, decaying sores.\n- v. 13: The Hebrew \"מַרְאֶה\" is usually \"vision\", but in the context of a bed offering comfort, it is likely a metaphor for a comforting thought or image.\n- v. 14: \"visions\" is used for clarity and consistency with the poetic structure, though the Hebrew \"חֶזְיֹנוֹת\" is plural and can imply recurring visions.\n- v. 15: \"choose my heart for a target\" reflects the Hebrew \"מַחֲנָק נַפְשִׁי\", which literally means \"pierced my soul\", but the metaphor is extended to convey being set as a target.\n- v. 19: \"until I swallow my spittle in my pain\" is a poetic rendering of \"עַד־בִּלְעִי רֻקִּי\", which literally means \"until I swallow my spittle\", but the addition of \"in my pain\" is necessary for clarity in context.",
+ "raw": "[1] Is human life on earth not a military campaign? Are a person’s days not like those of a hired worker?\n[2] Like a servant who longs for the shade, and like a hired worker who waits for their wages,\n[3] so I have spent my months in futility, and my nights of toil are numbered for me.\n[4] When I lie down, I ask, When will I rise? The night wears on, and I am filled with restlessness until evening.\n[5] My flesh is clothed with rot and my skin is a patchwork of festering wounds—it cannot heal.\n[6] My days are swifter than a weaver’s shuttle, and my hope has come to an end.\n[7] Remember that my spirit is my life—and my eyes will no longer see good.\n[8] The eye that watches me will no longer see me. You, LORD, look at me, and I am no more.\n[9] Like a dissipating cloud, I am gone. Like one who descends to Sheol, I will not rise again.\n[10] I will not return to my home, and the place where I was will no longer know me.\n[11] I will not hold my peace. My mouth must speak in my anguish, and I must pour out the bitterness of my soul.\n[12] Am I the sea, or a great serpent, that you have set a guard over me?\n[13] I said, My bed will comfort me; my couch will ease my pain.\n[14] But you send me dreams and terrify me with visions.\n[15] You choose my heart for a target and crush my bones.\n[16] I have no desire to live forever. Turn away from me, for my days are but emptiness.\n[17] What is humanity, that you take such notice of them, or the son of man, that you set your mind on him?\n[18] Yet you examine him every morning and test him at every moment?\n[19] How long will you not look away from me? How long before you let me go, until I swallow my spittle in my pain?\n[20] If I have sinned, what have I done to you, O Keeper of humanity? Why have you made me your target? Why do I bear your burden?\n[21] And why do you not remove my iniquity and clear my sin? For now I shall lie down in the dust, and at dawn I will no longer be.\n\n---\nNotes\n- v. 5: \"patchwork of festering wounds\" reflects the Hebrew \"גּוּשׁ עָפָר\", often translated as \"boils of dust\", but here rendered in a way that conveys the idea of a skin covered in patchy, decaying sores.\n- v. 13: The Hebrew \"מַרְאֶה\" is usually \"vision\", but in the context of a bed offering comfort, it is likely a metaphor for a comforting thought or image.\n- v. 14: \"visions\" is used for clarity and consistency with the poetic structure, though the Hebrew \"חֶזְיֹנוֹת\" is plural and can imply recurring visions.\n- v. 15: \"choose my heart for a target\" reflects the Hebrew \"מַחֲנָק נַפְשִׁי\", which literally means \"pierced my soul\", but the metaphor is extended to convey being set as a target.\n- v. 19: \"until I swallow my spittle in my pain\" is a poetic rendering of \"עַד־בִּלְעִי רֻקִּי\", which literally means \"until I swallow my spittle\", but the addition of \"in my pain\" is necessary for clarity in context.",
+ "engine": "qwen3:32b"
+}

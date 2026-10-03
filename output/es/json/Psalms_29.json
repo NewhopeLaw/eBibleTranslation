@@ -1,0 +1,21 @@
+{
+ "book": "Psalms",
+ "chapter": 29,
+ "lang": "es",
+ "verses": {
+  "1": "Canto de David. Lleven a YHWH, hijos de dioses, lleven a YHWH gloria y poder.\n",
+  "2": "Lleven a YHWH gloria a su nombre, prostérnense ante YHWH en la hermosura de su santidad.\n",
+  "3": "Voz de YHWH sobre las aguas, el dios de la gloria truena; YHWH truena sobre aguas abundantes.\n",
+  "4": "Voz de YHWH en la fuerza, voz de YHWH en la magnificencia.\n",
+  "5": "Voz de YHWH que quiebra cedros, y YHWH quiebra los cedros de Lebano.\n",
+  "6": "Los hará temblar como un becerro de Lebano, como un ciervo joven.\n",
+  "7": "Voz de YHWH que divide las llamas de fuego.\n",
+  "8": "Voz de YHWH que sacude el desierto, YHWH sacude el desierto de Kadés.\n",
+  "9": "Voz de YHWH que hace correr a los ciervos, y YHWH descubre los bosques; y en su templo todo dice gloria.\n",
+  "10": "YHWH habita en el diluvio, y YHWH se sienta rey por siempre.\n",
+  "11": "YHWH dará fuerza a su pueblo, YHWH bendecirá a su pueblo con paz.\n"
+ },
+ "notes": "Notes  \n- v. 6: La expresión «como un becerro de Lebano, como un ciervo joven» se interpreta como una comparación de los cedros temblando bajo el estruendo de la voz de YHWH, no como animales que se mueven.  \n- v. 10: La lectura de «YHWH habita en el diluvio» corresponde a la interpretación de la frase hebrea \"לַמַּבּוּל\", que puede significar \"en el diluvio\", aunque se ha mantenido el uso de «diluvio» como sustantivo.  \n- v. 9: «Kadés» se ha traducido como «Kadés» y no como «Cades» para mantener la fidelidad a la transliteración del nombre propio.",
+ "raw": "[1] Canto de David. Lleven a YHWH, hijos de dioses, lleven a YHWH gloria y poder.\n\n[2] Lleven a YHWH gloria a su nombre, prostérnense ante YHWH en la hermosura de su santidad.\n\n[3] Voz de YHWH sobre las aguas, el dios de la gloria truena; YHWH truena sobre aguas abundantes.\n\n[4] Voz de YHWH en la fuerza, voz de YHWH en la magnificencia.\n\n[5] Voz de YHWH que quiebra cedros, y YHWH quiebra los cedros de Lebano.\n\n[6] Los hará temblar como un becerro de Lebano, como un ciervo joven.\n\n[7] Voz de YHWH que divide las llamas de fuego.\n\n[8] Voz de YHWH que sacude el desierto, YHWH sacude el desierto de Kadés.\n\n[9] Voz de YHWH que hace correr a los ciervos, y YHWH descubre los bosques; y en su templo todo dice gloria.\n\n[10] YHWH habita en el diluvio, y YHWH se sienta rey por siempre.\n\n[11] YHWH dará fuerza a su pueblo, YHWH bendecirá a su pueblo con paz.\n\n---  \nNotes  \n- v. 6: La expresión «como un becerro de Lebano, como un ciervo joven» se interpreta como una comparación de los cedros temblando bajo el estruendo de la voz de YHWH, no como animales que se mueven.  \n- v. 10: La lectura de «YHWH habita en el diluvio» corresponde a la interpretación de la frase hebrea \"לַמַּבּוּל\", que puede significar \"en el diluvio\", aunque se ha mantenido el uso de «diluvio» como sustantivo.  \n- v. 9: «Kadés» se ha traducido como «Kadés» y no como «Cades» para mantener la fidelidad a la transliteración del nombre propio.",
+ "engine": "qwen3:32b"
+}

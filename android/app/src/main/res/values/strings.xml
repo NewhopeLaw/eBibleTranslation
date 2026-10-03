@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Short on purpose: a launcher gives a name about a dozen characters
+         before it cuts it off, and the Play listing carries the longer one. -->
+    <string name="app_name">eBible</string>
+
+    <!-- The shell has no UI of its own except this one screen, which appears
+         when the page cannot be shown at all. It says what is wrong in the
+         reader's words, not the platform's. -->
+    <string name="error_title">The reader did not open</string>
+    <string name="error_missing_assets">The text could not be found in this copy of the app. Reinstalling it should bring the reader back.</string>
+    <string name="error_webview">This phone\'s Android System WebView is missing or being updated. The reader is drawn with it, so it cannot open until that finishes.</string>
+    <string name="error_load_failed">The reader\'s page could not be loaded.</string>
+    <string name="retry">Try again</string>
+    <string name="retry_description">Try to open the reader again</string>
+    <string name="no_browser">No app on this phone can open that link.</string>
+
+    <!-- The verse actions and the two share buttons. -->
+    <string name="back_again">Press back again to leave the reader</string>
+    <string name="copied">Verse copied</string>
+    <string name="share_app_subject">eBible — the whole Bible, offline</string>
+    <string name="share_app_failed">The app could not be prepared for sharing.</string>
+    <string name="share_app_split">This copy came from the Play Store in several pieces, so it cannot be passed on as one file.</string>
+</resources>

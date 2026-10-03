@@ -1,0 +1,32 @@
+{
+ "book": "Psalms",
+ "chapter": 103,
+ "lang": "en",
+ "verses": {
+  "1": "Let my soul bless the LORD, and let all that is within me bless his holy name.",
+  "2": "Let my soul bless the LORD, and never forget all his blessings.",
+  "3": "The one who forgives all your sins, who heals all your diseases,",
+  "4": "the one who redeems your life from the grave, who crowns you with steadfast love and mercy,",
+  "5": "who satisfies you with good things, so that your youth renews itself like the eagle.",
+  "6": "The LORD does righteous acts and executes justice for all the oppressed.",
+  "7": "He made known his ways to Moses, his acts to the people of Israel.",
+  "8": "The LORD is merciful and gracious, slow to anger and abounding in steadfast love.",
+  "9": "He will not always be angry, nor will he keep his wrath forever.",
+  "10": "He does not treat us as our sins deserve, nor repay us according to our iniquities.",
+  "11": "For as high as the heavens are above the earth, so great is his steadfast love toward those who fear him.",
+  "12": "As far as the east is from the west, so far has he removed our transgressions from us.",
+  "13": "Like a father has compassion on his children, so the LORD has compassion on those who fear him.",
+  "14": "For he knows our frame; he remembers that we are dust.",
+  "15": "Human beings are like grass; their days are like the flowers of the field.",
+  "16": "The wind passes over them and they are gone, and their place no longer knows them.",
+  "17": "But the steadfast love of the LORD is from forever to forever, and his righteousness to all generations.",
+  "18": "To all who keep his covenant and remember to do his commandments,",
+  "19": "the LORD has established his throne in the heavens, and his sovereignty rules over all.",
+  "20": "Bless the LORD, you his angels, you mighty in strength who do his word, who listen to the voice of his word.",
+  "21": "Bless the LORD, all his hosts, his ministers who do his will.",
+  "22": "Bless the LORD, all his works, in all places of his dominion. Let my soul bless the LORD.\n"
+ },
+ "notes": "Notes\n- v. 1: \"all that is within me\" reflects the Hebrew \"כָּל־קְרָבַי\" which literally means \"all that is near to me\" but is rendered here as a poetic expression of total being.\n- v. 12: \"transgressions\" is used for \"פְּשָׁעֵינוּ\" (our rebellions/iniquities), consistent with the glossary's treatment of sin terms.\n- v. 17: \"from forever to forever\" is a natural English rendering of \"מֵעוֹלָם וְעַד־עוֹלָם\" to capture the timeless extent of God’s steadfast love.\n- v. 19: \"his sovereignty rules over all\" reflects the phrase \"מָשָׁלָה\" (rules) used with a broad, cosmic sense.",
+ "raw": "[1] Let my soul bless the LORD, and let all that is within me bless his holy name.\n[2] Let my soul bless the LORD, and never forget all his blessings.\n[3] The one who forgives all your sins, who heals all your diseases,\n[4] the one who redeems your life from the grave, who crowns you with steadfast love and mercy,\n[5] who satisfies you with good things, so that your youth renews itself like the eagle.\n[6] The LORD does righteous acts and executes justice for all the oppressed.\n[7] He made known his ways to Moses, his acts to the people of Israel.\n[8] The LORD is merciful and gracious, slow to anger and abounding in steadfast love.\n[9] He will not always be angry, nor will he keep his wrath forever.\n[10] He does not treat us as our sins deserve, nor repay us according to our iniquities.\n[11] For as high as the heavens are above the earth, so great is his steadfast love toward those who fear him.\n[12] As far as the east is from the west, so far has he removed our transgressions from us.\n[13] Like a father has compassion on his children, so the LORD has compassion on those who fear him.\n[14] For he knows our frame; he remembers that we are dust.\n[15] Human beings are like grass; their days are like the flowers of the field.\n[16] The wind passes over them and they are gone, and their place no longer knows them.\n[17] But the steadfast love of the LORD is from forever to forever, and his righteousness to all generations.\n[18] To all who keep his covenant and remember to do his commandments,\n[19] the LORD has established his throne in the heavens, and his sovereignty rules over all.\n[20] Bless the LORD, you his angels, you mighty in strength who do his word, who listen to the voice of his word.\n[21] Bless the LORD, all his hosts, his ministers who do his will.\n[22] Bless the LORD, all his works, in all places of his dominion. Let my soul bless the LORD.\n\n---\nNotes\n- v. 1: \"all that is within me\" reflects the Hebrew \"כָּל־קְרָבַי\" which literally means \"all that is near to me\" but is rendered here as a poetic expression of total being.\n- v. 12: \"transgressions\" is used for \"פְּשָׁעֵינוּ\" (our rebellions/iniquities), consistent with the glossary's treatment of sin terms.\n- v. 17: \"from forever to forever\" is a natural English rendering of \"מֵעוֹלָם וְעַד־עוֹלָם\" to capture the timeless extent of God’s steadfast love.\n- v. 19: \"his sovereignty rules over all\" reflects the phrase \"מָשָׁלָה\" (rules) used with a broad, cosmic sense.",
+ "engine": "qwen3:32b"
+}

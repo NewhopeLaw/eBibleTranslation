@@ -1,0 +1,30 @@
+{
+ "book": "Ecclesiastes",
+ "chapter": 10,
+ "lang": "es",
+ "verses": {
+  "1": "Las moscas muertas empañan el aceite del que más valor, y la locura pesa más que el honor.\n",
+  "2": "El corazón del sabio está a su derecha, y el corazón del necio a su izquierda.\n",
+  "3": "Incluso en el camino, cuando el necio camina, su corazón carece de dirección y dice de todo: \"Todo es necedad\".\n",
+  "4": "Si el espíritu del gobernante te eleva, no te rebajes; porque aunque un curandero quite muchos pecados, aún así permanecerá la culpa.\n",
+  "5": "He visto maldad bajo el sol, y es la equivocación que sale de boca del príncipe.\n",
+  "6": "La prudencia se da a muchos altos, pero los ricos viven en las alturas bajas.\n",
+  "7": "He visto a esclavos sobre caballos, y a jefes caminando como siervos sobre la tierra.\n",
+  "8": "El que cava un hoyo caerá en él, y el que rompe un muro será mordido por la serpiente.\n",
+  "9": "El que transporta piedras se lastimará con ellas; el que corta árboles se herirá con sus ramas.\n",
+  "10": "Si la hierro está afilada y no se desgasta, sino que se refina, se fortalecerá. Pero el que tiene ventaja, es el que sabe hacerlo bien.\n",
+  "11": "Si la serpiente muerde sin hacer ruido, no hay ventaja para quien habla con mucha lengua.\n",
+  "12": "Las palabras de la boca del sabio son graciosas, pero las lenguas del necio lo destruyen.\n",
+  "13": "El comienzo de sus palabras es necedad, y el final su boca llena de maldades.\n",
+  "14": "El necio multiplica palabras, pero no conoce al hombre lo que será, y quien vendrá después, ¿quién se lo dirá?\n",
+  "15": "El trabajo de los necios los agota, porque no saben cómo llegar a la ciudad.\n",
+  "16": "Si tu tierra tiene un rey joven y tus jefes comen desde la mañana, ¡desgraciada será tu tierra!\n",
+  "17": "Dichosa será tu tierra si tu rey es hijo de nobles y tus jefes comen con fortaleza, no por ebriedad.\n",
+  "18": "Por dos clavos se cae la casa, y por la debilidad de las manos se desmorona.\n",
+  "19": "Se hace el pan para la risa, y el vino alegra la vida; y la plata resuelve todo.\n",
+  "20": "Aunque sepas que el rey no te escucha, no le maldigas, ni en la privacidad de tu cama maldigas al rico, porque el ave del cielo llevará el eco, y el que tiene alas lo hará conocer.\n"
+ },
+ "notes": "Notes  \n- v. 1: La interpretación de \"zubvei mavet\" como \"moscas muertas\" sigue la tradición y la metáfora.  \n- v. 10: La expresión \"quien tiene ventaja, es el que sabe hacerlo bien\" refleja la idea de que la habilidad técnica supera al instrumento mismo.  \n- v. 20: La mención de \"el ave del cielo\" y \"el que tiene alas\" sugiere la idea de que los rumores viajan rápidamente, por lo cual hay que tener cuidado con lo que se dice.",
+ "raw": "[1] Las moscas muertas empañan el aceite del que más valor, y la locura pesa más que el honor.\n\n[2] El corazón del sabio está a su derecha, y el corazón del necio a su izquierda.\n\n[3] Incluso en el camino, cuando el necio camina, su corazón carece de dirección y dice de todo: \"Todo es necedad\".\n\n[4] Si el espíritu del gobernante te eleva, no te rebajes; porque aunque un curandero quite muchos pecados, aún así permanecerá la culpa.\n\n[5] He visto maldad bajo el sol, y es la equivocación que sale de boca del príncipe.\n\n[6] La prudencia se da a muchos altos, pero los ricos viven en las alturas bajas.\n\n[7] He visto a esclavos sobre caballos, y a jefes caminando como siervos sobre la tierra.\n\n[8] El que cava un hoyo caerá en él, y el que rompe un muro será mordido por la serpiente.\n\n[9] El que transporta piedras se lastimará con ellas; el que corta árboles se herirá con sus ramas.\n\n[10] Si la hierro está afilada y no se desgasta, sino que se refina, se fortalecerá. Pero el que tiene ventaja, es el que sabe hacerlo bien.\n\n[11] Si la serpiente muerde sin hacer ruido, no hay ventaja para quien habla con mucha lengua.\n\n[12] Las palabras de la boca del sabio son graciosas, pero las lenguas del necio lo destruyen.\n\n[13] El comienzo de sus palabras es necedad, y el final su boca llena de maldades.\n\n[14] El necio multiplica palabras, pero no conoce al hombre lo que será, y quien vendrá después, ¿quién se lo dirá?\n\n[15] El trabajo de los necios los agota, porque no saben cómo llegar a la ciudad.\n\n[16] Si tu tierra tiene un rey joven y tus jefes comen desde la mañana, ¡desgraciada será tu tierra!\n\n[17] Dichosa será tu tierra si tu rey es hijo de nobles y tus jefes comen con fortaleza, no por ebriedad.\n\n[18] Por dos clavos se cae la casa, y por la debilidad de las manos se desmorona.\n\n[19] Se hace el pan para la risa, y el vino alegra la vida; y la plata resuelve todo.\n\n[20] Aunque sepas que el rey no te escucha, no le maldigas, ni en la privacidad de tu cama maldigas al rico, porque el ave del cielo llevará el eco, y el que tiene alas lo hará conocer.\n\n---  \nNotes  \n- v. 1: La interpretación de \"zubvei mavet\" como \"moscas muertas\" sigue la tradición y la metáfora.  \n- v. 10: La expresión \"quien tiene ventaja, es el que sabe hacerlo bien\" refleja la idea de que la habilidad técnica supera al instrumento mismo.  \n- v. 20: La mención de \"el ave del cielo\" y \"el que tiene alas\" sugiere la idea de que los rumores viajan rápidamente, por lo cual hay que tener cuidado con lo que se dice.",
+ "engine": "qwen3:32b"
+}

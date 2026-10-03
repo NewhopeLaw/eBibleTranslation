@@ -1,0 +1,31 @@
+{
+  "_comment": "Términos clave hebreos/arameos/griegos con su traducción española fija. Se inyecta en cada instrucción. Crece con el proyecto.",
+  "hebrew": {
+    "יהוה (YHWH)": "el SEÑOR",
+    "אלהים (elohim, as title of God)": "Dios",
+    "יהוה אלהים": "el SEÑOR Dios",
+    "אדני יהוה (adonai YHWH)": "el Señor DIOS",
+    "האדם (ha-adam)": "el humano (hasta que se use como nombre propio, Adán)",
+    "חסד (hesed)": "amor leal",
+    "נפש (nephesh)": "según el contexto: vida, ser, uno mismo, apetito, garganta — nunca «alma» por defecto",
+    "רוח (ruach)": "según el contexto: aliento, viento, espíritu",
+    "תהום (tehom)": "el abismo",
+    "תהו ובהו (tohu va-bohu)": "informe y vacía",
+    "ברית (berit)": "pacto",
+    "תורה (torah)": "instrucción / ley (según el contexto)",
+    "שלום (shalom)": "paz (o bienestar, según el contexto)",
+    "שאול (sheol)": "el Seol"
+  },
+  "greek": {
+    "κύριος (kyrios)": "el Señor",
+    "χριστός (christos)": "el Mesías (título) / Cristo (como nombre)",
+    "λόγος (logos, John 1)": "la Palabra",
+    "ἀγάπη (agapē)": "amor",
+    "ἐκκλησία (ekklēsia)": "la asamblea / la iglesia",
+    "βασιλεία τοῦ θεοῦ": "el reino de Dios",
+    "εὐαγγέλιον (euangelion)": "la buena noticia / el evangelio",
+    "μετάνοια (metanoia)": "arrepentimiento (cambio de mente)",
+    "πνεῦμα (pneuma)": "según el contexto: espíritu, aliento, viento",
+    "δικαιοσύνη (dikaiosynē)": "justicia"
+  }
+}

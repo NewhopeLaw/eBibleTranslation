@@ -1,0 +1,15 @@
+{
+ "book": "Psalms",
+ "chapter": 15,
+ "lang": "en",
+ "verses": {
+  "1": "A psalm of David. O LORD, who may dwell in your tent? Who may rest in your holy mountain?",
+  "2": "One who walks blamelessly, and acts justly, and speaks truth in his heart.",
+  "3": "Who does not slander with his tongue, who does no harm to his neighbor, and does not disgrace anyone near him.",
+  "4": "In whose presence the wicked are despised, and who honors those who fear the LORD. One who swears to do evil and does not waver.",
+  "5": "One who does not lend his silver at interest, and does not take a bribe against the innocent. One who does these things shall not be moved forever.\n"
+ },
+ "notes": "Notes\n- v. 1: \"O LORD\" is a direct address to YHWH.\n- v. 4: \"One who swears to do evil and does not waver\" refers to someone who makes a malicious oath and does not back down.\n- v. 5: \"Does not take a bribe against the innocent\" reflects the Hebrew \"שֹׁחַד עַל־נָקִי לֹא לָקָח,\" where \"nakiy\" means innocent.",
+ "raw": "[1] A psalm of David. O LORD, who may dwell in your tent? Who may rest in your holy mountain?\n[2] One who walks blamelessly, and acts justly, and speaks truth in his heart.\n[3] Who does not slander with his tongue, who does no harm to his neighbor, and does not disgrace anyone near him.\n[4] In whose presence the wicked are despised, and who honors those who fear the LORD. One who swears to do evil and does not waver.\n[5] One who does not lend his silver at interest, and does not take a bribe against the innocent. One who does these things shall not be moved forever.\n\n---\nNotes\n- v. 1: \"O LORD\" is a direct address to YHWH.\n- v. 4: \"One who swears to do evil and does not waver\" refers to someone who makes a malicious oath and does not back down.\n- v. 5: \"Does not take a bribe against the innocent\" reflects the Hebrew \"שֹׁחַד עַל־נָקִי לֹא לָקָח,\" where \"nakiy\" means innocent.",
+ "engine": "qwen3:32b"
+}

@@ -1,0 +1,16 @@
+{
+ "book": "Isaiah",
+ "chapter": 12,
+ "lang": "en",
+ "verses": {
+  "1": "On that day you will say, “I will praise you, O LORD, for you were angry with me, you turned your anger away, and you comforted me.”\n",
+  "2": "“Behold, my God is my salvation—I will trust and not fear, for the glory of the LORD is my strength. He has become my salvation.”\n",
+  "3": "With joy you will draw water from the wells of salvation.\n",
+  "4": "On that day you will say, “Give thanks to the LORD, proclaim his name, make known among the nations his deeds, declare that his name is exalted.”\n",
+  "5": "Sing to the LORD, for he has done great things; let this be proclaimed throughout the whole earth.\n",
+  "6": "Rejoice and be glad, O inhabitants of Zion, for great is the Holy One of Israel in your midst.\n"
+ },
+ "notes": "Notes\n- v. 2: “He has become my salvation” reflects the switch from second-person address in the first part of the verse to a third-person summary of God’s action in the second. The Hebrew uses a narrative-style shift common in prophetic poetry.",
+ "raw": "[1] On that day you will say, “I will praise you, O LORD, for you were angry with me, you turned your anger away, and you comforted me.”\n\n[2] “Behold, my God is my salvation—I will trust and not fear, for the glory of the LORD is my strength. He has become my salvation.”\n\n[3] With joy you will draw water from the wells of salvation.\n\n[4] On that day you will say, “Give thanks to the LORD, proclaim his name, make known among the nations his deeds, declare that his name is exalted.”\n\n[5] Sing to the LORD, for he has done great things; let this be proclaimed throughout the whole earth.\n\n[6] Rejoice and be glad, O inhabitants of Zion, for great is the Holy One of Israel in your midst.\n\n---\nNotes\n- v. 2: “He has become my salvation” reflects the switch from second-person address in the first part of the verse to a third-person summary of God’s action in the second. The Hebrew uses a narrative-style shift common in prophetic poetry.",
+ "engine": "qwen3:32b"
+}

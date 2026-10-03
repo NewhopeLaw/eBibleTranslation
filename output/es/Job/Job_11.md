@@ -1,0 +1,12 @@
+# Job 11
+
+¹ Y respondió Sofar el Maínita y dijo: ² ¿Acaso hay muchos discursos que no respondan? ¿O si un hombre tiene muchos labios, será justificado? ³ El mudo es callado, y tú te burlas, y no hay quien te corrija. ⁴ Y tú dices: «Yo soy justo en mis palabras y puro a tus ojos». ⁵ Pero, ¿quién podría hacer hablar a Dios, y abrir Su boca contigo? ⁶ Y Él te anunciará las profundidades de la sabiduría, porque Él dobla lo que te ataca, y entonces sabrás que Él te quita lo que mereces por tus pecados. ⁷ ¿Acaso podrás encontrar la huella de Dios, o alcanzar los confines de lo que el Omnipotente ha hecho? ⁸ Alto es el cielo, ¿qué podrás hacer? Más profundo que la tierra es el Seol, ¿qué podrás saber? ⁹ Más largo que la medida de la tierra, y más ancho que la extensión del mar. ¹⁰ Si Él cambia y sella, ¿quién le dirá: «¿Qué has hecho?»? ¹¹ Porque Él conoce las obras de los impíos, y viendo la maldad, no pasa por alto. ¹² Pero el hombre se siente otra vez diferente por sus palabras; ciertamente, el ser humano nacido de mujer es semejante a un animal que carece de sentido. ¹³ Si tú preparas tu corazón, y extiendes tus manos a Él; ¹⁴ y si hay maldad en tu mano, deséchala, y no permitas que la injusticia viva en tu tienda. ¹⁵ Entonces tu rostro se levantará sin mancha, y serás firme, y no temerás. ¹⁶ Porque tú olvidarás tu aflicción como el agua que pasó, y no te acordarás. ¹⁷ Y tu oración será como la aurora. Desde el mediodía, nacerá para ti la vida. ¹⁸ Y confiarás, porque hay esperanza, y a salvo de preocupaciones y angustias dormirás. ¹⁹ Y descansarás, y no habrá quien te ataque; y muchos se convertirán y te rogarán. ²⁰ Y la salvación de ellos perecerá, porque su esperanza es destrucción, y los ojos de los impíos serán consumidos.
+
+---
+
+Notes
+- v. 4: La construcción en hebreo sugiere una ironía con respecto a lo que Job dice de sí mismo.
+- v. 10: La frase "¿quién le dirá..." refleja la idea de que nadie puede confrontar a Dios sobre sus actos.
+- v. 12: "semejante a un animal que carece de sentido" refleja el texto hebreo, que compara al hombre con un animal sin entendimiento (עַיִר פֶּרֶא).
+- v. 17: La traducción "como la aurora" sigue una interpretación naturalista, aunque "aurora" no aparece en el hebreo, sino una comparación con la luz del amanecer.
+- v. 19: "se convertirán y te rogarán" es una interpretación contextual, ya que el verbo שָׁאַל puede significar "rogar" o "pedir".

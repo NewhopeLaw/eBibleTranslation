@@ -1,0 +1,10 @@
+# Psalms 17
+
+¹ A prayer of David. Hear, O LORD, my righteousness, listen to my plea. Attend to my prayer that does not come from deceitful lips. ² Let my judgment come forth before your face; let your eyes behold what is upright. ³ You have tested my heart, searched me in the night. You have refined me, and found no deceit in me. ⁴ I have not allowed the words of mortals to reach my mouth; I have kept the ways of the violent in check. ⁵ You have set my feet upon your pathways, so that my steps do not falter. ⁶ I have called to you, for you have answered me, O God. Turn your ear to me, hear my words. ⁷ Wondrous is your steadfast love, O Savior, to those who take refuge, from the right hand of those who rise up against them. ⁸ Keep me as the apple of the eye; under the shadow of your wings, hide me. ⁹ From the face of the wicked who have persecuted me—my enemies, who encircle my life— ¹⁰ their fat is closed up; their mouths speak with pride. ¹¹ Now they have cast out and surrounded me; their eyes are set to cast me down to the earth. ¹² Like a lion ready to pounce, like a young lion lurking in hiding. ¹³ Arise, O LORD, confront them, bring them low. Rescue my life from the wicked with your sword. ¹⁴ From the hands of your enemies, O LORD, deliver them from the earth. Divide their portion among the living, and let the hidden ones fill their bellies; let their children be satisfied, and leave their wealth to their infants. ¹⁵ But I, in righteousness, shall behold your face; I shall be satisfied when I awake in your likeness.
+
+---
+
+Notes  
+- v. 4: The phrase "I have kept the ways of the violent in check" reflects the meaning of "ar'hot paritz" as ways of the violent or of the wicked.  
+- v. 14: "Let the hidden ones" is a poetic rendering of "mi-mitim," which may literally mean "from the hidden ones" but is used here to refer to the wicked or conspirators.  
+- v. 15: "In your likeness" is a poetic rendering of "temunat'kha" to capture the idea of being transformed or renewed in the image of God.

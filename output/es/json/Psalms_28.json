@@ -1,0 +1,19 @@
+{
+ "book": "Psalms",
+ "chapter": 28,
+ "lang": "es",
+ "verses": {
+  "1": "A ti, SEÑOR, clamaré; tú, roca mía, no te quedes callado conmigo, ni te mantengas en silencio conmigo, o seré semejante a los que descienden a la fosa.\n",
+  "2": "Escucha la voz de mi súplica cuando clamo a ti, cuando alzo mis manos hacia el santuario de tu presencia.\n",
+  "3": "No me arrastra con los malvados ni me juntes con los que obran iniquidad, que hablan de paz con sus próximos, pero tienen maldad en su corazón.\n",
+  "4": "Dales según sus obras y según la maldad de sus acciones, según lo que sus manos han hecho, devuelve a cada uno su merecido.\n",
+  "5": "Porque no han entendido las obras del SEÑOR ni han considerado los hechos de sus manos; así que los derribarás, y no los edificarás.\n",
+  "6": "Bendito sea el SEÑOR, porque ha escuchado la voz de mi súplica.\n",
+  "7": "El SEÑOR es mi fortaleza y mi refugio; en él confía mi corazón, y me ha sido ayudado. Por eso mi espíritu canta y le alaba.\n",
+  "8": "El SEÑOR es fortaleza para su pueblo, el refugio de los que buscan salvación. El Mesías es su salvo.\n",
+  "9": "Salva a tu pueblo, bendice a tu herencia, y guíalos y alzalos por siempre.\n"
+ },
+ "notes": "Notes\n- v. 1: El verbo «չֱרַשׁ» (quedar en silencio) se ha traducido como «quedarse callado», con un doble uso de «conmigo» para reflejar la intensidad de la súplica.\n- v. 3: La expresión «דֹּבְרֵי שָׁלוֹם עִם־רֵעֵיהֶם וְרָעָה בִּלְבָבָם» se ha interpretado como una ironía: hablan de paz pero tienen maldad en el corazón.\n- v. 5: La construcción «לֹא יָבִינוּ אֶל־פְּעֻלֹּת יְהוָה» se ha traducido como «no han entendido las obras del SEÑOR» para mantener la claridad y el tono reflexivo del salmo.\n- v. 8: «עֹז־לָמוֹ» se ha traducido como «fortaleza para su pueblo», adaptando el genitivo hebreo para que suene natural en español. «מָעוֹז יְשׁוּעוֹת מְשִׁיחוֹ הֽוּא» se ha interpretado como «el refugio de los que buscan salvación. El Mesías es su salvo» para mantener la coherencia y el estilo poético.",
+ "raw": "[1] A ti, SEÑOR, clamaré; tú, roca mía, no te quedes callado conmigo, ni te mantengas en silencio conmigo, o seré semejante a los que descienden a la fosa.\n\n[2] Escucha la voz de mi súplica cuando clamo a ti, cuando alzo mis manos hacia el santuario de tu presencia.\n\n[3] No me arrastra con los malvados ni me juntes con los que obran iniquidad, que hablan de paz con sus próximos, pero tienen maldad en su corazón.\n\n[4] Dales según sus obras y según la maldad de sus acciones, según lo que sus manos han hecho, devuelve a cada uno su merecido.\n\n[5] Porque no han entendido las obras del SEÑOR ni han considerado los hechos de sus manos; así que los derribarás, y no los edificarás.\n\n[6] Bendito sea el SEÑOR, porque ha escuchado la voz de mi súplica.\n\n[7] El SEÑOR es mi fortaleza y mi refugio; en él confía mi corazón, y me ha sido ayudado. Por eso mi espíritu canta y le alaba.\n\n[8] El SEÑOR es fortaleza para su pueblo, el refugio de los que buscan salvación. El Mesías es su salvo.\n\n[9] Salva a tu pueblo, bendice a tu herencia, y guíalos y alzalos por siempre.\n\n---\nNotes\n- v. 1: El verbo «չֱרַשׁ» (quedar en silencio) se ha traducido como «quedarse callado», con un doble uso de «conmigo» para reflejar la intensidad de la súplica.\n- v. 3: La expresión «דֹּבְרֵי שָׁלוֹם עִם־רֵעֵיהֶם וְרָעָה בִּלְבָבָם» se ha interpretado como una ironía: hablan de paz pero tienen maldad en el corazón.\n- v. 5: La construcción «לֹא יָבִינוּ אֶל־פְּעֻלֹּת יְהוָה» se ha traducido como «no han entendido las obras del SEÑOR» para mantener la claridad y el tono reflexivo del salmo.\n- v. 8: «עֹז־לָמוֹ» se ha traducido como «fortaleza para su pueblo», adaptando el genitivo hebreo para que suene natural en español. «מָעוֹז יְשׁוּעוֹת מְשִׁיחוֹ הֽוּא» se ha interpretado como «el refugio de los que buscan salvación. El Mesías es su salvo» para mantener la coherencia y el estilo poético.",
+ "engine": "qwen3:32b"
+}

@@ -95,3 +95,97 @@ def is_aramaic(code: str, chapter: int, verse: int) -> bool:
 def slug(name: str) -> str:
     """File-system-safe book name: '1 Samuel' -> '1_Samuel'."""
     return name.replace(" ", "_")
+
+
+# --- Original languages -------------------------------------------------
+# One table for the whole pipeline: the driver labels prompts with it, the
+# reader and live dashboard render with it. Codes are ISO 639-3 as used in the
+# normalized sources (OT verses carry "lang": "arc" in the Aramaic sections:
+# Daniel 2:4-7:28, Ezra 4:8-6:18 and 7:12-26, Jeremiah 10:11; NT is all Greek).
+LANGS = {
+    "hbo": {"name": "Hebrew",  "dir": "rtl", "script": "Hebrew",
+            "source": "Westminster Leningrad Codex"},
+    "arc": {"name": "Aramaic", "dir": "rtl", "script": "Hebrew",
+            "source": "Westminster Leningrad Codex"},
+    "grc": {"name": "Greek",   "dir": "ltr", "script": "Greek",
+            "source": "SBLGNT"},
+}
+MIXED = {"name": "Hebrew / Aramaic", "dir": "rtl", "script": "Hebrew"}
+
+# Reference witness for the Old Testament: the Septuagint (Greek, ~3rd-2nd c.
+# BCE). NOT a source: wherever Hebrew/Aramaic exists it alone is translated.
+# Verses carry the Greek as "lxx" in the normalized JSON (scripts/add_lxx.py);
+# the prompt appends it as a clearly marked reference block, the reader and
+# dashboard show it as its own tab and Compare row for comparison.
+LXX = {"name": "Septuagint", "short": "LXX", "dir": "ltr", "script": "Greek",
+       "source": "Swete, The Old Testament in Greek (1901-1909), First1KGreek edition, CC BY-SA 4.0"}
+
+
+def verse_lang(meta, verse) -> str:
+    """Language code of one normalized verse record."""
+    return "grc" if meta["testament"] == "NT" else verse.get("lang", "hbo")
+
+
+def chapter_lang(meta, verses) -> str:
+    """'hbo' | 'arc' | 'grc' | 'mixed' for a list of normalized verses."""
+    langs = {verse_lang(meta, v) for v in verses}
+    return next(iter(langs)) if len(langs) == 1 else "mixed"
+
+
+def lang_info(code) -> dict:
+    return MIXED if code == "mixed" else LANGS[code]
+
+
+# --- Target languages ---------------------------------------------------
+# Each target has its own prompt rules (prompts/targets/<code>.txt), glossary
+# and name table (targets/<code>/), and output tree (output/<code>/). `latin`
+# says whether the verifier's capitalised-name consistency check applies.
+# `ratio` is the verifier's truncation floor: translation length / source length
+# (source measured without vowel points and accents), below which a verse is
+# flagged SHORT. Latin-script prose runs ~2x the consonantal Hebrew; Chinese
+# and Japanese ~0.5x; Thai ~1.5x.
+TARGETS = {
+    "en": {"name": "English",  "native": "English", "latin": True,  "ratio": 0.8},
+    "zh": {"name": "Chinese",  "native": "中文",     "latin": False, "ratio": 0.2, "note": "Simplified script"},
+    "es": {"name": "Spanish",  "native": "Español", "latin": True,  "ratio": 0.8},
+    "ja": {"name": "Japanese", "native": "日本語",   "latin": False, "ratio": 0.25},
+    "th": {"name": "Thai",     "native": "ไทย",     "latin": False, "ratio": 0.6},
+    "yue": {"name": "Cantonese", "native": "粵語", "latin": False, "ratio": 0.2, "note": "written colloquial Cantonese, Traditional characters"},
+    "nan": {"name": "Taiwanese Hokkien", "native": "台語", "latin": False, "ratio": 0.2, "note": "Han-character prose, MOE recommended characters"},
+    "hak": {"name": "Hakka", "native": "客語", "latin": False, "ratio": 0.2, "note": "Han-character prose (Sixian), MOE recommended characters"},
+    "vi": {"name": "Vietnamese", "native": "Tiếng Việt", "latin": True, "ratio": 0.8},
+    "ko": {"name": "Korean", "native": "한국어", "latin": False, "ratio": 0.35},
+    "fa": {"name": "Persian", "native": "فارسی", "latin": False, "ratio": 0.5, "dir": "rtl"},
+    "tr": {"name": "Turkish", "native": "Türkçe", "latin": True, "ratio": 0.7},
+    "id": {"name": "Indonesian", "native": "Bahasa Indonesia", "latin": True, "ratio": 0.8},
+    "ms": {"name": "Malay", "native": "Bahasa Melayu", "latin": True, "ratio": 0.8},
+    "ja-easy": {"name": "Easy Japanese", "native": "やさしい日本語", "latin": False, "ratio": 0.3,
+                "note": "yasashii nihongo: short sentences, common words, furigana as {漢字|かんじ}"},
+    # Written by NLLB-200 from our English (scripts/mt_translate.py). A trial
+    # of four chapters (scripts/trial_lang.py, trials/my/report.md) put it
+    # well ahead of both Qwens, which wrote fluent Burmese that at times said
+    # the opposite of the text. The "mt" code is NLLB's name for Burmese.
+    # "trial": True on a target instead runs that trial and keeps the queue's
+    # lexicon jobs off a language not yet decided on.
+    "my": {"name": "Burmese", "native": "မြန်မာ", "latin": False, "ratio": 0.6, "mt": "mya_Mymr",
+           "note": "machine translation from the English (NLLB-200), not yet read by a Burmese speaker"},
+    # To be written by a translation model from our English (scripts/
+    # mt_translate.py), not by the chat model from the originals: Qwen answers
+    # in Burmese, NLLB-200 has no Karen, and MADLAD-400's "ksw" is Shan (see
+    # README). "mt" marks it as that kind of target; translate.py leaves it
+    # alone. Nothing has been written into output/ksw yet.
+    "ksw": {"name": "Sgaw Karen", "native": "ကညီကျိာ်", "latin": False, "ratio": 0.6, "mt": "ksw",
+            "note": "machine translation from the English, not yet read by a Karen speaker"},
+}
+DEFAULT_TARGET = "en"
+
+
+def parse_targets(arg) -> list:
+    """'en' | 'en,zh' | 'all' -> ordered list of target codes."""
+    if not arg or arg == "all":
+        return list(TARGETS) if arg == "all" else [DEFAULT_TARGET]
+    codes = [c.strip() for c in arg.split(",") if c.strip()]
+    bad = [c for c in codes if c not in TARGETS]
+    if bad:
+        raise SystemExit(f"unknown target language(s) {bad}; known: {', '.join(TARGETS)}")
+    return codes

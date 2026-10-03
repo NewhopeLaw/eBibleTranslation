@@ -1,18 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- deliberately no INTERNET permission: the app is fully offline -->
+
+    <!-- No permissions at all, and INTERNET least of any: the whole Bible and
+         its apparatus are in the APK, nothing is fetched and nothing is
+         reported back. The absence of this line is the app's privacy policy in
+         the only form a phone can check. -->
+
     <application
-        android:label="eBible"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
         android:allowBackup="true"
-        android:theme="@android:style/Theme.Material.Light.NoActionBar">
+        android:fullBackupContent="@xml/backup_rules"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:hardwareAccelerated="true"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.EBible.Splash">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:configChanges="orientation|screenSize|uiMode">
+            android:enableOnBackInvokedCallback="true"
+            android:windowSoftInputMode="adjustResize"
+            android:resizeableActivity="true"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout|keyboard|keyboardHidden|navigation|uiMode|density|fontScale|layoutDirection|locale">
+            <!-- Turning the phone or folding it open must not throw the page
+                 away: an eighteen-megabyte document takes a second or two to
+                 parse, and the reader would lose their place every time. The
+                 activity therefore rides out these changes itself, and hands
+                 the WebView its own saved state when Android does kill the
+                 process for real. -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Sharing the app itself hands another phone a copy of this APK.
+             Android will not let one app read another's file by path, so the
+             copy goes out as a content:// URI the share sheet is granted for
+             the length of the send, and nothing else in the app is exposed. -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.files"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 </manifest>

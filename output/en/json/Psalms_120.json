@@ -1,0 +1,17 @@
+{
+ "book": "Psalms",
+ "chapter": 120,
+ "lang": "en",
+ "verses": {
+  "1": "A song of ascents. To the LORD I cried out in my distress, and he answered me.",
+  "2": "O LORD, rescue my life from the lips of falsehood, from the deceitful tongue.",
+  "3": "What will be given to you, and what will be added to you, O deceitful tongue?",
+  "4": "Arrows of the mighty, sharpened and burning, are the arrows of the desert.",
+  "5": "Woe is me that I dwell in Meshek, that I have lived among the tents of Kedar!",
+  "6": "Too long has my soul dwelled among those who hate peace.",
+  "7": "I am for peace, yet when I speak, they prepare for war.\n"
+ },
+ "notes": "Notes\n- v. 4: \"Arrows of the mighty, sharpened and burning\" — \"חִצֵּי גִבּוֹר שְׁנוּנִים עִם גַּחֲלֵי רְתָמִֽים\" is interpreted metaphorically, referring to the sharp and dangerous words of deceitful people. \"Shnunim\" is taken as \"sharpened,\" and \"gachalim retamim\" as \"burning arrows of the desert.\"",
+ "raw": "[1] A song of ascents. To the LORD I cried out in my distress, and he answered me.\n[2] O LORD, rescue my life from the lips of falsehood, from the deceitful tongue.\n[3] What will be given to you, and what will be added to you, O deceitful tongue?\n[4] Arrows of the mighty, sharpened and burning, are the arrows of the desert.\n[5] Woe is me that I dwell in Meshek, that I have lived among the tents of Kedar!\n[6] Too long has my soul dwelled among those who hate peace.\n[7] I am for peace, yet when I speak, they prepare for war.\n\n---\nNotes\n- v. 4: \"Arrows of the mighty, sharpened and burning\" — \"חִצֵּי גִבּוֹר שְׁנוּנִים עִם גַּחֲלֵי רְתָמִֽים\" is interpreted metaphorically, referring to the sharp and dangerous words of deceitful people. \"Shnunim\" is taken as \"sharpened,\" and \"gachalim retamim\" as \"burning arrows of the desert.\"",
+ "engine": "qwen3:32b"
+}

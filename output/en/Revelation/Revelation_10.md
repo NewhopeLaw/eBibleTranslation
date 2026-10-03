@@ -1,0 +1,11 @@
+# Revelation 10
+
+¹ And I saw another angel strong, coming down from the sky, wrapped in a cloud, and the rainbow over his head, and his face like the sun, and his feet like pillars of fire, ² and he had in his hand a scroll opened. And he set his foot on the sea, and the other on the earth, ³ and he cried out with a loud voice as a lion roars. And when he cried out, the seven thunders spoke their voices. ⁴ And when the seven thunders had spoken, I was about to write; and I heard a voice from the sky saying, “Seal what the seven thunders have spoken, and do not write it.” ⁵ And the angel, whom I saw standing on the sea and on the earth, raised his right hand to the sky, ⁶ and swore by the One who lives forever and ever, who created the sky and what is in it, and the earth and what is in it, and the sea and what is in it, that there would no longer be time— ⁷ but in the days of the voice of the seventh angel, when he is about to sound, and the mystery of God is brought to completion, as he announced to his own servants, the prophets. ⁸ And the voice that I heard from the sky, speaking again to me and saying, “Go, take the scroll that is opened in the hand of the angel who is standing on the sea and on the earth.” ⁹ And I went to the angel, saying to him, “Give me the scroll.” And he said to me, “Take it and eat it. And it will make your stomach bitter, but in your mouth it will be sweet as honey.” ¹⁰ And I took the scroll from the hand of the angel and ate it, and it was in my mouth sweet as honey. And when I had eaten it, my stomach burned. ¹¹ And they said to me, “You must prophesy again over many peoples, and nations, and languages, and many kings.”
+
+---
+
+Notes  
+- v. 4: The command to seal the seven thunders is likely a reference to keeping their message undisclosed. The exact content of the thunders remains a mystery.  
+- v. 6: The phrase "there would no longer be time" is a symbolic declaration of the end of a period of divine patience or judgment.  
+- v. 9: The instruction to eat the scroll is a vivid metaphor for internalizing a message, not a literal act.  
+- v. 11: The phrase "prophesy again" suggests the continuation of the prophetic mission, possibly referring to the visions following this chapter.

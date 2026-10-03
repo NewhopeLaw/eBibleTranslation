@@ -1,0 +1,20 @@
+{
+ "book": "Psalms",
+ "chapter": 111,
+ "lang": "en",
+ "verses": {
+  "1": "Praise the LORD. I will give thanks to the LORD with my whole heart, in the company of the upright and in the assembly.\n",
+  "2": "Great are the works of the LORD, studied by all who delight in them.\n",
+  "3": "Glorious and majestic is his work, and his righteousness stands forever.\n",
+  "4": "He has made a memorial of his wondrous deeds, gracious and compassionate is the LORD.\n",
+  "5": "He provides food for those who fear him, and he remembers his covenant forever.\n",
+  "6": "He has declared the strength of his works to his people, to give them the inheritance of the nations.\n",
+  "7": "The work of his hands is truth and justice, all his commandments are trustworthy.\n",
+  "8": "They stand forever and ever, established in truth and uprightness.\n",
+  "9": "He has sent redemption to his people. He has decreed his covenant forever; holy and awesome is his name.\n",
+  "10": "The beginning of wisdom is the fear of the LORD. Good understanding is for all who do it; praise of him stands forever.\n"
+ },
+ "notes": "Notes\n- v. 1: \"Praise the LORD\" is a heading or call to worship, but since the psalm is in the voice of an individual, it is rendered as a call embedded in the first line rather than as a separate heading.\n- v. 10: \"The beginning of wisdom\" follows the Hebrew \"re’shit chokhmah,\" which is a classic Hebraic expression. \"Praise of him stands forever\" reflects \"tehillato ‘omedet la’ad,\" where \"tehillah\" is \"praise\" or \"glory.\"",
+ "raw": "[1] Praise the LORD. I will give thanks to the LORD with my whole heart, in the company of the upright and in the assembly.\n\n[2] Great are the works of the LORD, studied by all who delight in them.\n\n[3] Glorious and majestic is his work, and his righteousness stands forever.\n\n[4] He has made a memorial of his wondrous deeds, gracious and compassionate is the LORD.\n\n[5] He provides food for those who fear him, and he remembers his covenant forever.\n\n[6] He has declared the strength of his works to his people, to give them the inheritance of the nations.\n\n[7] The work of his hands is truth and justice, all his commandments are trustworthy.\n\n[8] They stand forever and ever, established in truth and uprightness.\n\n[9] He has sent redemption to his people. He has decreed his covenant forever; holy and awesome is his name.\n\n[10] The beginning of wisdom is the fear of the LORD. Good understanding is for all who do it; praise of him stands forever.\n\n---\nNotes\n- v. 1: \"Praise the LORD\" is a heading or call to worship, but since the psalm is in the voice of an individual, it is rendered as a call embedded in the first line rather than as a separate heading.\n- v. 10: \"The beginning of wisdom\" follows the Hebrew \"re’shit chokhmah,\" which is a classic Hebraic expression. \"Praise of him stands forever\" reflects \"tehillato ‘omedet la’ad,\" where \"tehillah\" is \"praise\" or \"glory.\"",
+ "engine": "qwen3:32b"
+}

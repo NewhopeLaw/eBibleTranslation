@@ -1,0 +1,13 @@
+# Ezekiel 9
+
+¹ A loud voice called in my ears, saying, "The appointed time for the city is near, and each man has his instrument of destruction in his hand." ² Behold, six men came from the upper gate, which faces north, each with a slaughter instrument in his hand, and one man among them, dressed in linen with a scribe’s belt on his waist. They entered and stood beside the bronze altar. ³ The glory of the God of Israel moved from the cherub on which it was, to the threshold of the house. He called to the man dressed in linen, who had the scribe’s belt on his waist. ⁴ The LORD said to him, "Go through the middle of the city, through Jerusalem, and mark a sign on the foreheads of the men who are grieving and mourning over all the abominations being done within it." ⁵ And to the others he said, which I heard, "Go after him through the city and strike, do not spare your eyes, and do not show mercy." ⁶ "Strike the old man, the youth, the maiden, the child, and the women. Put them to death for destruction. But on no one who has the mark, do not come near. Begin with My sanctuary." And they began with the men, the elders, who were before the house. ⁷ He said to them, "Defile the house, and fill the courtyards with corpses. Go out and strike the city." ⁸ And as they struck, I alone was left. I fell on my face and cried out, saying, "Ah, Lord YHWH, are You destroying the last remnant of Israel by pouring out Your anger on Jerusalem?" ⁹ He said to me, "The guilt of the house of Israel and Judah is very, very great. The land is filled with blood and the city is full of violence, because they said, 'YHWH has abandoned the land, YHWH does not see.'" ¹⁰ "Even I will not spare my eyes, and I will not show mercy. I have put their ways on their heads." ¹¹ "Behold, the man dressed in linen, who had the belt on his waist, answered and said, 'I have done as you commanded me.'"
+
+---
+
+Notes
+- v. 1: "appointed time for the city" reflects the meaning of פְּקוּדּוֹת as "appointed judgment" or "judgment decrees."
+- v. 2: "upper gate" is a literal translation of שַׁעַר הָעֶלְיוֹן, which could also be interpreted as "high gate" or "northern gate," but "upper gate" fits the imagery of the city's defenses.
+- v. 6: "Put them to death for destruction" renders לְמַשְׁחִית, which is a rare word meaning "to destroy completely."
+- v. 8: "Ah" is a natural English rendering of אֲהָהּ, an interjection of lament or distress.
+- v. 10: "I have put their ways on their heads" is a poetic rendering of נָתָֽתִּי דַּרְכָּם בְּרֹאשָׁם, which reflects a common prophetic idiom for accountability.
+- v. 11: "answered and said" renders the Hebrew שָׁוַֽב דָּבָר לֵאמֹר, which uses a rare poetic structure for dialogue introduction.

@@ -1,0 +1,24 @@
+{
+ "book": "Song of Songs",
+ "chapter": 7,
+ "lang": "en",
+ "verses": {
+  "1": "Return, return, Shulamite, return, return, that we may look upon you. What can we see in the Shulamite, radiant as the tents of the tribes?",
+  "2": "How beautiful your steps in sandals, daughter of nobles! Your hips are like a pair of jewels, the work of a skilled hand.",
+  "3": "Your navel is a rounded goblet, never empty of wine. Your belly is a rounded grain heap, encircled with lilies.",
+  "4": "Your two breasts are like twin fawns, the young of a gazelle.",
+  "5": "Your neck is like a tower of ivory. Your eyes are like the pools of Heshbon, beside the gates of Bath-Rabbim. Your nose is like the tower of Lebanon, gazing toward Damascus.",
+  "6": "Your head rises toward Mount Carmel, and your hair is like purple fabric; a king is held captive in its tresses.",
+  "7": "How beautiful and how pleasant, my love, in delights!",
+  "8": "Your stature is like a palm tree, and your breasts are like its clusters.",
+  "9": "I said, \"I will climb the palm tree and take hold of its branches.\" May your breasts be like clusters of the vine, and the scent of your breath like apples.",
+  "10": "Your fragrance is like the fragrance of fine wine. Your name is like fragrant oil carried to the lips of my brothers and sisters.",
+  "11": "I am for my beloved, and his desire is for me.",
+  "12": "Come, my beloved, let us go out to the fields; let us lodge in the villages.",
+  "13": "Let us rise early to the vineyards, to see whether the vine has flowered, whether the blossom has opened, and whether the pomegranates have bloomed. There I will give you my love.",
+  "14": "The mandrakes give off their fragrance, and at our doors are all kinds of choice fruits, new and old. I have stored them for you, my beloved.\n"
+ },
+ "notes": "Notes\n- v. 1: \"radiant as the tents of the tribes\" renders \"כִּמְחֹלַת הַֽמַּחֲנָֽיִם\" — the poetic metaphor of radiant tents arranged like a military camp.\n- v. 10: \"carried to the lips of my brothers and sisters\" renders \"דּוֹבֵב שִׂפְתֵי יְשֵׁנִֽים\" — the metaphor of the name spreading like oil to the lips of the beloved's family.",
+ "raw": "[1] Return, return, Shulamite, return, return, that we may look upon you. What can we see in the Shulamite, radiant as the tents of the tribes?\n[2] How beautiful your steps in sandals, daughter of nobles! Your hips are like a pair of jewels, the work of a skilled hand.\n[3] Your navel is a rounded goblet, never empty of wine. Your belly is a rounded grain heap, encircled with lilies.\n[4] Your two breasts are like twin fawns, the young of a gazelle.\n[5] Your neck is like a tower of ivory. Your eyes are like the pools of Heshbon, beside the gates of Bath-Rabbim. Your nose is like the tower of Lebanon, gazing toward Damascus.\n[6] Your head rises toward Mount Carmel, and your hair is like purple fabric; a king is held captive in its tresses.\n[7] How beautiful and how pleasant, my love, in delights!\n[8] Your stature is like a palm tree, and your breasts are like its clusters.\n[9] I said, \"I will climb the palm tree and take hold of its branches.\" May your breasts be like clusters of the vine, and the scent of your breath like apples.\n[10] Your fragrance is like the fragrance of fine wine. Your name is like fragrant oil carried to the lips of my brothers and sisters.\n[11] I am for my beloved, and his desire is for me.\n[12] Come, my beloved, let us go out to the fields; let us lodge in the villages.\n[13] Let us rise early to the vineyards, to see whether the vine has flowered, whether the blossom has opened, and whether the pomegranates have bloomed. There I will give you my love.\n[14] The mandrakes give off their fragrance, and at our doors are all kinds of choice fruits, new and old. I have stored them for you, my beloved.\n\n---\nNotes\n- v. 1: \"radiant as the tents of the tribes\" renders \"כִּמְחֹלַת הַֽמַּחֲנָֽיִם\" — the poetic metaphor of radiant tents arranged like a military camp.\n- v. 10: \"carried to the lips of my brothers and sisters\" renders \"דּוֹבֵב שִׂפְתֵי יְשֵׁנִֽים\" — the metaphor of the name spreading like oil to the lips of the beloved's family.",
+ "engine": "qwen3:32b"
+}

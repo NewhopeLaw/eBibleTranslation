@@ -1,0 +1,30 @@
+{
+ "book": "Job",
+ "chapter": 11,
+ "lang": "en",
+ "verses": {
+  "1": "Then Zophar the Naamathite answered and said:",
+  "2": "Should a multitude of words go unanswered? Should a man full of speech be vindicated?",
+  "3": "Should the wise be silenced? Should the learned be mocked and not answered?",
+  "4": "You say, “My way is pure, and I am clean in your sight.”",
+  "5": "But if only God would speak, and open his mouth to you,",
+  "6": "and would reveal to you the secrets of wisdom— for he is twofold your iniquity, and you would know that God would deliver you from your sin.",
+  "7": "Can you find out the limits of the Almighty? Can you reach to the perfection of the Most High?",
+  "8": "Higher than the heavens is his height— what can you do? Deeper than Sheol is his depth— what can you know?",
+  "9": "Wider than the earth is his breadth, and broader than the sea.",
+  "10": "If he should change and imprison you, and summon you to judgment, who could turn him back?",
+  "11": "For he knows false deeds, and sees iniquity, and will not be oblivious to it.",
+  "12": "But a man is born with a foolish heart; a son of a woman, he is like a wild plant.",
+  "13": "If you prepare your heart and stretch out your hands to him,",
+  "14": "and if any iniquity is in your hand, remove it, and let not wickedness dwell in your tents.",
+  "15": "Then you would lift your face without blemish, and be steadfast, and you would have no fear.",
+  "16": "For you would forget your sorrow, like waters that have passed away.",
+  "17": "And your evening would bring hope, and your morning would be like the dawn.",
+  "18": "You would trust, for there is hope, and dig into safety to lie down.",
+  "19": "You would rest untroubled, and many would turn their faces to you in awe.",
+  "20": "The eyes of the wicked would fail, and their hope would be a dying breath.\n"
+ },
+ "notes": "Notes\n- v. 6: \"he is twofold your iniquity\" reflects the Hebrew כִּפְלַיִם לְתוּשִׁיָּה, where לְתוּשִׁיָּה is \"iniquity\" or \"sin\" and כִּפְלַיִם is \"twofold.\"\n- v. 10: \"If he should change and imprison you\" translates the Hebrew אִם־יַחֲלֹף וְיַסְגִּיר, where יַחֲלֹף likely means \"change,\" and יַסְגִּיר is \"to imprison\" or \"to give over.\" The Septuagint here adds a more elaborate idea of reversal, but the Hebrew is clearer in its direct terms.\n- v. 19: \"dig into safety to lie down\" renders חָפַרְתָּ לָבֶטַח תִּשְׁכָּֽב, where the verb חָפַר is \"to dig\" and לָבֶטַח is \"safety.\" The Septuagint suggests a more metaphorical \"dig into hope,\" but the Hebrew implies a physical or metaphorical act of making a place of safety to rest.",
+ "raw": "[1] Then Zophar the Naamathite answered and said:\n[2] Should a multitude of words go unanswered? Should a man full of speech be vindicated?\n[3] Should the wise be silenced? Should the learned be mocked and not answered?\n[4] You say, “My way is pure, and I am clean in your sight.”\n[5] But if only God would speak, and open his mouth to you,\n[6] and would reveal to you the secrets of wisdom— for he is twofold your iniquity, and you would know that God would deliver you from your sin.\n[7] Can you find out the limits of the Almighty? Can you reach to the perfection of the Most High?\n[8] Higher than the heavens is his height— what can you do? Deeper than Sheol is his depth— what can you know?\n[9] Wider than the earth is his breadth, and broader than the sea.\n[10] If he should change and imprison you, and summon you to judgment, who could turn him back?\n[11] For he knows false deeds, and sees iniquity, and will not be oblivious to it.\n[12] But a man is born with a foolish heart; a son of a woman, he is like a wild plant.\n[13] If you prepare your heart and stretch out your hands to him,\n[14] and if any iniquity is in your hand, remove it, and let not wickedness dwell in your tents.\n[15] Then you would lift your face without blemish, and be steadfast, and you would have no fear.\n[16] For you would forget your sorrow, like waters that have passed away.\n[17] And your evening would bring hope, and your morning would be like the dawn.\n[18] You would trust, for there is hope, and dig into safety to lie down.\n[19] You would rest untroubled, and many would turn their faces to you in awe.\n[20] The eyes of the wicked would fail, and their hope would be a dying breath.\n\n---\nNotes\n- v. 6: \"he is twofold your iniquity\" reflects the Hebrew כִּפְלַיִם לְתוּשִׁיָּה, where לְתוּשִׁיָּה is \"iniquity\" or \"sin\" and כִּפְלַיִם is \"twofold.\"\n- v. 10: \"If he should change and imprison you\" translates the Hebrew אִם־יַחֲלֹף וְיַסְגִּיר, where יַחֲלֹף likely means \"change,\" and יַסְגִּיר is \"to imprison\" or \"to give over.\" The Septuagint here adds a more elaborate idea of reversal, but the Hebrew is clearer in its direct terms.\n- v. 19: \"dig into safety to lie down\" renders חָפַרְתָּ לָבֶטַח תִּשְׁכָּֽב, where the verb חָפַר is \"to dig\" and לָבֶטַח is \"safety.\" The Septuagint suggests a more metaphorical \"dig into hope,\" but the Hebrew implies a physical or metaphorical act of making a place of safety to rest.",
+ "engine": "qwen3:32b"
+}

@@ -1,0 +1,24 @@
+{
+ "book": "1 Peter",
+ "chapter": 5,
+ "lang": "es",
+ "verses": {
+  "1": "Ancianos, por tanto, les ruego a los ancianos entre ustedes, yo que soy anciano también y testigo de los sufrimientos de Cristo, que también soy partícipe de la gloria que se ha de revelar,",
+  "2": "que cuiden el rebaño de Dios que está entre ustedes, vigilando no por obligación, sino con disposición voluntaria, ni por codicia deshonesta, sino con deseo sincero,",
+  "3": "ni como dominando a los encargados, sino siendo modelos del rebaño.",
+  "4": "Y cuando se manifieste el pastor principal, recibirán la corona inmarchitable de gloria.",
+  "5": "Del mismo modo, jóvenes, sométanse a los ancianos. Pero todos revistan entre sí la humildad, porque Dios resiste a los orgullosos y da gracia a los humildes.",
+  "6": "Humíllense, pues, bajo la poderosa mano de Dios, para que Él los exalce a su debido tiempo.",
+  "7": "Entreguen a Él toda su preocupación, porque Él se interesa por ustedes.",
+  "8": "Sean alertas, despiertos. Su adversario el diablo anda como león rugiente, buscando a quien devorar.",
+  "9": "Resistanle con firmeza en la fe, sabiendo que sus hermanos en todo el mundo pasan por lo mismo.",
+  "10": "El Dios de toda gracia, que los llamó a su gloria eterna en Cristo, después de que ustedes hayan sufrido un poco, los restaurará, los afirmará, los fortalecerá y los sostendrá.",
+  "11": "A Él pertenece el poder por los siglos de los siglos. Amén.",
+  "12": "Por Silvano, hermano fiel, como yo pienso, les escribí estas pocas cosas, exhortándolos y atestiguando que esta gracia de Dios es verdadera. Estén firmes en ella.",
+  "13": "Saluda a ustedes la comunidad elegida en Babilonia, y también Marcos, mi hijo.",
+  "14": "Saludense entre sí con un beso de amor. La paz sea con todos los que están en Cristo.\n"
+ },
+ "notes": "Notes  \n- v. 1: \"συμπρεσβύτερος\" se traduce como \"anciano también\" para mantener claridad y naturalidad en español.  \n- v. 13: \"Βαβυλῶνι\" se traduce como \"Babilonia\" siguiendo la convención moderna, no como \"Babilonia\" arcaica.",
+ "raw": "[1] Ancianos, por tanto, les ruego a los ancianos entre ustedes, yo que soy anciano también y testigo de los sufrimientos de Cristo, que también soy partícipe de la gloria que se ha de revelar,  \n[2] que cuiden el rebaño de Dios que está entre ustedes, vigilando no por obligación, sino con disposición voluntaria, ni por codicia deshonesta, sino con deseo sincero,  \n[3] ni como dominando a los encargados, sino siendo modelos del rebaño.  \n[4] Y cuando se manifieste el pastor principal, recibirán la corona inmarchitable de gloria.  \n[5] Del mismo modo, jóvenes, sométanse a los ancianos. Pero todos revistan entre sí la humildad, porque Dios resiste a los orgullosos y da gracia a los humildes.  \n[6] Humíllense, pues, bajo la poderosa mano de Dios, para que Él los exalce a su debido tiempo.  \n[7] Entreguen a Él toda su preocupación, porque Él se interesa por ustedes.  \n[8] Sean alertas, despiertos. Su adversario el diablo anda como león rugiente, buscando a quien devorar.  \n[9] Resistanle con firmeza en la fe, sabiendo que sus hermanos en todo el mundo pasan por lo mismo.  \n[10] El Dios de toda gracia, que los llamó a su gloria eterna en Cristo, después de que ustedes hayan sufrido un poco, los restaurará, los afirmará, los fortalecerá y los sostendrá.  \n[11] A Él pertenece el poder por los siglos de los siglos. Amén.  \n[12] Por Silvano, hermano fiel, como yo pienso, les escribí estas pocas cosas, exhortándolos y atestiguando que esta gracia de Dios es verdadera. Estén firmes en ella.  \n[13] Saluda a ustedes la comunidad elegida en Babilonia, y también Marcos, mi hijo.  \n[14] Saludense entre sí con un beso de amor. La paz sea con todos los que están en Cristo.  \n\n---  \nNotes  \n- v. 1: \"συμπρεσβύτερος\" se traduce como \"anciano también\" para mantener claridad y naturalidad en español.  \n- v. 13: \"Βαβυλῶνι\" se traduce como \"Babilonia\" siguiendo la convención moderna, no como \"Babilonia\" arcaica.",
+ "engine": "qwen3:32b"
+}

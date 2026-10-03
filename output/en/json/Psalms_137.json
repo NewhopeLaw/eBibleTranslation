@@ -1,0 +1,19 @@
+{
+ "book": "Psalms",
+ "chapter": 137,
+ "lang": "en",
+ "verses": {
+  "1": "By the rivers of Babylon we sat down and wept when we remembered Zion.",
+  "2": "On the willows there we hung our lyres.",
+  "3": "For there our captors asked us for songs, and our tormentors demanded a joyous melody: \"Sing for us a song of Zion!\"",
+  "4": "How can we sing the LORD's song in a foreign land?",
+  "5": "If I forget you, Jerusalem, may my right hand forget its skill.",
+  "6": "If I do not remember you, may my tongue cling to the roof of my mouth—if I do not place Jerusalem above all my joys.",
+  "7": "Remember, LORD, the children of Edom, the day Jerusalem fell, the cry: \"Tear it down! Tear it down! Even to its foundations!\"",
+  "8": "O daughter of Babylon, doomed to destruction, blessed is the one who repays you for what you have done to us—",
+  "9": "blessed is the one who seizes your infants and dashes them against the rock."
+ },
+ "notes": "Notes  \n- v. 9: The final line is deliberately shocking and graphic, reflecting the intensity of the psalmist's grief and desire for retribution. The translation follows the Hebrew phrasing, which is direct and unambiguous.",
+ "raw": "[1] By the rivers of Babylon we sat down and wept when we remembered Zion.  \n[2] On the willows there we hung our lyres.  \n[3] For there our captors asked us for songs, and our tormentors demanded a joyous melody: \"Sing for us a song of Zion!\"  \n[4] How can we sing the LORD's song in a foreign land?  \n[5] If I forget you, Jerusalem, may my right hand forget its skill.  \n[6] If I do not remember you, may my tongue cling to the roof of my mouth—if I do not place Jerusalem above all my joys.  \n[7] Remember, LORD, the children of Edom, the day Jerusalem fell, the cry: \"Tear it down! Tear it down! Even to its foundations!\"  \n[8] O daughter of Babylon, doomed to destruction, blessed is the one who repays you for what you have done to us—  \n[9] blessed is the one who seizes your infants and dashes them against the rock.  \n---  \nNotes  \n- v. 9: The final line is deliberately shocking and graphic, reflecting the intensity of the psalmist's grief and desire for retribution. The translation follows the Hebrew phrasing, which is direct and unambiguous.",
+ "engine": "qwen3:32b"
+}

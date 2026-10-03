@@ -1,0 +1,29 @@
+{
+ "book": "Psalms",
+ "chapter": 116,
+ "lang": "en",
+ "verses": {
+  "1": "I love, because the LORD hears my voice, my pleas for mercy.\n",
+  "2": "Because he has inclined his ear to me, and in my days I will call.\n",
+  "3": "Tangles of death surrounded me, and the straits of Sheol found me. Trouble and sorrow I found.\n",
+  "4": "And in the name of the LORD I will call: O LORD, save my life.\n",
+  "5": "Gracious and righteous is the LORD, and our God is merciful.\n",
+  "6": "The LORD watches over the helpless. I was humbled, and he rescued me.\n",
+  "7": "Return, my soul, to your rest, for the LORD has been good to you.\n",
+  "8": "For he has delivered my soul from death, my eyes from tears, and my feet from stumbling.\n",
+  "9": "I will walk before the LORD in the lands of the living.\n",
+  "10": "I believed, therefore I spoke. I was greatly comforted.\n",
+  "11": "I said in my haste, all people are liars.\n",
+  "12": "What shall I return to the LORD for all the goodness he has done to me?\n",
+  "13": "I will lift up the cup of salvation and call on the name of the LORD.\n",
+  "14": "I will fulfill my vows to the LORD, now in the presence of all his people.\n",
+  "15": "Precious in the sight of the LORD is the death of his faithful ones.\n",
+  "16": "O LORD, behold, I am your servant. I am your servant, the son of your handmaid. You have loosed my bonds.\n",
+  "17": "To you I will offer a thanksgiving sacrifice and call on the name of the LORD.\n",
+  "18": "I will fulfill my vows to the LORD, now in the presence of all his people.\n",
+  "19": "In the courts of the house of the LORD, in your midst, Jerusalem. Hallelujah.\n"
+ },
+ "notes": "Notes\n- v. 10: The phrase \"I believed, therefore I spoke\" reflects the Hebrew \"הֶאֱמַנְתִּי כִּי אֲדַבֵּר\" which is best rendered as a confession of faith leading to speech, not a logical inference.\n- v. 19: The Hebrew is ambiguous whether this is the speaker's declaration or an instruction. The translation follows the poetic structure as a declaration.\n- v. 16: The phrase \"the son of your handmaid\" is a poetic way of expressing servitude within a family relationship.",
+ "raw": "[1] I love, because the LORD hears my voice, my pleas for mercy.\n\n[2] Because he has inclined his ear to me, and in my days I will call.\n\n[3] Tangles of death surrounded me, and the straits of Sheol found me. Trouble and sorrow I found.\n\n[4] And in the name of the LORD I will call: O LORD, save my life.\n\n[5] Gracious and righteous is the LORD, and our God is merciful.\n\n[6] The LORD watches over the helpless. I was humbled, and he rescued me.\n\n[7] Return, my soul, to your rest, for the LORD has been good to you.\n\n[8] For he has delivered my soul from death, my eyes from tears, and my feet from stumbling.\n\n[9] I will walk before the LORD in the lands of the living.\n\n[10] I believed, therefore I spoke. I was greatly comforted.\n\n[11] I said in my haste, all people are liars.\n\n[12] What shall I return to the LORD for all the goodness he has done to me?\n\n[13] I will lift up the cup of salvation and call on the name of the LORD.\n\n[14] I will fulfill my vows to the LORD, now in the presence of all his people.\n\n[15] Precious in the sight of the LORD is the death of his faithful ones.\n\n[16] O LORD, behold, I am your servant. I am your servant, the son of your handmaid. You have loosed my bonds.\n\n[17] To you I will offer a thanksgiving sacrifice and call on the name of the LORD.\n\n[18] I will fulfill my vows to the LORD, now in the presence of all his people.\n\n[19] In the courts of the house of the LORD, in your midst, Jerusalem. Hallelujah.\n\n---\nNotes\n- v. 10: The phrase \"I believed, therefore I spoke\" reflects the Hebrew \"הֶאֱמַנְתִּי כִּי אֲדַבֵּר\" which is best rendered as a confession of faith leading to speech, not a logical inference.\n- v. 19: The Hebrew is ambiguous whether this is the speaker's declaration or an instruction. The translation follows the poetic structure as a declaration.\n- v. 16: The phrase \"the son of your handmaid\" is a poetic way of expressing servitude within a family relationship.",
+ "engine": "qwen3:32b"
+}

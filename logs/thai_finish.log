@@ -1,0 +1,69 @@
+2026-09-22 10:15:50 queued; waiting for the running pass to say done
+2026-09-22 10:23:20 the running pass is done
+2026-09-22 10:23:20 1 Kings 20 missing ['43']; attempt 1/3
+2026-09-22 10:25:18   118s exit 0: 1 Kings 20 [th]: 43/43 vv, 118s, 4457 tokens out [OK]
+2026-09-22 10:25:18 1 Kings 20 missing after that: []
+2026-09-22 10:25:22 33 chapters flagged: Genesis 35 [SCRIPT], Numbers 35 [SCRIPT], Deuteronomy 28 [SCRIPT], Judges 3 [SCRIPT], 1 Kings 9 [SCRIPT], 1 Kings 20 [SCRIPT], 2 Kings 4 [SCRIPT], 2 Kings 5 [SCRIPT], 2 Kings 8 [SCRIPT], 2 Kings 9 [SCRIPT], 2 Kings 18 [SCRIPT], 2 Kings 23 [SCRIPT], Nehemiah 13 [SCRIPT], Psalms 59 [SCRIPT], Psalms 83 [SCRIPT], Isaiah 7 [SCRIPT], Isaiah 13 [SCRIPT], Isaiah 17 [SCRIPT], Isaiah 19 [SCRIPT], Isaiah 30 [SCRIPT], Isaiah 31 [SCRIPT], Isaiah 52 [SCRIPT], Jeremiah 2 [SCRIPT], Jeremiah 35 [SCRIPT], Lamentations 5 [SCRIPT], Hosea 12 [SCRIPT], Amos 8 [SCRIPT], Habakkuk 2 [SCRIPT], Zechariah 13 [SCRIPT], Mark 13 [SCRIPT], Luke 6 [EMPTY], John 6 [SCRIPT], Acts 10 [SCRIPT]
+2026-09-22 10:27:23 1/33 Genesis 35 attempt 1: 121s exit 0: Genesis 35 [th]: 29/29 vv, 120s, 2104 tokens out [OK]
+2026-09-22 10:27:27   Genesis 35 still flagged ['SCRIPT']
+2026-09-22 10:29:43 1/33 Genesis 35 attempt 2: 136s exit 0: Genesis 35 [th]: 29/29 vv, 135s, 2339 tokens out [OK]
+2026-09-22 10:29:57   Genesis 35 clean
+2026-09-22 10:32:17 2/33 Numbers 35 attempt 1: 140s exit 3221225786: (no output)
+2026-09-22 10:32:21   Numbers 35 clean
+2026-09-22 10:34:49 3/33 Deuteronomy 28 attempt 1: 148s exit 0: Deuteronomy 28 [th]: 69/69 vv, 147s, 5225 tokens out [OK]
+2026-09-22 10:34:53   Deuteronomy 28 clean
+2026-09-22 10:37:23 4/33 Judges 3 attempt 1: 150s exit 0: Judges 3 [th]: 31/31 vv, 150s, 2986 tokens out [OK]
+2026-09-22 10:37:28   Judges 3 clean
+2026-09-22 10:40:04 5/33 1 Kings 9 attempt 1: 156s exit 0: 1 Kings 9 [th]: 28/28 vv, 156s, 2811 tokens out [OK]
+2026-09-22 10:40:09   1 Kings 9 clean
+2026-09-22 10:47:48 6/33 1 Kings 20 attempt 1: 460s exit 0: 1 Kings 20 [th]: attempt 1 missing=[43] extra=[], retrying (2/3)
+2026-09-22 10:47:52   1 Kings 20 clean
+2026-09-22 10:51:21 7/33 2 Kings 4 attempt 1: 209s exit 0: 2 Kings 4 [th]: 44/44 vv, 209s, 3740 tokens out [OK]
+2026-09-22 10:51:27   2 Kings 4 clean
+2026-09-22 10:55:14 8/33 2 Kings 5 attempt 1: 227s exit 0: api error (HTTP Error 500: Internal Server Error), retry 1/3 in 15s
+2026-09-22 10:55:18   2 Kings 5 still flagged ['SCRIPT']
+2026-09-22 10:57:09 8/33 2 Kings 5 attempt 2: 111s exit 0: 2 Kings 5 [th]: 27/27 vv, 111s, 2984 tokens out [OK]
+2026-09-22 10:57:14   2 Kings 5 still flagged ['SCRIPT']
+2026-09-22 11:00:02 9/33 2 Kings 8 attempt 1: 168s exit 0: 2 Kings 8 [th]: 29/29 vv, 168s, 3108 tokens out [OK]
+2026-09-22 11:00:06   2 Kings 8 still flagged ['SCRIPT']
+2026-09-22 11:03:03 9/33 2 Kings 8 attempt 2: 177s exit 0: 2 Kings 8 [th]: 29/29 vv, 177s, 3020 tokens out [OK]
+2026-09-22 11:03:08   2 Kings 8 clean
+2026-09-22 11:05:54 10/33 2 Kings 9 attempt 1: 166s exit 0: 2 Kings 9 [th]: 37/37 vv, 166s, 3482 tokens out [OK]
+2026-09-22 11:05:58   2 Kings 9 still flagged ['SCRIPT']
+2026-09-22 11:08:41 10/33 2 Kings 9 attempt 2: 163s exit 0: 2 Kings 9 [th]: 37/37 vv, 163s, 3647 tokens out [OK]
+2026-09-22 11:08:45   2 Kings 9 clean
+2026-09-22 11:10:57 11/33 2 Kings 18 attempt 1: 132s exit 0: 2 Kings 18 [th]: 37/37 vv, 132s, 3523 tokens out [OK]
+2026-09-22 11:11:01   2 Kings 18 clean
+2026-09-22 11:13:25 12/33 2 Kings 23 attempt 1: 144s exit 0: 2 Kings 23 [th]: 37/37 vv, 143s, 4298 tokens out [OK]
+2026-09-22 11:13:29   2 Kings 23 clean
+2026-09-22 11:15:40 13/33 Nehemiah 13 attempt 1: 131s exit 0: Nehemiah 13 [th]: 31/31 vv, 131s, 2695 tokens out [OK]
+2026-09-22 11:15:44   Nehemiah 13 clean
+2026-09-22 11:17:24 14/33 Psalms 59 attempt 1: 100s exit 0: Psalms 59 [th]: 18/18 vv, 100s, 1480 tokens out [OK]
+2026-09-22 11:17:28   Psalms 59 clean
+2026-09-22 11:18:55 15/33 Psalms 83 attempt 1: 86s exit 0: Psalms 83 [th]: 19/19 vv, 86s, 1279 tokens out [OK]
+2026-09-22 11:18:58   Psalms 83 clean
+2026-09-22 11:20:52 16/33 Isaiah 7 attempt 1: 113s exit 0: Isaiah 7 [th]: 25/25 vv, 113s, 1922 tokens out [OK]
+2026-09-22 11:20:56   Isaiah 7 still flagged ['SCRIPT']
+2026-09-22 11:23:10 16/33 Isaiah 7 attempt 2: 135s exit 0: Isaiah 7 [th]: 25/25 vv, 134s, 2283 tokens out [OK]
+2026-09-22 11:23:14   Isaiah 7 still flagged ['SCRIPT']
+2026-09-22 11:24:06 17/33 Isaiah 13 attempt 1: 52s exit 3221225786: (no output)
+2026-09-22 11:24:10   Isaiah 13 clean
+2026-09-22 11:24:40 18/33 Isaiah 17 attempt 1: 30s exit 3221225786: (no output)
+2026-09-22 11:24:45   Isaiah 17 still flagged ['SCRIPT']
+2026-09-22 11:27:24 18/33 Isaiah 17 attempt 2: 159s exit 0: Isaiah 17 [th]: 14/14 vv, 158s, 1229 tokens out [OK]
+2026-09-22 11:27:28   Isaiah 17 clean
+2026-09-22 11:30:02 19/33 Isaiah 19 attempt 1: 154s exit 0: Isaiah 19 [th]: 25/25 vv, 154s, 2328 tokens out [OK]
+2026-09-22 11:30:07   Isaiah 19 clean
+2026-09-22 11:32:33 20/33 Isaiah 30 attempt 1: 146s exit 0: Isaiah 30 [th]: 33/33 vv, 146s, 3292 tokens out [OK]
+2026-09-22 11:32:37   Isaiah 30 clean
+2026-09-22 11:34:03 21/33 Isaiah 31 attempt 1: 86s exit 0: Isaiah 31 [th]: 9/9 vv, 86s, 996 tokens out [OK]
+2026-09-22 11:34:07   Isaiah 31 clean
+2026-09-22 11:35:40 22/33 Isaiah 52 attempt 1: 92s exit 0: Isaiah 52 [th]: 15/15 vv, 92s, 1440 tokens out [OK]
+2026-09-22 11:35:44   Isaiah 52 clean
+2026-09-22 11:37:28 23/33 Jeremiah 2 attempt 1: 104s exit 0: Jeremiah 2 [th]: 37/37 vv, 104s, 3471 tokens out [OK]
+2026-09-22 11:37:32   Jeremiah 2 clean
+2026-09-22 11:38:58 24/33 Jeremiah 35 attempt 1: 86s exit 0: Jeremiah 35 [th]: 19/19 vv, 86s, 2108 tokens out [OK]
+2026-09-22 11:39:02   Jeremiah 35 clean
+2026-09-22 11:39:23 25/33 Lamentations 5 attempt 1: 21s exit 3221225786: (no output)
+2026-09-22 11:39:25   Lamentations 5 clean
+2026-09-22 11:40:11 26/33 Hosea 12 attempt 1: 46s exit 3221225786: (no output)

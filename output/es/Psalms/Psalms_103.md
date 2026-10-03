@@ -1,0 +1,12 @@
+# Psalms 103
+
+¹ Bendice, alma mía, al SEÑOR, y todo lo que hay en mí, su nombre santo. ² Bendice, alma mía, al SEÑOR, y no olvides ninguna de sus bondades. ³ El que perdona todas tus maldades, el que sana todas tus afecciones, ⁴ el que rescata tu vida de la corrupción, el que te unge con amor leal y con misericordia. ⁵ El que sacia tu deseo con el bien, y renueva tu juventud como la de un halcón. ⁶ El SEÑOR hace justicia, y dicta sentencias para todos los oprimidos. ⁷ Reveló sus caminos a Moisés, e hizo conocer sus obras a los hijos de Israel. ⁸ El SEÑOR es compasivo y misericordioso, lento para airarse y rico en amor. ⁹ No se enojará para siempre, ni prolongará su ira. ¹⁰ No nos trató según nuestros pecados, ni nos castigó según nuestras maldades. ¹¹ Porque tan alto es su amor sobre los que le temen, como el cielo sobre la tierra. ¹² Tan lejos ha alejado nuestras transgresiones de nosotros como el oriente está del occidente. ¹³ Como un padre compadece a sus hijos, así el SEÑOR compadece a los que le temen. ¹⁴ Porque él conoce nuestra fragilidad, se acuerda de que somos polvo. ¹⁵ El hombre es como la hierba, sus días como el brote del campo. ¹⁶ Al soplar sobre él el viento, no queda más rastro, ni reconoce ya su lugar. ¹⁷ Mas el amor del SEÑOR dura para siempre, y su justicia hasta las generaciones futuras, ¹⁸ para los que guardan su pacto y recuerdan de cumplir sus mandatos. ¹⁹ El SEÑOR ha puesto su trono en los cielos, y su reino domina sobre todo. ²⁰ Bendigan al SEÑOR, ángeles suyos, poderosos en fuerza, que cumplen su palabra y oyen la voz de sus mandatos. ²¹ Bendigan al SEÑOR, todas sus huestes, sus siervos que hacen su voluntad. ²² Bendigan al SEÑOR, todos sus creados, en todos los lugares de su reinado. Bendice, alma mía, al SEÑOR.
+
+---
+
+Notes  
+- v. 1: La palabra «נַפְשִׁי» se traduce como «alma mía» en un sentido metafórico y no literal, ya que el contexto no sugiere un uso teológico de la palabra.  
+- v. 5: El término «עֶדְיֵךְ» se traduce como «tu deseo» en lugar de «tu juventud», ya que el texto implica un deseo insaciable por lo bueno.  
+- v. 11: La comparación con el cielo y la tierra se mantiene tal cual, respetando el estilo poético del salmo.  
+- v. 15: «חָצִיר» se traduce como «hierba» y no como «grama», para mantener una imágen más general y natural.  
+- v. 17: La frase «לִבְנֵי בָנִים» se interpreta como «hasta las generaciones futuras» en lugar de «a hijos de hijos», para transmitir la idea de duración más allá de una generación.

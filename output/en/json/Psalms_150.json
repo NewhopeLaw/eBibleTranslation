@@ -1,0 +1,16 @@
+{
+ "book": "Psalms",
+ "chapter": 150,
+ "lang": "en",
+ "verses": {
+  "1": "Praise the LORD! Praise God in His holy place. Praise Him in the vault of His might.\n",
+  "2": "Praise Him for His mighty acts. Praise Him for His abundant greatness.\n",
+  "3": "Praise Him with the blast of a horn. Praise Him with the lyre and the harp.\n",
+  "4": "Praise Him with the tambourine and the dance. Praise Him with stringed instruments and flutes.\n",
+  "5": "Praise Him with resounding cymbals. Praise Him with thunderous cymbals.\n",
+  "6": "Let everything that breathes praise the LORD. Praise the LORD!\n"
+ },
+ "notes": "Notes\n- v. 1: \"the vault of His might\" reflects the meaning of \"בִּרְקִיעַ עֻזּֽוֹ\" as \"in the vault of His might\" — a poetic reference to the heavens as God’s domain.\n- v. 5: \"resounding\" and \"thunderous\" are used to distinguish the two forms of cymbals mentioned in the Hebrew text.",
+ "raw": "[1] Praise the LORD! Praise God in His holy place. Praise Him in the vault of His might.\n\n[2] Praise Him for His mighty acts. Praise Him for His abundant greatness.\n\n[3] Praise Him with the blast of a horn. Praise Him with the lyre and the harp.\n\n[4] Praise Him with the tambourine and the dance. Praise Him with stringed instruments and flutes.\n\n[5] Praise Him with resounding cymbals. Praise Him with thunderous cymbals.\n\n[6] Let everything that breathes praise the LORD. Praise the LORD!\n\n---\nNotes\n- v. 1: \"the vault of His might\" reflects the meaning of \"בִּרְקִיעַ עֻזּֽוֹ\" as \"in the vault of His might\" — a poetic reference to the heavens as God’s domain.\n- v. 5: \"resounding\" and \"thunderous\" are used to distinguish the two forms of cymbals mentioned in the Hebrew text.",
+ "engine": "qwen3:32b"
+}

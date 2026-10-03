@@ -1,0 +1,10 @@
+# 2 Corinthians 13
+
+¹ Esta es la tercera vez que vengo a vosotros. Todo dicho se establecerá por boca de dos o tres testigos. ² Ya lo anuncié y ahora lo repito, estando ausente y estando presente, a los que han pecado y a todos los demás, que si vuelvo no me ahorrare nada, ³ pues buscan probar la fuerza del Cristo que habla por mí, el cual no es débil ante vosotros, sino poderoso en vosotros, ⁴ porque aunque fue crucificado en debilidad, vive por la fuerza de Dios. También nosotros somos débiles por Él, pero vivimos con Él por la fuerza de Dios en vosotros. ⁵ Examinen ustedes mismos si están en la fe, prueben a ustedes mismos. ¿O no conocen a ustedes mismos que Jesucristo está en ustedes? A menos que sean indignos. ⁶ Pero espero que reconozcan que no somos indignos. ⁷ Oramos a Dios que no haga nada malo, no para que nosotros seamos considerados dignos, sino para que ustedes hagan lo bueno, y nosotros seamos considerados indignos. ⁸ En efecto, no podemos hacer nada contra la verdad, sino por la verdad. ⁹ Porque nos alegramos cuando nosotros somos débiles y ustedes son fuertes. Eso también deseamos, la perfección de ustedes. ¹⁰ Por eso escribo esto estando ausente, para que cuando esté presente no use bruscamente la autoridad que el Señor me ha dado, para edificación y no para destrucción. ¹¹ Finalmente, hermanos, alegraos, perfeccionaos, animaos, tened los mismos sentimientos, estad en paz, y el Dios del amor y la paz estará con vosotros. ¹² Saludaos unos a otros con un santo beso. Os saludan todos los santos. ¹³ La gracia del Señor Jesucristo, el amor de Dios y la comunión del Espíritu Santo estén con todos vosotros.
+
+---
+
+Notes
+- v. 5: La frase «ἐπιγινώσκετε ἑαυτοὺς» se ha traducido como «¿O no conocen a ustedes mismos?» para preservar el tono cuestionador y personal del griego.
+- v. 7: La ambigüedad de «ἢ οὐκ ἐπιγινώσκετε» se refleja en la estructura cuestionativa para mantener la duda.
+- v. 13: La tríada final «χάρις, ἀγάπη, κοινωνία» se ha traducido con cuidado para mantener el paralelismo teológico y el estilo litúrgico.

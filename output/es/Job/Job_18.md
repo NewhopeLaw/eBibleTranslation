@@ -1,0 +1,9 @@
+# Job 18
+
+¹ Respondió Bildad de Suaj y dijo: ² ¿Hasta cuándo dejaréis de hablaros? Entended, y después hablaré yo. ³ ¿Por qué nos consideráis como bestias, y nos tenéis en poco en vuestras miradas? ⁴ El que consume su alma con su ira, ¿por qué se dejaría abandonar la tierra? ¿Acaso se arrancaría una roca de su lugar? ⁵ También el resplandor de los malvados se apagará, y su antorcha no alumbrará a su hijo. ⁶ Su luz se ha vuelto oscuridad en su tienda, y su lámpara sobre él se apagará. ⁷ Sus pasos le llevarán a la trampa, y en su consejo se precipitará. ⁸ Pues ha caído en red a sus pies, y sobre el lazo caminará. ⁹ Le agarrará el tobillo el cepo, y sobre él se aferrarán los sedientos. ¹⁰ Su cuerda está oculta en la tierra, y su trampa sobre los caminos. ¹¹ Le rodean con dolores, y multitud le rodea con un camino estrecho. ¹² Le prepara un banquete funesto. ¹³ Se consumirán las raíces de sus pies, y sus hermosuras serán heridas por la muerte. ¹⁴ Se apartará de su tienda su confianza, y le arrastrará un rey con un camino estrecho. ¹⁵ Habitará en su tienda la oscuridad; sobre su morada se echará la ruina. ¹⁶ Sus raíces por debajo se secarán, y su mies por encima se recogerá. ¹⁷ Su memoria se perderá de entre la tierra, y no tendrá nombre sobre la faz de afuera. ¹⁸ Será arrojado de la luz a la oscuridad, y del mundo se le apartará. ¹⁹ No tendrá niete ni hijo en su pueblo, ni heredero en su descendencia. ²⁰ Los que vienen después se regocijarán en su día, y los anteriores se asombrarán de su desgracia. ²¹ Estas son casas de maldad, y este lugar donde no conoció a Dios.
+
+---
+
+Notes
+- v. 14: "un rey" se traduce como "un rey" para mantener la ambigüedad de si se refiere a un rey literal o a una figura metafórica de autoridad.
+- v. 21: "este lugar donde no conoció a Dios" refleja la noción de un lugar o estado espiritual de impiedad, manteniendo la ambigüedad del original hebreo.

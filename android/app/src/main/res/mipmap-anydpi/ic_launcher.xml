@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 7, which has no adaptive icons: the same book drawn onto its own
+     tile. A vector rather than the usual five bitmaps - the mark is flat
+     shapes, and a platform this far back still draws vectors fine. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:pathData="M0,0 L108,0 L108,108 L0,108 Z"
+        android:fillColor="@color/icon_bg" />
+    <path
+        android:pathData="M52,38 C45,32.5 35,29.5 24,29.5 L24,71.5 C35,71.5 45,74.5 52,80 Z"
+        android:fillColor="@color/icon_page" />
+    <path
+        android:pathData="M56,38 C63,32.5 73,29.5 84,29.5 L84,71.5 C73,71.5 63,74.5 56,80 Z"
+        android:fillColor="@color/icon_page" />
+</vector>

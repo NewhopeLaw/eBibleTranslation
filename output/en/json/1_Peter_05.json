@@ -1,0 +1,24 @@
+{
+ "book": "1 Peter",
+ "chapter": 5,
+ "lang": "en",
+ "verses": {
+  "1": "Elders among you, therefore, I appeal as a fellow elder and as a witness of the sufferings of the Messiah, and as one who will share in the glory that is going to be revealed,",
+  "2": "shepherd the flock of God in your midst, keeping watch over them not under compulsion, but willingly, as God wills; nor as seeking to gain from them, but eagerly,",
+  "3": "nor as lording it over those assigned to you, but being an example to the flock.",
+  "4": "And when the chief shepherd appears, you will receive the imperishable crown of glory.",
+  "5": "Likewise, younger ones, submit yourselves to the elders. All of you clothe yourselves with humility toward one another, for God opposes the proud, but gives grace to the humble.",
+  "6": "Therefore, humble yourselves under the mighty hand of God, that He may exalt you in due time,",
+  "7": "casting all your anxieties on Him, because He cares for you.",
+  "8": "Be alert, be self-controlled. Your adversary the devil is prowling like a roaring lion, seeking someone to devour.",
+  "9": "Resist him, standing firm in the faith, knowing that the same sufferings are being fulfilled in your brothers who are in the world.",
+  "10": "The God of all grace, who called you to His eternal glory in Christ, after you have suffered a little while, will Himself perfect, strengthen, establish, and support you.",
+  "11": "To Him be the power forever and ever. Amen.",
+  "12": "Through Silvanus, I wrote to you, whom I consider faithful, with just a few words, exhorting and testifying that this grace of God is true; stand in it.",
+  "13": "Greetings to you from the chosen ones in Babylon, and from my son Mark.",
+  "14": "Greet one another with a kiss of love. Peace to all of you who are in Christ."
+ },
+ "notes": "Notes\n- v. 13: \"the chosen ones in Babylon\" — the reference to \"Babylon\" is likely symbolic or metaphorical, though some interpret it as literal. The term \"chosen ones\" reflects συνεκλεκτὴ (syneklektē), meaning \"fellow-chosen.\"",
+ "raw": "[1] Elders among you, therefore, I appeal as a fellow elder and as a witness of the sufferings of the Messiah, and as one who will share in the glory that is going to be revealed, \n[2] shepherd the flock of God in your midst, keeping watch over them not under compulsion, but willingly, as God wills; nor as seeking to gain from them, but eagerly, \n[3] nor as lording it over those assigned to you, but being an example to the flock. \n[4] And when the chief shepherd appears, you will receive the imperishable crown of glory. \n[5] Likewise, younger ones, submit yourselves to the elders. All of you clothe yourselves with humility toward one another, for God opposes the proud, but gives grace to the humble. \n[6] Therefore, humble yourselves under the mighty hand of God, that He may exalt you in due time, \n[7] casting all your anxieties on Him, because He cares for you. \n[8] Be alert, be self-controlled. Your adversary the devil is prowling like a roaring lion, seeking someone to devour. \n[9] Resist him, standing firm in the faith, knowing that the same sufferings are being fulfilled in your brothers who are in the world. \n[10] The God of all grace, who called you to His eternal glory in Christ, after you have suffered a little while, will Himself perfect, strengthen, establish, and support you. \n[11] To Him be the power forever and ever. Amen. \n[12] Through Silvanus, I wrote to you, whom I consider faithful, with just a few words, exhorting and testifying that this grace of God is true; stand in it. \n[13] Greetings to you from the chosen ones in Babylon, and from my son Mark. \n[14] Greet one another with a kiss of love. Peace to all of you who are in Christ. \n---\nNotes\n- v. 13: \"the chosen ones in Babylon\" — the reference to \"Babylon\" is likely symbolic or metaphorical, though some interpret it as literal. The term \"chosen ones\" reflects συνεκλεκτὴ (syneklektē), meaning \"fellow-chosen.\"",
+ "engine": "qwen3:32b"
+}

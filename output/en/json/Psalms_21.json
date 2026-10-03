@@ -1,0 +1,24 @@
+{
+ "book": "Psalms",
+ "chapter": 21,
+ "lang": "en",
+ "verses": {
+  "1": "For the music director. A psalm of David.",
+  "2": "When the LORD strengthens the king, the king rejoices; when you save him, he exults greatly.",
+  "3": "You have given him the desire of his heart, and you have not withheld the plea of his lips. Selah.",
+  "4": "For you have preceded him with blessings of goodness; you have placed on his head a crown of refined gold.",
+  "5": "He asked for life from you, and you gave it to him—long life, an age of ages.",
+  "6": "His honor is great through your salvation; you bestow glory and splendor upon him.",
+  "7": "For you will give him blessings forever; in your presence you will gladden him with joy.",
+  "8": "For the king has trusted in the LORD; in the steadfast love of the Most High he will not be shaken.",
+  "9": "May your hand find all his enemies; may your right hand find those who hate him.",
+  "10": "You will make them like a burning oven at the time of your face—LORD, in your anger you will consume them, and fire will devour them.",
+  "11": "You will destroy their fruit from the land; you will blot out their descendants from among the children of men.",
+  "12": "For they plotted evil against you; they devised a scheme that they cannot accomplish.",
+  "13": "For you will make them the back of the bow; you will prepare their faces in your taut strings.",
+  "14": "Rise up, LORD, in your might; we will sing and praise your strength.\n"
+ },
+ "notes": "Notes\n- v. 3: \"the plea of his lips\" refers to the Greek \"δέησις τῶν χειλέων αὐτοῦ\" but follows the Hebrew \"אֲרֶשֶׁת שְׂפָתָיו\" — best read as \"the plea of his lips\" rather than \"the request of his mouth\".\n- v. 13: \"the back of the bow\" reflects the Hebrew \"שֶׁכֶם בְּמֵיתָרֶיךָ\". The metaphor is obscure but likely describes a target aimed at, not a bowstring.\n- v. 14: \"strength\" for גְּבוּרָתֶֽךָ is chosen over \"might\" to match the poetic tone of the previous chapters.",
+ "raw": "[1] For the music director. A psalm of David.  \n[2] When the LORD strengthens the king, the king rejoices; when you save him, he exults greatly.  \n[3] You have given him the desire of his heart, and you have not withheld the plea of his lips. Selah.  \n[4] For you have preceded him with blessings of goodness; you have placed on his head a crown of refined gold.  \n[5] He asked for life from you, and you gave it to him—long life, an age of ages.  \n[6] His honor is great through your salvation; you bestow glory and splendor upon him.  \n[7] For you will give him blessings forever; in your presence you will gladden him with joy.  \n[8] For the king has trusted in the LORD; in the steadfast love of the Most High he will not be shaken.  \n[9] May your hand find all his enemies; may your right hand find those who hate him.  \n[10] You will make them like a burning oven at the time of your face—LORD, in your anger you will consume them, and fire will devour them.  \n[11] You will destroy their fruit from the land; you will blot out their descendants from among the children of men.  \n[12] For they plotted evil against you; they devised a scheme that they cannot accomplish.  \n[13] For you will make them the back of the bow; you will prepare their faces in your taut strings.  \n[14] Rise up, LORD, in your might; we will sing and praise your strength.\n\n---\nNotes\n- v. 3: \"the plea of his lips\" refers to the Greek \"δέησις τῶν χειλέων αὐτοῦ\" but follows the Hebrew \"אֲרֶשֶׁת שְׂפָתָיו\" — best read as \"the plea of his lips\" rather than \"the request of his mouth\".\n- v. 13: \"the back of the bow\" reflects the Hebrew \"שֶׁכֶם בְּמֵיתָרֶיךָ\". The metaphor is obscure but likely describes a target aimed at, not a bowstring.\n- v. 14: \"strength\" for גְּבוּרָתֶֽךָ is chosen over \"might\" to match the poetic tone of the previous chapters.",
+ "engine": "qwen3:32b"
+}

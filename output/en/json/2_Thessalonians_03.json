@@ -1,0 +1,28 @@
+{
+ "book": "2 Thessalonians",
+ "chapter": 3,
+ "lang": "en",
+ "verses": {
+  "1": "The rest, brothers, pray for us, that the word of the Lord may go forth and be honored, just as it is among you,",
+  "2": "and that we may be delivered from the lawless and evil people, for not everyone has faith.",
+  "3": "But the Lord is faithful, who will strengthen you and guard you from the evil one.",
+  "4": "We have confidence in the Lord concerning you, that what we have commanded you you are doing and will do.",
+  "5": "And the Lord will guide your hearts to the love of God and to the endurance of the Messiah.",
+  "6": "Now we command you, brothers, in the name of our Lord Jesus Christ, that you refrain from every brother who is disorderly and does not follow the tradition you received from us.",
+  "7": "For you yourselves know how you ought to imitate us, because we did not behave disorderly among you,",
+  "8": "nor did we eat food without charge from anyone, but with toil and hardship, night and day, we labored to avoid burdening anyone among you;",
+  "9": "not because we do not have the right to do so, but to set an example for you to imitate us.",
+  "10": "For even when we were with you, we gave this command: if anyone refuses to work, let him not eat.",
+  "11": "For we hear that some among you are behaving disorderly, not working at all, but meddling instead;",
+  "12": "to such people we command and exhort in the Lord Jesus Christ to work quietly and eat their own bread.",
+  "13": "But you, brothers, do not become weary in doing good.",
+  "14": "If anyone does not obey our word through this letter, take note of him, do not associate with him, so that he may be put to shame.",
+  "15": "And do not treat him as an enemy, but warn him as a brother.",
+  "16": "The Lord of peace himself give you peace in every way. The Lord be with all of you.",
+  "17": "My greeting in my own hand, Paul’s greeting, which is a sign in every letter. So I write.",
+  "18": "The grace of our Lord Jesus Christ be with all of you.\n"
+ },
+ "notes": "Notes\n- v. 17: “My greeting in my own hand, Paul’s greeting, which is a sign in every letter. So I write.” — The Greek is somewhat ambiguous in phrasing, but the meaning is clear: the sender identifies their handwriting as authenticating the letter. The translation captures the self-attesting nature of the autograph.",
+ "raw": "[1] The rest, brothers, pray for us, that the word of the Lord may go forth and be honored, just as it is among you,\n[2] and that we may be delivered from the lawless and evil people, for not everyone has faith.\n[3] But the Lord is faithful, who will strengthen you and guard you from the evil one.\n[4] We have confidence in the Lord concerning you, that what we have commanded you you are doing and will do.\n[5] And the Lord will guide your hearts to the love of God and to the endurance of the Messiah.\n[6] Now we command you, brothers, in the name of our Lord Jesus Christ, that you refrain from every brother who is disorderly and does not follow the tradition you received from us.\n[7] For you yourselves know how you ought to imitate us, because we did not behave disorderly among you,\n[8] nor did we eat food without charge from anyone, but with toil and hardship, night and day, we labored to avoid burdening anyone among you;\n[9] not because we do not have the right to do so, but to set an example for you to imitate us.\n[10] For even when we were with you, we gave this command: if anyone refuses to work, let him not eat.\n[11] For we hear that some among you are behaving disorderly, not working at all, but meddling instead;\n[12] to such people we command and exhort in the Lord Jesus Christ to work quietly and eat their own bread.\n[13] But you, brothers, do not become weary in doing good.\n[14] If anyone does not obey our word through this letter, take note of him, do not associate with him, so that he may be put to shame.\n[15] And do not treat him as an enemy, but warn him as a brother.\n[16] The Lord of peace himself give you peace in every way. The Lord be with all of you.\n[17] My greeting in my own hand, Paul’s greeting, which is a sign in every letter. So I write.\n[18] The grace of our Lord Jesus Christ be with all of you.\n\n---\nNotes\n- v. 17: “My greeting in my own hand, Paul’s greeting, which is a sign in every letter. So I write.” — The Greek is somewhat ambiguous in phrasing, but the meaning is clear: the sender identifies their handwriting as authenticating the letter. The translation captures the self-attesting nature of the autograph.",
+ "engine": "qwen3:32b"
+}

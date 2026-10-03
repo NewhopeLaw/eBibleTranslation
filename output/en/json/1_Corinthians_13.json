@@ -1,0 +1,23 @@
+{
+ "book": "1 Corinthians",
+ "chapter": 13,
+ "lang": "en",
+ "verses": {
+  "1": "If I speak in human languages and in the tongues of angels, but do not have love, I am only a clanging cymbal or a noisy gong.",
+  "2": "And if I have the gift of prophecy and know all mysteries and all knowledge, and if I have complete faith so that I could move mountains, but do not have love, I am nothing.",
+  "3": "And if I give away all my possessions and surrender my body to be burned, but do not have love, I gain nothing.",
+  "4": "Love is patient, love is kind. Love does not envy, does not boast, is not arrogant,",
+  "5": "does not act unbecomingly, does not seek its own advantage, is not irritable, does not keep a record of wrongs,",
+  "6": "does not rejoice in injustice, but rejoices with the truth;",
+  "7": "bears all things, believes all things, hopes all things, endures all things.",
+  "8": "Love never fails. But whether prophecies will vanish, or tongues will cease, or knowledge will be done away with,",
+  "9": "for now we know in part and prophesy in part,",
+  "10": "but when the perfect comes, the partial will be done away with.",
+  "11": "When I was a child, I spoke like a child, I thought like a child, I reasoned like a child. But when I became an adult, I put away childish things.",
+  "12": "For now we see in a mirror dimly, but then face to face. Now I know in part, but then I will know fully, as I am fully known.",
+  "13": "Now these three remain: faith, hope, love. But the greatest of these is love."
+ },
+ "notes": "Notes\n- v. 1: The metaphor of \"clanging cymbal or a noisy gong\" is taken directly from the Greek and preserves the original’s emphasis on sound without substance.\n- v. 10: \"the perfect\" refers to the eschatological state, not a specific person or event.\n- v. 12: \"in a mirror dimly\" reflects the Greek \"διʼ ἐσόπτρου ἐν αἰνίγματι\" and conveys the idea of seeing unclearly through a reflection.\n- v. 13: \"the greatest of these is love\" is a direct rendering of the Greek, with \"love\" as the last and most emphasized.",
+ "raw": "[1] If I speak in human languages and in the tongues of angels, but do not have love, I am only a clanging cymbal or a noisy gong.\n[2] And if I have the gift of prophecy and know all mysteries and all knowledge, and if I have complete faith so that I could move mountains, but do not have love, I am nothing.\n[3] And if I give away all my possessions and surrender my body to be burned, but do not have love, I gain nothing.\n[4] Love is patient, love is kind. Love does not envy, does not boast, is not arrogant,\n[5] does not act unbecomingly, does not seek its own advantage, is not irritable, does not keep a record of wrongs,\n[6] does not rejoice in injustice, but rejoices with the truth;\n[7] bears all things, believes all things, hopes all things, endures all things.\n[8] Love never fails. But whether prophecies will vanish, or tongues will cease, or knowledge will be done away with,\n[9] for now we know in part and prophesy in part,\n[10] but when the perfect comes, the partial will be done away with.\n[11] When I was a child, I spoke like a child, I thought like a child, I reasoned like a child. But when I became an adult, I put away childish things.\n[12] For now we see in a mirror dimly, but then face to face. Now I know in part, but then I will know fully, as I am fully known.\n[13] Now these three remain: faith, hope, love. But the greatest of these is love.\n---\nNotes\n- v. 1: The metaphor of \"clanging cymbal or a noisy gong\" is taken directly from the Greek and preserves the original’s emphasis on sound without substance.\n- v. 10: \"the perfect\" refers to the eschatological state, not a specific person or event.\n- v. 12: \"in a mirror dimly\" reflects the Greek \"διʼ ἐσόπτρου ἐν αἰνίγματι\" and conveys the idea of seeing unclearly through a reflection.\n- v. 13: \"the greatest of these is love\" is a direct rendering of the Greek, with \"love\" as the last and most emphasized.",
+ "engine": "qwen3:32b"
+}

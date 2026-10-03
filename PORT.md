@@ -61,10 +61,15 @@ scp -r clemcheng@100.118.191.115:eBibleTranslation C:\ebible
 ## 3. Run
 
 ```
-python scripts\translate.py --all        # resumes wherever the Spark stopped
-python scripts\verify.py                 # flags problems, fixes nothing
+python scripts\translate.py --all        # resumes wherever the Spark stopped (English)
+python scripts\translate.py --all --lang zh   # or es, ja, th, a comma list, or all
+python scripts\verify.py [--lang zh]     # flags problems, fixes nothing
 python scripts\build_site.py             # refresh site/index.html reader
+python scripts\live.py                   # or watch it stream at http://localhost:8766
 ```
+
+Outputs land in `output/<lang>/`; each language resumes independently, so
+two machines can also split by language instead of by book.
 
 `config.json` needs no changes — `api_url` points at localhost, which is the
 5090's own Ollama once you're running there.

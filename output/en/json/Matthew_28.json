@@ -1,0 +1,30 @@
+{
+ "book": "Matthew",
+ "chapter": 28,
+ "lang": "en",
+ "verses": {
+  "1": "Now after the Sabbath, toward the dawn of the first day of the week, Mary Magdalene and the other Mary came to look at the tomb.",
+  "2": "And behold, there was a great earthquake, for an angel of the Lord had descended from heaven and rolled back the stone and was sitting on it.",
+  "3": "The appearance of the angel was like lightning, and his clothing was white as snow.",
+  "4": "The guards were frightened by him and became like dead men.",
+  "5": "The angel replied to the women, “Do not be afraid, for I know that you are seeking Jesus who was crucified.",
+  "6": "He is not here, for he has risen, just as he said. Come and see the place where he was lying.",
+  "7": "Then go quickly and tell his disciples that he has risen from the dead, and behold, he is going ahead of you to Galilee. There you will see him. I have told you.”",
+  "8": "Then they left the tomb quickly, with great fear and joy, and ran to bring the news to his disciples.",
+  "9": "And behold, Jesus met them, saying, “Rejoice!” And the women approached and took hold of his feet and worshiped him.",
+  "10": "Then Jesus said to them, “Do not be afraid. Go and tell my brothers to go to Galilee. There they will see me.”",
+  "11": "While they were going, some of the guards went into the city and told the chief priests all that had happened.",
+  "12": "And when they had gathered with the elders and taken counsel, they gave the soldiers a large sum of money",
+  "13": "and said, “Say that his disciples came at night and stole him while we were asleep.",
+  "14": "And if this comes to the governor’s ears, we will satisfy him and keep you out of trouble.”",
+  "15": "The soldiers accepted the money and did as they were taught. And this story spread among the Jews until this very day.",
+  "16": "Then the eleven disciples went to Galilee, to the mountain where Jesus had directed them.",
+  "17": "And when they saw him, they worshiped him, though some doubted.",
+  "18": "Then Jesus came near and spoke to them, saying, “All authority has been given to me in heaven and on earth.",
+  "19": "Therefore, go and make disciples of all nations, baptizing them in the name of the Father, and of the Son, and of the Holy Spirit,",
+  "20": "teaching them to observe all that I have commanded you. And behold, I am with you always, to the end of the age.”\n"
+ },
+ "notes": "Notes\n- v. 1: “after the Preparation Day” is implied from context and previous chapter; the Greek phrase “after the Sabbath” is rendered as “now after the Sabbath” to reflect the transition.\n- v. 19: “the name of the Father, and of the Son, and of the Holy Spirit” reflects the Greek structure, with “the name of” used once and then repeated with “and of” for each subsequent person.\n- v. 20: “to the end of the age” is a direct translation of “ἕως τῆς συντελείας τοῦ αἰῶνος,” which can also be read as “until the end of the age” but “to the end of the age” is more natural in English.",
+ "raw": "[1] Now after the Sabbath, toward the dawn of the first day of the week, Mary Magdalene and the other Mary came to look at the tomb.\n[2] And behold, there was a great earthquake, for an angel of the Lord had descended from heaven and rolled back the stone and was sitting on it.\n[3] The appearance of the angel was like lightning, and his clothing was white as snow.\n[4] The guards were frightened by him and became like dead men.\n[5] The angel replied to the women, “Do not be afraid, for I know that you are seeking Jesus who was crucified.\n[6] He is not here, for he has risen, just as he said. Come and see the place where he was lying.\n[7] Then go quickly and tell his disciples that he has risen from the dead, and behold, he is going ahead of you to Galilee. There you will see him. I have told you.”\n[8] Then they left the tomb quickly, with great fear and joy, and ran to bring the news to his disciples.\n[9] And behold, Jesus met them, saying, “Rejoice!” And the women approached and took hold of his feet and worshiped him.\n[10] Then Jesus said to them, “Do not be afraid. Go and tell my brothers to go to Galilee. There they will see me.”\n[11] While they were going, some of the guards went into the city and told the chief priests all that had happened.\n[12] And when they had gathered with the elders and taken counsel, they gave the soldiers a large sum of money\n[13] and said, “Say that his disciples came at night and stole him while we were asleep.\n[14] And if this comes to the governor’s ears, we will satisfy him and keep you out of trouble.”\n[15] The soldiers accepted the money and did as they were taught. And this story spread among the Jews until this very day.\n[16] Then the eleven disciples went to Galilee, to the mountain where Jesus had directed them.\n[17] And when they saw him, they worshiped him, though some doubted.\n[18] Then Jesus came near and spoke to them, saying, “All authority has been given to me in heaven and on earth.\n[19] Therefore, go and make disciples of all nations, baptizing them in the name of the Father, and of the Son, and of the Holy Spirit,\n[20] teaching them to observe all that I have commanded you. And behold, I am with you always, to the end of the age.”\n\n---\nNotes\n- v. 1: “after the Preparation Day” is implied from context and previous chapter; the Greek phrase “after the Sabbath” is rendered as “now after the Sabbath” to reflect the transition.\n- v. 19: “the name of the Father, and of the Son, and of the Holy Spirit” reflects the Greek structure, with “the name of” used once and then repeated with “and of” for each subsequent person.\n- v. 20: “to the end of the age” is a direct translation of “ἕως τῆς συντελείας τοῦ αἰῶνος,” which can also be read as “until the end of the age” but “to the end of the age” is more natural in English.",
+ "engine": "qwen3:32b"
+}

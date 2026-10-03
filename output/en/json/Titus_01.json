@@ -1,0 +1,26 @@
+{
+ "book": "Titus",
+ "chapter": 1,
+ "lang": "en",
+ "verses": {
+  "1": "Paul, a servant of God, and an apostle of Jesus Christ, according to the faith of the elect of God and the knowledge of the truth that leads to godliness,",
+  "2": "in hope of eternal life, which the trustworthy God promised long ago before the ages,",
+  "3": "has now made it plain in his own times through the preaching of his word, which I was entrusted with in accordance with the command of our Savior God,",
+  "4": "to Titus, my true son in the shared faith: Grace and peace from God the Father and from Christ Jesus the Savior of us.",
+  "5": "For this reason I left you in Crete, so that you might put what is lacking into order, and appoint elders in every city, just as I instructed you,",
+  "6": "if someone is blameless, the husband of one wife, having believing children who are not accused of indulgence or rebellion.",
+  "7": "For the overseer must be blameless as a steward of God, not arrogant, not quick-tempered, not a heavy drinker, not a brawler, not greedy for gain,",
+  "8": "but hospitable, a lover of good, sensible, upright, holy, self-controlled,",
+  "9": "holding fast to the faithful word as taught, so that he may be able both to encourage with sound teaching and to refute those who contradict it.",
+  "10": "For there are many who are rebellious, empty talkers, and deluders, especially those from the circumcision,",
+  "11": "whom it is necessary to silence, for they overturn whole households by teaching what should not be done for the sake of shameful gain.",
+  "12": "One of their own prophets said, \"Cretans are always liars, evil beasts, lazy bellies.\"",
+  "13": "This testimony is true. For this reason rebuke them sharply, so that they may be healthy in the faith,",
+  "14": "not paying attention to Jewish myths and commandments that turn away from the truth, given by men.",
+  "15": "To those who are pure, all things are pure; but to those who are defiled and without faith, nothing is pure, for both their minds and their consciences are defiled.",
+  "16": "They profess to know God, but by their works they deny him, being abominable, disobedient, and unfit for any good work."
+ },
+ "notes": "Notes\n- v. 1: \"the elect of God\" reflects the term \"ἐκλεκτῶν θεοῦ\" as a genitive absolute, indicating the scope of the apostleship.\n- v. 14: \"Jewish myths\" is a rendering of \"Ἰουδαϊκοῖς μύθοις,\" which could also be read as \"Judaizing myths\" or \"Jewish fables,\" but the former is clearer in context.\n- v. 15: \"To those who are pure\" and \"To those who are defiled\" render \"πάντα καθαρὰ τοῖς καθαροῖς· τοῖς δὲ μεμιαμμένοις\" with clarity, preserving the contrast.",
+ "raw": "[1] Paul, a servant of God, and an apostle of Jesus Christ, according to the faith of the elect of God and the knowledge of the truth that leads to godliness,\n[2] in hope of eternal life, which the trustworthy God promised long ago before the ages,\n[3] has now made it plain in his own times through the preaching of his word, which I was entrusted with in accordance with the command of our Savior God,\n[4] to Titus, my true son in the shared faith: Grace and peace from God the Father and from Christ Jesus the Savior of us.\n[5] For this reason I left you in Crete, so that you might put what is lacking into order, and appoint elders in every city, just as I instructed you,\n[6] if someone is blameless, the husband of one wife, having believing children who are not accused of indulgence or rebellion.\n[7] For the overseer must be blameless as a steward of God, not arrogant, not quick-tempered, not a heavy drinker, not a brawler, not greedy for gain,\n[8] but hospitable, a lover of good, sensible, upright, holy, self-controlled,\n[9] holding fast to the faithful word as taught, so that he may be able both to encourage with sound teaching and to refute those who contradict it.\n[10] For there are many who are rebellious, empty talkers, and deluders, especially those from the circumcision,\n[11] whom it is necessary to silence, for they overturn whole households by teaching what should not be done for the sake of shameful gain.\n[12] One of their own prophets said, \"Cretans are always liars, evil beasts, lazy bellies.\"\n[13] This testimony is true. For this reason rebuke them sharply, so that they may be healthy in the faith,\n[14] not paying attention to Jewish myths and commandments that turn away from the truth, given by men.\n[15] To those who are pure, all things are pure; but to those who are defiled and without faith, nothing is pure, for both their minds and their consciences are defiled.\n[16] They profess to know God, but by their works they deny him, being abominable, disobedient, and unfit for any good work.\n---\nNotes\n- v. 1: \"the elect of God\" reflects the term \"ἐκλεκτῶν θεοῦ\" as a genitive absolute, indicating the scope of the apostleship.\n- v. 14: \"Jewish myths\" is a rendering of \"Ἰουδαϊκοῖς μύθοις,\" which could also be read as \"Judaizing myths\" or \"Jewish fables,\" but the former is clearer in context.\n- v. 15: \"To those who are pure\" and \"To those who are defiled\" render \"πάντα καθαρὰ τοῖς καθαροῖς· τοῖς δὲ μεμιαμμένοις\" with clarity, preserving the contrast.",
+ "engine": "qwen3:32b"
+}

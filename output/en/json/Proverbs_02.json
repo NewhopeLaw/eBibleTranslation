@@ -1,0 +1,32 @@
+{
+ "book": "Proverbs",
+ "chapter": 2,
+ "lang": "en",
+ "verses": {
+  "1": "My son, if you accept my words and store my commandments within you,",
+  "2": "incline your ear to wisdom, let your heart be attentive to understanding,",
+  "3": "for if you call out for discernment and raise your voice for understanding,",
+  "4": "you must seek it as silver and search for it as hidden treasure.",
+  "5": "Then you will understand the fear of the LORD and find the knowledge of God.",
+  "6": "For the LORD grants wisdom; from his mouth come knowledge and understanding.",
+  "7": "He stores up success for the upright, and is a shield to those who walk blamelessly,",
+  "8": "guarding the paths of justice and preserving the way of his faithful ones.",
+  "9": "Then you will understand what is right, judgment, and every good path.",
+  "10": "For wisdom will enter your heart, and knowledge will bring delight to your soul,",
+  "11": "wisdom will guard you and understanding will watch over you,",
+  "12": "to rescue you from the way of the wicked, from the man who speaks deceptively,",
+  "13": "from those who abandon the paths of uprightness to walk in the ways of darkness,",
+  "14": "those who rejoice in doing evil and celebrate in deceit,",
+  "15": "whose ways are crooked and whose paths are devious,",
+  "16": "to keep you from the straight path, to lead you into a foreign way.",
+  "17": "The woman who abandons the teaching of her youth and forgets the covenant of her God,",
+  "18": "for her house is set toward death, and her paths lead to the world of the dead,",
+  "19": "none who go into her will return, nor will they grasp the paths of life.",
+  "20": "So that you may walk in the good ways and keep the paths of the righteous,",
+  "21": "for the upright will dwell in the land, and the blameless will remain in it,",
+  "22": "but the wicked will be cut off from the land, and the treacherous will be torn from it.\n"
+ },
+ "notes": "Notes\n- v. 10: \"knowledge will bring delight to your soul\" — \"knowledge will bring grace to your throat\" is an alternate rendering of נפש here, but the context supports a more holistic interpretation of \"soul\" as a person's inner being.\n- v. 16: \"lead you into a foreign way\" — the Hebrew term נכרית could also be rendered as \"strange\" or \"alien,\" but \"foreign\" fits the semantic field of guidance and direction.\n- v. 17: \"the woman who abandons...\" — the reference is to a metaphorical \"strange woman\" or unfaithful partner, common in wisdom literature, and not to be taken as a literal woman.\n- v. 18: \"the world of the dead\" — the Hebrew refers to שְׁאוֹל, commonly rendered as \"Sheol,\" but the context here is metaphorical, so a more accessible rendering is chosen.",
+ "raw": "[1] My son, if you accept my words and store my commandments within you,\n[2] incline your ear to wisdom, let your heart be attentive to understanding,\n[3] for if you call out for discernment and raise your voice for understanding,\n[4] you must seek it as silver and search for it as hidden treasure.\n[5] Then you will understand the fear of the LORD and find the knowledge of God.\n[6] For the LORD grants wisdom; from his mouth come knowledge and understanding.\n[7] He stores up success for the upright, and is a shield to those who walk blamelessly,\n[8] guarding the paths of justice and preserving the way of his faithful ones.\n[9] Then you will understand what is right, judgment, and every good path.\n[10] For wisdom will enter your heart, and knowledge will bring delight to your soul,\n[11] wisdom will guard you and understanding will watch over you,\n[12] to rescue you from the way of the wicked, from the man who speaks deceptively,\n[13] from those who abandon the paths of uprightness to walk in the ways of darkness,\n[14] those who rejoice in doing evil and celebrate in deceit,\n[15] whose ways are crooked and whose paths are devious,\n[16] to keep you from the straight path, to lead you into a foreign way.\n[17] The woman who abandons the teaching of her youth and forgets the covenant of her God,\n[18] for her house is set toward death, and her paths lead to the world of the dead,\n[19] none who go into her will return, nor will they grasp the paths of life.\n[20] So that you may walk in the good ways and keep the paths of the righteous,\n[21] for the upright will dwell in the land, and the blameless will remain in it,\n[22] but the wicked will be cut off from the land, and the treacherous will be torn from it.\n\n---\nNotes\n- v. 10: \"knowledge will bring delight to your soul\" — \"knowledge will bring grace to your throat\" is an alternate rendering of נפש here, but the context supports a more holistic interpretation of \"soul\" as a person's inner being.\n- v. 16: \"lead you into a foreign way\" — the Hebrew term נכרית could also be rendered as \"strange\" or \"alien,\" but \"foreign\" fits the semantic field of guidance and direction.\n- v. 17: \"the woman who abandons...\" — the reference is to a metaphorical \"strange woman\" or unfaithful partner, common in wisdom literature, and not to be taken as a literal woman.\n- v. 18: \"the world of the dead\" — the Hebrew refers to שְׁאוֹל, commonly rendered as \"Sheol,\" but the context here is metaphorical, so a more accessible rendering is chosen.",
+ "engine": "qwen3:32b"
+}

@@ -1,0 +1,23 @@
+{
+ "book": "Psalms",
+ "chapter": 36,
+ "lang": "es",
+ "verses": {
+  "1": "Para el director musical. De David, siervo del SEÑOR.\n",
+  "2": "El malvado dice en su corazón: «No hay miedo a Dios ante mis ojos».\n",
+  "3": "Porque él se ha engañado a sí mismo, pensando en sus propios pecados para odiar.\n",
+  "4": "Las palabras de su boca son maldad y engaño, no quiere comprender hacer el bien.\n",
+  "5": "Siente maldad en su cama, se levanta por una senda torcida; no aborrece la maldad.\n",
+  "6": "El SEÑOR está en los cielos: tu amor leal es inmenso, y tu fidelidad alcanza hasta las nubes.\n",
+  "7": "Tu justicia es como los montes de Dios, y tu juicio es como un abismo profundo. Tú, SEÑOR, salvas al hombre y al animal.\n",
+  "8": "¡Cuán precioso es tu amor, oh Dios! Los hijos de los humanos se refugian a la sombra de tus alas.\n",
+  "9": "Se sacian con la abundancia de tu casa, y con el torrente de tu deleite los alimentas.\n",
+  "10": "Porque contigo está la fuente de la vida; en tu luz veremos luz.\n",
+  "11": "Extiende tu amor a quienes te conocen, y tu justicia a los rectos de corazón.\n",
+  "12": "No entre en mí el pie de los altaneros, ni la mano de los malvados me turbe.\n",
+  "13": "Allí cayeron los que practican la maldad, fueron expulsados y no pudieron levantarse.\n"
+ },
+ "notes": "Notes\n- v. 1: La expresión \"לַמְנַצֵּחַ\" se traduce como \"Para el director musical\", una convención frecuente en los salmos.\n- v. 2: La traducción refleja el estado de ánimo del malvado que carece de temor divino, con un enfoque en la autojustificación.\n- v. 9: La palabra \"midesten\" se interpreta como \"abundancia de tu casa\", reflejando la provisión divina.\n- v. 10: La expresión \"en tu luz veremos luz\" sigue el sentido metafórico del texto original.\n- v. 13: La construcción se mantiene fiel al original, indicando la caída definitiva de los impíos.",
+ "raw": "[1] Para el director musical. De David, siervo del SEÑOR.\n\n[2] El malvado dice en su corazón: «No hay miedo a Dios ante mis ojos».\n\n[3] Porque él se ha engañado a sí mismo, pensando en sus propios pecados para odiar.\n\n[4] Las palabras de su boca son maldad y engaño, no quiere comprender hacer el bien.\n\n[5] Siente maldad en su cama, se levanta por una senda torcida; no aborrece la maldad.\n\n[6] El SEÑOR está en los cielos: tu amor leal es inmenso, y tu fidelidad alcanza hasta las nubes.\n\n[7] Tu justicia es como los montes de Dios, y tu juicio es como un abismo profundo. Tú, SEÑOR, salvas al hombre y al animal.\n\n[8] ¡Cuán precioso es tu amor, oh Dios! Los hijos de los humanos se refugian a la sombra de tus alas.\n\n[9] Se sacian con la abundancia de tu casa, y con el torrente de tu deleite los alimentas.\n\n[10] Porque contigo está la fuente de la vida; en tu luz veremos luz.\n\n[11] Extiende tu amor a quienes te conocen, y tu justicia a los rectos de corazón.\n\n[12] No entre en mí el pie de los altaneros, ni la mano de los malvados me turbe.\n\n[13] Allí cayeron los que practican la maldad, fueron expulsados y no pudieron levantarse.\n\n---\nNotes\n- v. 1: La expresión \"לַמְנַצֵּחַ\" se traduce como \"Para el director musical\", una convención frecuente en los salmos.\n- v. 2: La traducción refleja el estado de ánimo del malvado que carece de temor divino, con un enfoque en la autojustificación.\n- v. 9: La palabra \"midesten\" se interpreta como \"abundancia de tu casa\", reflejando la provisión divina.\n- v. 10: La expresión \"en tu luz veremos luz\" sigue el sentido metafórico del texto original.\n- v. 13: La construcción se mantiene fiel al original, indicando la caída definitiva de los impíos.",
+ "engine": "qwen3:32b"
+}

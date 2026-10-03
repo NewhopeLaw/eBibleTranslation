@@ -1,0 +1,9 @@
+# Joshua 20
+
+¹ The LORD spoke to Joshua, saying: ² Speak to the Israelites, saying, "Assign for yourselves the cities of refuge, as I have spoken to you by the hand of Moses: ³ for the one who strikes a life by accident, without intent. They shall serve as refuge for you from the avenger of blood. ⁴ The one who flees must go to one of these cities, stand at the gate of the city, and declare his case to the ears of the city's elders. The people of the city must take him in and give him a place to stay among them. ⁵ If the avenger of blood pursues him, the city must not hand the killer over to him, for he struck his neighbor without intent, and he was not hostile to him before or after. ⁶ He must dwell in that city until he stands before the assembly for judgment, until the death of the high priest who is present in those days. Then the killer may return, come to his city and his home, to the city from which he fled. ⁷ So they set apart Kedesh in Galilee in the hill country of Naphtali, and Shechem in the hill country of Ephraim, and Kiryat-Arba, that is Hebron, in the hill country of Judah. ⁸ Across the Jordan east of Jericho, they assigned Bezer in the desert plain from the tribe of Reuben, and Ramoth in Gilead from the tribe of Gad, and Golan in Bashan from the tribe of Manasseh. ⁹ These were the cities of refuge for all the Israelites and for the foreigner living among them, so that anyone who strikes a life by accident may flee there and not die by the hand of the avenger of blood until he stands before the assembly.
+
+---
+
+Notes
+- v. 7: "Kedesh in Galilee in the hill country of Naphtali" — the Hebrew uses the phrase "קֶדֶשׁ בַּגָּלִיל", which is commonly understood as "Kedesh in Galilee" rather than "Kedesh of Galilee", hence the phrasing here.
+- v. 8: "across the Jordan east of Jericho" — the Hebrew "מֵעֵבֶר לְיַרְדֵּן יְרִיחוֹ מִזְרָחָה" is translated to retain the directional clarity.

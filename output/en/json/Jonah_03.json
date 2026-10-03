@@ -1,0 +1,20 @@
+{
+ "book": "Jonah",
+ "chapter": 3,
+ "lang": "en",
+ "verses": {
+  "1": "Then the word of the LORD came to Jonah a second time, saying:\n",
+  "2": "Get up, go to Nineveh, that great city, and proclaim there the proclamation I tell you to give.\n",
+  "3": "Jonah got up and went to Nineveh, as the LORD had commanded. Now Nineveh was a great city to God, a journey of three days.\n",
+  "4": "Jonah began to enter the city, going a day’s journey, and he proclaimed, “Forty more days and Nineveh will be overturned.”\n",
+  "5": "The people of Nineveh believed in God, and they proclaimed a fast, and put on sackcloth, from the greatest of them to the least.\n",
+  "6": "The message reached the king of Nineveh, and he rose from his throne, and took off his royal robes from himself, and covered himself with sackcloth, and sat on ashes.\n",
+  "7": "He sent out and proclaimed in Nineveh, by order of the king and his nobles, saying: “Let no person, whether human or beast, cattle or flock, taste anything. Let them neither feed nor drink water.”\n",
+  "8": "“And let humans and beasts alike wear sackcloth, and let them call out to God with great strength, and let each turn from his evil way and from the violence in his hands.”\n",
+  "9": "“Who can know whether God will turn and relent and turn away from his burning anger, and we will not perish?”\n",
+  "10": "And God saw their deeds, that they had turned from their evil ways, and God relented concerning the evil he had spoken of doing to them, and did not do it.\n"
+ },
+ "notes": "Notes\n- v. 4: The translation of מַהֲלַךְ שְׁלֹשֶׁת יָמִים (\"a journey of three days\") follows the Hebrew literally, avoiding anachronistic terms like “three-day journey.”\n- v. 9: The phrase מִי־יוֹדֵעַ is rendered as “Who can know” to retain the rhetorical tone rather than “Who knows,” which could imply certainty.\n- v. 10: The rendering of וַיִּנָּחֶם (\"and God relented\") is chosen over “repented” to avoid anthropomorphizing God in a way that might mislead.",
+ "raw": "[1] Then the word of the LORD came to Jonah a second time, saying:\n\n[2] Get up, go to Nineveh, that great city, and proclaim there the proclamation I tell you to give.\n\n[3] Jonah got up and went to Nineveh, as the LORD had commanded. Now Nineveh was a great city to God, a journey of three days.\n\n[4] Jonah began to enter the city, going a day’s journey, and he proclaimed, “Forty more days and Nineveh will be overturned.”\n\n[5] The people of Nineveh believed in God, and they proclaimed a fast, and put on sackcloth, from the greatest of them to the least.\n\n[6] The message reached the king of Nineveh, and he rose from his throne, and took off his royal robes from himself, and covered himself with sackcloth, and sat on ashes.\n\n[7] He sent out and proclaimed in Nineveh, by order of the king and his nobles, saying: “Let no person, whether human or beast, cattle or flock, taste anything. Let them neither feed nor drink water.”\n\n[8] “And let humans and beasts alike wear sackcloth, and let them call out to God with great strength, and let each turn from his evil way and from the violence in his hands.”\n\n[9] “Who can know whether God will turn and relent and turn away from his burning anger, and we will not perish?”\n\n[10] And God saw their deeds, that they had turned from their evil ways, and God relented concerning the evil he had spoken of doing to them, and did not do it.\n\n---\nNotes\n- v. 4: The translation of מַהֲלַךְ שְׁלֹשֶׁת יָמִים (\"a journey of three days\") follows the Hebrew literally, avoiding anachronistic terms like “three-day journey.”\n- v. 9: The phrase מִי־יוֹדֵעַ is rendered as “Who can know” to retain the rhetorical tone rather than “Who knows,” which could imply certainty.\n- v. 10: The rendering of וַיִּנָּחֶם (\"and God relented\") is chosen over “repented” to avoid anthropomorphizing God in a way that might mislead.",
+ "engine": "qwen3:32b"
+}

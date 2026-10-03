@@ -1,0 +1,19 @@
+{
+ "book": "Joshua",
+ "chapter": 20,
+ "lang": "es",
+ "verses": {
+  "1": "El SEÑOR habló a Josué, diciendo:\n",
+  "2": "Habla a los hijos de Israel, diciendo: Dados vosotros mismos las ciudades de refugio, de las que he hablado con vosotros por boca de Moisés.\n",
+  "3": "El homicida que golpea una vida accidentalmente, sin intención, podrá huir a ellas, y serán para vosotros ciudades de refugio del vengador de la sangre.\n",
+  "4": "Y el que huya a cualquiera de estas ciudades, se parará a la entrada de la puerta de aquella ciudad y dirá sus palabras a los oídos de los ancianos de la ciudad. La ciudad lo recogerá entre sí y le dará lugar para que viva con ellos.\n",
+  "5": "Y si el vengador de la sangre lo persigue, no le entregarán al homicida, porque golpeó a su prójimo sin intención, y no era enemigo de él de ayer ni de antaño.\n",
+  "6": "Y vivirá en esa ciudad hasta que se le presente ante la asamblea para juicio, hasta que muera el sacerdote mayor que será en aquellos días. Entonces el homicida regresará y vendrá a su ciudad y a su casa, a la ciudad de la que huyó.\n",
+  "7": "Y santificaron a Kadés en Galilea, en el monte de Nefalí, y a Sicón en el monte de Efraím, y a Kirjat Arba, que es Hebrón, en el monte de Judá.\n",
+  "8": "Y al otro lado del Jordán, en Jericó, al oriente, dieron Betser en el desierto, en el llano, de la tribu de Rubén, y Ramot en Galaad, de la tribu de Gad, y Golán en Basán, de la tribu de Manasés.\n",
+  "9": "Estas fueron las ciudades designadas para todos los hijos de Israel, y para el forastero que habite entre ellos, para huir allí cada uno que golpee una vida accidentalmente, y no morirá en manos del vengador de la sangre, hasta que se le presente ante la asamblea.\n"
+ },
+ "notes": "Notes\n- v. 5: \"de ayer ni de antaño\" se usa para interpretar \"מִתְּמוֹל שִׁלְשֽׁוֹם\", que literalmente podría traducirse como \"de ayer y de antaño\", pero se entiende como una expresión que denota una relación lejana o no existente.",
+ "raw": "[1] El SEÑOR habló a Josué, diciendo:\n\n[2] Habla a los hijos de Israel, diciendo: Dados vosotros mismos las ciudades de refugio, de las que he hablado con vosotros por boca de Moisés.\n\n[3] El homicida que golpea una vida accidentalmente, sin intención, podrá huir a ellas, y serán para vosotros ciudades de refugio del vengador de la sangre.\n\n[4] Y el que huya a cualquiera de estas ciudades, se parará a la entrada de la puerta de aquella ciudad y dirá sus palabras a los oídos de los ancianos de la ciudad. La ciudad lo recogerá entre sí y le dará lugar para que viva con ellos.\n\n[5] Y si el vengador de la sangre lo persigue, no le entregarán al homicida, porque golpeó a su prójimo sin intención, y no era enemigo de él de ayer ni de antaño.\n\n[6] Y vivirá en esa ciudad hasta que se le presente ante la asamblea para juicio, hasta que muera el sacerdote mayor que será en aquellos días. Entonces el homicida regresará y vendrá a su ciudad y a su casa, a la ciudad de la que huyó.\n\n[7] Y santificaron a Kadés en Galilea, en el monte de Nefalí, y a Sicón en el monte de Efraím, y a Kirjat Arba, que es Hebrón, en el monte de Judá.\n\n[8] Y al otro lado del Jordán, en Jericó, al oriente, dieron Betser en el desierto, en el llano, de la tribu de Rubén, y Ramot en Galaad, de la tribu de Gad, y Golán en Basán, de la tribu de Manasés.\n\n[9] Estas fueron las ciudades designadas para todos los hijos de Israel, y para el forastero que habite entre ellos, para huir allí cada uno que golpee una vida accidentalmente, y no morirá en manos del vengador de la sangre, hasta que se le presente ante la asamblea.\n\n---\nNotes\n- v. 5: \"de ayer ni de antaño\" se usa para interpretar \"מִתְּמוֹל שִׁלְשֽׁוֹם\", que literalmente podría traducirse como \"de ayer y de antaño\", pero se entiende como una expresión que denota una relación lejana o no existente.",
+ "engine": "qwen3:32b"
+}

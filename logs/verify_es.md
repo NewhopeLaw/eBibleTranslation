@@ -1,0 +1,2696 @@
+# Verification report — Spanish (es)
+Chapters checked: 1189
+Flags: 2692
+
+- 1 Chronicles 4:26: SHORT — 17 chars vs 37 source (possible truncation)
+- 1 Corinthians 1:7: SHORT — 84 chars vs 106 source (possible truncation)
+- 1 Corinthians 10:2: SHORT — 49 chars vs 69 source (possible truncation)
+- 1 Corinthians 15:38: SHORT — 60 chars vs 80 source (possible truncation)
+- 1 John 2:25: SHORT — 53 chars vs 75 source (possible truncation)
+- 1 John 5:21: SHORT — 30 chars vs 39 source (possible truncation)
+- 1 Kings 11:2: SHORT — 77 chars vs 104 source (possible truncation)
+- 1 Kings 12:16: SHORT — 91 chars vs 137 source (possible truncation)
+- 1 Kings 22:39: SHORT — 62 chars vs 102 source (possible truncation)
+- 1 Peter 3:11: SHORT — 57 chars vs 79 source (possible truncation)
+- 1 Samuel 13:22: SHORT — 58 chars vs 88 source (possible truncation)
+- 1 Samuel 20:37: SHORT — 66 chars vs 85 source (possible truncation)
+- 1 Thessalonians 3:10: SHORT — 94 chars vs 118 source (possible truncation)
+- 2 Chronicles 25:17: SHORT — 50 chars vs 81 source (possible truncation)
+- 2 Chronicles 25:18: SHORT — 102 chars vs 143 source (possible truncation)
+- 2 Corinthians 7:11: SHORT — 170 chars vs 221 source (possible truncation)
+- 2 Corinthians 8:16: SHORT — 58 chars vs 74 source (possible truncation)
+- 2 Corinthians 10:12: SHORT — 96 chars vs 164 source (possible truncation)
+- 2 Corinthians 10:13: SHORT — 97 chars vs 128 source (possible truncation)
+- 2 Thessalonians 3:12: SHORT — 98 chars vs 126 source (possible truncation)
+- 2 Timothy 4:4: SHORT — 64 chars vs 83 source (possible truncation)
+- 2 Timothy 4:12: SHORT — 25 chars vs 32 source (possible truncation)
+- Acts 3:1: SHORT — 63 chars vs 83 source (possible truncation)
+- Acts 3:2: SHORT — 145 chars vs 192 source (possible truncation)
+- Acts 3:4: SHORT — 50 chars vs 66 source (possible truncation)
+- Acts 3:6: SHORT — 107 chars vs 134 source (possible truncation)
+- Acts 4:29: SHORT — 89 chars vs 114 source (possible truncation)
+- Acts 4:37: SHORT — 68 chars vs 88 source (possible truncation)
+- Acts 5:35: SHORT — 81 chars vs 106 source (possible truncation)
+- Acts 5:41: SHORT — 78 chars vs 106 source (possible truncation)
+- Acts 7:14: SHORT — 86 chars vs 109 source (possible truncation)
+- Acts 7:15: SHORT — 58 chars vs 73 source (possible truncation)
+- Acts 7:21: SHORT — 68 chars vs 87 source (possible truncation)
+- Acts 7:23: SHORT — 94 chars vs 125 source (possible truncation)
+- Acts 7:28: SHORT — 49 chars vs 62 source (possible truncation)
+- Acts 7:34: SHORT — 108 chars vs 154 source (possible truncation)
+- Acts 7:40: SHORT — 102 chars vs 144 source (possible truncation)
+- Acts 8:5: SHORT — 60 chars vs 78 source (possible truncation)
+- Acts 8:28: SHORT — 68 chars vs 89 source (possible truncation)
+- Acts 9:35: SHORT — 74 chars vs 95 source (possible truncation)
+- Acts 10:18: SHORT — 51 chars vs 76 source (possible truncation)
+- Acts 10:21: SHORT — 75 chars vs 95 source (possible truncation)
+- Acts 10:24: SHORT — 112 chars vs 142 source (possible truncation)
+- Acts 10:29: SHORT — 53 chars vs 82 source (possible truncation)
+- Acts 10:40: SHORT — 52 chars vs 70 source (possible truncation)
+- Acts 11:22: SHORT — 91 chars vs 121 source (possible truncation)
+- Acts 12:8: SHORT — 102 chars vs 145 source (possible truncation)
+- Acts 12:21: SHORT — 77 chars vs 104 source (possible truncation)
+- Acts 13:18: SHORT — 48 chars vs 64 source (possible truncation)
+- Acts 13:30: SHORT — 23 chars vs 34 source (possible truncation)
+- Acts 13:38: SHORT — 105 chars vs 149 source (possible truncation)
+- Acts 13:40: SHORT — 42 chars vs 53 source (possible truncation)
+- Acts 13:41: SHORT — 73 chars vs 149 source (possible truncation)
+- Acts 13:43: SHORT — 108 chars vs 186 source (possible truncation)
+- Acts 14:1: SHORT — 118 chars vs 151 source (possible truncation)
+- Acts 15:37: SHORT — 54 chars vs 73 source (possible truncation)
+- Acts 16:33: SHORT — 84 chars vs 123 source (possible truncation)
+- Acts 17:14: SHORT — 95 chars vs 127 source (possible truncation)
+- Acts 18:16: SHORT — 25 chars vs 36 source (possible truncation)
+- Acts 18:19: SHORT — 91 chars vs 114 source (possible truncation)
+- Acts 18:22: SHORT — 62 chars vs 89 source (possible truncation)
+- Acts 18:24: SHORT — 81 chars vs 118 source (possible truncation)
+- Acts 19:7: SHORT — 28 chars vs 37 source (possible truncation)
+- Acts 19:23: SHORT — 54 chars vs 68 source (possible truncation)
+- Acts 19:25: SHORT — 96 chars vs 122 source (possible truncation)
+- Acts 20:10: SHORT — 83 chars vs 104 source (possible truncation)
+- Acts 20:14: SHORT — 56 chars vs 77 source (possible truncation)
+- Acts 20:17: SHORT — 65 chars vs 82 source (possible truncation)
+- Acts 20:36: SHORT — 47 chars vs 65 source (possible truncation)
+- Acts 21:4: SHORT — 103 chars vs 129 source (possible truncation)
+- Acts 21:38: SHORT — 103 chars vs 131 source (possible truncation)
+- Acts 22:17: SHORT — 75 chars vs 99 source (possible truncation)
+- Acts 23:16: SHORT — 91 chars vs 115 source (possible truncation)
+- Acts 24:3: SHORT — 54 chars vs 74 source (possible truncation)
+- Acts 26:27: SHORT — 50 chars vs 63 source (possible truncation)
+- Acts 27:5: SHORT — 71 chars vs 94 source (possible truncation)
+- Acts 27:33: SHORT — 129 chars vs 172 source (possible truncation)
+- Acts 27:38: SHORT — 63 chars vs 82 source (possible truncation)
+- Acts 27:42: SHORT — 73 chars vs 92 source (possible truncation)
+- Acts 28:8: SHORT — 130 chars vs 164 source (possible truncation)
+- Acts 28:26: SHORT — 93 chars vs 119 source (possible truncation)
+- Colossians 3:10: SHORT — 68 chars vs 90 source (possible truncation)
+- Daniel 6:9: SHORT — 50 chars vs 64 source (possible truncation)
+- Daniel 6:11: SHORT — 103 chars vs 152 source (possible truncation)
+- Daniel 6:14: SHORT — 85 chars vs 119 source (possible truncation)
+- Daniel 6:21: SHORT — 57 chars vs 120 source (possible truncation)
+- Ephesians 2:18: SHORT — 64 chars vs 81 source (possible truncation)
+- Ephesians 3:17: SHORT — 71 chars vs 102 source (possible truncation)
+- Ephesians 4:16: SHORT — 152 chars vs 193 source (possible truncation)
+- Ephesians 4:22: SHORT — 81 chars vs 111 source (possible truncation)
+- Ephesians 5:1: SHORT — 37 chars vs 47 source (possible truncation)
+- Ephesians 6:14: SHORT — 70 chars vs 94 source (possible truncation)
+- Esther 6:8: SHORT — 47 chars vs 79 source (possible truncation)
+- Exodus 13:15: SHORT — 79 chars vs 127 source (possible truncation)
+- Ezekiel 32:23: SHORT — 50 chars vs 92 source (possible truncation)
+- Ezekiel 32:25: SHORT — 24 chars vs 126 source (possible truncation)
+- Galatians 1:21: SHORT — 44 chars vs 56 source (possible truncation)
+- Galatians 4:10: SHORT — 39 chars vs 56 source (possible truncation)
+- Hebrews 3:11: SHORT — 48 chars vs 65 source (possible truncation)
+- Hebrews 4:5: SHORT — 41 chars vs 60 source (possible truncation)
+- Hebrews 6:3: SHORT — 34 chars vs 43 source (possible truncation)
+- Hebrews 6:19: SHORT — 80 chars vs 106 source (possible truncation)
+- Hebrews 10:20: SHORT — 78 chars vs 98 source (possible truncation)
+- Hebrews 10:38: SHORT — 71 chars vs 90 source (possible truncation)
+- Hebrews 13:7: SHORT — 102 chars vs 138 source (possible truncation)
+- Isaiah 36:7: SHORT — 58 chars vs 118 source (possible truncation)
+- James 1:7: SHORT — 49 chars vs 64 source (possible truncation)
+- James 2:20: SHORT — 59 chars vs 74 source (possible truncation)
+- James 4:3: SHORT — 64 chars vs 84 source (possible truncation)
+- James 5:18: SHORT — 67 chars vs 86 source (possible truncation)
+- Jeremiah 2:17: SHORT — 32 chars vs 48 source (possible truncation)
+- John 1:20: SHORT — 56 chars vs 75 source (possible truncation)
+- John 1:21: SHORT — 66 chars vs 97 source (possible truncation)
+- John 1:43: SHORT — 82 chars vs 110 source (possible truncation)
+- John 2:19: SHORT — 69 chars vs 91 source (possible truncation)
+- John 3:6: SHORT — 69 chars vs 92 source (possible truncation)
+- John 3:27: SHORT — 83 chars vs 105 source (possible truncation)
+- John 4:3: SHORT — 42 chars vs 56 source (possible truncation)
+- John 4:4: SHORT — 26 chars vs 43 source (possible truncation)
+- John 4:34: SHORT — 83 chars vs 106 source (possible truncation)
+- John 4:41: SHORT — 37 chars vs 49 source (possible truncation)
+- John 4:48: SHORT — 57 chars vs 80 source (possible truncation)
+- John 4:49: SHORT — 58 chars vs 76 source (possible truncation)
+- John 5:8: SHORT — 48 chars vs 65 source (possible truncation)
+- John 5:9: SHORT — 82 chars vs 114 source (possible truncation)
+- John 5:11: SHORT — 69 chars vs 96 source (possible truncation)
+- John 5:32: SHORT — 70 chars vs 93 source (possible truncation)
+- John 6:15: SHORT — 92 chars vs 122 source (possible truncation)
+- John 6:29: SHORT — 83 chars vs 106 source (possible truncation)
+- John 6:43: SHORT — 47 chars vs 60 source (possible truncation)
+- John 6:65: SHORT — 82 chars vs 106 source (possible truncation)
+- John 6:69: SHORT — 39 chars vs 65 source (possible truncation)
+- John 7:6: SHORT — 81 chars vs 103 source (possible truncation)
+- John 7:9: SHORT — 35 chars vs 44 source (possible truncation)
+- John 7:16: SHORT — 67 chars vs 89 source (possible truncation)
+- John 7:44: SHORT — 61 chars vs 81 source (possible truncation)
+- John 7:53: SHORT — 29 chars vs 42 source (possible truncation)
+- John 8:24: SHORT — 68 chars vs 126 source (possible truncation)
+- John 8:34: SHORT — 78 chars vs 101 source (possible truncation)
+- John 8:51: SHORT — 64 chars vs 88 source (possible truncation)
+- John 9:9: SHORT — 81 chars vs 102 source (possible truncation)
+- John 9:11: SHORT — 124 chars vs 181 source (possible truncation)
+- John 9:19: SHORT — 73 chars vs 112 source (possible truncation)
+- John 9:20: SHORT — 72 chars vs 103 source (possible truncation)
+- John 9:36: SHORT — 57 chars vs 73 source (possible truncation)
+- John 9:37: SHORT — 58 chars vs 74 source (possible truncation)
+- John 10:11: SHORT — 67 chars vs 86 source (possible truncation)
+- John 10:17: SHORT — 61 chars vs 78 source (possible truncation)
+- John 10:27: SHORT — 66 chars vs 83 source (possible truncation)
+- John 11:5: SHORT — 48 chars vs 67 source (possible truncation)
+- John 11:13: SHORT — 76 chars vs 101 source (possible truncation)
+- John 11:48: SHORT — 99 chars vs 125 source (possible truncation)
+- John 11:53: SHORT — 44 chars vs 63 source (possible truncation)
+- John 12:22: SHORT — 69 chars vs 91 source (possible truncation)
+- John 14:1: SHORT — 56 chars vs 75 source (possible truncation)
+- John 14:23: SHORT — 123 chars vs 161 source (possible truncation)
+- John 15:20: SHORT — 129 chars vs 174 source (possible truncation)
+- John 16:28: SHORT — 74 chars vs 104 source (possible truncation)
+- John 18:27: SHORT — 31 chars vs 55 source (possible truncation)
+- John 18:33: SHORT — 84 chars vs 117 source (possible truncation)
+- John 18:36: SHORT — 171 chars vs 221 source (possible truncation)
+- John 19:1: SHORT — 41 chars vs 53 source (possible truncation)
+- John 19:8: SHORT — 35 chars vs 59 source (possible truncation)
+- John 19:13: SHORT — 110 chars vs 140 source (possible truncation)
+- John 21:13: SHORT — 64 chars vs 82 source (possible truncation)
+- Luke 1:7: SHORT — 79 chars vs 109 source (possible truncation)
+- Luke 1:33: SHORT — 73 chars vs 92 source (possible truncation)
+- Luke 1:40: SHORT — 48 chars vs 62 source (possible truncation)
+- Luke 1:44: SHORT — 88 chars vs 112 source (possible truncation)
+- Luke 1:61: SHORT — 60 chars vs 89 source (possible truncation)
+- Luke 2:8: SHORT — 75 chars vs 107 source (possible truncation)
+- Luke 2:28: SHORT — 45 chars vs 72 source (possible truncation)
+- Luke 3:1: SHORT — 207 chars vs 268 source (possible truncation)
+- Luke 3:13: SHORT — 57 chars vs 72 source (possible truncation)
+- Luke 3:15: SHORT — 95 chars vs 119 source (possible truncation)
+- Luke 3:38: SHORT — 14 chars vs 35 source (possible truncation)
+- Luke 4:12: SHORT — 63 chars vs 84 source (possible truncation)
+- Luke 4:14: SHORT — 96 chars vs 123 source (possible truncation)
+- Luke 4:15: SHORT — 47 chars vs 69 source (possible truncation)
+- Luke 4:17: SHORT — 83 chars vs 104 source (possible truncation)
+- Luke 4:31: SHORT — 64 chars vs 89 source (possible truncation)
+- Luke 4:35: SHORT — 96 chars vs 146 source (possible truncation)
+- Luke 5:22: SHORT — 84 chars vs 113 source (possible truncation)
+- Luke 6:15: SHORT — 60 chars vs 76 source (possible truncation)
+- Luke 6:18: SHORT — 61 chars vs 113 source (possible truncation)
+- Luke 6:41: SHORT — 80 chars vs 107 source (possible truncation)
+- Luke 6:43: SHORT — 72 chars vs 95 source (possible truncation)
+- Luke 6:49: SHORT — 128 chars vs 188 source (possible truncation)
+- Luke 7:6: SHORT — 99 chars vs 194 source (possible truncation)
+- Luke 7:36: SHORT — 78 chars vs 105 source (possible truncation)
+- Luke 7:50: SHORT — 56 chars vs 72 source (possible truncation)
+- Luke 8:22: SHORT — 106 chars vs 150 source (possible truncation)
+- Luke 8:31: SHORT — 51 chars vs 68 source (possible truncation)
+- Luke 8:48: SHORT — 53 chars vs 71 source (possible truncation)
+- Luke 8:54: SHORT — 52 chars vs 66 source (possible truncation)
+- Luke 9:51: SHORT — 91 chars vs 125 source (possible truncation)
+- Luke 10:1: SHORT — 131 chars vs 166 source (possible truncation)
+- Luke 10:34: SHORT — 117 chars vs 156 source (possible truncation)
+- Luke 11:3: SHORT — 41 chars vs 55 source (possible truncation)
+- Luke 12:53: SHORT — 121 chars vs 154 source (possible truncation)
+- Luke 13:9: SHORT — 43 chars vs 64 source (possible truncation)
+- Luke 14:6: SHORT — 33 chars vs 42 source (possible truncation)
+- Luke 14:20: SHORT — 48 chars vs 64 source (possible truncation)
+- Luke 14:26: SHORT — 146 chars vs 191 source (possible truncation)
+- Luke 14:31: SHORT — 143 chars vs 182 source (possible truncation)
+- Luke 15:20: SHORT — 140 chars vs 180 source (possible truncation)
+- Luke 16:8: SHORT — 136 chars vs 172 source (possible truncation)
+- Luke 17:33: SHORT — 73 chars vs 95 source (possible truncation)
+- Luke 17:35: SHORT — 60 chars vs 79 source (possible truncation)
+- Luke 18:40: SHORT — 72 chars vs 93 source (possible truncation)
+- Luke 18:42: SHORT — 46 chars vs 60 source (possible truncation)
+- Luke 19:9: SHORT — 80 chars vs 107 source (possible truncation)
+- Luke 19:13: SHORT — 83 chars vs 106 source (possible truncation)
+- Luke 19:35: SHORT — 76 chars vs 102 source (possible truncation)
+- Luke 19:39: SHORT — 75 chars vs 96 source (possible truncation)
+- Luke 20:14: SHORT — 108 chars vs 141 source (possible truncation)
+- Luke 20:23: SHORT — 41 chars vs 53 source (possible truncation)
+- Luke 20:34: SHORT — 61 chars vs 78 source (possible truncation)
+- Luke 21:4: SHORT — 96 chars vs 129 source (possible truncation)
+- Luke 22:15: SHORT — 73 chars vs 92 source (possible truncation)
+- Luke 22:33: SHORT — 71 chars vs 89 source (possible truncation)
+- Luke 22:40: SHORT — 59 chars vs 80 source (possible truncation)
+- Luke 24:9: SHORT — 71 chars vs 92 source (possible truncation)
+- Luke 24:11: SHORT — 58 chars vs 75 source (possible truncation)
+- Luke 24:14: SHORT — 41 chars vs 68 source (possible truncation)
+- Luke 24:15: SHORT — 68 chars vs 91 source (possible truncation)
+- Luke 24:21: SHORT — 98 chars vs 144 source (possible truncation)
+- Luke 24:30: SHORT — 80 chars vs 101 source (possible truncation)
+- Luke 24:40: SHORT — 45 chars vs 59 source (possible truncation)
+- Luke 24:51: SHORT — 62 chars vs 89 source (possible truncation)
+- Luke 24:52: SHORT — 60 chars vs 78 source (possible truncation)
+- Mark 2:6: SHORT — 61 chars vs 86 source (possible truncation)
+- Mark 3:6: SHORT — 79 chars vs 105 source (possible truncation)
+- Mark 3:7: SHORT — 100 chars vs 133 source (possible truncation)
+- Mark 3:13: SHORT — 61 chars vs 84 source (possible truncation)
+- Mark 3:31: SHORT — 72 chars vs 104 source (possible truncation)
+- Mark 4:33: SHORT — 63 chars vs 81 source (possible truncation)
+- Mark 4:35: SHORT — 59 chars vs 76 source (possible truncation)
+- Mark 5:24: SHORT — 56 chars vs 77 source (possible truncation)
+- Mark 5:34: SHORT — 71 chars vs 106 source (possible truncation)
+- Mark 5:36: SHORT — 62 chars vs 91 source (possible truncation)
+- Mark 5:37: SHORT — 78 chars vs 109 source (possible truncation)
+- Mark 5:41: SHORT — 89 chars vs 117 source (possible truncation)
+- Mark 6:1: SHORT — 63 chars vs 95 source (possible truncation)
+- Mark 6:4: SHORT — 101 chars vs 135 source (possible truncation)
+- Mark 6:48: SHORT — 141 chars vs 189 source (possible truncation)
+- Mark 6:51: SHORT — 79 chars vs 102 source (possible truncation)
+- Mark 6:54: SHORT — 45 chars vs 57 source (possible truncation)
+- Mark 7:5: SHORT — 126 chars vs 167 source (possible truncation)
+- Mark 7:7: SHORT — 48 chars vs 65 source (possible truncation)
+- Mark 7:19: SHORT — 100 chars vs 127 source (possible truncation)
+- Mark 7:30: SHORT — 83 chars vs 105 source (possible truncation)
+- Mark 7:32: SHORT — 67 chars vs 87 source (possible truncation)
+- Mark 7:33: SHORT — 87 chars vs 128 source (possible truncation)
+- Mark 8:9: SHORT — 36 chars vs 47 source (possible truncation)
+- Mark 8:22: SHORT — 70 chars vs 93 source (possible truncation)
+- Mark 8:23: SHORT — 122 chars vs 156 source (possible truncation)
+- Mark 8:34: SHORT — 131 chars vs 166 source (possible truncation)
+- Mark 9:2: SHORT — 125 chars vs 168 source (possible truncation)
+- Mark 9:15: SHORT — 62 chars vs 85 source (possible truncation)
+- Mark 10:7: SHORT — 74 chars vs 110 source (possible truncation)
+- Mark 10:50: SHORT — 43 chars vs 64 source (possible truncation)
+- Mark 12:30: SHORT — 105 chars vs 140 source (possible truncation)
+- Mark 12:41: SHORT — 102 chars vs 128 source (possible truncation)
+- Mark 13:25: SHORT — 79 chars vs 99 source (possible truncation)
+- Mark 14:39: SHORT — 36 chars vs 51 source (possible truncation)
+- Mark 15:24: SHORT — 69 chars vs 93 source (possible truncation)
+- Mark 16:8: SHORT — 118 chars vs 327 source (possible truncation)
+- Matthew 1:2: SHORT — 89 chars vs 112 source (possible truncation)
+- Matthew 1:4: SHORT — 79 chars vs 99 source (possible truncation)
+- Matthew 1:8: SHORT — 73 chars vs 92 source (possible truncation)
+- Matthew 1:13: SHORT — 78 chars vs 98 source (possible truncation)
+- Matthew 1:14: SHORT — 68 chars vs 87 source (possible truncation)
+- Matthew 1:15: SHORT — 75 chars vs 96 source (possible truncation)
+- Matthew 2:14: SHORT — 71 chars vs 90 source (possible truncation)
+- Matthew 3:13: SHORT — 79 chars vs 104 source (possible truncation)
+- Matthew 4:8: SHORT — 99 chars vs 127 source (possible truncation)
+- Matthew 4:21: SHORT — 157 chars vs 198 source (possible truncation)
+- Matthew 5:29: SHORT — 127 chars vs 165 source (possible truncation)
+- Matthew 5:30: SHORT — 129 chars vs 162 source (possible truncation)
+- Matthew 5:38: SHORT — 52 chars vs 68 source (possible truncation)
+- Matthew 7:9: SHORT — 65 chars vs 84 source (possible truncation)
+- Matthew 7:12: SHORT — 96 chars vs 127 source (possible truncation)
+- Matthew 7:18: SHORT — 74 chars vs 93 source (possible truncation)
+- Matthew 7:29: SHORT — 54 chars vs 71 source (possible truncation)
+- Matthew 8:15: SHORT — 65 chars vs 85 source (possible truncation)
+- Matthew 10:9: SHORT — 50 chars vs 63 source (possible truncation)
+- Matthew 10:12: SHORT — 31 chars vs 47 source (possible truncation)
+- Matthew 10:38: SHORT — 54 chars vs 82 source (possible truncation)
+- Matthew 11:26: SHORT — 32 chars vs 54 source (possible truncation)
+- Matthew 12:19: SHORT — 59 chars vs 78 source (possible truncation)
+- Matthew 13:19: SHORT — 127 chars vs 159 source (possible truncation)
+- Matthew 13:53: SHORT — 53 chars vs 72 source (possible truncation)
+- Matthew 14:7: SHORT — 42 chars vs 55 source (possible truncation)
+- Matthew 15:15: SHORT — 51 chars vs 68 source (possible truncation)
+- Matthew 15:30: SHORT — 119 chars vs 172 source (possible truncation)
+- Matthew 16:28: SHORT — 114 chars vs 146 source (possible truncation)
+- Matthew 17:1: SHORT — 108 chars vs 142 source (possible truncation)
+- Matthew 17:16: SHORT — 52 chars vs 76 source (possible truncation)
+- Matthew 18:15: SHORT — 98 chars vs 128 source (possible truncation)
+- Matthew 19:2: SHORT — 41 chars vs 63 source (possible truncation)
+- Matthew 20:2: SHORT — 75 chars vs 95 source (possible truncation)
+- Matthew 22:17: SHORT — 50 chars vs 64 source (possible truncation)
+- Matthew 23:7: SHORT — 56 chars vs 73 source (possible truncation)
+- Matthew 23:16: SHORT — 80 chars vs 118 source (possible truncation)
+- Matthew 23:18: SHORT — 71 chars vs 98 source (possible truncation)
+- Matthew 23:23: SHORT — 61 chars vs 219 source (possible truncation)
+- Matthew 23:25: SHORT — 106 chars vs 147 source (possible truncation)
+- Matthew 23:27: SHORT — 122 chars vs 176 source (possible truncation)
+- Matthew 23:31: SHORT — 47 chars vs 68 source (possible truncation)
+- Matthew 23:35: SHORT — 45 chars vs 185 source (possible truncation)
+- Matthew 24:19: SHORT — 60 chars vs 78 source (possible truncation)
+- Matthew 25:14: SHORT — 76 chars vs 97 source (possible truncation)
+- Matthew 27:9: SHORT — 53 chars vs 148 source (possible truncation)
+- Matthew 27:30: SHORT — 61 chars vs 79 source (possible truncation)
+- Matthew 27:37: SHORT — 87 chars vs 110 source (possible truncation)
+- Numbers 1:46: SHORT — 28 chars vs 54 source (possible truncation)
+- Philippians 1:4: SHORT — 57 chars vs 78 source (possible truncation)
+- Revelation 3:16: SHORT — 58 chars vs 87 source (possible truncation)
+- Revelation 3:20: SHORT — 118 chars vs 160 source (possible truncation)
+- Revelation 9:6: SHORT — 119 chars vs 151 source (possible truncation)
+- Revelation 10:2: SHORT — 105 chars vs 134 source (possible truncation)
+- Revelation 11:3: SHORT — 87 chars vs 110 source (possible truncation)
+- Revelation 11:7: SHORT — 115 chars vs 145 source (possible truncation)
+- Revelation 13:16: SHORT — 133 chars vs 205 source (possible truncation)
+- Revelation 16:11: SHORT — 91 chars vs 118 source (possible truncation)
+- Revelation 21:2: SHORT — 104 chars vs 142 source (possible truncation)
+- Revelation 21:13: SHORT — 69 chars vs 115 source (possible truncation)
+- Revelation 21:15: SHORT — 91 chars vs 117 source (possible truncation)
+- Revelation 21:24: SHORT — 81 chars vs 107 source (possible truncation)
+- Romans 9:4: SHORT — 87 chars vs 115 source (possible truncation)
+- Romans 9:12: SHORT — 48 chars vs 83 source (possible truncation)
+- Romans 11:3: SHORT — 91 chars vs 118 source (possible truncation)
+- Romans 16:17: SHORT — 99 chars vs 141 source (possible truncation)
+- NAME? 'Aarón' (14x) vs 'Arón' (1x) — same person/place spelled two ways?
+- NAME? 'Abdi' (1x) vs 'Abdie' (1x) — same person/place spelled two ways?
+- NAME? 'Abdi' (1x) vs 'Abi' (1x) — same person/place spelled two ways?
+- NAME? 'Abdie' (1x) vs 'Abiel' (1x) — same person/place spelled two ways?
+- NAME? 'Abdie' (1x) vs 'Adiel' (1x) — same person/place spelled two ways?
+- NAME? 'Abdon' (1x) vs 'Ardon' (1x) — same person/place spelled two ways?
+- NAME? 'Abdon' (1x) vs 'Avdon' (3x) — same person/place spelled two ways?
+- NAME? 'Aber' (1x) vs 'Abner' (1x) — same person/place spelled two ways?
+- NAME? 'Abi' (1x) vs 'Abia' (1x) — same person/place spelled two ways?
+- NAME? 'Abi' (1x) vs 'Abiá' (1x) — same person/place spelled two ways?
+- NAME? 'Abi' (1x) vs 'Abiú' (1x) — same person/place spelled two ways?
+- NAME? 'Abia' (1x) vs 'Abida' (1x) — same person/place spelled two ways?
+- NAME? 'Abia' (1x) vs 'Abisai' (3x) — same person/place spelled two ways?
+- NAME? 'Abia' (1x) vs 'Abisúa' (2x) — same person/place spelled two ways?
+- NAME? 'Abia' (1x) vs 'Abital' (1x) — same person/place spelled two ways?
+- NAME? 'Abia' (1x) vs 'Abiyah' (1x) — same person/place spelled two ways?
+- NAME? 'Abia' (1x) vs 'Aia' (1x) — same person/place spelled two ways?
+- NAME? 'Abiel' (1x) vs 'Abimael' (1x) — same person/place spelled two ways?
+- NAME? 'Abiel' (1x) vs 'Adiel' (1x) — same person/place spelled two ways?
+- NAME? 'Abiel' (1x) vs 'Ariel' (1x) — same person/place spelled two ways?
+- NAME? 'Abigail' (3x) vs 'Abijail' (1x) — same person/place spelled two ways?
+- NAME? 'Abihú' (2x) vs 'Abisú' (1x) — same person/place spelled two ways?
+- NAME? 'Abihú' (2x) vs 'Abiú' (1x) — same person/place spelled two ways?
+- NAME? 'Abijá' (2x) vs 'Abiá' (1x) — same person/place spelled two ways?
+- NAME? 'Abijá' (2x) vs 'Ahijá' (1x) — same person/place spelled two ways?
+- NAME? 'Abimael' (1x) vs 'Abimelec' (1x) — same person/place spelled two ways?
+- NAME? 'Abisai' (3x) vs 'Abisúa' (2x) — same person/place spelled two ways?
+- NAME? 'Abisai' (3x) vs 'Asai' (2x) — same person/place spelled two ways?
+- NAME? 'Abisai' (3x) vs 'Avisai' (1x) — same person/place spelled two ways?
+- NAME? 'Abisur' (2x) vs 'Asur' (1x) — same person/place spelled two ways?
+- NAME? 'Abisú' (1x) vs 'Abisúa' (2x) — same person/place spelled two ways?
+- NAME? 'Abisú' (1x) vs 'Abiú' (1x) — same person/place spelled two ways?
+- NAME? 'Abisúa' (2x) vs 'Abiú' (1x) — same person/place spelled two ways?
+- NAME? 'Abitub' (1x) vs 'Ahitub' (5x) — same person/place spelled two ways?
+- NAME? 'Absaj' (1x) vs 'Asajá' (1x) — same person/place spelled two ways?
+- NAME? 'Acbor' (1x) vs 'Acor' (1x) — same person/place spelled two ways?
+- NAME? 'Achar' (1x) vs 'Achla' (1x) — same person/place spelled two ways?
+- NAME? 'Acheim' (1x) vs 'Achi' (1x) — same person/place spelled two ways?
+- NAME? 'Achi' (1x) vs 'Achiya' (1x) — same person/place spelled two ways?
+- NAME? 'Achi' (1x) vs 'Achián' (1x) — same person/place spelled two ways?
+- NAME? 'Achi' (1x) vs 'Ahi' (1x) — same person/place spelled two ways?
+- NAME? 'Achituv' (1x) vs 'Ahituv' (1x) — same person/place spelled two ways?
+- NAME? 'Achiya' (1x) vs 'Ahia' (1x) — same person/place spelled two ways?
+- NAME? 'Achián' (1x) vs 'Ahimán' (1x) — same person/place spelled two ways?
+- NAME? 'Acor' (1x) vs 'Acr' (1x) — same person/place spelled two ways?
+- NAME? 'Acsá' (1x) vs 'Asá' (2x) — same person/place spelled two ways?
+- NAME? 'Adajá' (1x) vs 'Asajá' (1x) — same person/place spelled two ways?
+- NAME? 'Adbeel' (1x) vs 'Adel' (1x) — same person/place spelled two ways?
+- NAME? 'Adel' (1x) vs 'Adiel' (1x) — same person/place spelled two ways?
+- NAME? 'Adiel' (1x) vs 'Ariel' (1x) — same person/place spelled two ways?
+- NAME? 'Ahi' (1x) vs 'Ahia' (1x) — same person/place spelled two ways?
+- NAME? 'Ahia' (1x) vs 'Ahimaj' (2x) — same person/place spelled two ways?
+- NAME? 'Ahia' (1x) vs 'Aia' (1x) — same person/place spelled two ways?
+- NAME? 'Ahitub' (5x) vs 'Ahituv' (1x) — same person/place spelled two ways?
+- NAME? 'Ahoqui' (1x) vs 'Ahoquita' (1x) — same person/place spelled two ways?
+- NAME? 'Aia' (1x) vs 'Amia' (1x) — same person/place spelled two ways?
+- NAME? 'Aialón' (1x) vs 'Alón' (1x) — same person/place spelled two ways?
+- NAME? 'Aitam' (1x) vs 'Eitam' (1x) — same person/place spelled two ways?
+- NAME? 'Alamet' (1x) vs 'Almet' (3x) — same person/place spelled two ways?
+- NAME? 'Amal' (1x) vs 'Amalec' (1x) — same person/place spelled two ways?
+- NAME? 'Amal' (1x) vs 'Amalek' (1x) — same person/place spelled two ways?
+- NAME? 'Amalec' (1x) vs 'Amalek' (1x) — same person/place spelled two ways?
+- NAME? 'Amariahu' (1x) vs 'Amariyahu' (1x) — same person/place spelled two ways?
+- NAME? 'Amaría' (2x) vs 'Amarías' (2x) — same person/place spelled two ways?
+- NAME? 'Amaría' (2x) vs 'Amrí' (2x) — same person/place spelled two ways?
+- NAME? 'Amaría' (2x) vs 'Azaría' (1x) — same person/place spelled two ways?
+- NAME? 'Amarías' (2x) vs 'Amasías' (1x) — same person/place spelled two ways?
+- NAME? 'Amarías' (2x) vs 'Amatías' (1x) — same person/place spelled two ways?
+- NAME? 'Amarías' (2x) vs 'Asarías' (1x) — same person/place spelled two ways?
+- NAME? 'Amarías' (2x) vs 'Azarías' (12x) — same person/place spelled two ways?
+- NAME? 'Amasai' (1x) vs 'Amasaj' (2x) — same person/place spelled two ways?
+- NAME? 'Amasai' (1x) vs 'Asai' (2x) — same person/place spelled two ways?
+- NAME? 'Amasaj' (2x) vs 'Amatsaj' (1x) — same person/place spelled two ways?
+- NAME? 'Amasías' (1x) vs 'Amatías' (1x) — same person/place spelled two ways?
+- NAME? 'Amnon' (1x) vs 'Amnón' (1x) — same person/place spelled two ways?
+- NAME? 'Amnon' (1x) vs 'Amon' (1x) — same person/place spelled two ways?
+- NAME? 'Amnón' (1x) vs 'Amón' (14x) — same person/place spelled two ways?
+- NAME? 'Amram' (7x) vs 'Aram' (19x) — same person/place spelled two ways?
+- NAME? 'Ananí' (1x) vs 'Arnan' (12x) — same person/place spelled two ways?
+- NAME? 'Anot' (2x) vs 'Anotí' (1x) — same person/place spelled two ways?
+- NAME? 'Ara' (1x) vs 'Aram' (19x) — same person/place spelled two ways?
+- NAME? 'Ara' (1x) vs 'Asra' (1x) — same person/place spelled two ways?
+- NAME? 'Ardon' (1x) vs 'Avdon' (3x) — same person/place spelled two ways?
+- NAME? 'Ariel' (1x) vs 'Asriyel' (1x) — same person/place spelled two ways?
+- NAME? 'Ariel' (1x) vs 'Uriel' (3x) — same person/place spelled two ways?
+- NAME? 'Asael' (3x) vs 'Asajel' (1x) — same person/place spelled two ways?
+- NAME? 'Asael' (3x) vs 'Atsel' (2x) — same person/place spelled two ways?
+- NAME? 'Asai' (2x) vs 'Avisai' (1x) — same person/place spelled two ways?
+- NAME? 'Asarías' (1x) vs 'Azarías' (12x) — same person/place spelled two ways?
+- NAME? 'Ascur' (2x) vs 'Asur' (1x) — same person/place spelled two ways?
+- NAME? 'Aser' (4x) vs 'Asher' (2x) — same person/place spelled two ways?
+- NAME? 'Ashbej' (1x) vs 'Ashbel' (1x) — same person/place spelled two ways?
+- NAME? 'Asir' (5x) vs 'Asiria' (3x) — same person/place spelled two ways?
+- NAME? 'Asiria' (3x) vs 'Asra' (1x) — same person/place spelled two ways?
+- NAME? 'Asmavet' (2x) vs 'Azmavet' (2x) — same person/place spelled two ways?
+- NAME? 'Asmavet' (2x) vs 'Azmaveth' (1x) — same person/place spelled two ways?
+- NAME? 'Asá' (2x) vs 'Asán' (2x) — same person/place spelled two ways?
+- NAME? 'Ataj' (2x) vs 'Ataraj' (1x) — same person/place spelled two ways?
+- NAME? 'Atsel' (2x) vs 'Atsél' (4x) — same person/place spelled two ways?
+- NAME? 'Azaría' (1x) vs 'Azarías' (12x) — same person/place spelled two ways?
+- NAME? 'Azarías' (12x) vs 'Azazías' (1x) — same person/place spelled two ways?
+- NAME? 'Azmavet' (2x) vs 'Azmaveth' (1x) — same person/place spelled two ways?
+- NAME? 'Baasé' (1x) vs 'Maasé' (2x) — same person/place spelled two ways?
+- NAME? 'Baera' (1x) vs 'Barac' (1x) — same person/place spelled two ways?
+- NAME? 'Baera' (1x) vs 'Beria' (4x) — same person/place spelled two ways?
+- NAME? 'Bakar' (1x) vs 'Zakar' (1x) — same person/place spelled two ways?
+- NAME? 'Bana' (1x) vs 'Banaiá' (1x) — same person/place spelled two ways?
+- NAME? 'Bana' (1x) vs 'Banaj' (1x) — same person/place spelled two ways?
+- NAME? 'Banaiá' (1x) vs 'Bani' (2x) — same person/place spelled two ways?
+- NAME? 'Banaiá' (1x) vs 'Benaiá' (5x) — same person/place spelled two ways?
+- NAME? 'Banaj' (1x) vs 'Yanaj' (1x) — same person/place spelled two ways?
+- NAME? 'Bealyá' (1x) vs 'Belá' (1x) — same person/place spelled two ways?
+- NAME? 'Becer' (3x) vs 'Beer' (2x) — same person/place spelled two ways?
+- NAME? 'Becer' (3x) vs 'Beerá' (2x) — same person/place spelled two ways?
+- NAME? 'Becer' (3x) vs 'Beser' (1x) — same person/place spelled two ways?
+- NAME? 'Bedad' (1x) vs 'Bedan' (1x) — same person/place spelled two ways?
+- NAME? 'Beer' (2x) vs 'Beerá' (2x) — same person/place spelled two ways?
+- NAME? 'Beer' (2x) vs 'Beser' (1x) — same person/place spelled two ways?
+- NAME? 'Beer' (2x) vs 'Betser' (1x) — same person/place spelled two ways?
+- NAME? 'Beerá' (2x) vs 'Beriá' (1x) — same person/place spelled two ways?
+- NAME? 'Beerá' (2x) vs 'Beser' (1x) — same person/place spelled two ways?
+- NAME? 'Beit' (5x) vs 'Bet' (10x) — same person/place spelled two ways?
+- NAME? 'Bela' (6x) vs 'Beladá' (1x) — same person/place spelled two ways?
+- NAME? 'Beladá' (1x) vs 'Belá' (1x) — same person/place spelled two ways?
+- NAME? 'Benaiá' (5x) vs 'Benajá' (4x) — same person/place spelled two ways?
+- NAME? 'Bered' (1x) vs 'Mered' (2x) — same person/place spelled two ways?
+- NAME? 'Bered' (1x) vs 'Yered' (1x) — same person/place spelled two ways?
+- NAME? 'Beri' (1x) vs 'Beria' (4x) — same person/place spelled two ways?
+- NAME? 'Beri' (1x) vs 'Beriá' (1x) — same person/place spelled two ways?
+- NAME? 'Beria' (4x) vs 'Beriá' (1x) — same person/place spelled two ways?
+- NAME? 'Beriá' (1x) vs 'Yeriá' (2x) — same person/place spelled two ways?
+- NAME? 'Beser' (1x) vs 'Betser' (1x) — same person/place spelled two ways?
+- NAME? 'Bet' (10x) vs 'Betu' (1x) — same person/place spelled two ways?
+- NAME? 'Betser' (1x) vs 'Yetser' (1x) — same person/place spelled two ways?
+- NAME? 'Bilha' (1x) vs 'Bilhan' (3x) — same person/place spelled two ways?
+- NAME? 'Cainán' (1x) vs 'Canaán' (4x) — same person/place spelled two ways?
+- NAME? 'Cainán' (1x) vs 'Carnán' (1x) — same person/place spelled two ways?
+- NAME? 'Camatitas' (1x) vs 'Ramatita' (1x) — same person/place spelled two ways?
+- NAME? 'Camrán' (1x) vs 'Carnán' (1x) — same person/place spelled two ways?
+- NAME? 'Camrán' (1x) vs 'Carán' (2x) — same person/place spelled two ways?
+- NAME? 'Cananías' (1x) vs 'Cenanía' (2x) — same person/place spelled two ways?
+- NAME? 'Cananías' (1x) vs 'Hananías' (1x) — same person/place spelled two ways?
+- NAME? 'Canaán' (4x) vs 'Carnán' (1x) — same person/place spelled two ways?
+- NAME? 'Cantad' (1x) vs 'Cantadle' (1x) — same person/place spelled two ways?
+- NAME? 'Carim' (1x) vs 'Carmi' (2x) — same person/place spelled two ways?
+- NAME? 'Carim' (1x) vs 'Carmí' (1x) — same person/place spelled two ways?
+- NAME? 'Carmi' (2x) vs 'Carmí' (1x) — same person/place spelled two ways?
+- NAME? 'Carnán' (1x) vs 'Carán' (2x) — same person/place spelled two ways?
+- NAME? 'Carán' (2x) vs 'Harán' (1x) — same person/place spelled two ways?
+- NAME? 'Cermon' (1x) vs 'Hermon' (1x) — same person/place spelled two ways?
+- NAME? 'Dared' (1x) vs 'Jared' (1x) — same person/place spelled two ways?
+- NAME? 'Ebal' (1x) vs 'Eibal' (1x) — same person/place spelled two ways?
+- NAME? 'Ebal' (1x) vs 'Esbaal' (2x) — same person/place spelled two ways?
+- NAME? 'Edad' (3x) vs 'Elidad' (1x) — same person/place spelled two ways?
+- NAME? 'Efa' (1x) vs 'Eifa' (2x) — same person/place spelled two ways?
+- NAME? 'Eflal' (2x) vs 'Elial' (3x) — same person/place spelled two ways?
+- NAME? 'Efraim' (1x) vs 'Efrayim' (3x) — same person/place spelled two ways?
+- NAME? 'Efraim' (1x) vs 'Efraím' (4x) — same person/place spelled two ways?
+- NAME? 'Efraím' (4x) vs 'Efraín' (2x) — same person/place spelled two ways?
+- NAME? 'Efraín' (2x) vs 'Eran' (1x) — same person/place spelled two ways?
+- NAME? 'Eibal' (1x) vs 'Elial' (3x) — same person/place spelled two ways?
+- NAME? 'Eifa' (2x) vs 'Elifaz' (2x) — same person/place spelled two ways?
+- NAME? 'Eilam' (2x) vs 'Eitam' (1x) — same person/place spelled two ways?
+- NAME? 'Eilam' (2x) vs 'Elam' (1x) — same person/place spelled two ways?
+- NAME? 'Elam' (1x) vs 'Elanam' (1x) — same person/place spelled two ways?
+- NAME? 'Elanam' (1x) vs 'Elkana' (10x) — same person/place spelled two ways?
+- NAME? 'Elasá' (2x) vs 'Eldaá' (1x) — same person/place spelled two ways?
+- NAME? 'Elasá' (2x) vs 'Eléasá' (2x) — same person/place spelled two ways?
+- NAME? 'Elasá' (2x) vs 'Elías' (1x) — same person/place spelled two ways?
+- NAME? 'Elazar' (1x) vs 'Eleazar' (14x) — same person/place spelled two ways?
+- NAME? 'Elead' (1x) vs 'Eleadá' (1x) — same person/place spelled two ways?
+- NAME? 'Elia' (3x) vs 'Eliaav' (1x) — same person/place spelled two ways?
+- NAME? 'Elia' (3x) vs 'Eliab' (1x) — same person/place spelled two ways?
+- NAME? 'Elia' (3x) vs 'Eliael' (1x) — same person/place spelled two ways?
+- NAME? 'Elia' (3x) vs 'Elial' (3x) — same person/place spelled two ways?
+- NAME? 'Elia' (3x) vs 'Eliatá' (1x) — same person/place spelled two ways?
+- NAME? 'Elia' (3x) vs 'Eliav' (1x) — same person/place spelled two ways?
+- NAME? 'Elia' (3x) vs 'Elidad' (1x) — same person/place spelled two ways?
+- NAME? 'Elia' (3x) vs 'Eliena' (1x) — same person/place spelled two ways?
+- NAME? 'Elia' (3x) vs 'Elifaz' (2x) — same person/place spelled two ways?
+- NAME? 'Elia' (3x) vs 'Elisa' (2x) — same person/place spelled two ways?
+- NAME? 'Elia' (3x) vs 'Elisha' (1x) — same person/place spelled two ways?
+- NAME? 'Elia' (3x) vs 'Eliya' (1x) — same person/place spelled two ways?
+- NAME? 'Eliaav' (1x) vs 'Eliav' (1x) — same person/place spelled two ways?
+- NAME? 'Eliab' (1x) vs 'Eliabié' (1x) — same person/place spelled two ways?
+- NAME? 'Eliab' (1x) vs 'Elial' (3x) — same person/place spelled two ways?
+- NAME? 'Eliab' (1x) vs 'Eliasib' (1x) — same person/place spelled two ways?
+- NAME? 'Eliab' (1x) vs 'Eliav' (1x) — same person/place spelled two ways?
+- NAME? 'Eliab' (1x) vs 'Elisa' (2x) — same person/place spelled two ways?
+- NAME? 'Eliab' (1x) vs 'Eliya' (1x) — same person/place spelled two ways?
+- NAME? 'Eliael' (1x) vs 'Elial' (3x) — same person/place spelled two ways?
+- NAME? 'Eliael' (1x) vs 'Eliel' (6x) — same person/place spelled two ways?
+- NAME? 'Eliael' (1x) vs 'Elifalel' (1x) — same person/place spelled two ways?
+- NAME? 'Eliael' (1x) vs 'Elipalel' (1x) — same person/place spelled two ways?
+- NAME? 'Elial' (3x) vs 'Eliav' (1x) — same person/place spelled two ways?
+- NAME? 'Elial' (3x) vs 'Eliel' (6x) — same person/place spelled two ways?
+- NAME? 'Elial' (3x) vs 'Elifale' (2x) — same person/place spelled two ways?
+- NAME? 'Elial' (3x) vs 'Elisa' (2x) — same person/place spelled two ways?
+- NAME? 'Elial' (3x) vs 'Eliya' (1x) — same person/place spelled two ways?
+- NAME? 'Eliatá' (1x) vs 'Elijatá' (1x) — same person/place spelled two ways?
+- NAME? 'Eliav' (1x) vs 'Elisa' (2x) — same person/place spelled two ways?
+- NAME? 'Eliav' (1x) vs 'Eliya' (1x) — same person/place spelled two ways?
+- NAME? 'Eliehoenai' (1x) vs 'Elioenai' (1x) — same person/place spelled two ways?
+- NAME? 'Eliel' (6x) vs 'Elifelt' (1x) — same person/place spelled two ways?
+- NAME? 'Eliel' (6x) vs 'Elige' (1x) — same person/place spelled two ways?
+- NAME? 'Eliena' (1x) vs 'Elioenai' (1x) — same person/place spelled two ways?
+- NAME? 'Eliena' (1x) vs 'Elioenaj' (1x) — same person/place spelled two ways?
+- NAME? 'Eliezer' (3x) vs 'Eliézer' (3x) — same person/place spelled two ways?
+- NAME? 'Elifale' (2x) vs 'Elifalel' (1x) — same person/place spelled two ways?
+- NAME? 'Elifale' (2x) vs 'Elipalel' (1x) — same person/place spelled two ways?
+- NAME? 'Elifalel' (1x) vs 'Elifelt' (1x) — same person/place spelled two ways?
+- NAME? 'Elifalel' (1x) vs 'Elipalel' (1x) — same person/place spelled two ways?
+- NAME? 'Elifelt' (1x) vs 'Elifelét' (2x) — same person/place spelled two ways?
+- NAME? 'Elioenai' (1x) vs 'Elioenaj' (1x) — same person/place spelled two ways?
+- NAME? 'Elioenai' (1x) vs 'Elioená' (2x) — same person/place spelled two ways?
+- NAME? 'Elioenaj' (1x) vs 'Elioená' (2x) — same person/place spelled two ways?
+- NAME? 'Elisa' (2x) vs 'Elisama' (1x) — same person/place spelled two ways?
+- NAME? 'Elisa' (2x) vs 'Elisamá' (1x) — same person/place spelled two ways?
+- NAME? 'Elisa' (2x) vs 'Elisamé' (1x) — same person/place spelled two ways?
+- NAME? 'Elisa' (2x) vs 'Elisha' (1x) — same person/place spelled two ways?
+- NAME? 'Elisa' (2x) vs 'Elishúa' (1x) — same person/place spelled two ways?
+- NAME? 'Elisa' (2x) vs 'Eliya' (1x) — same person/place spelled two ways?
+- NAME? 'Elisama' (1x) vs 'Elisamá' (1x) — same person/place spelled two ways?
+- NAME? 'Elisama' (1x) vs 'Elisamé' (1x) — same person/place spelled two ways?
+- NAME? 'Elisamá' (1x) vs 'Elisamé' (1x) — same person/place spelled two ways?
+- NAME? 'Elisha' (1x) vs 'Elishúa' (1x) — same person/place spelled two ways?
+- NAME? 'Elkana' (10x) vs 'Elkaná' (1x) — same person/place spelled two ways?
+- NAME? 'Elá' (2x) vs 'Eslá' (1x) — same person/place spelled two ways?
+- NAME? 'Era' (2x) vs 'Eran' (1x) — same person/place spelled two ways?
+- NAME? 'Era' (2x) vs 'Ezra' (2x) — same person/place spelled two ways?
+- NAME? 'Etanán' (1x) vs 'Etán' (2x) — same person/place spelled two ways?
+- NAME? 'Etaní' (1x) vs 'Etaníel' (2x) — same person/place spelled two ways?
+- NAME? 'Etaní' (1x) vs 'Ethan' (2x) — same person/place spelled two ways?
+- NAME? 'Etaníel' (2x) vs 'Ethaniel' (1x) — same person/place spelled two ways?
+- NAME? 'Eufrates' (1x) vs 'Éufrates' (1x) — same person/place spelled two ways?
+- NAME? 'Gaba' (1x) vs 'Gabaón' (2x) — same person/place spelled two ways?
+- NAME? 'Gerhón' (7x) vs 'Gersón' (3x) — same person/place spelled two ways?
+- NAME? 'Gesem' (2x) vs 'Hesem' (1x) — same person/place spelled two ways?
+- NAME? 'Geshur' (1x) vs 'Gesur' (1x) — same person/place spelled two ways?
+- NAME? 'Geter' (1x) vs 'Yeter' (2x) — same person/place spelled two ways?
+- NAME? 'Gibón' (2x) vs 'Guibón' (2x) — same person/place spelled two ways?
+- NAME? 'Gilad' (5x) vs 'Gilead' (4x) — same person/place spelled two ways?
+- NAME? 'Gitita' (1x) vs 'Hitita' (1x) — same person/place spelled two ways?
+- NAME? 'Golan' (1x) vs 'Gozan' (1x) — same person/place spelled two ways?
+- NAME? 'Gueni' (1x) vs 'Guni' (1x) — same person/place spelled two ways?
+- NAME? 'Haber' (1x) vs 'Habor' (1x) — same person/place spelled two ways?
+- NAME? 'Haber' (1x) vs 'Heber' (2x) — same person/place spelled two ways?
+- NAME? 'Habor' (1x) vs 'Tabor' (1x) — same person/place spelled two ways?
+- NAME? 'Hachmoni' (1x) vs 'Hachmoní' (1x) — same person/place spelled two ways?
+- NAME? 'Haduram' (2x) vs 'Huram' (2x) — same person/place spelled two ways?
+- NAME? 'Hagri' (1x) vs 'Hagrita' (1x) — same person/place spelled two ways?
+- NAME? 'Hagrita' (1x) vs 'Harita' (2x) — same person/place spelled two ways?
+- NAME? 'Haguit' (1x) vs 'Haguiá' (1x) — same person/place spelled two ways?
+- NAME? 'Hamat' (2x) vs 'Hammat' (1x) — same person/place spelled two ways?
+- NAME? 'Hamat' (2x) vs 'Hatat' (1x) — same person/place spelled two ways?
+- NAME? 'Hanan' (2x) vs 'Hanania' (1x) — same person/place spelled two ways?
+- NAME? 'Hanan' (2x) vs 'Hananí' (2x) — same person/place spelled two ways?
+- NAME? 'Hanan' (2x) vs 'Hanun' (5x) — same person/place spelled two ways?
+- NAME? 'Hanan' (2x) vs 'Hanán' (5x) — same person/place spelled two ways?
+- NAME? 'Hanania' (1x) vs 'Hananiah' (2x) — same person/place spelled two ways?
+- NAME? 'Hanania' (1x) vs 'Hananías' (1x) — same person/place spelled two ways?
+- NAME? 'Hananí' (2x) vs 'Hananías' (1x) — same person/place spelled two ways?
+- NAME? 'Hanun' (5x) vs 'Hanán' (5x) — same person/place spelled two ways?
+- NAME? 'Hanán' (5x) vs 'Harán' (1x) — same person/place spelled two ways?
+- NAME? 'Harán' (1x) vs 'Haurán' (1x) — same person/place spelled two ways?
+- NAME? 'Hasabiyá' (1x) vs 'Hasaviyá' (1x) — same person/place spelled two ways?
+- NAME? 'Hasam' (1x) vs 'Husam' (2x) — same person/place spelled two ways?
+- NAME? 'Heber' (2x) vs 'Heberón' (2x) — same person/place spelled two ways?
+- NAME? 'Heber' (2x) vs 'Hefer' (3x) — same person/place spelled two ways?
+- NAME? 'Heber' (2x) vs 'Hever' (2x) — same person/place spelled two ways?
+- NAME? 'Heberón' (2x) vs 'Hebrón' (13x) — same person/place spelled two ways?
+- NAME? 'Hebrón' (13x) vs 'Hezrón' (1x) — same person/place spelled two ways?
+- NAME? 'Hefer' (3x) vs 'Hever' (2x) — same person/place spelled two ways?
+- NAME? 'Heman' (5x) vs 'Hemán' (5x) — same person/place spelled two ways?
+- NAME? 'Hemán' (5x) vs 'Temán' (1x) — same person/place spelled two ways?
+- NAME? 'Hesed' (1x) vs 'Hesem' (1x) — same person/place spelled two ways?
+- NAME? 'Hetzron' (1x) vs 'Hetzrón' (7x) — same person/place spelled two ways?
+- NAME? 'Hetzron' (1x) vs 'Hezro' (1x) — same person/place spelled two ways?
+- NAME? 'Hetzrón' (7x) vs 'Hezrón' (1x) — same person/place spelled two ways?
+- NAME? 'Hijo' (12x) vs 'Hijos' (37x) — same person/place spelled two ways?
+- NAME? 'Hodavía' (1x) vs 'Hodavíah' (1x) — same person/place spelled two ways?
+- NAME? 'Homam' (1x) vs 'Hotam' (2x) — same person/place spelled two ways?
+- NAME? 'Hotam' (2x) vs 'Jotam' (1x) — same person/place spelled two ways?
+- NAME? 'Hotam' (2x) vs 'Yotam' (1x) — same person/place spelled two ways?
+- NAME? 'Hufim' (1x) vs 'Hupim' (1x) — same person/place spelled two ways?
+- NAME? 'Hufim' (1x) vs 'Husim' (2x) — same person/place spelled two ways?
+- NAME? 'Hupim' (1x) vs 'Husim' (2x) — same person/place spelled two ways?
+- NAME? 'Hur' (3x) vs 'Hurí' (1x) — same person/place spelled two ways?
+- NAME? 'Hurai' (1x) vs 'Huram' (2x) — same person/place spelled two ways?
+- NAME? 'Hurai' (1x) vs 'Husai' (1x) — same person/place spelled two ways?
+- NAME? 'Huram' (2x) vs 'Husam' (2x) — same person/place spelled two ways?
+- NAME? 'Husa' (1x) vs 'Husai' (1x) — same person/place spelled two ways?
+- NAME? 'Husa' (1x) vs 'Husam' (2x) — same person/place spelled two ways?
+- NAME? 'Husa' (1x) vs 'Husham' (1x) — same person/place spelled two ways?
+- NAME? 'Husai' (1x) vs 'Husam' (2x) — same person/place spelled two ways?
+- NAME? 'Husai' (1x) vs 'Husim' (2x) — same person/place spelled two ways?
+- NAME? 'Husam' (2x) vs 'Husham' (1x) — same person/place spelled two ways?
+- NAME? 'Husam' (2x) vs 'Husim' (2x) — same person/place spelled two ways?
+- NAME? 'Imé' (1x) vs 'Imér' (1x) — same person/place spelled two ways?
+- NAME? 'Ira' (2x) vs 'Iram' (1x) — same person/place spelled two ways?
+- NAME? 'Iram' (1x) vs 'Itream' (1x) — same person/place spelled two ways?
+- NAME? 'Isacar' (3x) vs 'Issacar' (4x) — same person/place spelled two ways?
+- NAME? 'Ishiyahu' (3x) vs 'Isiyah' (1x) — same person/place spelled two ways?
+- NAME? 'Ismael' (3x) vs 'Israel' (111x) — same person/place spelled two ways?
+- NAME? 'Israel' (111x) vs 'Israela' (1x) — same person/place spelled two ways?
+- NAME? 'Itzhar' (2x) vs 'Izhar' (2x) — same person/place spelled two ways?
+- NAME? 'Jacob' (2x) vs 'Jacobaj' (1x) — same person/place spelled two ways?
+- NAME? 'Jafia' (1x) vs 'Jafía' (1x) — same person/place spelled two ways?
+- NAME? 'Jaier' (1x) vs 'Jair' (1x) — same person/place spelled two ways?
+- NAME? 'Jaier' (1x) vs 'Jatir' (1x) — same person/place spelled two ways?
+- NAME? 'Jaier' (1x) vs 'Jiser' (1x) — same person/place spelled two ways?
+- NAME? 'Jair' (1x) vs 'Jatir' (1x) — same person/place spelled two ways?
+- NAME? 'Jasbake' (1x) vs 'Yasbake' (1x) — same person/place spelled two ways?
+- NAME? 'Jebra' (1x) vs 'Jerah' (1x) — same person/place spelled two ways?
+- NAME? 'Jebuseo' (3x) vs 'Jebuseos' (1x) — same person/place spelled two ways?
+- NAME? 'Jecsán' (2x) vs 'Jecán' (3x) — same person/place spelled two ways?
+- NAME? 'Jedutún' (4x) vs 'Yedutún' (1x) — same person/place spelled two ways?
+- NAME? 'Jefoné' (1x) vs 'Jefuné' (1x) — same person/place spelled two ways?
+- NAME? 'Jefuné' (1x) vs 'Yefuné' (1x) — same person/place spelled two ways?
+- NAME? 'Jehiel' (1x) vs 'Jeiel' (2x) — same person/place spelled two ways?
+- NAME? 'Jehiel' (1x) vs 'Jeriel' (1x) — same person/place spelled two ways?
+- NAME? 'Jehosafat' (1x) vs 'Josafat' (3x) — same person/place spelled two ways?
+- NAME? 'Jeiel' (2x) vs 'Jeriel' (1x) — same person/place spelled two ways?
+- NAME? 'Jeiel' (2x) vs 'Yeiel' (1x) — same person/place spelled two ways?
+- NAME? 'Jerah' (1x) vs 'Jeriahu' (1x) — same person/place spelled two ways?
+- NAME? 'Jeremot' (3x) vs 'Yeremot' (2x) — same person/place spelled two ways?
+- NAME? 'Jeroboam' (1x) vs 'Jeroham' (3x) — same person/place spelled two ways?
+- NAME? 'Jeroham' (3x) vs 'Yeroham' (4x) — same person/place spelled two ways?
+- NAME? 'Jesúa' (2x) vs 'Yesúa' (1x) — same person/place spelled two ways?
+- NAME? 'Jibsam' (1x) vs 'Mibsam' (2x) — same person/place spelled two ways?
+- NAME? 'Joab' (21x) vs 'Jobab' (4x) — same person/place spelled two ways?
+- NAME? 'Joab' (21x) vs 'Josab' (1x) — same person/place spelled two ways?
+- NAME? 'Joanán' (2x) vs 'Jonán' (2x) — same person/place spelled two ways?
+- NAME? 'Joas' (2x) vs 'Josías' (2x) — same person/place spelled two ways?
+- NAME? 'Joatham' (1x) vs 'Jonathan' (2x) — same person/place spelled two ways?
+- NAME? 'Joatham' (1x) vs 'Jotam' (1x) — same person/place spelled two ways?
+- NAME? 'Jobab' (4x) vs 'Josab' (1x) — same person/place spelled two ways?
+- NAME? 'Jobab' (4x) vs 'Sobab' (2x) — same person/place spelled two ways?
+- NAME? 'Joiada' (3x) vs 'Joiadá' (1x) — same person/place spelled two ways?
+- NAME? 'Jonatan' (4x) vs 'Jonathan' (2x) — same person/place spelled two ways?
+- NAME? 'Jonatan' (4x) vs 'Jonatán' (5x) — same person/place spelled two ways?
+- NAME? 'Jonathan' (2x) vs 'Jonatán' (5x) — same person/place spelled two ways?
+- NAME? 'Jonatán' (5x) vs 'Jonán' (2x) — same person/place spelled two ways?
+- NAME? 'Joram' (1x) vs 'Jotam' (1x) — same person/place spelled two ways?
+- NAME? 'Joram' (1x) vs 'Yoram' (2x) — same person/place spelled two ways?
+- NAME? 'Jotam' (1x) vs 'Yotam' (1x) — same person/place spelled two ways?
+- NAME? 'Kehat' (9x) vs 'Kehati' (1x) — same person/place spelled two ways?
+- NAME? 'Kehat' (9x) vs 'Kenat' (1x) — same person/place spelled two ways?
+- NAME? 'Kelub' (1x) vs 'Kelubaj' (1x) — same person/place spelled two ways?
+- NAME? 'Kemuel' (1x) vs 'Nemuel' (1x) — same person/place spelled two ways?
+- NAME? 'Kemuel' (1x) vs 'Semuel' (1x) — same person/place spelled two ways?
+- NAME? 'Kenat' (1x) vs 'Kenaz' (1x) — same person/place spelled two ways?
+- NAME? 'Kenaz' (1x) vs 'Qenaz' (2x) — same person/place spelled two ways?
+- NAME? 'Kinaj' (1x) vs 'Rinaj' (1x) — same person/place spelled two ways?
+- NAME? 'Kis' (3x) vs 'Kish' (4x) — same person/place spelled two ways?
+- NAME? 'Lajem' (1x) vs 'Lejem' (1x) — same person/place spelled two ways?
+- NAME? 'Lehem' (1x) vs 'Lejem' (1x) — same person/place spelled two ways?
+- NAME? 'Libna' (1x) vs 'Libni' (2x) — same person/place spelled two ways?
+- NAME? 'Llegaron' (1x) vs 'Llevaron' (1x) — same person/place spelled two ways?
+- NAME? 'Maaca' (4x) vs 'Maacá' (6x) — same person/place spelled two ways?
+- NAME? 'Maaca' (4x) vs 'Manacat' (1x) — same person/place spelled two ways?
+- NAME? 'Maasé' (2x) vs 'Manasés' (17x) — same person/place spelled two ways?
+- NAME? 'Maaz' (1x) vs 'Maazía' (1x) — same person/place spelled two ways?
+- NAME? 'Maaz' (1x) vs 'Majaz' (1x) — same person/place spelled two ways?
+- NAME? 'Machanajim' (1x) vs 'Machmanaj' (1x) — same person/place spelled two ways?
+- NAME? 'Machanat' (1x) vs 'Machmanaj' (1x) — same person/place spelled two ways?
+- NAME? 'Mahli' (9x) vs 'Malki' (4x) — same person/place spelled two ways?
+- NAME? 'Malki' (4x) vs 'Malkiyá' (1x) — same person/place spelled two ways?
+- NAME? 'Masal' (1x) vs 'Massa' (1x) — same person/place spelled two ways?
+- NAME? 'Massa' (1x) vs 'Massai' (1x) — same person/place spelled two ways?
+- NAME? 'Matatía' (3x) vs 'Matatías' (3x) — same person/place spelled two ways?
+- NAME? 'Matatía' (3x) vs 'Mattanía' (1x) — same person/place spelled two ways?
+- NAME? 'Meisa' (1x) vs 'Meisha' (1x) — same person/place spelled two ways?
+- NAME? 'Meisa' (1x) vs 'Misha' (1x) — same person/place spelled two ways?
+- NAME? 'Meisa' (1x) vs 'Misma' (1x) — same person/place spelled two ways?
+- NAME? 'Meisha' (1x) vs 'Misha' (1x) — same person/place spelled two ways?
+- NAME? 'Melque' (2x) vs 'Melquiel' (1x) — same person/place spelled two ways?
+- NAME? 'Merari' (11x) vs 'Merarita' (1x) — same person/place spelled two ways?
+- NAME? 'Merari' (11x) vs 'Merarí' (5x) — same person/place spelled two ways?
+- NAME? 'Mered' (2x) vs 'Yered' (1x) — same person/place spelled two ways?
+- NAME? 'Meshulam' (4x) vs 'Mesulam' (3x) — same person/place spelled two ways?
+- NAME? 'Micaj' (2x) vs 'Mical' (1x) — same person/place spelled two ways?
+- NAME? 'Michá' (2x) vs 'Micá' (12x) — same person/place spelled two ways?
+- NAME? 'Misha' (1x) vs 'Mishael' (3x) — same person/place spelled two ways?
+- NAME? 'Misha' (1x) vs 'Misma' (1x) — same person/place spelled two ways?
+- NAME? 'Misha' (1x) vs 'Yisha' (2x) — same person/place spelled two ways?
+- NAME? 'Misma' (1x) vs 'Mismaj' (1x) — same person/place spelled two ways?
+- NAME? 'Mushi' (2x) vs 'Musi' (2x) — same person/place spelled two ways?
+- NAME? 'Naarajá' (1x) vs 'Nacharajá' (1x) — same person/place spelled two ways?
+- NAME? 'Nacat' (1x) vs 'Nachat' (1x) — same person/place spelled two ways?
+- NAME? 'Nacat' (1x) vs 'Tacat' (3x) — same person/place spelled two ways?
+- NAME? 'Nacham' (1x) vs 'Nachat' (1x) — same person/place spelled two ways?
+- NAME? 'Nachash' (1x) vs 'Nachshón' (2x) — same person/place spelled two ways?
+- NAME? 'Nachat' (1x) vs 'Tachat' (2x) — same person/place spelled two ways?
+- NAME? 'Nachat' (1x) vs 'Yachat' (3x) — same person/place spelled two ways?
+- NAME? 'Nafatá' (1x) vs 'Nafatáli' (2x) — same person/place spelled two ways?
+- NAME? 'Naftalí' (2x) vs 'Neftalí' (1x) — same person/place spelled two ways?
+- NAME? 'Natanael' (4x) vs 'Natanel' (1x) — same person/place spelled two ways?
+- NAME? 'Neajrá' (1x) vs 'Neará' (2x) — same person/place spelled two ways?
+- NAME? 'Neajrá' (1x) vs 'Nearán' (1x) — same person/place spelled two ways?
+- NAME? 'Neará' (2x) vs 'Nearán' (1x) — same person/place spelled two ways?
+- NAME? 'Nemuel' (1x) vs 'Semuel' (1x) — same person/place spelled two ways?
+- NAME? 'Netofa' (2x) vs 'Netofati' (2x) — same person/place spelled two ways?
+- NAME? 'Netofati' (2x) vs 'Netofatita' (2x) — same person/place spelled two ways?
+- NAME? 'Noa' (1x) vs 'Noah' (1x) — same person/place spelled two ways?
+- NAME? 'Obad' (2x) vs 'Obadia' (1x) — same person/place spelled two ways?
+- NAME? 'Obad' (2x) vs 'Obadom' (4x) — same person/place spelled two ways?
+- NAME? 'Obad' (2x) vs 'Obadía' (1x) — same person/place spelled two ways?
+- NAME? 'Obadia' (1x) vs 'Obadía' (1x) — same person/place spelled two ways?
+- NAME? 'Obadía' (1x) vs 'Obadías' (1x) — same person/place spelled two ways?
+- NAME? 'Oziel' (1x) vs 'Uziel' (7x) — same person/place spelled two ways?
+- NAME? 'Ozía' (1x) vs 'Ozías' (2x) — same person/place spelled two ways?
+- NAME? 'Palti' (1x) vs 'Paltiel' (1x) — same person/place spelled two ways?
+- NAME? 'Paltiel' (1x) vs 'Salatiel' (1x) — same person/place spelled two ways?
+- NAME? 'Pedai' (1x) vs 'Pedaiá' (2x) — same person/place spelled two ways?
+- NAME? 'Pelaj' (1x) vs 'Pelat' (1x) — same person/place spelled two ways?
+- NAME? 'Pelaj' (1x) vs 'Pelay' (1x) — same person/place spelled two ways?
+- NAME? 'Pelat' (1x) vs 'Pelay' (1x) — same person/place spelled two ways?
+- NAME? 'Pelat' (1x) vs 'Pelét' (1x) — same person/place spelled two ways?
+- NAME? 'Penuel' (1x) vs 'Punuel' (1x) — same person/place spelled two ways?
+- NAME? 'Peres' (3x) vs 'Seres' (1x) — same person/place spelled two ways?
+- NAME? 'Pinón' (1x) vs 'Pitón' (2x) — same person/place spelled two ways?
+- NAME? 'Qis' (3x) vs 'Quis' (2x) — same person/place spelled two ways?
+- NAME? 'Rafa' (3x) vs 'Rafajá' (1x) — same person/place spelled two ways?
+- NAME? 'Rafa' (3x) vs 'Rafaél' (1x) — same person/place spelled two ways?
+- NAME? 'Refa' (3x) vs 'Refaim' (2x) — same person/place spelled two ways?
+- NAME? 'Refa' (3x) vs 'Refaiá' (1x) — same person/place spelled two ways?
+- NAME? 'Refa' (3x) vs 'Refaya' (1x) — same person/place spelled two ways?
+- NAME? 'Refaim' (2x) vs 'Refaiá' (1x) — same person/place spelled two ways?
+- NAME? 'Rehaviah' (1x) vs 'Rehavía' (2x) — same person/place spelled two ways?
+- NAME? 'Rimón' (3x) vs 'Simón' (3x) — same person/place spelled two ways?
+- NAME? 'Rubenita' (1x) vs 'Rubenitas' (3x) — same person/place spelled two ways?
+- NAME? 'Sabtá' (1x) vs 'Sabá' (2x) — same person/place spelled two ways?
+- NAME? 'Saca' (1x) vs 'Sacar' (2x) — same person/place spelled two ways?
+- NAME? 'Saca' (1x) vs 'Sacaya' (1x) — same person/place spelled two ways?
+- NAME? 'Saca' (1x) vs 'Salca' (1x) — same person/place spelled two ways?
+- NAME? 'Sacar' (2x) vs 'Salca' (1x) — same person/place spelled two ways?
+- NAME? 'Sacar' (2x) vs 'Zacar' (3x) — same person/place spelled two ways?
+- NAME? 'Safai' (1x) vs 'Safam' (1x) — same person/place spelled two ways?
+- NAME? 'Safai' (1x) vs 'Safat' (2x) — same person/place spelled two ways?
+- NAME? 'Safai' (1x) vs 'Samai' (1x) — same person/place spelled two ways?
+- NAME? 'Safam' (1x) vs 'Safat' (2x) — same person/place spelled two ways?
+- NAME? 'Safat' (2x) vs 'Safát' (1x) — same person/place spelled two ways?
+- NAME? 'Safatías' (1x) vs 'Sefatías' (1x) — same person/place spelled two ways?
+- NAME? 'Sal' (1x) vs 'Salú' (1x) — same person/place spelled two ways?
+- NAME? 'Sal' (1x) vs 'Saúl' (32x) — same person/place spelled two ways?
+- NAME? 'Salca' (1x) vs 'Salma' (4x) — same person/place spelled two ways?
+- NAME? 'Salca' (1x) vs 'Samla' (2x) — same person/place spelled two ways?
+- NAME? 'Salma' (4x) vs 'Salum' (6x) — same person/place spelled two ways?
+- NAME? 'Salma' (4x) vs 'Samad' (1x) — same person/place spelled two ways?
+- NAME? 'Salma' (4x) vs 'Samai' (1x) — same person/place spelled two ways?
+- NAME? 'Salma' (4x) vs 'Samla' (2x) — same person/place spelled two ways?
+- NAME? 'Salma' (4x) vs 'Samúa' (1x) — same person/place spelled two ways?
+- NAME? 'Salum' (6x) vs 'Shalum' (4x) — same person/place spelled two ways?
+- NAME? 'Saléf' (1x) vs 'Saéf' (2x) — same person/place spelled two ways?
+- NAME? 'Samad' (1x) vs 'Samai' (1x) — same person/place spelled two ways?
+- NAME? 'Samad' (1x) vs 'Samla' (2x) — same person/place spelled two ways?
+- NAME? 'Samad' (1x) vs 'Samúa' (1x) — same person/place spelled two ways?
+- NAME? 'Samai' (1x) vs 'Samla' (2x) — same person/place spelled two ways?
+- NAME? 'Samai' (1x) vs 'Samúa' (1x) — same person/place spelled two ways?
+- NAME? 'Samai' (1x) vs 'Semai' (1x) — same person/place spelled two ways?
+- NAME? 'Same' (1x) vs 'Samer' (3x) — same person/place spelled two ways?
+- NAME? 'Same' (1x) vs 'Samuel' (7x) — same person/place spelled two ways?
+- NAME? 'Samer' (3x) vs 'Saver' (1x) — same person/place spelled two ways?
+- NAME? 'Samla' (2x) vs 'Samúa' (1x) — same person/place spelled two ways?
+- NAME? 'Samuel' (7x) vs 'Semuel' (1x) — same person/place spelled two ways?
+- NAME? 'Samá' (2x) vs 'Samác' (1x) — same person/place spelled two ways?
+- NAME? 'Samá' (2x) vs 'Shamá' (1x) — same person/place spelled two ways?
+- NAME? 'Samác' (1x) vs 'Shamá' (1x) — same person/place spelled two ways?
+- NAME? 'Secanías' (2x) vs 'Seraías' (2x) — same person/place spelled two ways?
+- NAME? 'Sefadías' (1x) vs 'Sefatías' (1x) — same person/place spelled two ways?
+- NAME? 'Sefadías' (1x) vs 'Seraías' (2x) — same person/place spelled two ways?
+- NAME? 'Sefatías' (1x) vs 'Seraías' (2x) — same person/place spelled two ways?
+- NAME? 'Seimé' (1x) vs 'Semés' (1x) — same person/place spelled two ways?
+- NAME? 'Seimé' (1x) vs 'Siméa' (3x) — same person/place spelled two ways?
+- NAME? 'Seimé' (1x) vs 'Siméi' (2x) — same person/place spelled two ways?
+- NAME? 'Sela' (1x) vs 'Selad' (2x) — same person/place spelled two ways?
+- NAME? 'Sela' (1x) vs 'Selah' (3x) — same person/place spelled two ways?
+- NAME? 'Sela' (1x) vs 'Sellaj' (1x) — same person/place spelled two ways?
+- NAME? 'Selad' (2x) vs 'Selah' (3x) — same person/place spelled two ways?
+- NAME? 'Sem' (3x) vs 'Semá' (6x) — same person/place spelled two ways?
+- NAME? 'Sem' (3x) vs 'Semí' (6x) — same person/place spelled two ways?
+- NAME? 'Semaciyá' (1x) vs 'Semayá' (4x) — same person/place spelled two ways?
+- NAME? 'Semai' (1x) vs 'Semaj' (1x) — same person/place spelled two ways?
+- NAME? 'Semai' (1x) vs 'Shemaia' (2x) — same person/place spelled two ways?
+- NAME? 'Semaj' (1x) vs 'Semajá' (1x) — same person/place spelled two ways?
+- NAME? 'Semaj' (1x) vs 'Shemajá' (1x) — same person/place spelled two ways?
+- NAME? 'Semajá' (1x) vs 'Sematá' (1x) — same person/place spelled two ways?
+- NAME? 'Semajá' (1x) vs 'Semayá' (4x) — same person/place spelled two ways?
+- NAME? 'Semajá' (1x) vs 'Semá' (6x) — same person/place spelled two ways?
+- NAME? 'Semajá' (1x) vs 'Serajá' (1x) — same person/place spelled two ways?
+- NAME? 'Semajá' (1x) vs 'Shemajá' (1x) — same person/place spelled two ways?
+- NAME? 'Sematá' (1x) vs 'Semayá' (4x) — same person/place spelled two ways?
+- NAME? 'Sematá' (1x) vs 'Semá' (6x) — same person/place spelled two ways?
+- NAME? 'Semayá' (4x) vs 'Semá' (6x) — same person/place spelled two ways?
+- NAME? 'Serac' (1x) vs 'Zerac' (1x) — same person/place spelled two ways?
+- NAME? 'Seraetij' (2x) vs 'Teratij' (1x) — same person/place spelled two ways?
+- NAME? 'Seraía' (2x) vs 'Seraías' (2x) — same person/place spelled two ways?
+- NAME? 'Sesán' (5x) vs 'Sheán' (1x) — same person/place spelled two ways?
+- NAME? 'Setam' (1x) vs 'Zetam' (1x) — same person/place spelled two ways?
+- NAME? 'Sha' (1x) vs 'Shua' (3x) — same person/place spelled two ways?
+- NAME? 'Sha' (1x) vs 'Shwa' (1x) — same person/place spelled two ways?
+- NAME? 'Shaalbonita' (1x) vs 'Sharonita' (1x) — same person/place spelled two ways?
+- NAME? 'Shalum' (4x) vs 'Shelum' (1x) — same person/place spelled two ways?
+- NAME? 'Shamá' (1x) vs 'Shimá' (2x) — same person/place spelled two ways?
+- NAME? 'Shear' (2x) vs 'Sheva' (1x) — same person/place spelled two ways?
+- NAME? 'Shelomit' (4x) vs 'Shelomith' (2x) — same person/place spelled two ways?
+- NAME? 'Shelomit' (4x) vs 'Shelomoth' (2x) — same person/place spelled two ways?
+- NAME? 'Shelomith' (2x) vs 'Shelomoth' (2x) — same person/place spelled two ways?
+- NAME? 'Shemaia' (2x) vs 'Shemaya' (2x) — same person/place spelled two ways?
+- NAME? 'Shemaya' (2x) vs 'Sheraya' (2x) — same person/place spelled two ways?
+- NAME? 'Sheméi' (2x) vs 'Shiméi' (1x) — same person/place spelled two ways?
+- NAME? 'Shiméi' (1x) vs 'Siméi' (2x) — same person/place spelled two ways?
+- NAME? 'Shobal' (2x) vs 'Sobael' (1x) — same person/place spelled two ways?
+- NAME? 'Shobal' (2x) vs 'Sobal' (4x) — same person/place spelled two ways?
+- NAME? 'Shua' (3x) vs 'Shual' (2x) — same person/place spelled two ways?
+- NAME? 'Shua' (3x) vs 'Shuca' (1x) — same person/place spelled two ways?
+- NAME? 'Shual' (2x) vs 'Shuca' (1x) — same person/place spelled two ways?
+- NAME? 'Sibecai' (1x) vs 'Sibecái' (1x) — same person/place spelled two ways?
+- NAME? 'Sidón' (1x) vs 'Silón' (1x) — same person/place spelled two ways?
+- NAME? 'Sidón' (1x) vs 'Simón' (3x) — same person/place spelled two ways?
+- NAME? 'Sidón' (1x) vs 'Sión' (1x) — same person/place spelled two ways?
+- NAME? 'Siféi' (1x) vs 'Siméi' (2x) — same person/place spelled two ways?
+- NAME? 'Silón' (1x) vs 'Simón' (3x) — same person/place spelled two ways?
+- NAME? 'Silón' (1x) vs 'Sión' (1x) — same person/place spelled two ways?
+- NAME? 'Simeón' (3x) vs 'Simón' (3x) — same person/place spelled two ways?
+- NAME? 'Simeón' (3x) vs 'Sión' (1x) — same person/place spelled two ways?
+- NAME? 'Simri' (1x) vs 'Siméi' (2x) — same person/place spelled two ways?
+- NAME? 'Simri' (1x) vs 'Zimri' (4x) — same person/place spelled two ways?
+- NAME? 'Siméa' (3x) vs 'Siméi' (2x) — same person/place spelled two ways?
+- NAME? 'Simón' (3x) vs 'Sión' (1x) — same person/place spelled two ways?
+- NAME? 'Sobab' (2x) vs 'Sobal' (4x) — same person/place spelled two ways?
+- NAME? 'Sobab' (2x) vs 'Sobeab' (1x) — same person/place spelled two ways?
+- NAME? 'Sobael' (1x) vs 'Sobal' (4x) — same person/place spelled two ways?
+- NAME? 'Sobael' (1x) vs 'Subael' (3x) — same person/place spelled two ways?
+- NAME? 'Suac' (1x) vs 'Suach' (1x) — same person/place spelled two ways?
+- NAME? 'Subael' (3x) vs 'Sube' (1x) — same person/place spelled two ways?
+- NAME? 'Sukathij' (1x) vs 'Sumatij' (1x) — same person/place spelled two ways?
+- NAME? 'Taaré' (2x) vs 'Tamar' (1x) — same person/place spelled two ways?
+- NAME? 'Taaré' (2x) vs 'Taré' (1x) — same person/place spelled two ways?
+- NAME? 'Tacan' (1x) vs 'Tacat' (3x) — same person/place spelled two ways?
+- NAME? 'Tacat' (3x) vs 'Tachat' (2x) — same person/place spelled two ways?
+- NAME? 'Tachat' (2x) vs 'Yachat' (3x) — same person/place spelled two ways?
+- NAME? 'Tarshis' (1x) vs 'Tarsis' (1x) — same person/place spelled two ways?
+- NAME? 'Tekoa' (2x) vs 'Tekoita' (1x) — same person/place spelled two ways?
+- NAME? 'Tekoa' (2x) vs 'Tekoí' (1x) — same person/place spelled two ways?
+- NAME? 'Tema' (1x) vs 'Temaní' (1x) — same person/place spelled two ways?
+- NAME? 'Temá' (1x) vs 'Temán' (1x) — same person/place spelled two ways?
+- NAME? 'Temán' (1x) vs 'Timán' (1x) — same person/place spelled two ways?
+- NAME? 'Timnaé' (2x) vs 'Yimnaé' (1x) — same person/place spelled two ways?
+- NAME? 'Timná' (1x) vs 'Timán' (1x) — same person/place spelled two ways?
+- NAME? 'Tola' (3x) vs 'Toldaj' (1x) — same person/place spelled two ways?
+- NAME? 'Tsiklag' (2x) vs 'Tziklag' (1x) — same person/place spelled two ways?
+- NAME? 'Tsour' (1x) vs 'Tsur' (1x) — same person/place spelled two ways?
+- NAME? 'Tsur' (1x) vs 'Tsuraj' (2x) — same person/place spelled two ways?
+- NAME? 'Uriel' (3x) vs 'Uziel' (7x) — same person/place spelled two ways?
+- NAME? 'Uza' (7x) vs 'Uzal' (1x) — same person/place spelled two ways?
+- NAME? 'Uza' (7x) vs 'Uzía' (1x) — same person/place spelled two ways?
+- NAME? 'Yaat' (2x) vs 'Yachat' (3x) — same person/place spelled two ways?
+- NAME? 'Yachaziel' (2x) vs 'Yachaziél' (1x) — same person/place spelled two ways?
+- NAME? 'Yahvé' (1x) vs 'Yavé' (3x) — same person/place spelled two ways?
+- NAME? 'Yakim' (1x) vs 'Yakin' (1x) — same person/place spelled two ways?
+- NAME? 'Yakim' (1x) vs 'Yokim' (1x) — same person/place spelled two ways?
+- NAME? 'Yaquim' (1x) vs 'Yequim' (1x) — same person/place spelled two ways?
+- NAME? 'Yeael' (1x) vs 'Yeaziel' (1x) — same person/place spelled two ways?
+- NAME? 'Yeael' (1x) vs 'Yediael' (5x) — same person/place spelled two ways?
+- NAME? 'Yeael' (1x) vs 'Yehiael' (1x) — same person/place spelled two ways?
+- NAME? 'Yeael' (1x) vs 'Yeial' (7x) — same person/place spelled two ways?
+- NAME? 'Yeael' (1x) vs 'Yeiel' (1x) — same person/place spelled two ways?
+- NAME? 'Yeaziel' (1x) vs 'Yeiel' (1x) — same person/place spelled two ways?
+- NAME? 'Yediael' (5x) vs 'Yehiael' (1x) — same person/place spelled two ways?
+- NAME? 'Yediael' (5x) vs 'Yeial' (7x) — same person/place spelled two ways?
+- NAME? 'Yediael' (5x) vs 'Yeiel' (1x) — same person/place spelled two ways?
+- NAME? 'Yehalelé' (1x) vs 'Yehiael' (1x) — same person/place spelled two ways?
+- NAME? 'Yehiael' (1x) vs 'Yeial' (7x) — same person/place spelled two ways?
+- NAME? 'Yehiael' (1x) vs 'Yeiel' (1x) — same person/place spelled two ways?
+- NAME? 'Yeial' (7x) vs 'Yeiel' (1x) — same person/place spelled two ways?
+- NAME? 'Yeial' (7x) vs 'Yeiál' (1x) — same person/place spelled two ways?
+- NAME? 'Yeiel' (1x) vs 'Yeiál' (1x) — same person/place spelled two ways?
+- NAME? 'Yeiel' (1x) vs 'Yeliel' (1x) — same person/place spelled two ways?
+- NAME? 'Yeiál' (1x) vs 'Yeriá' (2x) — same person/place spelled two ways?
+- NAME? 'Yekamaam' (1x) vs 'Yekamaj' (2x) — same person/place spelled two ways?
+- NAME? 'Yekamaam' (1x) vs 'Yekamam' (1x) — same person/place spelled two ways?
+- NAME? 'Yekamaj' (2x) vs 'Yekamam' (1x) — same person/place spelled two ways?
+- NAME? 'Yeremot' (2x) vs 'Yerimot' (1x) — same person/place spelled two ways?
+- NAME? 'Yerimot' (1x) vs 'Yirimot' (3x) — same person/place spelled two ways?
+- NAME? 'Yeriá' (2x) vs 'Yermiyá' (2x) — same person/place spelled two ways?
+- NAME? 'Yermiyahu' (1x) vs 'Yesiyahu' (1x) — same person/place spelled two ways?
+- NAME? 'Yesiyahu' (1x) vs 'Yisiyahu' (1x) — same person/place spelled two ways?
+- NAME? 'Yeter' (2x) vs 'Yeterai' (1x) — same person/place spelled two ways?
+- NAME? 'Yeter' (2x) vs 'Yeterán' (1x) — same person/place spelled two ways?
+- NAME? 'Yeter' (2x) vs 'Yetir' (1x) — same person/place spelled two ways?
+- NAME? 'Yeter' (2x) vs 'Yetser' (1x) — same person/place spelled two ways?
+- NAME? 'Yeter' (2x) vs 'Yetér' (2x) — same person/place spelled two ways?
+- NAME? 'Yetir' (1x) vs 'Yetér' (2x) — same person/place spelled two ways?
+- NAME? 'Yimrá' (1x) vs 'Yismá' (1x) — same person/place spelled two ways?
+- NAME? 'Yisheij' (1x) vs 'Yishimaj' (1x) — same person/place spelled two ways?
+- NAME? 'Yismayá' (1x) vs 'Yismá' (1x) — same person/place spelled two ways?
+- NAME? 'Yismá' (1x) vs 'Yisvá' (1x) — same person/place spelled two ways?
+- NAME? 'Yisvi' (1x) vs 'Yisvá' (1x) — same person/place spelled two ways?
+- NAME? 'Yizael' (1x) vs 'Yizrael' (1x) — same person/place spelled two ways?
+- NAME? 'Yoa' (1x) vs 'Yoab' (2x) — same person/place spelled two ways?
+- NAME? 'Yoa' (1x) vs 'Yoad' (1x) — same person/place spelled two ways?
+- NAME? 'Yoa' (1x) vs 'Yoaj' (2x) — same person/place spelled two ways?
+- NAME? 'Yoa' (1x) vs 'Yoas' (2x) — same person/place spelled two ways?
+- NAME? 'Yoa' (1x) vs 'Yoav' (2x) — same person/place spelled two ways?
+- NAME? 'Yoad' (1x) vs 'Yoada' (1x) — same person/place spelled two ways?
+- NAME? 'Yoaelá' (1x) vs 'Yoel' (1x) — same person/place spelled two ways?
+- NAME? 'Yoaj' (2x) vs 'Yoajá' (1x) — same person/place spelled two ways?
+- NAME? 'Yoaj' (2x) vs 'Yosaj' (1x) — same person/place spelled two ways?
+- NAME? 'Yoajá' (1x) vs 'Yosaj' (1x) — same person/place spelled two ways?
+- NAME? 'Yoas' (2x) vs 'Yoash' (1x) — same person/place spelled two ways?
+- NAME? 'Yoel' (1x) vs 'Yohel' (1x) — same person/place spelled two ways?
+- NAME? 'Yoez' (1x) vs 'Yoezer' (1x) — same person/place spelled two ways?
+- NAME? 'Yorai' (1x) vs 'Yoram' (2x) — same person/place spelled two ways?
+- NAME? 'Yoram' (2x) vs 'Yotam' (1x) — same person/place spelled two ways?
+- NAME? 'Yotzabád' (2x) vs 'Yozabád' (1x) — same person/place spelled two ways?
+- NAME? 'Zabad' (2x) vs 'Zabadya' (2x) — same person/place spelled two ways?
+- NAME? 'Zabad' (2x) vs 'Zabadía' (1x) — same person/place spelled two ways?
+- NAME? 'Zabad' (2x) vs 'Zabdi' (1x) — same person/place spelled two ways?
+- NAME? 'Zabad' (2x) vs 'Zabdí' (1x) — same person/place spelled two ways?
+- NAME? 'Zabad' (2x) vs 'Zabád' (2x) — same person/place spelled two ways?
+- NAME? 'Zabadya' (2x) vs 'Zabadía' (1x) — same person/place spelled two ways?
+- NAME? 'Zabadía' (1x) vs 'Zabdí' (1x) — same person/place spelled two ways?
+- NAME? 'Zabdi' (1x) vs 'Zabdí' (1x) — same person/place spelled two ways?
+- NAME? 'Zabdi' (1x) vs 'Zabád' (2x) — same person/place spelled two ways?
+- NAME? 'Zabdí' (1x) vs 'Zabdíel' (1x) — same person/place spelled two ways?
+- NAME? 'Zabdí' (1x) vs 'Zabád' (2x) — same person/place spelled two ways?
+- NAME? 'Zacar' (3x) vs 'Zakar' (1x) — same person/place spelled two ways?
+- NAME? 'Zakar' (1x) vs 'Zakaryá' (1x) — same person/place spelled two ways?
+- NAME? 'Zaraj' (4x) vs 'Zeraj' (2x) — same person/place spelled two ways?
+- NAME? 'Zefi' (1x) vs 'Zei' (1x) — same person/place spelled two ways?
+- NAME? 'Zerac' (1x) vs 'Zeraj' (2x) — same person/place spelled two ways?
+- NAME? 'Zicri' (6x) vs 'Zimri' (4x) — same person/place spelled two ways?
+- NAME? 'Zikrí' (1x) vs 'Zimrí' (1x) — same person/place spelled two ways?
+- NAME? 'Zimri' (4x) vs 'Zimrí' (1x) — same person/place spelled two ways?
+- NAME? 'Zip' (1x) vs 'Zipa' (1x) — same person/place spelled two ways?
+- NAME? 'Ziza' (2x) vs 'Zizaj' (1x) — same person/place spelled two ways?
+- NAME? 'Alguna' (1x) vs 'Alguno' (2x) — same person/place spelled two ways?
+- NAME? 'Apolo' (1x) vs 'Apolos' (6x) — same person/place spelled two ways?
+- NAME? 'Crispo' (1x) vs 'Cristo' (40x) — same person/place spelled two ways?
+- NAME? 'Escritura' (2x) vs 'Escrituras' (2x) — same person/place spelled two ways?
+- NAME? 'Está' (1x) vs 'Estás' (2x) — same person/place spelled two ways?
+- NAME? 'Hablo' (2x) vs 'Pablo' (7x) — same person/place spelled two ways?
+- NAME? 'Hijitos' (4x) vs 'Hijos' (1x) — same person/place spelled two ways?
+- NAME? 'Hijo' (22x) vs 'Hijos' (1x) — same person/place spelled two ways?
+- NAME? 'Nosotros' (2x) vs 'Vosotros' (1x) — same person/place spelled two ways?
+- NAME? 'Abasalom' (2x) vs 'Abisalom' (2x) — same person/place spelled two ways?
+- NAME? 'Abel' (3x) vs 'Ael' (1x) — same person/place spelled two ways?
+- NAME? 'Abiam' (4x) vs 'Abiram' (1x) — same person/place spelled two ways?
+- NAME? 'Abiam' (4x) vs 'Abiya' (1x) — same person/place spelled two ways?
+- NAME? 'Abiam' (4x) vs 'Abiám' (1x) — same person/place spelled two ways?
+- NAME? 'Abiatar' (5x) vs 'Abiatár' (4x) — same person/place spelled two ways?
+- NAME? 'Abinadab' (1x) vs 'Ahinadab' (1x) — same person/place spelled two ways?
+- NAME? 'Abiram' (1x) vs 'Aram' (18x) — same person/place spelled two ways?
+- NAME? 'Acaab' (18x) vs 'Acab' (13x) — same person/place spelled two ways?
+- NAME? 'Acarías' (3x) vs 'Azarías' (2x) — same person/place spelled two ways?
+- NAME? 'Achiá' (5x) vs 'Ahijá' (7x) — same person/place spelled two ways?
+- NAME? 'Achiá' (5x) vs 'Ahiá' (1x) — same person/place spelled two ways?
+- NAME? 'Agui' (2x) vs 'Aguit' (1x) — same person/place spelled two ways?
+- NAME? 'Ahijá' (7x) vs 'Ahiá' (1x) — same person/place spelled two ways?
+- NAME? 'Asera' (2x) vs 'Ashera' (1x) — same person/place spelled two ways?
+- NAME? 'Baal' (12x) vs 'Baalat' (2x) — same person/place spelled two ways?
+- NAME? 'Baal' (12x) vs 'Baales' (1x) — same person/place spelled two ways?
+- NAME? 'Baana' (2x) vs 'Baasa' (21x) — same person/place spelled two ways?
+- NAME? 'Berseba' (2x) vs 'Betseba' (4x) — same person/place spelled two ways?
+- NAME? 'Busca' (1x) vs 'Buscan' (2x) — same person/place spelled two ways?
+- NAME? 'Carmel' (2x) vs 'Carmelo' (1x) — same person/place spelled two ways?
+- NAME? 'Clamen' (1x) vs 'Llamen' (2x) — same person/place spelled two ways?
+- NAME? 'Dadle' (1x) vs 'Dales' (1x) — same person/place spelled two ways?
+- NAME? 'Dame' (2x) vs 'Déjame' (2x) — same person/place spelled two ways?
+- NAME? 'Declaren' (1x) vs 'Declaron' (1x) — same person/place spelled two ways?
+- NAME? 'Eión' (1x) vs 'Ezión' (1x) — same person/place spelled two ways?
+- NAME? 'Entra' (2x) vs 'Entre' (1x) — same person/place spelled two ways?
+- NAME? 'Era' (1x) vs 'Eran' (1x) — same person/place spelled two ways?
+- NAME? 'Escucha' (2x) vs 'Escuché' (1x) — same person/place spelled two ways?
+- NAME? 'Esrael' (1x) vs 'Israel' (198x) — same person/place spelled two ways?
+- NAME? 'Ezion' (1x) vs 'Ezión' (1x) — same person/place spelled two ways?
+- NAME? 'Geber' (4x) vs 'Geter' (2x) — same person/place spelled two ways?
+- NAME? 'Gibetón' (4x) vs 'Gibón' (2x) — same person/place spelled two ways?
+- NAME? 'Gibetón' (4x) vs 'Guibeón' (1x) — same person/place spelled two ways?
+- NAME? 'Gibón' (2x) vs 'Guibeón' (1x) — same person/place spelled two ways?
+- NAME? 'Hanan' (1x) vs 'Hanani' (2x) — same person/place spelled two ways?
+- NAME? 'Hebrón' (1x) vs 'Hermón' (1x) — same person/place spelled two ways?
+- NAME? 'Hiram' (5x) vs 'Hirám' (16x) — same person/place spelled two ways?
+- NAME? 'Isabel' (9x) vs 'Isebel' (1x) — same person/place spelled two ways?
+- NAME? 'Isabel' (9x) vs 'Israel' (198x) — same person/place spelled two ways?
+- NAME? 'Isebel' (1x) vs 'Izebel' (4x) — same person/place spelled two ways?
+- NAME? 'Jehov' (1x) vs 'Jehová' (69x) — same person/place spelled two ways?
+- NAME? 'Jehú' (3x) vs 'Jeú' (3x) — same person/place spelled two ways?
+- NAME? 'Jezreel' (2x) vs 'Jizreel' (2x) — same person/place spelled two ways?
+- NAME? 'Josué' (1x) vs 'José' (1x) — same person/place spelled two ways?
+- NAME? 'Lebano' (4x) vs 'Líbano' (5x) — same person/place spelled two ways?
+- NAME? 'Llegaron' (2x) vs 'Llevaron' (1x) — same person/place spelled two ways?
+- NAME? 'Llegó' (5x) vs 'Llevó' (1x) — same person/place spelled two ways?
+- NAME? 'Lleva' (1x) vs 'Llevó' (1x) — same person/place spelled two ways?
+- NAME? 'Mehola' (1x) vs 'Meholah' (1x) — same person/place spelled two ways?
+- NAME? 'Nabat' (8x) vs 'Nabot' (21x) — same person/place spelled two ways?
+- NAME? 'Nabat' (8x) vs 'Napat' (1x) — same person/place spelled two ways?
+- NAME? 'Nafatáli' (1x) vs 'Naftali' (1x) — same person/place spelled two ways?
+- NAME? 'Parúa' (1x) vs 'Sarúa' (2x) — same person/place spelled two ways?
+- NAME? 'Pide' (1x) vs 'Pidele' (1x) — same person/place spelled two ways?
+- NAME? 'Quita' (1x) vs 'Quitó' (1x) — same person/place spelled two ways?
+- NAME? 'Rehoboam' (9x) vs 'Roboam' (13x) — same person/place spelled two ways?
+- NAME? 'Responde' (2x) vs 'Respondió' (2x) — same person/place spelled two ways?
+- NAME? 'Samaria' (6x) vs 'Samaría' (13x) — same person/place spelled two ways?
+- NAME? 'Sarua' (1x) vs 'Sarúa' (2x) — same person/place spelled two ways?
+- NAME? 'Sidón' (3x) vs 'Sión' (1x) — same person/place spelled two ways?
+- NAME? 'Tarshish' (2x) vs 'Tarsis' (1x) — same person/place spelled two ways?
+- NAME? 'Tirsah' (2x) vs 'Tirzah' (1x) — same person/place spelled two ways?
+- NAME? 'Yahvé' (31x) vs 'Yavé' (16x) — same person/place spelled two ways?
+- NAME? 'Abner' (11x) vs 'Aner' (1x) — same person/place spelled two ways?
+- NAME? 'Achimelec' (1x) vs 'Ahimelec' (1x) — same person/place spelled two ways?
+- NAME? 'Achimelec' (1x) vs 'Aimelec' (12x) — same person/place spelled two ways?
+- NAME? 'Ahimelec' (1x) vs 'Aimelec' (12x) — same person/place spelled two ways?
+- NAME? 'Ahinoam' (2x) vs 'Ahinóam' (1x) — same person/place spelled two ways?
+- NAME? 'Baja' (1x) vs 'Bajará' (1x) — same person/place spelled two ways?
+- NAME? 'Beit' (4x) vs 'Bet' (12x) — same person/place spelled two ways?
+- NAME? 'Beliai' (1x) vs 'Belial' (1x) — same person/place spelled two ways?
+- NAME? 'Bendito' (3x) vs 'Benditos' (1x) — same person/place spelled two ways?
+- NAME? 'Carmel' (1x) vs 'Carmelo' (6x) — same person/place spelled two ways?
+- NAME? 'Comieron' (1x) vs 'Corrieron' (1x) — same person/place spelled two ways?
+- NAME? 'Cualquier' (2x) vs 'Cualquiera' (2x) — same person/place spelled two ways?
+- NAME? 'Deben' (1x) vs 'Debes' (1x) — same person/place spelled two ways?
+- NAME? 'Deben' (1x) vs 'Dejen' (1x) — same person/place spelled two ways?
+- NAME? 'Ecron' (6x) vs 'Ecrón' (1x) — same person/place spelled two ways?
+- NAME? 'Efraím' (2x) vs 'Efraín' (1x) — same person/place spelled two ways?
+- NAME? 'Encontraron' (1x) vs 'Encontrarás' (1x) — same person/place spelled two ways?
+- NAME? 'Escucha' (3x) vs 'Escuché' (1x) — same person/place spelled two ways?
+- NAME? 'Gat' (10x) vs 'Gate' (2x) — same person/place spelled two ways?
+- NAME? 'Guarda' (1x) vs 'Guardará' (1x) — same person/place spelled two ways?
+- NAME? 'Habla' (3x) vs 'Había' (4x) — same person/place spelled two ways?
+- NAME? 'Hará' (1x) vs 'Harás' (2x) — same person/place spelled two ways?
+- NAME? 'Hofni' (3x) vs 'Hofní' (2x) — same person/place spelled two ways?
+- NAME? 'Icabod' (1x) vs 'Ichabod' (1x) — same person/place spelled two ways?
+- NAME? 'Israel' (144x) vs 'Israél' (1x) — same person/place spelled two ways?
+- NAME? 'Jabes' (7x) vs 'Jabesh' (2x) — same person/place spelled two ways?
+- NAME? 'Jabesh' (2x) vs 'Yabesh' (1x) — same person/place spelled two ways?
+- NAME? 'Jeshimon' (2x) vs 'Jesimón' (2x) — same person/place spelled two ways?
+- NAME? 'Llena' (1x) vs 'Lleva' (2x) — same person/place spelled two ways?
+- NAME? 'Lleva' (2x) vs 'Llevé' (1x) — same person/place spelled two ways?
+- NAME? 'Malquishua' (1x) vs 'Malquishúa' (1x) — same person/place spelled two ways?
+- NAME? 'Mata' (1x) vs 'Matari' (2x) — same person/place spelled two ways?
+- NAME? 'Mical' (1x) vs 'Michal' (9x) — same person/place spelled two ways?
+- NAME? 'Micmas' (6x) vs 'Micsas' (2x) — same person/place spelled two ways?
+- NAME? 'Pregunta' (1x) vs 'Preguntó' (1x) — same person/place spelled two ways?
+- NAME? 'Ramat' (1x) vs 'Ramatá' (4x) — same person/place spelled two ways?
+- NAME? 'Ramatá' (4x) vs 'Ramá' (10x) — same person/place spelled two ways?
+- NAME? 'Samuel' (128x) vs 'Samuél' (6x) — same person/place spelled two ways?
+- NAME? 'Sunam' (1x) vs 'Suném' (1x) — same person/place spelled two ways?
+- NAME? 'Tenía' (3x) vs 'Venía' (1x) — same person/place spelled two ways?
+- NAME? 'Toma' (5x) vs 'Tomará' (3x) — same person/place spelled two ways?
+- NAME? 'Toma' (5x) vs 'Tomaré' (1x) — same person/place spelled two ways?
+- NAME? 'Tomará' (3x) vs 'Tomaré' (1x) — same person/place spelled two ways?
+- NAME? 'Entre' (1x) vs 'Entrena' (1x) — same person/place spelled two ways?
+- NAME? 'Aarón' (6x) vs 'Arón' (1x) — same person/place spelled two ways?
+- NAME? 'Abía' (1x) vs 'Abías' (14x) — same person/place spelled two ways?
+- NAME? 'Acazías' (14x) vs 'Acaías' (1x) — same person/place spelled two ways?
+- NAME? 'Adoniram' (1x) vs 'Adoraim' (1x) — same person/place spelled two ways?
+- NAME? 'Amarías' (1x) vs 'Amasías' (20x) — same person/place spelled two ways?
+- NAME? 'Amarías' (1x) vs 'Azarías' (11x) — same person/place spelled two ways?
+- NAME? 'Amarías' (1x) vs 'Semarías' (1x) — same person/place spelled two ways?
+- NAME? 'Amasías' (20x) vs 'Amatsía' (1x) — same person/place spelled two ways?
+- NAME? 'Asael' (1x) vs 'Asaél' (1x) — same person/place spelled two ways?
+- NAME? 'Aser' (1x) vs 'Asera' (1x) — same person/place spelled two ways?
+- NAME? 'Aser' (1x) vs 'Aseras' (1x) — same person/place spelled two ways?
+- NAME? 'Asera' (1x) vs 'Aseras' (1x) — same person/place spelled two ways?
+- NAME? 'Baal' (3x) vs 'Baalat' (1x) — same person/place spelled two ways?
+- NAME? 'Baal' (3x) vs 'Baales' (2x) — same person/place spelled two ways?
+- NAME? 'Cananías' (3x) vs 'Hananías' (1x) — same person/place spelled two ways?
+- NAME? 'Efraím' (12x) vs 'Efraín' (1x) — same person/place spelled two ways?
+- NAME? 'Eión' (1x) vs 'Ezión' (1x) — same person/place spelled two ways?
+- NAME? 'Ezeiequías' (1x) vs 'Ezequías' (39x) — same person/place spelled two ways?
+- NAME? 'Ezión' (1x) vs 'Ezkón' (1x) — same person/place spelled two ways?
+- NAME? 'Ezión' (1x) vs 'Ezón' (1x) — same person/place spelled two ways?
+- NAME? 'Ezkón' (1x) vs 'Ezón' (1x) — same person/place spelled two ways?
+- NAME? 'Gaber' (1x) vs 'Geber' (1x) — same person/place spelled two ways?
+- NAME? 'Hael' (1x) vs 'Hazael' (2x) — same person/place spelled two ways?
+- NAME? 'Hanani' (1x) vs 'Hananí' (2x) — same person/place spelled two ways?
+- NAME? 'Hananí' (2x) vs 'Hananías' (1x) — same person/place spelled two ways?
+- NAME? 'Heman' (2x) vs 'Hemán' (1x) — same person/place spelled two ways?
+- NAME? 'Ismael' (2x) vs 'Israel' (178x) — same person/place spelled two ways?
+- NAME? 'Jeciel' (1x) vs 'Jeiel' (2x) — same person/place spelled two ways?
+- NAME? 'Jehoacaz' (2x) vs 'Jehoachaz' (1x) — same person/place spelled two ways?
+- NAME? 'Jehoacaz' (2x) vs 'Joacaz' (3x) — same person/place spelled two ways?
+- NAME? 'Jehocán' (1x) vs 'Jehonán' (1x) — same person/place spelled two ways?
+- NAME? 'Jehoram' (10x) vs 'Jehorao' (3x) — same person/place spelled two ways?
+- NAME? 'Jehorao' (3x) vs 'Jorao' (5x) — same person/place spelled two ways?
+- NAME? 'Jeiel' (2x) vs 'Yeiel' (1x) — same person/place spelled two ways?
+- NAME? 'Jeremot' (1x) vs 'Jerimot' (1x) — same person/place spelled two ways?
+- NAME? 'Jeroboam' (21x) vs 'Jeroham' (1x) — same person/place spelled two ways?
+- NAME? 'Jimán' (1x) vs 'Joián' (1x) — same person/place spelled two ways?
+- NAME? 'Joaquím' (2x) vs 'Joaquín' (2x) — same person/place spelled two ways?
+- NAME? 'Jordán' (1x) vs 'Jorá' (1x) — same person/place spelled two ways?
+- NAME? 'Lachis' (2x) vs 'Lacs' (1x) — same person/place spelled two ways?
+- NAME? 'Lebano' (2x) vs 'Líbano' (6x) — same person/place spelled two ways?
+- NAME? 'Maaca' (5x) vs 'Maacá' (1x) — same person/place spelled two ways?
+- NAME? 'Maasai' (1x) vs 'Maaséa' (1x) — same person/place spelled two ways?
+- NAME? 'Maasé' (2x) vs 'Maaséa' (1x) — same person/place spelled two ways?
+- NAME? 'Maasé' (2x) vs 'Manasés' (8x) — same person/place spelled two ways?
+- NAME? 'Marésah' (2x) vs 'Maréshá' (1x) — same person/place spelled two ways?
+- NAME? 'Maréshá' (1x) vs 'Marésá' (1x) — same person/place spelled two ways?
+- NAME? 'Matan' (1x) vs 'Mataron' (1x) — same person/place spelled two ways?
+- NAME? 'Matan' (1x) vs 'Matán' (1x) — same person/place spelled two ways?
+- NAME? 'Matán' (1x) vs 'Natán' (3x) — same person/place spelled two ways?
+- NAME? 'Nabat' (4x) vs 'Nahat' (1x) — same person/place spelled two ways?
+- NAME? 'Nahat' (1x) vs 'Tahat' (1x) — same person/place spelled two ways?
+- NAME? 'Obadías' (2x) vs 'Zebadías' (1x) — same person/place spelled two ways?
+- NAME? 'Ofrecen' (1x) vs 'Ofrezcan' (1x) — same person/place spelled two ways?
+- NAME? 'Ozías' (2x) vs 'Uzías' (13x) — same person/place spelled two ways?
+- NAME? 'Rehoboam' (26x) vs 'Roboam' (2x) — same person/place spelled two ways?
+- NAME? 'Samaria' (1x) vs 'Samaría' (7x) — same person/place spelled two ways?
+- NAME? 'Samaría' (7x) vs 'Semarías' (1x) — same person/place spelled two ways?
+- NAME? 'Secanías' (1x) vs 'Semanas' (1x) — same person/place spelled two ways?
+- NAME? 'Semanas' (1x) vs 'Semarías' (1x) — same person/place spelled two ways?
+- NAME? 'Semé' (1x) vs 'Seméi' (2x) — same person/place spelled two ways?
+- NAME? 'Simeón' (2x) vs 'Sión' (1x) — same person/place spelled two ways?
+- NAME? 'Simri' (1x) vs 'Simrí' (1x) — same person/place spelled two ways?
+- NAME? 'Simri' (1x) vs 'Siria' (1x) — same person/place spelled two ways?
+- NAME? 'Yediael' (1x) vs 'Yeiel' (1x) — same person/place spelled two ways?
+- NAME? 'Yehiel' (1x) vs 'Yeiel' (1x) — same person/place spelled two ways?
+- NAME? 'Zabad' (1x) vs 'Zabadiá' (1x) — same person/place spelled two ways?
+- NAME? 'Acaia' (1x) vs 'Acaya' (2x) — same person/place spelled two ways?
+- NAME? 'Eso' (1x) vs 'Esto' (1x) — same person/place spelled two ways?
+- NAME? 'Gracia' (1x) vs 'Gracias' (2x) — same person/place spelled two ways?
+- NAME? 'Aca' (1x) vs 'Acab' (24x) — same person/place spelled two ways?
+- NAME? 'Aca' (1x) vs 'Acaz' (16x) — same person/place spelled two ways?
+- NAME? 'Acabías' (13x) vs 'Acacías' (2x) — same person/place spelled two ways?
+- NAME? 'Acabías' (13x) vs 'Acazías' (2x) — same person/place spelled two ways?
+- NAME? 'Acacías' (2x) vs 'Acazías' (2x) — same person/place spelled two ways?
+- NAME? 'Acaz' (16x) vs 'Acazía' (3x) — same person/place spelled two ways?
+- NAME? 'Acazía' (3x) vs 'Acazías' (2x) — same person/place spelled two ways?
+- NAME? 'Adramélech' (1x) vs 'Anamélech' (1x) — same person/place spelled two ways?
+- NAME? 'Beit' (5x) vs 'Bet' (5x) — same person/place spelled two ways?
+- NAME? 'Ben' (6x) vs 'Bien' (1x) — same person/place spelled two ways?
+- NAME? 'Caraj' (1x) vs 'Caras' (1x) — same person/place spelled two ways?
+- NAME? 'Carmel' (1x) vs 'Carmelo' (2x) — same person/place spelled two ways?
+- NAME? 'Dame' (2x) vs 'Déjame' (1x) — same person/place spelled two ways?
+- NAME? 'Dáselo' (1x) vs 'Dáselos' (1x) — same person/place spelled two ways?
+- NAME? 'Efraím' (1x) vs 'Efraín' (1x) — same person/place spelled two ways?
+- NAME? 'Eliacim' (1x) vs 'Eliaquim' (4x) — same person/place spelled two ways?
+- NAME? 'Entra' (1x) vs 'Entrad' (1x) — same person/place spelled two ways?
+- NAME? 'Envía' (1x) vs 'Envíale' (1x) — same person/place spelled two ways?
+- NAME? 'Envía' (1x) vs 'Envío' (2x) — same person/place spelled two ways?
+- NAME? 'Escucha' (2x) vs 'Escuchad' (1x) — same person/place spelled two ways?
+- NAME? 'Esto' (4x) vs 'Estuvo' (1x) — same person/place spelled two ways?
+- NAME? 'Gad' (1x) vs 'Gadí' (2x) — same person/place spelled two ways?
+- NAME? 'Galgal' (1x) vs 'Gilgal' (1x) — same person/place spelled two ways?
+- NAME? 'Gozan' (2x) vs 'Gozán' (1x) — same person/place spelled two ways?
+- NAME? 'Habla' (1x) vs 'Halah' (1x) — same person/place spelled two ways?
+- NAME? 'Habla' (1x) vs 'Halla' (1x) — same person/place spelled two ways?
+- NAME? 'Habor' (2x) vs 'Hazor' (1x) — same person/place spelled two ways?
+- NAME? 'Hagan' (1x) vs 'Haran' (1x) — same person/place spelled two ways?
+- NAME? 'Halah' (1x) vs 'Halla' (1x) — same person/place spelled two ways?
+- NAME? 'Hamat' (8x) vs 'Hamate' (1x) — same person/place spelled two ways?
+- NAME? 'Hoosea' (3x) vs 'Hosea' (1x) — same person/place spelled two ways?
+- NAME? 'Hosea' (1x) vs 'Hoséa' (3x) — same person/place spelled two ways?
+- NAME? 'Iseral' (2x) vs 'Israel' (161x) — same person/place spelled two ways?
+- NAME? 'Ismael' (2x) vs 'Israel' (161x) — same person/place spelled two ways?
+- NAME? 'Jehoacaz' (12x) vs 'Jehoicaz' (4x) — same person/place spelled two ways?
+- NAME? 'Jehoacaz' (12x) vs 'Joiacaz' (3x) — same person/place spelled two ways?
+- NAME? 'Jehoacim' (3x) vs 'Jehoram' (3x) — same person/place spelled two ways?
+- NAME? 'Jehoakin' (4x) vs 'Joiakin' (2x) — same person/place spelled two ways?
+- NAME? 'Jehoicaz' (4x) vs 'Joiacaz' (3x) — same person/place spelled two ways?
+- NAME? 'Jehoram' (3x) vs 'Jehorám' (2x) — same person/place spelled two ways?
+- NAME? 'Jehoram' (3x) vs 'Joram' (27x) — same person/place spelled two ways?
+- NAME? 'Jerusalém' (1x) vs 'Jerusalén' (60x) — same person/place spelled two ways?
+- NAME? 'Jezebel' (7x) vs 'Jezreel' (6x) — same person/place spelled two ways?
+- NAME? 'Joadán' (1x) vs 'Jordán' (9x) — same person/place spelled two ways?
+- NAME? 'Joas' (10x) vs 'Joráas' (1x) — same person/place spelled two ways?
+- NAME? 'Joas' (10x) vs 'Josías' (11x) — same person/place spelled two ways?
+- NAME? 'Jonán' (1x) vs 'Jonás' (1x) — same person/place spelled two ways?
+- NAME? 'Jonás' (1x) vs 'Joás' (25x) — same person/place spelled two ways?
+- NAME? 'Joraj' (1x) vs 'Joram' (27x) — same person/place spelled two ways?
+- NAME? 'Joram' (27x) vs 'Jotam' (7x) — same person/place spelled two ways?
+- NAME? 'Joráas' (1x) vs 'Joás' (25x) — same person/place spelled two ways?
+- NAME? 'Josafat' (6x) vs 'Jósafat' (2x) — same person/place spelled two ways?
+- NAME? 'Libano' (1x) vs 'Líbano' (2x) — same person/place spelled two ways?
+- NAME? 'Llama' (3x) vs 'Llamó' (2x) — same person/place spelled two ways?
+- NAME? 'Lleva' (2x) vs 'Llevad' (1x) — same person/place spelled two ways?
+- NAME? 'Matan' (1x) vs 'Matán' (1x) — same person/place spelled two ways?
+- NAME? 'Mientes' (1x) vs 'Mientras' (8x) — same person/place spelled two ways?
+- NAME? 'Monte' (2x) vs 'Montó' (1x) — same person/place spelled two ways?
+- NAME? 'Nabat' (11x) vs 'Nabot' (3x) — same person/place spelled two ways?
+- NAME? 'Nabat' (11x) vs 'Nabát' (1x) — same person/place spelled two ways?
+- NAME? 'Nabot' (3x) vs 'Nabát' (1x) — same person/place spelled two ways?
+- NAME? 'Padre' (2x) vs 'Padres' (1x) — same person/place spelled two ways?
+- NAME? 'Peacajá' (3x) vs 'Peacá' (9x) — same person/place spelled two ways?
+- NAME? 'Pueden' (1x) vs 'Queden' (1x) — same person/place spelled two ways?
+- NAME? 'Regresa' (1x) vs 'Regresad' (1x) — same person/place spelled two ways?
+- NAME? 'Regresa' (1x) vs 'Regresó' (3x) — same person/place spelled two ways?
+- NAME? 'Regresad' (1x) vs 'Regresó' (3x) — same person/place spelled two ways?
+- NAME? 'Reina' (1x) vs 'Reinó' (2x) — same person/place spelled two ways?
+- NAME? 'Ribla' (1x) vs 'Riblat' (3x) — same person/place spelled two ways?
+- NAME? 'Safá' (1x) vs 'Safán' (9x) — same person/place spelled two ways?
+- NAME? 'Samaria' (2x) vs 'Samaría' (51x) — same person/place spelled two ways?
+- NAME? 'Saraias' (1x) vs 'Saris' (1x) — same person/place spelled two ways?
+- NAME? 'Serajías' (1x) vs 'Seraías' (1x) — same person/place spelled two ways?
+- NAME? 'Trae' (1x) vs 'Traed' (1x) — same person/place spelled two ways?
+- NAME? 'Trae' (1x) vs 'Traeré' (1x) — same person/place spelled two ways?
+- NAME? 'Pedro' (1x) vs 'Perro' (1x) — same person/place spelled two ways?
+- NAME? 'Abel' (3x) vs 'Abiel' (1x) — same person/place spelled two ways?
+- NAME? 'Abiatar' (9x) vs 'Abyatar' (1x) — same person/place spelled two ways?
+- NAME? 'Abiel' (1x) vs 'Amiel' (3x) — same person/place spelled two ways?
+- NAME? 'Abiel' (1x) vs 'Ariel' (1x) — same person/place spelled two ways?
+- NAME? 'Abigail' (2x) vs 'Abigal' (1x) — same person/place spelled two ways?
+- NAME? 'Abigal' (1x) vs 'Abital' (1x) — same person/place spelled two ways?
+- NAME? 'Abimelec' (2x) vs 'Ahimelec' (2x) — same person/place spelled two ways?
+- NAME? 'Absalón' (102x) vs 'Ascalón' (1x) — same person/place spelled two ways?
+- NAME? 'Acilud' (1x) vs 'Ahilud' (1x) — same person/place spelled two ways?
+- NAME? 'Adriel' (1x) vs 'Ariel' (1x) — same person/place spelled two ways?
+- NAME? 'Ahia' (1x) vs 'Aia' (4x) — same person/place spelled two ways?
+- NAME? 'Amiel' (3x) vs 'Ariel' (1x) — same person/place spelled two ways?
+- NAME? 'Amnón' (28x) vs 'Amón' (15x) — same person/place spelled two ways?
+- NAME? 'Amo' (1x) vs 'Amon' (1x) — same person/place spelled two ways?
+- NAME? 'Amon' (1x) vs 'Armoni' (1x) — same person/place spelled two ways?
+- NAME? 'Aodram' (1x) vs 'Aram' (20x) — same person/place spelled two ways?
+- NAME? 'Ararita' (1x) vs 'Arbaita' (2x) — same person/place spelled two ways?
+- NAME? 'Ararita' (1x) vs 'Hararita' (1x) — same person/place spelled two ways?
+- NAME? 'Beerot' (2x) vs 'Berot' (1x) — same person/place spelled two ways?
+- NAME? 'Benaya' (1x) vs 'Benayahu' (4x) — same person/place spelled two ways?
+- NAME? 'Bendito' (1x) vs 'Benditos' (1x) — same person/place spelled two ways?
+- NAME? 'Berot' (1x) vs 'Berotai' (1x) — same person/place spelled two ways?
+- NAME? 'Camas' (1x) vs 'Clama' (1x) — same person/place spelled two ways?
+- NAME? 'Clama' (1x) vs 'Llama' (1x) — same person/place spelled two ways?
+- NAME? 'Dadle' (2x) vs 'Dadme' (1x) — same person/place spelled two ways?
+- NAME? 'Debar' (2x) vs 'Débar' (1x) — same person/place spelled two ways?
+- NAME? 'Efraím' (2x) vs 'Efraín' (2x) — same person/place spelled two ways?
+- NAME? 'Eida' (1x) vs 'Epidad' (1x) — same person/place spelled two ways?
+- NAME? 'Elanán' (1x) vs 'Elcaná' (1x) — same person/place spelled two ways?
+- NAME? 'Eliam' (2x) vs 'Elika' (1x) — same person/place spelled two ways?
+- NAME? 'Eliam' (2x) vs 'Elisama' (1x) — same person/place spelled two ways?
+- NAME? 'Envía' (1x) vs 'Envío' (1x) — same person/place spelled two ways?
+- NAME? 'Escucha' (1x) vs 'Escuchad' (1x) — same person/place spelled two ways?
+- NAME? 'Escucha' (1x) vs 'Escucho' (1x) — same person/place spelled two ways?
+- NAME? 'Escuchad' (1x) vs 'Escucho' (1x) — same person/place spelled two ways?
+- NAME? 'Está' (4x) vs 'Estás' (1x) — same person/place spelled two ways?
+- NAME? 'Geba' (2x) vs 'Gueba' (1x) — same person/place spelled two ways?
+- NAME? 'Gelonita' (1x) vs 'Gilonita' (1x) — same person/place spelled two ways?
+- NAME? 'Geshur' (1x) vs 'Gesur' (5x) — same person/place spelled two ways?
+- NAME? 'Gitita' (3x) vs 'Hitita' (1x) — same person/place spelled two ways?
+- NAME? 'Habla' (1x) vs 'Hable' (2x) — same person/place spelled two ways?
+- NAME? 'Habla' (1x) vs 'Había' (1x) — same person/place spelled two ways?
+- NAME? 'Hadad' (8x) vs 'Harad' (1x) — same person/place spelled two ways?
+- NAME? 'Haremos' (1x) vs 'Hemos' (1x) — same person/place spelled two ways?
+- NAME? 'Hijas' (1x) vs 'Hijos' (2x) — same person/place spelled two ways?
+- NAME? 'Hitita' (1x) vs 'Hititas' (1x) — same person/place spelled two ways?
+- NAME? 'Ira' (2x) vs 'Itra' (1x) — same person/place spelled two ways?
+- NAME? 'Itra' (1x) vs 'Itrita' (2x) — same person/place spelled two ways?
+- NAME? 'Jaazer' (1x) vs 'Jazer' (1x) — same person/place spelled two ways?
+- NAME? 'Jazer' (1x) vs 'Yazer' (1x) — same person/place spelled two ways?
+- NAME? 'Jonatan' (2x) vs 'Jonatán' (22x) — same person/place spelled two ways?
+- NAME? 'Llama' (1x) vs 'Llamó' (1x) — same person/place spelled two ways?
+- NAME? 'Llegaron' (4x) vs 'Llevaron' (4x) — same person/place spelled two ways?
+- NAME? 'Llegó' (3x) vs 'Llevó' (1x) — same person/place spelled two ways?
+- NAME? 'Lleva' (1x) vs 'Llevó' (1x) — same person/place spelled two ways?
+- NAME? 'Maaca' (3x) vs 'Maacate' (1x) — same person/place spelled two ways?
+- NAME? 'Macir' (1x) vs 'Makir' (2x) — same person/place spelled two ways?
+- NAME? 'Madón' (1x) vs 'Mandó' (1x) — same person/place spelled two ways?
+- NAME? 'Meica' (1x) vs 'Mical' (2x) — same person/place spelled two ways?
+- NAME? 'Mical' (2x) vs 'Michal' (4x) — same person/place spelled two ways?
+- NAME? 'Permiteme' (1x) vs 'Permíteme' (2x) — same person/place spelled two ways?
+- NAME? 'Podrá' (1x) vs 'Podré' (3x) — same person/place spelled two ways?
+- NAME? 'Refaim' (1x) vs 'Refaím' (6x) — same person/place spelled two ways?
+- NAME? 'Rogel' (1x) vs 'Rogelim' (2x) — same person/place spelled two ways?
+- NAME? 'Sal' (1x) vs 'Saúl' (66x) — same person/place spelled two ways?
+- NAME? 'Sarar' (1x) vs 'Sarúa' (2x) — same person/place spelled two ways?
+- NAME? 'Sobab' (1x) vs 'Sobac' (1x) — same person/place spelled two ways?
+- NAME? 'Tecoa' (1x) vs 'Tekoa' (2x) — same person/place spelled two ways?
+- NAME? 'Tekoa' (2x) vs 'Tekoita' (1x) — same person/place spelled two ways?
+- NAME? 'Zeruya' (1x) vs 'Zeruía' (1x) — same person/place spelled two ways?
+- NAME? 'Dalmacia' (1x) vs 'Galacia' (1x) — same person/place spelled two ways?
+- NAME? 'Fileto' (1x) vs 'Mileto' (1x) — same person/place spelled two ways?
+- NAME? 'Recuerda' (2x) vs 'Recuerdo' (1x) — same person/place spelled two ways?
+- NAME? 'Saluda' (1x) vs 'Saludan' (1x) — same person/place spelled two ways?
+- NAME? 'Aarón' (1x) vs 'Sarón' (1x) — same person/place spelled two ways?
+- NAME? 'Aeneas' (2x) vs 'Apenas' (1x) — same person/place spelled two ways?
+- NAME? 'Aeneas' (2x) vs 'Atenas' (3x) — same person/place spelled two ways?
+- NAME? 'Alejandro' (3x) vs 'Alejandría' (1x) — same person/place spelled two ways?
+- NAME? 'Apenas' (1x) vs 'Atenas' (3x) — same person/place spelled two ways?
+- NAME? 'Atalia' (1x) vs 'Italia' (3x) — same person/place spelled two ways?
+- NAME? 'Barnabás' (13x) vs 'Barsabás' (2x) — same person/place spelled two ways?
+- NAME? 'Bueno' (1x) vs 'Buenos' (1x) — same person/place spelled two ways?
+- NAME? 'Cien' (1x) vs 'Cirene' (3x) — same person/place spelled two ways?
+- NAME? 'Cien' (1x) vs 'Cuiden' (1x) — same person/place spelled two ways?
+- NAME? 'Cirene' (3x) vs 'Cireneos' (1x) — same person/place spelled two ways?
+- NAME? 'Cirene' (3x) vs 'Cree' (1x) — same person/place spelled two ways?
+- NAME? 'Cree' (1x) vs 'Crees' (1x) — same person/place spelled two ways?
+- NAME? 'Crispo' (1x) vs 'Cristo' (2x) — same person/place spelled two ways?
+- NAME? 'Dad' (1x) vs 'Dado' (1x) — same person/place spelled two ways?
+- NAME? 'Erasto' (1x) vs 'Esto' (8x) — same person/place spelled two ways?
+- NAME? 'Escuchaban' (1x) vs 'Escucharon' (1x) — same person/place spelled two ways?
+- NAME? 'Escucharon' (1x) vs 'Escucharás' (1x) — same person/place spelled two ways?
+- NAME? 'Escucharon' (1x) vs 'Escucharé' (1x) — same person/place spelled two ways?
+- NAME? 'Escucharás' (1x) vs 'Escucharé' (1x) — same person/place spelled two ways?
+- NAME? 'Estaba' (2x) vs 'Estaban' (1x) — same person/place spelled two ways?
+- NAME? 'Estaban' (1x) vs 'Esteban' (8x) — same person/place spelled two ways?
+- NAME? 'Esto' (8x) vs 'Estoy' (1x) — same person/place spelled two ways?
+- NAME? 'Esto' (8x) vs 'Estuvo' (1x) — same person/place spelled two ways?
+- NAME? 'Están' (1x) vs 'Estás' (3x) — same person/place spelled two ways?
+- NAME? 'Galilea' (3x) vs 'Galileo' (1x) — same person/place spelled two ways?
+- NAME? 'Galilea' (3x) vs 'Galileos' (1x) — same person/place spelled two ways?
+- NAME? 'Galileo' (1x) vs 'Galileos' (1x) — same person/place spelled two ways?
+- NAME? 'Hemor' (1x) vs 'Hemos' (4x) — same person/place spelled two ways?
+- NAME? 'Hermano' (2x) vs 'Hermanos' (15x) — same person/place spelled two ways?
+- NAME? 'Italia' (3x) vs 'Italiana' (1x) — same person/place spelled two ways?
+- NAME? 'Jacob' (8x) vs 'Jacobo' (7x) — same person/place spelled two ways?
+- NAME? 'Jessé' (1x) vs 'Jesús' (39x) — same person/place spelled two ways?
+- NAME? 'Judas' (4x) vs 'Judea' (12x) — same person/place spelled two ways?
+- NAME? 'Libia' (1x) vs 'Licia' (1x) — same person/place spelled two ways?
+- NAME? 'Libia' (1x) vs 'Lidia' (3x) — same person/place spelled two ways?
+- NAME? 'Licia' (1x) vs 'Licio' (2x) — same person/place spelled two ways?
+- NAME? 'Licia' (1x) vs 'Lidia' (3x) — same person/place spelled two ways?
+- NAME? 'Licia' (1x) vs 'Lúcia' (2x) — same person/place spelled two ways?
+- NAME? 'Llegado' (1x) vs 'Llegados' (1x) — same person/place spelled two ways?
+- NAME? 'Llegado' (1x) vs 'Llegaron' (3x) — same person/place spelled two ways?
+- NAME? 'Llegaron' (3x) vs 'Llevaron' (1x) — same person/place spelled two ways?
+- NAME? 'Nazareno' (5x) vs 'Nazareo' (1x) — same person/place spelled two ways?
+- NAME? 'Nazareno' (5x) vs 'Nazaret' (1x) — same person/place spelled two ways?
+- NAME? 'Nazareo' (1x) vs 'Nazaret' (1x) — same person/place spelled two ways?
+- NAME? 'Nazareo' (1x) vs 'Nazoreos' (1x) — same person/place spelled two ways?
+- NAME? 'Pablo' (129x) vs 'Paulo' (1x) — same person/place spelled two ways?
+- NAME? 'Paulo' (1x) vs 'Saulo' (4x) — same person/place spelled two ways?
+- NAME? 'Poncio' (1x) vs 'Porcio' (1x) — same person/place spelled two ways?
+- NAME? 'Ponte' (1x) vs 'Ponto' (1x) — same person/place spelled two ways?
+- NAME? 'Queremos' (1x) vs 'Quieres' (1x) — same person/place spelled two ways?
+- NAME? 'Roda' (1x) vs 'Rodas' (1x) — same person/place spelled two ways?
+- NAME? 'Salvad' (1x) vs 'Salvador' (1x) — same person/place spelled two ways?
+- NAME? 'Samaria' (1x) vs 'Samaría' (5x) — same person/place spelled two ways?
+- NAME? 'Samos' (1x) vs 'Vamos' (1x) — same person/place spelled two ways?
+- NAME? 'Sidón' (1x) vs 'Simón' (14x) — same person/place spelled two ways?
+- NAME? 'Sila' (9x) vs 'Silas' (3x) — same person/place spelled two ways?
+- NAME? 'Simón' (14x) vs 'Timón' (1x) — same person/place spelled two ways?
+- NAME? 'Tras' (8x) vs 'Troas' (2x) — same person/place spelled two ways?
+- NAME? 'Viendo' (2x) vs 'Vino' (1x) — same person/place spelled two ways?
+- NAME? 'Buscad' (2x) vs 'Buscadme' (1x) — same person/place spelled two ways?
+- NAME? 'Carmel' (1x) vs 'Carmelo' (1x) — same person/place spelled two ways?
+- NAME? 'Samaria' (4x) vs 'Samaría' (1x) — same person/place spelled two ways?
+- NAME? 'Sion' (1x) vs 'Son' (1x) — same person/place spelled two ways?
+- NAME? 'Epafra' (1x) vs 'Epafro' (1x) — same person/place spelled two ways?
+- NAME? 'Baltasar' (14x) vs 'Balthasar' (1x) — same person/place spelled two ways?
+- NAME? 'Baltasar' (14x) vs 'Beltsasar' (1x) — same person/place spelled two ways?
+- NAME? 'Beltesar' (1x) vs 'Beltsasar' (1x) — same person/place spelled two ways?
+- NAME? 'Escucha' (1x) vs 'Escuché' (1x) — same person/place spelled two ways?
+- NAME? 'Escucha' (1x) vs 'Escuchó' (1x) — same person/place spelled two ways?
+- NAME? 'Escuché' (1x) vs 'Escuchó' (1x) — same person/place spelled two ways?
+- NAME? 'Estaba' (1x) vs 'Estabas' (1x) — same person/place spelled two ways?
+- NAME? 'Sus' (2x) vs 'Susa' (1x) — same person/place spelled two ways?
+- NAME? 'Aarón' (4x) vs 'Arnón' (6x) — same person/place spelled two ways?
+- NAME? 'Abiram' (1x) vs 'Aram' (1x) — same person/place spelled two ways?
+- NAME? 'Acuérdate' (1x) vs 'Acércate' (1x) — same person/place spelled two ways?
+- NAME? 'Amó' (1x) vs 'Amón' (6x) — same person/place spelled two ways?
+- NAME? 'Barnea' (1x) vs 'Barneá' (3x) — same person/place spelled two ways?
+- NAME? 'Basmán' (1x) vs 'Basán' (14x) — same person/place spelled two ways?
+- NAME? 'Bendiga' (1x) vs 'Bendita' (1x) — same person/place spelled two ways?
+- NAME? 'Bendiga' (1x) vs 'Benditas' (1x) — same person/place spelled two ways?
+- NAME? 'Bendita' (1x) vs 'Benditas' (1x) — same person/place spelled two ways?
+- NAME? 'Bendita' (1x) vs 'Bendito' (5x) — same person/place spelled two ways?
+- NAME? 'Benditas' (1x) vs 'Bendito' (5x) — same person/place spelled two ways?
+- NAME? 'Bete' (1x) vs 'Betzer' (1x) — same person/place spelled two ways?
+- NAME? 'Cadés' (1x) vs 'Kadés' (4x) — same person/place spelled two ways?
+- NAME? 'Comerá' (1x) vs 'Comerás' (1x) — same person/place spelled two ways?
+- NAME? 'Comprarán' (1x) vs 'Compraré' (1x) — same person/place spelled two ways?
+- NAME? 'Cruzarás' (1x) vs 'Cruzaré' (1x) — same person/place spelled two ways?
+- NAME? 'Darás' (1x) vs 'Harás' (3x) — same person/place spelled two ways?
+- NAME? 'Destruimos' (1x) vs 'Destruirás' (1x) — same person/place spelled two ways?
+- NAME? 'Efraím' (1x) vs 'Efraín' (1x) — same person/place spelled two ways?
+- NAME? 'Enviará' (1x) vs 'Enviarán' (2x) — same person/place spelled two ways?
+- NAME? 'Esa' (1x) vs 'Esaú' (6x) — same person/place spelled two ways?
+- NAME? 'Gaditas' (3x) vs 'Malditas' (1x) — same person/place spelled two ways?
+- NAME? 'Guarda' (5x) vs 'Guardad' (1x) — same person/place spelled two ways?
+- NAME? 'Horeb' (6x) vs 'Horéb' (3x) — same person/place spelled two ways?
+- NAME? 'Josué' (11x) vs 'José' (4x) — same person/place spelled two ways?
+- NAME? 'Malditas' (1x) vs 'Maldito' (15x) — same person/place spelled two ways?
+- NAME? 'Nuestra' (1x) vs 'Nuestras' (1x) — same person/place spelled two ways?
+- NAME? 'Nuestra' (1x) vs 'Nuestro' (1x) — same person/place spelled two ways?
+- NAME? 'Nuestra' (1x) vs 'Nuestros' (1x) — same person/place spelled two ways?
+- NAME? 'Nuestras' (1x) vs 'Nuestro' (1x) — same person/place spelled two ways?
+- NAME? 'Nuestras' (1x) vs 'Nuestros' (1x) — same person/place spelled two ways?
+- NAME? 'Nuestro' (1x) vs 'Nuestros' (1x) — same person/place spelled two ways?
+- NAME? 'Paran' (1x) vs 'Parán' (1x) — same person/place spelled two ways?
+- NAME? 'Pondré' (1x) vs 'Pondréis' (1x) — same person/place spelled two ways?
+- NAME? 'Puede' (1x) vs 'Pueden' (1x) — same person/place spelled two ways?
+- NAME? 'Pueden' (1x) vs 'Queden' (1x) — same person/place spelled two ways?
+- NAME? 'Saldrán' (1x) vs 'Saldrás' (1x) — same person/place spelled two ways?
+- NAME? 'Sehón' (8x) vs 'Sihón' (1x) — same person/place spelled two ways?
+- NAME? 'Seir' (7x) vs 'Senir' (2x) — same person/place spelled two ways?
+- NAME? 'Será' (2x) vs 'Serás' (5x) — same person/place spelled two ways?
+- NAME? 'Sihón' (1x) vs 'Sijón' (2x) — same person/place spelled two ways?
+- NAME? 'Sina' (1x) vs 'Sinaí' (1x) — same person/place spelled two ways?
+- NAME? 'Mejor' (10x) vs 'Mejores' (1x) — same person/place spelled two ways?
+- NAME? 'Hijo' (1x) vs 'Hijos' (1x) — same person/place spelled two ways?
+- NAME? 'Aridaí' (1x) vs 'Arisaí' (1x) — same person/place spelled two ways?
+- NAME? 'Hammedata' (3x) vs 'Hammedatag' (2x) — same person/place spelled two ways?
+- NAME? 'Medea' (1x) vs 'Media' (3x) — same person/place spelled two ways?
+- NAME? 'Meres' (1x) vs 'Teres' (1x) — same person/place spelled two ways?
+- NAME? 'Meres' (1x) vs 'Zeres' (4x) — same person/place spelled two ways?
+- NAME? 'Setar' (1x) vs 'Zetar' (1x) — same person/place spelled two ways?
+- NAME? 'Sus' (2x) vs 'Susa' (9x) — same person/place spelled two ways?
+- NAME? 'Teres' (1x) vs 'Teresh' (1x) — same person/place spelled two ways?
+- NAME? 'Teres' (1x) vs 'Zeres' (4x) — same person/place spelled two ways?
+- NAME? 'Abihu' (2x) vs 'Abihú' (1x) — same person/place spelled two ways?
+- NAME? 'Abihú' (1x) vs 'Abiú' (1x) — same person/place spelled two ways?
+- NAME? 'Ahisamach' (1x) vs 'Ahisamak' (1x) — same person/place spelled two ways?
+- NAME? 'Ahisamak' (1x) vs 'Aquisamak' (1x) — same person/place spelled two ways?
+- NAME? 'Aholiab' (4x) vs 'Aholijab' (1x) — same person/place spelled two ways?
+- NAME? 'Atiende' (1x) vs 'Extiende' (7x) — same person/place spelled two ways?
+- NAME? 'Besalel' (1x) vs 'Betzalel' (4x) — same person/place spelled two ways?
+- NAME? 'Comerán' (1x) vs 'Comieron' (1x) — same person/place spelled two ways?
+- NAME? 'Cualquier' (2x) vs 'Cualquiera' (6x) — same person/place spelled two ways?
+- NAME? 'Cubrirá' (1x) vs 'Cubrirás' (1x) — same person/place spelled two ways?
+- NAME? 'Cuida' (1x) vs 'Cuidad' (3x) — same person/place spelled two ways?
+- NAME? 'Debajo' (1x) vs 'Debo' (1x) — same person/place spelled two ways?
+- NAME? 'Dile' (3x) vs 'Diles' (5x) — same person/place spelled two ways?
+- NAME? 'Esto' (3x) vs 'Estuvo' (1x) — same person/place spelled two ways?
+- NAME? 'Gersón' (1x) vs 'Gerushón' (3x) — same person/place spelled two ways?
+- NAME? 'Habla' (4x) vs 'Había' (1x) — same person/place spelled two ways?
+- NAME? 'Habrá' (1x) vs 'Harán' (2x) — same person/place spelled two ways?
+- NAME? 'Habrá' (1x) vs 'Harás' (51x) — same person/place spelled two ways?
+- NAME? 'Harán' (2x) vs 'Harás' (51x) — same person/place spelled two ways?
+- NAME? 'Harás' (51x) vs 'Haráslo' (1x) — same person/place spelled two ways?
+- NAME? 'Josué' (7x) vs 'José' (4x) — same person/place spelled two ways?
+- NAME? 'Llegaron' (4x) vs 'Llevaron' (1x) — same person/place spelled two ways?
+- NAME? 'Llegó' (1x) vs 'Llevó' (2x) — same person/place spelled two ways?
+- NAME? 'Madruga' (1x) vs 'Madrugue' (1x) — same person/place spelled two ways?
+- NAME? 'Mar' (3x) vs 'Mara' (3x) — same person/place spelled two ways?
+- NAME? 'Moisé' (1x) vs 'Moisés' (306x) — same person/place spelled two ways?
+- NAME? 'Pondrán' (1x) vs 'Pondrás' (3x) — same person/place spelled two ways?
+- NAME? 'Queden' (2x) vs 'Quedense' (1x) — same person/place spelled two ways?
+- NAME? 'Quita' (1x) vs 'Quitó' (1x) — same person/place spelled two ways?
+- NAME? 'Ramesés' (1x) vs 'Ramsés' (1x) — same person/place spelled two ways?
+- NAME? 'Recuerden' (1x) vs 'Recuérdenlo' (1x) — same person/place spelled two ways?
+- NAME? 'Suelta' (8x) vs 'Suelte' (1x) — same person/place spelled two ways?
+- NAME? 'Tomaron' (2x) vs 'Tomarán' (1x) — same person/place spelled two ways?
+- NAME? 'Tomarán' (1x) vs 'Tomarás' (4x) — same person/place spelled two ways?
+- NAME? 'Tsiporá' (1x) vs 'Tzipporá' (1x) — same person/place spelled two ways?
+- NAME? 'Vino' (1x) vs 'Vio' (1x) — same person/place spelled two ways?
+- NAME? 'Aholibá' (6x) vs 'Aholá' (6x) — same person/place spelled two ways?
+- NAME? 'Buscarán' (1x) vs 'Buscaré' (1x) — same person/place spelled two ways?
+- NAME? 'Cabar' (1x) vs 'Cabas' (4x) — same person/place spelled two ways?
+- NAME? 'Caeréis' (1x) vs 'Comeréis' (1x) — same person/place spelled two ways?
+- NAME? 'Caldeos' (5x) vs 'Caldero' (1x) — same person/place spelled two ways?
+- NAME? 'Camina' (1x) vs 'Caminad' (1x) — same person/place spelled two ways?
+- NAME? 'Clama' (1x) vs 'Clapa' (1x) — same person/place spelled two ways?
+- NAME? 'Cus' (2x) vs 'Cush' (3x) — same person/place spelled two ways?
+- NAME? 'Dice' (2x) vs 'Dicen' (1x) — same person/place spelled two ways?
+- NAME? 'Dile' (2x) vs 'Diles' (5x) — same person/place spelled two ways?
+- NAME? 'Entra' (2x) vs 'Entre' (4x) — same person/place spelled two ways?
+- NAME? 'Entra' (2x) vs 'Entré' (1x) — same person/place spelled two ways?
+- NAME? 'Entraron' (1x) vs 'Entrarán' (1x) — same person/place spelled two ways?
+- NAME? 'Entre' (4x) vs 'Entré' (1x) — same person/place spelled two ways?
+- NAME? 'Escucha' (1x) vs 'Escuchad' (1x) — same person/place spelled two ways?
+- NAME? 'Escucha' (1x) vs 'Escuché' (1x) — same person/place spelled two ways?
+- NAME? 'Escuchad' (1x) vs 'Escuché' (1x) — same person/place spelled two ways?
+- NAME? 'Extendió' (1x) vs 'Extendí' (1x) — same person/place spelled two ways?
+- NAME? 'Hablaré' (2x) vs 'Hablé' (3x) — same person/place spelled two ways?
+- NAME? 'Haran' (2x) vs 'Harán' (1x) — same person/place spelled two ways?
+- NAME? 'Harrán' (1x) vs 'Harán' (1x) — same person/place spelled two ways?
+- NAME? 'Hijo' (62x) vs 'Hijos' (2x) — same person/place spelled two ways?
+- NAME? 'Libano' (1x) vs 'Líbano' (3x) — same person/place spelled two ways?
+- NAME? 'Meri' (1x) vs 'Meribá' (2x) — same person/place spelled two ways?
+- NAME? 'Multiplicada' (1x) vs 'Multiplicaré' (1x) — same person/place spelled two ways?
+- NAME? 'Nuestras' (1x) vs 'Vuestras' (1x) — same person/place spelled two ways?
+- NAME? 'Profetas' (1x) vs 'Profetiza' (3x) — same person/place spelled two ways?
+- NAME? 'Será' (3x) vs 'Serás' (1x) — same person/place spelled two ways?
+- NAME? 'Tarshis' (1x) vs 'Tarsis' (1x) — same person/place spelled two ways?
+- NAME? 'Teman' (1x) vs 'Temán' (2x) — same person/place spelled two ways?
+- NAME? 'Vendrá' (3x) vs 'Vendrán' (1x) — same person/place spelled two ways?
+- NAME? 'Abdiyá' (1x) vs 'Adaiyá' (2x) — same person/place spelled two ways?
+- NAME? 'Adí' (1x) vs 'Adín' (1x) — same person/place spelled two ways?
+- NAME? 'Amarías' (1x) vs 'Azarías' (2x) — same person/place spelled two ways?
+- NAME? 'Banai' (1x) vs 'Bani' (4x) — same person/place spelled two ways?
+- NAME? 'Bebai' (1x) vs 'Bebay' (3x) — same person/place spelled two ways?
+- NAME? 'Bebai' (1x) vs 'Besai' (1x) — same person/place spelled two ways?
+- NAME? 'Binuy' (1x) vs 'Binyu' (1x) — same person/place spelled two ways?
+- NAME? 'Daron' (1x) vs 'Darío' (10x) — same person/place spelled two ways?
+- NAME? 'Eliajiv' (1x) vs 'Eliashiv' (1x) — same person/place spelled two ways?
+- NAME? 'Eliashib' (1x) vs 'Eliashiv' (1x) — same person/place spelled two ways?
+- NAME? 'Eliashib' (1x) vs 'Elíasib' (1x) — same person/place spelled two ways?
+- NAME? 'Eliyá' (1x) vs 'Eliá' (1x) — same person/place spelled two ways?
+- NAME? 'Era' (1x) vs 'Ezra' (7x) — same person/place spelled two ways?
+- NAME? 'Hagab' (1x) vs 'Hagaba' (1x) — same person/place spelled two ways?
+- NAME? 'Hanani' (1x) vs 'Hananí' (1x) — same person/place spelled two ways?
+- NAME? 'Harim' (2x) vs 'Harím' (2x) — same person/place spelled two ways?
+- NAME? 'Harsa' (1x) vs 'Harsha' (1x) — same person/place spelled two ways?
+- NAME? 'Hashum' (1x) vs 'Hasum' (1x) — same person/place spelled two ways?
+- NAME? 'Hatifa' (1x) vs 'Hatita' (1x) — same person/place spelled two ways?
+- NAME? 'Jarib' (2x) vs 'Joiarib' (1x) — same person/place spelled two ways?
+- NAME? 'Jechiyá' (2x) vs 'Jehiá' (1x) — same person/place spelled two ways?
+- NAME? 'Jehojanán' (1x) vs 'Yehojanán' (1x) — same person/place spelled two ways?
+- NAME? 'Jeres' (1x) vs 'Peres' (1x) — same person/place spelled two ways?
+- NAME? 'Jesué' (5x) vs 'Josué' (5x) — same person/place spelled two ways?
+- NAME? 'Josué' (5x) vs 'José' (1x) — same person/place spelled two ways?
+- NAME? 'Matanai' (1x) vs 'Matanía' (4x) — same person/place spelled two ways?
+- NAME? 'Measé' (3x) vs 'Menasé' (2x) — same person/place spelled two ways?
+- NAME? 'Meremot' (2x) vs 'Yeremot' (2x) — same person/place spelled two ways?
+- NAME? 'Mitredat' (1x) vs 'Mitridat' (1x) — same person/place spelled two ways?
+- NAME? 'Nathan' (1x) vs 'Nathanel' (1x) — same person/place spelled two ways?
+- NAME? 'Parás' (1x) vs 'Parós' (1x) — same person/place spelled two ways?
+- NAME? 'Pashcur' (1x) vs 'Pashhur' (1x) — same person/place spelled two ways?
+- NAME? 'Ramyá' (1x) vs 'Ramá' (1x) — same person/place spelled two ways?
+- NAME? 'Recum' (1x) vs 'Rehum' (4x) — same person/place spelled two ways?
+- NAME? 'Salum' (4x) vs 'Shalum' (1x) — same person/place spelled two ways?
+- NAME? 'Samaryá' (1x) vs 'Shemaryá' (1x) — same person/place spelled two ways?
+- NAME? 'Sarai' (1x) vs 'Saray' (1x) — same person/place spelled two ways?
+- NAME? 'Saray' (1x) vs 'Satay' (1x) — same person/place spelled two ways?
+- NAME? 'Secanías' (2x) vs 'Shecanías' (1x) — same person/place spelled two ways?
+- NAME? 'Semajá' (2x) vs 'Semayá' (1x) — same person/place spelled two ways?
+- NAME? 'Semajá' (2x) vs 'Serajá' (1x) — same person/place spelled two ways?
+- NAME? 'Semaya' (1x) vs 'Semayá' (1x) — same person/place spelled two ways?
+- NAME? 'Semayá' (1x) vs 'Shemaryá' (1x) — same person/place spelled two ways?
+- NAME? 'Torá' (2x) vs 'Toráh' (2x) — same person/place spelled two ways?
+- NAME? 'Yeiel' (1x) vs 'Yeiyel' (1x) — same person/place spelled two ways?
+- NAME? 'Yozaabad' (1x) vs 'Yozabad' (2x) — same person/place spelled two ways?
+- NAME? 'Zabád' (3x) vs 'Zabáy' (1x) — same person/place spelled two ways?
+- NAME? 'Zacai' (1x) vs 'Zacar' (1x) — same person/place spelled two ways?
+- NAME? 'Zaraiá' (1x) vs 'Zarajá' (1x) — same person/place spelled two ways?
+- NAME? 'Esto' (2x) vs 'Estoy' (1x) — same person/place spelled two ways?
+- NAME? 'Abel' (9x) vs 'Adbeel' (1x) — same person/place spelled two ways?
+- NAME? 'Abel' (9x) vs 'Asbel' (1x) — same person/place spelled two ways?
+- NAME? 'Abimael' (1x) vs 'Abimelec' (17x) — same person/place spelled two ways?
+- NAME? 'Abimael' (1x) vs 'Abimeléc' (7x) — same person/place spelled two ways?
+- NAME? 'Abimelec' (17x) vs 'Abimeléc' (7x) — same person/place spelled two ways?
+- NAME? 'Abraham' (127x) vs 'Abram' (72x) — same person/place spelled two ways?
+- NAME? 'Abram' (72x) vs 'Aram' (12x) — same person/place spelled two ways?
+- NAME? 'Acércame' (1x) vs 'Acércate' (2x) — same person/place spelled two ways?
+- NAME? 'Ada' (5x) vs 'Adma' (3x) — same person/place spelled two ways?
+- NAME? 'Ada' (5x) vs 'Anda' (1x) — same person/place spelled two ways?
+- NAME? 'Aná' (8x) vs 'Anán' (2x) — same person/place spelled two ways?
+- NAME? 'Ard' (1x) vs 'Aród' (1x) — same person/place spelled two ways?
+- NAME? 'Asur' (3x) vs 'Asurím' (1x) — same person/place spelled two ways?
+- NAME? 'Ata' (1x) vs 'Atad' (2x) — same person/place spelled two ways?
+- NAME? 'Basemat' (1x) vs 'Basmat' (5x) — same person/place spelled two ways?
+- NAME? 'Becher' (1x) vs 'Beer' (5x) — same person/place spelled two ways?
+- NAME? 'Beerseba' (7x) vs 'Beersheba' (3x) — same person/place spelled two ways?
+- NAME? 'Beit' (7x) vs 'Beitel' (1x) — same person/place spelled two ways?
+- NAME? 'Beitel' (1x) vs 'Betel' (5x) — same person/place spelled two ways?
+- NAME? 'Beitel' (1x) vs 'Betuel' (9x) — same person/place spelled two ways?
+- NAME? 'Bendijo' (1x) vs 'Bendito' (3x) — same person/place spelled two ways?
+- NAME? 'Bera' (4x) vs 'Berrea' (1x) — same person/place spelled two ways?
+- NAME? 'Bered' (1x) vs 'Sered' (1x) — same person/place spelled two ways?
+- NAME? 'Betel' (5x) vs 'Betuel' (9x) — same person/place spelled two ways?
+- NAME? 'Betuel' (9x) vs 'Betuelli' (1x) — same person/place spelled two ways?
+- NAME? 'Bilha' (7x) vs 'Bilhá' (2x) — same person/place spelled two ways?
+- NAME? 'Bilhá' (2x) vs 'Bilhán' (1x) — same person/place spelled two ways?
+- NAME? 'Cainán' (5x) vs 'Canaán' (51x) — same person/place spelled two ways?
+- NAME? 'Carán' (1x) vs 'Harán' (13x) — same person/place spelled two ways?
+- NAME? 'Compra' (1x) vs 'Compró' (1x) — same person/place spelled two ways?
+- NAME? 'Cualquier' (2x) vs 'Cualquiera' (3x) — same person/place spelled two ways?
+- NAME? 'Cuida' (2x) vs 'Cuidado' (1x) — same person/place spelled two ways?
+- NAME? 'Dame' (6x) vs 'Déjame' (1x) — same person/place spelled two ways?
+- NAME? 'Dedán' (3x) vs 'Medán' (1x) — same person/place spelled two ways?
+- NAME? 'Dishán' (3x) vs 'Dishón' (4x) — same person/place spelled two ways?
+- NAME? 'Dividiré' (1x) vs 'Dividió' (2x) — same person/place spelled two ways?
+- NAME? 'Déjame' (1x) vs 'Déme' (1x) — same person/place spelled two ways?
+- NAME? 'Díganme' (1x) vs 'Díganmelo' (1x) — same person/place spelled two ways?
+- NAME? 'Efraím' (10x) vs 'Efraín' (1x) — same person/place spelled two ways?
+- NAME? 'Entra' (2x) vs 'Entró' (1x) — same person/place spelled two ways?
+- NAME? 'Esa' (2x) vs 'Esau' (1x) — same person/place spelled two ways?
+- NAME? 'Esa' (2x) vs 'Esaú' (79x) — same person/place spelled two ways?
+- NAME? 'Eschol' (1x) vs 'Eshcol' (1x) — same person/place spelled two ways?
+- NAME? 'Ese' (1x) vs 'Eser' (3x) — same person/place spelled two ways?
+- NAME? 'Eser' (3x) vs 'Espero' (1x) — same person/place spelled two ways?
+- NAME? 'Eso' (1x) vs 'Esto' (4x) — same person/place spelled two ways?
+- NAME? 'Establece' (1x) vs 'Estableceré' (4x) — same person/place spelled two ways?
+- NAME? 'Gaam' (1x) vs 'Gatam' (2x) — same person/place spelled two ways?
+- NAME? 'Gera' (2x) vs 'Gerar' (2x) — same person/place spelled two ways?
+- NAME? 'Gera' (2x) vs 'Gerara' (5x) — same person/place spelled two ways?
+- NAME? 'Gerar' (2x) vs 'Gerara' (5x) — same person/place spelled two ways?
+- NAME? 'Hadad' (3x) vs 'Hadar' (1x) — same person/place spelled two ways?
+- NAME? 'Hagamos' (2x) vs 'Hallamos' (1x) — same person/place spelled two ways?
+- NAME? 'Hamor' (10x) vs 'Hemor' (1x) — same person/place spelled two ways?
+- NAME? 'Hanoc' (1x) vs 'Henoc' (1x) — same person/place spelled two ways?
+- NAME? 'Harán' (13x) vs 'Harás' (2x) — same person/place spelled two ways?
+- NAME? 'Haré' (6x) vs 'Haréis' (2x) — same person/place spelled two ways?
+- NAME? 'Haz' (2x) vs 'Hazo' (1x) — same person/place spelled two ways?
+- NAME? 'Hebrón' (5x) vs 'Hezrón' (2x) — same person/place spelled two ways?
+- NAME? 'Hemor' (1x) vs 'Hemos' (3x) — same person/place spelled two ways?
+- NAME? 'Hijas' (1x) vs 'Hijos' (4x) — same person/place spelled two ways?
+- NAME? 'Hijo' (1x) vs 'Hijos' (4x) — same person/place spelled two ways?
+- NAME? 'Hufim' (1x) vs 'Husim' (1x) — same person/place spelled two ways?
+- NAME? 'Hufim' (1x) vs 'Mufim' (1x) — same person/place spelled two ways?
+- NAME? 'Husam' (2x) vs 'Husim' (1x) — same person/place spelled two ways?
+- NAME? 'Isacar' (2x) vs 'Isca' (1x) — same person/place spelled two ways?
+- NAME? 'Isacar' (2x) vs 'Issacar' (2x) — same person/place spelled two ways?
+- NAME? 'Ismael' (17x) vs 'Israel' (29x) — same person/place spelled two ways?
+- NAME? 'Jabal' (1x) vs 'Jubal' (1x) — same person/place spelled two ways?
+- NAME? 'Jakin' (1x) vs 'Jakán' (2x) — same person/place spelled two ways?
+- NAME? 'Jakán' (2x) vs 'Javán' (2x) — same person/place spelled two ways?
+- NAME? 'Jeush' (2x) vs 'Yeush' (1x) — same person/place spelled two ways?
+- NAME? 'Jimna' (1x) vs 'Timna' (3x) — same person/place spelled two ways?
+- NAME? 'Jubal' (1x) vs 'Tubal' (3x) — same person/place spelled two ways?
+- NAME? 'Lea' (18x) vs 'Leah' (18x) — same person/place spelled two ways?
+- NAME? 'Llegó' (3x) vs 'Llevó' (1x) — same person/place spelled two ways?
+- NAME? 'Machpelah' (1x) vs 'Macpela' (2x) — same person/place spelled two ways?
+- NAME? 'Macpela' (2x) vs 'Makpela' (3x) — same person/place spelled two ways?
+- NAME? 'Mambre' (1x) vs 'Mamre' (4x) — same person/place spelled two ways?
+- NAME? 'Mamre' (4x) vs 'Mamré' (5x) — same person/place spelled two ways?
+- NAME? 'Massá' (1x) vs 'Masá' (1x) — same person/place spelled two ways?
+- NAME? 'Midian' (1x) vs 'Midían' (2x) — same person/place spelled two ways?
+- NAME? 'Mila' (2x) vs 'Milca' (5x) — same person/place spelled two ways?
+- NAME? 'Multiplicaos' (2x) vs 'Multiplicaré' (1x) — same person/place spelled two ways?
+- NAME? 'Naamá' (1x) vs 'Naamán' (1x) — same person/place spelled two ways?
+- NAME? 'Naamá' (1x) vs 'Raamá' (2x) — same person/place spelled two ways?
+- NAME? 'Nachor' (12x) vs 'Nahor' (4x) — same person/place spelled two ways?
+- NAME? 'Negev' (3x) vs 'Neguev' (1x) — same person/place spelled two ways?
+- NAME? 'Padan' (7x) vs 'Padán' (3x) — same person/place spelled two ways?
+- NAME? 'Padan' (7x) vs 'Paran' (2x) — same person/place spelled two ways?
+- NAME? 'Paddán' (1x) vs 'Padán' (3x) — same person/place spelled two ways?
+- NAME? 'Palu' (1x) vs 'Pau' (1x) — same person/place spelled two ways?
+- NAME? 'Pinón' (1x) vs 'Pisón' (1x) — same person/place spelled two ways?
+- NAME? 'Polvo' (1x) vs 'Ponlo' (1x) — same person/place spelled two ways?
+- NAME? 'Qedar' (1x) vs 'Queda' (1x) — same person/place spelled two ways?
+- NAME? 'Rehobot' (1x) vs 'Rehovot' (1x) — same person/place spelled two ways?
+- NAME? 'Respondió' (1x) vs 'Respondí' (1x) — same person/place spelled two ways?
+- NAME? 'Reubén' (1x) vs 'Rubén' (12x) — same person/place spelled two ways?
+- NAME? 'Sabtecá' (1x) vs 'Sabtá' (1x) — same person/place spelled two ways?
+- NAME? 'Sabtá' (1x) vs 'Sabá' (2x) — same person/place spelled two ways?
+- NAME? 'Sal' (1x) vs 'Saul' (1x) — same person/place spelled two ways?
+- NAME? 'Sal' (1x) vs 'Saúl' (2x) — same person/place spelled two ways?
+- NAME? 'Salva' (1x) vs 'Salvame' (1x) — same person/place spelled two ways?
+- NAME? 'Salva' (1x) vs 'Samla' (2x) — same person/place spelled two ways?
+- NAME? 'Sara' (42x) vs 'Sarai' (2x) — same person/place spelled two ways?
+- NAME? 'Saré' (1x) vs 'Saé' (1x) — same person/place spelled two ways?
+- NAME? 'Sefar' (1x) vs 'Senar' (2x) — same person/place spelled two ways?
+- NAME? 'Senar' (2x) vs 'Senaár' (2x) — same person/place spelled two ways?
+- NAME? 'Será' (3x) vs 'Serás' (1x) — same person/place spelled two ways?
+- NAME? 'Sidón' (2x) vs 'Simón' (2x) — same person/place spelled two ways?
+- NAME? 'Simeón' (9x) vs 'Simrón' (1x) — same person/place spelled two ways?
+- NAME? 'Simeón' (9x) vs 'Simón' (2x) — same person/place spelled two ways?
+- NAME? 'Simrón' (1x) vs 'Simón' (2x) — same person/place spelled two ways?
+- NAME? 'Sácalo' (1x) vs 'Sácalos' (1x) — same person/place spelled two ways?
+- NAME? 'Tebah' (1x) vs 'Terah' (8x) — same person/place spelled two ways?
+- NAME? 'Tienen' (2x) vs 'Tienes' (1x) — same person/place spelled two ways?
+- NAME? 'Timna' (3x) vs 'Timná' (3x) — same person/place spelled two ways?
+- NAME? 'Timna' (3x) vs 'Timán' (3x) — same person/place spelled two ways?
+- NAME? 'Timná' (3x) vs 'Timán' (3x) — same person/place spelled two ways?
+- NAME? 'Traigan' (1x) vs 'Traiganla' (1x) — same person/place spelled two ways?
+- NAME? 'Tsivéón' (2x) vs 'Tzivéón' (4x) — same person/place spelled two ways?
+- NAME? 'Tsoar' (2x) vs 'Tzoar' (3x) — same person/place spelled two ways?
+- NAME? 'Tzoar' (3x) vs 'Tzohar' (2x) — same person/place spelled two ways?
+- NAME? 'Vamos' (5x) vs 'Vimos' (2x) — same person/place spelled two ways?
+- NAME? 'Vende' (1x) vs 'Venid' (1x) — same person/place spelled two ways?
+- NAME? 'Vino' (1x) vs 'Vio' (1x) — same person/place spelled two ways?
+- NAME? 'Zila' (3x) vs 'Zilpa' (7x) — same person/place spelled two ways?
+- NAME? 'Conoce' (1x) vs 'Conoced' (1x) — same person/place spelled two ways?
+- NAME? 'Considerad' (2x) vs 'Consideró' (1x) — same person/place spelled two ways?
+- NAME? 'Baal' (3x) vs 'Baales' (1x) — same person/place spelled two ways?
+- NAME? 'Efraím' (34x) vs 'Efraín' (1x) — same person/place spelled two ways?
+- NAME? 'Israel' (44x) vs 'Izrael' (3x) — same person/place spelled two ways?
+- NAME? 'Regresaron' (1x) vs 'Regresarán' (1x) — same person/place spelled two ways?
+- NAME? 'Sembraron' (1x) vs 'Siembran' (1x) — same person/place spelled two ways?
+- NAME? 'Acercad' (2x) vs 'Acercadme' (1x) — same person/place spelled two ways?
+- NAME? 'Alegraos' (1x) vs 'Alegretaos' (1x) — same person/place spelled two ways?
+- NAME? 'Alegraos' (1x) vs 'Alegría' (1x) — same person/place spelled two ways?
+- NAME? 'Alegraos' (1x) vs 'Alejaos' (1x) — same person/place spelled two ways?
+- NAME? 'Alejadnos' (1x) vs 'Alejaos' (1x) — same person/place spelled two ways?
+- NAME? 'Anda' (2x) vs 'Andan' (1x) — same person/place spelled two ways?
+- NAME? 'Anunciad' (1x) vs 'Anuncio' (2x) — same person/place spelled two ways?
+- NAME? 'Anímense' (1x) vs 'Anímese' (1x) — same person/place spelled two ways?
+- NAME? 'Arad' (1x) vs 'Arpad' (2x) — same person/place spelled two ways?
+- NAME? 'Aram' (5x) vs 'Aramea' (1x) — same person/place spelled two ways?
+- NAME? 'Bienaventurado' (1x) vs 'Bienaventurados' (1x) — same person/place spelled two ways?
+- NAME? 'Buen' (1x) vs 'Buena' (1x) — same person/place spelled two ways?
+- NAME? 'Buscad' (1x) vs 'Buscada' (1x) — same person/place spelled two ways?
+- NAME? 'Buscarán' (1x) vs 'Buscarás' (1x) — same person/place spelled two ways?
+- NAME? 'Caerá' (1x) vs 'Caerán' (1x) — same person/place spelled two ways?
+- NAME? 'Camino' (1x) vs 'Caminó' (1x) — same person/place spelled two ways?
+- NAME? 'Canta' (1x) vs 'Cantad' (3x) — same person/place spelled two ways?
+- NAME? 'Canta' (1x) vs 'Cantaré' (1x) — same person/place spelled two ways?
+- NAME? 'Carmel' (5x) vs 'Carmelo' (1x) — same person/place spelled two ways?
+- NAME? 'Casa' (1x) vs 'Casada' (1x) — same person/place spelled two ways?
+- NAME? 'Ciudad' (3x) vs 'Cuidad' (1x) — same person/place spelled two ways?
+- NAME? 'Clama' (1x) vs 'Clamad' (1x) — same person/place spelled two ways?
+- NAME? 'Clama' (1x) vs 'Llama' (1x) — same person/place spelled two ways?
+- NAME? 'Confían' (1x) vs 'Confías' (1x) — same person/place spelled two ways?
+- NAME? 'Corta' (1x) vs 'Corte' (1x) — same person/place spelled two ways?
+- NAME? 'Cus' (4x) vs 'Cush' (2x) — same person/place spelled two ways?
+- NAME? 'Decid' (4x) vs 'Decidlo' (1x) — same person/place spelled two ways?
+- NAME? 'Decidlo' (1x) vs 'Decidnos' (1x) — same person/place spelled two ways?
+- NAME? 'Dejad' (2x) vs 'Dejadme' (1x) — same person/place spelled two ways?
+- NAME? 'Dibón' (1x) vs 'Dimón' (2x) — same person/place spelled two ways?
+- NAME? 'Efrain' (2x) vs 'Efraín' (3x) — same person/place spelled two ways?
+- NAME? 'Efraím' (8x) vs 'Efraín' (3x) — same person/place spelled two ways?
+- NAME? 'Eglaím' (1x) vs 'Elam' (3x) — same person/place spelled two ways?
+- NAME? 'Escucha' (3x) vs 'Escuchad' (9x) — same person/place spelled two ways?
+- NAME? 'Escucha' (3x) vs 'Escuche' (1x) — same person/place spelled two ways?
+- NAME? 'Escuchad' (9x) vs 'Escuchadme' (5x) — same person/place spelled two ways?
+- NAME? 'Escuchad' (9x) vs 'Escuche' (1x) — same person/place spelled two ways?
+- NAME? 'Esperaba' (1x) vs 'Esperaban' (1x) — same person/place spelled two ways?
+- NAME? 'Esto' (4x) vs 'Estoy' (1x) — same person/place spelled two ways?
+- NAME? 'Está' (2x) vs 'Estás' (1x) — same person/place spelled two ways?
+- NAME? 'Habla' (1x) vs 'Hablad' (1x) — same person/place spelled two ways?
+- NAME? 'Habla' (1x) vs 'Hablé' (1x) — same person/place spelled two ways?
+- NAME? 'Habla' (1x) vs 'Había' (1x) — same person/place spelled two ways?
+- NAME? 'Haced' (1x) vs 'Hacedor' (3x) — same person/place spelled two ways?
+- NAME? 'Hagan' (2x) vs 'Haran' (1x) — same person/place spelled two ways?
+- NAME? 'Inclina' (1x) vs 'Inclinaos' (1x) — same person/place spelled two ways?
+- NAME? 'Inclina' (1x) vs 'Inclinen' (1x) — same person/place spelled two ways?
+- NAME? 'Jesbón' (1x) vs 'Kesbón' (2x) — same person/place spelled two ways?
+- NAME? 'Lachis' (2x) vs 'Lais' (1x) — same person/place spelled two ways?
+- NAME? 'Lamenta' (1x) vs 'Lamentará' (1x) — same person/place spelled two ways?
+- NAME? 'Lamenta' (1x) vs 'Lamenten' (3x) — same person/place spelled two ways?
+- NAME? 'Lebano' (1x) vs 'Líbano' (8x) — same person/place spelled two ways?
+- NAME? 'Levantad' (1x) vs 'Levantaos' (3x) — same person/place spelled two ways?
+- NAME? 'Levantad' (1x) vs 'Levantaré' (1x) — same person/place spelled two ways?
+- NAME? 'Llama' (1x) vs 'Llaman' (1x) — same person/place spelled two ways?
+- NAME? 'Llama' (1x) vs 'Llamo' (1x) — same person/place spelled two ways?
+- NAME? 'Madian' (1x) vs 'Madián' (1x) — same person/place spelled two ways?
+- NAME? 'Madian' (1x) vs 'Midian' (1x) — same person/place spelled two ways?
+- NAME? 'Mas' (1x) vs 'Masá' (1x) — same person/place spelled two ways?
+- NAME? 'Media' (1x) vs 'Meditad' (1x) — same person/place spelled two ways?
+- NAME? 'Nosotros' (1x) vs 'Vosotros' (3x) — same person/place spelled two ways?
+- NAME? 'Nuestros' (1x) vs 'Vuestro' (1x) — same person/place spelled two ways?
+- NAME? 'Nuestros' (1x) vs 'Vuestros' (1x) — same person/place spelled two ways?
+- NAME? 'Ozías' (2x) vs 'Uzías' (1x) — same person/place spelled two ways?
+- NAME? 'Pasan' (1x) vs 'Pasen' (1x) — same person/place spelled two ways?
+- NAME? 'Pondré' (1x) vs 'Poneré' (1x) — same person/place spelled two ways?
+- NAME? 'Pone' (1x) vs 'Poneré' (1x) — same person/place spelled two ways?
+- NAME? 'Pueblo' (1x) vs 'Pueblos' (1x) — same person/place spelled two ways?
+- NAME? 'Qedar' (4x) vs 'Quedará' (3x) — same person/place spelled two ways?
+- NAME? 'Rasin' (3x) vs 'Rasín' (1x) — same person/place spelled two ways?
+- NAME? 'Samaria' (3x) vs 'Samaría' (5x) — same person/place spelled two ways?
+- NAME? 'Sarquón' (1x) vs 'Sarón' (2x) — same person/place spelled two ways?
+- NAME? 'Sebna' (5x) vs 'Senar' (1x) — same person/place spelled two ways?
+- NAME? 'Será' (2x) vs 'Serán' (1x) — same person/place spelled two ways?
+- NAME? 'Serán' (1x) vs 'Verán' (2x) — same person/place spelled two ways?
+- NAME? 'Sion' (1x) vs 'Son' (2x) — same person/place spelled two ways?
+- NAME? 'Tabal' (1x) vs 'Tubal' (1x) — same person/place spelled two ways?
+- NAME? 'Tendrán' (1x) vs 'Vendrán' (1x) — same person/place spelled two ways?
+- NAME? 'Vendrá' (1x) vs 'Vendrán' (1x) — same person/place spelled two ways?
+- NAME? 'Vendrán' (1x) vs 'Verán' (2x) — same person/place spelled two ways?
+- NAME? 'Vuestro' (1x) vs 'Vuestros' (1x) — same person/place spelled two ways?
+- NAME? 'Pidan' (1x) vs 'Piden' (1x) — same person/place spelled two ways?
+- NAME? 'Abandonado' (1x) vs 'Abandonaré' (1x) — same person/place spelled two ways?
+- NAME? 'Alza' (1x) vs 'Alzad' (3x) — same person/place spelled two ways?
+- NAME? 'Anatot' (2x) vs 'Anatoth' (2x) — same person/place spelled two ways?
+- NAME? 'Anatot' (2x) vs 'Anot' (1x) — same person/place spelled two ways?
+- NAME? 'Arnon' (1x) vs 'Arnoé' (1x) — same person/place spelled two ways?
+- NAME? 'Azanías' (1x) vs 'Azarías' (1x) — same person/place spelled two ways?
+- NAME? 'Baruc' (21x) vs 'Barúc' (2x) — same person/place spelled two ways?
+- NAME? 'Cada' (5x) vs 'Caldea' (2x) — same person/place spelled two ways?
+- NAME? 'Carmel' (2x) vs 'Carmelo' (3x) — same person/place spelled two ways?
+- NAME? 'Clama' (3x) vs 'Clamad' (1x) — same person/place spelled two ways?
+- NAME? 'Clamad' (1x) vs 'Llamad' (1x) — same person/place spelled two ways?
+- NAME? 'Corta' (1x) vs 'Cortad' (1x) — same person/place spelled two ways?
+- NAME? 'Corta' (1x) vs 'Cortaré' (1x) — same person/place spelled two ways?
+- NAME? 'Dadle' (1x) vs 'Dadlo' (2x) — same person/place spelled two ways?
+- NAME? 'Derrama' (1x) vs 'Derramaré' (1x) — same person/place spelled two ways?
+- NAME? 'Dice' (1x) vs 'Dicen' (1x) — same person/place spelled two ways?
+- NAME? 'Digan' (4x) vs 'Dijan' (1x) — same person/place spelled two ways?
+- NAME? 'Digan' (4x) vs 'Oigan' (3x) — same person/place spelled two ways?
+- NAME? 'Dolores' (1x) vs 'Dolorosa' (1x) — same person/place spelled two ways?
+- NAME? 'Envía' (1x) vs 'Envío' (1x) — same person/place spelled two ways?
+- NAME? 'Escucha' (3x) vs 'Escuchad' (8x) — same person/place spelled two ways?
+- NAME? 'Escucha' (3x) vs 'Escuché' (1x) — same person/place spelled two ways?
+- NAME? 'Escucha' (3x) vs 'Escuchó' (1x) — same person/place spelled two ways?
+- NAME? 'Escuchad' (8x) vs 'Escuché' (1x) — same person/place spelled two ways?
+- NAME? 'Escuchad' (8x) vs 'Escuchó' (1x) — same person/place spelled two ways?
+- NAME? 'Escuchamos' (1x) vs 'Escucharemos' (1x) — same person/place spelled two ways?
+- NAME? 'Escuchamos' (1x) vs 'Escucharon' (1x) — same person/place spelled two ways?
+- NAME? 'Escucharemos' (1x) vs 'Escucharon' (1x) — same person/place spelled two ways?
+- NAME? 'Escuché' (1x) vs 'Escuchó' (1x) — same person/place spelled two ways?
+- NAME? 'Eufrates' (1x) vs 'Éufrates' (7x) — same person/place spelled two ways?
+- NAME? 'Ezequías' (2x) vs 'Mequías' (2x) — same person/place spelled two ways?
+- NAME? 'Galaad' (2x) vs 'Galad' (1x) — same person/place spelled two ways?
+- NAME? 'Gebuón' (2x) vs 'Gebón' (1x) — same person/place spelled two ways?
+- NAME? 'Gedalia' (7x) vs 'Gedalía' (11x) — same person/place spelled two ways?
+- NAME? 'Gedalia' (7x) vs 'Gedalíah' (1x) — same person/place spelled two ways?
+- NAME? 'Gedalyahu' (1x) vs 'Gedalíah' (1x) — same person/place spelled two ways?
+- NAME? 'Gedalía' (11x) vs 'Gedalíah' (1x) — same person/place spelled two ways?
+- NAME? 'Gemaría' (3x) vs 'Gemarías' (1x) — same person/place spelled two ways?
+- NAME? 'Hablé' (1x) vs 'Habló' (1x) — same person/place spelled two ways?
+- NAME? 'Hanamel' (4x) vs 'Hananeel' (1x) — same person/place spelled two ways?
+- NAME? 'Haremos' (1x) vs 'Harémos' (1x) — same person/place spelled two ways?
+- NAME? 'Haremos' (1x) vs 'Hemos' (2x) — same person/place spelled two ways?
+- NAME? 'Higos' (1x) vs 'Hijos' (1x) — same person/place spelled two ways?
+- NAME? 'Hijo' (1x) vs 'Hijos' (1x) — same person/place spelled two ways?
+- NAME? 'Ismael' (20x) vs 'Israel' (122x) — same person/place spelled two ways?
+- NAME? 'Jeremías' (122x) vs 'Jermías' (1x) — same person/place spelled two ways?
+- NAME? 'Joacim' (7x) vs 'Joiacim' (2x) — same person/place spelled two ways?
+- NAME? 'Joaquím' (2x) vs 'Joaquín' (12x) — same person/place spelled two ways?
+- NAME? 'Joiacim' (2x) vs 'Joiakim' (2x) — same person/place spelled two ways?
+- NAME? 'Jonadán' (1x) vs 'Jonatán' (6x) — same person/place spelled two ways?
+- NAME? 'Jonadán' (1x) vs 'Jonán' (14x) — same person/place spelled two ways?
+- NAME? 'Jonatán' (6x) vs 'Jonán' (14x) — same person/place spelled two ways?
+- NAME? 'Levantad' (1x) vs 'Levantaos' (3x) — same person/place spelled two ways?
+- NAME? 'Luego' (1x) vs 'Ruego' (1x) — same person/place spelled two ways?
+- NAME? 'Maasé' (1x) vs 'Maaséa' (1x) — same person/place spelled two ways?
+- NAME? 'Maasé' (1x) vs 'Manasés' (1x) — same person/place spelled two ways?
+- NAME? 'Maaséa' (1x) vs 'Maaséías' (4x) — same person/place spelled two ways?
+- NAME? 'Maaséías' (4x) vs 'Maasías' (1x) — same person/place spelled two ways?
+- NAME? 'Maaséías' (4x) vs 'Manasés' (1x) — same person/place spelled two ways?
+- NAME? 'Matán' (1x) vs 'Natán' (1x) — same person/place spelled two ways?
+- NAME? 'Melquías' (1x) vs 'Mequías' (2x) — same person/place spelled two ways?
+- NAME? 'Mequías' (2x) vs 'Zedquías' (3x) — same person/place spelled two ways?
+- NAME? 'Morirán' (2x) vs 'Morirás' (1x) — same person/place spelled two ways?
+- NAME? 'Nabuzaradán' (3x) vs 'Nebuzaradán' (1x) — same person/place spelled two ways?
+- NAME? 'Poned' (1x) vs 'Ponte' (1x) — same person/place spelled two ways?
+- NAME? 'Pregunta' (1x) vs 'Preguntad' (1x) — same person/place spelled two ways?
+- NAME? 'Pregunta' (1x) vs 'Pregunten' (1x) — same person/place spelled two ways?
+- NAME? 'Preparad' (1x) vs 'Preparaos' (1x) — same person/place spelled two ways?
+- NAME? 'Preparen' (2x) vs 'Preparense' (1x) — same person/place spelled two ways?
+- NAME? 'Quien' (1x) vs 'Quiten' (1x) — same person/place spelled two ways?
+- NAME? 'Quizá' (2x) vs 'Quizás' (2x) — same person/place spelled two ways?
+- NAME? 'Regresa' (1x) vs 'Regresará' (1x) — same person/place spelled two ways?
+- NAME? 'Regresa' (1x) vs 'Regresen' (2x) — same person/place spelled two ways?
+- NAME? 'Reina' (4x) vs 'Reinó' (1x) — same person/place spelled two ways?
+- NAME? 'Reuní' (1x) vs 'Reuníos' (1x) — same person/place spelled two ways?
+- NAME? 'Ribla' (1x) vs 'Riblata' (4x) — same person/place spelled two ways?
+- NAME? 'Ruega' (1x) vs 'Ruego' (1x) — same person/place spelled two ways?
+- NAME? 'Sabemos' (1x) vs 'Sabes' (1x) — same person/place spelled two ways?
+- NAME? 'Salomón' (1x) vs 'Saoón' (1x) — same person/place spelled two ways?
+- NAME? 'Samaria' (1x) vs 'Samaría' (2x) — same person/place spelled two ways?
+- NAME? 'Saoón' (1x) vs 'Shaon' (1x) — same person/place spelled two ways?
+- NAME? 'Saraya' (1x) vs 'Seraya' (2x) — same person/place spelled two ways?
+- NAME? 'Sedecías' (21x) vs 'Sedeqías' (2x) — same person/place spelled two ways?
+- NAME? 'Sedecías' (21x) vs 'Zedecías' (12x) — same person/place spelled two ways?
+- NAME? 'Semaya' (1x) vs 'Seraya' (2x) — same person/place spelled two ways?
+- NAME? 'Sembraron' (1x) vs 'Siembran' (1x) — same person/place spelled two ways?
+- NAME? 'Será' (2x) vs 'Serán' (2x) — same person/place spelled two ways?
+- NAME? 'Sidón' (3x) vs 'Sihón' (1x) — same person/place spelled two ways?
+- NAME? 'Sidón' (3x) vs 'Sión' (14x) — same person/place spelled two ways?
+- NAME? 'Sihón' (1x) vs 'Sión' (14x) — same person/place spelled two ways?
+- NAME? 'Tahpanhes' (5x) vs 'Taphnhes' (1x) — same person/place spelled two ways?
+- NAME? 'Torá' (4x) vs 'Toráh' (2x) — same person/place spelled two ways?
+- NAME? 'Trae' (1x) vs 'Traed' (1x) — same person/place spelled two ways?
+- NAME? 'Tzefanías' (2x) vs 'Zefanías' (2x) — same person/place spelled two ways?
+- NAME? 'Téiman' (1x) vs 'Téma' (1x) — same person/place spelled two ways?
+- NAME? 'Vamos' (4x) vs 'Venamos' (1x) — same person/place spelled two ways?
+- NAME? 'Vendrá' (1x) vs 'Vendrán' (1x) — same person/place spelled two ways?
+- NAME? 'Venid' (1x) vs 'Venidas' (1x) — same person/place spelled two ways?
+- NAME? 'Aleja' (2x) vs 'Alejate' (1x) — same person/place spelled two ways?
+- NAME? 'Alejate' (1x) vs 'Aléjate' (2x) — same person/place spelled two ways?
+- NAME? 'Beldad' (1x) vs 'Bildad' (4x) — same person/place spelled two ways?
+- NAME? 'Caminaba' (1x) vs 'Caminan' (1x) — same person/place spelled two ways?
+- NAME? 'Caminan' (1x) vs 'Caminaré' (1x) — same person/place spelled two ways?
+- NAME? 'Cuándo' (1x) vs 'Cuánto' (1x) — same person/place spelled two ways?
+- NAME? 'Escucha' (5x) vs 'Escuchará' (1x) — same person/place spelled two ways?
+- NAME? 'Habitan' (1x) vs 'Habitará' (1x) — same person/place spelled two ways?
+- NAME? 'Habla' (2x) vs 'Hablaré' (1x) — same person/place spelled two ways?
+- NAME? 'Habla' (2x) vs 'Había' (1x) — same person/place spelled two ways?
+- NAME? 'Habrá' (1x) vs 'Harás' (2x) — same person/place spelled two ways?
+- NAME? 'Hace' (1x) vs 'Haced' (1x) — same person/place spelled two ways?
+- NAME? 'Pon' (1x) vs 'Pone' (1x) — same person/place spelled two ways?
+- NAME? 'Será' (2x) vs 'Serán' (1x) — same person/place spelled two ways?
+- NAME? 'Serán' (1x) vs 'Verán' (1x) — same person/place spelled two ways?
+- NAME? 'Sofar' (3x) vs 'Zofar' (1x) — same person/place spelled two ways?
+- NAME? 'Sujeta' (1x) vs 'Sujita' (1x) — same person/place spelled two ways?
+- NAME? 'Tendrás' (1x) vs 'Vendrás' (1x) — same person/place spelled two ways?
+- NAME? 'Toma' (1x) vs 'Toman' (1x) — same person/place spelled two ways?
+- NAME? 'Toman' (1x) vs 'Téman' (1x) — same person/place spelled two ways?
+- NAME? 'Vendrás' (1x) vs 'Verás' (1x) — same person/place spelled two ways?
+- NAME? 'Verán' (1x) vs 'Verás' (1x) — same person/place spelled two ways?
+- NAME? 'Entre' (1x) vs 'Entren' (1x) — same person/place spelled two ways?
+- NAME? 'Sidón' (1x) vs 'Sión' (7x) — same person/place spelled two ways?
+- NAME? 'Betania' (5x) vs 'Betsaida' (2x) — same person/place spelled two ways?
+- NAME? 'Betesda' (1x) vs 'Betsaida' (2x) — same person/place spelled two ways?
+- NAME? 'Decía' (1x) vs 'Decían' (4x) — same person/place spelled two ways?
+- NAME? 'Era' (7x) vs 'Eran' (2x) — same person/place spelled two ways?
+- NAME? 'Escritura' (10x) vs 'Escrituras' (2x) — same person/place spelled two ways?
+- NAME? 'Eso' (1x) vs 'Esto' (3x) — same person/place spelled two ways?
+- NAME? 'Estaba' (6x) vs 'Estaban' (3x) — same person/place spelled two ways?
+- NAME? 'Había' (8x) vs 'Habían' (1x) — same person/place spelled two ways?
+- NAME? 'Había' (8x) vs 'Sabía' (1x) — same person/place spelled two ways?
+- NAME? 'Hemos' (3x) vs 'Vemos' (1x) — same person/place spelled two ways?
+- NAME? 'Hijo' (37x) vs 'Hijos' (1x) — same person/place spelled two ways?
+- NAME? 'Jesus' (1x) vs 'Jesús' (242x) — same person/place spelled two ways?
+- NAME? 'Judas' (11x) vs 'Judea' (7x) — same person/place spelled two ways?
+- NAME? 'Marta' (8x) vs 'María' (15x) — same person/place spelled two ways?
+- NAME? 'Nazareno' (2x) vs 'Nazaret' (2x) — same person/place spelled two ways?
+- NAME? 'Nuestro' (2x) vs 'Nuestros' (2x) — same person/place spelled two ways?
+- NAME? 'Otro' (1x) vs 'Otros' (6x) — same person/place spelled two ways?
+- NAME? 'Quien' (2x) vs 'Quieren' (1x) — same person/place spelled two ways?
+- NAME? 'Quieren' (1x) vs 'Quieres' (1x) — same person/place spelled two ways?
+- NAME? 'Quitar' (1x) vs 'Quitaron' (1x) — same person/place spelled two ways?
+- NAME? 'Salim' (1x) vs 'Salió' (1x) — same person/place spelled two ways?
+- NAME? 'Santo' (4x) vs 'Tanto' (1x) — same person/place spelled two ways?
+- NAME? 'Simón' (24x) vs 'Sión' (1x) — same person/place spelled two ways?
+- NAME? 'Tengo' (5x) vs 'Vengo' (1x) — same person/place spelled two ways?
+- NAME? 'Tiene' (1x) vs 'Tienes' (2x) — same person/place spelled two ways?
+- NAME? 'Vamos' (4x) vs 'Vemos' (1x) — same person/place spelled two ways?
+- NAME? 'Aarón' (6x) vs 'Arnón' (3x) — same person/place spelled two ways?
+- NAME? 'Abdon' (1x) vs 'Adoni' (2x) — same person/place spelled two ways?
+- NAME? 'Acabo' (1x) vs 'Acaso' (2x) — same person/place spelled two ways?
+- NAME? 'Acuérdense' (1x) vs 'Acérquense' (2x) — same person/place spelled two ways?
+- NAME? 'Adadá' (1x) vs 'Adará' (1x) — same person/place spelled two ways?
+- NAME? 'Adama' (1x) vs 'Adami' (1x) — same person/place spelled two ways?
+- NAME? 'Adar' (2x) vs 'Adará' (1x) — same person/place spelled two ways?
+- NAME? 'Adumim' (1x) vs 'Adummim' (1x) — same person/place spelled two ways?
+- NAME? 'Ailón' (1x) vs 'Almón' (1x) — same person/place spelled two ways?
+- NAME? 'Almón' (1x) vs 'Amón' (3x) — same person/place spelled two ways?
+- NAME? 'Anot' (1x) vs 'Anotot' (1x) — same person/place spelled two ways?
+- NAME? 'Apeca' (1x) vs 'Azeca' (2x) — same person/place spelled two ways?
+- NAME? 'Araba' (1x) vs 'Arabah' (2x) — same person/place spelled two ways?
+- NAME? 'Araba' (1x) vs 'Arba' (5x) — same person/place spelled two ways?
+- NAME? 'Arabah' (2x) vs 'Arba' (5x) — same person/place spelled two ways?
+- NAME? 'Arnon' (2x) vs 'Arnón' (3x) — same person/place spelled two ways?
+- NAME? 'Aroer' (1x) vs 'Aróer' (3x) — same person/place spelled two ways?
+- NAME? 'Asdod' (3x) vs 'Asdot' (1x) — same person/place spelled two ways?
+- NAME? 'Asdot' (1x) vs 'Ashdotí' (1x) — same person/place spelled two ways?
+- NAME? 'Asem' (1x) vs 'Atsem' (1x) — same person/place spelled two ways?
+- NAME? 'Ashtarot' (4x) vs 'Ataroth' (4x) — same person/place spelled two ways?
+- NAME? 'Ayalón' (2x) vs 'Ayón' (1x) — same person/place spelled two ways?
+- NAME? 'Baal' (5x) vs 'Baala' (3x) — same person/place spelled two ways?
+- NAME? 'Baal' (5x) vs 'Baalat' (1x) — same person/place spelled two ways?
+- NAME? 'Baala' (3x) vs 'Baalat' (1x) — same person/place spelled two ways?
+- NAME? 'Baala' (3x) vs 'Balac' (1x) — same person/place spelled two ways?
+- NAME? 'Beer' (2x) vs 'Beerot' (2x) — same person/place spelled two ways?
+- NAME? 'Beer' (2x) vs 'Betser' (2x) — same person/place spelled two ways?
+- NAME? 'Beit' (11x) vs 'Bet' (27x) — same person/place spelled two ways?
+- NAME? 'Ben' (2x) vs 'Bené' (4x) — same person/place spelled two ways?
+- NAME? 'Betel' (7x) vs 'Beten' (1x) — same person/place spelled two ways?
+- NAME? 'Betel' (7x) vs 'Bethel' (2x) — same person/place spelled two ways?
+- NAME? 'Betel' (7x) vs 'Betul' (1x) — same person/place spelled two ways?
+- NAME? 'Bilam' (2x) vs 'Bilbaam' (1x) — same person/place spelled two ways?
+- NAME? 'Cana' (1x) vs 'Canaán' (8x) — same person/place spelled two ways?
+- NAME? 'Canaán' (8x) vs 'Caná' (2x) — same person/place spelled two ways?
+- NAME? 'Carmi' (2x) vs 'Carmá' (1x) — same person/place spelled two ways?
+- NAME? 'Cesbón' (1x) vs 'Chesbón' (7x) — same person/place spelled two ways?
+- NAME? 'Cesbón' (1x) vs 'Hesbón' (1x) — same person/place spelled two ways?
+- NAME? 'Debar' (1x) vs 'Debir' (9x) — same person/place spelled two ways?
+- NAME? 'Dimón' (1x) vs 'Divón' (2x) — same person/place spelled two ways?
+- NAME? 'Dimón' (1x) vs 'Rimón' (4x) — same person/place spelled two ways?
+- NAME? 'Dóar' (1x) vs 'Dór' (1x) — same person/place spelled two ways?
+- NAME? 'Dór' (1x) vs 'Dórr' (2x) — same person/place spelled two ways?
+- NAME? 'Ecron' (2x) vs 'Ecroní' (1x) — same person/place spelled two ways?
+- NAME? 'Ecron' (2x) vs 'Efron' (1x) — same person/place spelled two ways?
+- NAME? 'Ecron' (2x) vs 'Ekron' (3x) — same person/place spelled two ways?
+- NAME? 'Efraím' (13x) vs 'Efraín' (5x) — same person/place spelled two ways?
+- NAME? 'Efron' (1x) vs 'Ekron' (3x) — same person/place spelled two ways?
+- NAME? 'Eglon' (1x) vs 'Eglón' (7x) — same person/place spelled two ways?
+- NAME? 'Eglon' (1x) vs 'Elon' (1x) — same person/place spelled two ways?
+- NAME? 'Elazar' (4x) vs 'Eleazar' (3x) — same person/place spelled two ways?
+- NAME? 'Elazar' (4x) vs 'Eléazar' (1x) — same person/place spelled two ways?
+- NAME? 'Eleazar' (3x) vs 'Eléazar' (1x) — same person/place spelled two ways?
+- NAME? 'Eltekeh' (1x) vs 'Eltekeá' (1x) — same person/place spelled two ways?
+- NAME? 'Eshtaol' (1x) vs 'Esthaol' (1x) — same person/place spelled two ways?
+- NAME? 'Ganim' (2x) vs 'Ganin' (1x) — same person/place spelled two ways?
+- NAME? 'Geba' (1x) vs 'Gueba' (10x) — same person/place spelled two ways?
+- NAME? 'Gesén' (2x) vs 'Gosén' (1x) — same person/place spelled two ways?
+- NAME? 'Gibón' (1x) vs 'Guibeón' (1x) — same person/place spelled two ways?
+- NAME? 'Givat' (1x) vs 'Givatón' (1x) — same person/place spelled two ways?
+- NAME? 'Haarava' (1x) vs 'Haaravá' (1x) — same person/place spelled two ways?
+- NAME? 'Habla' (1x) vs 'Hagla' (2x) — same person/place spelled two ways?
+- NAME? 'Hada' (1x) vs 'Hadatá' (1x) — same person/place spelled two ways?
+- NAME? 'Hagla' (2x) vs 'Haglah' (1x) — same person/place spelled two ways?
+- NAME? 'Hamat' (2x) vs 'Hamot' (1x) — same person/place spelled two ways?
+- NAME? 'Hamat' (2x) vs 'Ramat' (2x) — same person/place spelled two ways?
+- NAME? 'Hamor' (1x) vs 'Hamot' (1x) — same person/place spelled two ways?
+- NAME? 'Hamor' (1x) vs 'Hazor' (5x) — same person/place spelled two ways?
+- NAME? 'Hamot' (1x) vs 'Ramot' (2x) — same person/place spelled two ways?
+- NAME? 'Hatsar' (2x) vs 'Hatsor' (6x) — same person/place spelled two ways?
+- NAME? 'Hebrón' (15x) vs 'Hermón' (6x) — same person/place spelled two ways?
+- NAME? 'Hebrón' (15x) vs 'Hesbón' (1x) — same person/place spelled two ways?
+- NAME? 'Hefer' (2x) vs 'Kefer' (2x) — same person/place spelled two ways?
+- NAME? 'Helep' (1x) vs 'Heleph' (1x) — same person/place spelled two ways?
+- NAME? 'Hepher' (1x) vs 'Sepher' (2x) — same person/place spelled two ways?
+- NAME? 'Hermon' (1x) vs 'Hermón' (6x) — same person/place spelled two ways?
+- NAME? 'Hoam' (1x) vs 'Horam' (1x) — same person/place spelled two ways?
+- NAME? 'Holón' (2x) vs 'Horón' (7x) — same person/place spelled two ways?
+- NAME? 'Isacar' (2x) vs 'Issacar' (4x) — same person/place spelled two ways?
+- NAME? 'Iserel' (1x) vs 'Israel' (151x) — same person/place spelled two ways?
+- NAME? 'Jair' (1x) vs 'Jatir' (1x) — same person/place spelled two ways?
+- NAME? 'Jarmut' (2x) vs 'Yarmut' (4x) — same person/place spelled two ways?
+- NAME? 'Jatir' (1x) vs 'Yatir' (1x) — same person/place spelled two ways?
+- NAME? 'Jebus' (1x) vs 'Jebuseo' (1x) — same person/place spelled two ways?
+- NAME? 'Jericó' (28x) vs 'Jericón' (1x) — same person/place spelled two ways?
+- NAME? 'Josué' (167x) vs 'José' (11x) — same person/place spelled two ways?
+- NAME? 'Kartá' (1x) vs 'Kartán' (1x) — same person/place spelled two ways?
+- NAME? 'Kirjat' (11x) vs 'Kiryat' (4x) — same person/place spelled two ways?
+- NAME? 'Labat' (1x) vs 'Labnat' (1x) — same person/place spelled two ways?
+- NAME? 'Lacis' (7x) vs 'Lakis' (2x) — same person/place spelled two ways?
+- NAME? 'Levantado' (2x) vs 'Levantaron' (2x) — same person/place spelled two ways?
+- NAME? 'Machanaim' (2x) vs 'Machanayim' (1x) — same person/place spelled two ways?
+- NAME? 'Machir' (2x) vs 'Macir' (2x) — same person/place spelled two ways?
+- NAME? 'Mar' (4x) vs 'Mara' (1x) — same person/place spelled two ways?
+- NAME? 'Mara' (1x) vs 'Marala' (1x) — same person/place spelled two ways?
+- NAME? 'Maséjot' (1x) vs 'Misréjot' (2x) — same person/place spelled two ways?
+- NAME? 'Megido' (2x) vs 'Meguido' (1x) — same person/place spelled two ways?
+- NAME? 'Merón' (1x) vs 'Meón' (1x) — same person/place spelled two ways?
+- NAME? 'Migdal' (1x) vs 'Migdál' (1x) — same person/place spelled two ways?
+- NAME? 'Migdal' (1x) vs 'Misgal' (1x) — same person/place spelled two ways?
+- NAME? 'Misal' (1x) vs 'Misgal' (1x) — same person/place spelled two ways?
+- NAME? 'Mitzpah' (1x) vs 'Mitzpeh' (1x) — same person/place spelled two ways?
+- NAME? 'Negev' (1x) vs 'Neguev' (2x) — same person/place spelled two ways?
+- NAME? 'Rahab' (10x) vs 'Rahob' (1x) — same person/place spelled two ways?
+- NAME? 'Rahob' (1x) vs 'Rehob' (1x) — same person/place spelled two ways?
+- NAME? 'Rakat' (1x) vs 'Ramat' (2x) — same person/place spelled two ways?
+- NAME? 'Ramat' (2x) vs 'Ramot' (2x) — same person/place spelled two ways?
+- NAME? 'Rimon' (2x) vs 'Rimón' (4x) — same person/place spelled two ways?
+- NAME? 'Saca' (1x) vs 'Salca' (1x) — same person/place spelled two ways?
+- NAME? 'Salca' (1x) vs 'Salka' (1x) — same person/place spelled two ways?
+- NAME? 'Saquen' (1x) vs 'Saruen' (1x) — same person/place spelled two ways?
+- NAME? 'Sehón' (1x) vs 'Sesón' (1x) — same person/place spelled two ways?
+- NAME? 'Semes' (5x) vs 'Shemesh' (1x) — same person/place spelled two ways?
+- NAME? 'Shema' (1x) vs 'Sheva' (1x) — same person/place spelled two ways?
+- NAME? 'Sicón' (1x) vs 'Sidón' (3x) — same person/place spelled two ways?
+- NAME? 'Sicón' (1x) vs 'Sijón' (6x) — same person/place spelled two ways?
+- NAME? 'Sidón' (3x) vs 'Sijón' (6x) — same person/place spelled two ways?
+- NAME? 'Sikron' (1x) vs 'Simron' (2x) — same person/place spelled two ways?
+- NAME? 'Sikron' (1x) vs 'Sion' (1x) — same person/place spelled two ways?
+- NAME? 'Simeón' (6x) vs 'Simrón' (1x) — same person/place spelled two ways?
+- NAME? 'Simron' (2x) vs 'Simrón' (1x) — same person/place spelled two ways?
+- NAME? 'Simron' (2x) vs 'Sion' (1x) — same person/place spelled two ways?
+- NAME? 'Socho' (1x) vs 'Soco' (1x) — same person/place spelled two ways?
+- NAME? 'Sol' (1x) vs 'Solo' (7x) — same person/place spelled two ways?
+- NAME? 'Taanac' (1x) vs 'Taanaj' (2x) — same person/place spelled two ways?
+- NAME? 'Tafuaj' (1x) vs 'Tapuaj' (4x) — same person/place spelled two ways?
+- NAME? 'Tappuach' (1x) vs 'Tapuach' (1x) — same person/place spelled two ways?
+- NAME? 'Tima' (1x) vs 'Timnat' (2x) — same person/place spelled two ways?
+- NAME? 'Tsour' (1x) vs 'Tsur' (1x) — same person/place spelled two ways?
+- NAME? 'Tzi' (1x) vs 'Tzir' (1x) — same person/place spelled two ways?
+- NAME? 'Yakde' (1x) vs 'Yakte' (1x) — same person/place spelled two ways?
+- NAME? 'Yakneam' (2x) vs 'Yaqneam' (1x) — same person/place spelled two ways?
+- NAME? 'Zanoach' (1x) vs 'Zanóach' (1x) — same person/place spelled two ways?
+- NAME? 'Aarón' (1x) vs 'Sarón' (3x) — same person/place spelled two ways?
+- NAME? 'Achzib' (1x) vs 'Aczib' (1x) — same person/place spelled two ways?
+- NAME? 'Baal' (10x) vs 'Baales' (5x) — same person/place spelled two ways?
+- NAME? 'Balac' (1x) vs 'Barac' (13x) — same person/place spelled two ways?
+- NAME? 'Barac' (13x) vs 'Barah' (2x) — same person/place spelled two ways?
+- NAME? 'Bendita' (1x) vs 'Bendito' (1x) — same person/place spelled two ways?
+- NAME? 'Camón' (1x) vs 'Mamón' (1x) — same person/place spelled two ways?
+- NAME? 'Canaán' (7x) vs 'Caná' (2x) — same person/place spelled two ways?
+- NAME? 'Dadme' (1x) vs 'Dame' (3x) — same person/place spelled two ways?
+- NAME? 'Dame' (3x) vs 'Déjame' (2x) — same person/place spelled two ways?
+- NAME? 'Efra' (1x) vs 'Efrata' (2x) — same person/place spelled two ways?
+- NAME? 'Efra' (1x) vs 'Efratá' (3x) — same person/place spelled two ways?
+- NAME? 'Efra' (1x) vs 'Efraím' (23x) — same person/place spelled two ways?
+- NAME? 'Efra' (1x) vs 'Efraín' (4x) — same person/place spelled two ways?
+- NAME? 'Efrata' (2x) vs 'Efratá' (3x) — same person/place spelled two ways?
+- NAME? 'Efraím' (23x) vs 'Efraín' (4x) — same person/place spelled two ways?
+- NAME? 'Engáñale' (1x) vs 'Engáñalo' (1x) — same person/place spelled two ways?
+- NAME? 'Entre' (1x) vs 'Entrega' (1x) — same person/place spelled two ways?
+- NAME? 'Eshtaol' (3x) vs 'Etaol' (1x) — same person/place spelled two ways?
+- NAME? 'Gedem' (1x) vs 'Gesem' (1x) — same person/place spelled two ways?
+- NAME? 'Gibea' (22x) vs 'Guibe' (1x) — same person/place spelled two ways?
+- NAME? 'Ismael' (1x) vs 'Israel' (173x) — same person/place spelled two ways?
+- NAME? 'Jerubal' (11x) vs 'Jerubbaal' (1x) — same person/place spelled two ways?
+- NAME? 'Jerubbaal' (1x) vs 'Yerubbaal' (1x) — same person/place spelled two ways?
+- NAME? 'Joatán' (4x) vs 'Jonatán' (1x) — same person/place spelled two ways?
+- NAME? 'Josué' (7x) vs 'José' (3x) — same person/place spelled two ways?
+- NAME? 'Mamón' (1x) vs 'Maón' (1x) — same person/place spelled two ways?
+- NAME? 'Mispá' (2x) vs 'Mizpá' (3x) — same person/place spelled two ways?
+- NAME? 'Mizpa' (3x) vs 'Mizpá' (3x) — same person/place spelled two ways?
+- NAME? 'Nuestra' (2x) vs 'Nuestras' (1x) — same person/place spelled two ways?
+- NAME? 'Nuestra' (2x) vs 'Nuestro' (2x) — same person/place spelled two ways?
+- NAME? 'Nuestras' (1x) vs 'Nuestro' (2x) — same person/place spelled two ways?
+- NAME? 'Purá' (2x) vs 'Puá' (1x) — same person/place spelled two ways?
+- NAME? 'Quen' (1x) vs 'Quenai' (1x) — same person/place spelled two ways?
+- NAME? 'Quen' (1x) vs 'Quien' (2x) — same person/place spelled two ways?
+- NAME? 'Samgar' (1x) vs 'Shamgar' (1x) — same person/place spelled two ways?
+- NAME? 'Sidón' (2x) vs 'Sijón' (3x) — same person/place spelled two ways?
+- NAME? 'Timnat' (6x) vs 'Timnath' (1x) — same person/place spelled two ways?
+- NAME? 'Vieron' (1x) vs 'Vinieron' (1x) — same person/place spelled two ways?
+- NAME? 'Zabulón' (6x) vs 'Zebulón' (1x) — same person/place spelled two ways?
+- NAME? 'Zebul' (6x) vs 'Zebulón' (1x) — same person/place spelled two ways?
+- NAME? 'Abrieron' (1x) vs 'Cubrieron' (1x) — same person/place spelled two ways?
+- NAME? 'Dieron' (1x) vs 'Vieron' (1x) — same person/place spelled two ways?
+- NAME? 'Llamé' (3x) vs 'Llamó' (1x) — same person/place spelled two ways?
+- NAME? 'Nuestra' (3x) vs 'Nuestros' (2x) — same person/place spelled two ways?
+- NAME? 'Recuerda' (2x) vs 'Recuerdo' (1x) — same person/place spelled two ways?
+- NAME? 'Contará' (1x) vs 'Contarás' (1x) — same person/place spelled two ways?
+- NAME? 'Cualquier' (22x) vs 'Cualquiera' (7x) — same person/place spelled two ways?
+- NAME? 'Dices' (1x) vs 'Diles' (7x) — same person/place spelled two ways?
+- NAME? 'Dile' (4x) vs 'Diles' (7x) — same person/place spelled two ways?
+- NAME? 'Eso' (1x) vs 'Esos' (1x) — same person/place spelled two ways?
+- NAME? 'Eso' (1x) vs 'Esto' (1x) — same person/place spelled two ways?
+- NAME? 'Hará' (5x) vs 'Harán' (1x) — same person/place spelled two ways?
+- NAME? 'Impuras' (1x) vs 'Impuros' (2x) — same person/place spelled two ways?
+- NAME? 'Impuro' (2x) vs 'Impuros' (2x) — same person/place spelled two ways?
+- NAME? 'Llevarán' (1x) vs 'Llevarás' (1x) — same person/place spelled two ways?
+- NAME? 'Moisés' (86x) vs 'Moiséz' (1x) — same person/place spelled two ways?
+- NAME? 'Ninguna' (1x) vs 'Ninguno' (1x) — same person/place spelled two ways?
+- NAME? 'Podrá' (1x) vs 'Pondrá' (3x) — same person/place spelled two ways?
+- NAME? 'Pondrá' (3x) vs 'Ponerá' (1x) — same person/place spelled two ways?
+- NAME? 'Presentará' (1x) vs 'Presentarán' (1x) — same person/place spelled two ways?
+- NAME? 'Sabbath' (11x) vs 'Sabbaths' (2x) — same person/place spelled two ways?
+- NAME? 'Saca' (1x) vs 'Sacará' (1x) — same person/place spelled two ways?
+- NAME? 'Será' (6x) vs 'Serán' (1x) — same person/place spelled two ways?
+- NAME? 'Toma' (2x) vs 'Tomará' (4x) — same person/place spelled two ways?
+- NAME? 'Tomará' (4x) vs 'Tomarán' (1x) — same person/place spelled two ways?
+- NAME? 'Tomará' (4x) vs 'Tomarás' (1x) — same person/place spelled two ways?
+- NAME? 'Tomarán' (1x) vs 'Tomarás' (1x) — same person/place spelled two ways?
+- NAME? 'Traerá' (4x) vs 'Traerán' (2x) — same person/place spelled two ways?
+- NAME? 'Alegraos' (2x) vs 'Alegrarse' (1x) — same person/place spelled two ways?
+- NAME? 'Alma' (1x) vs 'Ama' (1x) — same person/place spelled two ways?
+- NAME? 'Ambos' (1x) vs 'Amos' (1x) — same person/place spelled two ways?
+- NAME? 'Ana' (1x) vs 'Anda' (2x) — same person/place spelled two ways?
+- NAME? 'Bendigan' (1x) vs 'Bendita' (1x) — same person/place spelled two ways?
+- NAME? 'Bendita' (1x) vs 'Bendito' (3x) — same person/place spelled two ways?
+- NAME? 'Betania' (2x) vs 'Betsaida' (1x) — same person/place spelled two ways?
+- NAME? 'Betania' (2x) vs 'Betzaida' (1x) — same person/place spelled two ways?
+- NAME? 'Betsaida' (1x) vs 'Betzaida' (1x) — same person/place spelled two ways?
+- NAME? 'Bienaventurado' (1x) vs 'Bienaventurados' (1x) — same person/place spelled two ways?
+- NAME? 'Cada' (1x) vs 'Camada' (1x) — same person/place spelled two ways?
+- NAME? 'Cien' (2x) vs 'Cirene' (1x) — same person/place spelled two ways?
+- NAME? 'Cien' (2x) vs 'Cuiden' (2x) — same person/place spelled two ways?
+- NAME? 'Cualquier' (1x) vs 'Cualquiera' (2x) — same person/place spelled two ways?
+- NAME? 'Cuántas' (1x) vs 'Cuántos' (1x) — same person/place spelled two ways?
+- NAME? 'Cuánto' (2x) vs 'Cuántos' (1x) — same person/place spelled two ways?
+- NAME? 'Dad' (1x) vs 'Dado' (1x) — same person/place spelled two ways?
+- NAME? 'Dales' (1x) vs 'Déjales' (1x) — same person/place spelled two ways?
+- NAME? 'Dicho' (3x) vs 'Dichosa' (1x) — same person/place spelled two ways?
+- NAME? 'Dicho' (3x) vs 'Dichoso' (1x) — same person/place spelled two ways?
+- NAME? 'Dichosa' (1x) vs 'Dichoso' (1x) — same person/place spelled two ways?
+- NAME? 'Dichosa' (1x) vs 'Dichosos' (5x) — same person/place spelled two ways?
+- NAME? 'Dichoso' (1x) vs 'Dichosos' (5x) — same person/place spelled two ways?
+- NAME? 'Eli' (1x) vs 'Esli' (1x) — same person/place spelled two ways?
+- NAME? 'Entre' (2x) vs 'Entré' (1x) — same person/place spelled two ways?
+- NAME? 'Entre' (2x) vs 'Entró' (3x) — same person/place spelled two ways?
+- NAME? 'Entré' (1x) vs 'Entró' (3x) — same person/place spelled two ways?
+- NAME? 'Enviare' (1x) vs 'Enviaré' (1x) — same person/place spelled two ways?
+- NAME? 'Era' (2x) vs 'Eran' (1x) — same person/place spelled two ways?
+- NAME? 'Escritura' (1x) vs 'Escrituras' (3x) — same person/place spelled two ways?
+- NAME? 'Estaba' (2x) vs 'Estaban' (1x) — same person/place spelled two ways?
+- NAME? 'Fuego' (1x) vs 'Luego' (5x) — same person/place spelled two ways?
+- NAME? 'Galilea' (13x) vs 'Galileo' (1x) — same person/place spelled two ways?
+- NAME? 'Había' (7x) vs 'Hacía' (1x) — same person/place spelled two ways?
+- NAME? 'Hace' (1x) vs 'Haced' (1x) — same person/place spelled two ways?
+- NAME? 'Herodes' (15x) vs 'Herodías' (1x) — same person/place spelled two ways?
+- NAME? 'Hija' (1x) vs 'Hijas' (1x) — same person/place spelled two ways?
+- NAME? 'Hipócrita' (1x) vs 'Hipócritas' (2x) — same person/place spelled two ways?
+- NAME? 'Isabel' (1x) vs 'Israel' (12x) — same person/place spelled two ways?
+- NAME? 'Jacob' (4x) vs 'Jacobo' (8x) — same person/place spelled two ways?
+- NAME? 'Janán' (1x) vs 'Jonán' (1x) — same person/place spelled two ways?
+- NAME? 'Jessé' (1x) vs 'Jesús' (113x) — same person/place spelled two ways?
+- NAME? 'Jonán' (1x) vs 'Jonás' (4x) — same person/place spelled two ways?
+- NAME? 'Juan' (32x) vs 'Juana' (2x) — same person/place spelled two ways?
+- NAME? 'Judas' (5x) vs 'Judea' (10x) — same person/place spelled two ways?
+- NAME? 'Maat' (1x) vs 'Matat' (3x) — same person/place spelled two ways?
+- NAME? 'Maat' (1x) vs 'Mattat' (2x) — same person/place spelled two ways?
+- NAME? 'Marta' (4x) vs 'María' (18x) — same person/place spelled two ways?
+- NAME? 'Marta' (4x) vs 'Matat' (3x) — same person/place spelled two ways?
+- NAME? 'Matat' (3x) vs 'Mattat' (2x) — same person/place spelled two ways?
+- NAME? 'Mirad' (1x) vs 'Mirando' (1x) — same person/place spelled two ways?
+- NAME? 'Nazareno' (2x) vs 'Nazaret' (6x) — same person/place spelled two ways?
+- NAME? 'Nosotros' (2x) vs 'Vosotros' (1x) — same person/place spelled two ways?
+- NAME? 'Olivo' (1x) vs 'Olivos' (3x) — same person/place spelled two ways?
+- NAME? 'Prepara' (1x) vs 'Preparad' (1x) — same person/place spelled two ways?
+- NAME? 'Puede' (1x) vs 'Pueden' (1x) — same person/place spelled two ways?
+- NAME? 'Qiten' (1x) vs 'Quien' (3x) — same person/place spelled two ways?
+- NAME? 'Queda' (1x) vs 'Quedaos' (1x) — same person/place spelled two ways?
+- NAME? 'Respondiendo' (8x) vs 'Respondiéndole' (1x) — same person/place spelled two ways?
+- NAME? 'Sal' (3x) vs 'Sala' (1x) — same person/place spelled two ways?
+- NAME? 'Sal' (3x) vs 'Salá' (1x) — same person/place spelled two ways?
+- NAME? 'Sidón' (3x) vs 'Simón' (17x) — same person/place spelled two ways?
+- NAME? 'Simeón' (2x) vs 'Simón' (17x) — same person/place spelled two ways?
+- NAME? 'Tened' (4x) vs 'Tiene' (1x) — same person/place spelled two ways?
+- NAME? 'Tiene' (1x) vs 'Tienen' (2x) — same person/place spelled two ways?
+- NAME? 'Tiene' (1x) vs 'Viene' (1x) — same person/place spelled two ways?
+- NAME? 'Vaya' (1x) vs 'Vayan' (5x) — same person/place spelled two ways?
+- NAME? 'Vendrá' (1x) vs 'Vendrán' (2x) — same person/place spelled two ways?
+- NAME? 'Viene' (1x) vs 'Vienes' (1x) — same person/place spelled two ways?
+- Luke 7: QUOTES — 3 closing » with nothing open (v. 8, 35, 42)
+- NAME? 'Ofrecedlos' (1x) vs 'Ofreciendo' (1x) — same person/place spelled two ways?
+- NAME? 'Betania' (4x) vs 'Betsaida' (2x) — same person/place spelled two ways?
+- NAME? 'Betania' (4x) vs 'Betzaida' (1x) — same person/place spelled two ways?
+- NAME? 'Betsaida' (2x) vs 'Betzaida' (1x) — same person/place spelled two ways?
+- NAME? 'Cualquier' (1x) vs 'Cualquiera' (1x) — same person/place spelled two ways?
+- NAME? 'Damos' (1x) vs 'Vamos' (2x) — same person/place spelled two ways?
+- NAME? 'Deja' (1x) vs 'Dejad' (1x) — same person/place spelled two ways?
+- NAME? 'Dejad' (1x) vs 'Dejadla' (1x) — same person/place spelled two ways?
+- NAME? 'Dinos' (1x) vs 'Dénos' (1x) — same person/place spelled two ways?
+- NAME? 'Era' (3x) vs 'Eran' (2x) — same person/place spelled two ways?
+- NAME? 'Galilea' (13x) vs 'Galileo' (1x) — same person/place spelled two ways?
+- NAME? 'Herodes' (8x) vs 'Herodías' (3x) — same person/place spelled two ways?
+- NAME? 'Hijo' (23x) vs 'Hijos' (2x) — same person/place spelled two ways?
+- NAME? 'Jacob' (1x) vs 'Jacobo' (15x) — same person/place spelled two ways?
+- NAME? 'Judas' (4x) vs 'Judea' (3x) — same person/place spelled two ways?
+- NAME? 'Nazareno' (4x) vs 'Nazaret' (1x) — same person/place spelled two ways?
+- NAME? 'Sale' (1x) vs 'Salve' (1x) — same person/place spelled two ways?
+- NAME? 'Sidón' (2x) vs 'Simón' (11x) — same person/place spelled two ways?
+- NAME? 'Tiene' (1x) vs 'Tienen' (2x) — same person/place spelled two ways?
+- NAME? 'Tiene' (1x) vs 'Viene' (1x) — same person/place spelled two ways?
+- NAME? 'Alegraos' (1x) vs 'Alejaos' (1x) — same person/place spelled two ways?
+- NAME? 'Arrepentiros' (1x) vs 'Arrepentíos' (1x) — same person/place spelled two ways?
+- NAME? 'Betania' (2x) vs 'Betsaida' (1x) — same person/place spelled two ways?
+- NAME? 'Bienaventurado' (1x) vs 'Bienaventurados' (9x) — same person/place spelled two ways?
+- NAME? 'Buena' (2x) vs 'Bueno' (1x) — same person/place spelled two ways?
+- NAME? 'Creen' (1x) vs 'Crees' (1x) — same person/place spelled two ways?
+- NAME? 'Cuál' (2x) vs 'Cuáles' (1x) — same person/place spelled two ways?
+- NAME? 'Cuándo' (1x) vs 'Cuánto' (1x) — same person/place spelled two ways?
+- NAME? 'Cuántas' (1x) vs 'Cuántos' (1x) — same person/place spelled two ways?
+- NAME? 'Cuánto' (1x) vs 'Cuántos' (1x) — same person/place spelled two ways?
+- NAME? 'Dame' (1x) vs 'Déjame' (1x) — same person/place spelled two ways?
+- NAME? 'Dicho' (1x) vs 'Dichoso' (1x) — same person/place spelled two ways?
+- NAME? 'Dieron' (1x) vs 'Dijeron' (1x) — same person/place spelled two ways?
+- NAME? 'Dieron' (1x) vs 'Dinero' (1x) — same person/place spelled two ways?
+- NAME? 'Digan' (1x) vs 'Oigan' (1x) — same person/place spelled two ways?
+- NAME? 'Entienden' (1x) vs 'Extiende' (1x) — same person/place spelled two ways?
+- NAME? 'Entrad' (1x) vs 'Entrando' (1x) — same person/place spelled two ways?
+- NAME? 'Eso' (1x) vs 'Esto' (2x) — same person/place spelled two ways?
+- NAME? 'Estaba' (2x) vs 'Estaban' (1x) — same person/place spelled two ways?
+- NAME? 'Galilea' (16x) vs 'Galileo' (1x) — same person/place spelled two ways?
+- NAME? 'Hace' (1x) vs 'Haced' (1x) — same person/place spelled two ways?
+- NAME? 'Hace' (1x) vs 'Hacen' (1x) — same person/place spelled two ways?
+- NAME? 'Haced' (1x) vs 'Hacen' (1x) — same person/place spelled two ways?
+- NAME? 'Herodes' (13x) vs 'Herodías' (2x) — same person/place spelled two ways?
+- NAME? 'Hijo' (48x) vs 'Hijos' (1x) — same person/place spelled two ways?
+- NAME? 'Hipócrita' (1x) vs 'Hipócritas' (1x) — same person/place spelled two ways?
+- NAME? 'Iscariote' (1x) vs 'Iscariotes' (1x) — same person/place spelled two ways?
+- NAME? 'Jacob' (6x) vs 'Jacobo' (6x) — same person/place spelled two ways?
+- NAME? 'Judas' (6x) vs 'Judea' (10x) — same person/place spelled two ways?
+- NAME? 'Nazareno' (1x) vs 'Nazareo' (1x) — same person/place spelled two ways?
+- NAME? 'Nazareno' (1x) vs 'Nazaret' (3x) — same person/place spelled two ways?
+- NAME? 'Nazareo' (1x) vs 'Nazaret' (3x) — same person/place spelled two ways?
+- NAME? 'Orad' (1x) vs 'Orando' (1x) — same person/place spelled two ways?
+- NAME? 'Otro' (1x) vs 'Otros' (1x) — same person/place spelled two ways?
+- NAME? 'Pedro' (21x) vs 'Puedo' (1x) — same person/place spelled two ways?
+- NAME? 'Profetas' (1x) vs 'Profetiza' (1x) — same person/place spelled two ways?
+- NAME? 'Pueden' (2x) vs 'Queden' (1x) — same person/place spelled two ways?
+- NAME? 'Puesto' (1x) vs 'Puso' (3x) — same person/place spelled two ways?
+- NAME? 'Quien' (3x) vs 'Quieren' (1x) — same person/place spelled two ways?
+- NAME? 'Quieren' (1x) vs 'Quieres' (1x) — same person/place spelled two ways?
+- NAME? 'Saben' (2x) vs 'Sabes' (1x) — same person/place spelled two ways?
+- NAME? 'Saben' (2x) vs 'Sanen' (1x) — same person/place spelled two ways?
+- NAME? 'Salid' (1x) vs 'Salido' (1x) — same person/place spelled two ways?
+- NAME? 'Sidón' (3x) vs 'Simón' (9x) — same person/place spelled two ways?
+- NAME? 'Sidón' (3x) vs 'Sión' (1x) — same person/place spelled two ways?
+- NAME? 'Simón' (9x) vs 'Sión' (1x) — same person/place spelled two ways?
+- NAME? 'Tened' (3x) vs 'Tiene' (1x) — same person/place spelled two ways?
+- NAME? 'Toma' (1x) vs 'Tomad' (1x) — same person/place spelled two ways?
+- NAME? 'Traéanmelo' (1x) vs 'Traédmelos' (1x) — same person/place spelled two ways?
+- NAME? 'Viendo' (2x) vs 'Vino' (1x) — same person/place spelled two ways?
+- NAME? 'Escucha' (2x) vs 'Escuchad' (3x) — same person/place spelled two ways?
+- NAME? 'Ahiyá' (1x) vs 'Aviyá' (1x) — same person/place spelled two ways?
+- NAME? 'Amaría' (2x) vs 'Amarías' (2x) — same person/place spelled two ways?
+- NAME? 'Amarías' (2x) vs 'Azarías' (4x) — same person/place spelled two ways?
+- NAME? 'Ananía' (1x) vs 'Anaías' (1x) — same person/place spelled two ways?
+- NAME? 'Ananía' (1x) vs 'Azanía' (1x) — same person/place spelled two ways?
+- NAME? 'Anatoth' (1x) vs 'Anatóth' (1x) — same person/place spelled two ways?
+- NAME? 'Ara' (1x) vs 'Arah' (1x) — same person/place spelled two ways?
+- NAME? 'Ara' (1x) vs 'Arba' (1x) — same person/place spelled two ways?
+- NAME? 'Arabías' (1x) vs 'Sarabías' (1x) — same person/place spelled two ways?
+- NAME? 'Asgad' (1x) vs 'Azgad' (1x) — same person/place spelled two ways?
+- NAME? 'Asmavet' (1x) vs 'Azmavet' (1x) — same person/place spelled two ways?
+- NAME? 'Azarías' (4x) vs 'Ezarías' (2x) — same person/place spelled two ways?
+- NAME? 'Baaná' (1x) vs 'Béaná' (1x) — same person/place spelled two ways?
+- NAME? 'Bakbuk' (1x) vs 'Bakbukiá' (2x) — same person/place spelled two ways?
+- NAME? 'Banai' (1x) vs 'Bani' (3x) — same person/place spelled two ways?
+- NAME? 'Banai' (1x) vs 'Bavai' (1x) — same person/place spelled two ways?
+- NAME? 'Baruch' (1x) vs 'Barúch' (1x) — same person/place spelled two ways?
+- NAME? 'Bebai' (2x) vs 'Besai' (1x) — same person/place spelled two ways?
+- NAME? 'Beer' (2x) vs 'Beerot' (1x) — same person/place spelled two ways?
+- NAME? 'Beninú' (1x) vs 'Benú' (1x) — same person/place spelled two ways?
+- NAME? 'Benuy' (1x) vs 'Binuy' (1x) — same person/place spelled two ways?
+- NAME? 'Besai' (1x) vs 'Betsai' (2x) — same person/place spelled two ways?
+- NAME? 'Bigvá' (1x) vs 'Bilgá' (2x) — same person/place spelled two ways?
+- NAME? 'Binu' (1x) vs 'Binuy' (1x) — same person/place spelled two ways?
+- NAME? 'Carim' (1x) vs 'Harim' (3x) — same person/place spelled two ways?
+- NAME? 'Delajá' (1x) vs 'Pelajá' (1x) — same person/place spelled two ways?
+- NAME? 'Dibón' (1x) vs 'Gibón' (1x) — same person/place spelled two ways?
+- NAME? 'Eilam' (1x) vs 'Elam' (3x) — same person/place spelled two ways?
+- NAME? 'Esto' (1x) vs 'Estoy' (1x) — same person/place spelled two ways?
+- NAME? 'Gabai' (1x) vs 'Zabai' (1x) — same person/place spelled two ways?
+- NAME? 'Galal' (1x) vs 'Palal' (1x) — same person/place spelled two ways?
+- NAME? 'Ginatón' (1x) vs 'Gintón' (1x) — same person/place spelled two ways?
+- NAME? 'Hacalía' (1x) vs 'Hakalía' (1x) — same person/place spelled two ways?
+- NAME? 'Hananí' (7x) vs 'Hananías' (1x) — same person/place spelled two ways?
+- NAME? 'Hanán' (6x) vs 'Hanún' (2x) — same person/place spelled two ways?
+- NAME? 'Harif' (1x) vs 'Harim' (3x) — same person/place spelled two ways?
+- NAME? 'Harif' (1x) vs 'Haríf' (1x) — same person/place spelled two ways?
+- NAME? 'Harim' (3x) vs 'Harím' (2x) — same person/place spelled two ways?
+- NAME? 'Haríf' (1x) vs 'Harím' (2x) — same person/place spelled two ways?
+- NAME? 'Hasabiyá' (2x) vs 'Hashabiyá' (2x) — same person/place spelled two ways?
+- NAME? 'Hasabiyá' (2x) vs 'Hashaviyá' (1x) — same person/place spelled two ways?
+- NAME? 'Hashab' (1x) vs 'Hashub' (1x) — same person/place spelled two ways?
+- NAME? 'Hashabiyá' (2x) vs 'Hashaviyá' (1x) — same person/place spelled two ways?
+- NAME? 'Hashub' (1x) vs 'Hashum' (2x) — same person/place spelled two ways?
+- NAME? 'Hashub' (1x) vs 'Hasub' (2x) — same person/place spelled two ways?
+- NAME? 'Hashum' (2x) vs 'Hasum' (1x) — same person/place spelled two ways?
+- NAME? 'Hasnuá' (1x) vs 'Hasupá' (1x) — same person/place spelled two ways?
+- NAME? 'Hasub' (2x) vs 'Hasum' (1x) — same person/place spelled two ways?
+- NAME? 'Helquías' (1x) vs 'Hilquías' (2x) — same person/place spelled two ways?
+- NAME? 'Helquías' (1x) vs 'Melquías' (1x) — same person/place spelled two ways?
+- NAME? 'Henadad' (2x) vs 'Hendad' (1x) — same person/place spelled two ways?
+- NAME? 'Hodiyá' (3x) vs 'Hodiá' (1x) — same person/place spelled two ways?
+- NAME? 'Imé' (1x) vs 'Imér' (1x) — same person/place spelled two ways?
+- NAME? 'Jadúa' (2x) vs 'Yadúa' (1x) — same person/place spelled two ways?
+- NAME? 'Jerajó' (1x) vs 'Merajó' (1x) — same person/place spelled two ways?
+- NAME? 'Jeremías' (3x) vs 'Neemías' (2x) — same person/place spelled two ways?
+- NAME? 'Jeremías' (3x) vs 'Yeremías' (1x) — same person/place spelled two ways?
+- NAME? 'Jesuá' (10x) vs 'Yesuá' (2x) — same person/place spelled two ways?
+- NAME? 'Jesúa' (4x) vs 'Yesúa' (1x) — same person/place spelled two ways?
+- NAME? 'Jonatán' (6x) vs 'Jonán' (1x) — same person/place spelled two ways?
+- NAME? 'Kadmiel' (5x) vs 'Kadmiyél' (1x) — same person/place spelled two ways?
+- NAME? 'Kelita' (1x) vs 'Kelitá' (1x) — same person/place spelled two ways?
+- NAME? 'Maaséyah' (3x) vs 'Maaséyá' (1x) — same person/place spelled two ways?
+- NAME? 'Maaséías' (1x) vs 'Maasías' (1x) — same person/place spelled two ways?
+- NAME? 'Maasías' (1x) vs 'Matanías' (4x) — same person/place spelled two ways?
+- NAME? 'Maasías' (1x) vs 'Matatías' (1x) — same person/place spelled two ways?
+- NAME? 'Malquías' (2x) vs 'Melquías' (1x) — same person/place spelled two ways?
+- NAME? 'Masfa' (1x) vs 'Misfa' (1x) — same person/place spelled two ways?
+- NAME? 'Matanyá' (2x) vs 'Mataná' (1x) — same person/place spelled two ways?
+- NAME? 'Matanías' (4x) vs 'Matatías' (1x) — same person/place spelled two ways?
+- NAME? 'Mehetabel' (1x) vs 'Meshezabéel' (1x) — same person/place spelled two ways?
+- NAME? 'Merajá' (1x) vs 'Merajó' (1x) — same person/place spelled two ways?
+- NAME? 'Merajá' (1x) vs 'Serajá' (4x) — same person/place spelled two ways?
+- NAME? 'Meremot' (3x) vs 'Meremót' (1x) — same person/place spelled two ways?
+- NAME? 'Meshezabéel' (1x) vs 'Meshizabéel' (1x) — same person/place spelled two ways?
+- NAME? 'Mesulam' (6x) vs 'Mesulám' (6x) — same person/place spelled two ways?
+- NAME? 'Micaiá' (2x) vs 'Micá' (1x) — same person/place spelled two ways?
+- NAME? 'Michá' (2x) vs 'Micá' (1x) — same person/place spelled two ways?
+- NAME? 'Moa' (1x) vs 'Moab' (1x) — same person/place spelled two ways?
+- NAME? 'Moa' (1x) vs 'Moav' (1x) — same person/place spelled two ways?
+- NAME? 'Neemías' (2x) vs 'Nehemías' (6x) — same person/place spelled two ways?
+- NAME? 'Neemías' (2x) vs 'Yeremías' (1x) — same person/place spelled two ways?
+- NAME? 'Netofa' (1x) vs 'Netofati' (1x) — same person/place spelled two ways?
+- NAME? 'Nuestras' (1x) vs 'Nuestro' (1x) — same person/place spelled two ways?
+- NAME? 'Nuestras' (1x) vs 'Nuestros' (1x) — same person/place spelled two ways?
+- NAME? 'Nuestro' (1x) vs 'Nuestros' (1x) — same person/place spelled two ways?
+- NAME? 'Paros' (1x) vs 'Parés' (1x) — same person/place spelled two ways?
+- NAME? 'Paros' (1x) vs 'Parós' (1x) — same person/place spelled two ways?
+- NAME? 'Parés' (1x) vs 'Parós' (1x) — same person/place spelled two ways?
+- NAME? 'Peces' (1x) vs 'Peres' (2x) — same person/place spelled two ways?
+- NAME? 'Pedaiyá' (1x) vs 'Pedaiá' (1x) — same person/place spelled two ways?
+- NAME? 'Recuerda' (2x) vs 'Recuerden' (1x) — same person/place spelled two ways?
+- NAME? 'Sabtai' (1x) vs 'Shabtai' (1x) — same person/place spelled two ways?
+- NAME? 'Safatías' (1x) vs 'Sefatías' (2x) — same person/place spelled two ways?
+- NAME? 'Salai' (1x) vs 'Salay' (1x) — same person/place spelled two ways?
+- NAME? 'Salai' (1x) vs 'Salmai' (1x) — same person/place spelled two ways?
+- NAME? 'Secanía' (1x) vs 'Secanías' (1x) — same person/place spelled two ways?
+- NAME? 'Secanía' (1x) vs 'Shecanías' (1x) — same person/place spelled two ways?
+- NAME? 'Secanías' (1x) vs 'Semaías' (1x) — same person/place spelled two ways?
+- NAME? 'Secanías' (1x) vs 'Shecanías' (1x) — same person/place spelled two ways?
+- NAME? 'Sefatías' (2x) vs 'Semaías' (1x) — same person/place spelled two ways?
+- NAME? 'Semajá' (9x) vs 'Serajá' (4x) — same person/place spelled two ways?
+- NAME? 'Semaías' (1x) vs 'Seravías' (1x) — same person/place spelled two ways?
+- NAME? 'Seravías' (1x) vs 'Serevía' (1x) — same person/place spelled two ways?
+- NAME? 'Sobai' (1x) vs 'Sotai' (1x) — same person/place spelled two ways?
+- NAME? 'Sus' (1x) vs 'Susa' (1x) — same person/place spelled two ways?
+- NAME? 'Torá' (19x) vs 'Tzorá' (1x) — same person/place spelled two ways?
+- NAME? 'Tsihá' (1x) vs 'Tsikhá' (1x) — same person/place spelled two ways?
+- NAME? 'Uzi' (2x) vs 'Uzzi' (1x) — same person/place spelled two ways?
+- NAME? 'Uzzi' (1x) vs 'Uzziá' (1x) — same person/place spelled two ways?
+- NAME? 'Yeshúa' (1x) vs 'Yesúa' (1x) — same person/place spelled two ways?
+- NAME? 'Zabai' (1x) vs 'Zacai' (1x) — same person/place spelled two ways?
+- NAME? 'Zacur' (2x) vs 'Zakur' (1x) — same person/place spelled two ways?
+- NAME? 'Zanah' (1x) vs 'Zanua' (1x) — same person/place spelled two ways?
+- NAME? 'Abarim' (1x) vs 'Abraim' (4x) — same person/place spelled two ways?
+- NAME? 'Abel' (1x) vs 'Asbel' (1x) — same person/place spelled two ways?
+- NAME? 'Abidan' (3x) vs 'Abidán' (2x) — same person/place spelled two ways?
+- NAME? 'Abraim' (4x) vs 'Aram' (1x) — same person/place spelled two ways?
+- NAME? 'Acrán' (2x) vs 'Ocrán' (3x) — same person/place spelled two ways?
+- NAME? 'Ahira' (4x) vs 'Ahirajé' (1x) — same person/place spelled two ways?
+- NAME? 'Amihud' (5x) vs 'Amijud' (1x) — same person/place spelled two ways?
+- NAME? 'Amihud' (5x) vs 'Amiud' (1x) — same person/place spelled two ways?
+- NAME? 'Amijud' (1x) vs 'Amiud' (1x) — same person/place spelled two ways?
+- NAME? 'Aminadab' (3x) vs 'Amínadab' (2x) — same person/place spelled two ways?
+- NAME? 'Amisadai' (1x) vs 'Amishadai' (1x) — same person/place spelled two ways?
+- NAME? 'Amisadai' (1x) vs 'Ammishadai' (2x) — same person/place spelled two ways?
+- NAME? 'Amisadai' (1x) vs 'Amíshadai' (1x) — same person/place spelled two ways?
+- NAME? 'Amishadai' (1x) vs 'Ammishadai' (2x) — same person/place spelled two ways?
+- NAME? 'Amishadai' (1x) vs 'Amíshadai' (1x) — same person/place spelled two ways?
+- NAME? 'Ammishadai' (2x) vs 'Amíshadai' (1x) — same person/place spelled two ways?
+- NAME? 'Amorrheo' (1x) vs 'Amorrheos' (1x) — same person/place spelled two ways?
+- NAME? 'Amram' (3x) vs 'Aram' (1x) — same person/place spelled two ways?
+- NAME? 'Araditas' (1x) vs 'Seraditas' (1x) — same person/place spelled two ways?
+- NAME? 'Aram' (1x) vs 'Aviram' (8x) — same person/place spelled two ways?
+- NAME? 'Arelitas' (1x) vs 'Asbelitas' (1x) — same person/place spelled two ways?
+- NAME? 'Asirios' (1x) vs 'Asiritas' (1x) — same person/place spelled two ways?
+- NAME? 'Beceritas' (1x) vs 'Beriitas' (1x) — same person/place spelled two ways?
+- NAME? 'Beit' (1x) vs 'Bet' (2x) — same person/place spelled two ways?
+- NAME? 'Belanitas' (1x) vs 'Sellanitas' (1x) — same person/place spelled two ways?
+- NAME? 'Cades' (1x) vs 'Cadés' (1x) — same person/place spelled two ways?
+- NAME? 'Cades' (1x) vs 'Qades' (4x) — same person/place spelled two ways?
+- NAME? 'Camulitas' (1x) vs 'Carmitas' (1x) — same person/place spelled two ways?
+- NAME? 'Canaán' (13x) vs 'Canán' (1x) — same person/place spelled two ways?
+- NAME? 'Construyan' (1x) vs 'Construye' (2x) — same person/place spelled two ways?
+- NAME? 'Cualquier' (7x) vs 'Cualquiera' (3x) — same person/place spelled two ways?
+- NAME? 'Dales' (1x) vs 'Diles' (1x) — same person/place spelled two ways?
+- NAME? 'Datán' (8x) vs 'Natán' (2x) — same person/place spelled two ways?
+- NAME? 'Demos' (1x) vs 'Hemos' (1x) — same person/place spelled two ways?
+- NAME? 'Deuael' (1x) vs 'Deuaél' (1x) — same person/place spelled two ways?
+- NAME? 'Deuael' (1x) vs 'Deuel' (2x) — same person/place spelled two ways?
+- NAME? 'Deuel' (2x) vs 'Reuel' (2x) — same person/place spelled two ways?
+- NAME? 'Dános' (1x) vs 'Dénos' (1x) — same person/place spelled two ways?
+- NAME? 'Earán' (1x) vs 'Harán' (2x) — same person/place spelled two ways?
+- NAME? 'Earán' (1x) vs 'Parán' (1x) — same person/place spelled two ways?
+- NAME? 'Efraím' (11x) vs 'Efraín' (1x) — same person/place spelled two ways?
+- NAME? 'Einán' (2x) vs 'Enán' (3x) — same person/place spelled two ways?
+- NAME? 'Elazar' (23x) vs 'Eleazar' (12x) — same person/place spelled two ways?
+- NAME? 'Eldad' (2x) vs 'Elidad' (1x) — same person/place spelled two ways?
+- NAME? 'Eliaab' (2x) vs 'Eliab' (5x) — same person/place spelled two ways?
+- NAME? 'Eliab' (5x) vs 'Elíab' (2x) — same person/place spelled two ways?
+- NAME? 'Eliasaf' (4x) vs 'Elisaf' (2x) — same person/place spelled two ways?
+- NAME? 'Eliasaf' (4x) vs 'Elisafán' (1x) — same person/place spelled two ways?
+- NAME? 'Elisaf' (2x) vs 'Elisafán' (1x) — same person/place spelled two ways?
+- NAME? 'Elisafán' (1x) vs 'Elisamá' (2x) — same person/place spelled two ways?
+- NAME? 'Elisafán' (1x) vs 'Elitzafán' (1x) — same person/place spelled two ways?
+- NAME? 'Elisama' (2x) vs 'Elisamael' (1x) — same person/place spelled two ways?
+- NAME? 'Elisama' (2x) vs 'Elisamá' (2x) — same person/place spelled two ways?
+- NAME? 'Elisur' (1x) vs 'Elizur' (1x) — same person/place spelled two ways?
+- NAME? 'Elitzur' (3x) vs 'Elizur' (1x) — same person/place spelled two ways?
+- NAME? 'Eranitas' (1x) vs 'Eritas' (1x) — same person/place spelled two ways?
+- NAME? 'Escol' (1x) vs 'Eshcol' (2x) — same person/place spelled two ways?
+- NAME? 'Gad' (21x) vs 'Gadí' (1x) — same person/place spelled two ways?
+- NAME? 'Gadí' (1x) vs 'Gadíel' (1x) — same person/place spelled two ways?
+- NAME? 'Gamali' (1x) vs 'Gamaliel' (1x) — same person/place spelled two ways?
+- NAME? 'Gamaliel' (1x) vs 'Gamliel' (4x) — same person/place spelled two ways?
+- NAME? 'Gerajón' (1x) vs 'Gerashón' (5x) — same person/place spelled two ways?
+- NAME? 'Gerashón' (5x) vs 'Gershón' (1x) — same person/place spelled two ways?
+- NAME? 'Gerashón' (5x) vs 'Gersón' (5x) — same person/place spelled two ways?
+- NAME? 'Gershón' (1x) vs 'Gersón' (5x) — same person/place spelled two ways?
+- NAME? 'Gideóni' (3x) vs 'Gidóni' (2x) — same person/place spelled two ways?
+- NAME? 'Gilad' (3x) vs 'Gilead' (1x) — same person/place spelled two ways?
+- NAME? 'Gunitas' (1x) vs 'Puanitas' (1x) — same person/place spelled two ways?
+- NAME? 'Gunitas' (1x) vs 'Sunitas' (1x) — same person/place spelled two ways?
+- NAME? 'Habla' (13x) vs 'Hablad' (1x) — same person/place spelled two ways?
+- NAME? 'Habla' (13x) vs 'Habló' (4x) — same person/place spelled two ways?
+- NAME? 'Har' (2x) vs 'Hará' (5x) — same person/place spelled two ways?
+- NAME? 'Hará' (5x) vs 'Harán' (2x) — same person/place spelled two ways?
+- NAME? 'Harán' (2x) vs 'Parán' (1x) — same person/place spelled two ways?
+- NAME? 'Haserot' (2x) vs 'Hatserot' (2x) — same person/place spelled two ways?
+- NAME? 'Hazle' (1x) vs 'Hazte' (2x) — same person/place spelled two ways?
+- NAME? 'Heberitas' (1x) vs 'Hebronitas' (1x) — same person/place spelled two ways?
+- NAME? 'Heberitas' (1x) vs 'Heperitas' (1x) — same person/place spelled two ways?
+- NAME? 'Hebronitas' (1x) vs 'Tseronitas' (2x) — same person/place spelled two ways?
+- NAME? 'Hogla' (1x) vs 'Hugla' (2x) — same person/place spelled two ways?
+- NAME? 'Isacar' (1x) vs 'Issacar' (10x) — same person/place spelled two ways?
+- NAME? 'Jaazer' (1x) vs 'Jazer' (3x) — same person/place spelled two ways?
+- NAME? 'Jefone' (5x) vs 'Jefoné' (2x) — same person/place spelled two ways?
+- NAME? 'Jeshimon' (1x) vs 'Jeshimot' (1x) — same person/place spelled two ways?
+- NAME? 'Josué' (10x) vs 'José' (12x) — same person/place spelled two ways?
+- NAME? 'Kemuel' (1x) vs 'Nemuel' (2x) — same person/place spelled two ways?
+- NAME? 'Libna' (2x) vs 'Libni' (1x) — same person/place spelled two ways?
+- NAME? 'Machal' (2x) vs 'Machla' (1x) — same person/place spelled two ways?
+- NAME? 'Machir' (3x) vs 'Maci' (1x) — same person/place spelled two ways?
+- NAME? 'Machir' (3x) vs 'Macir' (2x) — same person/place spelled two ways?
+- NAME? 'Maci' (1x) vs 'Macir' (2x) — same person/place spelled two ways?
+- NAME? 'Macir' (2x) vs 'Makir' (1x) — same person/place spelled two ways?
+- NAME? 'Manasé' (2x) vs 'Manasés' (18x) — same person/place spelled two ways?
+- NAME? 'Manasé' (2x) vs 'Menasé' (1x) — same person/place spelled two ways?
+- NAME? 'Mar' (4x) vs 'Mara' (2x) — same person/place spelled two ways?
+- NAME? 'Mata' (1x) vs 'Mataná' (2x) — same person/place spelled two ways?
+- NAME? 'Melca' (2x) vs 'Milca' (1x) — same person/place spelled two ways?
+- NAME? 'Merari' (13x) vs 'Merarí' (1x) — same person/place spelled two ways?
+- NAME? 'Moisé' (3x) vs 'Moisés' (229x) — same person/place spelled two ways?
+- NAME? 'Nafatá' (5x) vs 'Nafatáli' (1x) — same person/place spelled two ways?
+- NAME? 'Nafatáli' (1x) vs 'Naftali' (1x) — same person/place spelled two ways?
+- NAME? 'Nahshon' (1x) vs 'Nahshón' (2x) — same person/place spelled two ways?
+- NAME? 'Natanael' (1x) vs 'Netanajel' (1x) — same person/place spelled two ways?
+- NAME? 'Netanajel' (1x) vs 'Netanéel' (2x) — same person/place spelled two ways?
+- NAME? 'Netanéel' (2x) vs 'Netanél' (1x) — same person/place spelled two ways?
+- NAME? 'Nuestras' (1x) vs 'Nuestro' (1x) — same person/place spelled two ways?
+- NAME? 'Nuestras' (1x) vs 'Nuestros' (2x) — same person/place spelled two ways?
+- NAME? 'Nuestro' (1x) vs 'Nuestros' (2x) — same person/place spelled two ways?
+- NAME? 'Pagiel' (4x) vs 'Paguiel' (1x) — same person/place spelled two ways?
+- NAME? 'Palti' (1x) vs 'Paltiel' (1x) — same person/place spelled two ways?
+- NAME? 'Paran' (4x) vs 'Parán' (1x) — same person/place spelled two ways?
+- NAME? 'Pedahsur' (1x) vs 'Pedasur' (1x) — same person/place spelled two ways?
+- NAME? 'Pedahsur' (1x) vs 'Pedatsur' (1x) — same person/place spelled two ways?
+- NAME? 'Pedasur' (1x) vs 'Pedatsur' (1x) — same person/place spelled two ways?
+- NAME? 'Peor' (6x) vs 'Pethor' (1x) — same person/place spelled two ways?
+- NAME? 'Presentarás' (2x) vs 'Presentaréis' (4x) — same person/place spelled two ways?
+- NAME? 'Puanitas' (1x) vs 'Quaitas' (1x) — same person/place spelled two ways?
+- NAME? 'Puanitas' (1x) vs 'Sunitas' (1x) — same person/place spelled two ways?
+- NAME? 'Qahat' (1x) vs 'Qehat' (1x) — same person/place spelled two ways?
+- NAME? 'Quaitas' (1x) vs 'Quelitas' (1x) — same person/place spelled two ways?
+- NAME? 'Quaitas' (1x) vs 'Quitarás' (1x) — same person/place spelled two ways?
+- NAME? 'Quaitas' (1x) vs 'Quititas' (1x) — same person/place spelled two ways?
+- NAME? 'Quemos' (1x) vs 'Queremos' (1x) — same person/place spelled two ways?
+- NAME? 'Rimón' (2x) vs 'Simón' (1x) — same person/place spelled two ways?
+- NAME? 'Salumiel' (1x) vs 'Shelumiel' (2x) — same person/place spelled two ways?
+- NAME? 'Sbam' (1x) vs 'Sebam' (1x) — same person/place spelled two ways?
+- NAME? 'Será' (2x) vs 'Serán' (5x) — same person/place spelled two ways?
+- NAME? 'Shelumiel' (2x) vs 'Shelumíel' (2x) — same person/place spelled two ways?
+- NAME? 'Shittim' (1x) vs 'Sitim' (1x) — same person/place spelled two ways?
+- NAME? 'Shuchamitas' (2x) vs 'Shufamitas' (1x) — same person/place spelled two ways?
+- NAME? 'Shufam' (1x) vs 'Sufa' (1x) — same person/place spelled two ways?
+- NAME? 'Sihón' (9x) vs 'Simón' (1x) — same person/place spelled two ways?
+- NAME? 'Sillemitas' (1x) vs 'Siquemitas' (1x) — same person/place spelled two ways?
+- NAME? 'Simeón' (10x) vs 'Simrón' (1x) — same person/place spelled two ways?
+- NAME? 'Simeón' (10x) vs 'Simón' (1x) — same person/place spelled two ways?
+- NAME? 'Simrón' (1x) vs 'Simón' (1x) — same person/place spelled two ways?
+- NAME? 'Sina' (1x) vs 'Sinaí' (17x) — same person/place spelled two ways?
+- NAME? 'Sus' (1x) vs 'Susi' (1x) — same person/place spelled two ways?
+- NAME? 'Toma' (11x) vs 'Tomaré' (1x) — same person/place spelled two ways?
+- NAME? 'Tomaré' (1x) vs 'Tomé' (2x) — same person/place spelled two ways?
+- NAME? 'Tseronitas' (2x) vs 'Tzefonitas' (1x) — same person/place spelled two ways?
+- NAME? 'Tzidón' (1x) vs 'Tzin' (2x) — same person/place spelled two ways?
+- NAME? 'Yaninitas' (1x) vs 'Yaquinitas' (1x) — same person/place spelled two ways?
+- NAME? 'Yitzer' (1x) vs 'Yitzera' (1x) — same person/place spelled two ways?
+- NAME? 'Zabulón' (6x) vs 'Zebulón' (5x) — same person/place spelled two ways?
+- NAME? 'Zur' (1x) vs 'Zurí' (1x) — same person/place spelled two ways?
+- NAME? 'Zur' (1x) vs 'Zuér' (2x) — same person/place spelled two ways?
+- NAME? 'Zurishadai' (3x) vs 'Zurísadai' (1x) — same person/place spelled two ways?
+- NAME? 'Zurí' (1x) vs 'Zuría' (1x) — same person/place spelled two ways?
+- NAME? 'Zuéar' (1x) vs 'Zuér' (2x) — same person/place spelled two ways?
+- NAME? 'Aleja' (2x) vs 'Alejate' (1x) — same person/place spelled two ways?
+- NAME? 'Alejarte' (1x) vs 'Alejate' (1x) — same person/place spelled two ways?
+- NAME? 'Alta' (1x) vs 'Ata' (1x) — same person/place spelled two ways?
+- NAME? 'Bebe' (1x) vs 'Beberá' (1x) — same person/place spelled two ways?
+- NAME? 'Dice' (1x) vs 'Dices' (1x) — same person/place spelled two ways?
+- NAME? 'Encontrar' (1x) vs 'Encontrará' (1x) — same person/place spelled two ways?
+- NAME? 'Enséñala' (1x) vs 'Enséñale' (1x) — same person/place spelled two ways?
+- NAME? 'Enséñamelo' (1x) vs 'Enséñenlos' (1x) — same person/place spelled two ways?
+- NAME? 'Hijo' (11x) vs 'Hijos' (5x) — same person/place spelled two ways?
+- NAME? 'Llama' (1x) vs 'Llamo' (1x) — same person/place spelled two ways?
+- NAME? 'Muchas' (2x) vs 'Muchos' (3x) — same person/place spelled two ways?
+- NAME? 'Quita' (2x) vs 'Quitaos' (1x) — same person/place spelled two ways?
+- NAME? 'Seol' (3x) vs 'Sheol' (1x) — same person/place spelled two ways?
+- NAME? 'Abrí' (1x) vs 'Abrías' (1x) — same person/place spelled two ways?
+- NAME? 'Aclama' (1x) vs 'Aclamaré' (1x) — same person/place spelled two ways?
+- NAME? 'Aclamaré' (1x) vs 'Alabaré' (3x) — same person/place spelled two ways?
+- NAME? 'Aclamaré' (1x) vs 'Clamaré' (2x) — same person/place spelled two ways?
+- NAME? 'Admirable' (1x) vs 'Admirables' (1x) — same person/place spelled two ways?
+- NAME? 'Alaba' (4x) vs 'Alabad' (19x) — same person/place spelled two ways?
+- NAME? 'Alaba' (4x) vs 'Alabaré' (3x) — same person/place spelled two ways?
+- NAME? 'Alabad' (19x) vs 'Alabadle' (4x) — same person/place spelled two ways?
+- NAME? 'Alabad' (19x) vs 'Alabadlo' (3x) — same person/place spelled two ways?
+- NAME? 'Alabadle' (4x) vs 'Alabadlo' (3x) — same person/place spelled two ways?
+- NAME? 'Alegraos' (2x) vs 'Alegres' (1x) — same person/place spelled two ways?
+- NAME? 'Alegraos' (2x) vs 'Alegría' (1x) — same person/place spelled two ways?
+- NAME? 'Alegraos' (2x) vs 'Alejaos' (1x) — same person/place spelled two ways?
+- NAME? 'Alegre' (2x) vs 'Alegres' (1x) — same person/place spelled two ways?
+- NAME? 'Aleja' (4x) vs 'Alejaos' (1x) — same person/place spelled two ways?
+- NAME? 'Anhela' (1x) vs 'Anhelo' (1x) — same person/place spelled two ways?
+- NAME? 'Ante' (1x) vs 'Antes' (5x) — same person/place spelled two ways?
+- NAME? 'Anunciad' (1x) vs 'Anunciar' (1x) — same person/place spelled two ways?
+- NAME? 'Anunciad' (1x) vs 'Anuncié' (1x) — same person/place spelled two ways?
+- NAME? 'Anunciad' (1x) vs 'Anunció' (1x) — same person/place spelled two ways?
+- NAME? 'Anunciar' (1x) vs 'Anuncié' (1x) — same person/place spelled two ways?
+- NAME? 'Anunciar' (1x) vs 'Anunció' (1x) — same person/place spelled two ways?
+- NAME? 'Anuncien' (1x) vs 'Anuncié' (1x) — same person/place spelled two ways?
+- NAME? 'Anuncien' (1x) vs 'Anunció' (1x) — same person/place spelled two ways?
+- NAME? 'Anuncié' (1x) vs 'Anunció' (1x) — same person/place spelled two ways?
+- NAME? 'Atiende' (2x) vs 'Extiende' (3x) — same person/place spelled two ways?
+- NAME? 'Aúllan' (1x) vs 'Aúllen' (1x) — same person/place spelled two ways?
+- NAME? 'Bendecido' (1x) vs 'Bendecidos' (1x) — same person/place spelled two ways?
+- NAME? 'Bendecidos' (1x) vs 'Bendecirás' (1x) — same person/place spelled two ways?
+- NAME? 'Bendecirás' (1x) vs 'Bendeciré' (3x) — same person/place spelled two ways?
+- NAME? 'Bienaventurado' (10x) vs 'Bienaventurados' (4x) — same person/place spelled two ways?
+- NAME? 'Busca' (1x) vs 'Buscad' (1x) — same person/place spelled two ways?
+- NAME? 'Busca' (1x) vs 'Buscan' (1x) — same person/place spelled two ways?
+- NAME? 'Busca' (1x) vs 'Buscaré' (1x) — same person/place spelled two ways?
+- NAME? 'Buscad' (1x) vs 'Buscan' (1x) — same person/place spelled two ways?
+- NAME? 'Caerá' (2x) vs 'Caerán' (2x) — same person/place spelled two ways?
+- NAME? 'Caminaron' (1x) vs 'Caminarán' (1x) — same person/place spelled two ways?
+- NAME? 'Caminaron' (1x) vs 'Caminaré' (4x) — same person/place spelled two ways?
+- NAME? 'Caminaron' (1x) vs 'Clamaron' (2x) — same person/place spelled two ways?
+- NAME? 'Caminarán' (1x) vs 'Caminaré' (4x) — same person/place spelled two ways?
+- NAME? 'Caminaré' (4x) vs 'Caminé' (1x) — same person/place spelled two ways?
+- NAME? 'Caminaré' (4x) vs 'Cantaré' (2x) — same person/place spelled two ways?
+- NAME? 'Caminaré' (4x) vs 'Clamaré' (2x) — same person/place spelled two ways?
+- NAME? 'Cantad' (7x) vs 'Cantadle' (3x) — same person/place spelled two ways?
+- NAME? 'Canto' (11x) vs 'Santo' (3x) — same person/place spelled two ways?
+- NAME? 'Clamaron' (2x) vs 'Clamaré' (2x) — same person/place spelled two ways?
+- NAME? 'Clamo' (1x) vs 'Clamor' (1x) — same person/place spelled two ways?
+- NAME? 'Considerad' (1x) vs 'Consideren' (1x) — same person/place spelled two ways?
+- NAME? 'Considerad' (1x) vs 'Consideré' (1x) — same person/place spelled two ways?
+- NAME? 'Consideren' (1x) vs 'Consideré' (1x) — same person/place spelled two ways?
+- NAME? 'Cubriste' (1x) vs 'Subiste' (1x) — same person/place spelled two ways?
+- NAME? 'Cus' (1x) vs 'Cush' (1x) — same person/place spelled two ways?
+- NAME? 'Cuán' (9x) vs 'Cuándo' (4x) — same person/place spelled two ways?
+- NAME? 'Cuán' (9x) vs 'Cuánto' (1x) — same person/place spelled two ways?
+- NAME? 'Cuándo' (4x) vs 'Cuánto' (1x) — same person/place spelled two ways?
+- NAME? 'Cuánto' (1x) vs 'Cuántos' (1x) — same person/place spelled two ways?
+- NAME? 'Demasiadas' (1x) vs 'Demasiado' (2x) — same person/place spelled two ways?
+- NAME? 'Derrama' (1x) vs 'Derramará' (1x) — same person/place spelled two ways?
+- NAME? 'Derrama' (1x) vs 'Derramaré' (1x) — same person/place spelled two ways?
+- NAME? 'Derrama' (1x) vs 'Derramó' (1x) — same person/place spelled two ways?
+- NAME? 'Derramaron' (1x) vs 'Derramará' (1x) — same person/place spelled two ways?
+- NAME? 'Derramaron' (1x) vs 'Derramaré' (1x) — same person/place spelled two ways?
+- NAME? 'Derramará' (1x) vs 'Derramaré' (1x) — same person/place spelled two ways?
+- NAME? 'Devuélvenos' (1x) vs 'Vuélvenos' (1x) — same person/place spelled two ways?
+- NAME? 'Dice' (1x) vs 'Dicen' (1x) — same person/place spelled two ways?
+- NAME? 'Dicho' (1x) vs 'Dichoso' (3x) — same person/place spelled two ways?
+- NAME? 'Digo' (1x) vs 'Dio' (1x) — same person/place spelled two ways?
+- NAME? 'Dijo' (8x) vs 'Dio' (1x) — same person/place spelled two ways?
+- NAME? 'Diste' (1x) vs 'Viste' (1x) — same person/place spelled two ways?
+- NAME? 'Eleva' (1x) vs 'Elevado' (1x) — same person/place spelled two ways?
+- NAME? 'Eleva' (1x) vs 'Elevaré' (2x) — same person/place spelled two ways?
+- NAME? 'Ensáltate' (2x) vs 'Ensálzate' (2x) — same person/place spelled two ways?
+- NAME? 'Entraremos' (1x) vs 'Estaremos' (1x) — same person/place spelled two ways?
+- NAME? 'Entrará' (1x) vs 'Entraré' (1x) — same person/place spelled two ways?
+- NAME? 'Entre' (4x) vs 'Entren' (1x) — same person/place spelled two ways?
+- NAME? 'Envía' (6x) vs 'Envío' (1x) — same person/place spelled two ways?
+- NAME? 'Escucha' (20x) vs 'Escuchará' (1x) — same person/place spelled two ways?
+- NAME? 'Escucha' (20x) vs 'Escuchó' (2x) — same person/place spelled two ways?
+- NAME? 'Escuchará' (1x) vs 'Escucharán' (1x) — same person/place spelled two ways?
+- NAME? 'Esto' (2x) vs 'Estoy' (1x) — same person/place spelled two ways?
+- NAME? 'Extendieron' (1x) vs 'Tendieron' (1x) — same person/place spelled two ways?
+- NAME? 'Extiende' (3x) vs 'Extiendo' (1x) — same person/place spelled two ways?
+- NAME? 'Fortalecen' (1x) vs 'Fortaleceos' (1x) — same person/place spelled two ways?
+- NAME? 'Galaad' (1x) vs 'Galad' (1x) — same person/place spelled two ways?
+- NAME? 'Gran' (2x) vs 'Grande' (4x) — same person/place spelled two ways?
+- NAME? 'Grande' (4x) vs 'Grandes' (1x) — same person/place spelled two ways?
+- NAME? 'Guarda' (6x) vs 'Guardaré' (2x) — same person/place spelled two ways?
+- NAME? 'Habitaré' (1x) vs 'Hablaré' (1x) — same person/place spelled two ways?
+- NAME? 'Habrá' (1x) vs 'Hará' (4x) — same person/place spelled two ways?
+- NAME? 'Habrá' (1x) vs 'Harás' (1x) — same person/place spelled two ways?
+- NAME? 'Hacedor' (1x) vs 'Hacer' (1x) — same person/place spelled two ways?
+- NAME? 'Hará' (4x) vs 'Harás' (1x) — same person/place spelled two ways?
+- NAME? 'Heman' (1x) vs 'Teman' (2x) — same person/place spelled two ways?
+- NAME? 'Hijas' (1x) vs 'Hijos' (2x) — same person/place spelled two ways?
+- NAME? 'Inclina' (5x) vs 'Inclinaré' (1x) — same person/place spelled two ways?
+- NAME? 'Juzga' (1x) vs 'Juzgará' (1x) — same person/place spelled two ways?
+- NAME? 'Juzgarme' (1x) vs 'Juzgará' (1x) — same person/place spelled two ways?
+- NAME? 'Juzgarme' (1x) vs 'Juízame' (1x) — same person/place spelled two ways?
+- NAME? 'Lebano' (2x) vs 'Líbano' (4x) — same person/place spelled two ways?
+- NAME? 'Levanta' (1x) vs 'Levantaré' (2x) — same person/place spelled two ways?
+- NAME? 'Levantaste' (1x) vs 'Levántate' (12x) — same person/place spelled two ways?
+- NAME? 'Machalat' (1x) vs 'Mahalat' (1x) — same person/place spelled two ways?
+- NAME? 'Muchas' (5x) vs 'Muchos' (4x) — same person/place spelled two ways?
+- NAME? 'Muestra' (1x) vs 'Nuestra' (4x) — same person/place spelled two ways?
+- NAME? 'Muestra' (1x) vs 'Nuestras' (1x) — same person/place spelled two ways?
+- NAME? 'Nuestra' (4x) vs 'Nuestras' (1x) — same person/place spelled two ways?
+- NAME? 'Nuestra' (4x) vs 'Nuestro' (1x) — same person/place spelled two ways?
+- NAME? 'Nuestra' (4x) vs 'Nuestros' (4x) — same person/place spelled two ways?
+- NAME? 'Nuestras' (1x) vs 'Nuestro' (1x) — same person/place spelled two ways?
+- NAME? 'Nuestras' (1x) vs 'Nuestros' (4x) — same person/place spelled two ways?
+- NAME? 'Nuestro' (1x) vs 'Nuestros' (4x) — same person/place spelled two ways?
+- NAME? 'Olvidaron' (1x) vs 'Olvidará' (1x) — same person/place spelled two ways?
+- NAME? 'Preparado' (1x) vs 'Preparas' (1x) — same person/place spelled two ways?
+- NAME? 'Quieta' (1x) vs 'Quita' (3x) — same person/place spelled two ways?
+- NAME? 'Quita' (3x) vs 'Quité' (1x) — same person/place spelled two ways?
+- NAME? 'Recobra' (1x) vs 'Recordad' (1x) — same person/place spelled two ways?
+- NAME? 'Recordad' (1x) vs 'Recordaré' (2x) — same person/place spelled two ways?
+- NAME? 'Recordad' (1x) vs 'Recordó' (1x) — same person/place spelled two ways?
+- NAME? 'Recuerda' (4x) vs 'Recuerdo' (4x) — same person/place spelled two ways?
+- NAME? 'Recuerda' (4x) vs 'Recupera' (1x) — same person/place spelled two ways?
+- NAME? 'Sacrifica' (1x) vs 'Sacrificaré' (1x) — same person/place spelled two ways?
+- NAME? 'Sacrifica' (1x) vs 'Sacrificio' (2x) — same person/place spelled two ways?
+- NAME? 'Sela' (15x) vs 'Selah' (34x) — same person/place spelled two ways?
+- NAME? 'Siente' (1x) vs 'Siete' (1x) — same person/place spelled two ways?
+- NAME? 'Sijón' (4x) vs 'Sión' (37x) — same person/place spelled two ways?
+- NAME? 'Sion' (1x) vs 'Siyon' (1x) — same person/place spelled two ways?
+- NAME? 'Sion' (1x) vs 'Son' (2x) — same person/place spelled two ways?
+- NAME? 'Sostén' (1x) vs 'Sosténme' (2x) — same person/place spelled two ways?
+- NAME? 'Temed' (1x) vs 'Tened' (1x) — same person/place spelled two ways?
+- NAME? 'Temor' (1x) vs 'Tremor' (1x) — same person/place spelled two ways?
+- NAME? 'Vendrán' (2x) vs 'Verán' (2x) — same person/place spelled two ways?
+- NAME? 'Yahvé' (8x) vs 'Yavé' (1x) — same person/place spelled two ways?
+- NAME? 'Bienaventurado' (3x) vs 'Bienaventurados' (2x) — same person/place spelled two ways?
+- NAME? 'Dichoso' (1x) vs 'Dichosos' (1x) — same person/place spelled two ways?
+- NAME? 'Simeón' (1x) vs 'Sión' (1x) — same person/place spelled two ways?
+- NAME? 'Bendecid' (1x) vs 'Bendecidos' (1x) — same person/place spelled two ways?
+- NAME? 'Erasto' (1x) vs 'Esto' (2x) — same person/place spelled two ways?
+- NAME? 'Escritura' (6x) vs 'Escrituras' (1x) — same person/place spelled two ways?
+- NAME? 'Esto' (2x) vs 'Estoy' (2x) — same person/place spelled two ways?
+- NAME? 'Gracia' (1x) vs 'Gracias' (2x) — same person/place spelled two ways?
+- NAME? 'Hablo' (2x) vs 'Pablo' (1x) — same person/place spelled two ways?
+- NAME? 'Hermanos' (1x) vs 'Hermas' (2x) — same person/place spelled two ways?
+- NAME? 'Saludan' (3x) vs 'Saluden' (15x) — same person/place spelled two ways?
+- NAME? 'Bendita' (1x) vs 'Bendito' (2x) — same person/place spelled two ways?
+- NAME? 'Elimélec' (2x) vs 'Elimélek' (2x) — same person/place spelled two ways?
+- NAME? 'Machlón' (2x) vs 'Malón' (2x) — same person/place spelled two ways?
+- NAME? 'Naomí' (6x) vs 'Noemí' (17x) — same person/place spelled two ways?
+- NAME? 'Hermosa' (1x) vs 'Hermosos' (1x) — same person/place spelled two ways?
+- NAME? 'Josué' (7x) vs 'José' (1x) — same person/place spelled two ways?
+- NAME? 'Lamenta' (1x) vs 'Lamenten' (1x) — same person/place spelled two ways?
+- NAME? 'Levanta' (1x) vs 'Levanté' (3x) — same person/place spelled two ways?
+- NAME? 'Libano' (1x) vs 'Líbano' (1x) — same person/place spelled two ways?
+- NAME? 'Sidón' (1x) vs 'Sión' (8x) — same person/place spelled two ways?
+- NAME? 'Siento' (1x) vs 'Sino' (1x) — same person/place spelled two ways?
+- NAME? 'Simeón' (1x) vs 'Sión' (8x) — same person/place spelled two ways?

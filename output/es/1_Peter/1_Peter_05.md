@@ -1,0 +1,9 @@
+# 1 Peter 5
+
+¹ Ancianos, por tanto, les ruego a los ancianos entre ustedes, yo que soy anciano también y testigo de los sufrimientos de Cristo, que también soy partícipe de la gloria que se ha de revelar, ² que cuiden el rebaño de Dios que está entre ustedes, vigilando no por obligación, sino con disposición voluntaria, ni por codicia deshonesta, sino con deseo sincero, ³ ni como dominando a los encargados, sino siendo modelos del rebaño. ⁴ Y cuando se manifieste el pastor principal, recibirán la corona inmarchitable de gloria. ⁵ Del mismo modo, jóvenes, sométanse a los ancianos. Pero todos revistan entre sí la humildad, porque Dios resiste a los orgullosos y da gracia a los humildes. ⁶ Humíllense, pues, bajo la poderosa mano de Dios, para que Él los exalce a su debido tiempo. ⁷ Entreguen a Él toda su preocupación, porque Él se interesa por ustedes. ⁸ Sean alertas, despiertos. Su adversario el diablo anda como león rugiente, buscando a quien devorar. ⁹ Resistanle con firmeza en la fe, sabiendo que sus hermanos en todo el mundo pasan por lo mismo. ¹⁰ El Dios de toda gracia, que los llamó a su gloria eterna en Cristo, después de que ustedes hayan sufrido un poco, los restaurará, los afirmará, los fortalecerá y los sostendrá. ¹¹ A Él pertenece el poder por los siglos de los siglos. Amén. ¹² Por Silvano, hermano fiel, como yo pienso, les escribí estas pocas cosas, exhortándolos y atestiguando que esta gracia de Dios es verdadera. Estén firmes en ella. ¹³ Saluda a ustedes la comunidad elegida en Babilonia, y también Marcos, mi hijo. ¹⁴ Saludense entre sí con un beso de amor. La paz sea con todos los que están en Cristo.
+
+---
+
+Notes  
+- v. 1: "συμπρεσβύτερος" se traduce como "anciano también" para mantener claridad y naturalidad en español.  
+- v. 13: "Βαβυλῶνι" se traduce como "Babilonia" siguiendo la convención moderna, no como "Babilonia" arcaica.

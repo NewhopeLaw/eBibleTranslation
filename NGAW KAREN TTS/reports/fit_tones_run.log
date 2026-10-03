@@ -1,0 +1,36 @@
+333 cuts with pitch from 6 lessons
+round 1: 0.26  (none)=6L, ၤ=4L, ၢ်=4, ၣ်=4L, ာ်=2L, း=ɜ
+round 2: 0.26  (none)=6L, ၤ=4L, ၢ်=4, ၣ်=4L, ာ်=2L, း=ɜ
+# Karen tones, measured and fitted
+
+333 word cuts with a pitch track, from lessons: emma/08, emma/09, vocab/01, vocab/04, vocab/05, vocab/06.
+
+## Measured
+
+Pitch at the start, middle and end of the word (semitones from the speaker's middle), averaged over the words whose final syllable carries the mark; and the average word length.
+
+| mark | Wade's name | words | start, mid, end | length s |
+|---|---|---|---|---|
+| (none) | rising | 11 | +2.4, +1.7, -3.6 | 0.59 |
+| ၤ | level, prolonged | 90 | -0.4, +0.4, -0.6 | 0.43 |
+| ၢ် | heavy falling | 112 | +0.1, -0.4, -1.4 | 0.35 |
+| ၣ် | circumflex | 116 | +0.3, +0.7, -0.5 | 0.37 |
+| ာ် | abrupt, low | 1 | +2.2, -1.1, -2.8 | 0.77 |
+| း | abrupt, mid | 3 | +0.4, +1.9, -2.1 | 0.58 |
+
+## Fitted
+
+Starting mapping scores 0.22 mean pitch correlation with the speakers.
+
+round 1: 0.26
+round 2: 0.26
+
+| mark | Wade's name | rides on | vowel | was |
+|---|---|---|---|---|
+| (none) | rising | nặng (low, cut) | long | nặng (low, cut), long |
+| ၤ | level, prolonged | hỏi (dipping) | long | huyền (low falling), short |
+| ၢ် | heavy falling | hỏi (dipping) | short | nặng (low, cut), long |
+| ၣ် | circumflex | hỏi (dipping) | long | huyền (low falling), short |
+| ာ် | abrupt, low | huyền (low falling) | long | huyền (low falling), long |
+| း | abrupt, mid | sắc (high rising) | short | sắc (high rising), short |
+mapping written into karen_phonemes.TONES

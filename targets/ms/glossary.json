@@ -1,0 +1,31 @@
+{
+  "_comment": "Istilah Ibrani/Aram/Yunani penting dan padanan tetapnya dalam bahasa Melayu; disisipkan ke setiap prompt. Diperluas dari semasa ke semasa.",
+  "hebrew": {
+    "יהוה (YHWH)": "TUHAN",
+    "אלהים (elohim, as title of God)": "Allah",
+    "יהוה אלהים": "TUHAN Allah",
+    "אדני יהוה (adonai YHWH)": "Tuhan ALLAH",
+    "האדם (ha-adam)": "manusia itu (sehingga kisah jelas menggunakan Adam sebagai nama diri)",
+    "חסד (hesed)": "kasih setia",
+    "נפש (nephesh)": "mengikut konteks: nyawa, hidup, diri sendiri, keinginan, kerongkong — jangan automatik “jiwa”",
+    "רוח (ruach)": "mengikut konteks: nafas, angin, roh",
+    "תהום (tehom)": "samudera raya",
+    "תהו ובהו (tohu va-bohu)": "tidak berbentuk dan kosong",
+    "ברית (berit)": "perjanjian",
+    "תורה (torah)": "pengajaran / hukum (mengikut konteks)",
+    "שלום (shalom)": "damai sejahtera (mengikut konteks: keamanan, selamat)",
+    "שאול (sheol)": "alam maut"
+  },
+  "greek": {
+    "κύριος (kyrios)": "Tuhan",
+    "χριστός (christos)": "Mesias (sebagai gelaran) / Kristus (sebagai nama)",
+    "λόγος (logos, John 1)": "Firman",
+    "ἀγάπη (agapē)": "kasih",
+    "ἐκκλησία (ekklēsia)": "jemaah",
+    "βασιλεία τοῦ θεοῦ": "Kerajaan Allah",
+    "εὐαγγέλιον (euangelion)": "Injil",
+    "μετάνοια (metanoia)": "pertaubatan",
+    "πνεῦμα (pneuma)": "mengikut konteks: roh, nafas, angin",
+    "δικαιοσύνη (dikaiosynē)": "kebenaran"
+  }
+}

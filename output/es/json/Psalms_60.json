@@ -1,0 +1,24 @@
+{
+ "book": "Psalms",
+ "chapter": 60,
+ "lang": "es",
+ "verses": {
+  "1": "Al director del coro. Sobre «Canción de Testimonio». Salmo de David. Para enseñar.\n",
+  "2": "Cuando incendió la Mesopotamia de Siria y la Siria de Tzobah, y Joab regresó y derrotó al valle de la sal, matando doce mil edomitas.\n",
+  "3": "Dios, nos has abandonado, nos has humillado, has mostrado desdén y no nos has ayudado.\n",
+  "4": "Has sacudido la tierra, la has hecho temblar; has roto sus esquinas, porque se tambalea.\n",
+  "5": "Has mostrado a tu pueblo cosas duras, nos has dado a beber vino que entorpece.\n",
+  "6": "Has dado a tus temerosos un signo, para que escapen del arco abatido. Selah.\n",
+  "7": "Haz que se salven tus amigos, extiende tu diestra y escucha mi voz.\n",
+  "8": "Dios ha hablado en su santidad: «Dividiré Siyon, repartiré la llanura de las tiendas».\n",
+  "9": "Mío es Galad, mío es Manasés, y Efraím será mi fortaleza; Judá será mi rey.\n",
+  "10": "Moab será mi lavabo, sobre Edom arrojaré mi sandalia; sobre los filisteos gritaré victoria.\n",
+  "11": "¿Quién me guiará a una ciudad fortificada? ¿Quién me conducirá hasta Edom?\n",
+  "12": "¿No tú, Dios, nos has abandonado? ¿Y no saldrás, Dios, con nuestras huestes?\n",
+  "13": "Dame ayuda contra la aflicción, que la salvación humana no sea en vano.\n",
+  "14": "En Dios haremos fuerza, y él aplastará a nuestros enemigos.\n"
+ },
+ "notes": "Notes  \n- v. 1: La mención de \"Canción de Testimonio\" (שׁוּשַׁן עֵדוּת) no tiene un equivalente directo, por lo que se ha optado por una traducción descriptiva.  \n- v. 2: Se ha traducido \"Aram Naharaim\" y \"Aram Tzobah\" directamente, manteniendo los nombres propios como en la fuente.  \n- v. 10: La palabra \"הִתְרֹעָֽעִֽי\" se ha traducido como \"gritaré victoria\" en base a su uso simbólico en este contexto.  \n- v. 14: \"יָבוּס\" se ha interpretado como \"aplazará\" o \"vencerá completamente\", según el contexto de victoria divina.",
+ "raw": "[1] Al director del coro. Sobre «Canción de Testimonio». Salmo de David. Para enseñar.\n\n[2] Cuando incendió la Mesopotamia de Siria y la Siria de Tzobah, y Joab regresó y derrotó al valle de la sal, matando doce mil edomitas.\n\n[3] Dios, nos has abandonado, nos has humillado, has mostrado desdén y no nos has ayudado.\n\n[4] Has sacudido la tierra, la has hecho temblar; has roto sus esquinas, porque se tambalea.\n\n[5] Has mostrado a tu pueblo cosas duras, nos has dado a beber vino que entorpece.\n\n[6] Has dado a tus temerosos un signo, para que escapen del arco abatido. Selah.\n\n[7] Haz que se salven tus amigos, extiende tu diestra y escucha mi voz.\n\n[8] Dios ha hablado en su santidad: «Dividiré Siyon, repartiré la llanura de las tiendas».\n\n[9] Mío es Galad, mío es Manasés, y Efraím será mi fortaleza; Judá será mi rey.\n\n[10] Moab será mi lavabo, sobre Edom arrojaré mi sandalia; sobre los filisteos gritaré victoria.\n\n[11] ¿Quién me guiará a una ciudad fortificada? ¿Quién me conducirá hasta Edom?\n\n[12] ¿No tú, Dios, nos has abandonado? ¿Y no saldrás, Dios, con nuestras huestes?\n\n[13] Dame ayuda contra la aflicción, que la salvación humana no sea en vano.\n\n[14] En Dios haremos fuerza, y él aplastará a nuestros enemigos.\n\n---\n\nNotes  \n- v. 1: La mención de \"Canción de Testimonio\" (שׁוּשַׁן עֵדוּת) no tiene un equivalente directo, por lo que se ha optado por una traducción descriptiva.  \n- v. 2: Se ha traducido \"Aram Naharaim\" y \"Aram Tzobah\" directamente, manteniendo los nombres propios como en la fuente.  \n- v. 10: La palabra \"הִתְרֹעָֽעִֽי\" se ha traducido como \"gritaré victoria\" en base a su uso simbólico en este contexto.  \n- v. 14: \"יָבוּס\" se ha interpretado como \"aplazará\" o \"vencerá completamente\", según el contexto de victoria divina.",
+ "engine": "qwen3:32b"
+}

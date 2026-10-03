@@ -1,0 +1,9 @@
+# Jonah 4
+
+¹ A Jonás le causó gran tristeza, y se llenó de enojo. ² Oró al SEÑOR y dijo: «¡Ah, SEÑOR! ¿No era esto lo que yo decía cuando aún estaba en mi tierra? Por eso huí apresuradamente hacia Tarsis, porque sabía que tú eres un Dios misericordioso y compasivo, lento al enojo, lleno de amor leal, y que cambias de opinión respecto al mal. ³ Ahora, SEÑOR, quítame la vida, porque muerto es mejor que vivir». ⁴ El SEÑOR le dijo: «¿Te enojaste tanto por Nínive?». ⁵ Jonás salió de la ciudad y se sentó al oriente de ella. Allí hizo una choza para sí y se sentó bajo su sombra, esperando ver qué le ocurriría a la ciudad. ⁶ El SEÑOR Dios envió una planta de col, que creció sobre la cabeza de Jonás para sombrearla y aliviarle el malestar. Jonás se alegró mucho por la planta. ⁷ Al día siguiente, al amanecer, el SEÑOR envió una gusana que atacó la col, y secó. ⁸ Cuando el sol salió, el SEÑOR envió un viento caliente y fuerte, y el sol golpeó la cabeza de Jonás, y él se desmayó. Rogó por su vida y dijo: «¡Muerto es mejor que vivir!». ⁹ El SEÑOR le dijo: «¿Te enojaste tanto por esta planta?». Jonás respondió: «Tanto que me da ganas de morir». ¹⁰ El SEÑOR dijo: «Tú te compadeces de una planta, que no te costó esfuerzo cultivar, ni la cuidaste, que nació en un día y murió en un día. ¹¹ ¿Y yo no debo tener compasión por Nínive, aquella gran ciudad, en la que hay más de doce mil personas que no saben distinguir entre su derecha y su izquierda, y muchas bestias?».
+
+---
+
+Notes  
+- v. 2: La expresión "¡Ah, SEÑOR!" (אָנָּה יְהוָה) es un clásico interjección de lamento o súplica, y se ha traducido aquí como una exclamación natural en español.  
+- v. 11: La expresión "doce mil personas" (שְׁתֵּים־עֶשְׂרֵה רִבּוֹ) se interpreta como "más de doce mil personas", ya que el texto no implica un número exacto.

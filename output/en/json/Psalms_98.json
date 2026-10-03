@@ -1,0 +1,19 @@
+{
+ "book": "Psalms",
+ "chapter": 98,
+ "lang": "en",
+ "verses": {
+  "1": "A Psalm. Sing to the LORD a new song, for he has done wonders. His right hand and holy arm have delivered him.\n",
+  "2": "The LORD has made known his deliverance to the eyes of the nations. He has revealed his righteousness.\n",
+  "3": "He remembered his steadfast love toward Jacob, and his faithfulness to the house of Israel. All the ends of the earth have seen the deliverance of our God.\n",
+  "4": "Shout to the LORD, all the earth. Make music and sing praises, and play music.\n",
+  "5": "Play music to the LORD with the lyre, with the lyre and a song of praise.\n",
+  "6": "With trumpets and the sound of the horn, shout before the King, the LORD.\n",
+  "7": "Let the sea and all in it roar. Let the world and those who dwell in it tremble.\n",
+  "8": "Let rivers clap their hands. Let the mountains sing for joy together.\n",
+  "9": "Before the LORD, who is coming to judge the earth, he will judge the world in righteousness and the peoples in uprightness.\n"
+ },
+ "notes": "Notes\n- v. 1: \"His right hand and holy arm have delivered him\" follows the Hebrew construction where the subject of \"has delivered\" can be read as the LORD, not himself. This is consistent with the context of divine action.\n- v. 3: \"He remembered his steadfast love toward Jacob\" — the Hebrew \"zachar\" is translated as \"remembered\" in the sense of acting in accordance with a prior commitment.\n- v. 8: \"Let rivers clap their hands\" is a poetic image reflecting the Hebrew \"yimcha'uf caf\" and is rendered in natural English idiom.",
+ "raw": "[1] A Psalm. Sing to the LORD a new song, for he has done wonders. His right hand and holy arm have delivered him.\n\n[2] The LORD has made known his deliverance to the eyes of the nations. He has revealed his righteousness.\n\n[3] He remembered his steadfast love toward Jacob, and his faithfulness to the house of Israel. All the ends of the earth have seen the deliverance of our God.\n\n[4] Shout to the LORD, all the earth. Make music and sing praises, and play music.\n\n[5] Play music to the LORD with the lyre, with the lyre and a song of praise.\n\n[6] With trumpets and the sound of the horn, shout before the King, the LORD.\n\n[7] Let the sea and all in it roar. Let the world and those who dwell in it tremble.\n\n[8] Let rivers clap their hands. Let the mountains sing for joy together.\n\n[9] Before the LORD, who is coming to judge the earth, he will judge the world in righteousness and the peoples in uprightness.\n\n---\nNotes\n- v. 1: \"His right hand and holy arm have delivered him\" follows the Hebrew construction where the subject of \"has delivered\" can be read as the LORD, not himself. This is consistent with the context of divine action.\n- v. 3: \"He remembered his steadfast love toward Jacob\" — the Hebrew \"zachar\" is translated as \"remembered\" in the sense of acting in accordance with a prior commitment.\n- v. 8: \"Let rivers clap their hands\" is a poetic image reflecting the Hebrew \"yimcha'uf caf\" and is rendered in natural English idiom.",
+ "engine": "qwen3:32b"
+}

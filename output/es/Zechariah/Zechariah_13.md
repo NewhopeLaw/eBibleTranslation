@@ -1,0 +1,12 @@
+# Zechariah 13
+
+¹ En aquel día habrá un manantial abierto para la casa de David y para los que habitan en Jerusalén, para pecado y para impureza. ² Y será en aquel día, declara el SEÑOR de los ejércitos, que destruiré los nombres de los ídolos de la tierra, y no se recordarán más; y también a los profetas y al espíritu de la impureza los expulsaré de la tierra. ³ Y será cuando algún hombre profetice otra vez, y le digan su padre y su madre, los que le parieron: «No vivirás, porque has hablado mentira en nombre del SEÑOR»; y le apedrearán su padre y su madre, los que le parieron, cuando profetice. ⁴ Y será en aquel día que se avergonzarán los profetas, cada uno por su visión cuando profetice, y no se pondrán más la ropa de pelo para engañar. ⁵ Y dirá un hombre: «Yo no soy profeta; soy un hombre que labra la tierra, porque un hombre me engendró desde mi juventud». ⁶ Y le dirán: «¿Qué son estas heridas en tus manos?» Y dirá: «Con las que fui golpeado en la casa de mi amado». ⁷ Espada, despierta contra mis pastores y contra el hombre que es mi compañero, declara el SEÑOR de los ejércitos. Mata al pastor y dispersa las ovejas; y pondré mi mano sobre los pequeños. ⁸ Y será en toda la tierra, declara el SEÑOR, que dos tercios en ella serán destruidos y perecerán, y un tercio quedará en ella. ⁹ Y pondré a ese tercio en el fuego, y lo purificaré como se purifica la plata, y lo probaré como se prueba el oro; él invocará mi nombre, y yo le responderé: «Él es mi pueblo», y él dirá: «El SEÑOR es mi Dios».
+
+---
+
+Notes  
+- v. 1: El término "máquor" (מָקוֹר) es aquí traducido como "manantial" con el sentido de fuente de purificación, en lugar de "fuente" en general.  
+- v. 2: La palabra "עֲצַבִּים" (ezavim) se traduce como "ídolos" (figuras talladas), no como "deidades", para mantener el enfoque en objetos de culto falso.  
+- v. 4: "אַדֶּרֶת שֵׂעָר" se interpreta como "ropa de pelo" (literalmente "manto de pelo"), un signo tradicional de profecía falsa o disfraz.  
+- v. 5: "אִישׁ־עֹבֵד אֲדָמָה" es traducido como "un hombre que labra la tierra", evitando la ambigüedad de "siervo" o "trabajador".  
+- v. 7: "חֶרֶב עוּרִי" (haver ery) es interpretado como "Espada, despierta", una fórmula poética que no sigue el orden literal, pero captura la intención.

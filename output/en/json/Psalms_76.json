@@ -1,0 +1,23 @@
+{
+ "book": "Psalms",
+ "chapter": 76,
+ "lang": "en",
+ "verses": {
+  "1": "To the Chief Musician, with stringed instruments; a psalm of Asaph, a song.",
+  "2": "God is known in Judah; his name is great in Israel.",
+  "3": "His dwelling was in peace, and his tent was in Zion.",
+  "4": "There he broke the might of the bow, shield and sword and war. There he shattered the horns. Selah.",
+  "5": "You shine, exalted above the eternal mountains.",
+  "6": "The hearts of the mighty were struck with fear; their sleep was broken. None among the mighty found their hands.",
+  "7": "From your rebuke, God of Jacob, both horse and rider were thrown into confusion.",
+  "8": "You are awesome; who can stand before your anger?",
+  "9": "From heaven you announced judgment; the earth feared and was still.",
+  "10": "When God arose to judgment, to save all the humble in the land. Selah.",
+  "11": "For the intent of man will honor you; the leftover intent will be a feast for you.",
+  "12": "Make vows and repay to the LORD your God; let all around him bring gifts.",
+  "13": "He who silences the breath of rulers is terrible to the kings of the earth.\n"
+ },
+ "notes": "Notes\n- v. 11: \"the leftover intent will be a feast for you\" reflects the poetic balance of \"the intent of man will honor you\" and the Hebrew's play on the root of נֶדֶר (vow/intent) and its remainder (שְׁאֵרִית). The reference to \"feast\" (חֵמֹת) is a poetic rendering of the term, which can also mean \"offering\" or \"gift.\"",
+ "raw": "[1] To the Chief Musician, with stringed instruments; a psalm of Asaph, a song.\n[2] God is known in Judah; his name is great in Israel.\n[3] His dwelling was in peace, and his tent was in Zion.\n[4] There he broke the might of the bow, shield and sword and war. There he shattered the horns. Selah.\n[5] You shine, exalted above the eternal mountains.\n[6] The hearts of the mighty were struck with fear; their sleep was broken. None among the mighty found their hands.\n[7] From your rebuke, God of Jacob, both horse and rider were thrown into confusion.\n[8] You are awesome; who can stand before your anger?\n[9] From heaven you announced judgment; the earth feared and was still.\n[10] When God arose to judgment, to save all the humble in the land. Selah.\n[11] For the intent of man will honor you; the leftover intent will be a feast for you.\n[12] Make vows and repay to the LORD your God; let all around him bring gifts.\n[13] He who silences the breath of rulers is terrible to the kings of the earth.\n\n---\nNotes\n- v. 11: \"the leftover intent will be a feast for you\" reflects the poetic balance of \"the intent of man will honor you\" and the Hebrew's play on the root of נֶדֶר (vow/intent) and its remainder (שְׁאֵרִית). The reference to \"feast\" (חֵמֹת) is a poetic rendering of the term, which can also mean \"offering\" or \"gift.\"",
+ "engine": "qwen3:32b"
+}

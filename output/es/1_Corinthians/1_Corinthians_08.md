@@ -1,0 +1,10 @@
+# 1 Corinthians 8
+
+¹ Acerca de los alimentos sacrificados a ídolos, sabemos que todos tenemos conocimiento. El conocimiento hincha, pero el amor edifica. ² Si alguno cree que conoce algo, aún no conoce como se debe conocer; ³ pero si alguno ama a Dios, ése es conocido por Él. ⁴ Por lo tanto, acerca de los alimentos sacrificados a ídolos, sabemos que no hay ningún ídolo en el mundo, y que no hay ningún Dios más que uno. ⁵ En efecto, aunque se diga que hay muchos dioses, ya sea en el cielo o en la tierra, como efectivamente hay muchos dioses y muchos señores, ⁶ nosotros, sin embargo, tenemos un solo Dios, el Padre, del cual vienen todas las cosas, y nosotros en Él; y un solo Señor, Jesucristo, por quien vienen todas las cosas, y nosotros por Él. ⁷ Pero no todos tienen conocimiento; algunos, por costumbre, hasta ahora comen alimentos sacrificados a ídolos, y su conciencia, siendo débil, se contamina. ⁸ Pero la comida no nos presenta nada al Dios. Ni si comemos, somos más; ni si no comemos, somos menos. ⁹ Cuidaos, pues, de que vuestra autoridad no se convierta en tropiezo para los débiles. ¹⁰ Porque si alguno ve a ti, que tienes conocimiento, sentado a la mesa en un lugar de ídolos, ¿no se edificará su conciencia, siendo débil, para comer alimentos sacrificados a ídolos? ¹¹ Porque el débil perece en vuestra conocimiento, el hermano por el cual Cristo murió. ¹² Así que pecando de esta manera contra los hermanos y herir su conciencia débil en Cristo, pecáis contra Cristo. ¹³ Por tanto, si la comida tropieza a mi hermano, ya no comeré carne por siempre, para que no tropiece mi hermano.
+
+---
+
+Notes  
+- v. 4: El uso de «no hay ningún ídolo en el mundo» refleja la nula existencia real de ídolos, según la fe cristiana, aunque la expresión griega es metafórica.  
+- v. 6: La traducción de "κύριος" como "Señor" está justificada por el contexto teológico y el uso como título de Jesucristo.  
+- v. 13: El uso de "por siempre" se justifica por la fuerza del término griego "εἰς τὸν αἰῶνα", que denota una negación permanente.

@@ -1,0 +1,32 @@
+{
+ "book": "Lamentations",
+ "chapter": 5,
+ "lang": "en",
+ "verses": {
+  "1": "Remember, O LORD, what has happened to us. Look and see our humiliation.",
+  "2": "Our inheritance has been given to strangers, our homes to foreigners.",
+  "3": "We have become orphans with no father, our mothers like widows.",
+  "4": "We drank water for silver, firewood was bought at a price.",
+  "5": "We were chased with a yoke on our necks, we toiled, yet found no rest.",
+  "6": "Egypt gave its hand, Assyria brought us bread in full measure.",
+  "7": "Our fathers sinned, and they are no more; we have borne their sins.",
+  "8": "Slaves have ruled over us, and no one to deliver us from their grip.",
+  "9": "We were fed with our own lives, we were like wild beasts in the desert for our bread.",
+  "10": "Our skin burned like a furnace, consumed by the heat of hunger.",
+  "11": "Women in Zion were put to shame, virgins in the cities of Judah.",
+  "12": "The leaders were hanged, the faces of the elders were not honored.",
+  "13": "The chosen ones carried grief, and the young men fell from the tree.",
+  "14": "The elders sat in silence at the gates, the young men abandoned their music.",
+  "15": "The joy of our hearts has turned to mourning, our dancing into lament.",
+  "16": "The crown of our head has fallen. Oh, how we have sinned!",
+  "17": "Because of this our heart is faint, because of this our eyes are darkened.",
+  "18": "On Mount Zion, now desolate, foxes prowl through it.",
+  "19": "You, O LORD, will dwell forever. Your throne is eternal, generation after generation.",
+  "20": "Why have you forgotten us forever? Why have you abandoned us for so many days?",
+  "21": "Return to us, O LORD, and we will return. Renew our days as they were in times past.",
+  "22": "For you have utterly rejected us, you have been angry with us beyond measure.\n"
+ },
+ "notes": "Notes\n- v. 19: The phrase “You, O LORD, will dwell forever” reflects the Hebrew לְעוֹלָם תֵּשֵׁב, where “dwell” is rendered to match the poetic tone and the context of divine permanence.\n- v. 21: \"Renew our days as they were in times past\" translates חַדֵּשׁ יָמֵינוּ כְּקֶֽדֶם, where \"renew\" is chosen to reflect the idea of restoration rather than a literal \"change.\"\n- v. 22: The phrase “you have been angry with us beyond measure” reflects the Hebrew עַד־מְאֹֽד, which is idiomatic for an overwhelming or excessive level of anger.",
+ "raw": "[1] Remember, O LORD, what has happened to us. Look and see our humiliation.\n[2] Our inheritance has been given to strangers, our homes to foreigners.\n[3] We have become orphans with no father, our mothers like widows.\n[4] We drank water for silver, firewood was bought at a price.\n[5] We were chased with a yoke on our necks, we toiled, yet found no rest.\n[6] Egypt gave its hand, Assyria brought us bread in full measure.\n[7] Our fathers sinned, and they are no more; we have borne their sins.\n[8] Slaves have ruled over us, and no one to deliver us from their grip.\n[9] We were fed with our own lives, we were like wild beasts in the desert for our bread.\n[10] Our skin burned like a furnace, consumed by the heat of hunger.\n[11] Women in Zion were put to shame, virgins in the cities of Judah.\n[12] The leaders were hanged, the faces of the elders were not honored.\n[13] The chosen ones carried grief, and the young men fell from the tree.\n[14] The elders sat in silence at the gates, the young men abandoned their music.\n[15] The joy of our hearts has turned to mourning, our dancing into lament.\n[16] The crown of our head has fallen. Oh, how we have sinned!\n[17] Because of this our heart is faint, because of this our eyes are darkened.\n[18] On Mount Zion, now desolate, foxes prowl through it.\n[19] You, O LORD, will dwell forever. Your throne is eternal, generation after generation.\n[20] Why have you forgotten us forever? Why have you abandoned us for so many days?\n[21] Return to us, O LORD, and we will return. Renew our days as they were in times past.\n[22] For you have utterly rejected us, you have been angry with us beyond measure.\n\n---\nNotes\n- v. 19: The phrase “You, O LORD, will dwell forever” reflects the Hebrew לְעוֹלָם תֵּשֵׁב, where “dwell” is rendered to match the poetic tone and the context of divine permanence.\n- v. 21: \"Renew our days as they were in times past\" translates חַדֵּשׁ יָמֵינוּ כְּקֶֽדֶם, where \"renew\" is chosen to reflect the idea of restoration rather than a literal \"change.\"\n- v. 22: The phrase “you have been angry with us beyond measure” reflects the Hebrew עַד־מְאֹֽד, which is idiomatic for an overwhelming or excessive level of anger.",
+ "engine": "qwen3:32b"
+}

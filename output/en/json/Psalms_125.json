@@ -1,0 +1,15 @@
+{
+ "book": "Psalms",
+ "chapter": 125,
+ "lang": "en",
+ "verses": {
+  "1": "A song of ascents. Those who trust in the LORD are like Mount Zion — they will not be shaken. The one dwelling in Jerusalem will remain forever.",
+  "2": "The mountains stand around Jerusalem, and the LORD stands around his people — now and forevermore.",
+  "3": "For the staff of the wicked will not rest on the portion of the righteous, so that the righteous may not stretch out their hands into wrongdoing.",
+  "4": "The LORD is good to the good and upright in heart.",
+  "5": "But the crooked the LORD will bring to ruin, along with those who do wrong. Peace be upon Israel."
+ },
+ "notes": "Notes\n- v. 1: \"Those who trust in the LORD are like Mount Zion\" — the comparison is rendered as a relative clause for clarity and natural English flow.\n- v. 3: \"The staff of the wicked will not rest on the portion of the righteous\" — \"portion\" here refers to the inheritance or share, and \"stretch out their hands into wrongdoing\" renders the poetic parallelism of the Hebrew.",
+ "raw": "[1] A song of ascents. Those who trust in the LORD are like Mount Zion — they will not be shaken. The one dwelling in Jerusalem will remain forever.  \n[2] The mountains stand around Jerusalem, and the LORD stands around his people — now and forevermore.  \n[3] For the staff of the wicked will not rest on the portion of the righteous, so that the righteous may not stretch out their hands into wrongdoing.  \n[4] The LORD is good to the good and upright in heart.  \n[5] But the crooked the LORD will bring to ruin, along with those who do wrong. Peace be upon Israel.  \n---\nNotes\n- v. 1: \"Those who trust in the LORD are like Mount Zion\" — the comparison is rendered as a relative clause for clarity and natural English flow.\n- v. 3: \"The staff of the wicked will not rest on the portion of the righteous\" — \"portion\" here refers to the inheritance or share, and \"stretch out their hands into wrongdoing\" renders the poetic parallelism of the Hebrew.",
+ "engine": "qwen3:32b"
+}

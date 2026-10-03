@@ -1,0 +1,20 @@
+{
+ "book": "Psalms",
+ "chapter": 47,
+ "lang": "es",
+ "verses": {
+  "1": "Para el director musical. Para los hijos de Core. Salmo.\n",
+  "2": "¡Que todos los pueblos batan palmas! ¡Hagan ruido a Dios con voz de alegría!\n",
+  "3": "Porque el SEÑOR es el Alto, terrible. Rey grande, sobre toda la tierra.\n",
+  "4": "Hará que los pueblos se sometan a nosotros, y las naciones, bajo nuestros pies.\n",
+  "5": "Ha elegido para nosotros nuestra herencia, la gloria de Jacob, que amó. Selah.\n",
+  "6": "Subió Dios con algarabía, el SEÑOR con voz de trompeta.\n",
+  "7": "Cantad a Dios, cantad; cantad al rey nuestro, cantad.\n",
+  "8": "Porque rey de toda la tierra es Dios. Cantad con inteligencia.\n",
+  "9": "Ha reinado Dios sobre los pueblos, Dios se ha sentado en su trono santo.\n",
+  "10": "Se han reunido los príncipes de los pueblos, el pueblo del Dios de Abraham, porque los fuertes de la tierra, de veras, están subyugados a Él.\n"
+ },
+ "notes": "Notes\n- v. 10: «magnes-erda» o «fuertes de la tierra» es una interpretación de «מְאֹד נַעֲלָֽה» (mad na'alah), que se refiere a los que tienen autoridad y poder, sometidos a Dios.",
+ "raw": "[1] Para el director musical. Para los hijos de Core. Salmo.\n\n[2] ¡Que todos los pueblos batan palmas! ¡Hagan ruido a Dios con voz de alegría!\n\n[3] Porque el SEÑOR es el Alto, terrible. Rey grande, sobre toda la tierra.\n\n[4] Hará que los pueblos se sometan a nosotros, y las naciones, bajo nuestros pies.\n\n[5] Ha elegido para nosotros nuestra herencia, la gloria de Jacob, que amó. Selah.\n\n[6] Subió Dios con algarabía, el SEÑOR con voz de trompeta.\n\n[7] Cantad a Dios, cantad; cantad al rey nuestro, cantad.\n\n[8] Porque rey de toda la tierra es Dios. Cantad con inteligencia.\n\n[9] Ha reinado Dios sobre los pueblos, Dios se ha sentado en su trono santo.\n\n[10] Se han reunido los príncipes de los pueblos, el pueblo del Dios de Abraham, porque los fuertes de la tierra, de veras, están subyugados a Él.\n\n---\nNotes\n- v. 10: «magnes-erda» o «fuertes de la tierra» es una interpretación de «מְאֹד נַעֲלָֽה» (mad na'alah), que se refiere a los que tienen autoridad y poder, sometidos a Dios.",
+ "engine": "qwen3:32b"
+}

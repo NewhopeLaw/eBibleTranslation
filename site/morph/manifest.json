@@ -1,0 +1,135 @@
+{
+ "cross-references": {
+  "count": 341242,
+  "unit": "links",
+  "note": "shown when a verse number is clicked",
+  "script": "build_refs.py",
+  "built": 1789189700.9228346
+ },
+ "text-notes": {
+  "count": 13340,
+  "unit": "notes",
+  "note": "editions and the scribal tradition",
+  "script": "build_apparatus.py",
+  "built": 1789189624.870934
+ },
+ "places": {
+  "count": 1111,
+  "unit": "places",
+  "note": "the map and the places tab",
+  "script": "build_places.py",
+  "built": 1789189625.0069396
+ },
+ "chronology": {
+  "count": 291,
+  "unit": "statements",
+  "note": "the chronology tab",
+  "script": "build_chronology.py",
+  "built": 1789189625.7489722
+ },
+ "lexicon": {
+  "count": 10684,
+  "unit": "entries",
+  "note": "our own lexicon, written from the text",
+  "script": "build_lexicon.py",
+  "built": 1790642722.9043539
+ },
+ "search-index": {
+  "count": 11481325,
+  "unit": "postings",
+  "note": "10 texts indexed for search",
+  "script": "build_index.py",
+  "built": 1790137072.5752356
+ },
+ "morphology": {
+  "count": 442835,
+  "unit": "words tagged",
+  "note": "word popup, interlinear, grammar search",
+  "script": "build_morph.py",
+  "built": 1789189688.137708
+ },
+ "concordance": {
+  "count": 16967,
+  "unit": "lexemes",
+  "note": "every occurrence of a word",
+  "script": "build_morph.py",
+  "built": 1789189688.1422198
+ },
+ "lexicon-brief": {
+  "count": 22717,
+  "unit": "entries",
+  "note": "the brief reference lexicon",
+  "script": "build_morph.py",
+  "built": 1789189688.1452148
+ },
+ "clause-data": {
+  "count": 444526,
+  "unit": "words",
+  "note": "clause role, participants, glosses",
+  "script": "build_syntax.py",
+  "built": 1789189691.7847476
+ },
+ "parallels": {
+  "count": 6803,
+  "unit": "links",
+  "note": "passages that share their wording",
+  "script": "build_refs.py",
+  "built": 1789189702.5611591
+ },
+ "themes": {
+  "count": 630,
+  "unit": "themes",
+  "note": "what the chapters are about",
+  "script": "build_themes.py",
+  "built": 1790712195.4379056
+ },
+ "book-arguments": {
+  "count": 66,
+  "unit": "books",
+  "note": "what each book argues",
+  "script": "build_theology.py",
+  "built": 1790716393.6406026
+ },
+ "trajectories": {
+  "count": 350,
+  "unit": "themes",
+  "note": "how a theme develops across the canon",
+  "script": "build_theology.py",
+  "built": 1790716393.6451662
+ },
+ "lexeme-inventory": {
+  "count": 27065,
+  "unit": "dictionary words",
+  "note": "our own lexeme inventory",
+  "script": "build_lexemes.py",
+  "built": 1790446459.1017675
+ },
+ "fields": {
+  "count": 16940,
+  "unit": "lexemes sorted",
+  "note": "fields of meaning",
+  "script": "build_domains.py",
+  "built": 1790791200.8219404
+ },
+ "vectors": {
+  "count": 31152,
+  "unit": "verse vectors",
+  "note": "semantic search, with the topical lines",
+  "script": "build_vectors.py",
+  "built": 1789988346.1297116
+ },
+ "entries": {
+  "count": 24708,
+  "unit": "things",
+  "note": "the study layers, searchable",
+  "script": "build_entries.py",
+  "built": 1790104099.4405134
+ },
+ "interface": {
+  "count": 2955,
+  "unit": "strings",
+  "note": "the reader's own words, and the books' names",
+  "script": "build_ui.py",
+  "built": 1790302197.7169602
+ }
+}

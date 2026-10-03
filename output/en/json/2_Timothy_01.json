@@ -1,0 +1,28 @@
+{
+ "book": "2 Timothy",
+ "chapter": 1,
+ "lang": "en",
+ "verses": {
+  "1": "Paul, an apostle of Christ Jesus by the will of God, according to the promise of life in Christ Jesus,",
+  "2": "to Timothy, my beloved child: Grace, mercy, and peace from God the Father and Christ Jesus our Lord.",
+  "3": "I thank the God whom I have served from my ancestors with a clear conscience, for I have not ceased to remember you in my prayers, night and day,",
+  "4": "longing to see you, remembering your tears, so that I might be filled with joy.",
+  "5": "I recall your unfeigned faith that was first nurtured in your grandmother Lois and your mother Eunice, and I am convinced that it is also in you.",
+  "6": "For this reason I remind you to rekindle the gift of God that you have within you through the laying on of my hands,",
+  "7": "because God has not given us a spirit of cowardice, but of power, love, and self-discipline.",
+  "8": "So then, do not be ashamed of the testimony about our Lord or of me, his prisoner, but share in suffering for the gospel by the power of God,",
+  "9": "who saved us and called us to a holy calling, not according to our works but according to his own purpose and grace, granted to us in Christ Jesus before the ages began,",
+  "10": "now revealed through the appearing of our Savior Jesus Christ, who destroyed death and illuminated life and immortality through the gospel,",
+  "11": "for which I was appointed a herald, apostle, and teacher.",
+  "12": "For this reason I suffer these things, but I am not ashamed, because I know whom I have believed, and I am convinced that he is able to guard what I have entrusted to him until that day.",
+  "13": "Hold fast to the sound teachings you heard from me in the faith and love that are in Christ Jesus.",
+  "14": "Guard the good deposit through the Holy Spirit who dwells in us.",
+  "15": "You know that all in Asia turned away from me, including Phygelus and Hermogenes.",
+  "16": "May the Lord show mercy to the household of Onesiphorus, because he often refreshed me, and was not ashamed of my chains.",
+  "17": "Indeed, when he came to Rome he eagerly searched for me and found me—",
+  "18": "may the Lord grant him to find mercy from the Lord on that day—and how much he served in Ephesus, you yourself know better."
+ },
+ "notes": "Notes\n- v. 13: “sound teachings” renders *ὑποτύπωσιν ἔχε ὑγιαινόντων λόγων*, where *ὑποτύπωσιν* is translated as \"hold fast to the pattern\" but here rendered more naturally as \"hold fast to the sound teachings.\"\n- v. 14: “good deposit” renders *τὴν καλὴν παραθήκην*, using “deposit” for *παραθήκην* in the sense of a trust or charge, as commonly used in Pauline epistles.",
+ "raw": "[1] Paul, an apostle of Christ Jesus by the will of God, according to the promise of life in Christ Jesus,\n[2] to Timothy, my beloved child: Grace, mercy, and peace from God the Father and Christ Jesus our Lord.\n[3] I thank the God whom I have served from my ancestors with a clear conscience, for I have not ceased to remember you in my prayers, night and day,\n[4] longing to see you, remembering your tears, so that I might be filled with joy.\n[5] I recall your unfeigned faith that was first nurtured in your grandmother Lois and your mother Eunice, and I am convinced that it is also in you.\n[6] For this reason I remind you to rekindle the gift of God that you have within you through the laying on of my hands,\n[7] because God has not given us a spirit of cowardice, but of power, love, and self-discipline.\n[8] So then, do not be ashamed of the testimony about our Lord or of me, his prisoner, but share in suffering for the gospel by the power of God,\n[9] who saved us and called us to a holy calling, not according to our works but according to his own purpose and grace, granted to us in Christ Jesus before the ages began,\n[10] now revealed through the appearing of our Savior Jesus Christ, who destroyed death and illuminated life and immortality through the gospel,\n[11] for which I was appointed a herald, apostle, and teacher.\n[12] For this reason I suffer these things, but I am not ashamed, because I know whom I have believed, and I am convinced that he is able to guard what I have entrusted to him until that day.\n[13] Hold fast to the sound teachings you heard from me in the faith and love that are in Christ Jesus.\n[14] Guard the good deposit through the Holy Spirit who dwells in us.\n[15] You know that all in Asia turned away from me, including Phygelus and Hermogenes.\n[16] May the Lord show mercy to the household of Onesiphorus, because he often refreshed me, and was not ashamed of my chains.\n[17] Indeed, when he came to Rome he eagerly searched for me and found me—\n[18] may the Lord grant him to find mercy from the Lord on that day—and how much he served in Ephesus, you yourself know better.\n---\nNotes\n- v. 13: “sound teachings” renders *ὑποτύπωσιν ἔχε ὑγιαινόντων λόγων*, where *ὑποτύπωσιν* is translated as \"hold fast to the pattern\" but here rendered more naturally as \"hold fast to the sound teachings.\"\n- v. 14: “good deposit” renders *τὴν καλὴν παραθήκην*, using “deposit” for *παραθήκην* in the sense of a trust or charge, as commonly used in Pauline epistles.",
+ "engine": "qwen3:32b"
+}

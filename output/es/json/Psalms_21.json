@@ -1,0 +1,24 @@
+{
+ "book": "Psalms",
+ "chapter": 21,
+ "lang": "es",
+ "verses": {
+  "1": "Para el director musical. Salmo de David.\n",
+  "2": "Que el SEÑOR se alegre en su fuerza, el rey se alegrará muchísimo en tu salvación.\n",
+  "3": "Has dado a su corazón lo que deseaba, no has rechazado la súplica de sus labios. Selá.\n",
+  "4": "Porque tú le has precedido con bendiciones de bondad, has colocado en su cabeza una corona de piedra preciosa.\n",
+  "5": "Pidió vida, y se la diste; le diste longevidad, vida sin fin y eterna.\n",
+  "6": "Gran es su gloria en tu salvación, pondrás sobre él gloria y majestad.\n",
+  "7": "Porque le darás bendición eterna, le alegrarás con gozo en tu presencia.\n",
+  "8": "Porque el rey confía en el SEÑOR, y en el amor leal del Altísimo no se tambaleará.\n",
+  "9": "Tu mano hallará a todos sus enemigos, tu diestra hallará a todos los que le odian.\n",
+  "10": "Los pondrás como horno de fuego en el momento de tu rostro, SEÑOR; en tu ira los destruirás, y el fuego los consumirá.\n",
+  "11": "Destruirás su fruto de la tierra, y su descendencia de entre los hijos del hombre.\n",
+  "12": "Porque maquinaron males contra ti, urdieron consejo que no podrán llevar a cabo.\n",
+  "13": "Porque los pondrás con la espalda, en tus cuerdas los prepararás para su rostro.\n",
+  "14": "Ensáltate, SEÑOR, en tu fuerza, cantaremos y alabaremos tu poder.\n"
+ },
+ "notes": "Notes\n- v. 3: La palabra «סֶּֽלָה» (selá) se ha conservado con su forma tradicional y no se ha traducido, ya que su significado exacto es incierto. Se ha colocado al final del verso como es habitual.\n- v. 13: La expresión «שֶׁכֶם בְּמֵֽיתָרֶיךָ» se traduce como «con la espalda, en tus cuerdas», refiriéndose probablemente a una metáfora de arco o de instrumento musical, que se interpreta metafóricamente como preparación o castigo.",
+ "raw": "[1] Para el director musical. Salmo de David.\n\n[2] Que el SEÑOR se alegre en su fuerza, el rey se alegrará muchísimo en tu salvación.\n\n[3] Has dado a su corazón lo que deseaba, no has rechazado la súplica de sus labios. Selá.\n\n[4] Porque tú le has precedido con bendiciones de bondad, has colocado en su cabeza una corona de piedra preciosa.\n\n[5] Pidió vida, y se la diste; le diste longevidad, vida sin fin y eterna.\n\n[6] Gran es su gloria en tu salvación, pondrás sobre él gloria y majestad.\n\n[7] Porque le darás bendición eterna, le alegrarás con gozo en tu presencia.\n\n[8] Porque el rey confía en el SEÑOR, y en el amor leal del Altísimo no se tambaleará.\n\n[9] Tu mano hallará a todos sus enemigos, tu diestra hallará a todos los que le odian.\n\n[10] Los pondrás como horno de fuego en el momento de tu rostro, SEÑOR; en tu ira los destruirás, y el fuego los consumirá.\n\n[11] Destruirás su fruto de la tierra, y su descendencia de entre los hijos del hombre.\n\n[12] Porque maquinaron males contra ti, urdieron consejo que no podrán llevar a cabo.\n\n[13] Porque los pondrás con la espalda, en tus cuerdas los prepararás para su rostro.\n\n[14] Ensáltate, SEÑOR, en tu fuerza, cantaremos y alabaremos tu poder.\n\n---\nNotes\n- v. 3: La palabra «סֶּֽלָה» (selá) se ha conservado con su forma tradicional y no se ha traducido, ya que su significado exacto es incierto. Se ha colocado al final del verso como es habitual.\n- v. 13: La expresión «שֶׁכֶם בְּמֵֽיתָרֶיךָ» se traduce como «con la espalda, en tus cuerdas», refiriéndose probablemente a una metáfora de arco o de instrumento musical, que se interpreta metafóricamente como preparación o castigo.",
+ "engine": "qwen3:32b"
+}

@@ -1,0 +1,16 @@
+{
+ "book": "Psalms",
+ "chapter": 23,
+ "lang": "en",
+ "verses": {
+  "1": "A psalm of David. The LORD is my shepherd; I lack nothing.",
+  "2": "He sets me to rest in fields of fresh grass, he leads me beside still waters.",
+  "3": "He restores my soul. He guides me along the pathways of righteousness for the sake of his name.",
+  "4": "Even when I walk through the valley of deep shadow, I fear no harm, for you are with me—your rod and your staff, they comfort me.",
+  "5": "You prepare a table before me in the presence of my adversaries; you anoint my head with oil, and my cup overflows.",
+  "6": "Surely goodness and steadfast love will pursue me all the days of my life, and I will dwell in the house of the LORD for the length of days."
+ },
+ "notes": "Notes\n- v. 3: \"the pathways of righteousness\" reflects the meaning of \"ma'agalei tzadek\" as paths or circles of righteousness, not necessarily \"paths of justice\" in a legal sense.\n- v. 4: \"the valley of deep shadow\" translates \"gai tselmavet,\" which literally means \"valley of the shadow of death,\" but is rendered here to avoid archaic phrasing while preserving the imagery.\n- v. 5: \"adversaries\" is used for \"tsorrai\" to convey the sense of opposition without assuming a specific context.",
+ "raw": "[1] A psalm of David. The LORD is my shepherd; I lack nothing.\n[2] He sets me to rest in fields of fresh grass, he leads me beside still waters.\n[3] He restores my soul. He guides me along the pathways of righteousness for the sake of his name.\n[4] Even when I walk through the valley of deep shadow, I fear no harm, for you are with me—your rod and your staff, they comfort me.\n[5] You prepare a table before me in the presence of my adversaries; you anoint my head with oil, and my cup overflows.\n[6] Surely goodness and steadfast love will pursue me all the days of my life, and I will dwell in the house of the LORD for the length of days.\n---\nNotes\n- v. 3: \"the pathways of righteousness\" reflects the meaning of \"ma'agalei tzadek\" as paths or circles of righteousness, not necessarily \"paths of justice\" in a legal sense.\n- v. 4: \"the valley of deep shadow\" translates \"gai tselmavet,\" which literally means \"valley of the shadow of death,\" but is rendered here to avoid archaic phrasing while preserving the imagery.\n- v. 5: \"adversaries\" is used for \"tsorrai\" to convey the sense of opposition without assuming a specific context.",
+ "engine": "qwen3:32b"
+}

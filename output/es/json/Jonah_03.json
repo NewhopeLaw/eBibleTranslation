@@ -1,0 +1,20 @@
+{
+ "book": "Jonah",
+ "chapter": 3,
+ "lang": "es",
+ "verses": {
+  "1": "El SEÑOR le dio a Jonás una orden segunda, diciendo:",
+  "2": "Levántate, ve a Nínive, la gran ciudad, y pronuncia la proclamación que yo te digo.",
+  "3": "Jonás se levantó y fue a Nínive, según le había dicho el SEÑOR. Nínive era una ciudad grande para Dios, de unos tres días de caminata.",
+  "4": "Jonás comenzó a entrar en la ciudad, unos tres días de caminata, y proclamó: «Todavía cuarenta días y Nínive será destruida».",
+  "5": "Los habitantes de Nínive creyeron en Dios, y proclamaron un ayuno. Se vistieron de saco, desde los grandes hasta los pequeños.",
+  "6": "La noticia llegó al rey de Nínive. Se levantó de su trono, quitó su manto real, se puso un saco y se sentó sobre el polvo.",
+  "7": "El rey hizo anunciar por toda Nínive, diciendo: «Todo hombre, gran bestia, vaca y rebaño, que no guste nada, ni pastee, ni beba agua.",
+  "8": "Y hombres y bestias se cubran con saco, y clamen a Dios con voz fuerte. Que cada uno se aparte de su camino malo y de la maldad que tiene en sus manos».",
+  "9": "¿Quién sabe? Tal vez Dios se arrepienta y se aparte de su enojo, y no nos haga perecer.",
+  "10": "Dios vio sus obras, cómo se habían apartado de su camino malo, y se arrepintió del mal que había anunciado de hacerles, y no lo hizo.\n"
+ },
+ "notes": "Notes\n- v. 4: La expresión «unos tres días de caminata» se interpreta como distancia, no como tiempo de recorrido, para evitar confusión con el «cuarenta días» mencionado en el verso 4.\n- v. 9: La frase «¿Quién sabe?» refleja la incertidumbre y la esperanza de redención, tal como se expresa en el texto hebreo.",
+ "raw": "[1] El SEÑOR le dio a Jonás una orden segunda, diciendo:\n[2] Levántate, ve a Nínive, la gran ciudad, y pronuncia la proclamación que yo te digo.\n[3] Jonás se levantó y fue a Nínive, según le había dicho el SEÑOR. Nínive era una ciudad grande para Dios, de unos tres días de caminata.\n[4] Jonás comenzó a entrar en la ciudad, unos tres días de caminata, y proclamó: «Todavía cuarenta días y Nínive será destruida».\n[5] Los habitantes de Nínive creyeron en Dios, y proclamaron un ayuno. Se vistieron de saco, desde los grandes hasta los pequeños.\n[6] La noticia llegó al rey de Nínive. Se levantó de su trono, quitó su manto real, se puso un saco y se sentó sobre el polvo.\n[7] El rey hizo anunciar por toda Nínive, diciendo: «Todo hombre, gran bestia, vaca y rebaño, que no guste nada, ni pastee, ni beba agua.\n[8] Y hombres y bestias se cubran con saco, y clamen a Dios con voz fuerte. Que cada uno se aparte de su camino malo y de la maldad que tiene en sus manos».\n[9] ¿Quién sabe? Tal vez Dios se arrepienta y se aparte de su enojo, y no nos haga perecer.\n[10] Dios vio sus obras, cómo se habían apartado de su camino malo, y se arrepintió del mal que había anunciado de hacerles, y no lo hizo.\n\n---\nNotes\n- v. 4: La expresión «unos tres días de caminata» se interpreta como distancia, no como tiempo de recorrido, para evitar confusión con el «cuarenta días» mencionado en el verso 4.\n- v. 9: La frase «¿Quién sabe?» refleja la incertidumbre y la esperanza de redención, tal como se expresa en el texto hebreo.",
+ "engine": "qwen3:32b"
+}

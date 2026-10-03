@@ -1,0 +1,28 @@
+{
+ "book": "Proverbs",
+ "chapter": 9,
+ "lang": "en",
+ "verses": {
+  "1": "Wisdom built her house; she hewed out her seven pillars.",
+  "2": "She slaughtered her sacrifices, mixed her wine in a bowl, and prepared her table.",
+  "3": "She sent out her maidens, calling from the tops of the high places, on the crossbeams of the rooftops:",
+  "4": "“Let the simple turn this way,” she says to the one lacking understanding.",
+  "5": "“Come, eat of my bread, and drink of the wine I have mixed.",
+  "6": "Leave foolishness and live; walk in the way of understanding.”",
+  "7": "One who rebukes a scoffer brings shame on himself, and one who corrects the wicked gets blamed.",
+  "8": "Do not rebuke a scoffer, or he will hate you; rebuke a wise person, and he will love you.",
+  "9": "Give wisdom to a wise person, and he will grow wiser; teach a righteous person, and he will gain more knowledge.",
+  "10": "The beginning of wisdom is the fear of the LORD; knowledge of the holy ones is understanding.",
+  "11": "For by me your days will increase, and years of life will be added to you.",
+  "12": "If you have wisdom, it is for yourself; if you have foolishness, you bear it alone.",
+  "13": "A foolish woman is clamorous, full of folly and without knowledge.",
+  "14": "She sits at the door of her house, on a seat at the high places,",
+  "15": "calling to those passing by, who keep to straight paths:",
+  "16": "“Let the simple turn this way,” she says to the one lacking understanding.",
+  "17": "“Stolen water tastes sweet, and hidden bread is delicious.”",
+  "18": "But he does not know that the dead are there, in the depths of Sheol it lies in wait for him.\n"
+ },
+ "notes": "Notes\n- v. 12: The Hebrew text is ambiguous whether \"if you are wise, you have gained for yourself\" or \"if you are wise, you have made yourself wise.\" The context of Proverbs suggests the former, but the latter is a possible reading.\n- v. 17: \"Stolen water tastes sweet\" is a direct translation of the Hebrew idiom. The Septuagint and some interpretations add a moralizing clause about long life, which is absent in the Hebrew text.",
+ "raw": "[1] Wisdom built her house; she hewed out her seven pillars.\n[2] She slaughtered her sacrifices, mixed her wine in a bowl, and prepared her table.\n[3] She sent out her maidens, calling from the tops of the high places, on the crossbeams of the rooftops:\n[4] “Let the simple turn this way,” she says to the one lacking understanding.\n[5] “Come, eat of my bread, and drink of the wine I have mixed.\n[6] Leave foolishness and live; walk in the way of understanding.”\n[7] One who rebukes a scoffer brings shame on himself, and one who corrects the wicked gets blamed.\n[8] Do not rebuke a scoffer, or he will hate you; rebuke a wise person, and he will love you.\n[9] Give wisdom to a wise person, and he will grow wiser; teach a righteous person, and he will gain more knowledge.\n[10] The beginning of wisdom is the fear of the LORD; knowledge of the holy ones is understanding.\n[11] For by me your days will increase, and years of life will be added to you.\n[12] If you have wisdom, it is for yourself; if you have foolishness, you bear it alone.\n[13] A foolish woman is clamorous, full of folly and without knowledge.\n[14] She sits at the door of her house, on a seat at the high places,\n[15] calling to those passing by, who keep to straight paths:\n[16] “Let the simple turn this way,” she says to the one lacking understanding.\n[17] “Stolen water tastes sweet, and hidden bread is delicious.”\n[18] But he does not know that the dead are there, in the depths of Sheol it lies in wait for him.\n\n---\nNotes\n- v. 12: The Hebrew text is ambiguous whether \"if you are wise, you have gained for yourself\" or \"if you are wise, you have made yourself wise.\" The context of Proverbs suggests the former, but the latter is a possible reading.\n- v. 17: \"Stolen water tastes sweet\" is a direct translation of the Hebrew idiom. The Septuagint and some interpretations add a moralizing clause about long life, which is absent in the Hebrew text.",
+ "engine": "qwen3:32b"
+}

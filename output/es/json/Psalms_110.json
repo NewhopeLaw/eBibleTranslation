@@ -1,0 +1,17 @@
+{
+ "book": "Psalms",
+ "chapter": 110,
+ "lang": "es",
+ "verses": {
+  "1": "Salmo de David. El SEÑOR le dice al Señor: «Siéntate a mi derecha hasta que haga que tus enemigos sean como el polvo bajo tus pies».\n",
+  "2": "Hará salir el poder de tu vara, oh SEÑOR, desde Sión; domina entre tus enemigos.\n",
+  "3": "Con ti comienza la bendición, en el día de tu poder, en la gloria de los santos; desde antes del amanecer, te has nacido como rocío.\n",
+  "4": "Juró el SEÑOR y no se arrepentirá: «Tú eres sacerdote por siempre, según el orden de Melquisedec».\n",
+  "5": "El Señor a tu derecha aplastó a los reyes en el día de su ira.\n",
+  "6": "Juzgará entre las naciones, rellenará los cuerpos caídos; aplastará las cabezas sobre la tierra amplia.\n",
+  "7": "Beberá del torrente en el camino; por eso levantará la cabeza.\n"
+ },
+ "notes": "Notes  \n- v. 4: La expresión «según el orden de Melquisedec» se traduce literalmente del hebreo, aunque en otros contextos se podría interpretar como «según la ordenanza de Melquisedec».  \n- v. 6: La expresión «rellenará los cuerpos caídos» («מָלֵא גְוִיּוֹת») se interpreta como una metáfora de victoria total.  \n- v. 7: La expresión «de un torrente en el camino» («מִנַּחַל בַּדֶּרֶךְ») se entiende como una imagen de reconstitución y fortaleza.",
+ "raw": "[1] Salmo de David. El SEÑOR le dice al Señor: «Siéntate a mi derecha hasta que haga que tus enemigos sean como el polvo bajo tus pies».\n\n[2] Hará salir el poder de tu vara, oh SEÑOR, desde Sión; domina entre tus enemigos.\n\n[3] Con ti comienza la bendición, en el día de tu poder, en la gloria de los santos; desde antes del amanecer, te has nacido como rocío.\n\n[4] Juró el SEÑOR y no se arrepentirá: «Tú eres sacerdote por siempre, según el orden de Melquisedec».\n\n[5] El Señor a tu derecha aplastó a los reyes en el día de su ira.\n\n[6] Juzgará entre las naciones, rellenará los cuerpos caídos; aplastará las cabezas sobre la tierra amplia.\n\n[7] Beberá del torrente en el camino; por eso levantará la cabeza.\n\n---\nNotes  \n- v. 4: La expresión «según el orden de Melquisedec» se traduce literalmente del hebreo, aunque en otros contextos se podría interpretar como «según la ordenanza de Melquisedec».  \n- v. 6: La expresión «rellenará los cuerpos caídos» («מָלֵא גְוִיּוֹת») se interpreta como una metáfora de victoria total.  \n- v. 7: La expresión «de un torrente en el camino» («מִנַּחַל בַּדֶּרֶךְ») se entiende como una imagen de reconstitución y fortaleza.",
+ "engine": "qwen3:32b"
+}

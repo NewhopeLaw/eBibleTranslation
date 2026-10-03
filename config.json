@@ -1,9 +1,16 @@
 {
   "api_url": "http://127.0.0.1:11434/api/chat",
   "model": "qwen3:32b",
+  "lang_models": {"hak": "qwen3.5:35b-a3b", "nan": "qwen3.5:35b-a3b"},
+  "_lang_models_notes": "A language named here is written by that model instead; translate.py --model overrides both for one run. Hakka: qwen3:32b wrote Cantonese and Mandarin for it (John 1, 2026-09-27), qwen3.5 recognisable if imperfect Hakka.",
   "think": false,
   "temperature": 0.6,
-  "num_ctx": 16384,
+  "num_ctx": 24576,
   "max_prev_chars": 4000,
-  "_notes": "Ollama native chat API. qwen3:32b fits alongside the avatar's vLLM. For the full OT run, llama3.3:70b (needs ~43 GB — stop the nemoclaw2 vLLM first) is the recommended upgrade."
+  "target": "en",
+  "consult_lxx": true,
+  "num_predict": 8192,
+  "max_attempts": 3,
+  "loop_retry_options": {"repeat_penalty": 1.15, "presence_penalty": 1.0},
+  "_notes": "Ollama native chat API. qwen3:32b fits alongside the avatar's vLLM. For the full OT run, llama3.3:70b (needs ~43 GB — stop the nemoclaw2 vLLM first) is the recommended upgrade. num_ctx 24576 leaves room for the Septuagint column in long OT chapters (~30 GB VRAM on the 5090 with qwen3:32b); set consult_lxx false to drop it and go back to 16384. num_predict caps one reply; max_attempts and loop_retry_options govern the retry when the output loops or drops verses (see README, Loop guard)."
 }

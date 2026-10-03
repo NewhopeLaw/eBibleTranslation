@@ -1,0 +1,24 @@
+{
+ "book": "Job",
+ "chapter": 26,
+ "lang": "en",
+ "verses": {
+  "1": "Then Job answered and said:\n",
+  "2": "What have you helped one with no strength? What have you strengthened a hand that has no power?\n",
+  "3": "What have you advised one with no wisdom? What have you revealed to one who has no insight?\n",
+  "4": "To whom have you spoken words? And whose breath has come from you?\n",
+  "5": "The dead in the deep tremble, along with those in its dwellings.\n",
+  "6": "The realm of the dead is bare before him, and there is no covering for destruction.\n",
+  "7": "He stretches the north over emptiness, and hangs the earth on nothing.\n",
+  "8": "He binds up the waters in his clouds, and the cloud is not torn open beneath them.\n",
+  "9": "He holds back the face of his throne, and hurls his cloud before it.\n",
+  "10": "He marks a boundary over the surface of the waters, even to the limit of light with darkness.\n",
+  "11": "Pillars of the heavens tremble, and are shaken by his rebuke.\n",
+  "12": "By his power he quieted the sea, and by his understanding he struck down Rahab.\n",
+  "13": "By his breath the skies are made pure; he pierced the fleeing serpent with his hand.\n",
+  "14": "These are but the edges of his ways, and how faint is the whisper of his word! Who can grasp his mighty deeds?\n"
+ },
+ "notes": "Notes\n- v. 12: \"Rahab\" is a poetic name for a mythic sea monster; retained as \"Rahab\" to reflect the Hebrew term (רָהַב).  \n- v. 13: \"fleeing serpent\" (חָנַשׁ) is a poetic image for a hostile force, possibly linked to primordial chaos; \"fleeing serpent\" reflects the Hebrew verb.",
+ "raw": "[1] Then Job answered and said:\n\n[2] What have you helped one with no strength? What have you strengthened a hand that has no power?\n\n[3] What have you advised one with no wisdom? What have you revealed to one who has no insight?\n\n[4] To whom have you spoken words? And whose breath has come from you?\n\n[5] The dead in the deep tremble, along with those in its dwellings.\n\n[6] The realm of the dead is bare before him, and there is no covering for destruction.\n\n[7] He stretches the north over emptiness, and hangs the earth on nothing.\n\n[8] He binds up the waters in his clouds, and the cloud is not torn open beneath them.\n\n[9] He holds back the face of his throne, and hurls his cloud before it.\n\n[10] He marks a boundary over the surface of the waters, even to the limit of light with darkness.\n\n[11] Pillars of the heavens tremble, and are shaken by his rebuke.\n\n[12] By his power he quieted the sea, and by his understanding he struck down Rahab.\n\n[13] By his breath the skies are made pure; he pierced the fleeing serpent with his hand.\n\n[14] These are but the edges of his ways, and how faint is the whisper of his word! Who can grasp his mighty deeds?\n\n---\nNotes\n- v. 12: \"Rahab\" is a poetic name for a mythic sea monster; retained as \"Rahab\" to reflect the Hebrew term (רָהַב).  \n- v. 13: \"fleeing serpent\" (חָנַשׁ) is a poetic image for a hostile force, possibly linked to primordial chaos; \"fleeing serpent\" reflects the Hebrew verb.",
+ "engine": "qwen3:32b"
+}

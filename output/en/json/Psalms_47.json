@@ -1,0 +1,20 @@
+{
+ "book": "Psalms",
+ "chapter": 47,
+ "lang": "en",
+ "verses": {
+  "1": "For the leader. For the sons of Korah. A song.",
+  "2": "All the nations, clap your hands. Shout to God with a voice of joy.",
+  "3": "For the LORD is the Most High, awesome. A great king over all the earth.",
+  "4": "He has subjected peoples to us, and nations beneath our feet.",
+  "5": "He has chosen our inheritance for us, the beauty of Jacob, whom he loves. Selah.",
+  "6": "God has gone up with a shout, the LORD with the sound of a horn.",
+  "7": "Sing to God, sing. Sing to our king, sing.",
+  "8": "For God is king over all the earth. Sing wisely.",
+  "9": "God has reigned over the nations. God is seated on his holy throne.",
+  "10": "The leaders of the peoples have gathered, the people of God Abraham, for the might of the earth is truly mighty.\n"
+ },
+ "notes": "Notes\n- v. 2: “All the nations, clap your hands” is a direct rendering of כָּל־הָעַמִּים תִּקְעוּ־כָף, which uses תִּקְעוּ from the root קָפָה (to strike).\n- v. 5: “the beauty of Jacob” is a poetic rendering of אֶת גְּאוֹן יַעֲקֹב, where גְּאוֹן can mean \"beauty,\" \"glory,\" or \"pride.\" The context suggests \"beauty\" as a poetic term for inheritance.\n- v. 10: “for the might of the earth is truly mighty” reflects the Hebrew’s use of מְאֹד נַעֲלָה, which is a superlative expression.",
+ "raw": "[1] For the leader. For the sons of Korah. A song.\n[2] All the nations, clap your hands. Shout to God with a voice of joy.\n[3] For the LORD is the Most High, awesome. A great king over all the earth.\n[4] He has subjected peoples to us, and nations beneath our feet.\n[5] He has chosen our inheritance for us, the beauty of Jacob, whom he loves. Selah.\n[6] God has gone up with a shout, the LORD with the sound of a horn.\n[7] Sing to God, sing. Sing to our king, sing.\n[8] For God is king over all the earth. Sing wisely.\n[9] God has reigned over the nations. God is seated on his holy throne.\n[10] The leaders of the peoples have gathered, the people of God Abraham, for the might of the earth is truly mighty.\n\n---\nNotes\n- v. 2: “All the nations, clap your hands” is a direct rendering of כָּל־הָעַמִּים תִּקְעוּ־כָף, which uses תִּקְעוּ from the root קָפָה (to strike).\n- v. 5: “the beauty of Jacob” is a poetic rendering of אֶת גְּאוֹן יַעֲקֹב, where גְּאוֹן can mean \"beauty,\" \"glory,\" or \"pride.\" The context suggests \"beauty\" as a poetic term for inheritance.\n- v. 10: “for the might of the earth is truly mighty” reflects the Hebrew’s use of מְאֹד נַעֲלָה, which is a superlative expression.",
+ "engine": "qwen3:32b"
+}

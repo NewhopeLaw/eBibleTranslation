@@ -1,0 +1,28 @@
+{
+ "book": "Ecclesiastes",
+ "chapter": 1,
+ "lang": "es",
+ "verses": {
+  "1": "Palabras de Qohelet, hijo de David, rey en Jerusalén.",
+  "2": "Vanidad de vanidades, dijo Qohelet, vanidad de vanidades. Todo es vanidad.",
+  "3": "¿Qué ventaja tiene el humano en todo su esfuerzo, en todo lo que hace bajo el sol?",
+  "4": "Una generación va, otra viene, pero la tierra permanece para siempre.",
+  "5": "Sale el sol, se pone el sol, y se vuelve a su lugar, donde vuelve a salir.",
+  "6": "Va hacia el sur y luego da la vuelta hacia el norte. El viento da vueltas y vuelve a su trayecto.",
+  "7": "Todos los ríos fluyen hacia el mar, pero el mar nunca se llena. A donde van los ríos, allí mismos vuelven a fluir.",
+  "8": "Todo lo que se dice es insoportable, no se puede hablar del todo. Los ojos no se sienten satisfechos de ver, ni los oídos de escuchar.",
+  "9": "Lo que ha sido será, y lo que se ha hecho se volverá a hacer. No hay nada nuevo bajo el sol.",
+  "10": "Puede que alguien diga: «Mira, esto es algo nuevo». Pero ya ha existido desde la antigüedad, antes de nosotros.",
+  "11": "No queda memoria de los primeros, y tampoco la tendrán los últimos que vienen, pues se les olvidará junto a los que estén después.",
+  "12": "Yo, Qohelet, fui rey de Israel en Jerusalén.",
+  "13": "Puse mi corazón en buscar y en investigar con toda la sabiduría sobre todo lo que se hace bajo los cielos. Y resultó que es una tarea difícil, que Dios ha dado a los hijos de la humanidad, para que se ocupen de ella.",
+  "14": "He visto todo lo que se hace bajo el sol, y todo es vanidad y persecución del viento.",
+  "15": "Lo torcido no se puede enderezar, ni la falta se puede completar.",
+  "16": "Hablé con mi corazón: «Mira, he crecido y he aumentado sabiduría más que todos mis anteriores en Jerusalén, y mi corazón ha visto mucha sabiduría y conocimiento».",
+  "17": "Puse mi corazón en conocer sabiduría, conocimiento, locura y necedad. Y descubrí que también eso es perseguir el viento.",
+  "18": "Porque con muchas sabidurías hay mucho enojo, y quien aumente conocimiento, también aumenta su dolor."
+ },
+ "notes": "Notes  \n- v. 2: La repetición de \"vanidad de vanidades\" resalta la idea central del libro.  \n- v. 18: La traducción de \"cacés\" como \"enojo\" y \"makoav\" como \"dolor\" refleja el doble sentido en el contexto del exceso de sabiduría.",
+ "raw": "[1] Palabras de Qohelet, hijo de David, rey en Jerusalén.  \n[2] Vanidad de vanidades, dijo Qohelet, vanidad de vanidades. Todo es vanidad.  \n[3] ¿Qué ventaja tiene el humano en todo su esfuerzo, en todo lo que hace bajo el sol?  \n[4] Una generación va, otra viene, pero la tierra permanece para siempre.  \n[5] Sale el sol, se pone el sol, y se vuelve a su lugar, donde vuelve a salir.  \n[6] Va hacia el sur y luego da la vuelta hacia el norte. El viento da vueltas y vuelve a su trayecto.  \n[7] Todos los ríos fluyen hacia el mar, pero el mar nunca se llena. A donde van los ríos, allí mismos vuelven a fluir.  \n[8] Todo lo que se dice es insoportable, no se puede hablar del todo. Los ojos no se sienten satisfechos de ver, ni los oídos de escuchar.  \n[9] Lo que ha sido será, y lo que se ha hecho se volverá a hacer. No hay nada nuevo bajo el sol.  \n[10] Puede que alguien diga: «Mira, esto es algo nuevo». Pero ya ha existido desde la antigüedad, antes de nosotros.  \n[11] No queda memoria de los primeros, y tampoco la tendrán los últimos que vienen, pues se les olvidará junto a los que estén después.  \n[12] Yo, Qohelet, fui rey de Israel en Jerusalén.  \n[13] Puse mi corazón en buscar y en investigar con toda la sabiduría sobre todo lo que se hace bajo los cielos. Y resultó que es una tarea difícil, que Dios ha dado a los hijos de la humanidad, para que se ocupen de ella.  \n[14] He visto todo lo que se hace bajo el sol, y todo es vanidad y persecución del viento.  \n[15] Lo torcido no se puede enderezar, ni la falta se puede completar.  \n[16] Hablé con mi corazón: «Mira, he crecido y he aumentado sabiduría más que todos mis anteriores en Jerusalén, y mi corazón ha visto mucha sabiduría y conocimiento».  \n[17] Puse mi corazón en conocer sabiduría, conocimiento, locura y necedad. Y descubrí que también eso es perseguir el viento.  \n[18] Porque con muchas sabidurías hay mucho enojo, y quien aumente conocimiento, también aumenta su dolor.  \n---  \nNotes  \n- v. 2: La repetición de \"vanidad de vanidades\" resalta la idea central del libro.  \n- v. 18: La traducción de \"cacés\" como \"enojo\" y \"makoav\" como \"dolor\" refleja el doble sentido en el contexto del exceso de sabiduría.",
+ "engine": "qwen3:32b"
+}

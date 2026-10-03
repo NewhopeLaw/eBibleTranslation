@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Build a self-contained HTML reader for the translation.
 
-Reads every translated chapter in output/json/ and writes site/index.html:
-  - reading view: chapter text with superscript verse numbers, translator's
-    notes, prev/next chapter buttons, adjustable text size (persisted)
-  - full-text search over the English (results link to verses)
+Embeds the original text of every chapter (Hebrew / Aramaic / Greek) and every
+translation found under output/<lang>/json/, and writes site/index.html:
+  - reading view per target language, with superscript verse numbers,
+    translator's notes, prev/next chapter, adjustable text size (persisted)
+  - tabs per chapter: original | each translation | side by side | compare
+  - full-text search over the selected translation
   - reference finder ("Genesis 2:7", "gen 2", "1 sam 3:10")
   - works on phone screens (book menu collapses into a dropdown)
 
@@ -12,18 +14,22 @@ Re-run after translating more chapters; the page embeds all data, no server
 needed — open site/index.html in any browser. This one-file design is what
 the planned Android APK will wrap unchanged.
 """
+import html
 import json
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from books import BOOKS, slug
+from books import BOOKS, LANGS, MIXED, TARGETS, chapter_lang, slug, verse_lang
+import readaloud as RA
 
 ROOT = Path(__file__).resolve().parent.parent
-JSON_DIR = ROOT / "output" / "json"
+OUT_ROOT = ROOT / "output"
+NORM_DIR = ROOT / "sources" / "normalized"
 SITE = ROOT / "site"
 
 ORDER = {slug(m["name"]): m["num"] for m in BOOKS.values()}
+BY_SLUG = {slug(m["name"]): m for m in BOOKS.values()}
 ABBREV = {
     "gen": "Genesis", "ex": "Exodus", "exod": "Exodus", "lev": "Leviticus",
     "num": "Numbers", "deut": "Deuteronomy", "dt": "Deuteronomy",
@@ -44,170 +50,1758 @@ ABBREV = {
     "1jn": "1 John", "2jn": "2 John", "3jn": "3 John", "rev": "Revelation",
 }
 
-PAGE = """<!DOCTYPE html>
+PAGE = r"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- viewport-fit=cover so the bars can sit under a phone's rounded corners and
+     gesture bar; no maximum-scale, because pinching is how a reader who cannot
+     see the text at its set size makes it bigger. -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#faf8f4">
+<meta name="color-scheme" content="light dark">
 <title>eBible Translation</title>
 <style>
-:root { --bg:#faf8f4; --fg:#22201c; --muted:#7a736a; --accent:#7c5cbf;
-        --card:#ffffff; --border:#e4ded4; --hl:#f3e8b8; --fs:18px; }
+/* Skins. Every colour in the page comes from the tokens below, so choosing a
+   skin is setting data-theme on <html> and nothing else — no reload, no second
+   stylesheet. --border is the hairline between verses and cards, which carries
+   no meaning; --edge is the outline of a control, which a reader has to be able
+   to see, so it is held at 3:1 against the paper where --border is not. */
+:root {
+  --bg:#faf8f4; --fg:#22201c; --muted:#635c52; --accent:#654aa8; --on-accent:#ffffff; --gold:#a67c12;
+  --card:#ffffff; --border:#d7cfc2; --edge:#8a8176; --hl:#f6e7a6; --soft:#f0ece4;
+  --err:#ad2317; --warn:#7d5000; --scrim:rgba(28,22,14,.5); --shadow:rgba(44,34,18,.26);
+  --fs:20px; --lh:1.72; --barH:56px;
+  /* The labels, buttons and trays around the text were set in 10-14 px, which
+     is small print on a phone. Every one of them is written as its old size
+     times --ui, so the whole of the chrome grows together: 1.2 by default, and
+     further as the reader turns the text itself up (see applyType). */
+  --ui:1.2;
+}
+/* With no skin chosen the phone decides, which is what a reader expects the
+   first time the page opens. A chosen skin sets data-theme and wins here. */
 @media (prefers-color-scheme: dark) {
-  :root { --bg:#181614; --fg:#e8e4dd; --muted:#948d82; --accent:#a98ee6;
-          --card:#221f1c; --border:#37322c; --hl:#4a4020; }
+  :root:not([data-theme]) {
+    --bg:#181614; --fg:#eae6df; --muted:#a8a094; --accent:#bda5f2; --on-accent:#1c1230; --gold:#e2b64a;
+    --card:#221f1c; --border:#413a32; --edge:#847b6f; --hl:#4f4320; --soft:#2b2723;
+    --err:#ff9d92; --warn:#e4b75f; --scrim:rgba(0,0,0,.62); --shadow:rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="light"] {
+  --bg:#faf8f4; --fg:#22201c; --muted:#635c52; --accent:#654aa8; --on-accent:#ffffff; --gold:#a67c12;
+  --card:#ffffff; --border:#d7cfc2; --edge:#8a8176; --hl:#f6e7a6; --soft:#f0ece4;
+  --err:#ad2317; --warn:#7d5000; --scrim:rgba(28,22,14,.5); --shadow:rgba(44,34,18,.26);
+}
+:root[data-theme="sepia"] {
+  --bg:#f3ead6; --fg:#33291b; --muted:#5f5340; --accent:#7a3d0e; --on-accent:#fff7e8; --gold:#9a6d0a;
+  --card:#fbf4e4; --border:#d4c5a4; --edge:#8a7b5e; --hl:#e9d692; --soft:#eae0c8;
+  --err:#98200f; --warn:#6d4600; --scrim:rgba(48,36,18,.5); --shadow:rgba(70,54,24,.28);
+}
+:root[data-theme="dark"] {
+  --bg:#181614; --fg:#eae6df; --muted:#a8a094; --accent:#bda5f2; --on-accent:#1c1230; --gold:#e2b64a;
+  --card:#221f1c; --border:#413a32; --edge:#847b6f; --hl:#4f4320; --soft:#2b2723;
+  --err:#ff9d92; --warn:#e4b75f; --scrim:rgba(0,0,0,.62); --shadow:rgba(0,0,0,.6);
+}
+:root[data-theme="black"] {
+  --bg:#000000; --fg:#eaeaea; --muted:#a6a6a6; --accent:#c3a8ff; --on-accent:#150a28; --gold:#e6bb4d;
+  --card:#101010; --border:#3a3a3a; --edge:#767676; --hl:#4c4118; --soft:#1a1a1a;
+  --err:#ff9a90; --warn:#e2b75e; --scrim:rgba(0,0,0,.75); --shadow:rgba(0,0,0,.8);
+}
+:root[data-theme="contrast"] {
+  --bg:#ffffff; --fg:#000000; --muted:#2b2b2b; --accent:#3d1785; --on-accent:#ffffff; --gold:#5c4400;
+  --card:#ffffff; --border:#000000; --edge:#000000; --hl:#ffe74a; --soft:#ededed;
+  --err:#9b0000; --warn:#5d3600; --scrim:rgba(0,0,0,.6); --shadow:rgba(0,0,0,.4);
 }
 * { box-sizing:border-box; margin:0; }
 html { scroll-behavior:smooth; }
 body { background:var(--bg); color:var(--fg);
-  font:var(--fs)/1.72 Georgia, "Times New Roman", serif; }
-header { position:sticky; top:0; background:var(--bg); z-index:5;
-  border-bottom:1px solid var(--border); padding:.6rem .9rem;
-  display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; }
-header .brand { font-size:15px; font-style:italic; color:var(--muted);
+  font:var(--fs)/var(--lh) Georgia, "Times New Roman", serif;
+  -webkit-text-size-adjust:100%; }
+/* A reader who has asked the system for less movement gets none of ours: the
+   trays appear where they would have slid to, and a verse jump does not glide. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior:auto; }
+  *, *::before, *::after { animation-duration:.001ms !important; animation-iteration-count:1 !important;
+    transition-duration:.001ms !important; }
+}
+:focus-visible { outline:3px solid var(--accent); outline-offset:2px; border-radius:5px; }
+/* The top bar is sticky rather than fixed so that hiding it shifts nothing
+   underneath it; the same trick carries the bottom bar down out of the way. */
+header { position:sticky; top:0; background:var(--bg); z-index:30;
+  border-bottom:1px solid var(--border); padding:.45rem .6rem;
+  padding-top:calc(.45rem + env(safe-area-inset-top));
+  display:flex; gap:.4rem; flex-wrap:wrap; align-items:center;
+  transition:transform .22s cubic-bezier(.2,0,0,1); }
+html.chrome-off header { transform:translateY(-115%); }
+html.chrome-off #tabbar { transform:translateY(115%); }
+header .brand { font-size:calc(15px * var(--ui)); font-style:italic; color:var(--muted);
   margin-right:auto; white-space:nowrap; }
-input, select, button.fs { font:14px system-ui, sans-serif; padding:.45rem .6rem;
-  border:1px solid var(--border); border-radius:8px;
+input, select, button.fs { font:calc(14px * var(--ui)) system-ui, sans-serif; padding:.45rem .6rem;
+  min-height:44px; border:1px solid var(--edge); border-radius:10px;
   background:var(--card); color:var(--fg); }
-input:focus { outline:2px solid var(--accent); border-color:transparent; }
-#ref { width:11rem; } #q { width:13rem; }
-button.fs { cursor:pointer; width:2.2rem; }
-button.fs:hover { border-color:var(--accent); }
+input:focus { outline:3px solid var(--accent); outline-offset:1px; }
+#ref { width:9rem; } #q { width:13rem; }
+.goto { display:flex; align-items:center; gap:.4rem; font:calc(12px * var(--ui)) system-ui, sans-serif; color:var(--muted); white-space:nowrap; }
+button.fs { cursor:pointer; min-width:2.6rem; }
+button.fs:hover:not(:disabled) { border-color:var(--accent); }
+button.fs:disabled { opacity:.35; cursor:default; }
 select#bookSel { max-width:11rem; display:none; }
+/* Icon buttons: 44px of tappable area whatever the glyph inside measures. */
+.ib { display:inline-flex; align-items:center; justify-content:center; flex:none;
+  min-width:44px; min-height:44px; padding:.35rem; border:1px solid transparent;
+  border-radius:12px; background:none; color:var(--fg); cursor:pointer; }
+.ib:hover:not(:disabled) { background:var(--soft); }
+.ib:disabled { opacity:.32; cursor:default; }
+.ib svg, #tabbar svg { fill:none; stroke:currentColor; stroke-width:1.85;
+  stroke-linecap:round; stroke-linejoin:round; }
+.ib svg { width:22px; height:22px; }
+/* The current reference, as a button: on a phone it is both the title and the
+   way into the navigation tray, which saves a row of chrome. */
+#title { display:none; flex:1 1 auto; min-width:0; min-height:44px; text-align:left;
+  background:none; border:1px solid transparent; border-radius:12px; color:var(--fg);
+  cursor:pointer; padding:.15rem .5rem; font:600 calc(16px * var(--ui))/1.2 system-ui,sans-serif; }
+#title:hover { background:var(--soft); }
+#title .main { display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#title .main::after { content:" \25BE"; color:var(--muted); font-size:.85em; }
+#title .sub { display:block; font:400 calc(12px * var(--ui))/1.35 system-ui,sans-serif; color:var(--muted);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 main { max-width:42rem; margin:0 auto; padding:1.4rem 1.2rem 5rem; }
+main.wide { max-width:66rem; }
 .layout { display:flex; }
-nav#books { width:200px; flex:none; padding:1rem .6rem; font:14px system-ui,sans-serif;
-  border-right:1px solid var(--border); height:calc(100vh - 58px);
-  overflow-y:auto; position:sticky; top:58px; }
-nav#books a { display:block; padding:.15rem .55rem; color:var(--fg);
+/* ---------- bottom bar: the actions a thumb can reach without moving ---------- */
+#tabbar { display:none; position:fixed; left:0; right:0; bottom:0; z-index:30;
+  background:var(--card); border-top:1px solid var(--border);
+  padding-bottom:env(safe-area-inset-bottom);
+  transition:transform .22s cubic-bezier(.2,0,0,1); }
+#tabbar .row { display:flex; }
+#tabbar button { flex:1 1 0; min-width:0; min-height:56px; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:.1rem; padding:.3rem .15rem; overflow:hidden;
+  background:none; border:0; color:var(--muted); cursor:pointer;
+  font:500 calc(11px * var(--ui)) system-ui,sans-serif; }
+#tabbar button .ic { display:flex; align-items:center; justify-content:center; flex:none;
+  width:100%; max-width:56px; height:28px; border-radius:14px; }
+#tabbar button .lb { max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+#tabbar button svg { width:23px; height:23px; }
+#tabbar button[aria-expanded="true"] { color:var(--accent); font-weight:700; }
+#tabbar button[aria-expanded="true"] .ic { background:var(--hl); color:var(--fg); }
+/* ---------- trays ---------- */
+dialog.sheet { border:0; padding:0; margin:0; width:100%; max-width:none;
+  position:fixed; inset:auto 0 0 0; max-height:88vh; max-height:88dvh;
+  background:var(--card); color:var(--fg); border-radius:22px 22px 0 0;
+  box-shadow:0 -6px 34px var(--shadow); display:none; flex-direction:column; overflow:hidden; }
+dialog.sheet[open] { display:flex; animation:sheetin .24s cubic-bezier(.2,0,0,1); }
+dialog.sheet::backdrop { background:var(--scrim); }
+@keyframes sheetin { from { transform:translateY(100%); } }
+.sheet .grab { padding:.55rem 0 .15rem; display:flex; justify-content:center;
+  touch-action:none; cursor:grab; flex:none; }
+.sheet .grab i { width:36px; height:4px; border-radius:2px; background:var(--edge); display:block; }
+.sheet .sh { display:flex; align-items:center; gap:.4rem; padding:.1rem .6rem .4rem 1rem;
+  flex:none; touch-action:none; }
+.sheet .sh .st { flex:1; min-width:0; font:600 calc(17px * var(--ui)) system-ui,sans-serif;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.sheet .bd { overflow-y:auto; overscroll-behavior:contain; flex:1 1 auto;
+  padding:0 1rem calc(1.4rem + env(safe-area-inset-bottom)); }
+.shead { margin:1.1rem 0 .35rem; font:600 calc(11px * var(--ui)) system-ui,sans-serif; text-transform:uppercase;
+  letter-spacing:.07em; color:var(--muted); }
+/* The two languages side by side, because they are chosen against each other:
+   which Bible to read, and what the buttons around it should say. Short native
+   names, so two columns fit a phone without either being cut. */
+.langs { display:grid; grid-template-columns:1fr 1fr; gap:.2rem .7rem; align-items:start; }
+.langs .shead { margin-top:.6rem; }
+.langs .rowlist button { padding:.45rem .55rem; }
+.langs .rowlist .nm { font-weight:600; }
+.langs .rowlist .ct { display:none; }                    /* the English name would crowd the column */
+.rowlist { display:flex; flex-direction:column; }
+.rowlist a, .rowlist button { display:flex; width:100%; align-items:center; gap:.6rem;
+  min-height:48px; padding:.5rem .7rem; border:0; border-radius:12px; background:none;
+  color:var(--fg); font:calc(15px * var(--ui)) system-ui,sans-serif; text-align:left; cursor:pointer;
+  text-decoration:none; }
+.rowlist a:hover, .rowlist button:hover { background:var(--soft); }
+.rowlist .on { background:var(--hl); font-weight:700; }
+/* A row is a name and a note. Both used to be cut to fit one line, which on a
+   phone left "Sources and licen…" beside "what each layer came f…" - two
+   halves of nothing. They wrap instead: the name has the room, the note gives
+   way first, and neither loses its end. */
+.rowlist .nm { flex:1 1 auto; min-width:0; overflow-wrap:anywhere; }
+.rowlist .ct { flex:0 1 auto; min-width:0; max-width:55%; overflow-wrap:anywhere;
+  text-align:end; font:calc(12px * var(--ui))/1.3 system-ui,sans-serif; color:var(--muted); }
+.rowlist .tk { flex:none; font-weight:700; color:var(--accent); }
+.rowlist .missing { color:var(--muted); opacity:.5; pointer-events:none; }
+/* A row that opens onto more rows. The chevron is the only sign, and it turns
+   when open, so the state is not left to colour. */
+.rowlist button[aria-expanded] .chev { flex:none; color:var(--muted); transition:transform .15s; }
+.rowlist button[aria-expanded="true"] .chev { transform:rotate(90deg); }
+.rowlist .sub { margin-left:.9rem; border-left:2px solid var(--border); padding-left:.2rem; }
+.chgrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(48px,1fr)); gap:.4rem; }
+.chgrid a { display:flex; align-items:center; justify-content:center; min-height:48px;
+  border:1px solid var(--edge); border-radius:12px; text-decoration:none; color:var(--fg);
+  font:calc(15px * var(--ui)) system-ui,sans-serif; }
+.chgrid a.on { background:var(--accent); color:var(--on-accent); border-color:var(--accent); font-weight:700; }
+.chgrid a.untr { color:var(--muted); border-style:dashed; }
+.seg { display:flex; gap:.3rem; padding:.25rem; background:var(--soft); border-radius:14px; }
+.seg button { flex:1 1 0; min-width:0; min-height:44px; border:1px solid transparent;
+  border-radius:11px; background:none; color:var(--fg); cursor:pointer;
+  font:500 calc(14px * var(--ui)) system-ui,sans-serif; }
+.seg button[aria-pressed="true"] { background:var(--card); border-color:var(--edge); font-weight:700; }
+.seg button:disabled { opacity:.4; cursor:default; }
+.seg .val { flex:0 0 5.5rem; display:flex; align-items:center; justify-content:center;
+  font:600 calc(14px * var(--ui)) system-ui,sans-serif; font-variant-numeric:tabular-nums; }
+.skins { display:grid; grid-template-columns:repeat(auto-fill,minmax(9rem,1fr)); gap:.5rem; }
+.skins button { display:flex; align-items:center; gap:.55rem; min-height:52px; padding:.5rem .6rem;
+  border:1px solid var(--edge); border-radius:14px; background:var(--card); color:var(--fg);
+  font:calc(14px * var(--ui)) system-ui,sans-serif; cursor:pointer; text-align:left; }
+.skins button[aria-pressed="true"] { border:2px solid var(--accent); font-weight:700; padding:calc(.5rem - 1px) calc(.6rem - 1px); }
+.skins .sw { width:26px; height:26px; border-radius:50%; flex:none; border:1px solid var(--edge); }
+.skins .tick { margin-left:auto; font-weight:700; color:var(--accent); }
+.tools { display:grid; grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr)); gap:.5rem; }
+.tools button { min-height:64px; display:flex; flex-direction:column; align-items:flex-start;
+  justify-content:center; gap:.1rem; padding:.6rem .7rem; border:1px solid var(--edge);
+  border-radius:14px; background:var(--card); color:var(--fg); cursor:pointer;
+  font:600 calc(14px * var(--ui)) system-ui,sans-serif; text-align:left; }
+.tools button small { font:400 calc(11.5px * var(--ui))/1.3 system-ui,sans-serif; color:var(--muted); }
+.tools button[aria-pressed="true"] { border:2px solid var(--accent); background:var(--hl);
+  padding:calc(.6rem - 1px) calc(.7rem - 1px); }
+.tools button:disabled { opacity:.45; cursor:default; }
+.tools button:hover:not(:disabled) { background:var(--soft); }
+.sheet .hint { font:calc(12.5px * var(--ui))/1.5 system-ui,sans-serif; color:var(--muted); margin:.4rem 0 0; }
+.sheet .primary { display:flex; width:100%; align-items:center; justify-content:center;
+  min-height:52px; border:1px solid var(--accent); border-radius:14px; margin:.6rem 0 .2rem;
+  background:var(--accent); color:var(--on-accent); cursor:pointer; font:700 calc(15px * var(--ui)) system-ui,sans-serif; }
+.sheet .primary.share { gap:.6rem; margin-top:1.4rem; min-height:56px; text-transform:uppercase; letter-spacing:.06em; }
+.sheet .primary .mark { width:26px; height:22px; fill:currentColor; flex:none; }
+/* ---------- Who is Jesus?: the button, the milestones, the badge ---------- */
+header .who { flex:none; min-height:40px; padding:0 .9rem; border:1px solid var(--accent); border-radius:999px;
+  background:var(--accent); color:var(--on-accent); cursor:pointer; white-space:nowrap;
+  font:600 calc(13px * var(--ui)) system-ui,sans-serif; }
+.sheet .primary.who { min-height:60px; margin:.1rem 0 .3rem; gap:.6rem; font-size:calc(17px * var(--ui)); }
+.sheet .primary.who svg { width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; flex:none; }
+.progress { display:flex; align-items:center; justify-content:space-between; gap:.6rem; margin:.1rem 0 .3rem;
+  font:calc(13px * var(--ui)) system-ui,sans-serif; color:var(--muted); }
+.progress b { color:var(--fg); }
+.progress button { min-height:44px; padding:0 .5rem; border:0; background:none; color:var(--accent); cursor:pointer;
+  font:600 calc(13px * var(--ui)) system-ui,sans-serif; text-decoration:underline; white-space:nowrap; }
+/* A milestone row is not a button: there is nothing to do with one but look. */
+.miles .mile { display:flex; align-items:center; gap:.7rem; min-height:56px; padding:.4rem .5rem; border-radius:12px; }
+.miles .mile.on { background:var(--hl); }
+.miles .mile .txt { flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:.1rem; }
+.miles .mile .nm { font:600 calc(15px * var(--ui)) system-ui,sans-serif; }
+.miles .mile .ct { font:calc(12px * var(--ui)) system-ui,sans-serif; color:var(--muted); max-width:none; text-align:start; }
+.miles .mile .tk { flex:none; font-weight:700; color:var(--accent); }
+/* A story's reference is short and stays whole beside its name. */
+.stories .ct { flex:none; max-width:none; }
+.sheet .forget { display:block; margin:1.2rem auto 0; min-height:44px; padding:0 .8rem; border:0; background:none;
+  color:var(--muted); cursor:pointer; font:calc(12.5px * var(--ui)) system-ui,sans-serif; text-decoration:underline; }
+/* The medal: a ribbon, a ring, and inside it what was done - one star for a
+   story, a larger star with a bar for a milestone, a crown for all twenty. The
+   shapes carry the rank, the gold only repeats it; unearned, it is an outline. */
+.medal { width:44px; height:44px; flex:none; }
+.medal .rib { fill:var(--muted); }
+.medal .ring { fill:var(--accent); }
+.medal .core { fill:var(--card); }
+.medal .sign { fill:var(--accent); }
+.medal.t2 .ring, .medal.t2 .sign, .medal.t3 .ring, .medal.t3 .sign { fill:var(--gold); }
+.medal.off .rib { fill:var(--border); }
+.medal.off .ring { fill:none; stroke:var(--edge); stroke-width:2; stroke-dasharray:4 3; }
+.medal.off .core { fill:var(--soft); }
+.medal.off .sign { fill:var(--edge); }
+/* The badge is a card at the top of the page, not a dialog in the middle of
+   it: it asks for nothing, stays a few seconds, fades, and is gone. The story
+   the reader has just heard is still the thing on the screen. */
+#badgeDlg { position:fixed; inset:auto; top:calc(.6rem + env(safe-area-inset-top)); left:50%; transform:translateX(-50%);
+  margin:0; padding:0; width:min(22rem,92vw); z-index:40; border:1px solid var(--edge); border-radius:18px;
+  background:var(--card); color:var(--fg); box-shadow:0 10px 34px var(--shadow); text-align:left;
+  transition:opacity 1s ease; cursor:pointer; }
+#badgeDlg.fading { opacity:0; }
+#badgeDlg .in { display:flex; align-items:center; gap:.8rem; padding:.65rem .9rem .65rem .7rem; }
+#badgeDlg .medal { width:58px; height:58px; animation:badgein .55s cubic-bezier(.2,0,0,1); }
+@keyframes badgein { from { transform:scale(.3); opacity:0; } 65% { transform:scale(1.08); opacity:1; } }
+#badgeDlg .txt { flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:.05rem; }
+#badgeDlg .kick { font:700 calc(10.5px * var(--ui)) system-ui,sans-serif; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); }
+#badgeDlg h2 { margin:0; font:700 calc(16px * var(--ui))/1.25 system-ui,sans-serif; }
+#badgeDlg p { margin:0; font:calc(12.5px * var(--ui))/1.4 system-ui,sans-serif; color:var(--muted); }
+/* ---------- the magnifier's way back, and a place to say a file did not load ---------- */
+#zoomchip, #toast { position:fixed; left:50%; transform:translateX(-50%); z-index:36;
+  background:var(--card); color:var(--fg); border:1px solid var(--edge);
+  box-shadow:0 6px 22px var(--shadow); font:calc(13px * var(--ui))/1.45 system-ui,sans-serif; }
+#zoomchip { bottom:calc(var(--chipUp,14px) + env(safe-area-inset-bottom));
+  display:flex; align-items:center; gap:.5rem; padding:.35rem .4rem .35rem .9rem;
+  border-radius:999px; white-space:nowrap; }
+#zoomchip button { min-height:40px; padding:0 .95rem; border:0; border-radius:999px;
+  background:var(--accent); color:var(--on-accent); cursor:pointer; white-space:nowrap;
+  font:600 calc(13px * var(--ui)) system-ui,sans-serif; }
+#toast { bottom:calc(var(--chipUp,14px) + env(safe-area-inset-bottom)); max-width:min(24rem,92vw);
+  padding:.7rem 1rem; border-radius:14px; }
+#zoomchip[hidden], #toast[hidden], #vbar[hidden] { display:none; }
+footer#credits { border-top:1px solid var(--border); margin-top:2rem; padding:1.2rem 1.2rem 2rem; color:var(--muted);
+  font:calc(12px * var(--ui))/1.55 system-ui, sans-serif; }
+footer#credits h2 { font:600 calc(12px * var(--ui)) system-ui, sans-serif; text-transform:uppercase; letter-spacing:.06em; margin:0 0 .5rem; }
+footer#credits p { margin:0 0 .45rem; max-width:66rem; }
+/* The attributions carry bare URLs, which have no break in them and push a
+   narrow screen sideways unless they are allowed to break anywhere. */
+footer#credits a { color:inherit; } footer#credits, code { overflow-wrap:anywhere; }
+header .sources { margin-left:auto; font:calc(12px * var(--ui)) system-ui, sans-serif; color:var(--muted); cursor:pointer; background:none; border:0; text-decoration:underline; }
+/* --barH is measured from the header, which wraps to two rows at some widths;
+   the sidebar used to assume it never did and lost its last book behind it. */
+nav#books { width:210px; flex:none; padding:1rem .6rem; font:calc(14px * var(--ui)) system-ui,sans-serif;
+  border-right:1px solid var(--border); height:calc(100vh - var(--barH));
+  overflow-y:auto; position:sticky; top:var(--barH); }
+nav#books a { display:block; padding:.35rem .55rem; color:var(--fg);
   text-decoration:none; border-radius:6px; }
 nav#books a:hover { background:var(--card); }
-nav#books a.on { background:var(--accent); color:#fff; }
+nav#books a.on { background:var(--accent); color:var(--on-accent); }
 nav#books .t { margin:.7rem 0 .25rem; font-weight:600; color:var(--muted);
-  font-size:12px; text-transform:uppercase; letter-spacing:.06em; }
+  font-size:calc(12px * var(--ui)); text-transform:uppercase; letter-spacing:.06em; }
 nav#books a.missing { color:var(--muted); opacity:.4; pointer-events:none; }
-.chnav { font:14px system-ui,sans-serif; margin:.9rem 0 1.6rem;
+nav#books a.untr { color:var(--muted); }
+nav#books a .ct { float:right; font-size:calc(11px * var(--ui)); color:var(--muted); margin-top:.15rem; }
+nav#books a.on .ct { color:var(--on-accent); opacity:.85; }
+.chnav { font:calc(14px * var(--ui)) system-ui,sans-serif; margin:.9rem 0 1.6rem;
   display:flex; flex-wrap:wrap; gap:.3rem; }
-.chnav a { padding:.22rem .6rem; border:1px solid var(--border);
-  border-radius:7px; text-decoration:none; color:var(--fg); }
-.chnav a.on { background:var(--accent); color:#fff; border-color:var(--accent); }
+.chnav a { display:inline-flex; align-items:center; justify-content:center;
+  min-width:2.4rem; min-height:40px; padding:.22rem .6rem; border:1px solid var(--edge);
+  border-radius:9px; text-decoration:none; color:var(--fg); }
+.chnav a.on { background:var(--accent); color:var(--on-accent); border-color:var(--accent); font-weight:700; }
+.chnav a.untr { color:var(--muted); border-style:dashed; }
 h2 { font-size:1.65em; font-weight:normal; margin:.3rem 0 .4rem; }
+h2 .lang { font:calc(13px * var(--ui)) system-ui,sans-serif; color:var(--muted); margin-left:.6rem; vertical-align:middle; }
 sup.v { color:var(--accent); font:600 .58em system-ui,sans-serif;
   margin:0 .18em 0 .05em; user-select:none; vertical-align:.55em; }
 p.vv { margin:0 0 1.05em; text-align:justify; hyphens:auto; }
 .poetry { margin:0 0 1.05em 1.3em; text-indent:-1.3em; white-space:pre-wrap; }
 .notes { margin-top:2.4rem; padding:1rem 1.2rem; background:var(--card);
   border:1px solid var(--border); border-radius:10px;
-  font:14px/1.6 system-ui,sans-serif; color:var(--muted); }
+  font:calc(14px * var(--ui))/1.6 system-ui,sans-serif; color:var(--muted); }
 .notes b { color:var(--fg); }
-.pn { display:flex; justify-content:space-between; margin-top:2.6rem;
-  font:15px system-ui,sans-serif; }
-.pn a { color:var(--accent); text-decoration:none; padding:.5rem .9rem;
-  border:1px solid var(--border); border-radius:9px; }
-.pn a:hover { border-color:var(--accent); }
+/* Moving to the next chapter costs no reading space: it waits at the end of
+   the one being read, where a reader arrives anyway, and in the tray. */
+.pn { display:flex; justify-content:space-between; gap:.6rem; margin-top:2.6rem;
+  font:calc(15px * var(--ui)) system-ui,sans-serif; }
+.pn a { display:inline-flex; align-items:center; min-height:48px; color:var(--accent);
+  text-decoration:none; padding:.5rem .9rem; border:1px solid var(--edge); border-radius:12px; }
+.pn a:hover { border-color:var(--accent); background:var(--soft); }
 .pn .off { visibility:hidden; }
-#results { font:15px/1.5 system-ui,sans-serif; }
-#results .hit { background:var(--card); border:1px solid var(--border);
+#results, #askslot { font:calc(15px * var(--ui))/1.5 system-ui,sans-serif; }
+#results .hit, #askslot .hit { background:var(--card); border:1px solid var(--border);
   border-radius:10px; padding:.7rem .9rem; margin:.6rem 0; cursor:pointer; }
-#results .hit:hover { border-color:var(--accent); }
-#results .ref { color:var(--accent); font-weight:600; font-size:13px; }
+#results .hit:hover, #askslot .hit:hover { border-color:var(--accent); }
+#results .ref, #askslot .ref { color:var(--accent); font-weight:600; font-size:calc(13px * var(--ui)); }
 mark { background:var(--hl); color:inherit; border-radius:3px; padding:0 .1em; }
 .flash { animation:flash 2.5s; }
 @keyframes flash { 0%,55% { background:var(--hl); } 100% { background:transparent; } }
-.empty { color:var(--muted); font:15px system-ui,sans-serif; margin-top:2rem; }
+.empty { color:var(--muted); font:calc(15px * var(--ui)) system-ui,sans-serif; margin-top:2rem; }
+.tabs { display:flex; flex-wrap:wrap; gap:.3rem; font:calc(14px * var(--ui)) system-ui,sans-serif; margin:-.8rem 0 1.3rem; align-items:center; }
+.tabs a { display:inline-flex; align-items:center; min-height:40px; padding:.25rem .8rem;
+  border:1px solid var(--edge); border-radius:999px;
+  cursor:pointer; color:var(--fg); user-select:none; }
+.tabs a:hover { border-color:var(--accent); background:var(--soft); }
+.tabs a.on { background:var(--accent); color:var(--on-accent); border-color:var(--accent); font-weight:600; }
+.tabs a.off { opacity:.45; cursor:default; pointer-events:none; }
+.tabs .sep { width:1px; height:1.2rem; background:var(--border); margin:0 .3rem; }
+.orig { font-family:"SBL Hebrew","Ezra SIL","Taamey Frank CLM","Times New Roman",serif; line-height:calc(var(--lh) * 1.134); }
+.orig.greek { font-family:"Gentium Plus","SBL Greek","Palatino Linotype","Times New Roman",serif; }
+.orig[dir=rtl] { text-align:right; }
+.orig sup.v { vertical-align:.7em; }
+.w { cursor:pointer; border-radius:3px; } .w:hover { background:var(--soft); } .w.sel { background:var(--hl); }
+main.inter .orig .w { display:inline-block; text-align:center; margin:0 .2em .45em 0; vertical-align:top; line-height:1.4; }
+main.inter .orig .w::after { content:attr(data-g); display:block; font:calc(11px * var(--ui))/1.25 system-ui,sans-serif; color:var(--muted); direction:ltr; max-width:9em; white-space:normal; margin-top:.1em; }
+main.inter .orig .w[data-m]::before { content:attr(data-m); display:block; font:calc(9.5px * var(--ui))/1.2 ui-monospace,Consolas,monospace; color:var(--accent); direction:ltr; }
+#wpop { position:fixed; z-index:40; max-width:26rem; background:var(--card); color:var(--fg); border:1px solid var(--border); border-radius:10px;
+  box-shadow:0 10px 30px rgba(0,0,0,.25); padding:.7rem .9rem; font:calc(13px * var(--ui))/1.45 system-ui,sans-serif; white-space:normal; direction:ltr; text-align:left; }
+#wpop .hw { font-size:1.35em; } #wpop .hw .orig { font-size:1em; } #wpop .tl { color:var(--muted); margin-left:.4em; } #wpop .pos { color:var(--muted); font-size:calc(11px * var(--ui)); margin-left:.4em; }
+#wpop .parse { margin:.35rem 0; } #wpop .parse code { font:calc(11px * var(--ui)) ui-monospace,Consolas,monospace; color:var(--accent); margin-left:.4em; }
+#wpop .meaning { color:var(--muted); font-size:calc(12px * var(--ui)); margin-top:.35rem; max-height:9em; overflow:auto; }
+#wpop .acts { margin-top:.5rem; display:flex; flex-wrap:wrap; gap:.2rem 1rem; }
+#wpop .acts a { display:inline-flex; align-items:center; min-height:44px; cursor:pointer; color:var(--accent); text-decoration:underline; }
+#wpop .pre { color:var(--muted); font-size:calc(12px * var(--ui)); }
+#wpop .syn { margin:.35rem 0; font-size:calc(12px * var(--ui)); } #wpop .syn b { color:var(--fg); font-weight:600; }
+#wpop .syn a { color:var(--accent); cursor:pointer; } #wpop .dom { font-size:calc(12px * var(--ui)); color:var(--muted); margin-top:.25rem; } #wpop .dom a { color:var(--accent); cursor:pointer; }
+#wpop .dom .orig { color:var(--fg); } .w.ante { outline:2px solid var(--accent); border-radius:3px; }
+#wpop .ours { border-top:1px solid var(--border); margin-top:.55rem; padding-top:.5rem; }
+#wpop .ours h5 { font:600 calc(10px * var(--ui)) system-ui,sans-serif; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 .3rem; }
+#wpop .sense { margin:0 0 .3rem; } #wpop .sense b { font-weight:600; } #wpop .sense i { color:var(--muted); font-style:normal; font-size:calc(11px * var(--ui)); }
+#wpop .sense a, #wpop .idiom a { color:var(--accent); cursor:pointer; margin-left:.3em; }
+#wpop .idiom, #wpop .near, #wpop .usage, #wpop .cav { font-size:calc(12px * var(--ui)); color:var(--muted); margin-top:.3rem; }
+.tabs a.tool { border-style:dashed; }
+.tabs i.sep { width:1px; height:1.1rem; background:var(--border); margin:0 .35rem; align-self:center; }
+.gs { display:grid; grid-template-columns:repeat(auto-fill,minmax(11rem,1fr)); gap:.5rem .8rem; margin:.6rem 0 1rem; font:calc(13px * var(--ui)) system-ui,sans-serif; }
+.gs label { display:flex; flex-direction:column; gap:.2rem; color:var(--muted); font-size:calc(11px * var(--ui)); text-transform:uppercase; letter-spacing:.05em; }
+.gs select, .gs input { font:calc(14px * var(--ui)) system-ui,sans-serif; padding:.35rem .5rem; border:1px solid var(--border); border-radius:8px; background:var(--card); color:var(--fg); }
+.gs button { grid-column:1 / -1; justify-self:start; font:calc(14px * var(--ui)) system-ui,sans-serif; min-height:44px; padding:.45rem 1rem; border:1px solid var(--accent); border-radius:8px; background:var(--accent); color:var(--on-accent); cursor:pointer; }
+.hit .orig { display:block; margin-top:.15rem; } .hit mark { background:var(--hl); color:inherit; border-radius:3px; }
+/* The verse number is the button that takes the verse: one tap holds it, a
+   second lets it go, and as many as wanted can be held at once. Held, it is
+   pressed in - filled and set down into the page - so a glance down the
+   margin says which verses the bar at the foot of the screen is talking
+   about, without reading the reference. */
+sup.v { cursor:pointer; border-radius:4px; padding:0 .14em; border:1px solid transparent;
+  transition:background .12s, color .12s, box-shadow .12s; }
+sup.v:hover { background:var(--soft); }
+sup.v:focus-visible { outline:2px solid var(--accent); outline-offset:1px; }
+sup.v[aria-pressed="true"], sup.v[aria-pressed="true"]:hover {
+  background:var(--accent); color:var(--on-accent); border-color:var(--accent);
+  box-shadow:inset 0 1.5px 2.5px rgba(0,0,0,.45); }
+#vpop { position:fixed; z-index:40; width:min(30rem,92vw); max-height:70vh; overflow:auto; background:var(--card); color:var(--fg);
+  border:1px solid var(--border); border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,.25); padding:.7rem .9rem;
+  font:calc(13px * var(--ui))/1.5 system-ui,sans-serif; white-space:normal; direction:ltr; text-align:left; }
+#vpop h4 { font:600 calc(11px * var(--ui)) system-ui,sans-serif; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:.6rem 0 .3rem; }
+#vpop h4:first-child { margin-top:0; }
+#vpop .r { padding:.25rem .4rem; border-radius:6px; cursor:pointer; display:grid; grid-template-columns:7.5rem 1fr; gap:.5rem; align-items:baseline; }
+#vpop .r:hover { background:var(--soft); } #vpop .r b { font:600 calc(12px * var(--ui)) system-ui,sans-serif; color:var(--accent); }
+#vpop .r span { color:var(--muted); overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+#vpop .cls { float:right; cursor:pointer; color:var(--muted); }
+.harm { border-bottom:1px solid var(--border); padding:.6rem 0; }
+.harm .vs { display:grid; gap:.4rem 1.2rem; align-items:start; }
+.harm .vs > div { min-width:0; }
+.harm .lab { font:600 calc(11px * var(--ui)) system-ui,sans-serif; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.15rem; cursor:pointer; }
+.harm .lab:hover { color:var(--accent); } .harm .lab small { text-transform:none; letter-spacing:0; opacity:.7; }
+.harm .txt { white-space:pre-wrap; } .harm .txt.dim { color:var(--muted); }
+#map { width:100%; height:auto; background:var(--card); border:1px solid var(--border); border-radius:10px; touch-action:none; cursor:grab; }
+#map.drag { cursor:grabbing; }
+#map .coast { fill:none; stroke:var(--border); stroke-width:1.2; }
+#map .land { fill:var(--soft); }
+#map .water { fill:var(--bg); stroke:var(--border); stroke-width:.8; }
+#map .river { fill:none; stroke:var(--border); stroke-width:.7; opacity:.8; }
+#map .pin { fill:var(--accent); stroke:var(--card); stroke-width:1.2; cursor:pointer; }
+#map .pin.on { fill:var(--err); }
+#map .plab { font:calc(10px * var(--ui)) system-ui,sans-serif; fill:var(--fg); pointer-events:none; paint-order:stroke; stroke:var(--bg); stroke-width:2.5px; }
+.mapbar { display:flex; flex-wrap:wrap; gap:.4rem; align-items:center; margin:.5rem 0; font:calc(13px * var(--ui)) system-ui,sans-serif; color:var(--muted); }
+.mapbar button { font:calc(13px * var(--ui)) system-ui,sans-serif; padding:.25rem .6rem; border:1px solid var(--border); border-radius:7px; background:var(--card); color:var(--fg); cursor:pointer; }
+/* A search answers from more than one place now: the words and fields the
+   study layers hold, the verses that contain what was typed, and the verses
+   that are about it without saying it. Each gets its own heading, because a
+   verse found through a description the reader cannot see is not the same
+   claim as one found through its own words, and running them together would
+   hide which is which. */
+.sect { margin:1.1rem 0 .3rem; font:600 calc(13px * var(--ui)) system-ui,sans-serif; color:var(--fg);
+        display:flex; align-items:baseline; gap:.5rem; flex-wrap:wrap; }
+.sect small { font-weight:400; color:var(--muted); font-size:calc(12px * var(--ui)); }
+.kind { display:inline-block; font:600 calc(10px * var(--ui)) system-ui,sans-serif; text-transform:uppercase;
+        letter-spacing:.05em; color:var(--muted); border:1px solid var(--border); border-radius:4px;
+        padding:.05rem .3rem; margin-right:.35rem; vertical-align:.08em; }
+/* The original words a search was traced back to. Each one is a switch, because
+   the tracing is arithmetic over verses and can bring a neighbour along - sheep
+   with the shepherd - and the reader is the one who knows which was meant. On
+   is said with a tick and a heavier border, not with colour alone. */
+.wchips { display:flex; flex-wrap:wrap; gap:.4rem; margin:.4rem 0 .5rem; }
+.wchips button { min-height:44px; padding:.3rem .7rem; border:1px solid var(--edge); border-radius:12px;
+  background:var(--card); color:var(--fg); cursor:pointer; text-align:start;
+  font:calc(13px * var(--ui)) system-ui,sans-serif; }
+.wchips button small { color:var(--muted); }
+.wchips button[aria-pressed="true"] { border:2px solid var(--accent); background:var(--hl);
+  padding:calc(.3rem - 1px) calc(.7rem - 1px); font-weight:600; }
+.wchips button[aria-pressed="true"] small { color:var(--fg); }
+.wchips button[aria-pressed="true"]::before { content:"\2713\00a0"; }
+.sectnote { color:var(--muted); font:calc(13px * var(--ui))/1.5 system-ui,sans-serif; margin:.2rem 0 .5rem; }
+.sectnote a { color:var(--accent); cursor:pointer; }
+.plist { display:grid; grid-template-columns:repeat(auto-fill,minmax(13rem,1fr)); gap:.2rem .8rem; margin:.6rem 0 1rem; font:calc(13px * var(--ui)) system-ui,sans-serif; }
+.plist a { cursor:pointer; padding:.15rem .3rem; border-radius:5px; } .plist a:hover { background:var(--soft); }
+.plist a small { color:var(--muted); }
+/* A phrase from the lexicon and the verses it stands in. One to a line, because
+   the meaning is a sentence and the references have to be big enough to tap:
+   each is its own link, 44px high, where a row of .plist is one link and small. */
+.phrases { margin:.4rem 0 1rem; font:calc(13px * var(--ui))/1.5 system-ui,sans-serif; }
+.phrases > div { padding:.1rem .3rem; border-top:1px solid var(--border); display:flex; flex-wrap:wrap; align-items:center; gap:0 .2rem; }
+.phrases > div:first-child { border-top:0; }
+.phrases small { color:var(--muted); font-size:inherit; flex:1 1 11rem; line-height:1.35; }
+.phrases .refs { flex:1 0 100%; display:flex; flex-wrap:wrap; align-items:center; margin-top:-.3rem; }
+.phrases a { cursor:pointer; color:var(--accent); display:inline-flex; align-items:center; min-height:44px; padding:0 .45rem; border-radius:5px; }
+.phrases a:hover { background:var(--soft); }
+.phrases a.word { color:var(--fg); padding-inline-start:0; }
+.chron { margin:.8rem 0 1.4rem; font:calc(13px * var(--ui))/1.5 system-ui,sans-serif; }
+.chron h3 { font:600 calc(11px * var(--ui)) system-ui,sans-serif; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:1.1rem 0 .4rem; }
+.chron .row { display:grid; grid-template-columns:7rem 1fr; gap:.6rem; padding:.25rem .4rem; border-radius:6px; align-items:baseline; }
+.chron .row:hover { background:var(--soft); } .chron .row b { color:var(--accent); font:600 calc(12px * var(--ui)) system-ui,sans-serif; cursor:pointer; }
+.chron .row .q { color:var(--muted); } .chron .num { font-variant-numeric:tabular-nums; color:var(--fg); font-weight:600; }
+.chron .anch { display:grid; grid-template-columns:5.5rem 1fr; gap:.6rem; padding:.3rem .4rem; border-bottom:1px solid var(--border); }
+.chron .anch .y { font-variant-numeric:tabular-nums; font-weight:600; }
+.chron .anch .basis { color:var(--muted); font-size:calc(12px * var(--ui)); }
+.chron .note { color:var(--muted); margin:.4rem 0 0; }
+.thm { margin:.8rem 0 1.4rem; font:calc(14px * var(--ui))/1.6 system-ui,sans-serif; }
+.thm .t { padding:.5rem .6rem; border-bottom:1px solid var(--border); }
+.thm .t b { font:600 calc(15px * var(--ui)) system-ui,sans-serif; cursor:pointer; color:var(--fg); }
+.thm .t b:hover { color:var(--accent); }
+.thm .t .vv { color:var(--accent); font-size:calc(12px * var(--ui)); margin-left:.5rem; cursor:pointer; }
+.thm .t .w { color:var(--muted); font-size:calc(13px * var(--ui)); }
+.thm .cav { color:var(--muted); font-size:calc(12px * var(--ui)); margin:.5rem 0 1rem; padding:.5rem .7rem; border-left:2px solid var(--border); }
+.vocab { display:grid; grid-template-columns:repeat(auto-fill,minmax(12rem,1fr)); gap:.15rem .8rem; margin:.5rem 0 1rem; font-size:calc(13px * var(--ui)); }
+.vocab a { cursor:pointer; padding:.1rem .3rem; border-radius:5px; } .vocab a:hover { background:var(--soft); }
+.vocab a small { color:var(--muted); }
+.arg { margin:.6rem 0 1.2rem; font:calc(14px * var(--ui))/1.65 system-ui,sans-serif; }
+.arg .lead { padding:.6rem .8rem; background:var(--card); border:1px solid var(--border); border-radius:10px; }
+.arg h3 { font:600 calc(11px * var(--ui)) system-ui,sans-serif; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:1.2rem 0 .35rem; }
+.arg .sec { display:grid; grid-template-columns:5.5rem 1fr; gap:.6rem; padding:.25rem .4rem; border-radius:6px; align-items:baseline; }
+.arg .sec:hover { background:var(--soft); } .arg .sec b { color:var(--accent); font:600 calc(12px * var(--ui)) system-ui,sans-serif; cursor:pointer; }
+.arg .tags { display:flex; flex-wrap:wrap; gap:.3rem; margin-top:.4rem; }
+.arg .tags span { font-size:calc(12px * var(--ui)); padding:.1rem .5rem; border:1px solid var(--border); border-radius:999px; color:var(--muted); }
+.arg .stage { padding:.3rem .4rem; border-bottom:1px solid var(--border); }
+.arg .stage b { font:600 calc(13px * var(--ui)) system-ui,sans-serif; } .arg .stage .r { color:var(--accent); font-size:calc(12px * var(--ui)); margin-left:.4rem; }
+.arg .tension { padding:.35rem .5rem; border-left:2px solid var(--warn); margin:.3rem 0; color:var(--fg); }
+.arg .tension .r { color:var(--muted); font-size:calc(12px * var(--ui)); }
+.arg .derived { color:var(--muted); font-size:calc(12px * var(--ui)); margin:.2rem 0 .8rem; }
+#vpop .pl { font-size:calc(12px * var(--ui)); } #vpop .pl a { color:var(--accent); cursor:pointer; margin-right:.6em; }
+#vpop .ap { font-size:calc(12px * var(--ui)); padding:.2rem .4rem; }
+#vpop .ap .rd { font-size:1.15em; } #vpop .ap .ed { color:var(--muted); }
+#vpop .ap .kind { font:600 calc(10px * var(--ui)) system-ui,sans-serif; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); margin-right:.4em; }
+.lt { font:600 calc(10px * var(--ui)) system-ui,sans-serif; color:var(--muted); text-transform:uppercase;
+  letter-spacing:.05em; margin:0 .3em; vertical-align:.5em; user-select:none; }
+p.ov { margin:0 0 .6em; }
+.par { display:grid; grid-template-columns:1fr 1fr; gap:0 1.6rem; align-items:start; }
+.par > div { padding:.45rem 0; border-bottom:1px solid var(--border); }
+.par .e { white-space:pre-wrap; }
+.cmp { border-bottom:1px solid var(--border); padding:.6rem 0 .5rem; }
+.cmp .row { display:grid; grid-template-columns:5.5rem 1fr; gap:.6rem; padding:.15rem 0; align-items:baseline; }
+.cmp .row .lab { font:600 calc(11px * var(--ui)) system-ui,sans-serif; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; text-align:right; }
+.cmp .row .txt { white-space:pre-wrap; }
+/* Each script keeps the leading it needs, but as a multiple of the reader's
+   chosen line spacing rather than a fixed number, or the spacing control would
+   do nothing at all in Chinese, Thai, Korean or Persian. */
+[lang="zh"], [lang="ja"] { font-family:Georgia, "Noto Serif CJK SC", "Noto Serif CJK JP", "Source Han Serif", "Yu Mincho", "MS Mincho", "SimSun", "Songti SC", serif; line-height:calc(var(--lh) * 1.134); }
+[lang="th"] { font-family:"Noto Serif Thai", "Leelawadee UI", "Tahoma", sans-serif; line-height:calc(var(--lh) * 1.163); }
+[lang="ksw"] { font-family:"Noto Serif Myanmar", "Noto Sans Myanmar", "Padauk", "Myanmar Text", "Pyidaungsu", sans-serif; line-height:calc(var(--lh) * 1.25); }
+[lang="yue"], [lang="nan"], [lang="hak"] { font-family:Georgia, "Noto Serif CJK TC", "Source Han Serif TC", "PMingLiU", "Microsoft JhengHei", "Songti TC", serif; line-height:calc(var(--lh) * 1.134); }
+[lang="ja-easy"] { font-family:Georgia, "Noto Serif CJK JP", "Source Han Serif", "Yu Mincho", "MS Mincho", serif; line-height:calc(var(--lh) * 1.337); }
+ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
+[lang="ko"] { font-family:"Noto Serif KR", "Batang", "Malgun Gothic", "Apple SD Gothic Neo", serif; line-height:calc(var(--lh) * 1.105); }
+[lang="fa"] { font-family:"Vazirmatn", "Noto Naskh Arabic", "Tahoma", "Segoe UI", serif; line-height:calc(var(--lh) * 1.221); font-size:1.06em; }
+[dir="rtl"] { text-align:right; }
+/* ---------- what a phone shows, and what it does not ---------- */
 @media (max-width:760px){
+  .par { grid-template-columns:1fr; }
+  .par .o { border-bottom:0; padding-bottom:.1rem; }
   nav#books { display:none }
-  select#bookSel { display:block }
-  header .brand { display:none }
-  #q { width:9rem } #ref { width:8rem }
+  header .brand, header .goto, header .sources, header #bookSel, header #tlSel, header .who,
+  header #q, header #fsMinus, header #fsPlus, header #toolsBtn, header #gear { display:none }
+  #title { display:block }
+  #tabbar { display:block }
+  main { padding:1.1rem 1rem calc(6rem + env(safe-area-inset-bottom)); }
+  /* The bottom bar floats over the page, so the last thing on it needs room
+     to be read — the attributions were ending underneath the bar. */
+  footer#credits { padding-bottom:calc(5.5rem + env(safe-area-inset-bottom)); }
+  /* The chapter grid and the view tabs live in the trays on a phone; on the
+     page they were two rows of chrome above every chapter. The heading keeps
+     its reference — a reader scrolled halfway down wants to see where they
+     are — but drops the languages, which the bar above is already saying. */
+  .chnav, .tabs { display:none }
+  h2 { font-size:1.35em; }
+  main > h2 .lang { display:none }
+  /* Justified type on a narrow column opens rivers of white space. */
+  p.vv { text-align:start; }
+  /* Two-column rows meant for a wide screen stack instead of overflowing. */
+  .cmp .row, .chron .row, .chron .anch, .arg .sec, #vpop .r { grid-template-columns:1fr; gap:.1rem; }
+  .cmp .row .lab { text-align:start; }
+  .harm .vs { grid-template-columns:1fr !important; }
+  .harm .vs > div:empty { display:none }
+  /* Stacked, every passage already carries its own label, so the row of column
+     headings is a list of names above nothing. */
+  .harm.hdr { display:none }
+  #wpop, #vpop { left:8px !important; right:8px; width:auto; max-width:none; }
 }
+/* A finger is not a mouse pointer: the verse number stays the size it is set
+   in, and gains an invisible margin of target around it. */
+@media (pointer:coarse){
+  sup.v { position:relative; }
+  sup.v::before { content:""; position:absolute; inset:-14px -10px; }
+}
+/* On a tablet the header wraps to two rows and takes a tenth of the screen
+   with it. The strapline goes, the boxes narrow, and the sources link goes
+   too — the settings tray behind the gear already has it. */
+@media (max-width:1040px){
+  header .brand, header .sources { display:none }
+  #q { width:10rem } #ref { width:7rem }
+}
+/* On a wide screen the same tray is a dialog in the middle of the page: it is
+   the sheet's content that matters, not the gesture it arrived by. */
+@media (min-width:761px){
+  dialog.sheet { inset:0; margin:auto; width:min(34rem,92vw); max-height:82vh;
+    border-radius:18px; border:1px solid var(--border); }
+  dialog.sheet[open] { animation:none; }
+  .sheet .grab { display:none }
+  .sheet .sh { padding-top:.9rem }
+}
+/* Basic mode: the page is a book and nothing else. Every study layer is put
+   away, popups included, so that a mis-tap in the middle of a verse does
+   nothing at all. Advanced mode is one tap away and is remembered. */
+:root[data-mode="basic"] .adv { display:none !important; }
+:root[data-mode="basic"] main .w { cursor:inherit; }
+:root[data-mode="basic"] main .w:hover { background:none; }
+/* The two inputs move between the header and a tray as the screen narrows, so
+   they are laid out by where they are rather than by a second copy of each. */
+#hdrSlot, #hdrSlot > #qWrap { display:contents; }
+#qslot #qWrap { display:block; margin:.2rem 0; }
+#refslot #gotoWrap { display:flex; flex-direction:column; align-items:stretch;
+  gap:.25rem; margin:.2rem 0 .6rem; font-size:calc(11px * var(--ui)); text-transform:uppercase; letter-spacing:.07em; }
+#refslot #ref, #qslot #q { width:100%; font-size:calc(16px * var(--ui)); min-height:52px; }
+@media (max-width:760px){ #zoomchip, #toast, #vbar { --chipUp:74px; } }
+/* The bars slide away while the reader is reading, and with them every way to
+   change anything. This stays: bottom right, out of the text, one tap to the
+   display tray - the type size, the skin, the voice and the rest. */
+#quick { position:fixed; z-index:31; right:calc(.7rem + env(safe-area-inset-right));
+  bottom:calc(.9rem + env(safe-area-inset-bottom)); width:52px; height:52px; padding:13px;
+  border-radius:999px; border:1px solid var(--border); background:var(--card); color:var(--fg);
+  box-shadow:0 6px 20px var(--shadow); cursor:pointer;
+  visibility:hidden; opacity:0; transform:translateY(10px); transition:opacity .2s, transform .2s; }
+#quick svg { width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; }
+/* Only once the bars have gone: while they are there the same tray is one tap
+   away on the bar itself, and two gears in a corner is one too many. Hidden by
+   visibility rather than opacity, so it cannot be tabbed to while invisible. */
+html.chrome-off #quick { visibility:visible; opacity:1; transform:none; }
+@media (min-width:761px){ #quick { display:none; } }
+.try { font:inherit; color:var(--accent); background:none; border:0; padding:0 .1rem; min-height:0;
+  text-decoration:underline; cursor:pointer; }
+/* A verse taken hold of, and the bar of what can be done with it. The hold is
+   marked with the same wash as a search hit, plus a ring, so it reads as held
+   rather than merely highlighted. */
+.held { background:var(--hl); border-radius:5px; box-shadow:0 0 0 .18em var(--hl); }
+#vbar { position:fixed; left:50%; bottom:calc(var(--chipUp,14px) + env(safe-area-inset-bottom));
+  transform:translateX(-50%); z-index:60; display:flex; align-items:center; justify-content:center;
+  flex-wrap:wrap; gap:.15rem; padding:.3rem;
+  max-width:min(96vw,36rem); background:var(--card); border:1px solid var(--border); border-radius:14px;
+  box-shadow:0 8px 28px var(--shadow); }
+#vbar .ref { padding:0 .55rem; color:var(--muted); white-space:nowrap; min-width:0;
+  overflow:hidden; text-overflow:ellipsis;
+  font:600 calc(12px * var(--ui)) system-ui,sans-serif; }
+/* On a phone the bar is a band across the foot of the screen rather than a
+   pill in the middle of it, and a reference to several verses - the long kind,
+   "Psalms 23:1-3, 5" - takes the line above the buttons rather than being
+   squeezed in beside them and cut to "Psalms 23:1...". So does a short one
+   when the study button is there too and five things will not fit; one verse
+   with three buttons stays on the one row. */
+@media (max-width:560px){
+  #vbar { left:8px; right:8px; transform:none; max-width:none; }
+  #vbar button { padding:.4rem .55rem; }
+  #vbar.wide .ref { flex:1 0 100%; text-align:center; padding:.15rem .4rem .1rem; }
+}
+#vbar button { font:calc(13px * var(--ui)) system-ui,sans-serif; min-height:44px; padding:.4rem .7rem;
+  border:0; border-radius:10px; background:transparent; color:var(--fg); cursor:pointer; white-space:nowrap; }
+#vbar button:hover { background:var(--soft); }
+#vbar button.x { color:var(--muted); padding:.4rem .6rem; }
+__READALOUD_CSS__
+/* readaloud.py is shared with the dashboard, where the menu is used with a
+   mouse; here a finger opens it by pressing and holding, and needs the room. */
+#ctx .it { min-height:48px; display:flex; flex-direction:column; justify-content:center; }
 </style>
+<script>
+/* The skin, the mode and the type size are put on the page before anything is
+   painted: a reader who chose the night skin should not be shown a white page
+   first while the rest of the script parses. */
+try {
+  var _s = localStorage.getItem("skin");
+  if (_s && _s !== "auto") document.documentElement.setAttribute("data-theme", _s);
+  var _m = localStorage.getItem("mode");
+  document.documentElement.setAttribute("data-mode", __READER_ONLY__ ? "basic" :
+    _m === "advanced" ? "advanced" : _m === "basic" ? "basic"
+      : (localStorage.getItem("view") || localStorage.getItem("tl")) ? "advanced" : "basic");
+  var _f = localStorage.getItem("fs");
+  if (_f) { document.documentElement.style.setProperty("--fs", _f + "px");
+            document.documentElement.style.setProperty("--ui", String(Math.min(1.45, Math.max(1.15, .8 + _f / 50)))); }
+  var _l = localStorage.getItem("lh"); if (_l) document.documentElement.style.setProperty("--lh", _l);
+} catch (e) {}
+</script>
 </head>
 <body>
 <header>
+  <button class="ib" id="back" aria-label="Back to what you were looking at" data-ta="Back to what you were looking at" title="Back to what you were looking at (Backspace)" data-tt="Back to what you were looking at (Backspace)" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <button id="title" aria-haspopup="dialog" aria-expanded="false" aria-controls="navSheet">
+    <span class="main" id="titleMain">eBible</span><span class="sub" id="titleSub"></span></button>
   <span class="brand">eBible — from the Hebrew, Aramaic &amp; Greek</span>
-  <select id="bookSel"></select>
-  <input id="ref" placeholder="Go to: Genesis 2:7">
-  <input id="q" placeholder="Search the text…">
-  <button class="fs" id="fsMinus" title="Smaller text">A−</button>
-  <button class="fs" id="fsPlus" title="Larger text">A+</button>
+  <select id="bookSel" aria-label="Book"></select>
+  <select id="tlSel" title="Reading language" data-tt="Reading language" aria-label="Reading language" data-ta="Reading language"></select>
+  <span id="hdrSlot"><label class="goto" id="gotoWrap" title="Type a reference — the page follows as you type" data-tt="Type a reference — the page follows as you type"><span data-t="Go to">Go to</span><input id="ref" placeholder="Genesis 2:7"></label><span id="qWrap"><input id="q" placeholder="Search the text…" data-tph="Search the text…" aria-label="Search the text" data-ta="Search the text" type="search"></span></span>
+  <button class="fs" id="fsMinus" title="Smaller text" data-tt="Smaller text" aria-label="Smaller text" data-ta="Smaller text">A−</button>
+  <button class="fs" id="fsPlus" title="Larger text" data-tt="Larger text" aria-label="Larger text" data-ta="Larger text">A+</button>
+  <button class="ib adv" id="toolsBtn" aria-label="Tools and study views" data-ta="Tools and study views" title="Tools and study views" data-tt="Tools and study views" aria-haspopup="dialog" aria-expanded="false" aria-controls="toolsSheet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h5M13 7h7M4 17h9M17 17h3"/><circle cx="11" cy="7" r="2.2"/><circle cx="15" cy="17" r="2.2"/></svg></button>
+  <button class="ib" id="gear" aria-label="Display and reading settings" data-ta="Display and reading settings" title="Display and reading settings" data-tt="Display and reading settings" aria-haspopup="dialog" aria-expanded="false" aria-controls="setSheet"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6M18.4 18.4l-1.6-1.6M7.2 7.2L5.6 5.6"/></svg></button>
+  <button class="who" id="whoHdr" title="A story from the life of Jesus, read aloud" data-tt="A story from the life of Jesus, read aloud" data-t="Who is Jesus?">Who is Jesus?</button>
+  <button class="sources" id="sources" title="Source texts, licenses and attributions" data-tt="Source texts, licenses and attributions" data-t="Sources and licenses">Sources and licenses</button>
 </header>
 <div class="layout">
-<nav id="books"></nav>
+<nav id="books" aria-label="Books of the Bible"></nav>
 <main id="main"></main>
 </div>
+<button id="quick" aria-label="Display and reading settings" data-ta="Display and reading settings" title="Display and reading settings" data-tt="Display and reading settings" aria-haspopup="dialog" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6M18.4 18.4l-1.6-1.6M7.2 7.2L5.6 5.6"/></svg></button>
+<nav id="tabbar" aria-label="Reader actions"><div class="row">
+  <button id="tbBooks" aria-haspopup="dialog" aria-expanded="false" aria-controls="navSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h6.5v14H4zM13.5 5.5H20v14h-6.5z"/></svg></span><span class="lb" data-t="Books">Books</span></button>
+  <button id="tbSearch" aria-haspopup="dialog" aria-expanded="false" aria-controls="searchSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.6"/><path d="M16 16l4.4 4.4"/></svg></span><span class="lb" data-t="Search">Search</span></button>
+  <button id="tbTools" class="adv" aria-haspopup="dialog" aria-expanded="false" aria-controls="toolsSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h5M13 7h7M4 17h9M17 17h3"/><circle cx="11" cy="7" r="2.2"/><circle cx="15" cy="17" r="2.2"/></svg></span><span class="lb" data-t="Tools">Tools</span></button>
+  <button id="tbDisp" aria-haspopup="dialog" aria-expanded="false" aria-controls="setSheet"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 19l5-14 5 14M5.3 14.4h6.4M21 19v-6.6a2.6 2.6 0 0 0-5 -1M16 19a2.4 2.4 0 0 1 0-4.8h5"/></svg></span><span class="lb" data-t="Display">Display</span></button>
+</div></nav>
+<dialog class="sheet" id="navSheet" aria-labelledby="navSheetT">
+  <div class="grab"><i></i></div>
+  <div class="sh"><span class="st" id="navSheetT" data-t="Go to">Go to</span>
+    <button class="ib" data-close aria-label="Close" data-ta="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="bd" id="navBody"><div id="refslot"></div><div id="navDyn"></div></div>
+</dialog>
+<dialog class="sheet" id="searchSheet" aria-labelledby="searchSheetT">
+  <div class="grab"><i></i></div>
+  <div class="sh"><span class="st" id="searchSheetT" data-t="Search">Search</span>
+    <button class="ib" data-close aria-label="Close" data-ta="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="bd" id="searchBody"><div id="whoSlot"></div><div id="qslot"></div><div id="searchDyn"></div></div>
+</dialog>
+<dialog class="sheet" id="milesSheet" aria-labelledby="milesSheetT">
+  <div class="grab"><i></i></div>
+  <div class="sh"><span class="st" id="milesSheetT" data-t="Milestones">Milestones</span>
+    <button class="ib" data-close aria-label="Close" data-ta="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="bd" id="milesBody"><div id="milesDyn"></div></div>
+</dialog>
+<dialog id="badgeDlg" aria-labelledby="badgeT"></dialog>
+<dialog class="sheet" id="toolsSheet" aria-labelledby="toolsSheetT">
+  <div class="grab"><i></i></div>
+  <div class="sh"><span class="st" id="toolsSheetT" data-t="Tools">Tools</span>
+    <button class="ib" data-close aria-label="Close" data-ta="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="bd" id="toolsBody"><div id="toolsDyn"></div></div>
+</dialog>
+<dialog class="sheet" id="setSheet" aria-labelledby="setSheetT">
+  <div class="grab"><i></i></div>
+  <div class="sh"><span class="st" id="setSheetT" data-t="Display and reading">Display and reading</span>
+    <button class="ib" data-close aria-label="Close" data-ta="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="bd" id="setBody"><div id="setDyn"></div></div>
+</dialog>
+<div id="zoomchip" hidden><span id="zoomlvl" role="status"></span><button id="zoomreset" type="button" data-t="Reset">Reset</button></div>
+<div id="toast" hidden role="status"></div>
+<footer id="credits">
+  <h2>Source texts, licenses and attributions</h2>
+  <p><b>Hebrew and Aramaic text:</b> Westminster Leningrad Codex (public domain), from the Open Scriptures Hebrew Bible —
+    “Original work of the Open Scriptures Hebrew Bible available at <a href="https://github.com/openscriptures/morphhb">https://github.com/openscriptures/morphhb</a>”
+    (lemma and morphology data <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>; the verse text is public domain).</p>
+  <p><b>Greek New Testament:</b> The SBL Greek New Testament, copyright 2010 Society of Biblical Literature and Logos Bible Software,
+    licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, <a href="https://github.com/LogosBible/SBLGNT">https://github.com/LogosBible/SBLGNT</a>.
+    Modified: critical sigla removed.</p>
+  <p><b>Byzantine text consulted:</b> Robinson–Pierpont Byzantine Majority Text (2018), public domain,
+    <a href="https://github.com/byztxt/byzantine-majority-text">https://github.com/byztxt/byzantine-majority-text</a>.</p>
+  <p><b>Septuagint (reference only, not translated):</b> H. B. Swete, <i>The Old Testament in Greek according to the Septuagint</i>
+    (Cambridge, 1887–1909; public domain); digital edition by the Open Greek and Latin project, University of Leipzig, 2015,
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>,
+    <a href="https://github.com/OpenGreekAndLatin/First1KGreek">https://github.com/OpenGreekAndLatin/First1KGreek</a> (data/tlg0527).</p>
+  <p><b>Word tags, glosses and brief lexicon:</b> STEPBible data (Translators Amalgamated Hebrew OT and Greek NT, brief lexicons, morphology code
+    expansions) created by <a href="https://www.STEPBible.org">STEPBible.org</a> based on work at Tyndale House, Cambridge,
+    <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, from <a href="https://github.com/STEPBible/STEPBible-Data">github.com/STEPBible</a>
+    (reformatted for this reader; the original data is distributed only from that repository).</p>
+  <p><b>Cross-references:</b> the <i>Treasury of Scripture Knowledge</i> (1830s, public domain) as extended and voted on by readers at
+    <a href="https://www.openbible.info/labs/cross-references/">OpenBible.info</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+    Parallel passages are computed from the word tags above, not taken from any harmony.</p>
+  <p><b>Places and the map:</b> place identifications and coordinates from the <a href="https://www.openbible.info/geo/">OpenBible.info</a> Bible geocoding data,
+    <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> (the 2007 tab-delimited release; the newer dataset mixing in OpenStreetMap geometry is not used).
+    Coastlines, lakes and rivers from <a href="https://www.naturalearthdata.com/">Natural Earth</a>, public domain — drawn here as vectors, with no map service or tiles.</p>
+  <p><b>This project's lexeme inventory:</b> grown from the text by the local model — every distinct word form is analysed in context and the dictionary words it
+    implies become the inventory, numbered in order of first appearance (<code>scripts/build_lexemes.py</code>). It is independent of Strong's and of any published
+    dictionary; the reference tagging above is used only to measure how cleanly our inventory groups the text (<code>logs/lexeme_report.md</code>).</p>
+  <p><b>Text notes:</b> which printed editions carry each reading, and the scribal Qere against the written Ketiv, are from the STEPBible data above
+    (CC BY 4.0). Editions compared: Nestle-Aland 27 and 28, Tyndale House 2017, SBLGNT, Westcott-Hort 1881, Tregelles, Scrivener's Textus Receptus 1894 and the
+    Robinson-Pierpont Byzantine text. This is an apparatus of editions, not of manuscripts: no manuscript is cited, because no openly licensed manuscript apparatus exists for this project to use.</p>
+  <p><b>Clause roles, participants and glosses:</b> the <a href="https://github.com/Clear-Bible/macula-greek">MACULA Greek</a> and
+    <a href="https://github.com/Clear-Bible/macula-hebrew">MACULA Hebrew</a> linguistic datasets © 2022-2024 Biblica, Inc.,
+    <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> — word class, the word a pronoun refers back to, a gloss, and for Greek the role in the clause.
+    The semantic-domain fields in those datasets are United Bible Societies material (Louw-Nida for Greek, the Semantic Dictionary of Biblical Hebrew for Hebrew),
+    used by permission rather than licensed onward, so this project does not use them. The fields of meaning shown in the word popup are this project's own: the model sorts
+    each lexeme by its usage and gloss into a list of fields written for this project (<code>scripts/build_domains.py</code>).</p>
+  <p><b>Book arguments and theme trajectories:</b> built by the model from the themes above and nothing else — a book's sections and line of thought from the themes
+    of its own chapters, a theme's development from its own passages in canonical order, including the places where those passages pull against each other. These are
+    readings, labelled as such in the reader, and they cite the layer they are built on so a reader can disagree at the step where they actually disagree. No published
+    theology, commentary or topical Bible is consulted.</p>
+  <p><b>Themes:</b> each theme is named in the language of the text — a short Hebrew, Aramaic or Greek phrase built from words that actually stand in its passages —
+    with a plain-language gloss beside it, because a reader should see what the text says and what it means at the same time. The model reads each chapter and says what it is about, and those chapter themes are then folded into one list for the whole Bible. Nothing is
+    taken from a systematic theology or a topical Bible, and every theme names the verses it came from. Themes are a reading, not a tagged fact, and they are kept
+    apart from the data layers for that reason. The vocabulary shown with a theme is evidence about its passages, not a definition of it: one theme runs on many
+    unrelated words, and one word serves many themes.</p>
+  <p><b>Chronology:</b> the numbers are extracted from this project's own English translation by pattern, each shown with its verse; nothing is summed into a date.
+    The anchor dates are entered by hand from Assyrian, Babylonian, Persian and Roman records and are marked as externally attested. No copyrighted chronology
+    (Thiele, Finegan or any other) is used.</p>
+  <p><b>Translations:</b> __MADE__
+    Full notes: LEGAL.md in the project repository.</p>
+</footer>
 <script>
 const DATA = __DATA__;
 const ORDER = __ORDER__;
+const LANGS = __LANGS__;
+const TARGETS = __TARGETS__;          // {code: {name, native}} in canonical order
 const ABBREV = __ABBREV__;
-const SUP = "⁰¹²³⁴⁵⁶⁷⁸⁹";
 const $ = s => document.querySelector(s);
-const disp = b => b.replace(/_/g," ");
+/* Two names for a book. dataKey() is the English every built layer (MORPH,
+   PAR, XREF, SYN, APP, BOOKARG, CHRON...) is keyed by, and it never changes
+   with the display language - renaming it would silently empty every one of
+   those layers. disp() is what a reader is shown, and goes through the
+   display language's own names when it has them. */
+const dataKey = b => b.replace(/_/g, " ");
+const disp = b => bookName(b);
 
 const allBooks = Object.keys(ORDER).sort((a,b) => ORDER[a]-ORDER[b]);
-const haveBooks = allBooks.filter(b => DATA[b]);
+const srcBooks = allBooks.filter(b => DATA[b]);                          // navigable
+const chapterList = book => Object.keys(DATA[book]).map(Number).sort((a,b)=>a-b);
+const trOf = (b, c) => (DATA[b] && DATA[b][c] && DATA[b][c].tr) || {};
+const haveTargets = Object.keys(TARGETS).filter(t => srcBooks.some(b => Object.values(DATA[b]).some(c => c.tr && c.tr[t])));
+const booksWith = t => srcBooks.filter(b => Object.values(DATA[b]).some(c => c.tr && c.tr[t]));
 
-/* ---------- text size ---------- */
-let fs = +(localStorage.getItem("fs") || 18);
-const applyFs = () => document.documentElement.style.setProperty("--fs", fs + "px");
-applyFs();
-$("#fsMinus").onclick = () => { fs = Math.max(14, fs - 1); localStorage.setItem("fs", fs); applyFs(); };
-$("#fsPlus").onclick  = () => { fs = Math.min(26, fs + 1); localStorage.setItem("fs", fs); applyFs(); };
+/* ---------- the two languages, and the view (persisted) ----------
+   A reader has two languages and they are not the same one. The reading
+   language is which translation of the Bible is on the page; the display
+   language is what the buttons and headings around it say. Reading the Greek
+   with a Thai interface is an ordinary case, and so is a Thai speaker reading
+   the English text.
+
+   With neither chosen yet - a phone opening a shared copy for the first time -
+   the device says which it wants, and it sets both: a phone set to Thai in
+   Thailand opens a Thai Bible with a Thai interface, and nobody has to hunt for
+   a setting written in a language they do not read. */
+const UI = __UI__;                                       // {lang: {ui: {english: translated}, books: {...}}}
+const deviceLang = () => (((typeof navigator !== "undefined" && (navigator.language || (navigator.languages || [])[0])) || "")
+                          .toLowerCase().split("-")[0]);
+function firstRunLang(list){
+  const d = deviceLang();
+  if (!d) return null;
+  return list.includes(d) ? d : (list.find(x => x.split("-")[0] === d) || null);
+}
+let tl = localStorage.getItem("tl");
+if (!haveTargets.includes(tl)) tl = firstRunLang(haveTargets) || haveTargets[0] || "en";
+/* English is always offered: it is the language the page is written in, and
+   every string that has no translation falls back to it. */
+const haveDisplay = ["en", ...Object.keys(UI).filter(l => l !== "en").sort()];
+let dl = localStorage.getItem("dl");
+if (!haveDisplay.includes(dl)) dl = firstRunLang(haveDisplay) || "en";
+/* The English string is its own key, so a string nobody has translated yet
+   still reads as English rather than as a name out of a table. */
+function t(s){ const m = UI[dl] && UI[dl].ui; return (m && m[s]) || s; }
+/* What a book is called on the page. disp() stays the English name - ORDER, the
+   hash and every built layer are keyed by it - and only what a reader sees goes
+   through here. */
+function bookName(b){
+  const m = UI[dl] && UI[dl].books, en = b.replace(/_/g, " ");
+  return (m && m[en]) || en;
+}
+let view = localStorage.getItem("view") || "tr";   // tr | orig | par | all
+function setView(v){ view = v; localStorage.setItem("view", v); route(); rehear(); }
+/* The header and the tab bar are written once into the page and never redrawn,
+   so changing the display language has to go round and re-letter them. Each
+   piece carries the English it was written with, which is also its key. */
+function applyChrome(){
+  document.querySelectorAll("[data-t]").forEach(el => { el.textContent = t(el.dataset.t); });
+  document.querySelectorAll("[data-tph]").forEach(el => { el.placeholder = t(el.dataset.tph); });
+  document.querySelectorAll("[data-ta]").forEach(el => { el.setAttribute("aria-label", t(el.dataset.ta)); });
+  document.querySelectorAll("[data-tt]").forEach(el => { el.title = t(el.dataset.tt); });
+  // The example reference is written with the book's name as this reader
+  // knows it, since that is the name they are being invited to type.
+  const ref = $("#ref"); if (ref) ref.placeholder = `${bookName("Genesis")} 2:7`;
+}
+function setDl(d){
+  if (!haveDisplay.includes(d) || d === dl) return;
+  dl = d; localStorage.setItem("dl", d);
+  document.documentElement.setAttribute("lang", d);
+  applyChrome(); route(); redrawSheet();
+}
+/* Every link to a reference goes through here. A theme, an entry or a list of
+   hits is drawn over the chapter without changing the address, so a link back
+   to the chapter already in the address would otherwise do nothing at all. */
+function goto(h){ if (location.hash === h) route(); else location.hash = h; }
+/* Choosing a translation while reading the original is asking to read it, so
+   the view follows - and is remembered, or the next open was back in Hebrew. */
+function setTl(t){ tl = t; localStorage.setItem("tl", t); $("#tlSel").value = t; if (view === "orig") { view = "tr"; localStorage.setItem("view", view); } route(); rehear(); }
+const tlSel = $("#tlSel");
+tlSel.innerHTML = haveTargets.map(t => `<option value="${t}">${TARGETS[t].native}</option>`).join("");
+tlSel.value = tl;
+tlSel.addEventListener("change", e => setTl(e.target.value));
+if (haveTargets.length < 2) tlSel.style.display = "none";
+
+/* ---------- skins: a set of colour tokens on <html>, remembered, no reload ----------
+   The swatch beside each name is drawn from that skin's own paper and accent,
+   so the list shows what it is offering rather than describing it. */
+const SKINS = [["auto", "Follow the phone", "", ""],
+               ["light", "Paper white", "#faf8f4", "#654aa8"],
+               ["sepia", "Sepia", "#f3ead6", "#7a3d0e"],
+               ["dark", "Dark", "#181614", "#bda5f2"],
+               ["black", "Night, true black", "#000000", "#c3a8ff"],
+               ["contrast", "High contrast", "#ffffff", "#3d1785"]];
+const SKINBAR = {light: "#faf8f4", sepia: "#f3ead6", dark: "#181614", black: "#000000", contrast: "#ffffff"};
+const prefersDark = matchMedia("(prefers-color-scheme: dark)");
+let skin = localStorage.getItem("skin") || "auto";
+if (!SKINS.some(s => s[0] === skin)) skin = "auto";
+function applySkin(){
+  const r = document.documentElement;
+  if (skin === "auto") r.removeAttribute("data-theme"); else r.setAttribute("data-theme", skin);
+  const m = document.querySelector('meta[name="theme-color"]');
+  if (m) m.content = SKINBAR[skin === "auto" ? (prefersDark.matches ? "dark" : "light") : skin];
+  // In the app, the bars around the page are the shell's to paint: tell it at
+  // once, or they sit in the old colour until it notices.
+  if (m && typeof AndroidApp !== "undefined" && AndroidApp && AndroidApp.theme) {
+    try { AndroidApp.theme(m.content); } catch (e) {}
+  }
+}
+function setSkin(s){ skin = s; localStorage.setItem("skin", s); applySkin(); redrawSheet(); }
+prefersDark.addEventListener("change", () => { if (skin === "auto") { applySkin(); redrawSheet(); } });
+applySkin();
+
+/* ---------- basic or advanced ----------
+   Basic mode is the book: a chapter, a language, the size of the type. Advanced
+   adds every layer this project has built on top of the text. A reader arriving
+   for the first time gets basic; anyone whose browser already remembers a view
+   or a language has been using the study tools, so they keep them. */
+/* The reader-only build (the Android reader APK) ships the text without the
+   study layers in morph/, so advanced mode would open onto empty views: it is
+   basic, always, and the switch is not offered. */
+const READER_ONLY = __READER_ONLY__;
+let mode = localStorage.getItem("mode");
+if (mode !== "basic" && mode !== "advanced")
+  mode = (localStorage.getItem("view") || localStorage.getItem("tl")) ? "advanced" : "basic";
+if (READER_ONLY) mode = "basic";
+const adv = () => mode === "advanced";
+function applyMode(){ document.documentElement.setAttribute("data-mode", mode); }
+function setMode(m){ if (READER_ONLY) m = "basic"; mode = m; localStorage.setItem("mode", m); applyMode(); route(); redrawSheet(); }
+applyMode();
+
+/* Names that live in the tables around here - the skins, the spacings, the
+   voice speeds and pitches - and the words a count is followed by, are looked
+   up through t() at the moment they are drawn. They are listed as literals
+   once, here, so that build_ui.py, which reads the marked strings out of
+   this file to know what to translate, asks for them too. */
+const MARKED = [t('Follow the phone'), t('Paper white'), t('Sepia'), t('Dark'), t('Night, true black'), t('High contrast'),
+                t('Tight'), t('Normal'), t('Roomy'), t('Loose'), t('Slow'), t('Steady'), t('Quick'), t('Low'), t('Middle'), t('High'),
+                t('chapter'), t('chapters')];
+/* ---------- text size and line spacing ---------- */
+const SPACING = [[1.5, "Tight"], [1.72, "Normal"], [1.95, "Roomy"], [2.2, "Loose"]];
+const FS_MIN = 16, FS_MAX = 40;         // 40 px is large print on a phone held at arm's length
+let fs = +(localStorage.getItem("fs") || 20);
+let lh = +(localStorage.getItem("lh") || 1.72);
+function applyType(){
+  const s = document.documentElement.style;
+  s.setProperty("--fs", fs + "px"); s.setProperty("--lh", String(lh));
+  // A reader who needs bigger text needs bigger buttons too, but the bars have
+  // to fit a phone: the chrome grows with the text, more slowly, and stops.
+  s.setProperty("--ui", String(Math.min(1.45, Math.max(1.15, .8 + fs / 50))));
+  $("#fsMinus").disabled = fs <= FS_MIN; $("#fsPlus").disabled = fs >= FS_MAX;
+  if (typeof measureBar === "function") measureBar();
+}
+function fsStep(d){ fs = Math.min(FS_MAX, Math.max(FS_MIN, fs + 2 * d)); localStorage.setItem("fs", fs); applyType(); redrawSheet(); }
+function setLh(v){ lh = v; localStorage.setItem("lh", v); applyType(); redrawSheet(); }
+applyType();
+$("#fsMinus").onclick = () => fsStep(-1);
+$("#fsPlus").onclick  = () => fsStep(1);
 
 /* ---------- navigation ---------- */
 function navRender(current) {
   let html = "", lastT = "";
   for (const b of allBooks) {
-    const t = ORDER[b] <= 39 ? "Old Testament" : "New Testament";
-    if (t !== lastT) { html += `<div class="t">${t}</div>`; lastT = t; }
-    html += `<a href="#${b}/1" class="${DATA[b]?'':'missing'} ${b===current?'on':''}">${disp(b)}</a>`;
+    const part = ORDER[b] <= 39 ? t('Old Testament') : t('New Testament');
+    if (part !== lastT) { html += `<div class="t">${esc(part)}</div>`; lastT = part; }
+    const nch = DATA[b] ? Object.keys(DATA[b]).length : 0;
+    const ntr = DATA[b] ? Object.values(DATA[b]).filter(c => c.tr && c.tr[tl]).length : 0;
+    const ct = ntr && ntr < nch ? `<span class="ct">${ntr}/${nch}</span>` : (ntr ? `<span class="ct">✓</span>` : "");
+    html += `<a href="#${b}/1" class="${DATA[b]?(ntr?'':'untr'):'missing'} ${b===current?'on':''}">${disp(b)}${ct}</a>`;
   }
   $("#books").innerHTML = html;
   const sel = $("#bookSel");
-  sel.innerHTML = haveBooks.map(b =>
+  sel.innerHTML = srcBooks.map(b =>
     `<option value="${b}" ${b===current?'selected':''}>${disp(b)}</option>`).join("");
 }
-$("#bookSel").addEventListener("change", e => location.hash = `#${e.target.value}/1`);
-
-function chapterList(book){ return Object.keys(DATA[book]).map(Number).sort((a,b)=>a-b); }
+$("#bookSel").addEventListener("change", e => goto(`#${e.target.value}/1`));
 
 function neighbours(book, ch) {
   const chs = chapterList(book);
   const i = chs.indexOf(+ch);
   let prev = i > 0 ? {b:book, c:chs[i-1]} : null;
   let next = i < chs.length-1 ? {b:book, c:chs[i+1]} : null;
-  const bi = haveBooks.indexOf(book);
-  if (!prev && bi > 0) { const pb = haveBooks[bi-1]; prev = {b:pb, c:chapterList(pb).at(-1)}; }
-  if (!next && bi < haveBooks.length-1) { const nb = haveBooks[bi+1]; next = {b:nb, c:chapterList(nb)[0]}; }
+  const bi = srcBooks.indexOf(book);
+  if (!prev && bi > 0) { const pb = srcBooks[bi-1]; prev = {b:pb, c:chapterList(pb).at(-1)}; }
+  if (!next && bi < srcBooks.length-1) { const nb = srcBooks[bi+1]; next = {b:nb, c:chapterList(nb)[0]}; }
   return {prev, next};
 }
 
 function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
 
+/* ---------- themes: what the chapters are about, gathered across the canon ---------- */
+const themesLoad = () => typeof THEMES !== "undefined" ? Promise.resolve() : loadJs("morph/themes.js");
+const theolLoad = () => typeof BOOKARG !== "undefined" ? Promise.resolve() : loadJs("morph/theology.js");
+const DERIVED = "Built from the layer below it and citing what it is built on: a reading, not a tagged fact. Nothing here is taken from a published theology.";
+function bookArgHtml(book){
+  const a = typeof BOOKARG !== "undefined" ? BOOKARG[dataKey(book)] : null; if (!a) return "";
+  const [sections, argument, concerns] = a;
+  let h = `<div class="arg"><h3>What ${esc(disp(book))} is doing</h3><div class="derived">${esc(DERIVED)}</div>`;
+  if (argument) h += `<div class="lead">${esc(argument)}</div>`;
+  if ((concerns || []).length) h += `<div class="tags">${concerns.map(c => `<span>${esc(c)}</span>`).join("")}</div>`;
+  if ((sections || []).length) { h += `<h3>Its sections</h3>`;
+    h += sections.map(sc => `<div class="sec"><b onclick="goto('#${book}/${(String(sc.chapters).match(/\d+/) || [1])[0]}')">${esc(sc.chapters)}</b><span><b style="font-weight:600">${esc(sc.section)}</b> — ${esc(sc.what)}</span></div>`).join(""); }
+  return h + `</div>`;
+}
+function trajHtml(id){
+  const t = typeof TRAJ !== "undefined" ? TRAJ[id] : null; if (!t) return "";
+  const [beginning, stages, culmination, tensions, unresolved] = t;
+  let h = `<div class="arg"><h3>How it develops across the canon</h3><div class="derived">${esc(DERIVED)}</div>`;
+  if (beginning) h += `<div class="lead">${esc(beginning)}</div>`;
+  if ((stages || []).length) h += `<h3>Stages</h3>` + stages.map(st =>
+    `<div class="stage"><b>${esc(st.stage)}</b><span class="r">${esc(st.refs)}</span><div>${esc(st.what)}</div></div>`).join("");
+  if (culmination) h += `<h3>Where it comes to a head</h3><div>${esc(culmination)}</div>`;
+  if ((tensions || []).length) h += `<h3>Where the passages pull against each other</h3>` + tensions.map(tn =>
+    `<div class="tension">${esc(tn.tension)}<div class="r">${esc(tn.refs)}</div></div>`).join("");
+  if (unresolved) h += `<h3>Left open</h3><div>${esc(unresolved)}</div>`;
+  return h + `</div>`;
+}
+const themeName = t => (t && t[4] && t[4][0]) ? t[4][0] : "";
+const themeGloss = t => (t && t[4] && t[4][2]) ? t[4][2] : (t ? t[0] : "");
+const BARR = `A theme is not a word. One theme runs on many unrelated words, and one word serves many themes — the caution James Barr pressed on word studies. The vocabulary below is what these passages happen to use, ranked by how much more often each word stands here than elsewhere. It is evidence about the passages, not a definition of the theme.`;
+async function renderThemes(book, ch, head){
+  const main = $("#main");
+  main.innerHTML = head + `<p class="empty">${esc(t('Loading themes…'))}</p>`;
+  try { await themesLoad(); } catch (e) { main.innerHTML = head + `<p class="empty">${esc(t('Themes are not built yet — run scripts/build_themes.py.'))}</p>`; return; }
+  try { await theolLoad(); } catch (e) {}
+  const here = (typeof CHTHEME !== "undefined" && CHTHEME[`${disp(book)}|${ch}`]) || [];
+  let html = head + `<div class="thm">`;
+  html += `<p class="empty" style="margin:0 0 .6rem">${esc(t('What the model found this chapter to be about, read chapter by chapter and then gathered across the whole Bible. This is a reading, not a tagged fact: every theme names the verses it came from, so it can be checked.'))}</p>`;
+  if (!here.length) html += `<p class="empty">No themes recorded for ${disp(book)} ${ch} yet.</p>`;
+  for (const [id, verses, label] of here) {
+    const t = THEMES[id];
+    const nm = themeName(t);
+    html += `<div class="t"><b onclick="showTheme('${id}')">${nm ? `<span class="orig">${esc(nm)}</span> <span style="font-weight:400;color:var(--muted)">${esc(themeGloss(t))}</span>` : esc((t && t[0]) || label)}</b>
+      <span class="vv" onclick="goto('#${book}/${ch}${/^\d+$/.test(verses) ? "/" + verses : ""}')">${esc(verses || "")}</span>
+      <div class="w">${esc(label && t && label !== t[0] ? "in this chapter: " + label : ((t && t[1]) || ""))}</div>
+      ${t ? `<div class="w">${t[2].length} passage${t[2].length === 1 ? "" : "s"} in all</div>` : ""}</div>`;
+  }
+  main.innerHTML = html + `</div>` + bookArgHtml(book);
+}
+async function showTheme(id){
+  hidePop(); hideRefs(); await themesLoad(); await lexLoad(); await theolLoad().catch(() => {}); navRender(null);
+  const t = THEMES[id]; if (!t) return;
+  const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr");
+  const nm = themeName(t), face = t[4] || [];
+  let html = `<h2>${nm ? `<span class="orig">${esc(nm)}</span>` : esc(t[0])}<small class="lang">${nm ? esc(themeGloss(t)) + " · " : ""}${t[2].length} passage${t[2].length === 1 ? "" : "s"} · a reading, not a tagged fact</small></h2>`;
+  if (nm) html += `<p class="empty" style="margin:0 0 .8rem">Named in the language of the text${face[1] ? ` (${esc(face[1])})` : ""}${face[3] ? ` — ${esc(face[3])}` : ""}${t[0] && t[0] !== themeGloss(t) ? ` · read in English as “${esc(t[0])}”` : ""}</p>`;
+  if (t[1]) html += `<p class="empty" style="margin:0 0 1rem">${esc(t[1])}</p>`;
+  html += trajHtml(id);
+  html += `<h3 style="font:600 calc(11px * var(--ui)) system-ui,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:1.4rem 0 .3rem">The passages it was read from</h3>`;
+  html += `<div class="thm">` + t[2].map(([b, c, vv]) => {
+    const bb = b.replace(/ /g, "_");
+    const [txt] = verseText(bb, c, (String(vv).match(/\d+/) || [1])[0]);
+    return `<div class="t"><b onclick="goto('#${bb}/${c}')">${esc(b)} ${c}${vv ? ":" + esc(String(vv)) : ""}</b>
+      <div class="w">${esc(String(txt).slice(0, 170))}</div></div>`;
+  }).join("") + `</div>`;
+  if ((t[3] || []).length) {
+    html += `<h3 style="font:600 calc(11px * var(--ui)) system-ui,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:1.4rem 0 .3rem">The words these passages use</h3>`;
+    html += `<div class="thm"><div class="cav">${esc(BARR)}</div></div>`;
+    html += `<div class="vocab">` + t[3].map(([tag, head, gloss, lift, n]) =>
+      `<a onclick="showConc('${tag}')"><span class="orig">${esc(head)}</span> <small>${esc(gloss)} · ${n}× here, ${lift}× as often as elsewhere</small></a>`).join("") + `</div>`;
+  }
+  main.innerHTML = html;
+  window.scrollTo(0, 0);
+}
+function themeWordHtml(tag){                             // in the word popup: the themes this word turns up under
+  if (typeof THEMEWORD === "undefined") return "";
+  const ids = THEMEWORD[tag]; if (!ids || !ids.length) return "";
+  return `<div class="dom">Turns up under: ${ids.slice(0, 6).map(id => `<a onclick="showTheme('${id}')">${esc(themeGloss(THEMES[id]) || "?")}</a>`).join(" · ")}${ids.length > 6 ? ` and ${ids.length - 6} more` : ""}</div>`;
+}
+
+/* ---------- chronology: what the text counts, and the dates outside records fix ---------- */
+const chronLoad = () => typeof CHRON !== "undefined" ? Promise.resolve() : loadJs("morph/chron.js");
+const KIND = {"age-father": "age at fathering", "age-at": "age at the time", "lifespan": "length of life",
+              "reigned": "length of reign", "synchronism": "dated by another reign", "since": "years since an event", "span": "a span of years"};
+async function renderChron(book, ch, head){
+  const main = $("#main");
+  main.innerHTML = head + `<p class="empty">${esc(t('Loading chronology…'))}</p>`;
+  try { await chronLoad(); } catch (e) { main.innerHTML = head + `<p class="empty">${esc(t('Chronology is not built — run scripts/build_chronology.py.'))}</p>`; return; }
+  const here = CHRON.data.filter(r => r[0] === dataKey(book) && r[1] == ch);
+  const inBook = CHRON.data.filter(r => r[0] === dataKey(book));
+  let html = head + `<div class="chron">`;
+  html += `<p class="note">Every line below is a number the text itself states, with the verse it stands in. Nothing here is added up into a date: totals depend on choices this project does not make for you.</p>`;
+  html += `<h3>In ${disp(book)} ${ch}</h3>`;
+  html += here.length ? here.map(r => chronRow(r)).join("")
+    : `<p class="empty">${esc(t('No chronological statement in this chapter.'))}</p>`;
+  if (inBook.length > here.length) {
+    html += `<h3>Elsewhere in ${disp(book)} <span style="text-transform:none;font-weight:400">(${inBook.length - here.length})</span></h3>`;
+    html += inBook.filter(r => r[1] != ch).slice(0, 60).map(r => chronRow(r, true)).join("");
+    if (inBook.length - here.length > 60) html += `<p class="empty">… and ${inBook.length - here.length - 60} more</p>`;
+  }
+  html += `<h3>Dates fixed by records outside the Bible</h3>`;
+  html += `<p class="note">These are the only absolute years this project asserts. They come from Assyrian, Babylonian, Persian and Roman records, not from the biblical text, and several are still argued over.</p>`;
+  html += CHRON.anchors.map(([y, label, basis]) =>
+    `<div class="anch"><span class="y">${y < 0 ? Math.abs(y) + " BC" : "AD " + y}</span><span>${esc(label)}<div class="basis">${esc(basis)}</div></span></div>`).join("");
+  main.innerHTML = html + `</div>`;
+}
+function chronRow(r, withRef){
+  const [b, c, v, kind, who, n, unit, of, text] = r;
+  return `<div class="row"><b onclick="goto('#${b.replace(/ /g, "_")}/${c}/${v}')">${withRef ? esc(b) + " " : ""}${c}:${v}</b>
+    <span><span class="num">${n}</span> ${esc(unit)} — ${esc(KIND[kind] || kind)}${who ? " · " + esc(who) : ""}${of ? " · of " + esc(of) : ""}
+    <div class="q">“${esc(text)}”</div></span></div>`;
+}
+
+/* ---------- places: where the chapter happens, drawn offline (OpenBible.info CC BY 4.0 + Natural Earth, public domain) ---------- */
+const placesLoad = () => typeof PLACES !== "undefined" ? Promise.resolve() : loadJs("morph/places.js");
+const SYN = {}, synLoad = book => SYN[dataKey(book)] ? Promise.resolve() : loadJs(`morph/syn_${book}.js`);
+function synHtml(book, ch, v, i){
+  const w = (((SYN[dataKey(book)] || {})[ch] || {})[v] || [])[i]; if (!w) return "";
+  const [role, cls, dom, refTo] = w;
+  let h = "";
+  if (role || cls) h += `<div class="syn">In the clause: <b>${esc(role || cls)}</b>${role && cls && role !== cls ? ` (${esc(cls)})` : ""}`;
+  if (refTo) { const [b2, c2, v2, i2] = refTo.split("|");
+    const t = (((SYN[dataKey(b2)] || {})[c2] || {})[v2] || [])[i2];
+    h += `${h ? " · " : `<div class="syn">`}refers to <a onclick="gotoWord('${b2.replace(/ /g, "_")}',${c2},${v2},${i2})">${esc((t && t[4]) || "the earlier word")} (${esc(b2)} ${c2}:${v2})</a>`; }
+  if (h) h += `</div>`;
+  return h;
+}
+function gotoWord(book, ch, v, i){
+  hidePop();
+  goto(`#${book}/${ch}/${v}`);
+  setTimeout(() => { const el = document.querySelector(`main .w[data-k="${book}/${ch}/${v}/${i}"]`); if (el) { el.classList.add("ante"); el.scrollIntoView({block: "center"}); setTimeout(() => el.classList.remove("ante"), 4000); } }, 500);
+}
+const APP = {}, appLoad = book => APP[dataKey(book)] ? Promise.resolve() : Promise.all([loadJs(`morph/app_${book}.js`), typeof APPED !== "undefined" ? 0 : loadJs("morph/app_meta.js")]);
+const edName = e => (typeof APPED !== "undefined" && APPED[e]) || e;
+function appHtml(book, ch, v, script){
+  const rows = ((APP[dataKey(book)] || {})[ch] || {})[v] || []; if (!rows.length) return "";
+  let h = `<h4>Text notes <span style="font-weight:400;text-transform:none">(printed editions and the scribal tradition — not manuscripts)</span></h4>`;
+  for (const [kind, reading, have, lack, note] of rows) {
+    if (kind === "var") h += `<div class="ap"><span class="kind">reading</span><span class="rd orig ${script}">${esc(reading)}</span>`
+      + `<div class="ed">in ${esc(have.split("+").map(edName).join(", "))}${lack ? `; not in ${esc(lack.split("+").map(edName).join(", "))}` : ""}</div></div>`;
+    else if (kind === "qere") h += `<div class="ap"><span class="kind">qere</span><span class="rd orig ${script}">${esc(reading)}</span> <span class="ed">read for the written text${note ? " — " + esc(note) : ""}</span></div>`;
+    else h += `<div class="ap"><span class="kind">${kind === "sp" ? "spelling" : "variant"}</span><span class="rd orig ${script}">${esc(reading)}</span> <span class="ed">${esc(note)}</span></div>`;
+  }
+  return h;
+}
+const placesOf = (b, c, v) => (typeof VPLACES !== "undefined" && VPLACES[`${disp(b)}|${c}|${v}`]) || [];
+function chapterPlaces(book, ch){
+  const out = new Map(), src = (DATA[book] && DATA[book][ch] || {}).src || {};
+  for (const n of Object.keys(src).filter(k => !k.startsWith("_"))) for (const name of placesOf(book, ch, n)) {
+    if (!PLACES[name]) continue;
+    if (!out.has(name)) out.set(name, []);
+    out.get(name).push(+n);
+  }
+  return out;
+}
+let mapView = null;                                      // {x, y, k} pan and zoom
+function mapXY(name){ const p = PLACES[name], b = MAPSVG.box; return [(p[1] - b[0]) / (b[2] - b[0]) * MAPSVG.w, (b[3] - p[0]) / (b[3] - b[1]) * MAPSVG.h]; }
+function drawMap(names, focus){
+  const pts = names.map(n => mapXY(n));
+  let vb;
+  if (mapView) vb = mapView;
+  else if (pts.length) {                                 // frame the chapter's places with a margin
+    const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+    const pad = Math.max(60, (Math.max(...xs) - Math.min(...xs)) * .25, (Math.max(...ys) - Math.min(...ys)) * .25);
+    let x0 = Math.min(...xs) - pad, y0 = Math.min(...ys) - pad, x1 = Math.max(...xs) + pad, y1 = Math.max(...ys) + pad;
+    const w = Math.max(x1 - x0, (y1 - y0) * 1.6), h = w / 1.6;
+    vb = mapView = {x: (x0 + x1) / 2 - w / 2, y: (y0 + y1) / 2 - h / 2, w, h};
+  } else vb = mapView = {x: 0, y: 0, w: MAPSVG.w, h: MAPSVG.h};
+  const scale = MAPSVG.w / vb.w, lab = names.length <= 40 || scale > 2;
+  return `<svg id="map" viewBox="${vb.x.toFixed(1)} ${vb.y.toFixed(1)} ${vb.w.toFixed(1)} ${vb.h.toFixed(1)}" preserveAspectRatio="xMidYMid meet" style="aspect-ratio:1.6">
+    <g>${MAPSVG.coast.map(d => `<path class="coast" d="${d}"/>`).join("")}
+       ${MAPSVG.rivers.map(d => `<path class="river" d="${d}"/>`).join("")}
+       ${MAPSVG.lakes.map(d => `<path class="water" d="${d}"/>`).join("")}</g>
+    <g>${names.map((n, i) => { const [x, y] = pts[i]; const on = n === focus;
+      return `<circle class="pin ${on ? "on" : ""}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(on ? 5 : 3.5) / Math.sqrt(scale)}" data-p="${attr(n)}"><title>${esc(n)}</title></circle>`
+        + (lab ? `<text class="plab" x="${(x + 5 / Math.sqrt(scale)).toFixed(1)}" y="${(y + 3 / Math.sqrt(scale)).toFixed(1)}" style="font-size:${(10 / Math.sqrt(scale)).toFixed(1)}px">${esc(n)}</text>` : "");
+    }).join("")}</g></svg>`;
+}
+function mapControls(){
+  const svg = $("#map"); if (!svg) return;
+  const apply = () => { svg.setAttribute("viewBox", `${mapView.x.toFixed(1)} ${mapView.y.toFixed(1)} ${mapView.w.toFixed(1)} ${mapView.h.toFixed(1)}`); };
+  svg.onwheel = e => { e.preventDefault(); const r = svg.getBoundingClientRect();
+    const mx = mapView.x + (e.clientX - r.left) / r.width * mapView.w, my = mapView.y + (e.clientY - r.top) / r.height * mapView.h;
+    const k = e.deltaY > 0 ? 1.2 : 1 / 1.2; const w = Math.min(MAPSVG.w * 2, Math.max(30, mapView.w * k)), h = w / 1.6;
+    mapView = {x: mx - (mx - mapView.x) * (w / mapView.w), y: my - (my - mapView.y) * (h / mapView.h), w, h}; apply(); };
+  let drag = null;
+  svg.onpointerdown = e => { drag = {x: e.clientX, y: e.clientY, vx: mapView.x, vy: mapView.y}; svg.setPointerCapture(e.pointerId); svg.classList.add("drag"); };
+  svg.onpointermove = e => { if (!drag) return; const r = svg.getBoundingClientRect();
+    mapView.x = drag.vx - (e.clientX - drag.x) / r.width * mapView.w; mapView.y = drag.vy - (e.clientY - drag.y) / r.height * mapView.h; apply(); };
+  svg.onpointerup = svg.onpointercancel = () => { drag = null; svg.classList.remove("drag"); };
+  svg.addEventListener("click", e => { const c = e.target.closest(".pin"); if (c) showPlace(c.dataset.p); });
+}
+function showPlace(name, book, ch){
+  const p = PLACES[name]; if (!p) return;
+  const cur = location.hash.slice(1).split("/");
+  mapView = {x: mapXY(name)[0] - 90, y: mapXY(name)[1] - 56, w: 180, h: 112};
+  renderMapInto(book || cur[0], ch || cur[1], name);
+}
+async function renderMap(book, ch, head){
+  const main = $("#main");
+  main.innerHTML = head + `<p class="empty">${esc(t('Loading places…'))}</p>`;
+  try { await placesLoad(); } catch (e) { main.innerHTML = head + `<p class="empty">${esc(t('Place data is not built — run scripts/build_places.py.'))}</p>`; return; }
+  mapView = null;
+  renderMapInto(book, ch, null, head);
+}
+function renderMapInto(book, ch, focus, head){
+  const main = $("#main");
+  const found = chapterPlaces(book, ch);
+  const names = [...found.keys()];
+  head = head || main.dataset.head || "";
+  main.dataset.head = head;
+  if (!names.length) { main.innerHTML = head + `<p class="empty">No identified places in ${disp(book)} ${ch}. Place names come from the OpenBible.info geocoding data; many chapters mention none.</p>`; return; }
+  let html = head + `<div class="mapbar"><b style="color:var(--fg)">${names.length} place${names.length === 1 ? "" : "s"}</b> in ${disp(book)} ${ch}
+      <button onclick="mapView=null;renderMapInto('${book}',${ch},null)">fit</button>
+      <button onclick="mapView={x:0,y:0,w:MAPSVG.w,h:MAPSVG.h};renderMapInto('${book}',${ch},null)">whole map</button>
+      <span>scroll to zoom, drag to pan</span></div>`;
+  html += drawMap(names, focus);
+  html += `<div class="plist">` + names.sort().map(n => {
+    const vs = found.get(n), p = PLACES[n];
+    return `<a onclick="showPlace('${attr(n)}','${book}',${ch})">${esc(n)} <small>${vs.slice(0, 4).join(", ")}${vs.length > 4 ? "…" : ""}${p[3] ? " · " + esc(p[3]) : ""}</small></a>`;
+  }).join("") + `</div>`;
+  const f = focus && PLACES[focus];
+  if (f) html += `<p class="empty">${esc(focus)} — ${f[0].toFixed(3)}°N, ${f[1].toFixed(3)}°E${f[2] ? " · located from " + esc(f[2]) : ""}${f[3] ? " · " + esc(f[3]) : ""}</p>`;
+  main.innerHTML = html;
+  mapControls();
+}
+
+/* ---------- cross-references (OpenBible.info, CC BY 4.0) and parallels (computed from the word tags) ---------- */
+const XREF = {}, xrefLoad = book => XREF[dataKey(book)] ? Promise.resolve() : loadJs(`morph/xref_${book}.js`);
+const parLoad = () => typeof PAR !== "undefined" ? Promise.resolve() : loadJs("morph/parallels.js");
+/* A button rather than a label, with the verse it stands for written on it:
+   the same verse is numbered twice in the side-by-side views, and both copies
+   have to show the same held state. */
+const vnum = (b, c, n) => `<sup class="v" role="button" tabindex="-1" aria-pressed="false"`
+  + ` data-v="${b}|${c}|${n}" aria-label="Verse ${n}">${n}</sup>`;
+function verseText(b, c, v){                            // the shown translation if there is one, else the original
+  const d = DATA[b] && DATA[b][c]; if (!d) return ["", "en", "ltr"];
+  const t = d.tr && (d.tr[tl] || d.tr[Object.keys(d.tr)[0]]);
+  if (t && t.verses[v]) return [t.verses[v].replace(/\n+/g, " "), d.tr[tl] ? tl : Object.keys(d.tr)[0], "ltr"];
+  const src = d.src && d.src[v]; const L = LANGS[d.lang || "hbo"];
+  return src ? [src, "", L.dir] : ["", "", "ltr"];
+}
+const vpop = document.createElement("div"); vpop.id = "vpop"; vpop.hidden = true; document.body.appendChild(vpop);
+function hideRefs(){ vpop.hidden = true; }
+function refRow(b, c, v, end, note){
+  const [txt, lang, dir] = verseText(b, c, v);
+  return `<div class="r" onclick="goto('#${b}/${c}/${v}');hideRefs()"><b>${disp(b)} ${c}:${v}${end && end > v ? "–" + end : ""}${note ? ` <span style="font-weight:400;color:var(--muted)">${note}</span>` : ""}</b><span lang="${lang}" dir="${dir}">${ruby(esc(txt))}</span></div>`;
+}
+async function showRefs(book, ch, v, ev){
+  if (ev) ev.stopPropagation();
+  if (!adv()) return;                     // in basic mode a verse number is a verse number
+  await Promise.all([xrefLoad(book).catch(() => {}), parLoad().catch(() => {}), placesLoad().catch(() => {}), appLoad(book).catch(() => {})]);
+  const xr = ((XREF[dataKey(book)] || {})[ch] || {})[v] || [];
+  const pr = typeof PAR !== "undefined" ? (((PAR[dataKey(book)] || {})[ch] || {})[v] || []) : [];
+  let html = `<span class="cls" onclick="hideRefs()">✕</span><h4>${disp(book)} ${ch}:${v}</h4>`;
+  const pls = (typeof PLACES !== "undefined" ? placesOf(book, ch, v).filter(n => PLACES[n]) : []);
+  if (pls.length) html += `<div class="pl">Places: ${pls.map(n => `<a onclick="hideRefs();setView('map');setTimeout(()=>showPlace('${attr(n)}','${book}',${ch}),300)">${esc(n)}</a>`).join("")}</div>`;
+  if (pr.length) html += `<h4>Parallel passages</h4>` + pr.map(r => refRow(r[0].replace(/ /g, "_"), r[1], r[2], 0, Math.round(r[3] * 100) + "% shared wording")).join("");
+  if (xr.length) html += `<h4>Cross-references <span style="font-weight:400;text-transform:none">(Treasury of Scripture Knowledge via OpenBible.info)</span></h4>`
+    + xr.slice(0, 25).map(r => refRow(r[0].replace(/ /g, "_"), r[1], r[2], r[3], "")).join("");
+  html += appHtml(book, ch, v, ((LANGS[(DATA[book] && DATA[book][ch] || {}).lang || "hbo"] || {}).script || "hebrew").toLowerCase());
+  if (!pr.length && !xr.length && !((APP[dataKey(book)] || {})[ch] || {})[v]) html += `<p class="empty">${esc(t('No cross-references, parallels or text notes for this verse.'))}</p>`;
+  vpop.innerHTML = html; vpop.hidden = false;
+  reachable(vpop);
+  const el = ev && ev.target, r = el ? el.getBoundingClientRect() : {left: 40, bottom: 80, top: 80};
+  const W = vpop.offsetWidth, H = vpop.offsetHeight;
+  // The verse bar is what opens this, and it sits at the foot of the screen:
+  // the popup stops above it rather than having its last lines covered.
+  const floor = (vbar && !vbar.hidden ? vbar.getBoundingClientRect().top : window.innerHeight) - 8;
+  let x = Math.min(r.left, window.innerWidth - W - 10), y = r.bottom + 6;
+  if (y + H > floor) y = Math.max(8, floor - H);
+  vpop.style.left = Math.max(8, x) + "px"; vpop.style.top = y + "px";
+}
+document.addEventListener("click", e => { if (!e.target.closest("#vpop") && !e.target.closest("#vbar")) hideRefs(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !vpop.hidden) { hideRefs(); e.stopImmediatePropagation(); } });
+window.addEventListener("hashchange", hideRefs);
+async function renderHarmony(book, ch, head, shown){    // the chapter beside its parallels, verse by verse
+  const main = $("#main");
+  main.innerHTML = head + `<p class="empty">${esc(t('Loading parallels…'))}</p>`;
+  await parLoad().catch(() => {});
+  const P = typeof PAR !== "undefined" ? (PAR[dataKey(book)] || {})[ch] || {} : {};
+  const src = (DATA[book][ch] || {}).src || {};
+  const nums = Object.keys(src).filter(k => !k.startsWith("_")).map(Number).sort((a, b) => a - b);
+  const freq = {}; for (const r of Object.values(P).flat()) freq[r[0]] = (freq[r[0]] || 0) + 1;      // the books this chapter most parallels, at most four columns
+  const others = Object.keys(freq).sort((a, b) => freq[b] - freq[a]).slice(0, 4).sort((a, b) => ORDER[a.replace(/ /g, "_")] - ORDER[b.replace(/ /g, "_")]);
+  let html = head;
+  if (!others.length) { main.innerHTML = head + `<p class="empty">No parallel passages found for ${disp(book)} ${ch}. Parallels are computed for the Gospels, for Samuel–Kings–Chronicles with Isaiah, Jeremiah, Psalms and Micah, and within the Torah.</p>`; return; }
+  const cols = [dataKey(book), ...others];   // data keys, for matching against P's own
+  const colLabels = cols.map(c => disp(c.replace(/ /g, "_")));   // what the header actually shows, every column
+  html += `<p class="empty" style="margin:0 0 .6rem">Verses sharing wording with ${others.join(", ")}. Percentages are shared vocabulary, weighted by how rare each word is.</p>`;
+  html += `<div class="harm hdr" style="position:sticky;top:var(--barH);background:var(--bg);z-index:2;padding-top:.2rem"><div class="vs" style="grid-template-columns:repeat(${cols.length},1fr)">`
+    + colLabels.map(c => `<div class="lab" style="cursor:default">${esc(c)}</div>`).join("") + `</div></div>`;
+  for (const n of nums) {
+    const hits = P[n] || [];
+    const cells = cols.map(cname => {
+      if (cname === dataKey(book)) {
+        const [txt, lang, dir] = verseText(book, ch, n);
+        return `<div><div class="lab" onclick="goto('#${book}/${ch}/${n}')">${disp(book)} ${ch}:${n}</div><div class="txt" lang="${lang}" dir="${dir}">${ruby(esc(txt))}</div></div>`;
+      }
+      const h = hits.filter(r => r[0] === cname).sort((a, b) => b[3] - a[3])[0];
+      if (!h) return `<div></div>`;
+      const b2 = h[0].replace(/ /g, "_"), [txt, lang, dir] = verseText(b2, h[1], h[2]);
+      return `<div><div class="lab" onclick="goto('#${b2}/${h[1]}/${h[2]}')">${h[0]} ${h[1]}:${h[2]} <small>${Math.round(h[3] * 100)}%</small></div><div class="txt dim" lang="${lang}" dir="${dir}">${ruby(esc(txt))}</div></div>`;
+    }).join("");
+    html += `<div class="harm" id="v-${book}-${ch}-${n}"><div class="vs" style="grid-template-columns:repeat(${cols.length},1fr)">${cells}</div></div>`;
+  }
+  main.innerHTML = html;
+}
+
+/* ---------- morphology: every Hebrew, Aramaic and Greek word tagged (STEPBible data, CC BY 4.0), loaded per book on demand ---------- */
+const MORPH = {};                                        // morph/<Book>.js fills MORPH["Book name"]
+const _loaded = {};
+/* The word tags, the lexicon and the search indexes are separate files, and a
+   browser caches a <script> hard. A reader who opened the reader last week
+   kept last week's search index after everything else had been rebuilt - it
+   answered 356 verses for 神 where the text has 4128, and said nothing. The
+   build stamp on the end of the URL makes a rebuilt page fetch them again. */
+function loadJs(src){ const url = src + (src.indexOf("?") < 0 ? "?v=" + encodeURIComponent(BUILD) : ""); return _loaded[src] || (_loaded[src] = new Promise((ok, no) => { const el = document.createElement("script"); el.src = url; el.onload = ok; el.onerror = () => { delete _loaded[src]; no(new Error(src)); }; document.head.appendChild(el); })); }
+const morphLoad = book => MORPH[dataKey(book)] ? Promise.resolve() : loadJs(`morph/${book}.js`);
+const lexLoad = () => typeof LEX !== "undefined" ? Promise.resolve() : loadJs("morph/lex.js");
+const concLoad = () => typeof CONC !== "undefined" ? Promise.resolve() : loadJs("morph/conc.js");
+const lexxLoad = () => typeof LEXX !== "undefined" ? Promise.resolve() : loadJs("morph/lexx.js");
+const LEXXT = {};                                        // our entries in the target languages
+const lexxtLoad = t => (t === "en" || LEXXT[t]) ? Promise.resolve() : loadJs(`morph/lexx_${t}.js`);
+const domLoad = () => typeof DOMTAG !== "undefined" ? Promise.resolve() : loadJs("morph/domains.js");
+/* Everything the study layers know, in one index keyed by the words a reader
+   types. Until this existed the search box could reach none of them: a reader
+   asking for "love" got the verses an English translator happened to use the
+   word in, while chesed and agape sat two taps away with every occurrence
+   already counted. The reader-only build does not carry it, so every use of it
+   is guarded rather than assumed. */
+const entLoad = () => typeof ENTIDX !== "undefined" ? Promise.resolve() : loadJs("morph/entries.js");
+const lexemeLoad = () => typeof FORM2LEX !== "undefined" ? Promise.resolve() : loadJs("morph/lexemes.js");
+function oursLexeme(form){                               // our own inventory, grown from the text by the model
+  if (typeof FORM2LEX === "undefined") return "";
+  const id = FORM2LEX[form]; if (!id) return "";
+  const [head, pos, gloss, root] = LEXEME[id];
+  return `<div class="syn">This project's lexeme <b>${esc(id)}</b>: <span class="orig">${esc(head)}</span> — ${esc(gloss)}${pos ? " (" + esc(pos) + ")" : ""}${root ? ` · root <span class="orig">${esc(root)}</span>` : ""}</div>`;
+}
+function domHtml(tag){                                   // our own fields of meaning, assigned by the model from the glosses
+  if (typeof DOMTAG === "undefined") return "";
+  const ds = DOMTAG[tag]; if (!ds || !ds.length) return "";
+  return `<div class="dom">Fields of meaning: ${ds.map(d => `<a onclick="showDomain('${attr(d)}')">${esc(d)}</a>`).join(" · ")}</div>`;
+}
+/* ---------- one entry point per layer, so the dashboard's work bar can open what a job produced ---------- */
+async function openView(key){
+  /* The dashboard opens a layer by name. Everything but the search box belongs
+     to advanced mode, so asking for one is asking to be in it. */
+  if (READER_ONLY && key !== "search-index") return;
+  if (key !== "search-index" && !adv()) { mode = "advanced"; localStorage.setItem("mode", "advanced"); applyMode(); }
+  const go = {
+    "lexeme-inventory": browseLexemes, "concordance": browseLexemes,
+    "lexicon": browseLexicon, "lexicon-brief": browseLexicon, "lexicon-translated": browseLexicon,
+    "fields": browseFields, "themes": browseThemes, "trajectories": browseThemes,
+    "book-arguments": browseArguments,
+    "morphology": () => { if (!inter) toggleInter(); setView("orig"); },
+    "clause-data": () => { if (!inter) toggleInter(); setView("orig"); },
+    "search-index": () => focusSearch(),
+    "text-notes": () => { setView("orig"); showFirstRefs(); },
+    "cross-references": () => { setView("tr"); showFirstRefs(); },
+    "parallels": () => setView("harm"), "places": () => setView("map"), "chronology": () => setView("chron"),
+  }[key];
+  if (go) await go();
+}
+const shelf = (title, note, items) => `<h2>${esc(title)}<small class="lang">${esc(note)}</small></h2>`
+  + `<div class="plist">` + items.join("") + `</div>`;
+
+async function browseThemes(){                           // every theme, most attested first
+  hidePop(); hideRefs(); navRender(null);
+  const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
+  try { await themesLoad(); await theolLoad().catch(() => {}); } catch (e) {
+    main.innerHTML = `<h2>Themes</h2><p class="empty">${esc(t('Not built yet — run scripts/build_themes.py.'))}</p>`; return; }
+  const ids = Object.keys(THEMES).sort((a, b) => THEMES[b][2].length - THEMES[a][2].length);
+  const withTraj = typeof TRAJ !== "undefined" ? ids.filter(i => TRAJ[i]).length : 0;
+  main.innerHTML = shelf("Themes", `${ids.length} themes · ${withTraj} traced across the canon · read out of the chapters`,
+    ids.map(id => { const t = THEMES[id];
+      const nm = themeName(t);
+      return `<a onclick="showTheme('${id}')">${nm ? `<span class="orig">${esc(nm)}</span> ` : ""}${esc(nm ? themeGloss(t) : t[0])} <small>${t[2].length} passage${t[2].length === 1 ? "" : "s"}${typeof TRAJ !== "undefined" && TRAJ[id] ? " · traced" : ""}</small></a>`; }));
+  window.scrollTo(0, 0);
+}
+async function browseArguments(){                        // the books whose argument has been written
+  hidePop(); navRender(null);
+  const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
+  try { await theolLoad(); } catch (e) {
+    main.innerHTML = `<h2>What each book argues</h2><p class="empty">${esc(t('Not built yet — run scripts/build_theology.py --books.'))}</p>`; return; }
+  const names = Object.keys(BOOKARG).sort((a, b) => ORDER[a.replace(/ /g, "_")] - ORDER[b.replace(/ /g, "_")]);
+  if (!names.length) { main.innerHTML = `<h2>What each book argues</h2><p class="empty">${esc(t('No book arguments yet.'))}</p>`; return; }
+  main.innerHTML = shelf("What each book argues", `${names.length} of 66 books · built from their chapters' themes`,
+    names.map(n => `<a onclick="showArgument('${n.replace(/ /g, "_")}')">${esc(n)} <small>${(BOOKARG[n][0] || []).length} sections</small></a>`));
+  window.scrollTo(0, 0);
+}
+async function showArgument(book){
+  await theolLoad().catch(() => {});
+  const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
+  main.innerHTML = `<h2>${esc(disp(book))}<small class="lang">what the book argues</small></h2>` + bookArgHtml(book)
+    + `<p class="empty"><a style="cursor:pointer;color:var(--accent)" onclick="browseArguments()">all books</a> · <a style="cursor:pointer;color:var(--accent)" onclick="goto('#${book}/1')">read it</a></p>`;
+  window.scrollTo(0, 0);
+}
+async function browseLexicon(){                          // our own entries, the fullest first
+  hidePop(); navRender(null);
+  const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
+  try { await lexLoad(); await lexxLoad(); await lexxtLoad(tl).catch(() => {}); } catch (e) {
+    main.innerHTML = `<h2>Our lexicon</h2><p class="empty">${esc(t('Not built yet — run scripts/build_lexicon.py.'))}</p>`; return; }
+  const tags = Object.keys(LEXX).sort((a, b) => (LEXX[b].count || 0) - (LEXX[a].count || 0));
+  main.innerHTML = shelf("Our lexicon", `${tags.length} entries written from the text${(LEXXT[tl] ? " · shown in " + TARGETS[tl].native + " where translated" : "")}`,
+    tags.map(t => { const e = LEXX[t], tr = (LEXXT[tl] || {})[t];
+      return `<a onclick="showLexEntry('${t}')"><span class="orig">${esc(e.headword)}</span> <small>${esc((tr && tr.gloss) || e.gloss)} · ${e.count}×</small></a>`; }));
+  window.scrollTo(0, 0);
+}
+async function showLexEntry(tag){
+  await lexLoad(); await lexxLoad().catch(() => {}); await domLoad().catch(() => {}); await themesLoad().catch(() => {});
+  const e = LEX[tag] || ["", "", "", "", ""];
+  const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
+  main.innerHTML = `<h2><span class="orig">${esc(e[0] || tag)}</span><small class="lang">${esc(e[1] || "")} ${esc(e[2] || "")} · ${tag}</small></h2>`
+    + `<div id="wpopinline">${oursHtml(tag)}${domHtml(tag)}${themeWordHtml(tag)}</div>`
+    + `<p class="empty"><a style="cursor:pointer;color:var(--accent)" onclick="showConc('${tag}')">every occurrence</a> · <a style="cursor:pointer;color:var(--accent)" onclick="browseLexicon()">all entries</a></p>`;
+  window.scrollTo(0, 0);
+}
+async function browseLexemes(){                          // the inventory grown from the word forms
+  hidePop(); navRender(null);
+  const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
+  try { await lexemeLoad(); } catch (e) {
+    main.innerHTML = `<h2>Our lexeme inventory</h2><p class="empty">${esc(t('Not built yet — run scripts/build_lexemes.py.'))}</p>`; return; }
+  const ids = Object.keys(LEXEME).sort((a, b) => LEXEME[b][4] - LEXEME[a][4]);
+  main.innerHTML = shelf("Our lexeme inventory", `${ids.length} dictionary words grown from ${Object.keys(FORM2LEX).length} word forms`,
+    ids.slice(0, 1200).map(id => { const [head, pos, gloss, root, count] = LEXEME[id];
+      return `<a onclick="showLexeme('${id}')"><span class="orig">${esc(head)}</span> <small>${esc(gloss)}${pos ? " · " + esc(pos) : ""} · ${count}×</small></a>`; }));
+  if (ids.length > 1200) main.innerHTML += `<p class="empty">Showing the 1,200 commonest of ${ids.length}.</p>`;
+  window.scrollTo(0, 0);
+}
+async function showLexeme(id){
+  await lexemeLoad();
+  const [head, pos, gloss, root, count] = LEXEME[id];
+  const forms = Object.keys(FORM2LEX).filter(f => FORM2LEX[f] === id);
+  const main = $("#main"); main.className = "wide"; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
+  main.innerHTML = `<h2><span class="orig">${esc(head)}</span><small class="lang">${esc(gloss)}${pos ? " · " + esc(pos) : ""}${root ? " · root " + root : ""} · ${id} · ${count} occurrence${count === 1 ? "" : "s"}</small></h2>`
+    + `<p class="empty" style="margin:0 0 1rem">${esc(t('Grown from the text: the model read each of these written forms in its verse and gave this dictionary word for it.'))}</p>`
+    + `<div class="plist">` + forms.map(f => `<a onclick="searchSource('${attr(f)}')"><span class="orig">${esc(f)}</span> <small>find it in the text</small></a>`).join("") + `</div>`
+    + `<p class="empty"><a style="cursor:pointer;color:var(--accent)" onclick="browseLexemes()">all lexemes</a></p>`;
+  window.scrollTo(0, 0);
+}
+async function searchSource(form){                       // find a Hebrew or Greek form through the source index
+  const name = /[\u0590-\u05ff]/.test(form) ? "hbo" : "grc";
+  try { await idxLoad(name); } catch (e) {}
+  const ids = idxVerses(name, foldTerm(form)) || [];
+  const main = $("#main"); main.className = ""; main.setAttribute("dir", "ltr"); main.setAttribute("lang", "en");
+  main.innerHTML = `<h2><span class="orig">${esc(form)}</span><small class="lang">${ids.length} verse${ids.length === 1 ? "" : "s"} in the original</small></h2>`
+    + `<div id="results">` + ids.slice(0, 400).map(id => {
+        const b = byNumBook[Math.floor(id / 1000000)], c = Math.floor(id / 1000) % 1000, v = id % 1000;
+        return b ? `<div class="hit" onclick="goto('#${b}/${c}/${v}')"><div class="ref">${disp(b)} ${c}:${v}</div>${verseHtml(b, c, v, -1)}</div>` : "";
+      }).join("") + `</div>`;
+  window.scrollTo(0, 0);
+}
+
+async function browseFields(){                           // the fields of meaning, as a list to pick from
+  hidePop(); await domLoad().catch(() => {}); navRender(null);
+  const main = $("#main"); main.className = ""; main.setAttribute("dir", "ltr");
+  if (typeof DOMLIST === "undefined") { main.innerHTML = `<h2>Fields of meaning</h2><p class="empty">${esc(t('Not built yet — run scripts/build_domains.py.'))}</p>`; return; }
+  const used = DOMLIST.filter(d => (DOMAINS[d] || []).length);
+  main.innerHTML = `<h2>Fields of meaning<small class="lang">${used.length} fields · this project's own grouping</small></h2>`
+    + `<p class="empty" style="margin:0 0 1rem">${esc(t('Each lexeme is sorted by its usage and gloss into fields written for this project. No published domain lexicon is used.'))}</p>`
+    + `<div class="plist">` + used.map(d => `<a onclick="showDomain('${attr(d)}')">${esc(d)} <small>${(DOMAINS[d] || []).length} words</small></a>`).join("") + `</div>`;
+  window.scrollTo(0, 0);
+}
+async function showDomain(name){
+  hidePop(); await domLoad(); await lexLoad(); navRender(null);
+  const members = (DOMAINS[name] || []);
+  const main = $("#main"); main.className = ""; main.setAttribute("dir", "ltr");
+  main.innerHTML = `<h2>${esc(name)}<small class="lang">${members.length} word${members.length === 1 ? "" : "s"} · this project's own grouping</small></h2>`
+    + `<p class="empty" style="margin:0 0 1rem">${esc(t("Assigned by the model from each word's usage and gloss. The fields are this project's own wording; no published domain lexicon is used."))}</p>`
+    + `<div class="plist">` + members.map(([t, head, gloss]) =>
+        `<a onclick="showConc('${attr(t)}')"><span class="orig">${esc(head)}</span> <small>${esc(gloss)}</small></a>`).join("") + `</div>`
+    + `<p class="empty">Other fields: ${DOMLIST.filter(d => d !== name && (DOMAINS[d] || []).length).map(d => `<a style="cursor:pointer;color:var(--accent)" onclick="showDomain('${attr(d)}')">${esc(d)}</a>`).join(" · ")}</p>`;
+  window.scrollTo(0, 0);
+}
+const refLink = r => { const m = r.match(/^(.+?) (\d+):(\d+)$/); return m ? `<a onclick="hidePop();goto('#${m[1].replace(/ /g, "_")}/${m[2]}/${m[3]}')">${r}</a>` : esc(r); };
+function oursHtml(tag){                                  // our own entry, written by the model from the concordance
+  const base = typeof LEXX !== "undefined" ? LEXX[tag] : null; if (!base) return "";
+  const tr = (LEXXT[tl] || {})[tag];                     // shown in the reading language when that translation exists
+  const e = tr ? {...base, ...tr} : base;
+  let h = `<div class="ours"><h5>This project's entry <span style="text-transform:none;font-weight:400">· written by the model from ${base.count} occurrence${base.count === 1 ? "" : "s"}${tr ? " · " + esc(TARGETS[tl].native) : ""}</span></h5>`;
+  for (const s of e.senses || []) h += `<div class="sense"><b>${esc(s.sense)}</b> — ${esc(s.definition)} ${(s.refs || []).map(refLink).join(" ")}</div>`;
+  if (e.usage) h += `<div class="usage">${esc(e.usage)}</div>`;
+  for (const i of e.idioms || []) h += `<div class="idiom"><span class="orig">${esc(i.phrase)}</span> — ${esc(i.meaning)} ${(i.refs || []).map(refLink).join(" ")}</div>`;
+  if ((e.near || []).length) h += `<div class="near">compare ${e.near.map(n => `<span class="orig">${esc(n.word)}</span> (${esc(n.difference)})`).join("; ")}</div>`;
+  if (e.note) h += `<div class="cav">${esc(e.note)}</div>`;
+  return h + `</div>`;
+}
+const WRE = /[\p{L}\p{M}\p{N}]+(?:['\u2019][\p{L}\p{M}\p{N}]+)*/gu;   // same tokenizer as build_morph.py
+const attr = t => esc(t).replace(/"/g, "&quot;");
+function wrapSrc(text, book, ch, v){                     // words as spans; gloss + code attached when the book's tags are loaded
+  const m = MORPH[dataKey(book)], vw = m && m[ch] && m[ch][v]; let i = 0, out = "", last = 0;
+  for (const x of text.matchAll(WRE)) {
+    const w = vw && vw[i];
+    out += esc(text.slice(last, x.index)) + `<span class="w" data-k="${book}/${ch}/${v}/${i}"${w ? ` data-g="${attr(w[2])}" data-m="${attr(w[1])}"` : ""}>${esc(x[0])}</span>`;
+    i++; last = x.index + x[0].length;
+  }
+  return out + esc(text.slice(last));
+}
+let inter = localStorage.getItem("inter") === "1";
+function toggleInter(){ inter = !inter; localStorage.setItem("inter", inter ? "1" : "0"); route(); }
+const TAGRE = /[HG]\d{4}[A-Za-z]?/g;
+function rootTag(tags){ const m = tags.match(/\{([^}]+)\}/); return m ? m[1] : (tags.match(TAGRE) || [tags])[0]; }
+function parseCode(code){                                // "HR/Ncfsa" -> "Preposition + Noun (Singular Feminine, Absolute)"; Greek codes are looked up whole
+  if (typeof MORPHX === "undefined" || !code) return code || "";
+  if (!/^[HA]/.test(code)) return MORPHX[code] || code;
+  const lang = code[0], parts = code.split("/");
+  return parts.map((p, i) => MORPHX[i ? lang + p : p] || MORPHX[p] || p).join(" + ");
+}
+const wpop = document.createElement("div"); wpop.id = "wpop"; wpop.hidden = true; document.body.appendChild(wpop);
+let wsel = null;
+function hidePop(){ wpop.hidden = true; if (wsel) { wsel.classList.remove("sel"); wsel = null; } }
+async function showPop(el){
+  const [book, ch, v, i] = el.dataset.k.split("/");
+  await morphLoad(book); await lexLoad(); await Promise.all([lexxLoad().catch(() => {}), lexxtLoad(tl).catch(() => {}), synLoad(book).catch(() => {}), domLoad().catch(() => {}), lexemeLoad().catch(() => {}), themesLoad().catch(() => {})]);
+  const m = MORPH[dataKey(book)], d = m && m[ch] && m[ch][v] && m[ch][v][i];
+  if (wsel) wsel.classList.remove("sel"); wsel = el; el.classList.add("sel");
+  let html = `<div class="hw"><span class="orig">${esc(el.textContent)}</span>`;
+  if (!d) { html += `</div><div class="pre">No tag for this word.</div>`; }
+  else {
+    const root = rootTag(d[0]), e = LEX[root], greek = /^G/.test(root);
+    if (!greek) html += `<span class="tl">${esc(d[3])}</span>`;
+    html += `</div>`;
+    if (e) html += `<div><b class="orig">${esc(e[0])}</b><span class="tl">${esc(e[1])}</span><span class="pos">${esc(e[2])}</span> — ${esc(e[3])}</div>`;
+    html += `<div class="parse">${esc(parseCode(d[1]))}<code>${esc(d[1])}</code></div>`;
+    html += synHtml(book, ch, v, +i);
+    html += domHtml(root);
+    html += themeWordHtml(root);
+    html += oursLexeme(el.textContent);
+    html += `<div>gloss: <b>${esc(d[2])}</b>${greek && d[3] && d[3] !== d[2] ? ` · <span class="tl">${esc(d[3])}</span>` : ""}</div>`;
+    const extra = (d[0].match(TAGRE) || []).filter(t => t !== root && LEX[t]);
+    if (extra.length) html += `<div class="pre">with: ${extra.map(t => `${esc(LEX[t][0])} <i>${esc(LEX[t][3])}</i>`).join(", ")}</div>`;
+    if (e && e[4]) html += `<div class="meaning">${esc(e[4])}</div>`;
+    html += oursHtml(root);
+    html += `<div class="acts"><a onclick="showConc('${root}')">all occurrences</a><a onclick="gsOpen('${root}', '${attr(d[1])}')">this form elsewhere</a><a onclick="hidePop()">close</a></div>`;
+  }
+  wpop.innerHTML = html; wpop.hidden = false;
+  reachable(wpop);
+  const r = el.getBoundingClientRect(), W = wpop.offsetWidth, H = wpop.offsetHeight;
+  let x = Math.min(r.left, window.innerWidth - W - 10), y = r.bottom + 6; if (y + H > window.innerHeight - 8) y = Math.max(8, r.top - H - 6);
+  wpop.style.left = Math.max(8, x) + "px"; wpop.style.top = y + "px";
+}
+document.addEventListener("click", e => { const w = e.target.closest("main .w"); if (w && adv()) { showPop(w); return; } if (!e.target.closest("#wpop")) hidePop(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !wpop.hidden) { hidePop(); e.stopImmediatePropagation(); } });
+window.addEventListener("hashchange", hidePop);
+const byNum = {}; for (const b in ORDER) byNum[ORDER[b]] = b;
+function verseHtml(b, ch, v, mark){                      // one source verse with token `mark` highlighted
+  const src = DATA[b] && DATA[b][ch] && DATA[b][ch].src, t = src && src[v]; if (!t) return "";
+  const L = LANGS[DATA[b][ch].lang || "hbo"]; let i = 0, out = "", last = 0;
+  for (const x of t.matchAll(WRE)) { out += esc(t.slice(last, x.index)) + (i === mark ? `<mark>${esc(x[0])}</mark>` : esc(x[0])); i++; last = x.index + x[0].length; }
+  return `<span class="orig ${L.script.toLowerCase()}" dir="${L.dir}">${out + esc(t.slice(last))}</span>`;
+}
+function hitsHtml(refs, cap){
+  let html = "", n = 0, lastBook = null;
+  for (const [bn, ch, v, i] of refs) {
+    if (n++ >= cap) { html += `<p class="empty">… and ${refs.length - cap} more (narrow the search to see them)</p>`; break; }
+    const b = byNum[bn]; if (!b) continue;
+    if (b !== lastBook) { html += `<h3 style="font:600 calc(13px * var(--ui)) system-ui,sans-serif;color:var(--muted);margin:1rem 0 .3rem">${disp(b)}</h3>`; lastBook = b; }
+    html += `<div class="hit" onclick="goto('#${b}/${ch}/${v}')"><div class="ref">${disp(b)} ${ch}:${v}</div>${verseHtml(b, ch, v, i)}</div>`;
+  }
+  return html;
+}
+async function showConc(tag){                            // concordance: every occurrence of a lexeme, in canonical order
+  hidePop(); await concLoad(); await lexLoad(); navRender(null);
+  const refs = CONC[tag] || [], e = LEX[tag];
+  const main = $("#main"); main.className = ""; main.setAttribute("dir", "ltr");
+  main.innerHTML = `<h2><span class="orig">${e ? esc(e[0]) : esc(tag)}</span><small class="lang">${e ? esc(e[1]) + " · " + esc(e[3]) + " · " : ""}${tag} · ${refs.length} occurrence${refs.length === 1 ? "" : "s"}</small></h2>`
+    + (e && e[4] ? `<p class="empty" style="margin:0 0 1rem">${esc(e[4])}</p>` : "") + `<div id="results">${hitsHtml(refs, 800)}</div>`;
+  window.scrollTo(0, 0);
+}
+/* ---- grammar search: words by form, over the tagged text of the whole Bible (loaded on first use) ---- */
+const GS = {
+  H: {fn: {V:"Verb", N:"Noun", A:"Adjective", P:"Pronoun", R:"Preposition", C:"Conjunction", D:"Adverb", T:"Particle", S:"Suffix"},
+      stem: {q:"Qal", N:"Niphal", p:"Piel", P:"Pual", h:"Hiphil", H:"Hophal", t:"Hithpael", o:"Polel", O:"Polal", r:"Hithpolel", m:"Poel", M:"Poal", k:"Palel", K:"Pulal", Q:"Qal passive", l:"Pilpel", L:"Polpal", f:"Hithpalpel", D:"Nithpael", j:"Pealal", i:"Pilel", u:"Hothpaal", c:"Tiphil", v:"Hishtaphel", w:"Nithpalel", y:"Nithpoel", z:"Hithpoel"},
+      form: {p:"Perfect", q:"Sequential perfect", i:"Imperfect", w:"Sequential imperfect", h:"Cohortative", j:"Jussive", v:"Imperative", r:"Participle active", s:"Participle passive", a:"Infinitive absolute", c:"Infinitive construct"},
+      person: {1:"1st", 2:"2nd", 3:"3rd"}, gender: {m:"masculine", f:"feminine", c:"common", b:"both"}, number: {s:"singular", p:"plural", d:"dual"}, state: {a:"absolute", c:"construct", d:"determined"}},
+  G: {fn: {N:"Noun", A:"Adjective", T:"Article", V:"Verb", P:"Personal pronoun", R:"Relative pronoun", D:"Demonstrative pronoun", C:"Reciprocal pronoun", F:"Reflexive pronoun", S:"Possessive pronoun", I:"Interrogative pronoun", X:"Indefinite pronoun", K:"Correlative pronoun", Q:"Correlative/interrogative", PREP:"Preposition", CONJ:"Conjunction", ADV:"Adverb", PRT:"Particle", INJ:"Interjection", COND:"Conditional", HEB:"Hebrew word", ARAM:"Aramaic word"},
+      tense: {P:"Present", I:"Imperfect", F:"Future", A:"Aorist", R:"Perfect", L:"Pluperfect"}, voice: {A:"Active", M:"Middle", P:"Passive", E:"Middle or passive", D:"Middle deponent", O:"Passive deponent", N:"Middle/passive deponent"},
+      mood: {I:"Indicative", S:"Subjunctive", O:"Optative", M:"Imperative", N:"Infinitive", P:"Participle"}, person: {1:"1st", 2:"2nd", 3:"3rd"},
+      kase: {N:"Nominative", G:"Genitive", D:"Dative", A:"Accusative", V:"Vocative"}, number: {S:"singular", P:"plural"}, gender: {M:"masculine", F:"feminine", N:"neuter"}}
+};
+const sel = (id, label, opts, val) => `<label>${label}<select id="gs_${id}"><option value="">any</option>${Object.entries(opts).map(([k, v]) => `<option value="${k}" ${k === val ? "selected" : ""}>${v}</option>`).join("")}</select></label>`;
+function gsOpen(tag, code){
+  hidePop(); navRender(null);
+  const lang = (tag && /^G/.test(tag)) || (code && !/^[HA]/.test(code)) ? "G" : (code && code[0] === "A" ? "A" : "H");
+  const main = $("#main"); main.className = ""; main.setAttribute("dir", "ltr");
+  main.innerHTML = `<h2>Grammar search<small class="lang">words by form, whole Bible</small></h2><div class="gs" id="gsform"></div><div id="results"></div>`;
+  const form = $("#gsform");
+  const render = () => {
+    const L = $("#gs_lang") ? $("#gs_lang").value : lang, g = GS[L === "G" ? "G" : "H"];
+    let h = `<label>language<select id="gs_lang"><option value="H" ${L==="H"?"selected":""}>Hebrew</option><option value="A" ${L==="A"?"selected":""}>Aramaic</option><option value="G" ${L==="G"?"selected":""}>Greek</option></select></label>`;
+    h += sel("fn", "function", g.fn, "");
+    if (L !== "G") h += sel("stem", "stem (verbs)", g.stem, "") + sel("form", "form (verbs)", g.form, "") + sel("person", "person", g.person, "") + sel("gender", "gender", g.gender, "") + sel("number", "number", g.number, "") + sel("state", "state (nouns)", g.state, "");
+    else h += sel("tense", "tense", g.tense, "") + sel("voice", "voice", g.voice, "") + sel("mood", "mood", g.mood, "") + sel("person", "person", g.person, "") + sel("kase", "case", g.kase, "") + sel("number", "number", g.number, "") + sel("gender", "gender", g.gender, "");
+    h += `<label>lexeme tag (from a word's popup)<input id="gs_tag" value="${tag ? attr(tag) : ""}" placeholder="e.g. H1288A or G5485"></label>`;
+    h += `<label>book<select id="gs_book"><option value="">all</option>${srcBooks.map(b => `<option value="${b}">${disp(b)}</option>`).join("")}</select></label>`;
+    h += `<button id="gs_run">Search</button>`;
+    form.innerHTML = h;
+    $("#gs_lang").onchange = render;
+    $("#gs_run").onclick = gsRun;
+    if (code) { for (const f of gsFieldsFromCode(code)) { const el = $("#gs_" + f[0]); if (el) el.value = f[1]; } code = null; }
+  };
+  render();
+}
+function gsFieldsFromCode(code){                         // prefill the form from a word's code: "HVqp3ms" / "V-AAI-3S" / "N-NSF"
+  const out = [];
+  if (/^[HA]/.test(code)) { const c = code.split("/").pop().replace(/^[HA]/, ""), fn = c[0]; out.push(["fn", fn]);
+    if (fn === "V") { out.push(["stem", c[1]], ["form", c[2]]); const t = c.slice(3); const p = t.match(/[123]/); if (p) out.push(["person", p[0]]); const g = t.match(/[mfcb]/); if (g) out.push(["gender", g[0]]); const n = t.match(/[spd]/); if (n) out.push(["number", n[0]]); }
+    else if (fn === "N" || fn === "A") { const t = c.slice(2); if (t[0]) out.push(["gender", t[0]]); if (t[1]) out.push(["number", t[1]]); if (t[2]) out.push(["state", t[2]]); } }
+  else { const parts = code.split("-"); out.push(["fn", parts[0]]);
+    if (parts[0] === "V" && parts[1]) { const tvm = parts[1].replace(/^2/, ""); out.push(["tense", tvm[0]], ["voice", tvm[1]], ["mood", tvm[2]]); const t = parts[2] || ""; if (/^[123]/.test(t)) { out.push(["person", t[0]], ["number", t[1]]); } else if (t) { out.push(["kase", t[0]], ["number", t[1]], ["gender", t[2]]); } }
+    else if (parts[1] && /^[NGDAV][SP][MFN]$/.test(parts[1])) out.push(["kase", parts[1][0]], ["number", parts[1][1]], ["gender", parts[1][2]]); }
+  return out;
+}
+function gsMatch(code, q){                               // does a word's code satisfy the form
+  if (!code) return false;
+  if (q.lang !== "G") {
+    const c = code.split("/").pop(); if (c[0] !== q.lang && !(code[0] === q.lang && code.split("/").length === 1)) { if (code[0] !== q.lang) return false; }
+    const body = c.replace(/^[HA]/, "");
+    if (q.fn && body[0] !== q.fn) return false;
+    if (body[0] === "V") { if (q.stem && body[1] !== q.stem) return false; if (q.form && body[2] !== q.form) return false;
+      const t = body.slice(3); if (q.person && !t.includes(q.person)) return false; if (q.gender && !t.includes(q.gender)) return false; if (q.number && !t.includes(q.number)) return false; }
+    else { const t = body.slice(1); if (q.stem || q.form) return false; if (q.person && !t.includes(q.person)) return false; if (q.gender && !t.includes(q.gender)) return false; if (q.number && !t.includes(q.number)) return false; if (q.state && !t.endsWith(q.state)) return false; }
+    return true;
+  }
+  const parts = code.split("-");
+  if (q.fn && parts[0] !== q.fn) return false;
+  if (parts[0] === "V") { const tvm = (parts[1] || "").replace(/^2/, ""); if (q.tense && tvm[0] !== q.tense) return false; if (q.voice && tvm[1] !== q.voice) return false; if (q.mood && tvm[2] !== q.mood) return false;
+    const t = parts[2] || ""; if (q.person && t[0] !== q.person) return false; if (q.kase && !(t.length === 3 && t[0] === q.kase)) return false;
+    if (q.number && !(t.length === 2 ? t[1] === q.number : t[1] === q.number)) return false; if (q.gender && t[2] !== q.gender) return false; }
+  else { const t = parts[1] || ""; if (q.tense || q.voice || q.mood || q.person) return false; if (q.kase && t[0] !== q.kase) return false; if (q.number && t[1] !== q.number) return false; if (q.gender && t[2] !== q.gender) return false; }
+  return true;
+}
+async function gsRun(){
+  const val = id => ($("#gs_" + id) || {}).value || "";
+  const q = {lang: val("lang"), fn: val("fn"), stem: val("stem"), form: val("form"), person: val("person"), gender: val("gender"), number: val("number"), state: val("state"),
+             tense: val("tense"), voice: val("voice"), mood: val("mood"), kase: val("kase"), tag: val("tag").trim(), book: val("book")};
+  const res = $("#results"); res.innerHTML = `<p class="empty">${esc(t('Loading the tagged text…'))}</p>`;
+  const books = q.book ? [q.book] : srcBooks.filter(b => (q.lang === "G") === (ORDER[b] > 39));
+  let loadedN = 0;
+  for (const b of books) { try { await morphLoad(b); } catch (e) {} loadedN++; if (loadedN % 8 === 0) res.innerHTML = `<p class="empty">Loading the tagged text… ${loadedN}/${books.length}</p>`; }
+  const hits = [];
+  for (const b of books) { const m = MORPH[dataKey(b)]; if (!m) continue;
+    for (const ch in m) for (const v in m[ch]) { const ws = m[ch][v];
+      for (let i = 0; i < ws.length; i++) { const w = ws[i]; if (!w) continue;
+        if (q.tag && rootTag(w[0]) !== q.tag && !(w[0].match(TAGRE) || []).includes(q.tag)) continue;
+        if (!gsMatch(w[1], q)) continue;
+        hits.push([ORDER[b], +ch, +v, i]); if (hits.length >= 5000) break; } } }
+  hits.sort((a, b) => a[0] - b[0] || a[1] - b[1] || a[2] - b[2] || a[3] - b[3]);
+  res.innerHTML = `<p class="empty">${hits.length}${hits.length >= 5000 ? "+" : ""} word${hits.length === 1 ? "" : "s"} found.</p>` + hitsHtml(hits, 600);
+}
+const vtag = (src, n) => src._lang ? `<span class="lt">${LANGS[src._lang[n]].name}</span>` : "";
+const ruby = h => h.replace(/\{([^{}|\]]+)\|([^{}\]]+)[}\]]/g, "<ruby>$1<rt>$2</rt></ruby>");   // {漢字|かんじ} furigana notation
+const flat = t => ruby(esc(t)).replace(/\n\n/g,"\n").trim();
+const tdir = t => (TARGETS[t] && TARGETS[t].dir) || "ltr";
+
 function renderChapter(book, ch, highlightVerse) {
   const chData = DATA[book] && DATA[book][ch];
   const main = $("#main");
   navRender(book);
-  if (!chData) { main.innerHTML = `<p class="empty">${disp(book)} ${ch} has not been translated yet.</p>`; return; }
+  if (!chData) { main.innerHTML = `<p class="empty">${disp(book)} ${ch} is not in the source texts.</p>`; return; }
+  const trs = chData.tr || {};
+  const avail = Object.keys(TARGETS).filter(t => trs[t]);
+  const shown = trs[tl] ? tl : avail[0];              // fall back to any translation this chapter has
+  const tr = !!shown;
   const chs = chapterList(book);
-  let html = `<h2>${disp(book)} ${ch}</h2>`;
+  const src = chData.src, lang = chData.lang || "hbo", L = LANGS[lang];
+  const rtl = L.dir === "rtl", ocls = "orig " + L.script.toLowerCase();
+  const lxx = src && src._lxx;
+  let v = view;
+  /* The analysis views read the original text, not the translation, so an
+     untranslated chapter is no reason to refuse them — the Gospels are exactly
+     where a reader wants the parallels, and they were unreachable there. */
+  const analysis = v === "themes" || v === "harm" || v === "map" || v === "chron";
+  if (!src) v = "tr";
+  else if (!tr && !analysis) v = ((v === "lxx" || v === "hl") && lxx) ? v : "orig";
+  else if (v === "all" && avail.length < 2 && !lxx) v = "par";
+  if ((v === "lxx" || v === "hl") && !lxx) v = "orig";
+  /* Basic mode is the book: the translation, or the text it was made from. */
+  if (!adv() && v !== "tr" && v !== "orig") v = tr ? "tr" : "orig";
+  /* The heading says what is actually on the screen rather than everything the
+     chapter has, because the bar repeats it and a reader in the Septuagint
+     should not be told they are reading Hebrew. */
+  /* The translation is named as its own readers name it, as the trays do: a
+     Thai reader was being told, in English, that this was Thai. */
+  const sub = v === "orig" ? L.name : v === "lxx" ? t('Septuagint') : v === "hl" ? `${L.name} · ${t('Septuagint')}`
+    : v === "all" ? `${L.name}${lxx ? " + " + t('Septuagint') : ""} → ${avail.map(x => TARGETS[x].native).join(" · ")}`
+    : tr ? `${L.name} → ${TARGETS[shown].native}` : L.name;
+  setTitle(`${disp(book)} ${ch}`, sub);
+  let html = `<h2>${disp(book)} ${ch}<small class="lang">${esc(sub)}</small></h2>`;
+  /* A translation no human has read is said so, on the page it is read from,
+     not only in a footer nobody scrolls to. */
+  if (tr && v !== "orig" && v !== "lxx" && TARGETS[shown].caveat) html += `<div class="cav tl-cav" lang="en">${esc(TARGETS[shown].caveat)}</div>`;
   html += `<div class="chnav">` + chs.map(c =>
-    `<a href="#${book}/${c}" class="${c==ch?'on':''}">${c}</a>`).join("") + `</div>`;
-  let para = [];
-  const flush = () => { if (para.length) { html += `<p class="vv">${para.join(" ")}</p>`; para = []; } };
-  for (const n of Object.keys(chData.verses).map(Number).sort((a,b)=>a-b)) {
-    const t = chData.verses[n];
-    const vid = `v-${book}-${ch}-${n}`;
-    if (t.includes("\\n")) {
-      flush();
-      html += `<div class="poetry" id="${vid}"><sup class="v">${n}</sup>${esc(t).replace(/\\n\\n/g,"\\n").trimEnd()}</div>`;
-    } else {
-      para.push(`<span id="${vid}"><sup class="v">${n}</sup>${esc(t)}</span>`);
-    }
+    `<a href="#${book}/${c}" class="${c==ch?'on':''} ${trOf(book,c)[tl]?'':'untr'}">${c}</a>`).join("") + `</div>`;
+  if (src && adv()) {
+    html += `<div class="tabs"><a class="${v==='orig'?'on':''}" onclick="setView('orig')">${L.name}</a>`;
+    if (lxx) html += `<a class="${v==='lxx'?'on':''}" onclick="setView('lxx')" title="Swete's Septuagint">${esc(t('Septuagint'))}</a><a class="${v==='hl'?'on':''}" onclick="setView('hl')" title="Hebrew and the Septuagint side by side">${esc(t('Hebrew · Septuagint'))}</a>`;
+    html += `<span class="sep"></span>`;
+    for (const x of haveTargets)
+      html += `<a class="${v==='tr'&&shown===x?'on':''} ${trs[x]?'':'off'}" onclick="setTl('${x}');setView('tr')">${TARGETS[x].native}</a>`;
+    html += `<span class="sep"></span><a class="${v==='par'?'on':''} ${tr?'':'off'}" onclick="setView('par')">${esc(t('Side by side'))}</a>`;
+    html += `<a class="${v==='all'?'on':''} ${(avail.length + (lxx?1:0))>1?'':'off'}" onclick="setView('all')">${esc(t('Compare'))}</a>`;
+    // the analysis tabs, in the order the layers are built: words, then lexemes and meaning, then themes, then arguments, then notes on a verse
+    html += `<i class="sep" title="analysis"></i>`;
+    html += `<a class="tool ${inter?'on':''}" onclick="toggleInter()" title="words: gloss and parsing under every Hebrew or Greek word">interlinear</a>`;
+    html += `<a class="tool" onclick="gsOpen()" title="words: find words by grammatical form">grammar search</a>`;
+    html += `<a class="tool" onclick="browseFields()" title="meaning: the fields this project sorts its lexemes into">fields of meaning</a>`;
+    html += `<a class="tool ${v==='themes'?'on':''}" onclick="setView('themes')" title="themes: what this chapter is about, where else it is taken up, and what the book argues">themes</a>`;
+    html += `<a class="tool ${v==='harm'?'on':''}" onclick="setView('harm')" title="notes: this chapter beside the passages that share its wording">parallels</a>`;
+    html += `<a class="tool ${v==='map'?'on':''}" onclick="setView('map')" title="notes: the places this chapter mentions, on a map">places</a>`;
+    html += `<a class="tool ${v==='chron'?'on':''}" onclick="setView('chron')" title="notes: the chronological statements here, and the dated anchors">chronology</a></div>`;
   }
-  flush();
-  if (chData.notes) {
-    html += `<div class="notes">${esc(chData.notes).replace(/^Notes:?/i,"<b>Translator's notes</b>").replace(/\\n/g,"<br>")}</div>`;
+  main.className = ((v === "par" || v === "all" || v === "hl" || v === "harm" || v === "map" || v === "chron" || v === "themes") ? "wide" : "") + (inter && adv() && src && (v === "orig" || v === "par" || v === "all" || v === "hl") ? " inter" : "");
+  /* The word tags are a file per book, fetched the first time the book is
+     opened. Until it arrives the text reads normally with no glosses under it,
+     which is silent and puzzling in interlinear; and if it never arrives the
+     reader should be told rather than left staring at a view that never fills.
+     Basic mode never uses them - a tap on a word does nothing there - so it
+     does not fetch them either; the reader-only build does not even carry
+     them, and would warn on every book. setMode re-routes, which fetches them
+     the moment advanced mode is chosen. */
+  if (src && adv() && !MORPH[dataKey(book)]) {
+    if (inter && adv()) html += `<p class="empty" role="status">Loading the word tags for ${disp(book)}…</p>`;
+    morphLoad(book)
+      .then(() => { if (location.hash.slice(1).split("/").slice(0, 2).join("/") === `${book}/${ch}`) route(); })
+      .catch(() => toast(`The word tags for ${disp(book)} could not be loaded, so there are no glosses or parsing here. The text itself is unaffected.`));
+  }
+  main.setAttribute("lang", (v === "orig" || v === "lxx" || v === "hl") ? "" : (shown || "en"));
+  main.setAttribute("dir", (v === "tr" && shown) ? tdir(shown) : "ltr");
+  if (!tr) html += `<p class="empty" style="margin:0 0 1.2rem">${esc(TARGETS[tl] ? TARGETS[tl].native : tl)}: ${esc(t('not translated yet'))}`
+    + (src ? ` · ${esc(t('showing'))}: ${esc(v === "lxx" ? t('Septuagint') : L.name)}` : "") + `</p>`;
+  /* A chapter the chosen language has not reached falls back to whatever
+     translation the chapter does have, which is better than an empty page -
+     but it used to do it in silence. The language menu still said 日本語
+     while the page was in English, and a reader was left to decide whether
+     the app was broken or that was what Japanese looked like. */
+  else if (shown !== tl && TARGETS[tl]) html += `<p class="empty" style="margin:0 0 1.2rem">`
+    + `${esc(TARGETS[tl].native || TARGETS[tl].name)}: ${esc(t('not translated this far yet'))}`
+    + ` · ${esc(t('showing'))}: ${esc(TARGETS[shown].native)}</p>`;
+  if (v === "harm") { renderHarmony(book, ch, html, shown); return; }
+  if (v === "map") { renderMap(book, ch, html); return; }
+  if (v === "chron") { renderChron(book, ch, html); return; }
+  if (v === "themes") { renderThemes(book, ch, html); return; }
+  if (!tr && v !== "orig" && v !== "lxx" && v !== "hl" && v !== "all") { main.innerHTML = html; return; }
+  const nums = Object.keys(v === "tr" ? trs[shown].verses : src).filter(k => !k.startsWith("_")).map(Number).sort((a,b)=>a-b);
+  if (v === "orig") {
+    for (const n of nums)
+      html += `<p class="ov ${ocls}" dir="${rtl?'rtl':'ltr'}" id="v-${book}-${ch}-${n}">${vnum(book,ch,n)}${vtag(src,n)}${wrapSrc(src[n], book, ch, n)}</p>`;
+  } else if (v === "lxx") {
+    for (const n of nums)
+      html += `<p class="ov orig greek" id="v-${book}-${ch}-${n}">${vnum(book,ch,n)}${lxx[n] ? esc(lxx[n]) : "<i style='color:var(--muted)'>— no aligned verse</i>"}</p>`;
+  } else if (v === "hl") {                                   // Hebrew and Septuagint side by side
+    html += `<div class="par">`;
+    for (const n of nums)
+      html += `<div class="o ${ocls}" dir="${rtl?'rtl':'ltr'}">${vnum(book,ch,n)}${vtag(src,n)}${wrapSrc(src[n], book, ch, n)}</div>
+        <div class="o orig greek" id="v-${book}-${ch}-${n}">${vnum(book,ch,n)}${lxx[n] ? esc(lxx[n]) : "<i style='color:var(--muted)'>— no aligned verse</i>"}</div>`;
+    html += `</div>`;
+  } else if (v === "par") {
+    html += `<div class="par">`;
+    for (const n of nums) {
+      const e = trs[shown].verses[n];
+      html += `<div class="o ${ocls}" dir="${rtl?'rtl':'ltr'}">${vnum(book,ch,n)}${vtag(src,n)}${wrapSrc(src[n], book, ch, n)}</div>
+        <div class="e" lang="${shown}" dir="${tdir(shown)}" id="v-${book}-${ch}-${n}">${vnum(book,ch,n)}${e ? flat(e) : "<i style='color:var(--muted)'>—</i>"}</div>`;
+    }
+    html += `</div>`;
+  } else if (v === "all") {
+    for (const n of nums) {
+      html += `<div class="cmp" id="v-${book}-${ch}-${n}"><div class="row"><span class="lab">${L.name} ${vnum(book,ch,n)}</span><span class="txt ${ocls}" dir="${rtl?'rtl':'ltr'}">${vtag(src,n)}${wrapSrc(src[n], book, ch, n)}</span></div>`;
+      if (lxx && lxx[n]) html += `<div class="row"><span class="lab">LXX</span><span class="txt orig greek">${esc(lxx[n])}</span></div>`;
+      for (const t of avail) {
+        const e = trs[t].verses[n];
+        html += `<div class="row"><span class="lab">${TARGETS[t].native}</span><span class="txt" lang="${t}" dir="${tdir(t)}">${e ? flat(e) : "<i style='color:var(--muted)'>—</i>"}</span></div>`;
+      }
+      html += `</div>`;
+    }
+  } else {
+    let para = [];
+    const flush = () => { if (para.length) { html += `<p class="vv">${para.join(" ")}</p>`; para = []; } };
+    for (const n of nums) {
+      /* A line break inside a verse is poetry, set line by line. A line break
+         at the end of one is nothing: the model closes most Thai and Spanish
+         verses with a newline, and until it was trimmed every one of them
+         was set as a one-line poem, so a Thai reader never saw a paragraph. */
+      const t = (trs[shown].verses[n] || "").trim();
+      const vid = `v-${book}-${ch}-${n}`;
+      if (t.includes("\n")) {
+        flush();
+        html += `<div class="poetry" id="${vid}">${vnum(book,ch,n)}${ruby(esc(t)).replace(/\n\n/g,"\n").trimEnd()}</div>`;
+      } else {
+        para.push(`<span id="${vid}">${vnum(book,ch,n)}${ruby(esc(t))}</span>`);
+      }
+    }
+    flush();
+    if (trs[shown].notes) {
+      html += `<div class="notes">${ruby(esc(trs[shown].notes)).replace(/^Notes:?/i,"<b>Translator's notes</b>").replace(/\n/g,"<br>")}</div>`;
+    }
   }
   const {prev, next} = neighbours(book, ch);
   html += `<div class="pn">
@@ -222,97 +1816,1969 @@ function renderChapter(book, ch, highlightVerse) {
 }
 
 /* ---------- reference finder ---------- */
-function goRef(input) {
-  const m = input.trim().toLowerCase().match(/^([1-3]?\\s*[a-z ]+?)\\s*(\\d+)?(?::(\\d+))?$/);
-  if (!m) return false;
-  let book = ABBREV[m[1].replace(/\\s+/g,"")];
-  if (!book) {
-    const t = m[1].trim().replace(/\\s+/g,"_").toLowerCase();
-    book = allBooks.find(b => b.toLowerCase().startsWith(t));
+/* A book from the start of its name, in whatever language the reader has:
+   an English abbreviation first, then the English names, then the names the
+   display languages carry - the reader's own first. Spaces and stops are
+   ignored, so "1 sam", "1sam" and "1 Sam." are one thing. */
+const nameKey = s => s.toLowerCase().replace(/[\s._]+/g, "");
+function bookFromName(s){
+  const k = nameKey(s);
+  if (!k) return null;
+  if (ABBREV[k]) return ABBREV[k];
+  const en = allBooks.find(b => nameKey(b).startsWith(k));
+  if (en) return en;
+  for (const l of [dl, ...Object.keys(UI).filter(x => x !== dl)]) {
+    const names = UI[l] && UI[l].books; if (!names) continue;
+    for (const name in names) if (nameKey(names[name]).startsWith(k)) return name.replace(/ /g, "_");
   }
+  return null;
+}
+function goRef(input) {
+  /* Any script for the name: a Thai reader types ปฐมกาล 2:7, and used to be
+     answered by nothing, because only a-z was allowed. */
+  const m = input.trim().match(/^(\d?\s*[\p{L}\p{M}][\p{L}\p{M}\s.]*?)\s*(\d+)?(?:[:：]\s*(\d+))?$/u);
+  if (!m) return false;
+  const book = bookFromName(m[1]);
   if (!book) return false;
-  location.hash = `#${book}/${m[2]||1}${m[3] ? "/"+m[3] : ""}`;
+  goto(`#${book}/${m[2]||1}${m[3] ? "/"+m[3] : ""}`);
   return true;
 }
 
-/* ---------- search ---------- */
-function search(q) {
+/* ---------- search (in the selected translation) ---------- */
+const BUILD = "__BUILT__";               // when this page was built, so a phone can say which copy it is running
+const IDX = {};
+const idxLoad = name => IDX[name] ? Promise.resolve() : loadJs(`morph/idx_${name}.js`);
+const foldTerm = t => t.normalize("NFD").replace(/[\u0300-\u036f\u0591-\u05c7]/g, "").normalize("NFC").toLowerCase();
+function idxVerses(name, term){                          // -> verse ids for one term, or null when it is not indexed
+  const enc = IDX[name] && IDX[name][term]; if (!enc) return null;
+  const out = []; let p = 0;
+  for (const x of enc.split(".")) { p += parseInt(x, 16); out.push(p); }
+  return out;
+}
+const byNumBook = {}; for (const b in ORDER) byNumBook[ORDER[b]] = b;
+/* Which verses could hold what was typed, from the index alone. Each word is
+   looked up the way its script is indexed. A spaced word is a term; while it is
+   still being typed it is not one yet, and it used to fall through to a scan of
+   the whole Bible on every keystroke (or, at three letters, to no answer at
+   all) - now the terms that begin with it stand in for it. An unspaced run is
+   indexed by its pieces of up to three characters, so a longer one is every one
+   of its threes, where it used to be only the first. `forms` lets the caller say
+   that a word may be answered by others - loved and loving for love. */
+const NOSPACE = /[㐀-鿿豈-﫿぀-ヿ฀-๿]/;
+const TERMS = {};                                        // index name -> its terms, listed once
+function idxCandidates(name, q, forms){                  // verses holding every word of the query, or null with no index
+  const index = IDX[name]; if (!index) return null;
+  const words = q.split(/[^\p{L}\p{M}\p{N}]+/u).filter(Boolean).map(foldTerm);
+  if (!words.length) return null;
+  let acc = null;
+  for (const w of new Set(words)) {
+    let set;
+    if (NOSPACE.test(w)) {
+      const grams = [];
+      if (w.length <= 3) grams.push(w); else for (let i = 0; i + 3 <= w.length; i++) grams.push(w.slice(i, i + 3));
+      for (const g of new Set(grams)) {
+        const got = idxVerses(name, g); if (!got) { set = new Set(); break; }
+        if (!set) set = new Set(got); else { const keep = new Set(got); for (const v of set) if (!keep.has(v)) set.delete(v); }
+      }
+    } else {
+      let terms = (forms && forms[w]) || (index[w] ? [w] : null);
+      if (!terms) { const all = TERMS[name] || (TERMS[name] = Object.keys(index)); terms = all.filter(t => t.startsWith(w) && !t.startsWith("lxx:")); }
+      set = new Set();
+      for (const t of terms) for (const v of idxVerses(name, t) || []) set.add(v);
+    }
+    if (acc === null) acc = set; else for (const v of acc) if (!set.has(v)) acc.delete(v);
+    if (!acc.size) break;
+  }
+  return acc ? [...acc].sort((a, b) => a - b) : [];
+}
+/* The index folds accents so that oracion finds oración; the check against the
+   verse itself did not, and threw those verses away again. This matches a
+   letter however it is accented, against the verse taken apart the same way. */
+const apart = s => /[À-ɏḀ-ỿͰ-Ͽἀ-῿]/.test(s) ? s.normalize("NFD") : s;
+function looseRx(strs){
+  const one = s => [...foldTerm(s)].map(c => c.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + (/\p{L}/u.test(c) ? "[\\u0300-\\u036f]*" : "")).join("");
+  return new RegExp(strs.slice().sort((a, b) => b.length - a.length).map(one).join("|"), "gi");
+}
+/* Typing ?diag into the search box says what this copy of the reader actually
+   has in it. On a phone there is no console and no way to look inside the app,
+   so when something does not work this is what can be read out. */
+async function diagnostics(){
+  let idxState = "not loaded";
+  try { await idxLoad(tl); idxState = `${Object.keys(IDX[tl] || {}).length} indexed words`; }
+  catch (e) { idxState = `could not load morph/idx_${tl}.js (${e && e.message || e})`; }
+  const chapters = srcBooks.reduce((n, b) => n + Object.keys(DATA[b]).length, 0);
+  const translated = srcBooks.reduce((n, b) => n + Object.values(DATA[b]).filter(c => c.tr && c.tr[tl]).length, 0);
+  let store = "working";
+  try { localStorage.setItem("_t", "1"); localStorage.removeItem("_t"); } catch (e) { store = `blocked (${e.name})`; }
+  const rows = [["Built", BUILD], ["Address", location.href], ["Reading language", tl],
+                ["Languages in this copy", Object.keys(TARGETS).join(", ") || "none"],
+                ["Books / chapters", `${srcBooks.length} / ${chapters}`],
+                ["Chapters in " + tl, translated], ["Search index", idxState],
+                ["Study layers", READER_ONLY ? "not in this build (the reader alone)"
+                    : `${Object.keys(typeof MORPH === "undefined" ? {} : MORPH).length} books of word tags loaded`],
+                ["Settings storage", store], ["Browser", navigator.userAgent]];
+  return `<h2>What this copy holds<small class="lang">type ?diag in the search box to see this</small></h2>`
+    + `<div class="cmp">` + rows.map(([k, v]) =>
+        `<div class="row"><span class="lab">${esc(k)}</span><span class="txt">${esc(String(v))}</span></div>`).join("")
+    + `</div>`;
+}
+
+/* ---- the study layers, answered from the same box as the verses ---- */
+const unpack = enc => { const out = []; let p = 0; for (const x of enc.split(".")) { p += parseInt(x, 16); out.push(p); } return out; };
+/* The glosses and the topical lines are English prose, and English bends its
+   words: the line for Daniel 5:5 says a hand "writes" on the wall, so a reader
+   typing "writing on the wall" matched nothing. The forms of a word are folded
+   together here, at the time of asking - crudely, by the endings English adds -
+   and the little words are dropped when there is anything else to go on. It is
+   done over the index's own terms, so nothing has to be rebuilt and the stemmer
+   has no twin in Python to fall out of step with. Only these English-keyed
+   indexes are folded; a verse's own wording is still matched as it was typed. */
+const STOPW = new Set(("a an the of on in at to and or for with by from is are was were be his her their its who "
+  + "that which this it as he she they them him not what when where how").split(" "));
+function stemOf(w){
+  if (!/^[a-z]+$/.test(w)) return w;
+  if (w.length > 4) {
+    for (const s of ["ing", "ed", "es", "s", "ly"])
+      if (w.endsWith(s) && w.length - s.length >= 3) { w = w.slice(0, -s.length); break; }
+    if (w.length > 3 && w[w.length - 1] === w[w.length - 2] && !"aeiouls".includes(w[w.length - 1])) w = w.slice(0, -1);
+  } else if (w.length === 4 && w.endsWith("s") && !w.endsWith("ss")) w = w.slice(0, -1);
+  return w.length > 3 && w.endsWith("e") ? w.slice(0, -1) : w;
+}
+const STEMS = new WeakMap();                             // index -> {stem: [its terms]}, built the first time it is asked
+function formsOf(index, w){
+  let g = STEMS.get(index);
+  if (!g) { g = {}; for (const t in index) (g[stemOf(t)] || (g[stemOf(t)] = [])).push(t); STEMS.set(index, g); }
+  return g[stemOf(w)] || (index[w] ? [w] : []);
+}
+function foldFind(index, q, relax){                      // numbers answering every word of the query, in any of its forms
+  if (!index) return [];
+  let words = q.split(/[^\p{L}\p{M}\p{N}]+/u).filter(Boolean).map(foldTerm);
+  const content = words.filter(w => !STOPW.has(w));
+  if (content.length) words = content;
+  const score = new Map();
+  for (const w of new Set(words)) {
+    const got = new Set();
+    for (const t of formsOf(index, w)) for (const n of unpack(index[t])) got.add(n);
+    for (const n of got) score.set(n, (score.get(n) || 0) + 1);
+  }
+  const n = new Set(words).size, pick = k => [...score].filter(([, c]) => c >= k).map(([v]) => v).sort((a, b) => a - b);
+  const all = pick(n);
+  /* A description is rarely exact. With three words or more, a verse that
+     answers all but one is offered when none answers them all - "writing on the
+     wall at a feast" should not fail because one line says banquet. */
+  return all.length || !relax || n < 3 ? all : pick(n - 1);
+}
+/* ENTRIES is written in order of how often the thing occurs, so the entry
+   number is already its rank and sorting by it needs no second thought. */
+const entFind = (index, q) => foldFind(index, q, false);
+
+/* ---- from the reader's language to the original, through the verses ----
+   The glosses and the topical lines are English, so a reader of the Chinese who
+   typed 宽恕 was answered by the eight verses that spell it and by nothing
+   else: no word, no field, no verse about forgiveness that says it otherwise.
+   Translating those layers is a job per language. But every translation shares
+   its verse numbers with the original, which makes the text its own dictionary:
+   take the verses where the reader's word stands, and ask which Hebrew and
+   Greek words stand in them far more often than chance allows. 赦免 comes back
+   as סָלַח, ἀφίημι and נָשָׂא; misericordia as ἔλεος, חָנַן and רָחַם - in any
+   language that has been translated, with nothing built for it and no model
+   asked. The same question put to the topical lines gives the English words a
+   verse is described with, and so the verses about it.
+   It is arithmetic, and it says so: a word is kept when a fair share of its
+   whole life is spent in these verses and it is many times commoner here than
+   elsewhere. A rare query has less to go on, so it is allowed a looser share
+   when the strict one finds nothing. */
+const INV = {};
+function inverse(name){                                  // verse -> the keys standing in it, and how many verses each key has
+  if (INV[name]) return INV[name];
+  const map = new Map(), tot = {};
+  const add = (k, ids) => { tot[k] = ids.length; for (const v of ids) { const a = map.get(v); if (a) a.push(k); else map.set(v, [k]); } };
+  if (name === "lex") for (const tag in CONC) add(tag, [...new Set(CONC[tag].map(r => r[0] * 1000000 + r[1] * 1000 + r[2]))]);
+  else for (const t in IDX.topics) if (t.length > 2 && !STOPW.has(t)) add(t, unpack(IDX.topics[t]));
+  return INV[name] = {map, tot};
+}
+function behind(ids, name, cap){                         // -> [{k, n, tot, share, score}], the likeliest first
+  const H = ids.length; if (H < 3) return [];
+  const {map, tot} = inverse(name), N = map.size, c = new Map();
+  for (const v of ids) for (const k of (map.get(v) || [])) c.set(k, (c.get(k) || 0) + 1);
+  const tier = share => {
+    const out = [];
+    for (const [k, n] of c) {
+      if (n < 3 || n / H < .05 || n / tot[k] < share) continue;
+      const lift = (n / H) / (tot[k] / N);
+      if (lift >= 8) out.push({k, n, tot: tot[k], share: n / tot[k], score: n * Math.log(lift)});
+    }
+    return out.sort((a, b) => b.score - a.score).slice(0, cap);
+  };
+  const strict = tier(.2);
+  return strict.length ? strict : tier(.05);
+}
+const ENTOPEN = {
+  /* Our own inventory is opened at its lexeme page; a reference tag goes to the
+     concordance, which is what someone searching for a word actually wants -
+     every place it stands, not a dictionary entry about it. */
+  lexeme: e => e[1][0] === "e" ? `showLexeme('${attr(e[1])}')` : `showConc('${attr(e[1])}')`,
+  field: e => `showDomain('${attr(e[1])}')`,
+  theme: e => `showTheme('${attr(e[1])}')`,
+  place: e => `showPlace('${attr(e[1])}')`,
+  idiom: e => `showConc('${attr(e[1].split("#")[0])}')`,   // the word it was recorded under
+};
+const ENTKIND = {lexeme: "word", field: "field", theme: "theme", place: "place", idiom: "phrase"};
+const isPhrase = n => ENTRIES[n][0] === "idiom";
+let ENTNUM = null;                                        // "kind|id" -> its number in ENTRIES
+function entNum(kind, id){
+  if (!ENTNUM) { ENTNUM = {}; ENTRIES.forEach((e, n) => { const k = e[0] + "|" + e[1]; if (!(k in ENTNUM)) ENTNUM[k] = n; }); }
+  return ENTNUM[kind + "|" + id];
+}
+const entOfTag = tag => (typeof ENTRIES !== "undefined" && ENTRIES[entNum("lexeme", tag)]) || ["lexeme", tag, tag, "", 0, ""];
+/* What the study layers have for this search. Asked in English, the index is
+   simply looked up. Asked in anything else it cannot be - its keys are English
+   glosses - so it is reached the way the verses were: through the original
+   words the search was traced to (the fields those words were sorted into, the
+   themes they are distinctive of) and through the English words the verses are
+   described with. The traced words themselves are not repeated here; they are
+   the switches just below. */
+function entBlock(s){
+  if (typeof ENTIDX === "undefined") return "";
+  const order = [], seen = new Set(), take = n => { if (n !== undefined && !seen.has(n)) { seen.add(n); order.push(n); } };
+  let how = "";
+  if (s.direct) {
+    /* What an entry calls itself first. A hit inside a long dictionary definition
+       is still a hit - a definition of a staff mentions shepherds - but it should
+       never stand above the word whose own gloss is the one asked for. */
+    entFind(typeof ENTKEY === "undefined" ? null : ENTKEY, s.q).forEach(take);
+    entFind(ENTIDX, s.q).forEach(take);
+  } else {
+    /* A field counts for each traced word sorted into it. A theme counts for
+       how much of it the word is: every theme records how often its distinctive
+       words stand in its passages and how many times commoner that is than
+       elsewhere, and without that the Sabbath was offered Cain, in whose theme
+       it happens to stand three times. "other" is where the sorting put what it
+       could not place, and is not somewhere to send a reader. */
+    const on = (s.words || []).filter(w => w.on), c = new Map(), best = (cap, kind) =>
+      [...c].sort((a, b) => b[1] - a[1]).slice(0, cap).forEach(([id]) => take(entNum(kind, id)));
+    for (const w of s.words || []) seen.add(entNum("lexeme", w.tag));
+    if (typeof DOMTAG !== "undefined") for (const w of on) for (const f of DOMTAG[w.tag] || []) if (f !== "other") c.set(f, (c.get(f) || 0) + 1);
+    best(3, "field"); c.clear();
+    if (typeof THEMEWORD !== "undefined") for (const w of on) for (const id of THEMEWORD[w.tag] || []) {
+      const row = ((THEMES[id] || [])[3] || []).find(r => r[0] === w.tag);
+      if (row && row[3] > 1) c.set(id, (c.get(id) || 0) + row[4] * Math.log(row[3]));
+    }
+    best(3, "theme");
+    /* Phrases are counted by their verses, a handful at most, so in a list cut
+       at six they would never be reached; they are cut on their own. */
+    if (typeof ENTKEY !== "undefined") for (const t of s.via) {
+      const hit = entFind(ENTKEY, t.k);
+      hit.filter(n => !isPhrase(n)).slice(0, 6).forEach(take);
+      hit.filter(isPhrase).slice(0, 2).forEach(take);
+    }
+    const through = s.via.map(t => t.k);
+    how = ` · the layers are keyed in English, so these were reached through `
+      + [on.length ? "the original words below" : "", through.length ? `what the verses are about (<span lang="en">${through.map(esc).join(", ")}</span>)` : ""].filter(Boolean).join(" and ");
+  }
+  const shown = order.filter(n => !isPhrase(n)).slice(0, 12), rest = order.filter(n => !isPhrase(n)).length;
+  return phraseBlock(order.filter(isPhrase), shown.length ? "" : how, s.direct ? s.q : "") + (!shown.length ? "" : layersBlock(shown, rest, how));
+}
+function layersBlock(shown, all, how){
+  return `<div class="sect">In the study layers<small>${shown.length}${all > 12 ? "+" : ""} of them — tap to open${how}</small></div>`
+    + `<div class="plist">` + shown.map(n => {
+        const e = ENTRIES[n], kind = e[0], label = e[2], count = e[4] || 0;
+        /* A theme's description is a sentence or two, and a list of them pushed
+           the verses off a phone's first screen: the name is what is chosen
+           from, and the whole description is on the page it opens. What is
+           counted is said in its own unit - a theme has passages, a field
+           already says how many words it holds, a place is just a place. */
+        let sub = e[3] || ""; if (kind === "theme" && sub.length > 64) sub = sub.slice(0, 60).replace(/\s+\S*$/, "") + "…";
+        const unit = kind === "lexeme" ? "occurrence" : kind === "theme" ? "passage" : "";
+        const open = (ENTOPEN[kind] || (() => ""))(e);
+        return `<a onclick="${open}"><span class="kind">${esc(ENTKIND[kind] || kind)}</span>`
+          + `<span class="orig">${esc(label)}</span> <small>${esc(sub)}`
+          + (count && unit ? ` · ${count} ${unit}${count === 1 ? "" : "s"}` : "")
+          + (e[5] === "ref" ? " · the reference lexicon" : "") + `</small></a>`;
+      }).join("") + `</div>`;
+}
+/* What a search of the text cannot find: the verse says "lift up the face" and
+   the reader typed favour. The lexicon records such phrases with what they mean
+   and where they stand, so here the answer is the verses themselves - each
+   reference goes straight to its verse - and the phrase opens the word it was
+   recorded under. They stand above the other layers because they are verses,
+   which is what was asked for; four of them, because on a phone a row is a
+   meaning and its references on two or three lines, and the text itself is
+   still further down the page. */
+const PHRASES = 4, PHREFS = 5;
+function phraseBlock(nums, how, q){
+  if (!nums.length) return "";
+  /* The other layers are ranked by how often a thing occurs. A phrase occurs
+     once or twice, so that order says nothing, and "Lord of lords" - which the
+     index reads as the one word lord - was answered with four other phrases
+     that mention the Lord. What ranks a phrase is how much of its meaning the
+     reader typed: the meaning that says the query outright first, and then the
+     shorter meaning, which has less in it that was not asked for. */
+  const want = (q || "").trim().toLowerCase(), words = n => ENTRIES[n][3].split(/\s+/).length;
+  const says = n => want && ENTRIES[n][3].toLowerCase().includes(want) ? 0 : 1;
+  const ranked = [...nums].sort((a, b) => says(a) - says(b) || words(a) - words(b) || a - b);
+  /* And when some phrase does say it outright, the ones that only share a word
+     with it are noise beside the answer, and are left out. */
+  if (!says(ranked[0])) nums = ranked.filter(n => !says(n));
+  const shown = (says(ranked[0]) ? ranked : nums).slice(0, PHRASES);
+  return `<div class="sect">Phrases<small>${shown.length}${nums.length > PHRASES ? "+" : ""} from this project's lexicon — tap a reference to read it there${how}</small></div>`
+    + `<div class="phrases">` + shown.map(n => {
+        const e = ENTRIES[n], refs = e[6] || [], more = refs.length - PHREFS;
+        return `<div><a class="word" onclick="${ENTOPEN.idiom(e)}" title="the word this phrase is recorded under">`
+          + `<span class="kind">${ENTKIND.idiom}</span><bdi class="orig">${esc(e[2])}</bdi></a> `
+          + `<small lang="en">${esc(e[3])}</small> `
+          + `<span class="refs">` + refs.slice(0, PHREFS).map(refLink).join("")
+          + (more > 0 ? ` <small>and ${more} more under the word</small>` : "") + `</span></div>`;
+      }).join("") + `</div>`;
+}
+
+let SR = null;                                            // the search on the page now
+let SEARCHSEQ = 0;
+const FIRST = 100;                                        // verses drawn at once; the rest wait to be asked for
+async function search(q) {
   navRender(null);
   q = q.trim();
   const main = $("#main");
-  if (q.length < 2) { main.innerHTML = `<p class="empty">Type at least two characters.</p>`; return; }
-  const rx = new RegExp(q.replace(/[.*+?^${}()|[\\]\\\\]/g,"\\\\$&"), "gi");
-  const hits = [];
-  outer:
-  for (const book of haveBooks) {
-    for (const ch of chapterList(book)) {
-      for (const [v, t] of Object.entries(DATA[book][ch].verses)) {
-        rx.lastIndex = 0;
-        if (rx.test(t)) { hits.push({book, ch, v, t}); if (hits.length >= 200) break outer; }
+  main.className = ""; main.setAttribute("lang", "en"); main.setAttribute("dir", "ltr");
+  if (q === "?diag") { main.innerHTML = await diagnostics(); return; }
+  main.setAttribute("lang", tl);
+  /* Two letters is a sensible floor for an alphabet, where one letter means
+     nothing on its own. It is the wrong floor for Chinese, Japanese and Thai:
+     there a single character is a whole word, and some of the words most
+     worth looking up - 光, 爱, 神, 道 - have no second character to type.
+     Asking for one told the reader to do something impossible. */
+  if (q.length < (NOSPACE.test(q) ? 1 : 2)) {
+    main.innerHTML = `<p class="empty">${esc(t('Type at least two characters.'))}</p>`; return; }
+  /* The two small indexes are waited for, because the verses are what the
+     reader came for. The study layers are ten megabytes the first time and are
+     not: the verses are drawn, and the words and the concordance fill their
+     places when they arrive. Each source is allowed to fail on its own - a
+     reader-only build has no study layers, and a search must still answer.
+     A search is started by every pause in typing, and the first of them waits
+     longest, for the index; an answer that arrives after a later question has
+     been asked is dropped rather than drawn over the newer one. */
+  const seq = ++SEARCHSEQ;
+  await Promise.all([idxLoad(tl).catch(() => {}), idxLoad("topics").catch(() => {})]);
+  if (seq !== SEARCHSEQ) return;
+  /* One English word is answered by its other forms too - loved and loving for
+     love - through the same folding the English-keyed layers use. More than one
+     word is a phrase, and is looked for as it was typed. */
+  const words = q.split(/[^\p{L}\p{M}\p{N}]+/u).filter(Boolean).map(foldTerm);
+  let forms = null;
+  if (tl === "en" && words.length === 1 && IDX.en && IDX.en[words[0]]) forms = {[words[0]]: formsOf(IDX.en, words[0])};
+  const rx = looseRx(forms ? forms[words[0]].concat(q) : [q]);
+  const KEPT = 5000;                    // how many are kept, to trace the original words from
+  const lit = [];
+  const cand = idxCandidates(tl, q, forms);
+  if (cand) {
+    for (const id of cand) {
+      const book = byNumBook[Math.floor(id / 1000000)], ch = String(Math.floor(id / 1000) % 1000), v = String(id % 1000);
+      const t = book && trOf(book, ch)[tl];
+      const sv = t && t.verses[v];
+      if (!sv) continue;
+      rx.lastIndex = 0;
+      if (rx.test(apart(sv))) { lit.push({id, book, ch, v, t: sv}); if (lit.length >= KEPT) break; }
+    }
+  } else {
+    outer:
+    for (const book of booksWith(tl)) {
+      for (const ch of chapterList(book)) {
+        const t = trOf(book, ch)[tl];
+        if (!t) continue;
+        for (const [v, sv] of Object.entries(t.verses)) {
+          rx.lastIndex = 0;
+          if (rx.test(apart(sv))) { lit.push({id: ORDER[book] * 1000000 + ch * 1000 + +v, book, ch, v, t: sv}); if (lit.length >= 200) break outer; }
+        }
       }
     }
   }
-  let html = `<h2>Search: “${esc(q)}”</h2><div id="results">`;
-  html += `<p class="empty">${hits.length}${hits.length>=200?"+":""} verse${hits.length===1?"":"s"} found.</p>`;
-  for (const h of hits) {
-    rx.lastIndex = 0;
-    html += `<div class="hit" onclick="location.hash='#${h.book}/${h.ch}/${h.v}'">
+  const whole = cand ? lit.length < KEPT : lit.length < 200;      // is this every verse that has the words, or a first part
+  const litIds = lit.map(h => h.id), litSet = new Set(litIds);
+  /* The glosses and the topical lines are English. A reader of the English is
+     answered from them directly. So is anyone whose words are in no verse of
+     their own translation - they may well have typed English. But words that
+     are found in a Spanish or a Chinese Bible are Spanish or Chinese, and must
+     not be looked up as English: sin is "without" in Spanish, and stands in
+     thousands of verses that have nothing to do with sin. Those are carried
+     across by the verses they were found in instead. */
+  const direct = tl === "en" || !lit.length;
+  /* Verses whose own words do not answer, but whose subject does. The topical
+     line behind each one is never shown - it is written to be matched against,
+     not read - so these carry no highlight and are told apart by their heading
+     rather than left looking like ordinary hits that failed to light up. */
+  let aboutIds = direct && IDX.topics ? foldFind(IDX.topics, q, true) : [], via = [];
+  if (!aboutIds.length && IDX.topics && whole) {
+    const terms = behind(litIds, "topics", 4);
+    via = terms.filter(t => t.score >= terms[0].score / 2);
+    const u = new Set(); for (const t of via) for (const id of unpack(IDX.topics[t.k])) u.add(id);
+    aboutIds = [...u].sort((x, y) => x - y);
+  }
+  const about = [];
+  for (const id of aboutIds) {
+    if (litSet.has(id)) continue;
+    const book = byNumBook[Math.floor(id / 1000000)], ch = String(Math.floor(id / 1000) % 1000), v = String(id % 1000);
+    const t = book && trOf(book, ch)[tl];
+    const sv = t && t.verses[v];
+    if (!sv) continue;
+    about.push({book, ch, v, t: sv});
+    if (about.length >= 60) break;
+  }
+  const verse = h => `<div class="hit" lang="${tl}" dir="${tdir(tl)}" onclick="goto('#${h.book}/${h.ch}/${h.v}')">
       <div class="ref">${disp(h.book)} ${h.ch}:${h.v}</div>
-      ${esc(h.t).replace(rx, m => `<mark>${m}</mark>`)}</div>`;
+      ${ruby(esc(apart(h.t)).replace(rx, m => `<mark>${m}</mark>`).normalize("NFC"))}</div>`;
+  const layers = !READER_ONLY;
+  const waiting = layers && typeof ENTIDX === "undefined";
+  const mine = SR = {q, litIds, litSet, whole, direct, via, words: null, more: 0, nLit: lit.length, nAbout: about.length,
+                     rest: {lit: lit.slice(FIRST, 500).map(verse)}};
+
+  let html = `<h2>${esc(t('Search'))}: “${esc(q)}”<small class="lang">${esc(TARGETS[tl].native)}</small></h2>`
+    + `<div id="askslot"></div>`
+    + `<div id="entslot">${waiting ? `<p class="sectnote">${esc(t('Looking in the study layers…'))}</p>` : ""}</div>`
+    + `<div id="wordslot"></div><p class="sectnote" id="jumps"></p><div id="results">`;
+  html += `<div class="sect" id="s-lit">${esc(t('Verses with these words'))}<small>${lit.length}${whole ? "" : "+"}${IDX[tl] ? "" : " · " + esc(t('scanned: the index for this text could not be opened, so only the first are found'))}</small></div>`;
+  html += lit.length ? lit.slice(0, FIRST).map(verse).join("") + moreBtn("lit", Math.min(lit.length, 500) - FIRST, lit.length - 500)
+        : `<p class="empty" style="margin-top:.5rem">${esc(TARGETS[tl].native)}: ${esc(t('no verse uses these words.'))}</p>`;
+  html += `<div id="origslot"></div>`;
+  if (about.length) {
+    html += `<div class="sect" id="s-about">${esc(t('Verses about this'))}<small>${about.length}${about.length >= 60 ? "+" : ""} · ${esc(t('found by what the verse is about, not by its wording'))}</small></div>`;
+    if (via.length) html += `<p class="sectnote">The verses with “${esc(q)}” are mostly about <b lang="en">${via.map(t => esc(t.k)).join(", ")}</b>; these are the others that are.</p>`;
+    html += about.map(verse).join("");
   }
   main.innerHTML = html + "</div>";
+  drawJumps();
+  askDraw();
+
+  if (!layers) return;
+  await entLoad().catch(() => {});
+  if (SR !== mine) return;                                // the reader has typed on; this answer is for a question no longer asked
+  const slot = $("#entslot"); if (slot) slot.innerHTML = entBlock(mine);
+  /* The concordance behind a search is a study tool, and five megabytes: it is
+     for the reader who asked for everything, not the one who asked for the book. */
+  if (!adv()) return;
+  await Promise.all([concLoad().catch(() => {}), direct ? 0 : domLoad().catch(() => {}), direct ? 0 : themesLoad().catch(() => {})]);
+  if (SR !== mine || typeof CONC === "undefined") return;
+  mine.words = origWords(mine);
+  origDraw();
 }
+/* ---- the PC's search: the same box, with the model behind it ----
+   Everything above runs on a phone with nothing to ask. Served from the
+   dashboard (scripts/live.py, /reader) there is a model on the other side of
+   the wall, and scripts/ask.py lets it read the question: it names passages
+   from memory, the indexes add what its words find, and it picks from those
+   verses with their text in front of it. What comes back is verse numbers,
+   drawn here from this page's own text - the model chooses, it is never quoted.
+   It is asked for, not run as the reader types: an answer costs the GPU some
+   seconds, and a good many more when a job is translating on it. Anywhere but
+   the dashboard - a file, a phone, a static server - none of this is drawn. */
+const ASKHERE = /^https?:$/.test(location.protocol) && location.pathname === "/reader";
+const ASKED = new Map();                                  // "lang|question" -> {state, ...}, so typing on and coming back keeps the answer
+let ASKPC = null;                                         // what GET /ask said: {model, busy}, or false when nobody answered
+const askKey = () => SR ? tl + "|" + SR.q : "";
+async function askProbe(){
+  try { const r = await fetch("/ask", {cache: "no-store"}); const j = r.ok ? await r.json() : null; ASKPC = j && j.ok ? j : false; }
+  catch (e) { ASKPC = false; }
+}
+async function askDraw(){
+  const key = askKey(); if (!ASKHERE || !key) return;
+  if (ASKPC === null) await askProbe();
+  const slot = $("#askslot"); if (!slot || key !== askKey() || !ASKPC) return;
+  const a = ASKED.get(key), model = esc(ASKPC.model);
+  const head = (small, title) => `<div class="sect" id="s-ask">${title || "Picked by"} ${model}<small>${small}</small></div>`;
+  if (!a) {
+    slot.innerHTML = `<div class="wchips"><button type="button" id="askgo" onclick="askRun(false)">Ask ${model}</button>`
+      + `<span class="sectnote" style="align-self:center">It reads what you typed as a question, in any language, and picks verses by what they say. A few seconds`
+      + (ASKPC.busy ? ` — longer now: ${esc(ASKPC.busy)} is using the model, and the question waits its turn` : "") + `.</span></div>`;
+  } else if (a.state === "wait") {
+    slot.innerHTML = head("", "Asking") + `<div class="wchips"><span class="sectnote" role="status" style="align-self:center">`
+      + `<span id="asksecs">${askSecs(a)}</span>`
+      + (ASKPC.busy ? ` · ${esc(ASKPC.busy)} is using the model, so this waits its turn` : "") + `</span>`
+      + `<button type="button" onclick="askCancel()">Stop waiting</button></div>`;
+  } else if (a.state === "error") {
+    slot.innerHTML = head("no answer", "Asked") + `<p class="sectnote" role="alert">The model could not be asked: ${esc(a.error)}. The search below does not depend on it.</p>`
+      + `<div class="wchips"><button type="button" onclick="askRun(false)">Try again</button></div>`;
+  } else {
+    const r = a.res, n = r.hits.length, mem = r.hits.filter(h => h.from !== "found").length;
+    let h = head(`${n} verse${n === 1 ? "" : "s"} · it read ${r.read} and kept ${n === 1 ? "this" : "these"} · ${r.seconds} s${r.cached ? ", kept from when it was asked before" : ""}`);
+    if (!n) h += `<p class="sectnote">${r.read ? "None of the verses it was shown answered this, in its judgement." : "It named no passage, and its words found none."} The search below is unaffected.</p>`;
+    else h += `<p class="sectnote">${mem ? `${mem} from passages it named from memory, each checked against the text` : ""}${mem && n - mem ? "; " : ""}${n - mem ? `${n - mem} from what the indexes found for its words` : ""}. A model chose these; it can miss, and it can be wrong.</p>`;
+    /* The prodigal son is twenty verses, and twenty cards of it pushed everything
+       else the model found off the screen. Verses that follow one another are
+       one passage: its first verse is shown, and the card opens there. */
+    const runs = [];
+    for (const x of r.hits) { const last = runs[runs.length - 1]; if (last && x.id === last.id + last.n) last.n++; else runs.push({id: x.id, n: 1}); }
+    h += runs.map(askCard).join("");
+    if (r.dropped && r.dropped.length) h += `<p class="sectnote">It also named <span lang="en">${r.dropped.map(esc).join(", ")}</span>, which could not be found in this text, and ${r.dropped.length === 1 ? "was" : "were"} left out.</p>`;
+    h += `<div class="wchips"><button type="button" onclick="askRun(true)">Ask it again</button></div>`;
+    slot.innerHTML = h;
+  }
+}
+const askSecs = a => `Waiting for the model… ${Math.round((Date.now() - a.t0) / 1000)} s`;
+function askCard(h){
+  const b = byNum[Math.floor(h.id / 1000000)], c = String(Math.floor(h.id / 1000) % 1000), v = String(h.id % 1000); if (!b) return "";
+  const t = trOf(b, c)[tl], sv = t && t.verses[v];
+  /* A verse this language has not reached yet is shown as it stands in the original, as the concordance does. */
+  return `<div class="hit" ${sv ? `lang="${tl}" dir="${tdir(tl)}"` : ""} onclick="goto('#${b}/${c}/${v}')"><div class="ref">${disp(b)} ${c}:${v}${h.n > 1 ? "–" + (+v + h.n - 1) : ""}</div>${sv ? ruby(esc(sv)) : verseHtml(b, c, v)}`
+    + (h.n > 1 ? ` <small class="sectnote" lang="en" dir="ltr">… and the ${h.n - 1} verse${h.n === 2 ? "" : "s"} after it</small>` : "") + `</div>`;
+}
+async function askRun(fresh){
+  const key = askKey(); if (!key || !ASKPC) return;
+  const q = SR.q, lang = tl, a = {state: "wait", t0: Date.now(), stop: new AbortController()};
+  ASKED.set(key, a); askDraw();
+  a.tick = setInterval(() => { const el = $("#asksecs"); if (el && ASKED.get(askKey()) === a) el.textContent = askSecs(a); }, 1000);
+  askProbe().then(() => { if (ASKED.get(key) === a && key === askKey()) askDraw(); });      // is a job in the way right now?
+  let next;
+  try {
+    const r = await fetch("/ask", {method: "POST", headers: {"Content-Type": "application/json"},
+                                   body: JSON.stringify({q, lang, fresh}), signal: a.stop.signal});
+    const j = await r.json();
+    next = r.ok && Array.isArray(j.hits) ? {state: "done", res: j} : {state: "error", error: j.error || ("the dashboard answered " + r.status)};
+  } catch (e) {
+    next = e && e.name === "AbortError" ? null : {state: "error", error: "the dashboard did not answer"};
+  }
+  clearInterval(a.tick);
+  if (ASKED.get(key) !== a) return;                       // stopped, or asked again since
+  if (next) ASKED.set(key, next); else ASKED.delete(key);
+  if (key === askKey()) { askDraw().then(() => { const s = $("#s-ask"); if (s && next && next.state === "done") s.scrollIntoView({block: "nearest"}); }); }
+}
+function askCancel(){
+  const key = askKey(), a = ASKED.get(key); if (!a || a.state !== "wait") return;
+  a.stop.abort(); clearInterval(a.tick); ASKED.delete(key); askDraw().then(() => { const b = $("#askgo"); if (b) b.focus(); });
+}
+
+/* A page of five hundred verses was drawn afresh at every pause in typing, and
+   most of them were never scrolled to. The first hundred are drawn; the rest
+   are one tap away, and the tap leaves the reader on the first new verse. */
+function moreBtn(which, n, beyond){
+  if (n <= 0) return "";
+  return `<div class="wchips" id="more-${which}"><button type="button" onclick="moreHits('${which}')">Show the other ${n}</button>`
+    + (beyond > 0 ? `<span class="sectnote" style="align-self:center">${beyond} more than that are not listed — a longer search narrows them</span>` : "") + `</div>`;
+}
+function moreHits(which){
+  const at = $("#more-" + which), rest = SR && SR.rest[which]; if (!at || !rest) return;
+  const prev = at.previousElementSibling;
+  at.insertAdjacentHTML("beforebegin", rest.join("")); at.remove(); SR.rest[which] = null;
+  const first = prev && prev.nextElementSibling;
+  if (first) { first.tabIndex = 0; first.setAttribute("role", "button"); first.focus({preventScroll: true}); }
+}
+
+/* ---- the concordance, reached from the search box ----
+   The words a search was traced to, and every other verse where one of them
+   stands - the verses a translation worded differently, which a search of the
+   translation can never find. Two ways in: through the verses (any language),
+   and through the glosses (English). What the text says about itself comes
+   first; a gloss match it did not confirm is offered switched off. */
+function origWords(s){
+  const out = [], seen = new Set(), H = s.litIds.length;
+  /* Counted in from the start: a word that lives mostly in these verses, or one
+     that stands in most of them. The second is for a word like רָעָה, which is
+     behind more than half the verses that say shepherd and is still mostly
+     somewhere else, because it is also the word for grazing a flock. */
+  if (s.whole) for (const w of behind(s.litIds, "lex", 6)) { seen.add(w.k); out.push({tag: w.k, n: w.n, on: w.share >= .4 || w.n / H >= .4}); }
+  if (s.direct && typeof ENTKEY !== "undefined") for (const n of entFind(ENTKEY, s.q)) {
+    const e = ENTRIES[n];
+    if (out.length >= 9) break;
+    if (e[0] !== "lexeme" || seen.has(e[1]) || !(CONC[e[1]] || []).length) continue;
+    seen.add(e[1]); out.push({tag: e[1], n: 0, on: false});
+  }
+  if (out.length && !out.some(w => w.on)) out.slice(0, 3).forEach(w => { w.on = true; });
+  return out;
+}
+/* A hundred verses with the word in them stand between the top of the page and
+   anything found another way, so the top says what else is further down and
+   goes there when asked. */
+function drawJumps(){
+  const el = $("#jumps"), s = SR; if (!el || !s) return;
+  const parts = [[s.nLit, "s-lit", "with these words"], [s.more, "s-orig", "more through the original words"], [s.nAbout, "s-about", "about this"]]
+    .filter(p => p[0]);
+  el.innerHTML = parts.length < 2 ? "" : "On this page: " + parts.map(([n, id, what]) =>
+    `<a onclick="document.getElementById('${id}').scrollIntoView({block:'start'})">${n}${id === "s-about" && n >= 60 ? "+" : ""} ${what}</a>`).join(" · ");
+}
+function origToggle(tag){
+  if (!SR || !SR.words) return;
+  const w = SR.words.find(x => x.tag === tag); if (!w) return;
+  w.on = !w.on; origDraw();
+  const b = document.querySelector(`#wordslot button[data-tag="${tag}"]`); if (b) b.focus();   // the button was redrawn under the reader's finger
+}
+function origDraw(){
+  const slot = $("#origslot"), top = $("#wordslot"), s = SR; if (!slot || !top || !s || !s.words) return;
+  if (!s.direct) { const e = $("#entslot"); if (e) e.innerHTML = entBlock(s); }      // the fields and themes follow the words counted in
+  if (!s.words.length) { slot.innerHTML = top.innerHTML = ""; return; }
+  const H = s.litIds.length, via = new Map();
+  for (const w of s.words) if (w.on) for (const r of CONC[w.tag]) {
+    const id = r[0] * 1000000 + r[1] * 1000 + r[2];
+    if (!s.litSet.has(id) && !via.has(id)) via.set(id, [w, r]);
+  }
+  const ids = [...via.keys()].sort((a, b) => a - b), CAP = 300;
+  let h = `<div class="sect">The original words behind it<small>traced through the ${H} verse${H === 1 ? "" : "s"} that ha${H === 1 ? "s" : "ve"} it${s.direct ? ", or matched by their gloss" : ""} · tap one to count it in or out</small></div><div class="wchips">`;
+  for (const w of s.words) { const e = entOfTag(w.tag);
+    h += `<button type="button" data-tag="${attr(w.tag)}" aria-pressed="${w.on}" aria-controls="origslot" onclick="origToggle('${attr(w.tag)}')"><span class="orig">${esc(e[2])}</span> <small>${esc(e[3] || "")}`
+      + (w.n ? ` · in ${w.n} of ${H}` : " · by its gloss") + `</small></button>`; }
+  const on = s.words.filter(w => w.on);
+  top.innerHTML = h + `</div>` + (on.length ? "" : `<p class="sectnote">No word is counted in. Tap one to see where else it stands.</p>`);
+  s.more = on.length ? ids.length : 0; drawJumps();
+  if (!on.length) { slot.innerHTML = ""; return; }
+  const card = id => {
+    const [w, r] = via.get(id), b = byNum[r[0]], c = r[1], v = r[2]; if (!b) return "";
+    const t = trOf(b, String(c))[tl], sv = t && t.verses[String(v)];
+    /* Where the chosen language has not reached this verse yet, the verse is
+       shown as it stands in the original, with the word marked. */
+    return `<div class="hit" ${sv ? `lang="${tl}" dir="${tdir(tl)}"` : ""} onclick="goto('#${b}/${c}/${v}')"><div class="ref">${disp(b)} ${c}:${v} · <span class="orig">${esc(entOfTag(w.tag)[2])}</span></div>${sv ? ruby(esc(sv)) : verseHtml(b, c, v, r[3])}</div>`;
+  };
+  h = `<div class="sect" id="s-orig">Other verses where the original has ${on.length === 1 ? "it" : "one of them"}<small>${ids.length}${s.whole ? " · the translation words these differently" : ""}</small></div>`;
+  if (!ids.length) h += `<p class="sectnote">None: every verse with ${on.length === 1 ? "this word" : "these words"} is already above.</p>`;
+  const SOME = 40;
+  h += ids.slice(0, SOME).map(card).join("");
+  s.rest.orig = ids.slice(SOME, CAP).map(card);
+  h += moreBtn("orig", s.rest.orig.length, ids.length - CAP);
+  h += `<p class="sectnote">Every occurrence, in the original: ` + on.map(w => `<a onclick="showConc('${attr(w.tag)}')"><span class="orig">${esc(entOfTag(w.tag)[2])}</span></a>`).join(" · ") + `</p>`;
+  slot.innerHTML = h;
+}
+
+/* ---------- a verse in the hand ----------
+   Tapping a verse takes hold of it: the whole verse lights up, and a bar says
+   what can be done with it - copy it with its reference, send it to someone,
+   or hear it read. In the app those three go to the phone itself through the
+   shell's AndroidApp; in a browser they go to whatever the browser has, and
+   the buttons that have nothing behind them are not offered. */
+const PHONE = (typeof AndroidApp !== "undefined" && AndroidApp) ? AndroidApp : null;   // APP is the apparatus; this is the shell
+/* How fast and how high the reading voice is. A phone left to itself speaks at
+   whatever rate its accessibility settings ask for, which is often far too
+   quick for a text being read rather than skimmed, so the page always says. */
+const SPEEDS = [[0.6, "Slow"], [0.8, "Steady"], [1, "Normal"], [1.25, "Quick"]];
+const PITCHES = [[0.85, "Low"], [1, "Middle"], [1.15, "High"]];
+const VOICE = {rate: +(localStorage.getItem("ttsRate") || 0.8), pitch: +(localStorage.getItem("ttsPitch") || 1)};
+/* The open book from the launcher icon (android/.../ic_mark_foreground.xml),
+   the same two pages on the same canvas, in whatever colour the text around it
+   has - so the app is recognised by its own mark where it offers itself. */
+const BOOKMARK = `<svg class="mark" viewBox="18 24 72 60" aria-hidden="true"><path d="M52,38 C45,32.5 35,29.5 24,29.5 L24,71.5 C35,71.5 45,74.5 52,80 Z"/><path d="M56,38 C63,32.5 73,29.5 84,29.5 L84,71.5 C73,71.5 63,74.5 56,80 Z"/></svg>`;
+const voiceKey = lang => "ttsVoice_" + lang;
+let voiceListOpen = false;                                // whether the tray shows every voice, or just the one in use
+const chosenVoice = lang => localStorage.getItem(voiceKey(lang)) || "";
+function setChosenVoice(lang, name){
+  if (name) localStorage.setItem(voiceKey(lang), name); else localStorage.removeItem(voiceKey(lang));
+  redrawSheet();
+}
+function voicesFor(lang){                                 // the phone's, best first; [] in a browser
+  if (!(PHONE && PHONE.voices)) return [];
+  try { return JSON.parse(PHONE.voices(lang) || "[]").sort((a, b) => b.quality - a.quality); }
+  catch (e) { return []; }
+}
+if (!(VOICE.rate > 0)) VOICE.rate = 0.8;
+if (!(VOICE.pitch > 0)) VOICE.pitch = 1;
+function setVoice(k, v){ VOICE[k] = v; localStorage.setItem(k === "rate" ? "ttsRate" : "ttsPitch", v); redrawSheet(); }
+const vbar = document.createElement("div"); vbar.id = "vbar"; vbar.hidden = true;
+vbar.setAttribute("role", "toolbar"); vbar.setAttribute("aria-label", "What to do with this verse");
+document.body.appendChild(vbar);
+/* Which verses are held, in the order they were taken. A reference - book,
+   chapter and verse - keeps its place in the set when the view around it is
+   redrawn and the verse is a different element afterwards. */
+let vsel = [];
+const vkey = r => r.book + "|" + r.ch + "|" + r.v;
+const unkey = k => { const p = k.split("|"); return {book: p[0], ch: +p[1], v: +p[2]}; };
+const verseElem = k => document.getElementById("v-" + k.replace(/\|/g, "-"));
+
+function verseOf(el){                                    // -> the element of the verse a tap landed in
+  const p = el && el.closest ? el.closest('[id^="v-"]') : null;
+  return p && /^v-.+-\d+-\d+$/.test(p.id) ? p : null;
+}
+function verseRef(el){
+  const m = el.id.match(/^v-(.+)-(\d+)-(\d+)$/);
+  return m ? {book: m[1], ch: +m[2], v: +m[3]} : null;
+}
+function verseContent(r){                                // what is actually on the page for that verse
+  const d = DATA[r.book] && DATA[r.book][r.ch];
+  if (!d) return null;
+  // The translation on the page, which is not always the chosen one: a chapter
+  // the chosen language has not reached is shown in whatever language it has
+  // (renderChapter), and what is copied or read out must be that, in that
+  // language, not the Hebrew behind it.
+  const trs = d.tr || {}, lang = trs[tl] ? tl : Object.keys(TARGETS).find(t => trs[t]);
+  const tr = lang && trs[lang];
+  // Whatever is on the screen is what is copied and read aloud: in the views
+  // that show only the originals, the translation is not there to be quoted.
+  if (view !== "orig" && view !== "lxx" && view !== "hl" && tr && tr.verses[r.v])
+    return {txt: tr.verses[r.v].trim().replace(/\n+/g, " "), lang};
+  if (d.src && d.src[r.v])
+    return {txt: d.src[r.v], lang: (d.src._lang && d.src._lang[r.v]) || d.lang || "hbo"};
+  return tr && tr.verses[r.v] ? {txt: tr.verses[r.v].trim().replace(/\n+/g, " "), lang} : null;
+}
+/* The held verses that are actually on the page, in the order they are read
+   rather than the order they were tapped.
+   On the page is meant literally: a map, a theme or a lexicon entry is drawn
+   over the chapter and has no verses in it, and a bar offering to copy one
+   that cannot be seen belongs to nothing on the screen. The verses are not
+   let go of, though - they are still held when the chapter comes back. */
+function selContent(){
+  const out = [];
+  for (const k of vsel) { const r = unkey(k), c = verseElem(k) && verseContent(r); if (c) out.push({r, c}); }
+  out.sort((a, b) => (ORDER[a.r.book] || 0) - (ORDER[b.r.book] || 0) || a.r.ch - b.r.ch || a.r.v - b.r.v);
+  return out;
+}
+/* One reference for however many verses are held: neighbours close up into a
+   range, a gap starts a new one, and a second chapter says its name again. */
+function selRef(sel){
+  const runs = [];
+  for (const {r} of sel) {
+    const last = runs[runs.length - 1];
+    if (last && last.book === r.book && last.ch === r.ch && r.v === last.to + 1) { last.to = r.v; continue; }
+    runs.push({book: r.book, ch: r.ch, from: r.v, to: r.v});
+  }
+  let out = "", prev = null;
+  for (const g of runs) {
+    const span = g.from + (g.to > g.from ? "\u2013" + g.to : "");
+    if (prev && prev.book === g.book && prev.ch === g.ch) out += ", " + span;
+    else { out += (out ? "; " : "") + disp(g.book) + " " + g.ch + ":" + span; prev = g; }
+  }
+  return out;
+}
+/* Quotation marks and the reference, because a passage leaves the app to be
+   read by someone who cannot see where it came from. More than one verse is
+   numbered as it is quoted, so it can be followed against a printed Bible. */
+function selQuote(sel){
+  const body = sel.length === 1 ? sel[0].c.txt : sel.map(({r, c}) => r.v + " " + c.txt).join("\n");
+  return `\u201c${body}\u201d \u2014 ${selRef(sel)}`;
+}
+
+function speechFor(lang){                                // "" = not ready yet, "yes", "no"
+  if (PHONE && PHONE.voiceFor) { try { return PHONE.voiceFor(lang); } catch (e) { return "no"; } }
+  if (!("speechSynthesis" in window)) return "no";
+  /* A browser takes any language and, given one it has no voice for, says
+     nothing and reports nothing: Thai on a PC with English, Japanese and
+     Chinese voices went to Listen and came back silent. So the browser is
+     asked the same question the phone is asked - is there a voice for this
+     language - and the list it answers from fills in late, so an empty list
+     is "not yet" rather than "no". */
+  if (typeof ttsVoice !== "function") return "yes";
+  if (!ttsVoices.length) return "";
+  return ttsVoice(TTS_LANG[lang] || lang) ? "yes" : "no";
+}
+/* Where a voice comes from, said for the machine in hand. On a phone the
+   settings path is in the display tray already; on a computer it is here. */
+function noVoiceHelp(lang){
+  const name = langName(lang);
+  if (PHONE) return `This phone has no voice for ${name} installed.`;
+  const mac = /Mac|iPhone|iPad/.test(navigator.platform || "");
+  return `This computer has no ${name} voice. ` + (mac
+    ? `Add one in System Settings \u203a Accessibility \u203a Spoken Content \u203a System voice \u203a Manage voices.`
+    : `Windows adds one under Settings \u203a Time & Language \u203a Speech \u203a Add voices; Microsoft Edge brings voices of its own for most languages.`);
+}
+/* Every reading is numbered, and the shell or the browser answers with the
+   number when it ends - finished, or stopped - so that an answer about a
+   reading already replaced is not taken for the one being waited on. */
+let SPEAKSEQ = 0;
+function speakVerse(txt, lang){
+  const id = ++SPEAKSEQ;
+  if (PHONE && PHONE.speak) {
+    try { PHONE.speak(txt, lang, VOICE.rate, VOICE.pitch, chosenVoice(lang), id); }
+    catch (e) { PHONE.speak(txt, lang, VOICE.rate, VOICE.pitch, chosenVoice(lang)); }   // a shell from before readings were numbered
+    return id;
+  }
+  if (typeof ttsSpeak === "function") ttsSpeak(txt, lang, null, ok => speechDone(id, ok));
+  return id;
+}
+function stopSpeaking(){
+  hearing = null; speakUi();
+  if (PHONE && PHONE.stopSpeaking) { PHONE.stopSpeaking(); return; }
+  if (typeof ttsStop === "function") ttsStop();
+  else if ("speechSynthesis" in window) speechSynthesis.cancel();
+}
+function copyText(t){
+  // The shell says so, not the page: Android 13 and later shows its own copy
+  // confirmation, and a toast of ours on top of it would be one too many.
+  if (PHONE && PHONE.copy) { PHONE.copy(t, "Copied, with its reference."); return; }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(t).then(() => toast("Copied, with its reference."), selectHeld);
+    return;
+  }
+  selectHeld();
+}
+/* Nothing would take the text: select it on the page instead, so the reader
+   can copy it themselves. A run of verses with a gap in it cannot be selected
+   as such - one selection is one stretch of the page - so what is offered is
+   the stretch from the first held verse to the last. */
+function selectHeld(){
+  const on = selContent().map(x => verseElem(vkey(x.r))).filter(Boolean);
+  if (on.length) {
+    const sel = getSelection(), rg = document.createRange();
+    rg.setStartBefore(on[0]); rg.setEndAfter(on[on.length - 1]);
+    sel.removeAllRanges(); sel.addRange(rg);
+  }
+  toast("This browser would not let the page copy. The passage is selected \u2014 press Ctrl+C.");
+}
+function shareText(t, subject){
+  if (PHONE && PHONE.share) { PHONE.share(t, subject); return; }
+  if (navigator.share) { navigator.share({title: subject, text: t}).catch(() => {}); return; }
+  copyText(t);                                           // nothing to share with; the clipboard is the next best thing
+}
+
+/* The held state lives in vsel, not in the page, so it is painted on rather
+   than toggled: a chapter redrawn underneath a held verse comes back marked. */
+function syncVerseMarks(){
+  document.querySelectorAll("main .held").forEach(el => el.classList.remove("held"));
+  document.querySelectorAll('sup.v[aria-pressed="true"]').forEach(el => el.setAttribute("aria-pressed", "false"));
+  for (const k of vsel) {
+    const el = verseElem(k); if (el) el.classList.add("held");
+    document.querySelectorAll(`sup.v[data-v="${k}"]`).forEach(n => n.setAttribute("aria-pressed", "true"));
+  }
+}
+/* A hundred and seventy-six verse numbers are not a hundred and seventy-six
+   stops on the way through the page. The chapter's numbers are one stop, as a
+   toolbar is: the first takes the focus and the arrow keys walk from there.
+   That is why CLICKABLE below still leaves verse numbers alone. */
+function rovingVerses(){
+  const nums = document.querySelectorAll("main sup.v");
+  if (!nums.length) return;
+  let stop = null;
+  for (const n of nums) if (n === document.activeElement) stop = n;
+  if (!stop) for (const n of nums) if (n.getAttribute("aria-pressed") === "true") { stop = n; break; }
+  if (!stop) stop = nums[0];
+  for (const n of nums) n.tabIndex = n === stop ? 0 : -1;
+}
+function dropVerse(){
+  if (!vsel.length) return;
+  vsel = []; syncVerseMarks(); rovingVerses();
+  drawVbar();                              // with nothing held it puts itself away
+  stopSpeaking();
+}
+/* Taking or letting go of a verse stops the reading: what is being spoken is
+   no longer what is held, and a voice carrying on over a new selection is the
+   most confusing thing the page could do. */
+function setSel(keys){
+  vsel = keys;
+  stopSpeaking();
+  syncVerseMarks();
+  drawVbar();
+}
+function toggleVerse(k){
+  const i = vsel.indexOf(k);
+  if (i >= 0) setSel(vsel.filter((_, j) => j !== i));
+  else if (verseContent(unkey(k))) setSel(vsel.concat([k]));
+}
+/* What the bar is saying, in as few characters as comparing it needs: the
+   verses, the language they are in, and the length of what would be copied. */
+const selSig = sel => sel.map(x => `${x.r.book} ${x.r.ch}:${x.r.v} ${x.c.lang} ${x.c.txt.length}`).join("|");
+let vbarSig = "";
+
+/* The same verse is different text in another view and another language, and
+   on a map it is not on the page at all. After the page is redrawn the bar is
+   asked again what it should say; it is only rebuilt if the answer changed,
+   because rebuilding it costs the shell a call to the phone about voices. */
+function refreshVbar(){
+  if (selSig(selContent()) !== vbarSig) drawVbar();
+}
+function drawVbar(){
+  const sel = selContent();
+  vbarSig = selSig(sel);
+  if (!sel.length) { vbar.hidden = true; vbar.innerHTML = ""; vbar.className = ""; return; }
+  const lang = sel[0].c.lang, voice = speechFor(lang), many = sel.length > 1;
+  const ref = selRef(sel);
+  vbar.setAttribute("aria-label", many ? t('What to do with these verses') : t('What to do with this verse'));
+  vbar.innerHTML = `<span class="ref" title="${attr(ref)}">${esc(ref)}</span>`
+    + `<button type="button" data-a="copy">${esc(t('Copy'))}</button>`
+    + `<button type="button" data-a="share">${esc(t('Share'))}</button>`
+    + (voice === "no" ? "" : `<button type="button" data-a="listen">${esc(t('Listen'))}</button>`)
+    + (!many && adv() ? `<button type="button" data-a="refs" title="${attr(t('Cross-references, parallels and text notes'))}">${esc(t('Notes'))}</button>` : "")
+    + `<button type="button" class="x" data-a="close" aria-label="${attr(many ? t('Let go of these verses') : t('Let go of this verse'))}">&#215;</button>`;
+  const quoted = selQuote(sel);
+  vbar.querySelector('[data-a="copy"]').onclick = () => { copyText(quoted); };
+  vbar.querySelector('[data-a="share"]').onclick = () => { shareText(quoted, ref); };
+  const hear = vbar.querySelector('[data-a="listen"]');
+  if (hear) hear.onclick = () => {
+    if (hearing) { stopSpeaking(); return; }               // the same button, while it reads, is Stop
+    if (speechFor(lang) === "no") { toast(noVoiceHelp(lang)); return; }
+    hearSel(sel, lang);
+  };
+  const refs = vbar.querySelector('[data-a="refs"]');
+  if (refs) refs.onclick = e => showRefs(sel[0].r.book, sel[0].r.ch, sel[0].r.v, e);
+  vbar.querySelector('[data-a="close"]').onclick = dropVerse;
+  // Four things and a reference do not fit across a phone; the reference then
+  // takes the line above rather than the close button being left on one of
+  // its own underneath.
+  vbar.classList.toggle("wide", many || vbar.querySelectorAll("button").length > 4);
+  vbar.hidden = false;
+  speakUi();
+  reachable(vbar);
+}
+/* The study popup used to hang off the verse number, which is now the button
+   that holds the verse; the tour reaches it the way a reader does. */
+function showFirstRefs(){
+  const n = document.querySelector("main sup.v");
+  if (!n) return;
+  setSel([n.dataset.v]);
+  const b = vbar.querySelector('[data-a="refs"]');
+  if (b) b.click();
+}
+/* A tap on a verse number takes that verse and leaves the others where they
+   are. A tap on the text of a verse starts again with that one alone, which
+   is what a reader who is not collecting verses expects. A word in advanced
+   mode belongs to the word popup, so it is left alone. */
+document.addEventListener("click", e => {
+  if (e.target.closest("#vbar")) return;
+  const num = e.target.closest("sup.v");
+  if (num) { if (num.dataset.v) toggleVerse(num.dataset.v); return; }
+  if (adv() && e.target.closest("main .w")) { dropVerse(); return; }
+  if (e.target.closest("#wpop, #vpop, #ctx, dialog, header, #tabbar")) return;
+  const el = verseOf(e.target), r = el && verseRef(el);
+  if (!r) { dropVerse(); return; }
+  const k = vkey(r);
+  if (vsel.length === 1 && vsel[0] === k) { dropVerse(); return; }   // tapping it again lets it go
+  setSel([k]);
+});
+/* Enter and space on a focused number are handled with every other drawn-in
+   button further down; these are the arrows that move between them. In a
+   right-to-left chapter the next verse is to the left, where it is printed. */
+document.addEventListener("keydown", e => {
+  const num = e.target.closest && e.target.closest("sup.v");
+  if (!num || e.altKey || e.ctrlKey || e.metaKey) return;
+  const nums = [...document.querySelectorAll("main sup.v")], i = nums.indexOf(num);
+  if (i < 0) return;
+  const rtl = !!num.closest('[dir="rtl"]');
+  const step = {ArrowDown: 1, ArrowUp: -1, ArrowRight: rtl ? -1 : 1, ArrowLeft: rtl ? 1 : -1}[e.key];
+  const j = step ? i + step : e.key === "Home" ? 0 : e.key === "End" ? nums.length - 1 : -1;
+  if (j < 0 || j >= nums.length) return;
+  e.preventDefault();
+  num.tabIndex = -1; nums[j].tabIndex = 0; nums[j].focus();
+});
+/* Escape undoes one thing, the topmost, as the phone's back button does: a
+   tray or a popup first, and only then the held verses. Without the guard one
+   press closed the tray and let go of the verses underneath it together. */
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !openName) dropVerse(); });
+window.addEventListener("hashchange", dropVerse);
+
+/* The system back button, when the page is in the Android app. The shell asks
+   this first: it undoes what is on top - a held verse, a popup, a tray, a page
+   drawn over a chapter - and says so. Chapter after chapter is not a stack to
+   climb down on a phone, so from a plain chapter it says no, and the shell
+   then offers to leave. */
+window.androidBack = function(){
+  /* Top first. A tray stands over the held verses, and putting the verses
+     away underneath it looked like back doing nothing at all: the milestones
+     tray, opened after a story with its verses still held, would not close. */
+  const bd = $("#badgeDlg");
+  if (bd && bd.open) { closeBadge(); return true; }
+  if (openName) { closeSheet(); return true; }
+  if (wpop && !wpop.hidden) { hidePop(); return true; }
+  if (vpop && !vpop.hidden) { hideRefs(); return true; }
+  const c = document.getElementById("ctx");
+  if (c && !c.hidden) { c.hidden = true; return true; }
+  if (vsel.length) { dropVerse(); return true; }
+  const top = TRAIL[TRAIL.length - 1];
+  if (TRAIL.length > 1 && top && !top.key.startsWith("read|")) { goBack(); return true; }
+  return false;
+};
+
+/* ---------- the shell ----------
+   A phone has room for the text and very little else, so everything that is
+   not the text lives in a tray: navigation, search, the study views, and the
+   display settings. The trays are <dialog> elements opened modally, which is
+   where the scrim, the focus trap and Escape come from — none of that is worth
+   writing by hand. Each tray's contents are drawn fresh every time it opens,
+   so nothing in them can fall out of step with the page behind. */
+const SHEETS = {nav: $("#navSheet"), search: $("#searchSheet"), tools: $("#toolsSheet"), set: $("#setSheet"), miles: $("#milesSheet")};
+const OPENERS = {nav: ["#tbBooks", "#title"], search: ["#tbSearch"], tools: ["#tbTools", "#toolsBtn"], set: ["#tbDisp", "#gear"], miles: []};
+const mqNarrow = matchMedia("(max-width:760px)");
+let openName = null, navBook = null, navPane = "chapters";
+function openSheet(name){
+  const d = SHEETS[name]; if (!d) return;
+  if (openName === name) { closeSheet(); return; }
+  if (openName) closeSheet();
+  if (name === "nav") { const b = location.hash.slice(1).split("/")[0]; if (DATA[b]) navBook = b; navPane = "chapters"; }
+  openName = name;
+  voiceListOpen = false;                   // the voice list starts folded every time the tray is opened
+  drawSheet(name);
+  const bd = d.querySelector(".bd"); if (bd) bd.scrollTop = 0;    // a tray opens at its top, wherever it was left
+  if (d.showModal) d.showModal(); else d.setAttribute("open", "");
+  d.style.transform = "";
+  showChrome(); markOpeners();
+  /* The search tray used to put the keyboard up as it opened. It now leads
+     with a button, and a keyboard standing over half the screen would hide
+     what the tray is for; the box takes the keyboard when it is tapped. On a
+     wide screen there is no keyboard to stand anywhere, so the box is focused. */
+  if (name === "search" && !mqNarrow.matches) { const q = $("#q"); if (q) { q.focus(); q.select(); } }
+}
+function closeSheet(){
+  if (!openName) return;
+  const d = SHEETS[openName]; openName = null;
+  /* On a phone the search box in this tray has the keyboard up. Closing the
+     tray without letting go of the box leaves the keyboard standing over half
+     the screen, which reads as the tray not having closed at all. */
+  const f = document.activeElement;
+  if (f && f.blur && d.contains(f)) f.blur();
+  if (d.close && d.open) d.close(); else d.removeAttribute("open");
+  d.style.transform = "";                  // a drag that ended outside the tray must not leave it shifted
+  markOpeners();
+}
+function markOpeners(){
+  for (const n in OPENERS) for (const s of OPENERS[n]) {
+    const el = $(s); if (el) el.setAttribute("aria-expanded", openName === n ? "true" : "false"); }
+}
+function drawSheet(n){ ({nav: drawNav, search: drawSearch, tools: drawTools, set: drawSettings, miles: drawMiles})[n](); }
+function redrawSheet(){ if (openName) drawSheet(openName); }
+/* A tray is dragged down by its handle or its heading only. Starting a drag
+   anywhere in the contents would fight the list the reader is scrolling. */
+function dragToClose(d){
+  let y0 = null, dy = 0;
+  const down = e => { if (!mqNarrow.matches || e.target.closest("[data-close]")) return;
+    y0 = e.clientY; dy = 0; d.style.transition = "none";
+    try { e.currentTarget.setPointerCapture(e.pointerId); } catch (x) {} };
+  const move = e => { if (y0 === null) return; dy = Math.max(0, e.clientY - y0); d.style.transform = `translateY(${dy}px)`; };
+  const up = () => { if (y0 === null) return; y0 = null; d.style.transition = ""; d.style.transform = "";
+    if (dy > 80) closeSheet(); };
+  for (const el of d.querySelectorAll(".grab, .sh")) {
+    el.addEventListener("pointerdown", down); el.addEventListener("pointermove", move);
+    el.addEventListener("pointerup", up); el.addEventListener("pointercancel", up);
+  }
+}
+for (const n in SHEETS) {
+  const d = SHEETS[n];
+  d.addEventListener("close", () => { if (openName === n) { openName = null; markOpeners(); } });
+  /* Outside the sheet is the scrim. It listens for the touch as well as the
+     click: with the keyboard up, the first tap outside is spent dismissing it
+     and the click never arrives, so the tray would need tapping twice. */
+  d.addEventListener("click", e => { if (e.target === d) closeSheet(); });
+  d.addEventListener("pointerdown", e => { if (e.target === d && e.pointerType === "touch") closeSheet(); });
+  d.querySelector("[data-close]").onclick = closeSheet;
+  dragToClose(d);
+}
+for (const n in OPENERS) for (const s of OPENERS[n]) { const el = $(s); if (el) el.onclick = () => openSheet(n); }
+window.addEventListener("hashchange", closeSheet);
+/* A modal <dialog> closes itself on Escape; the fallback for a browser without
+   showModal() does not, and a tray that traps a keyboard would be worse than
+   no tray at all. */
+document.addEventListener("keydown", e => { if (e.key === "Escape" && openName) closeSheet(); });
+
+/* The reference box and the search box are one element each, moved between the
+   header and a tray as the screen changes, rather than copied into both — a
+   second copy would need its own listeners and its own state to keep in step. */
+function placeInputs(){
+  const narrow = mqNarrow.matches;
+  $(narrow ? "#refslot" : "#hdrSlot").appendChild($("#gotoWrap"));
+  $(narrow ? "#qslot" : "#hdrSlot").appendChild($("#qWrap"));
+}
+mqNarrow.addEventListener("change", () => { closeSheet(); placeInputs(); measureBar(); });
+placeInputs();
+function focusSearch(){ if (mqNarrow.matches) openSheet("search"); else { showChrome(); $("#q").focus(); } }
+
+/* ---------- the navigation tray ---------- */
+/* A chosen row is marked three ways over — a tint, bold, and a tick — because
+   one of them is colour, and colour on its own says nothing to some readers. */
+const row = (attrs, name, note, on) => `<button type="button" ${attrs} class="${on ? "on" : ""}"${on ? ' aria-current="true"' : ""}>`
+  + `<span class="nm">${name}</span><span class="ct">${note}</span>${on ? `<span class="tk" aria-hidden="true">&#10003;</span>` : ""}</button>`;
+function dlRows(){
+  /* Every language is offered under its own name, because a reader looking for
+     it does not know what it is called in the language on the screen. */
+  return haveDisplay.map(d => row(`data-dl="${d}"`, esc((TARGETS[d] || {}).native || d),
+                                  esc((TARGETS[d] || {}).name || d), d === dl)).join("");
+}
+function langRows(){
+  let h = "";
+  for (const t of haveTargets)
+    h += row(`data-lang="${t}"`, esc(TARGETS[t].native), esc(TARGETS[t].name), view !== "orig" && tl === t);
+  return h + row(`data-lang="__orig"`, esc(t('Original')), esc(t('Hebrew, Aramaic, Greek')), view === "orig");
+}
+/* Counted things are said with the number in front and the word after, in
+   every language alike, so the word can be translated on its own. */
+const countChapters = n => `${n} ${t(n === 1 ? 'chapter' : 'chapters')}`;
+function drawNav(){
+  const cur = location.hash.slice(1).split("/"), curBook = cur[0], curCh = cur[1];
+  if (!navBook || !DATA[navBook]) navBook = DATA[curBook] ? curBook : srcBooks[0];
+  $("#navSheetT").textContent = navPane === "books" ? t('Choose a book') : disp(navBook);
+  let h = `<div class="seg" role="group" aria-label="${attr(t('Books or chapters'))}">
+      <button type="button" data-pane="books" aria-pressed="${navPane === "books"}">${esc(t('Books'))}</button>
+      <button type="button" data-pane="chapters" aria-pressed="${navPane === "chapters"}">${esc(t('Chapters'))}</button></div>`;
+  if (navPane === "books") {
+    h += `<div class="rowlist">`;
+    let lastT = "";
+    for (const bk of allBooks) {
+      const part = ORDER[bk] <= 39 ? t('Old Testament') : t('New Testament');
+      if (part !== lastT) { h += `<div class="shead">${esc(part)}</div>`; lastT = part; }
+      const nch = DATA[bk] ? Object.keys(DATA[bk]).length : 0;
+      if (!nch) { h += `<button type="button" class="missing" disabled><span class="nm">${disp(bk)}</span><span class="ct">${esc(t('not in the source texts'))}</span></button>`; continue; }
+      const ntr = Object.values(DATA[bk]).filter(c => c.tr && c.tr[tl]).length;
+      const note = !ntr ? `${countChapters(nch)} · ${t('original only')}` : ntr < nch ? `${ntr} / ${nch} ${t('translated')}` : countChapters(nch);
+      h += row(`data-book="${bk}"`, disp(bk), esc(note), bk === navBook);
+    }
+    h += `</div>`;
+  } else {
+    const chs = DATA[navBook] ? chapterList(navBook) : [];
+    h += `<div class="shead">${esc(disp(navBook))} &middot; ${esc(countChapters(chs.length))}</div>`;
+    h += `<div class="chgrid">` + chs.map(c =>
+      `<a href="#${navBook}/${c}" class="${navBook === curBook && c == curCh ? "on" : ""} ${trOf(navBook, c)[tl] ? "" : "untr"}"${navBook === curBook && c == curCh ? ' aria-current="page"' : ""}>${c}</a>`).join("") + `</div>`;
+    h += `<p class="hint">${esc((TARGETS[tl] || {}).native || tl)}: ${esc(t('a dashed outline marks a chapter not translated yet — the original is still there to read.'))}</p>`;
+    const nb = neighbours(navBook, curBook === navBook ? curCh : chs[0]);
+    h += `<div class="shead">${esc(t('Move on'))}</div><div class="rowlist">`;
+    if (nb.prev) h += `<a href="#${nb.prev.b}/${nb.prev.c}">&#8592; ${disp(nb.prev.b)} ${nb.prev.c}</a>`;
+    if (nb.next) h += `<a href="#${nb.next.b}/${nb.next.c}">${disp(nb.next.b)} ${nb.next.c} &#8594;</a>`;
+    h += `</div>`;
+  }
+  h += `<div class="shead">${esc(t('Reading language'))}</div><div class="rowlist">${langRows()}</div>`;
+  const dyn = $("#navDyn");
+  dyn.innerHTML = h;
+  dyn.querySelectorAll("[data-pane]").forEach(el => el.onclick = () => { navPane = el.dataset.pane; drawNav(); });
+  dyn.querySelectorAll("[data-book]").forEach(el => el.onclick = () => { navBook = el.dataset.book; navPane = "chapters"; drawNav(); $("#navBody").scrollTop = 0; });
+  dyn.querySelectorAll("[data-lang]").forEach(el => el.onclick = () => {
+    const v = el.dataset.lang;
+    if (v === "__orig") setView("orig"); else setTl(v);
+    drawNav();
+  });
+  dyn.querySelectorAll("a[href]").forEach(a => a.addEventListener("click", closeSheet));
+}
+
+/* ---------- the search tray ---------- */
+function drawSearch(){
+  /* What someone who has never read a Bible actually wants to find is not a
+     word: it is who Jesus is. The tray therefore leads with that, and the box
+     for looking a word up comes under it, for the reader who by now knows
+     what to look for. */
+  const heard = STORIES.filter(s => HEARD[s.id]).length, earned = BADGES.filter(b => EARNED[b.id]).length;
+  const voice = speechFor(tl);
+  $("#whoSlot").innerHTML =
+    `<button type="button" class="primary who" id="whoGo">${CROSS}${esc(t('Who is Jesus?'))}</button>
+     <p class="hint">${esc(t('A story from his life, read aloud — twenty of them tell the whole gospel. Heard to the end, a story counts towards a milestone.'))}</p>
+     ${voice === "no" ? `<p class="hint">${esc((TARGETS[tl] || {}).native || tl)}: ${esc(t('this device has no voice for it, so the stories can be read here but not heard.'))}</p>` : ""}
+     <div class="progress"><span><b>${heard}</b> / ${STORIES.length} ${esc(t('stories heard'))} &middot; <b>${earned}</b> / ${BADGES.length} ${esc(t('milestones'))}</span>
+       <button type="button" id="whoMiles">${esc(t('Milestones'))}</button></div>
+     <div class="shead">${esc(t('Look something up'))}</div>`;
+  $("#whoGo").onclick = whoIsJesus;
+  $("#whoMiles").onclick = () => openSheet("miles");
+  $("#searchDyn").innerHTML =
+    `<button type="button" class="primary" id="qGo">${esc(t('Show the results'))}</button>
+     ${READER_ONLY ? "" : `<div class="rowlist"><button type="button" id="qLex"><span class="nm">${esc(t('Our lexicon'))}</span><span class="ct">${esc(t('entries written from the text'))}</span></button></div>`}
+     <p class="hint">${esc((TARGETS[tl] || {}).native || tl)}: ${esc(t('two letters is enough. The results are drawn behind this tray as you type.'))}</p>
+     <p class="hint">${esc(t('To jump straight to a reference instead, close this and tap the chapter name at the top:'))} &ldquo;${esc(bookName("Genesis"))} 2:7&rdquo;, &ldquo;${esc(bookName("Psalms"))} 23&rdquo;.</p>`;
+  const lex = $("#qLex");
+  if (lex) lex.onclick = () => { closeSheet(); browseLexicon(); };
+  /* The tray goes away first. It used to close after the search had been set
+     going, which meant that anything the search threw left the tray sitting
+     over the page with no way back - the reader saw a search box that would
+     not close and no results behind it. */
+  $("#qGo").onclick = () => {
+    const box = $("#q"), v = box ? box.value.trim() : "";
+    closeSheet();
+    if (v) search(v);
+  };
+}
+
+/* ---------- the tools tray: every view this project builds, in one place ---------- */
+function drawTools(){
+  const cur = location.hash.slice(1).split("/"), book = cur[0], ch = cur[1];
+  const d = DATA[book] && DATA[book][ch];
+  const src = d && d.src, lxx = src && src._lxx, trs = (d && d.tr) || {};
+  const avail = Object.keys(TARGETS).filter(t => trs[t]);
+  const L = src ? LANGS[d.lang || "hbo"] : null;
+  const B = (act, label, note, on, off) =>
+    `<button type="button" data-act="${act}" aria-pressed="${!!on}"${off ? " disabled" : ""}>${esc(label)}<small>${esc(note)}</small></button>`;
+  let h = "";
+  if (d) {
+    h += `<div class="shead">${esc(disp(book))} ${esc(ch)}</div><div class="tools">`;
+    h += B("v:tr", t('Reading'), t('the translation on its own'), view === "tr", !avail.length);
+    if (src) h += B("v:orig", L.name, t('the text it was made from'), view === "orig", false);
+    if (lxx) h += B("v:lxx", t('Septuagint'), t('the old Greek of this chapter'), view === "lxx", false);
+    if (lxx) h += B("v:hl", t('Hebrew · Septuagint'), t('the two side by side'), view === "hl", false);
+    h += B("v:par", t('Side by side'), t('original and translation, verse by verse'), view === "par", !src || !avail.length);
+    h += B("v:all", t('Compare'), t('every language this chapter has'), view === "all", (avail.length + (lxx ? 1 : 0)) < 2);
+    h += B("inter", t('Interlinear'), t('gloss and parsing under each word'), inter, !src);
+    h += B("v:themes", t('Themes'), t('what this chapter is about'), view === "themes", false);
+    h += B("v:harm", t('Parallels'), t('passages that share its wording'), view === "harm", false);
+    h += B("v:map", t('Places'), t('where it happens, on a map'), view === "map", false);
+    h += B("v:chron", t('Chronology'), t('the numbers it states'), view === "chron", false);
+    h += `</div>`;
+  }
+  h += `<div class="shead">${esc(t('Across the whole Bible'))}</div><div class="tools">`;
+  h += B("gs", t('Grammar search'), t('words by their form'), false, false);
+  h += B("fields", t('Fields of meaning'), t("this project's grouping of its words"), false, false);
+  h += B("themes", t('All themes'), t('gathered out of the chapters'), false, false);
+  h += B("lexicon", t('Our lexicon'), t('entries written from the text'), false, false);
+  h += B("lexemes", t('Lexeme inventory'), t('dictionary words grown from the forms'), false, false);
+  h += B("args", t('What each book argues'), t("a book's sections and line of thought"), false, false);
+  h += B("sources", t('Sources and licenses'), t('where every layer came from'), false, false);
+  h += `</div><p class="hint">${esc(t('Everything here is a reading built on the text, and each page says what it was built from. Basic mode puts all of it away.'))}</p>`;
+  const dyn = $("#toolsDyn");
+  dyn.innerHTML = h;
+  dyn.querySelectorAll("[data-act]").forEach(el => el.onclick = () => {
+    const a = el.dataset.act;
+    closeSheet();
+    if (a.startsWith("v:")) setView(a.slice(2));
+    else if (a === "inter") toggleInter();
+    else if (a === "gs") gsOpen();
+    else if (a === "fields") browseFields();
+    else if (a === "themes") browseThemes();
+    else if (a === "lexicon") browseLexicon();
+    else if (a === "lexemes") browseLexemes();
+    else if (a === "args") browseArguments();
+    else if (a === "sources") $("#credits").scrollIntoView({behavior: "smooth", block: "start"});
+  });
+}
+
+/* ---------- Who is Jesus? ----------
+   Someone who has never opened a Bible does not know what to search for. The
+   search tray therefore leads with one button that plays a story from the
+   life of Jesus, read aloud; twenty such stories, in the order they happen,
+   tell the whole gospel - his coming, what he taught and did, his death, his
+   rising, and what he sent his followers to do. After a few of them a reader
+   knows what to look for, and the search box under the button is there.
+   A story counts as heard only when the reading ran to its end without being
+   stopped: the shell or the browser says how each reading ended. Hearing one
+   earns a first badge, three of the stories are milestones of their own, and
+   all twenty together are the last. It is all kept on the device. */
+const STORIES = [
+  {id:"annunciation", name:"The angel comes to Mary", book:"Luke", ch:1, from:26, to:38},
+  {id:"birth", name:"The birth of Jesus", book:"Luke", ch:2, from:1, to:20},
+  {id:"baptism", name:"Jesus is baptised", book:"Matthew", ch:3, from:13, to:17},
+  {id:"temptation", name:"Tempted in the wilderness", book:"Matthew", ch:4, from:1, to:11},
+  {id:"nicodemus", name:"Nicodemus, and God so loved the world", book:"John", ch:3, from:1, to:21},
+  {id:"disciples", name:"The first disciples", book:"Luke", ch:5, from:1, to:11},
+  {id:"sermon", name:"The Sermon on the Mount", book:"Matthew", ch:5, from:1, to:16},
+  {id:"paralysed", name:"The paralysed man forgiven", book:"Mark", ch:2, from:1, to:12},
+  {id:"storm", name:"The storm on the lake", book:"Mark", ch:4, from:35, to:41},
+  {id:"loaves", name:"Feeding the five thousand", book:"John", ch:6, from:1, to:14},
+  {id:"samaritan", name:"The Good Samaritan", book:"Luke", ch:10, from:25, to:37},
+  {id:"prodigal", name:"The Prodigal Son", book:"Luke", ch:15, from:11, to:32},
+  {id:"lazarus", name:"The raising of Lazarus", book:"John", ch:11, from:17, to:44},
+  {id:"zacchaeus", name:"Zacchaeus", book:"Luke", ch:19, from:1, to:10},
+  {id:"supper", name:"The Last Supper", book:"Luke", ch:22, from:14, to:23},
+  {id:"gethsemane", name:"Gethsemane and the arrest", book:"Luke", ch:22, from:39, to:53},
+  {id:"crucifixion", name:"The Crucifixion", book:"Luke", ch:23, from:32, to:49},
+  {id:"resurrection", name:"The Resurrection", book:"Luke", ch:24, from:1, to:12},
+  {id:"thomas", name:"Thomas: my Lord and my God", book:"John", ch:20, from:19, to:31},
+  {id:"commission", name:"Go into all the world", book:"Matthew", ch:28, from:16, to:20},
+];
+const BADGES = [
+  {id:"first", tier:1, kick:"Achievement", name:"Listened to one Bible story", how:"Hear any one of the twenty to the end."},
+  {id:"prodigal", tier:2, kick:"Milestone", story:"prodigal", name:"The Prodigal Son", how:"Hear the Prodigal Son to the end."},
+  {id:"crucifixion", tier:2, kick:"Milestone", story:"crucifixion", name:"The Crucifixion", how:"Hear the Crucifixion to the end."},
+  {id:"resurrection", tier:2, kick:"Milestone", story:"resurrection", name:"The Resurrection", how:"Hear the Resurrection to the end."},
+  {id:"all", tier:3, kick:"Final milestone", name:"Listened to the top 20 stories", how:"Hear all twenty to the end."},
+];
+const CROSS = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M6 9h12"/></svg>`;
+const langName = l => ((TARGETS[l] || LANGS[l] || {}).name) || l;
+const readJson = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } };
+let HEARD = readJson("who_heard", {}), EARNED = readJson("who_earned", {});
+function saveWho(){ try { localStorage.setItem("who_heard", JSON.stringify(HEARD)); localStorage.setItem("who_earned", JSON.stringify(EARNED)); } catch (e) {} }
+const storyKeys = s => { const out = []; for (let v = s.from; v <= s.to; v++) out.push(`${s.book}|${s.ch}|${v}`); return out; };
+const storyRef = s => `${disp(s.book)} ${s.ch}:${s.from}\u2013${s.to}`;
+function storyHas(s, t){                                  // every verse of it, in that language
+  const tr = trOf(s.book, s.ch)[t]; if (!tr) return false;
+  for (let v = s.from; v <= s.to; v++) if (!tr.verses[v]) return false;
+  return true;
+}
+/* One not yet heard, so that twenty presses reach all twenty; any of them once they all have been. */
+function pickStory(){ const left = STORIES.filter(s => !HEARD[s.id]); const pool = left.length ? left : STORIES; return pool[Math.floor(Math.random() * pool.length)]; }
+function whoIsJesus(){ playStory(pickStory()); }
+/* The chapter is opened at the story's first verse, the story's verses are
+   taken up as if the reader had tapped them - so the bar with Copy, Share and
+   Stop is the same bar as always - and the reading starts. */
+function playStory(s){
+  readyBell();                                            // while this is still the reader's tap
+  closeSheet(); closeBadge();
+  if (view !== "tr") { view = "tr"; localStorage.setItem("view", "tr"); }
+  if (!storyHas(s, tl)) {
+    const alt = haveTargets.find(t => storyHas(s, t));
+    if (!alt) { toast(`${storyRef(s)} is not translated yet in this copy.`); return; }
+    const was = tl;
+    tl = alt; const sel = $("#tlSel"); if (sel) sel.value = alt;      // for now; the reader's saved choice is not overwritten
+    toast(`Not in ${langName(was)} yet \u2014 reading it in ${langName(alt)}.`);
+  }
+  landOn(`#${s.book}/${s.ch}/${s.from}`, () => {
+    setSel(storyKeys(s));
+    const sel = selContent();
+    if (!sel.length) return;
+    const lang = sel[0].c.lang;
+    if (speechFor(lang) === "no") { toast(`No voice for ${langName(lang)} on this device \u2014 ${s.name} is here to read.`); return; }
+    hearSel(sel, lang);
+  });
+}
+/* The address change is what draws the chapter, and it arrives after this
+   call returns; the same address again draws nothing, so it is drawn here. */
+function landOn(h, then){
+  if (location.hash === h) { route(); then(); return; }
+  addEventListener("hashchange", () => then(), {once: true});
+  location.hash = h;
+}
+/* What is being read, when it is a story - and only when the verses held are
+   exactly the story's, in the translation: a reader who tapped Listen on those
+   same verses has heard the story as surely as one who pressed the button. */
+let hearing = null;                                       // {seq, story} while a reading is under way
+function storyOfSel(sel){
+  const sig = sel.map(x => vkey(x.r)).join(",");
+  if (sel[0].c.lang !== tl) return null;
+  return STORIES.find(s => storyKeys(s).join(",") === sig) || null;
+}
+function hearSel(sel, lang){
+  readyBell();
+  const seq = speakVerse(sel.map(x => x.c.txt).join(" "), lang);   // the numbers are not read out; they are not the text
+  hearing = {seq, story: storyOfSel(sel)};
+  speakUi();
+  if (hearing.story) toast(`${hearing.story.name} \u2014 ${storyRef(hearing.story)}. Heard to the end, it counts.`);
+}
+function speakUi(){
+  const b = vbar.querySelector('[data-a="listen"]');
+  if (b) b.textContent = hearing ? t('Stop') : t('Listen');
+}
+/* A reading under way when the language is changed starts again in the new
+   language, from the beginning of the same verses: a voice carrying on in
+   English over a page that now says Chinese is not what the change asked for.
+   With no voice for the new language it stops and says why. */
+function rehear(){
+  if (!hearing) return;
+  stopSpeaking();
+  const sel = selContent();
+  if (!sel.length) return;
+  const lang = sel[0].c.lang;
+  if (speechFor(lang) === "no") { toast(noVoiceHelp(lang)); return; }
+  hearSel(sel, lang);
+}
+window.speechDone = function(id, ok){
+  if (!hearing || hearing.seq !== id) return;
+  const h = hearing; hearing = null; speakUi();
+  if (ok && h.story) storyHeard(h.story);
+};
+function storyHeard(s){
+  HEARD[s.id] = Date.now();
+  const won = [];
+  const give = b => { if (!EARNED[b.id]) { EARNED[b.id] = Date.now(); won.push(b); } };
+  give(BADGES[0]);
+  for (const b of BADGES) if (b.story === s.id) give(b);
+  if (STORIES.every(x => HEARD[x.id])) give(BADGES[BADGES.length - 1]);
+  saveWho();
+  if (openName) redrawSheet();
+  const n = STORIES.filter(x => HEARD[x.id]).length;
+  /* The story is counted at once, but nothing is said for a moment: the last
+     words are still in the air, and a badge landing on them takes the story
+     away from the reader who has just heard it. */
+  setTimeout(() => {
+    if (won.length) showBadges(won, s);
+    else toast(`${s.name} \u2014 heard to the end. ${n} of ${STORIES.length} stories.`);
+  }, BADGE_PAUSE);
+}
+const BADGE_PAUSE = 2000;
+/* The medal: a ribbon, a ring, and inside it what was done. */
+function medal(tier, on){
+  const star = (cx, cy, r) => { let d = ""; for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * .45 : r;
+    d += (i ? "L" : "M") + (cx + rr * Math.cos(a)).toFixed(1) + " " + (cy + rr * Math.sin(a)).toFixed(1); } return d + "Z"; };
+  const sign = tier === 1 ? `<path class="sign" d="${star(32, 37, 9)}"/>`
+    : tier === 2 ? `<path class="sign" d="${star(32, 35, 11)}"/><rect class="sign" x="23" y="46" width="18" height="2.4" rx="1.2"/>`
+    : `<path class="sign" d="M20 45V31l7 6 5-10 5 10 7-6v14z"/>`;
+  return `<svg class="medal t${tier}${on ? "" : " off"}" viewBox="0 0 64 64" aria-hidden="true">
+    <path class="rib" d="M23 3h7v17h-7zM34 3h7v17h-7z"/><circle class="ring" cx="32" cy="38" r="20"/><circle class="core" cx="32" cy="38" r="15"/>${sign}</svg>`;
+}
+/* A ding with the badge, made rather than shipped: the app carries no sound
+   files, and the Web Audio API can strike a bell in a few lines. A page may
+   only make a sound after a touch, so the bell is readied on the tap that
+   starts a reading and rung when the badge arrives, minutes later. A phone
+   with no audio, or a browser without the API, simply shows the badge. */
+let bell = null;
+function readyBell(){
+  try {
+    const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+    if (!bell) bell = new AC();
+    if (bell.state === "suspended") bell.resume();
+  } catch (e) { bell = null; }
+}
+function ding(tier){
+  if (!bell || bell.state !== "running") return;
+  try {
+    const t0 = bell.currentTime + 0.02;
+    // one note for a story, a fifth for a milestone, a rising chord for all twenty
+    const notes = tier === 3 ? [523.25, 659.25, 783.99, 1046.5] : tier === 2 ? [659.25, 987.77] : [880];
+    notes.forEach((f, i) => {
+      const o = bell.createOscillator(), g = bell.createGain(), t = t0 + i * 0.17;
+      o.type = "sine"; o.frequency.value = f;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.22, t + 0.012);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 1.1);
+      o.connect(g); g.connect(bell.destination);
+      o.start(t); o.stop(t + 1.2);
+    });
+  } catch (e) {}
+}
+/* The badge is shown for three seconds and fades through the fourth; a tap
+   puts it away sooner, and two earned at once come one after the other. It is
+   not modal and has no button: the tray under Search keeps every milestone,
+   and a story can be heard again from there. */
+const BADGE_SHOW = 3000, BADGE_FADE = 1000;
+let badgeQueue = [], badgeStory = null, badgeT1, badgeT2;
+function showBadges(list, s){ badgeQueue = badgeQueue.concat(list); badgeStory = s; nextBadge(); }
+function nextBadge(){
+  const d = $("#badgeDlg");
+  if (d.open || !badgeQueue.length) return;
+  const b = badgeQueue.shift(), n = STORIES.filter(x => HEARD[x.id]).length;
+  const said = b.tier === 3 ? "All twenty stories, heard to the end."
+    : badgeStory ? `${badgeStory.name}, heard to the end.` : "";
+  d.classList.remove("fading");
+  d.innerHTML = `<div class="in">${medal(b.tier, true)}<div class="txt"><div class="kick">${b.kick}</div>
+    <h2 id="badgeT">${esc(b.name)}</h2><p>${esc(said)} ${n} of ${STORIES.length} stories.</p></div></div>`;
+  ding(b.tier);
+  if (d.show) d.show(); else d.setAttribute("open", "");
+  clearTimeout(badgeT1); clearTimeout(badgeT2);
+  badgeT1 = setTimeout(() => d.classList.add("fading"), BADGE_SHOW);
+  badgeT2 = setTimeout(closeBadge, BADGE_SHOW + BADGE_FADE);
+}
+function closeBadge(){
+  clearTimeout(badgeT1); clearTimeout(badgeT2);
+  const d = $("#badgeDlg"); d.classList.remove("fading");
+  if (d.open) d.close(); else d.removeAttribute("open");
+}
+$("#badgeDlg").addEventListener("close", () => setTimeout(nextBadge, 250));
+$("#badgeDlg").addEventListener("click", closeBadge);
+function when(t){ try { return new Date(t).toLocaleDateString(undefined, {year: "numeric", month: "short", day: "numeric"}); } catch (e) { return ""; } }
+function drawMiles(){
+  const heard = STORIES.filter(s => HEARD[s.id]).length;
+  let h = `<div class="progress"><span><b>${heard}</b> / ${STORIES.length} ${esc(t('stories heard to the end'))}</span></div>`;
+  h += `<div class="rowlist miles" role="list">`;
+  for (const b of BADGES) {
+    const on = !!EARNED[b.id];
+    h += `<div class="mile${on ? " on" : ""}" role="listitem">${medal(b.tier, on)}<span class="txt"><span class="nm">${esc(b.name)}</span>
+      <span class="ct">${on ? esc(t('Earned')) + " " + when(EARNED[b.id]) : esc(b.how)}</span></span>${on ? `<span class="tk" aria-hidden="true">&#10003;</span>` : ""}</div>`;
+  }
+  h += `</div><div class="shead">${esc(t('The twenty stories'))}</div><div class="rowlist stories">`;
+  for (const s of STORIES) h += row(`data-story="${s.id}"`, esc(s.name), HEARD[s.id] ? esc(t('heard')) : storyRef(s), !!HEARD[s.id]);
+  h += `</div><p class="hint">${esc(t('Tap a story to hear it. It counts when it is heard to the end without being stopped; the button in the search tray picks one you have not heard yet.'))}</p>`;
+  if (heard || BADGES.some(b => EARNED[b.id])) h += `<button type="button" class="forget" id="whoForget">${esc(t('Forget my progress'))}</button>`;
+  const dyn = $("#milesDyn");
+  dyn.innerHTML = h;
+  dyn.querySelectorAll("[data-story]").forEach(el => el.onclick = () => playStory(STORIES.find(s => s.id === el.dataset.story)));
+  /* Asked twice, in the button itself: the app's WebView has no dialog of
+     its own, so confirm() there answers no without ever being seen. */
+  const f = $("#whoForget");
+  if (f) f.onclick = () => {
+    if (f.dataset.sure) { HEARD = {}; EARNED = {}; saveWho(); drawMiles(); toast("Forgotten. Every story is new again."); return; }
+    f.dataset.sure = "1"; f.textContent = "Tap again to forget every story heard and every milestone earned on this device";
+    setTimeout(() => { if (f.isConnected) { delete f.dataset.sure; f.textContent = "Forget my progress"; } }, 6000);
+  };
+}
+$("#whoHdr").onclick = whoIsJesus;
+
+/* ---------- the display tray ---------- */
+function drawSettings(){
+  let h = READER_ONLY ? "" : `<div class="shead">${esc(t('How much of the reader you want'))}</div>
+    <div class="seg" role="group" aria-label="${attr(t('How much of the reader you want'))}">
+      <button type="button" data-mode="basic" aria-pressed="${!adv()}">${esc(t('Just read'))}</button>
+      <button type="button" data-mode="advanced" aria-pressed="${adv()}">${esc(t('Everything'))}</button></div>
+    <p class="hint">${esc(adv() ? t('Every layer this project has built is switched on: the word tags, the lexicon, the themes, the maps and the rest.')
+                                : t('The book and nothing else: a chapter, a language, the size of the type. Tapping a word does nothing.'))}</p>`;
+  if (READER_ONLY) h = "";
+  h += `<div class="shead">${esc(t('Skin'))}</div><div class="skins" role="group" aria-label="${attr(t('Skin'))}">`;
+  for (const [id, name, paper, ink] of SKINS) {
+    const on = skin === id;
+    const sw = id === "auto"
+      ? `background:linear-gradient(135deg,#faf8f4 0 50%,#181614 50% 100%)`
+      : `background:linear-gradient(135deg,${paper} 0 55%,${ink} 55% 100%)`;
+    h += `<button type="button" data-skin="${id}" aria-pressed="${on}"><span class="sw" style="${sw}"></span>${esc(t(name))}${on ? `<span class="tick" aria-hidden="true">&#10003;</span>` : ""}</button>`;
+  }
+  h += `</div>`;
+  h += `<div class="shead">${esc(t('Text size'))}</div><div class="seg" role="group" aria-label="${attr(t('Text size'))}">
+      <button type="button" data-fs="-1"${fs <= FS_MIN ? " disabled" : ""} aria-label="${attr(t('Smaller text'))}">A&minus;</button>
+      <span class="val" role="status">${fs} px</span>
+      <button type="button" data-fs="1"${fs >= FS_MAX ? " disabled" : ""} aria-label="${attr(t('Larger text'))}">A+</button></div>
+    <p class="hint">${esc(t('Pinching the page magnifies it as well, for as long as you need it; the reader offers a way back to normal size while it is magnified.'))}</p>`;
+  h += `<div class="shead">${esc(t('Line spacing'))}</div><div class="seg" role="group" aria-label="${attr(t('Line spacing'))}">`
+    + SPACING.map(([v, n]) => `<button type="button" data-lh="${v}" aria-pressed="${Math.abs(lh - v) < .001}">${esc(t(n))}</button>`).join("") + `</div>`;
+  h += `<div class="langs">`
+    + `<div><div class="shead">${esc(t("Display language"))}</div><div class="rowlist">${dlRows()}</div></div>`
+    + `<div><div class="shead">${esc(t("Reading language"))}</div><div class="rowlist">${langRows()}</div></div>`
+    + `</div>`;
+  h += `<div class="shead">${esc(t("Read aloud"))}</div><p class="hint">${PHONE
+      ? esc(t("Tap a verse and choose Listen. The voices are the phone's own, so whichever languages it has installed are the ones it can read; Hebrew and Greek are read with modern voices."))
+      : ("speechSynthesis" in window)
+      ? (speechFor(tl) === "no" ? esc(noVoiceHelp(tl)) + " " + esc(t('Until then the page can be read here but not heard in it.'))
+         : esc(t('Tap a verse and choose Listen, or press and hold it (right-click) for the same in its own language.')))
+      : esc(t('This browser has no speech voices, so nothing can be read aloud here.'))}</p>`;
+  if (speechFor(tl) !== "no") {
+    h += `<div class="shead">${esc(t('Voice speed'))}</div><div class="seg" role="group" aria-label="${attr(t('Voice speed'))}">`
+      + SPEEDS.map(([v, n]) => `<button type="button" data-rate="${v}" aria-pressed="${Math.abs(VOICE.rate - v) < .001}">${esc(t(n))}</button>`).join("")
+      + `</div>`;
+    h += `<div class="shead">${esc(t('Voice pitch'))}</div><div class="seg" role="group" aria-label="${attr(t('Voice pitch'))}">`
+      + PITCHES.map(([v, n]) => `<button type="button" data-pitch="${v}" aria-pressed="${Math.abs(VOICE.pitch - v) < .001}">${esc(t(n))}</button>`).join("")
+      + `</div><p class="hint"><button type="button" id="voiceTry" class="try">${esc(t('Hear it'))}</button> ${esc(t('a verse at this setting.'))}</p>`;
+    /* A phone can have a dozen voices for one language, and a list of a dozen
+       "Voice 7 · natural · en-US" rows took the tray over for a choice nearly
+       nobody makes: the best voice is picked already. So one row says what is
+       in use, and the list is behind it, with the explanation of why the voices
+       vary, for whoever wants to change it. */
+    const vs = voicesFor(tl), pickName = chosenVoice(tl);
+    const grade = v => v.quality >= 400 ? "very natural" : v.quality >= 300 ? "natural" : "plain";
+    const note = v => `${grade(v)} \u00b7 ${esc(v.locale)}`;
+    const where = `<p class="hint">The voices belong to the phone, not to this app. A flat, clipped voice is the small
+      one Android ships with: more natural voices are a free download in the phone's own settings \u2014
+      Settings \u203a Accessibility \u203a Text-to-speech output \u203a your engine \u203a Install voice data,
+      where the larger voices for a language can be added. They then appear here.</p>`;
+    if (vs.length > 1) {
+      const cur = vs.find(v => v.name === pickName), best = vs[0];
+      h += `<div class="shead">${esc(t('Which voice'))}</div><div class="rowlist">`
+        + `<button type="button" id="voiceMore" aria-expanded="${voiceListOpen}" aria-controls="voiceList">`
+        + `<span class="nm">${cur ? `Voice ${vs.indexOf(cur) + 1}` : "Best this phone has"}</span>`
+        + `<span class="ct">${note(cur || best)}</span>`
+        + `<span class="chev" aria-hidden="true">\u203a</span></button>`
+        + `<div id="voiceList" class="sub"${voiceListOpen ? "" : " hidden"}>`
+        + `<p class="hint" style="margin:.2rem .7rem .4rem">The phone offers ${vs.length} voices for this language and the most natural is chosen
+           by itself. Pick another to keep it for this language; the choice is tried at once.</p>`
+        + row('data-voice=""', "Best this phone has", note(best), !pickName)
+        + vs.map((v, i) => row(`data-voice="${attr(v.name)}"`, `Voice ${i + 1}`, note(v), pickName === v.name)).join("")
+        + where.replace('class="hint"', 'class="hint" style="margin:.4rem .7rem .3rem"') + `</div></div>`;
+    } else if (PHONE) h += where;          // a computer's voices are not found in a phone's settings
+  }
+  /* One button, the app's own mark and three words. It stood under a heading
+     with a paragraph explaining that the whole Bible goes with it, and the
+     explanation was longer than the act: the phone's share sheet says the rest. */
+  if (PHONE) h += `<button type="button" class="primary share" id="setShareApp">${BOOKMARK}${esc(t('Share this Bible'))}</button>`;
+  h += `<div class="shead">${esc(t('About the text'))}</div><div class="rowlist"><button type="button" id="setSrc"><span class="nm">${esc(t('Sources and licenses'))}</span><span class="ct">${esc(t('what each layer came from'))}</span></button></div>`;
+  const dyn = $("#setDyn");
+  dyn.innerHTML = h;
+  dyn.querySelectorAll("[data-mode]").forEach(el => el.onclick = () => setMode(el.dataset.mode));
+  dyn.querySelectorAll("[data-skin]").forEach(el => el.onclick = () => setSkin(el.dataset.skin));
+  dyn.querySelectorAll("[data-fs]").forEach(el => el.onclick = () => fsStep(+el.dataset.fs));
+  dyn.querySelectorAll("[data-lh]").forEach(el => el.onclick = () => setLh(+el.dataset.lh));
+  dyn.querySelectorAll("[data-rate]").forEach(el => el.onclick = () => { setVoice("rate", +el.dataset.rate); tryVoice(); });
+  dyn.querySelectorAll("[data-pitch]").forEach(el => el.onclick = () => { setVoice("pitch", +el.dataset.pitch); tryVoice(); });
+  dyn.querySelectorAll("[data-voice]").forEach(el => el.onclick = () => { setChosenVoice(tl, el.dataset.voice); tryVoice(); });
+  const more = $("#voiceMore");
+  if (more) more.onclick = () => { voiceListOpen = !voiceListOpen; drawSettings(); const b = $("#voiceMore"); if (b) b.focus(); };
+  const tryBtn = $("#voiceTry");
+  if (tryBtn) tryBtn.onclick = tryVoice;
+  dyn.querySelectorAll("[data-dl]").forEach(el => el.onclick = () => { setDl(el.dataset.dl); drawSettings(); });
+  dyn.querySelectorAll("[data-lang]").forEach(el => el.onclick = () => {
+    const v = el.dataset.lang;
+    if (v === "__orig") setView("orig"); else setTl(v);
+    drawSettings();
+  });
+  $("#setSrc").onclick = () => { closeSheet(); $("#credits").scrollIntoView({behavior: "smooth", block: "start"}); };
+  const shareApp = $("#setShareApp");
+  if (shareApp) shareApp.onclick = () => { closeSheet(); if (PHONE && PHONE.shareApp) PHONE.shareApp(); };
+}
+
+/* A setting is worth hearing rather than reading: the sample is a verse of the
+   text itself, in the language on screen, so the speed is judged on the thing
+   it will be used for. */
+function tryVoice(){
+  const h = location.hash.slice(1).split("/"), book = DATA[h[0]] ? h[0] : srcBooks[0];
+  if (!DATA[book]) return;                 // nothing built into this copy to read from
+  const ch = DATA[book][h[1]] ? h[1] : Object.keys(DATA[book])[0];
+  const r = {book, ch: +ch, v: 1}, c = verseContent(r);
+  if (c) speakVerse(c.txt, c.lang);
+}
+
+/* ---------- the title in the bar, and the bars getting out of the way ---------- */
+function setTitle(main, sub){
+  $("#titleMain").textContent = main;
+  $("#titleSub").textContent = sub || "";
+  document.title = main ? main + " — eBible" : "eBible Translation";
+}
+function measureBar(){
+  document.documentElement.style.setProperty("--barH", ($("header").offsetHeight || 56) + "px");
+}
+addEventListener("resize", measureBar); measureBar();
+/* Reading is what the page is for. Once the reader is moving down a chapter
+   the bars slide away, and the first flick back up brings them back; they are
+   sticky, so nothing under them moves when they go. */
+let lastY = 0, chromeOff = false;
+function showChrome(){ if (chromeOff) { chromeOff = false; document.documentElement.classList.remove("chrome-off"); } }
+addEventListener("scroll", () => {
+  const y = Math.max(0, window.pageYOffset), d = y - lastY;
+  if (Math.abs(d) < 8) return;
+  lastY = y;
+  if (openName) return;
+  if (d > 0 && y > 120) { if (!chromeOff) { chromeOff = true; document.documentElement.classList.add("chrome-off"); } }
+  else showChrome();
+}, {passive: true});
+addEventListener("focusin", e => { if (e.target.closest && e.target.closest("header, #tabbar")) showChrome(); });
+
+/* ---------- the magnifier ----------
+   Pinching is the zoom of a reader who cannot see the text at its set size, so
+   the page never forbids it. Nothing in the platform releases a pinch again,
+   which leaves a magnified reader stranded; clamping the viewport for a single
+   frame makes the browser snap back, and the clamp is lifted immediately after,
+   so the page is never left unzoomable. */
+const vvp = window.visualViewport;
+function zoomWatch(){
+  const chip = $("#zoomchip"), s = (vvp && vvp.scale) || 1;
+  if (s > 1.05) {
+    $("#zoomlvl").textContent = "Magnified " + s.toFixed(1) + "×";
+    chip.hidden = false;
+    chip.style.left = (vvp.offsetLeft + vvp.width / 2) + "px";
+    chip.style.top = (vvp.offsetTop + vvp.height - chip.offsetHeight / s - 12) + "px";
+    chip.style.bottom = "auto";
+    chip.style.transform = `translateX(-50%) scale(${1 / s})`;
+    chip.style.transformOrigin = "bottom center";
+  } else { chip.hidden = true; chip.style.top = ""; chip.style.bottom = ""; chip.style.left = ""; chip.style.transform = ""; }
+}
+if (vvp) { vvp.addEventListener("resize", zoomWatch); vvp.addEventListener("scroll", zoomWatch); }
+$("#zoomreset").onclick = () => {
+  const m = document.querySelector('meta[name="viewport"]'), had = m.getAttribute("content");
+  m.setAttribute("content", had + ", maximum-scale=1");
+  setTimeout(() => { m.setAttribute("content", had); zoomWatch(); }, 80);
+  setTimeout(() => { if (vvp && vvp.scale > 1.05) $("#zoomlvl").textContent = "Still magnified — pinch inwards to go back"; }, 500);
+};
+
+/* In the app there is no console to open: a script error would simply be a
+   button that does nothing, and the reader would have no way to say what went
+   wrong beyond "it does not work". So every error the page throws is shown,
+   once, where it can be read and repeated back. */
+addEventListener("error", e => {
+  const where = e.filename ? ` (line ${e.lineno})` : "";
+  toast(`Something went wrong: ${e.message || e.type}${where}. The rest of the reader is unaffected.`);
+});
+addEventListener("unhandledrejection", e => {
+  const r = e.reason;
+  toast(`Something went wrong: ${(r && (r.message || r)) || "a failed operation"}. The rest of the reader is unaffected.`);
+});
+
+/* A file that fails to load should say so rather than leave an empty view. */
+let toastT;
+function toast(msg){
+  const t = $("#toast"); t.textContent = msg; t.hidden = false;
+  // Never on top of the magnifier's way back, and never on top of the verse
+  // bar - which is where most of these messages are asked for in the first
+  // place, so a reader would watch the bar disappear behind the answer.
+  const lift = ($("#zoomchip").hidden ? 0 : 54) + (vbar.hidden ? 0 : vbar.offsetHeight + 10);
+  t.style.marginBottom = lift ? lift + "px" : "";
+  clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, 7000);
+}
+
+/* Two things every view needs and none of them should have to remember: its
+   links reachable from a keyboard — most of the reader's links are <a> with no
+   href, drawn into the page, which a keyboard cannot touch — and its heading
+   repeated in the bar, where it is the way back into the navigation tray. */
+const CLICKABLE = "a:not([href]):not([tabindex]):not(.off), .hit:not([tabindex]), .r[onclick]:not([tabindex]),"
+  + " .thm .t b:not([tabindex]), .chron .row b:not([tabindex]), .arg .sec b:not([tabindex]), .harm .lab[onclick]:not([tabindex])";
+function reachable(root){
+  for (const el of root.querySelectorAll(CLICKABLE)) { el.tabIndex = 0; el.setAttribute("role", "button"); }
+}
+new MutationObserver(() => {
+  const m = $("#main");
+  reachable(m);
+  syncVerseMarks();                      // a redrawn chapter comes back with its held verses still held
+  rovingVerses();
+  refreshVbar();
+  const h = m.querySelector("h2");
+  if (h) {
+    const c = h.cloneNode(true), sub = h.querySelector(".lang");
+    c.querySelectorAll(".lang").forEach(x => x.remove());
+    setTitle(c.textContent.trim(), sub ? sub.textContent.trim() : "");
+  }
+}).observe($("#main"), {childList: true, subtree: true});
+document.addEventListener("keydown", e => {
+  if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches('[role="button"][tabindex="0"]')) {
+    e.preventDefault(); e.target.click();
+  }
+});
 
 /* ---------- routing ---------- */
 function route() {
   const h = decodeURIComponent(location.hash.slice(1));
-  if (!h) { if (haveBooks[0]) location.hash = `#${haveBooks[0]}/1`; return; }
+  if (!h) { const b = booksWith(tl)[0] || srcBooks[0]; if (b) location.hash = `#${b}/1`; return; }
   const [book, ch, v] = h.split("/");
   $("#q").value = "";
+  const p = readPlace();
+  trailPush(p.key, p.run);
   renderChapter(book, ch, v ? +v : null);
 }
-$("#ref").addEventListener("keydown", e => {
-  if (e.key === "Enter" && goRef(e.target.value)) e.target.value = "";
+
+/* ---------- back: the trail of what has been looked at ---------- */
+/* A chapter has an address in the hash, but a theme, a lexicon entry, a field
+   of meaning or a list of occurrences does not: they are drawn straight into
+   the page. Without a trail of its own the reader has no way back out of
+   them, and a mistaken click is a dead end. Every page is remembered here,
+   however it was reached, and the arrow in the header walks back through
+   them. */
+const TRAIL = [];
+function trailPush(key, run){
+  const top = TRAIL[TRAIL.length - 1];
+  if (top && top.key === key) { top.run = run; return; }          // the same page again is not a step
+  if (top && key.startsWith("search|") && top.key.startsWith("search|")) TRAIL[TRAIL.length - 1] = {key, run};
+  else TRAIL.push({key, run});                                    // a search being typed stays one place
+  if (TRAIL.length > 300) TRAIL.shift();
+  backSync();
+}
+function backSync(){ const b = $("#back"); if (b) b.disabled = TRAIL.length < 2; }
+/* An open tray is the first thing back should undo — it is what the reader is
+   looking at. The Android shell asks canGoBack() before it will leave the app,
+   so the two have to agree about what counts as somewhere to go back to. */
+function canGoBack(){ return !!openName || TRAIL.length > 1; }
+function goBack(){
+  if (openName) { closeSheet(); return; }
+  if (TRAIL.length < 2) return;
+  TRAIL.pop();                                                    // where we are now
+  const p = TRAIL[TRAIL.length - 1];
+  backSync();
+  hidePop(); hideRefs();
+  p.run();
+}
+function readPlace(){                    // a chapter, as it was being read: the reference, the view, the language
+  const h = location.hash, v = view, t = tl;
+  return {key: `read|${h}|${v}|${t}`, run: () => {
+    view = v; localStorage.setItem("view", v);
+    if (t !== tl) { tl = t; localStorage.setItem("tl", t); const s = $("#tlSel"); if (s) s.value = t; }
+    if (location.hash === h) route(); else location.hash = h;     // an unchanged hash fires no event
+  }};
+}
+for (const name of ["browseThemes", "showTheme", "browseArguments", "showArgument", "browseLexicon", "showLexEntry",
+                    "browseLexemes", "showLexeme", "searchSource", "browseFields", "showDomain", "showConc",
+                    "gsOpen", "search"]) {
+  const fn = window[name];
+  if (typeof fn !== "function") continue;
+  window[name] = function(...a){ trailPush(name + "|" + a.join("|"), () => fn(...a)); return fn(...a); };
+}
+$("#back").onclick = goBack;
+let refDeb;                                   // the page follows the reference as it is typed; Enter is optional
+$("#ref").addEventListener("input", e => {
+  clearTimeout(refDeb);
+  const val = e.target.value;
+  refDeb = setTimeout(() => { if (val.trim()) goRef(val); }, 350);
 });
+$("#ref").addEventListener("keydown", e => {
+  if (e.key === "Enter") { clearTimeout(refDeb); if (goRef(e.target.value)) e.target.value = ""; }
+});
+$("#ref").addEventListener("blur", e => { e.target.value = ""; });
 let deb;
 $("#q").addEventListener("input", e => {
   clearTimeout(deb);
   const val = e.target.value;
   deb = setTimeout(() => val.trim() ? search(val) : route(), 250);
 });
+/* Enter is done searching: on a phone that means putting the tray away and
+   letting the reader see the hits it has been drawing behind it. */
+$("#q").addEventListener("keydown", e => {
+  if (e.key !== "Enter") return;
+  clearTimeout(deb);
+  const val = e.target.value.trim();
+  if (openName === "search") closeSheet();          // away first, for the reason in drawSearch
+  if (val) search(val);
+});
 document.addEventListener("keydown", e => {
-  if (e.target.tagName === "INPUT") return;
+  if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
+  if (e.defaultPrevented) return;              // the arrows walking the verse numbers are not asking for a chapter
+  if (e.key === "Backspace" || (e.altKey && e.key === "ArrowLeft")) { e.preventDefault(); goBack(); return; }
+  if (openName) return;                        // the arrows belong to the tray while one is open
   const h = location.hash.slice(1).split("/");
   if (h.length < 2 || !DATA[h[0]]) return;
   const {prev, next} = neighbours(h[0], h[1]);
-  if (e.key === "ArrowLeft" && prev) location.hash = `#${prev.b}/${prev.c}`;
-  if (e.key === "ArrowRight" && next) location.hash = `#${next.b}/${next.c}`;
+  if (e.key === "ArrowLeft" && prev) goto(`#${prev.b}/${prev.c}`);
+  if (e.key === "ArrowRight" && next) goto(`#${next.b}/${next.c}`);
 });
 window.addEventListener("hashchange", route);
+$("#sources").onclick = () => $("#credits").scrollIntoView({behavior:"smooth", block:"start"});
+/* The gear is for a phone, and only while there is something to read under it. */
+const quick = $("#quick");
+quick.onclick = () => openSheet("set");
+function quickShow(){ quick.hidden = !mqNarrow.matches; }
+mqNarrow.addEventListener("change", quickShow); quickShow();
+/* dl can come from localStorage or the device's own language before a single
+   line has been drawn, and the static chrome - the tab bar - is baked into
+   the page in English. Without this, a returning Thai reader's tab bar stayed
+   English until they opened Display and changed the setting to itself. */
+document.documentElement.setAttribute("lang", dl);
+applyChrome();
 route();
+__READALOUD_JS__
 </script>
 </body>
 </html>
 """
 
+_norm_cache = {}
+
+
+UI_FILE = ROOT / "targets" / "ui" / "ui.json"
+
+
+def main_engine(engines):
+    """The model that wrote most of a language's chapters, or None for a language with none."""
+    return max(engines.items(), key=lambda kv: kv[1])[0] if engines else None
+
+
+def made_text(targets, made):
+    """The footer's account of who wrote what, grouped by model and source.
+
+    It used to be one sentence for every language, and it stopped being true
+    the day a second engine wrote one of them from the English instead of the
+    originals. Now it is written from the chapter files at build time.
+    """
+    groups = {}
+    for code, t in targets.items():
+        engine = main_engine(made.get(code))
+        if not engine:
+            continue
+        groups.setdefault((engine, bool(t.get("mt"))), []).append(t["name"])
+    parts = []
+    for (engine, second_hand), names in groups.items():
+        who = names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1]
+        verb = "was" if len(names) == 1 else "were"
+        if second_hand:
+            parts.append(f"{who} {verb} produced from this project's own English translation by {engine}, "
+                         f"a machine translation model, and {'has' if len(names) == 1 else 'have'} not yet "
+                         f"been read by a speaker of the language.")
+        else:
+            parts.append(f"{who} {verb} produced from the Hebrew, Aramaic and Greek above by {engine}, "
+                         f"a language model run on the project's own machine, checked and corrected by the project.")
+    return html.escape(" ".join(parts)) if parts else "none are carried in this copy."
+
+
+def ui_table(targets):
+    """The interface in each carried language, written into the page itself.
+
+    It goes in the page rather than beside it because it has to be right at the
+    first paint, before anything is fetched: a shared copy is opened on a phone
+    with no network, and a reader who cannot read English should not watch an
+    English interface be replaced a moment later. It is a few tens of kilobytes
+    against the reader's forty megabytes.
+
+    Only the languages the build carries - a copy that left Japanese out has no
+    use for a Japanese interface.
+    """
+    if not UI_FILE.exists():
+        return "{}"
+    table = json.loads(UI_FILE.read_text(encoding="utf-8"))
+    out = {c: v for c, v in table.items() if not c.startswith("_") and c in targets}
+    return json.dumps(out, ensure_ascii=False, separators=(",", ":"))
+
+
+def source_chapter(book_key, ch):
+    """Original-language verses {n: text} and language code for one chapter."""
+    meta = BY_SLUG.get(book_key)
+    if not meta:
+        return None, None
+    if book_key not in _norm_cache:
+        f = NORM_DIR / f"{meta['num']:02d}_{book_key}.json"
+        _norm_cache[book_key] = json.loads(f.read_text(encoding="utf-8"))["chapters"] if f.exists() else {}
+    verses = _norm_cache[book_key].get(str(ch))
+    if not verses:
+        return None, None
+    lang = chapter_lang(meta, verses)
+    src = {str(v["v"]): v["text"] for v in verses}
+    if lang == "mixed":      # per-verse tags only where a chapter switches language
+        src["_lang"] = {str(v["v"]): verse_lang(meta, v) for v in verses}
+    lxx = {str(v["v"]): v["lxx"] for v in verses if v.get("lxx")}
+    if lxx:
+        src["_lxx"] = lxx    # Septuagint column, Greek, same verse numbers
+    return src, lang
+
 
 def main():
+    import argparse
+    ap = argparse.ArgumentParser(description="Build the offline reader page.")
+    ap.add_argument("--reader-only", action="store_true",
+                    help="the text alone, always in basic mode: the page for the Android reader APK, "
+                         "which ships without the study layers in morph/")
+    ap.add_argument("--out", default=str(SITE), help="folder to write index.html into (default: site/)")
+    ap.add_argument("--complete-only", action="store_true",
+                    help="carry only the languages the whole Bible has been translated into; "
+                         "what is shipped (the APKs) should not offer a language with books missing")
+    ap.add_argument("--langs", default="",
+                    help="comma list of target codes to carry, e.g. en,zh (default: every one there is); "
+                         "with --complete-only, naming a language that is not finished is an error")
+    a = ap.parse_args()
+    asked = [c.strip() for c in a.langs.split(",") if c.strip()]
+    unknown = [c for c in asked if c not in TARGETS]
+    if unknown:
+        raise SystemExit(f"unknown language code(s): {', '.join(unknown)} - known: {', '.join(TARGETS)}")
     data = {}
-    for f in sorted(JSON_DIR.glob("*.json")):
-        d = json.loads(f.read_text())
-        book_key = slug(d["book"])
-        data.setdefault(book_key, {})[str(d["chapter"])] = {
-            "verses": d["verses"], "notes": d.get("notes", "")}
-    SITE.mkdir(exist_ok=True)
+    # every chapter of every book: original text always, translations when present
+    for meta in sorted(BOOKS.values(), key=lambda m: m["num"]):
+        key = slug(meta["name"])
+        f = NORM_DIR / f"{meta['num']:02d}_{key}.json"
+        if not f.exists():
+            continue
+        for ch in sorted(json.loads(f.read_text(encoding="utf-8"))["chapters"], key=int):
+            src, lang = source_chapter(key, ch)
+            data.setdefault(key, {})[str(ch)] = {"src": src, "lang": lang, "tr": {}}
+    counts, short, made = {}, {}, {}
+    for code in TARGETS:
+        for f in sorted((OUT_ROOT / code / "json").glob("*.json")):
+            d = json.loads(f.read_text(encoding="utf-8"))
+            key, ch = slug(d["book"]), str(d["chapter"])
+            entry = data.setdefault(key, {}).setdefault(ch, {"src": None, "lang": None, "tr": {}})
+            entry["tr"][code] = {"verses": d["verses"], "notes": d.get("notes", "")}
+            # Which model wrote it. Every chapter file says (scripts/tag_engine.py
+            # stamped the older ones), and the page tells its readers per language.
+            engines = made.setdefault(code, {})
+            engines[d.get("engine") or "an unrecorded model"] = engines.get(d.get("engine") or "an unrecorded model", 0) + 1
+            # A chapter counts as translated when the verses are actually in it.
+            # A run that failed - the model answered in the wrong language, or
+            # echoed the prompt back - still leaves a file behind, and counting
+            # files once let a Chinese Bible with no Psalm 119 in it call
+            # itself complete. The source is the authority on what is missing.
+            want = {v for v in (entry["src"] or {}) if not v.startswith("_")}
+            if want and want - set(d["verses"]):
+                short.setdefault(code, []).append(f"{d['book']} {ch}")
+            else:
+                counts[code] = counts.get(code, 0) + 1
+    # A language still being translated is fine to watch here, on the machine
+    # doing the translating, where the chapter list shows what is done. It is
+    # not fine to hand someone a Bible whose Psalms stop at 39, so a build for
+    # shipping keeps only the languages that have every chapter.
+    targets = TARGETS
+    if a.complete_only:
+        whole = sum(len(v) for v in data.values())
+        targets = {c: t for c, t in TARGETS.items() if counts.get(c, 0) >= whole}
+        for chapters in data.values():
+            for entry in chapters.values():
+                entry["tr"] = {c: v for c, v in entry["tr"].items() if c in targets}
+        dropped = {c: n for c, n in counts.items() if c not in targets}
+        counts = {c: n for c, n in counts.items() if c in targets}
+        if dropped:
+            print("left out, still being translated: "
+                  + ", ".join(f"{c} ({n}/{whole})" for c, n in sorted(dropped.items())))
+        for code in sorted(dropped):
+            gaps = short.get(code)
+            if gaps:                       # a language held back by a handful of failures, not by its progress
+                print(f"  {code}: {len(gaps)} chapter(s) have verses missing and do not count - "
+                      + ", ".join(gaps[:6]) + (" ..." if len(gaps) > 6 else "")
+                      + f"; re-run them (scripts/verify.py --lang {code} shows what is gone)")
+        # A language asked for by name and quietly left out would be found
+        # missing on the phone it was built for, so it stops the build here.
+        unfinished = [c for c in asked if c not in targets]
+        if unfinished:
+            raise SystemExit("not finished, so not carried: "
+                             + ", ".join(f"{c} ({counts.get(c, dropped.get(c, 0))}/{whole})" for c in unfinished))
+    # A copy made for one household or one church need not carry every
+    # language the project has: each is several megabytes on a phone.
+    if asked:
+        targets = {c: t for c, t in targets.items() if c in asked}
+        for chapters in data.values():
+            for entry in chapters.values():
+                entry["tr"] = {c: v for c, v in entry["tr"].items() if c in targets}
+        counts = {c: n for c, n in counts.items() if c in targets}
+    if a.complete_only and not counts:
+        print("WARNING: no language is complete, so this page carries the original text alone")
+    out_dir = Path(a.out)
+    out_dir.mkdir(parents=True, exist_ok=True)
     page = (PAGE
             .replace("__DATA__", json.dumps(data, ensure_ascii=False))
             .replace("__ORDER__", json.dumps(ORDER))
+            .replace("__LANGS__", json.dumps({**LANGS, "mixed": MIXED}))
+            .replace("__TARGETS__", json.dumps({c: {"name": t["name"], "native": t["native"], "dir": t.get("dir", "ltr"),
+                                                     "engine": main_engine(made.get(c)),
+                                                     # a second-hand, machine-only translation says so above its text
+                                                     "caveat": t.get("note", "") if t.get("mt") else ""}
+                                                 for c, t in targets.items()}, ensure_ascii=False))
+            .replace("__MADE__", made_text(targets, made))
             .replace("__ABBREV__", json.dumps(
-                {k: v.replace(" ", "_") for k, v in ABBREV.items()})))
-    out = SITE / "index.html"
+                {k: v.replace(" ", "_") for k, v in ABBREV.items()}))
+            .replace("__UI__", ui_table(targets))
+            .replace("__READER_ONLY__", "true" if a.reader_only else "false")
+            .replace("__BUILT__", __import__("datetime").datetime.now().strftime("%Y-%m-%d %H:%M"))
+            .replace("__READALOUD_CSS__", RA.CSS)
+            .replace("__READALOUD_JS__", RA.js('main', '.par .o, .par .e, .cmp .row .txt, p.ov, .poetry, .vv span, .hit, .notes')))
+    # The search index is built by a different script, and nothing used to
+    # notice when it had fallen behind: search quietly answered from whatever
+    # text existed the last time build_index.py ran.
+    idx = sorted((SITE / "morph").glob("idx_*.js"))
+    if idx:
+        oldest = min(f.stat().st_mtime for f in idx)
+        newest = max((f.stat().st_mtime for code in counts
+                      for f in (OUT_ROOT / code / "json").glob("*.json")), default=0)
+        if newest > oldest + 3600:
+            import datetime as _dt
+            when = _dt.datetime.fromtimestamp(oldest).strftime("%Y-%m-%d %H:%M")
+            print(f"WARNING: the search index was built {when}, before the newest translated "
+                  f"chapter — search will not find the text added since. Run scripts/build_index.py.")
+    out = out_dir / "index.html"
     out.write_text(page, encoding="utf-8")
     nch = sum(len(v) for v in data.values())
-    print(f"site built: {out} ({len(data)} books, {nch} chapters embedded)")
+    tr = ", ".join(f"{c}={n}" for c, n in counts.items()) or "none"
+    print(f"site built{' (reader only)' if a.reader_only else ''}: {out} ({len(data)} books, {nch} chapters of original text; "
+          f"translated chapters: {tr}; {out.stat().st_size // 1024} KB)")
 
 
 if __name__ == "__main__":

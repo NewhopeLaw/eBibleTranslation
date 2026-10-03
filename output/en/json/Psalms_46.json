@@ -1,0 +1,22 @@
+{
+ "book": "Psalms",
+ "chapter": 46,
+ "lang": "en",
+ "verses": {
+  "1": "For the leader. For the sons of Korah. On lilies. A song.",
+  "2": "God is our refuge and strength, a helper in troubles that find us very severely.",
+  "3": "Therefore we will not fear when the earth is shaken and mountains tremble in the heart of the seas.",
+  "4": "Let the waters roar, let them be troubled; let the mountains tremble in his might. Selah.",
+  "5": "The river’s torrents gladden the city of God, the holy place of the Most High.",
+  "6": "God is in her midst; she will not waver. God will help her at dawn.",
+  "7": "Nations are in turmoil, kingdoms fall. He speaks, and the earth melts.",
+  "8": "The LORD of Hosts is with us; the God of Jacob is our fortress. Selah.",
+  "9": "Come, see the works of the LORD, the wonders he has placed on the earth.",
+  "10": "He breaks the weapons of war to the ends of the earth, shatters the bow, breaks the spear, burns shields in the fire.",
+  "11": "Be still and know that I am God. I will be exalted among the nations, I will be exalted on the earth.",
+  "12": "The LORD of Hosts is with us; the God of Jacob is our fortress. Selah."
+ },
+ "notes": "Notes\n- v. 4: \"Let the waters roar, let them be troubled\" reflects the Hebrew's imperative form, which is poetic and rhetorical.\n- v. 8: \"The LORD of Hosts\" and \"the God of Jacob\" reflect the compound title pattern from the glossary.\n- v. 11: \"Be still\" renders the Hebrew \"הַרְפּוּ\", a form of the verb meaning \"to be silent\" or \"to rest.\" The phrase is a call to reflection and acknowledgment of God’s sovereignty.",
+ "raw": "[1] For the leader. For the sons of Korah. On lilies. A song.\n[2] God is our refuge and strength, a helper in troubles that find us very severely.\n[3] Therefore we will not fear when the earth is shaken and mountains tremble in the heart of the seas.\n[4] Let the waters roar, let them be troubled; let the mountains tremble in his might. Selah.\n[5] The river’s torrents gladden the city of God, the holy place of the Most High.\n[6] God is in her midst; she will not waver. God will help her at dawn.\n[7] Nations are in turmoil, kingdoms fall. He speaks, and the earth melts.\n[8] The LORD of Hosts is with us; the God of Jacob is our fortress. Selah.\n[9] Come, see the works of the LORD, the wonders he has placed on the earth.\n[10] He breaks the weapons of war to the ends of the earth, shatters the bow, breaks the spear, burns shields in the fire.\n[11] Be still and know that I am God. I will be exalted among the nations, I will be exalted on the earth.\n[12] The LORD of Hosts is with us; the God of Jacob is our fortress. Selah.\n---\nNotes\n- v. 4: \"Let the waters roar, let them be troubled\" reflects the Hebrew's imperative form, which is poetic and rhetorical.\n- v. 8: \"The LORD of Hosts\" and \"the God of Jacob\" reflect the compound title pattern from the glossary.\n- v. 11: \"Be still\" renders the Hebrew \"הַרְפּוּ\", a form of the verb meaning \"to be silent\" or \"to rest.\" The phrase is a call to reflection and acknowledgment of God’s sovereignty.",
+ "engine": "qwen3:32b"
+}
