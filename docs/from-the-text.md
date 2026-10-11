@@ -194,3 +194,41 @@ themes, from any translated language, by tracing a reader's word through the
 verses it stands in to the Hebrew and Greek words behind them. That concordance
 is still the reference's. It becomes ours at step 3, and until then our own
 lexemes can be found by name but cannot be expanded into their verses.
+
+*3 October 2026:* the inventory is finished, every one of the 80,894 forms,
+and step 1's comparison is written. `build_lexemes.py --score` now writes
+`logs/lexeme_report.md`, the disagreements commonest first, and
+`logs/lexeme_disagreements.json`, the full lists for a page in the reader.
+
+On 442,251 words of the text, 89.0% stand in a lexeme of ours whose usual
+reference word is theirs; 94.5% once the letter STEPBible adds to cut one
+Strong's number into senses is set aside. The ceiling is 95.1%: 5,114
+spellings stand for more than one word, and an inventory that answers once per
+spelling loses 4.9% of the text to them before the model says anything. That
+is the method's limit, and the parse, which works word by word in its verse,
+is where it can be won back.
+
+The figure flatters, because it looks in one direction only. Our 27,037
+lexemes against the reference's 16,967 means many words are split, and the
+split is mostly the model not doing what its prompt asks:
+
+- 12.4% of the text sits in a lexeme whose headword is a spelling from the
+  text handed back as it stands (הַמֶּלֶךְ, וַיְהִי; the Greek article as ὁ, ἡ
+  and τό apart).
+- 4.0% has a prefix left on the headword (וְכָל, לְמֶלֶךְ), 2.4% an ending
+  (אֵלָיו).
+- 4.7% differs from its fellows only in pointing or accents (כָּל beside כֹּל).
+- 4.6% is a different headword, often another inflected form (יִהְיֶה beside
+  הָיָה).
+
+Merges are rarer, 5.6% of the text in a lexeme that also holds a different
+reference word. Some are plain errors (וַתָּשָׁב, "she returned", under יָשַׁב
+"to dwell"; אֶל "to" under אֵל "god"); some are the lexicons' own choices
+(εἶπον under λέγω, as most modern lexicons have it; לֵבָב under לֵב).
+
+So step 1 is not ready to build on as it stands. Before step 3, the split
+forms should go back to the model in their verse, with the fault named,
+the way `--repair-scripts` re-asks a bad script; the pointing-only splits may
+not need the model at all. The lexicon's translations into other languages
+are held in the queue meanwhile (`work.py`, `held()`): they translate entries
+that step 4 will rewrite.

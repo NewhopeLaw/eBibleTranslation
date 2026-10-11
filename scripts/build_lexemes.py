@@ -374,13 +374,71 @@ def pack(score=False):
     print(f"lexemes: {len(lexeme)} dictionary words from {len(form2lex)} forms "
           f"({counters['he']} Hebrew/Aramaic, {counters['gr']} Greek) -> site/morph/lexemes.js")
     if score:
-        report(form2lex)
+        report(form2lex, lexeme)
 
 
-def report(form2lex):
-    """How often our grouping matches the reference tagging, token by token."""
-    agree = total = 0
-    pairs = defaultdict(Counter)
+PREFIXES = "ובכלמהשׁש"         # letters a Hebrew word can carry in front: and, in, like, to, from, the, that
+
+
+def bare(word):
+    """A headword with its pointing and accents taken off, for telling apart
+    two headwords that differ only in how they are written."""
+    return "".join(c for c in unicodedata.normalize("NFD", word)
+                   if unicodedata.category(c) != "Mn" and c not in "־־").lower()
+
+
+def why_split(main, other, other_forms):
+    """Why a reference word that is mostly our `main` lexeme also came out as
+    `other`, as far as the spellings show it. In order: the same letters
+    pointed differently; a prefix or an ending left on; the model handing back
+    a spelling as it stands in the text, which the prompt tells it not to do
+    (הַמֶּלֶךְ, וַיְהִי); else a different headword, often another inflected
+    form of the same word (יִהְיֶה beside הָיָה)."""
+    m, o = bare(main), bare(other)
+    if m == o:
+        return "pointing or accents only"
+    if o.endswith(m) and len(o) - len(m) <= 2 and set(o[:len(o) - len(m)]) <= set(PREFIXES):
+        return "prefix left on"
+    if o.startswith(m) and len(o) - len(m) <= 3:
+        return "ending left on"
+    if o in {bare(f) for f in other_forms}:
+        return "a spelling from the text given as the headword"
+    return "different headwords"
+
+
+def ref_base(tag):
+    """H7225G -> H7225: STEPBible adds a letter to split one Strong's number
+    into senses or homonyms, a finer cut than a dictionary word."""
+    return re.sub(r"[A-Za-z]$", "", tag)
+
+
+def report(form2lex, lexeme):
+    """Our inventory against the reference tagging, and where the two part.
+
+    The agreement figure alone says little (docs/from-the-text.md: the model
+    learned from the same tradition, so agreement is partly memory). The
+    disagreements are the telling half, and they are of three kinds, kept
+    apart because they mean different things:
+
+    - homographs: one spelling standing for two words in different verses
+      (the reference tags it per occurrence, we answer once per spelling).
+      That is the method's limit, not the model's error, and it sets the best
+      score the inventory can reach as it is built.
+    - merges: one of our lexemes covering words the reference keeps apart.
+    - splits: one reference word spread over several of ours, usually because
+      a prefix or an ending was left on the headword.
+
+    Each list is sorted by the number of words in the text it touches, so the
+    common words are read first. Written to logs/lexeme_report.md, with the
+    full lists in logs/lexeme_disagreements.json for a page in the reader."""
+    s = (MORPH / "lex.js").read_text(encoding="utf-8")
+    s = s[:s.index("\nMORPHX=")] if "\nMORPHX=" in s else s     # lex.js also carries the parse-code names
+    ref_lex = json.loads(s[s.index("=") + 1:].rstrip().rstrip(";"))
+    pairs = defaultdict(Counter)            # our lexeme -> reference tag -> tokens
+    by_form = defaultdict(Counter)          # surface form -> reference tag -> tokens
+    split = defaultdict(Counter)            # reference tag -> our lexeme -> tokens
+    example = {}                            # (our lexeme, reference tag) -> a verse where they meet
+    total = unpaired = 0
     for meta in sorted(BOOKS.values(), key=lambda m: m["num"]):
         mf = MORPH / f"{slug(meta['name'])}.js"
         nf = NORM / f"{meta['num']:02d}_{slug(meta['name'])}.json"
@@ -395,23 +453,134 @@ def report(form2lex):
                 for i, w in enumerate(tokens(rec["text"])):
                     ours = form2lex.get(w)
                     ref = tags[i] if i < len(tags) and tags[i] else None
-                    if not ours or not ref:
+                    if not ref:
+                        continue
+                    if not ours:
+                        unpaired += 1
                         continue
                     m = re.search(r"\{([^}]+)\}", ref[0])
                     reftag = m.group(1) if m else ref[0].split("/")[0]
                     pairs[ours][reftag] += 1
+                    by_form[w][reftag] += 1
+                    split[reftag][ours] += 1
+                    example.setdefault((ours, reftag), (f"{meta['name']} {ch}:{rec['v']}", w))
                     total += 1
+
+    def pct(n):
+        return f"{100 * n / max(1, total):.1f}%"
+
+    def ref_word(tag):
+        e = ref_lex.get(tag)
+        return f"{e[0]} ({tag}, “{e[3]}”)" if e else tag
+
+    def our_word(lid):
+        e = lexeme[lid]
+        return f"{e[0]} ({lid}, “{e[2]}”)"
+
+    agree = sum(c.most_common(1)[0][1] for c in pairs.values())
+    base = defaultdict(Counter)
     for ours, c in pairs.items():
-        agree += c.most_common(1)[0][1]
+        for tag, n in c.items():
+            base[ours][ref_base(tag)] += n
+    agree_base = sum(c.most_common(1)[0][1] for c in base.values())
+    ceiling = sum(c.most_common(1)[0][1] for c in by_form.values())
+    homograph_forms = {w: c for w, c in by_form.items() if len(c) > 1}
+
+    merges = []
+    for ours, c in pairs.items():
+        main, kept = c.most_common(1)[0]
+        off = sum(c.values()) - kept
+        if not off:
+            continue
+        others = [(tag, n) for tag, n in c.most_common() if tag != main]
+        words = sum(n for t, n in others if ref_base(t) != ref_base(main))
+        merges.append({"ours": ours, "off": off, "words": words, "senses": off - words, "main": main,
+                       "others": [{"tag": t, "tokens": n, "where": example[(ours, t)][0], "form": example[(ours, t)][1],
+                                   "kind": "sense letter" if ref_base(t) == ref_base(main) else "different word"}
+                                  for t, n in others]})
+    merges.sort(key=lambda m: (-m["words"], -m["off"]))
+
+    forms_of = defaultdict(list)
+    for form, lid in form2lex.items():
+        forms_of[lid].append(form)
+    splits, split_kinds = [], Counter()
+    for tag, c in split.items():
+        if len(c) < 2:
+            continue
+        main, kept = c.most_common(1)[0]
+        ours = []
+        for lid, n in c.most_common():
+            why = "" if lid == main else why_split(lexeme[main][0], lexeme[lid][0], forms_of[lid])
+            split_kinds[why] += n if why else 0
+            ours.append({"lexeme": lid, "head": lexeme[lid][0], "tokens": n, "why": why,
+                         "where": example[(lid, tag)][0], "form": example[(lid, tag)][1]})
+        splits.append({"tag": tag, "off": sum(c.values()) - kept, "ours": ours})
+    splits.sort(key=lambda m: -m["off"])
+    merge_kinds = Counter()
+    for mg in merges:
+        merge_kinds["different words"] += mg["words"]
+        merge_kinds["the reference's finer sense letter"] += mg["senses"]
+
+    homographs = sorted(({"form": w, "tokens": sum(c.values()), "off": sum(c.values()) - c.most_common(1)[0][1],
+                          "tags": c.most_common()} for w, c in homograph_forms.items()), key=lambda h: -h["off"])
+
     lines = ["# Our lexeme inventory against the reference tagging", "",
-             f"- tokens compared: {total}",
-             f"- tokens whose lexeme maps to that lexeme's most common reference tag: {agree} ({100 * agree / max(1, total):.1f}%)",
-             f"- our lexemes: {len(pairs)}", "",
-             "A lexeme that always lands on the same reference tag is a clean split; the figure is a",
-             "measure, not a target. The reference tagging is STEPBible's (CC BY 4.0) and is used here",
-             "only to score our own inventory; none of it is copied into it.", ""]
-    (ROOT / "logs" / "lexeme_report.md").write_text("\n".join(lines), encoding="utf-8")
-    print("\n".join(lines[:5]))
+             f"Written {time.strftime('%Y-%m-%d %H:%M')} by `build_lexemes.py --score`. The reference tagging is",
+             "STEPBible's (CC BY 4.0) and is used here only to read our inventory against; none of it is",
+             "copied into it. Agreement is partly memory (docs/from-the-text.md, point 3); the lists below",
+             "are the half worth reading.", "",
+             "## The figures", "",
+             f"- words compared: {total:,} ({unpaired:,} more have a reference tag but no answer of ours)",
+             f"- our lexemes: {len(pairs):,}; reference words they meet: {len(split):,}",
+             f"- words whose lexeme lands on its usual reference word: {agree:,} ({pct(agree)})",
+             f"- the same, ignoring the letter STEPBible adds to split one Strong's number: {agree_base:,} ({pct(agree_base)})",
+             f"- the best an inventory with one answer per spelling could reach: {ceiling:,} ({pct(ceiling)}). "
+             f"{len(homograph_forms):,} spellings stand for more than one word in the reference, "
+             f"and {total - ceiling:,} words ({pct(total - ceiling)}) are lost to that before the model answers anything.",
+             "",
+             "Where the rest of the disagreement lies, in words of the text:", "",
+             *(f"- merged, {k}: {n:,} ({pct(n)})" for k, n in merge_kinds.most_common()),
+             *(f"- split, {k}: {n:,} ({pct(n)})" for k, n in split_kinds.most_common()),
+             "",
+             "Merges and homographs overlap: a spelling that is two words in the reference, answered once,",
+             "puts both into one of our lexemes, so it is counted in both lists.", ""]
+
+    lines += ["## Splits: one reference word, several of ours", "",
+              "Commonest first; the first of our lexemes is the one most of the word went to, and each",
+              "other says why it stands apart. A prefix, an ending or a spelling from the text given as the",
+              "headword is a fault the prompt already warns against, and a repair could ask those forms again.", "",
+              "| words off | reference word | our lexemes (words, why apart) | e.g. |", "|---|---|---|---|"]
+    for sp in splits[:60]:
+        ours = "; ".join(f"{o['head']} ({o['tokens']}" + (f", {o['why']})" if o["why"] else ")")
+                         for o in sp["ours"][:5])
+        eg = sp["ours"][1]
+        lines.append(f"| {sp['off']} | {ref_word(sp['tag'])} | {ours} | {eg['form']} {eg['where']} |")
+
+    lines += ["", "## Merges: one of ours, several reference words", "",
+              "Sorted by the words that belong to a different reference word, the half to read; a sense",
+              "letter is STEPBible cutting one Strong's number more finely than a dictionary does.", "",
+              "| different words | sense letters | our lexeme | reference words also in it (words) | e.g. |",
+              "|---|---|---|---|---|"]
+    for mg in merges[:60]:
+        diff = [o for o in mg["others"] if o["kind"] == "different word"] or mg["others"]
+        others = "; ".join(f"{ref_word(o['tag'])} ({o['tokens']})" for o in diff[:4])
+        eg = diff[0]
+        lines.append(f"| {mg['words']} | {mg['senses']} | {our_word(mg['ours'])} | {others} | {eg['form']} {eg['where']} |")
+
+    lines += ["", "## Homographs: one spelling, more than one word", "",
+              "The reference tags each occurrence; we answer once per spelling, so these are lost whatever",
+              "the model knows. The parse (step 2) works word by word in its verse and can recover them.", "",
+              "| words off | spelling | reference words (words) |", "|---|---|---|"]
+    for h in homographs[:40]:
+        tags = "; ".join(f"{ref_word(t)} ({n})" for t, n in h["tags"][:4])
+        lines.append(f"| {h['off']} | {h['form']} | {tags} |")
+
+    (ROOT / "logs" / "lexeme_report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    (ROOT / "logs" / "lexeme_disagreements.json").write_text(json.dumps(
+        {"total": total, "agree": agree, "agree_base": agree_base, "ceiling": ceiling,
+         "splits": splits, "merges": merges, "homographs": homographs}, ensure_ascii=False, indent=0), encoding="utf-8")
+    print("\n".join(lines[8:24]))
+    print(f"\nwritten to logs/lexeme_report.md and logs/lexeme_disagreements.json")
 
 
 def main():

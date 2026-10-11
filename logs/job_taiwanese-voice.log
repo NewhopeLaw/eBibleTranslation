@@ -1,0 +1,55 @@
+Trainable Parameters: 4.481M
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\df\io.py:9: UserWarning: `torchaudio.backend.common.AudioMetaData` has been moved to `torchaudio.AudioMetaData`. Please update the import path.
+  from torchaudio.backend.common import AudioMetaData
+Matthew 19: 30 verses, 287s of audio in 554s
+Matthew 20: 34 verses, 305s of audio in 233s
+Matthew 21: 46 verses, 466s of audio in 368s, no reading for 棵
+Matthew 22: 46 verses, 348s of audio in 278s
+Matthew 23: 38 verses, 334s of audio in 266s
+Matthew 24: 51 verses, 408s of audio in 322s
+Matthew 25: 46 verses, 407s of audio in 319s
+Matthew 26: 75 verses, 647s of audio in 517s
+Matthew 27: 66 verses, 568s of audio in 432s, no reading for 嚐
+Matthew 28: 20 verses, 178s of audio in 151s
+Mark 1: 45 verses, 363s of audio in 289s
+Mark 2: 28 verses, 279s of audio in 251s
+Mark 3: 35 verses, 287s of audio in 455s
+Mark 4: 41 verses, 338s of audio in 529s
+Mark 5: 43 verses, 366s of audio in 567s
+Mark 6: 56 verses, 511s of audio in 804s
+Mark 7: 36 verses, 323s of audio in 503s
+Mark 8: 38 verses, 337s of audio in 525s
+Mark 9: 48 verses, 460s of audio in 703s, no reading for 嚐
+Mark 10: 52 verses, 445s of audio in 715s
+Mark 11: 32 verses, 315s of audio in 511s, no reading for 棵
+Mark 12: 44 verses, 431s of audio in 647s
+Mark 13: 37 verses, 318s of audio in 503s
+Mark 14: 72 verses, 626s of audio in 1020s
+Mark 15: 46 verses, 377s of audio in 597s
+Mark 16: 20 verses, 175s of audio in 275s
+Luke 1: 80 verses, 620s of audio in 977s
+Luke 2: 52 verses, 432s of audio in 695s
+Luke 3: 38 verses, 417s of audio in 707s
+Luke 4: 44 verses, 375s of audio in 412s
+Luke 5: 39 verses, 370s of audio in 497s
+Luke 6: 49 verses, 482s of audio in 888s
+Luke 7: 50 verses, 477s of audio in 856s
+Luke 8: 56 verses, 573s of audio in 935s
+Luke 9: 62 verses, 567s of audio in 998s
+Luke 10: 42 verses, 401s of audio in 696s
+Luke 11: 54 verses, 546s of audio in 968s
+Luke 12: 59 verses, 538s of audio in 921s
+Luke 13: 35 verses, 337s of audio in 555s, no reading for 棵
+Luke 14: 35 verses, 311s of audio in 549s
+Luke 15: 32 verses, 284s of audio in 482s
+Luke 16: 31 verses, 318s of audio in 497s, no reading for 舔
+Luke 17: 36 verses, 289s of audio in 466s, no reading for 棵
+Luke 18: 43 verses, 370s of audio in 609s
+Luke 19: 48 verses, 390s of audio in 677s, no reading for 棵
+Luke 20: 47 verses, 397s of audio in 731s
+Luke 21: 38 verses, 315s of audio in 628s
+Luke 22: 71 verses, 543s of audio in 960s
+Luke 23: 55 verses, 446s of audio in 727s
+Trainable Parameters: 4.481M
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\df\io.py:9: UserWarning: `torchaudio.backend.common.AudioMetaData` has been moved to `torchaudio.AudioMetaData`. Please update the import path.
+  from torchaudio.backend.common import AudioMetaData

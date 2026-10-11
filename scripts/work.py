@@ -53,6 +53,17 @@ def lexeme_total(min_count=2):
 # hand, nor a thousand-chapter language nobody asked it for. `--only <name>`
 # runs one.
 TTS_JOBS = ("hakka-text", "hakka-voice", "taiwanese-text", "taiwanese-voice", "karen-voice")
+
+
+def held(name):
+    """A job the queue lists but does not run until the work it rests on is done.
+
+    The lexicon's translations: the entries they translate were written on the
+    reference lexeme set, and step 4 of docs/from-the-text.md rewrites every
+    entry once our own lexemes replace it. Thirteen languages at some 10,700
+    calls each would be spent on entries that are about to change. `--only`
+    still runs one by hand."""
+    return name.startswith("lexicon-")
 KAREN_RUNS = ROOT / "models" / "mms" / "karen-runs"
 KAREN_TRAIN = ROOT / "NGAW KAREN TTS" / "train_mms.py"
 
@@ -182,7 +193,7 @@ def jobs():
         out.append(("karen-voice", *karen))
     out.append(("rebuild", "rebuild every layer and the reader page", 0, 1,
                 [sys.executable, str(S / "build_all.py")]))
-    total_left = sum(max(0, t - d) for name, _, d, t, _ in out if t and name not in TTS_JOBS)
+    total_left = sum(max(0, t - d) for name, _, d, t, _ in out if t and name not in TTS_JOBS and not held(name))
     out.append(("queue", "every unfinished job, one after another",
                 0 if total_left else 1, 1 if total_left else 1,
                 [sys.executable, str(S / "work.py")]))
@@ -208,12 +219,13 @@ def main():
         want = {x.strip() for x in a.only.split(",")}
         todo = [j for j in todo if j[0] in want]
     elif not a.list:
-        todo = [j for j in todo if j[0] not in TTS_JOBS]
+        todo = [j for j in todo if j[0] not in TTS_JOBS and not held(j[0])]
     if a.list:
         print(f"{'job':<16}{'done':>8}{'of':>9}   what it does")
         for name, what, done, total, _ in todo:
             left = max(0, total - done)
-            print(f"{name:<16}{done:>8}{total:>9}   {what}" + ("" if left else "   [complete]"))
+            print(f"{name:<16}{done:>8}{total:>9}   {what}" + ("   [complete]" if not left else
+                                                               "   [held until step 4]" if held(name) else ""))
         return
     t0 = time.time()
     for name, what, done, total, cmd in todo:

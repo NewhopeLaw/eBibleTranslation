@@ -102,7 +102,7 @@
   "unit": "dictionary words",
   "note": "our own lexeme inventory",
   "script": "build_lexemes.py",
-  "built": 1790446459.1017675
+  "built": 1791049488.3736098
  },
  "fields": {
   "count": 16940,
