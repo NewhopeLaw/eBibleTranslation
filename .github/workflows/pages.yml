@@ -1,0 +1,61 @@
+# The reader on GitHub Pages.
+#
+# site/index.html and the search indexes are not in git - the page passed
+# GitHub's 50 MB file limit - so they are built here from what is: the
+# translations under output/ and the study layers under site/morph/. Nothing
+# the model writes is made on this runner; it only puts together what the PC
+# has already pushed. --complete-only keeps out a language whose chapters are
+# still hollow, as it does for the APK.
+name: Reader on Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "output/**"
+      - "site/**"
+      - "targets/**"
+      - "scripts/build_site.py"
+      - "scripts/build_index.py"
+      - "scripts/books.py"
+      - "scripts/readaloud.py"
+      - "scripts/manifest.py"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# A newer push replaces a build still running; a deploy already under way is
+# let finish, so the site is never left half-published.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build the reader
+        run: |
+          python scripts/build_site.py --complete-only
+          python scripts/build_index.py
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
