@@ -20,6 +20,8 @@ on:
       - "scripts/books.py"
       - "scripts/readaloud.py"
       - "scripts/manifest.py"
+      - "scripts/build_apk.py"
+      - "android/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -42,10 +44,46 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      # The search indexes come first: the APK carries them, and the page
+      # checks they are not older than the text.
+      - name: Build the search indexes
+        run: python scripts/build_index.py
+
+      # The reader APK, made from the same commit as the page, so the copy a
+      # visitor downloads is the text they were just reading. It is signed
+      # with the PC's debug key, kept as a secret: a phone only lets an APK
+      # replace one signed with the same key, and a fresh key on every run
+      # would make each new copy refuse to install over the last. Without the
+      # secret, or if the build fails, the site still goes up, without the
+      # download.
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.13"
+      - name: Build the reader APK
+        continue-on-error: true
+        env:
+          DEBUG_KEYSTORE: ${{ secrets.ANDROID_DEBUG_KEYSTORE }}
+        run: |
+          if [ -z "$DEBUG_KEYSTORE" ]; then
+            echo "::warning::no ANDROID_DEBUG_KEYSTORE secret, so the site goes up without the APK"
+            exit 0
+          fi
+          mkdir -p ~/.android
+          echo "$DEBUG_KEYSTORE" | base64 -d > ~/.android/debug.keystore
+          python scripts/build_apk.py
+          cp dist/eBible-reader-*-debug.apk site/eBible-reader.apk
+
       - name: Build the reader
         run: |
-          python scripts/build_site.py --complete-only
-          python scripts/build_index.py
+          if [ -f site/eBible-reader.apk ]; then
+            python scripts/build_site.py --complete-only --apk eBible-reader.apk
+          else
+            python scripts/build_site.py --complete-only
+          fi
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
