@@ -3464,10 +3464,21 @@ document.addEventListener("keydown", e => {
 });
 
 /* ---------- routing ---------- */
+/* An address with no chapter in it - the app starting, a bookmark of the bare
+   page - goes back to the chapter last read rather than to the first book.
+   The app loads the page that way every time it opens, so without this a
+   reader was put back at Genesis 1 on every open. A place this copy does not
+   have (a book left out of a smaller build) is passed over. */
+function lastPlace(){
+  const [b, c] = (localStorage.getItem("place") || "").split("/");
+  return DATA[b] && DATA[b][c] ? `${b}/${c}` : null;
+}
 function route() {
   const h = decodeURIComponent(location.hash.slice(1));
-  if (!h) { const b = booksWith(tl)[0] || srcBooks[0]; if (b) location.hash = `#${b}/1`; return; }
+  if (!h) { const last = lastPlace(), b = booksWith(tl)[0] || srcBooks[0];
+            if (last || b) location.hash = last ? `#${last}` : `#${b}/1`; return; }
   const [book, ch, v] = h.split("/");
+  if (DATA[book] && DATA[book][ch]) localStorage.setItem("place", `${book}/${ch}`);
   $("#q").value = "";
   const p = readPlace();
   trailPush(p.key, p.run);
