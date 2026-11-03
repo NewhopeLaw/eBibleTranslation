@@ -2,7 +2,7 @@
 """A Taiwanese voice small enough for a phone, taught by the big one.
 
     python scripts/taiwanese_student.py cut      # the recordings cut into the pieces the teacher read -> data/
-    python scripts/taiwanese_student.py train --hours 3 [--duty 0.5]
+    python scripts/taiwanese_student.py train --resume newest [--minutes 360] [--duty 0.5]   (the dashboard's job)
     python scripts/taiwanese_student.py say John 1 1-5     # the student reads -> samples/
     python scripts/taiwanese_student.py check [--only John_01]   # every verse against its recording, worst first
     python scripts/taiwanese_student.py export   # ONNX, as a phone would run it, and its speed on this CPU
@@ -54,7 +54,8 @@ VERSE_GAP = 0.9        # seconds: a verse gap is 0.7 s plus the 0.25-0.45 s afte
 PIECE_GAP = 0.2        # seconds: the shortest pause the teacher leaves between pieces is 0.25 s
 PAD = 0.05             # seconds of the pause kept either side of a cut piece
 LONGEST = 15.0         # seconds: a verse that cannot be cut into its pieces is kept whole up to this long
-RATE = (2.3, 5.5)      # syllables a second a lesson must fall within (see cut)
+TRIAL_MINUTES = 360    # a night at full speed: about 70,000 steps, where VITS on one clean voice reads well
+RATE = (2.3, 5.5)     # syllables a second a lesson must fall within (see cut)
 HELD_OUT = {("John", 1)}   # a trial never trains on John 1, the usual ear test (cut --all keeps it in)
 INITIALS = ["tsʰ", "kʰ", "pʰ", "tʰ", "ts", "dz", "p", "b", "m", "t", "n", "l", "k", "g", "ŋ", "h", "s", "ʔ"]
 SYLLABLE = re.compile(r"^(" + "|".join(INITIALS) + r")?(.*?)(\d+)$")
@@ -300,7 +301,8 @@ def config(root, run_name="run"):
         datasets=[BaseDatasetConfig(formatter="ljspeech", meta_file_train="metadata.csv", path=str(h / "data"))],
         batch_size=32, eval_batch_size=8, num_loader_workers=4, num_eval_loader_workers=2,
         min_audio_len=int(0.5 * SR), max_audio_len=int(LONGEST * SR) + SR, max_text_len=600,
-        mixed_precision=True, epochs=1000, print_step=100, plot_step=500, save_step=2000, save_n_checkpoints=3,
+        # a checkpoint every 1,000 steps, about five minutes at full speed: what a kill can cost
+        mixed_precision=True, epochs=100000, print_step=100, plot_step=500, save_step=1000, save_n_checkpoints=3,
         save_best_after=2000, run_eval=True, test_delay_epochs=-1, print_eval=False,
         test_sentences=[[vocab.text(ps[0][0])] for _, ps in john[:2]],
     )
@@ -318,18 +320,106 @@ def formatter(vocab):
     return read
 
 
-def student_class(duty, deadline, stop_file):
-    """Coqui's VITS, made to rest between steps when it shares the GPU: `duty` is the share of the time it computes
-    (1 = never rests). The overnight recording job runs Tacotron2 and WaveRNN a step at a time, and a training run at
-    full tilt would hold the GPU in front of it. Past the deadline, or when stop_file appears, it stops the way
-    Ctrl+C does, which Coqui's trainer answers by saving a checkpoint."""
+class Progress:
+    """progress.json in the run folder, for the dashboard, in VoiceLab's shape: state, heartbeat, minutes trained
+    over every run, the target, the training mel loss (points) and the checking set's (scores), lower better.
+
+    The dashboard stops a run by killing it, so the minutes that count are those the newest checkpoint holds:
+    each time a new checkpoint appears its minutes are noted, and a run that starts again starts from them, with
+    the points after them dropped."""
+    EVERY = 120        # seconds between writes
+    KEEP = 300         # points kept; beyond that every other one is dropped
+
+    def __init__(self, run, target):
+        self.path = Path(run) / "progress.json"
+        try:
+            old = json.loads(self.path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            old = {}
+        base = old.get("checkpoint_minutes", 0.0)
+        self.p = {"state": "training", "heartbeat": time.time(), "minutes": base, "target_minutes": target,
+                  "points": [x for x in old.get("points", []) if x[0] <= base],
+                  "scores": [x for x in old.get("scores", []) if x[0] <= base],
+                  "best": None, "checkpoint_minutes": base, "checkpoint": old.get("checkpoint")}
+        scores = [s for _, s in self.p["scores"]]
+        self.p["best"] = min(scores) if scores else None
+        self.base, self.t0, self.last = base, time.time(), 0.0
+
+    def minutes(self):
+        return self.base + (time.time() - self.t0) / 60
+
+    def note_checkpoint(self):
+        ck = newest_checkpoint(self.path.parent)
+        if ck and ck.name != self.p.get("checkpoint") and ck.stat().st_mtime >= self.t0:
+            at = self.base + (ck.stat().st_mtime - self.t0) / 60      # its minutes when it was written
+            self.p["checkpoint"], self.p["checkpoint_minutes"] = ck.name, round(at, 2)
+
+    def point(self, key, value):
+        rows = self.p[key]
+        rows.append([round(self.minutes(), 2), round(float(value), 4)])
+        if len(rows) > self.KEEP:
+            rows[:] = rows[:1] + rows[1:-1:2] + rows[-1:]
+        if key == "scores":
+            self.p["best"] = min(s for _, s in rows)
+
+    def write(self, state="training", force=False):
+        if not force and time.time() - self.last < self.EVERY:
+            return
+        self.note_checkpoint()
+        self.p.update(state=state, heartbeat=time.time(), minutes=round(self.minutes(), 2))
+        tmp = self.path.with_suffix(".tmp")
+        tmp.write_text(json.dumps(self.p), encoding="utf-8")
+        for _ in range(20):            # Windows refuses the swap while the dashboard has the file open
+            try:
+                os.replace(tmp, self.path)
+                break
+            except PermissionError:
+                time.sleep(0.1)
+        self.last = time.time()
+
+
+def newest_checkpoint(run):
+    return max(Path(run).glob("checkpoint_*.pth"), key=lambda p: int(re.findall(r"\d+", p.stem)[-1]), default=None)
+
+
+def sound_checkpoint(run):
+    """The run's newest checkpoint, if it loads. One cut short by a kill while it was being written is set aside
+    (renamed .broken) and the one before it tried, so a run killed at any moment can carry on."""
+    import torch
+    while (ck := newest_checkpoint(run)) is not None:
+        try:
+            torch.load(ck, map_location="cpu", weights_only=False)
+            return ck
+        except Exception as e:                     # noqa: BLE001
+            print(f"{ck.name} does not load ({type(e).__name__}); set aside")
+            ck.rename(ck.with_suffix(".pth.broken"))
+    return None
+
+
+def student_class(duty, progress, stop_file):
+    """Coqui's VITS with what the dashboard needs. It rests between steps when it shares the GPU (`duty` is the
+    share of the time it computes, 1 = never rests: the recording job runs Tacotron2 and WaveRNN a step at a time,
+    and a run at full tilt would hold the GPU in front of it); it writes progress.json; and it stops, saving a
+    checkpoint first, once the run's minutes reach the target or stop_file appears.
+
+    Coqui's trainer answers Ctrl+C by exiting with 130 whatever happens, so a run that has done what it was asked
+    leaves by os._exit(0) instead, once its checkpoint and progress are written: the dashboard restarts a job that
+    exits with anything else."""
     from TTS.tts.models.vits import Vits
 
     class Student(Vits):
         def on_train_step_start(self, trainer):
-            if time.time() > deadline or stop_file.exists():
+            done = progress.minutes() >= progress.p["target_minutes"]
+            if done or stop_file.exists():
                 stop_file.unlink(missing_ok=True)
-                raise KeyboardInterrupt
+                trainer.save_checkpoint()
+                progress.write("finished" if done else "stopped", force=True)
+                print(f"{'finished' if done else 'stopped'} at {progress.minutes():.0f} min", flush=True)
+                # the data loader's workers would outlive an os._exit, waiting for a parent that is gone
+                import multiprocessing
+                for child in multiprocessing.active_children():
+                    child.kill()
+                os._exit(0)
             now = time.time()
             last = getattr(self, "_rest_mark", None)
             if last is not None and duty < 1:
@@ -338,10 +428,32 @@ def student_class(duty, deadline, stop_file):
             parent = getattr(super(), "on_train_step_start", None)
             if parent:
                 parent(trainer)
+
+        def on_train_step_end(self, trainer):
+            # the epoch's running mean of the mel loss, which the trainer has just brought up to date
+            avg = trainer.keep_avg_train.avg_values if trainer.keep_avg_train else {}
+            if "avg_loss_mel" in avg and time.time() - progress.last >= progress.EVERY:
+                progress.point("points", avg["avg_loss_mel"])
+            progress.write()
+            parent = getattr(super(), "on_train_step_end", None)
+            if parent:
+                parent(trainer)
+
+        def on_epoch_end(self, trainer):
+            avg = trainer.keep_avg_eval.avg_values if trainer.keep_avg_eval else {}
+            if "avg_loss_mel" in avg:
+                progress.point("scores", avg["avg_loss_mel"])
+                progress.write(force=True)
+            parent = getattr(super(), "on_epoch_end", None)
+            if parent:
+                parent(trainer)
     return Student
 
 
-def train(root, hours, duty, resume=None):
+def train(root, minutes, duty, resume=None):
+    """Train until the run has `minutes` in all. resume: a run folder to carry on, or "newest" for the newest run
+    folder with a checkpoint that loads (a first run if there is none) - the command the dashboard runs again
+    after a crash or a kill. A run already at its target exits at once."""
     import torch
     from trainer import Trainer, TrainerArgs
     from TTS.tts.datasets import load_tts_samples
@@ -350,19 +462,49 @@ def train(root, hours, duty, resume=None):
     torch.backends.cuda.matmul.allow_tf32 = True
     torch.backends.cudnn.allow_tf32 = True
     h = home(root)
+    if resume == "newest":
+        runs = sorted(h.glob("run-*"), key=lambda p: p.stat().st_mtime, reverse=True)
+        resume = next((r for r in runs if sound_checkpoint(r)), None)
+    elif resume:
+        resume = Path(resume) if sound_checkpoint(resume) else None
+    if resume:
+        progress = Progress(resume, minutes)
+        if progress.minutes() >= minutes:
+            progress.write("finished", force=True)
+            print(f"{resume.name} has trained {progress.minutes():.0f} of {minutes:g} min: nothing to do")
+            return
     cfg = config(root)
+    # on the CPU, mixed precision means bfloat16, which Coqui's plots cannot draw (a test run only)
+    cfg.mixed_precision = torch.cuda.is_available()
     vocab = Vocab.load(h / "data" / "vocab.json")
-    train_rows, eval_rows = load_tts_samples(cfg.datasets, eval_split=True, formatter=formatter(vocab),
-                                             eval_split_max_size=64, eval_split_size=0.005)
+    rows, _ = load_tts_samples(cfg.datasets, eval_split=False, formatter=formatter(vocab))
+    # the same lessons to check against every time the run is started again (Coqui's split is drawn afresh)
+    train_rows, eval_rows = [r for i, r in enumerate(rows) if i % 200], rows[::200]
     ap = AudioProcessor.init_from_config(cfg)
     tok, cfg = TTSTokenizer.init_from_config(cfg)
-    model = student_class(duty, time.time() + hours * 3600, h / "STOP")(cfg, ap, tok, speaker_manager=None)
+    stop = h / "STOP"
+    if not resume:
+        progress = Progress(h / "pending", minutes)       # given its folder once the trainer has made it
+    model = student_class(duty, progress, stop)(cfg, ap, tok, speaker_manager=None)
     weights = sum(p.numel() for n, p in model.named_parameters() if not n.startswith(("posterior_encoder", "disc")))
     print(f"student: {weights / 1e6:.2f} M weights at reading time ({weights * 2 / 1e6:.0f} MB as half floats); "
           f"{len(train_rows)} lessons, {len(eval_rows)} to check against")
-    trainer = Trainer(TrainerArgs(continue_path=resume or ""), cfg, str(h), model=model,
+    trainer = Trainer(TrainerArgs(continue_path=str(resume) if resume else ""), cfg, str(h), model=model,
                       train_samples=train_rows, eval_samples=eval_rows)
-    print(f"stops after {hours:g} h, or when {h / 'STOP'} appears; carry on with --resume {trainer.output_path}")
+    # a checkpoint saved before the first check (a run stopped in its first epoch) holds no best loss, and Coqui,
+    # resuming from it, would compare the next one with None (it reads the best loss as fit begins)
+    restore = trainer._restore_best_loss
+
+    def restore_best_loss():
+        restore()
+        if isinstance(trainer.best_loss, dict):
+            trainer.best_loss = {k: float("inf") if v is None else v for k, v in trainer.best_loss.items()}
+    trainer._restore_best_loss = restore_best_loss
+    progress.path = Path(trainer.output_path) / "progress.json"
+    progress.t0 = time.time()                         # the minutes count training, not loading
+    progress.write(force=True)
+    print(f"{Path(trainer.output_path).name}: from {progress.base:.0f} to {minutes:g} min; stops early when {stop} "
+          f"appears", flush=True)
     trainer.fit()
 
 
@@ -592,17 +734,18 @@ def main():
     ap.add_argument("verses", nargs="?", default="1-5")
     ap.add_argument("--root", default=str(ROOT), help="the checkout whose recordings and phonemes to use")
     ap.add_argument("--all", action="store_true", help="cut: hold nothing back (the voice that ships)")
-    ap.add_argument("--hours",type=float, default=3.0, help="train: stop after this long")
+    ap.add_argument("--minutes", type=float, default=TRIAL_MINUTES,
+                    help=f"train: minutes the run should have in all, over every restart (default {TRIAL_MINUTES})")
     ap.add_argument("--duty", type=float, default=1.0,
                     help="train: share of the time spent computing (0.5 leaves the GPU idle half the time)")
-    ap.add_argument("--resume", help="train: a run folder to carry on")
+    ap.add_argument("--resume", help="train: a run folder to carry on, or 'newest' (a first run if there is none)")
     ap.add_argument("--run", help="say/check/export: a run folder (default: the newest)")
     ap.add_argument("--only", help="check: chapters whose names start so, comma-separated (John_01,Mark_)")
     a = ap.parse_args()
     if a.cmd == "cut":
         cut(a.root, not a.all)
     elif a.cmd == "train":
-        train(a.root, a.hours, a.duty, a.resume)
+        train(a.root, a.minutes, a.duty, a.resume)
     elif a.cmd == "say":
         say(a.root, a.book, a.chapter, a.verses, a.run)
     elif a.cmd == "check":
