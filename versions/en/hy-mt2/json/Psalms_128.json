@@ -1,0 +1,17 @@
+{
+ "book": "Psalms",
+ "chapter": 128,
+ "lang": "en",
+ "verses": {
+  "1": "The songs of praise are for all those who fear the Lord and walk in His ways.",
+  "2": "Your strength will increase, for you will eat your own flesh. This will be good for you.",
+  "3": "Your wife is like a fruitful vine in your home. Your children are like olives surrounding your table.",
+  "4": "See, thus will the righteous person be blessed, who fears the LORD.",
+  "5": "May the LORD bless you from Zion, and may He see Jerusalem in good health throughout all your days.",
+  "6": "And see, children, that your peace belongs to Israel."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

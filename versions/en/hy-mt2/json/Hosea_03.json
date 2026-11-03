@@ -1,0 +1,16 @@
+{
+ "book": "Hosea",
+ "chapter": 3,
+ "lang": "en",
+ "verses": {
+  "1": "And the LORD said to me, “Go and love a woman as you love your enemy. Love her as the LORD loves his children. But they turn away from God and love those who are evil.”",
+  "2": "And I was given to me fiveteen pieces of silver and six pieces of copper. Also, you were given six pieces of copper.",
+  "3": "And he said to her, “For many days you shall remain with me. You shall not become a wife to any man. And I will also be your husband.”",
+  "4": "For many days, the Israelites will live without a king, without priests, without offerings of worship, without any kind of celebration or joy.",
+  "5": "After that, the children of Israel will sit down and seek Jehovah their God, along with David their king. They will fear Jehovah and His goodness in the days to come."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

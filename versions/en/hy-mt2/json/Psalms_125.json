@@ -1,0 +1,16 @@
+{
+ "book": "Psalms",
+ "chapter": 125,
+ "lang": "en",
+ "verses": {
+  "1": "The songs of those who trust in Jehovah, like Mount Zion, will never be destroyed forever.",
+  "2": "Jerusalem is surrounded by mountains, and Jehovah is also surrounded by His people, from this day forward and forever.",
+  "3": "For the wicked will not rest upon the righteous, so that the righteous may not be thrown into the abyss by their own hands.",
+  "4": "The LORD is good to the good and righteous in their hearts.",
+  "5": "And those who are bent over will be cast down by Jehovah’s hands. He will bring upon Israel the work of destruction."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

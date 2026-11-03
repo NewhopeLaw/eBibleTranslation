@@ -1,0 +1,14 @@
+{
+ "book": "Psalms",
+ "chapter": 131,
+ "lang": "en",
+ "verses": {
+  "1": "The songs of praise for David, the LORD. My heart does not bow down; my eyes do not turn away. I do not go up to his heights and splendor.",
+  "2": "If I do not cry out and my soul trembles like a leaf on the branch of its mother, then my soul will tremble just as it does.",
+  "3": "Israel shall begin to worship Jehovah from now on, forever."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

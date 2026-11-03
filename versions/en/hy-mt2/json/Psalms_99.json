@@ -1,0 +1,20 @@
+{
+ "book": "Psalms",
+ "chapter": 99,
+ "lang": "en",
+ "verses": {
+  "1": "The LORD, the king, will punish those nations who dwell in their own lands. The earth will be filled with destruction.",
+  "2": "YHWH is great and mighty; He rules over all nations.",
+  "3": "May your name be great and holy.",
+  "4": "And you, King of Justice, you love righteousness and fairness. You are the one who creates justice and righteousness in Jacob. You have done so.",
+  "5": "May the Lord our God have mercy on us, and may we humble ourselves before His holy feet.",
+  "6": "Moses and Aaron, along with their priests, and Samuel, when they call out His name, will be answered by Jehovah.",
+  "7": "In the image of clouds, He will speak to them. They shall keep His commandments and laws.",
+  "8": "YHWH, our God, you are the one who will answer them. You will avenge them against their accusers.",
+  "9": "May the Lord our God rejoice, and may they worship His Holy Mountain, for the Lord our God is indeed holy."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

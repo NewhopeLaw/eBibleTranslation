@@ -1,0 +1,20 @@
+{
+ "book": "Psalms",
+ "chapter": 3,
+ "lang": "en",
+ "verses": {
+  "1": "A message for David, as he fled from Abishalom.",
+  "2": "Yehova, how many troubles and difficulties are there that arise against me!",
+  "3": "Many say to my soul, “There is no salvation for him in God.”",
+  "4": "And you, LORD, be my protection and my defense. May you lift up my head.",
+  "5": "My voice cries out to the LORD; He will answer me from His holy place.",
+  "6": "I lay down, and my companion woke up. For the LORD will guide me.",
+  "7": "I do not see any people’s roofs around here.",
+  "8": "May the LORD, my God, come to me and save me, for you have taken away all my enemies. Two wicked people have been destroyed.",
+  "9": "May the Lord, who saves your people, grant you his blessings."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

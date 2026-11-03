@@ -1,0 +1,17 @@
+{
+ "book": "Psalms",
+ "chapter": 23,
+ "lang": "en",
+ "verses": {
+  "1": "A song for David, the Lord’s anointed. I will not fail him at all.",
+  "2": "May the waters of Deša wash away my sins, and may they guide me along the right path.",
+  "3": "My soul will rest in the paths of righteousness, so that His name may be glorified.",
+  "4": "Even if I go into the valley of Tzalmavot, there will be no harm. For you are with me, and your presence is my comfort.",
+  "5": "Be prepared before me, in a table facing the ones who have been cursed. My head is like a basket of raisins.",
+  "6": "But goodness and mercy have pursued me all my days. I have returned to the house of Jehovah, so that I may live for many days."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

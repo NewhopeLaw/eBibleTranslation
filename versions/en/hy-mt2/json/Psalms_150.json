@@ -1,0 +1,17 @@
+{
+ "book": "Psalms",
+ "chapter": 150,
+ "lang": "en",
+ "verses": {
+  "1": "Hallelujah! Hallelujah! Praise Him in His holiness! Praise Him in the heavens!",
+  "2": "Hallelujah in his greatness! Hallelujah, for he is so great!",
+  "3": "Hallelujah in the trumpet’s sound! Hallelujah in the harp and in the lyre.",
+  "4": "Hallelujah in the heights and on the mountains! Hallelujah in the depths and in the heights.",
+  "5": "Hallelujah in the shofar’s sound! Hallelujah in the loud trumpet’s cry!",
+  "6": "All souls shall praise Him. Praise Him, O Lord!"
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

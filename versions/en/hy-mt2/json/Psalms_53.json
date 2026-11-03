@@ -1,0 +1,18 @@
+{
+ "book": "Psalms",
+ "chapter": 53,
+ "lang": "en",
+ "verses": {
+  "1": "For the healing of David’s illness.",
+  "2": "Nabal said in his heart, “There is no God. They have corrupted and destroyed everything. There is no one who does good deeds.”",
+  "3": "God, who looks down from heaven upon human beings, sees that there is someone who is wise and seeks out God.",
+  "4": "They all act together, but no one does anything good. No one even tries to do anything at all.",
+  "5": "They did not know that the people of Awn ate bread as food. They did not call upon God.",
+  "6": "There would be no fear at all. There wouldn’t be any fear because God has opened up His treasures to us. God is merciful.",
+  "7": "Who will give Israel hope again, when God brings them back from their captivity? Jacob will be rejoiced, and Israel will be happy."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

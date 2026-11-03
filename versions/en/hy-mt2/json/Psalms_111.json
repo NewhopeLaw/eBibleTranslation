@@ -1,0 +1,21 @@
+{
+ "book": "Psalms",
+ "chapter": 111,
+ "lang": "en",
+ "verses": {
+  "1": "Hallelujah! Praise the LORD with all your heart, in truth and righteousness.",
+  "2": "The works of Jehovah are great; they fulfill all their desires.",
+  "3": "Hod and Hador acted, and their righteousness will always stand.",
+  "4": "He made for his people a place of refuge and mercy from the Lord.",
+  "5": "Teref gave his followers a promise that they would remember his covenant forever.",
+  "6": "His actions told his people that they should give them a share of the land.",
+  "7": "His actions are true, and his judgments are just. All of his decrees are indeed righteous.",
+  "8": "They are truly eternal, made from genuine and pure materials.",
+  "9": "He sent forth a command to his people, a covenant that is holy and eternal.",
+  "10": "The beginning of wisdom is the fear of Jehovah. Good intelligence is necessary for all their actions; its teachings will always remain true."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

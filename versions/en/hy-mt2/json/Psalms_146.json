@@ -1,0 +1,21 @@
+{
+ "book": "Psalms",
+ "chapter": 146,
+ "lang": "en",
+ "verses": {
+  "1": "Hallelujah! Praise the LORD, my soul!",
+  "2": "Praise the LORD in my life; I will praise the LORD with all my heart.",
+  "3": "Do not trust the generous man in Adam, who has no help at all.",
+  "4": "His soul will return to its land on that day, when his ancestors are destroyed.",
+  "5": "May Yaakov be able to break free from his bondage to Jehovah, his God.",
+  "6": "He makes the heavens and the earth; He rules over the sea and over all that is in them. He keeps them forever.",
+  "7": "He makes judgments for the poor; he gives bread to the hungry. Jehovah forgives those who are guilty of sin.",
+  "8": "YHWH will open up the heavens. YHWH will lift up those who are righteous. YHWH loves the righteous.",
+  "9": "YHWH will protect the widows and orphans. He will also destroy the paths of the wicked.",
+  "10": "May the LORD reign forever, your God. May Zion and Jerusalem be blessed forever."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

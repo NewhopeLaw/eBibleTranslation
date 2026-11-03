@@ -1,0 +1,20 @@
+{
+ "book": "Psalms",
+ "chapter": 137,
+ "lang": "en",
+ "verses": {
+  "1": "Upon the rivers of Babylon, there we shall sit and remember Zion.",
+  "2": "On the rocks within it, we hung our water containers.",
+  "3": "For there, our songs are once again words of joy; our praises are songs that bring us happiness from the singing of Zion.",
+  "4": "How shall we sing the LORD’s song on the land of Nebuchadnezzar?",
+  "5": "If I forget about Jerusalem, then my right hand will also forget.",
+  "6": "I will wait for the right time. If you don’t remember me, or if I don’t take Jerusalem back from those who are against it, then I won’t do anything.",
+  "7": "Remember the day when Jehovah remembered the children of Adam. It was the day of Jerusalem, when people cried out in joy until the end.",
+  "8": "The daughter of Babylon, the murderer, you shall be punished for the shameful things you have done. You have made us shameful.",
+  "9": "May he hold it and break your idols into pieces."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

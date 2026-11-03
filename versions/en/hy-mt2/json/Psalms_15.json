@@ -1,0 +1,16 @@
+{
+ "book": "Psalms",
+ "chapter": 15,
+ "lang": "en",
+ "verses": {
+  "1": "A word from Jehovah to David: Who will dwell in your tent? Who will rest on your holy mountain?",
+  "2": "He walks in purity, acts justly, and speaks truthfully.",
+  "3": "He did not do any harm to his enemy. He did not cause any suffering or humiliation to his opponent.",
+  "4": "His eyes are filled with sorrow; he will not honor the sight of Jehovah. He will slander and speak evil of others.",
+  "5": "He did not give them any reward; he only caused harm to those who were innocent. Such people will never be rewarded in this world."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

@@ -1,0 +1,29 @@
+{
+ "book": "Ecclesiastes",
+ "chapter": 1,
+ "lang": "en",
+ "verses": {
+  "1": "The words of King David of Jerusalem.",
+  "2": "“Waste, waste!” said the voice that spoke. “All is waste.”",
+  "3": "What is gained by a person from all his efforts under the sun?",
+  "4": "The days go by, and the land remains standing forever.",
+  "5": "And the sun rose, and it came into its place. That’s where it was.",
+  "6": "It goes towards Darom, and turns towards Tzafon. It keeps turning around. The wind also moves around its surroundings. The wind returns to its original place.",
+  "7": "All the rivers flow towards the sea. And the sea isn’t able to hold them in place; they simply flow back again when they reach their destination.",
+  "8": "All these things are too difficult to understand. No one can speak about them; no one can even see them clearly. Nor can anyone fill their ears with sound.",
+  "9": "What would happen, and what would be done? There’s nothing new under the sun.",
+  "10": "There’s something that can be said: “Look, this is new. It’s something that has existed since ancient times, long before we came into existence.”",
+  "11": "There is no memory of the former ones, nor of those who will come after them. They will not have any memory of them either.",
+  "12": "I was king over Israel in Jerusalem.",
+  "13": "And I committed my heart to wisdom, so that it might serve as a source of comfort in all that happens under heaven. It’s a difficult problem that God has given to human beings, as a source of suffering.",
+  "14": "I saw all the things that were done under the sunlight. And I saw that everything was darkness and evil.",
+  "15": "Its defects cannot be repaired, and its lack of perfection cannot be corrected.",
+  "16": "I have spoken from my heart, saying, “I have grown in wisdom and knowledge over all that has happened before me in Jerusalem. My heart has seen much wisdom and knowledge.”",
+  "17": "And I decided to learn wisdom and knowledge of the divine. I realized that all of this is also a form of spiritual enlightenment.",
+  "18": "For in much wisdom there is much sorrow; and he who adds too much knowledge, will also suffer."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

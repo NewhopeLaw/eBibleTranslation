@@ -1,0 +1,21 @@
+{
+ "book": "Ecclesiastes",
+ "chapter": 11,
+ "lang": "en",
+ "verses": {
+  "1": "Send your blood upon the waters, so that in many days we may be found.",
+  "2": "Give a portion to seven people, and also to Shemoneh. For you won’t know what bad things might happen on the earth.",
+  "3": "If the rivers on the earth become full with water, and if a tree falls in the forest, then that place where the tree fell will be affected as well.",
+  "4": "He who keeps his spirit will not sow; he who sees the wicked will not be bound.",
+  "5": "Since you do not know the way of the wind, just as the eyes are blind in the darkness, you will never know what God will do.",
+  "6": "In the morning, sow your seeds. And in the evening, do not stretch out your hand over them, for you do not know which one will grow well and which one will not. And if both are good, then they are equally suitable.",
+  "7": "And the light is good for the eyes to see the sun.",
+  "8": "For after many years, man will live in all these things. He will be happy and remember the days of darkness, for there will be much darkness everywhere.",
+  "9": "Rejoice in your childhood, and let your heart be filled with joy during those days. Walk according to the ways of your heart and what your eyes see. Know that God will bring you through all these things in His judgment.",
+  "10": "And let anger leave your heart, and let you get rid of all the evil things that are in your words, just as in childhood and youth there was no darkness."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

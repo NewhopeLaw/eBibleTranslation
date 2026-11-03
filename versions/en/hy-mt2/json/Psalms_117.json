@@ -1,0 +1,13 @@
+{
+ "book": "Psalms",
+ "chapter": 117,
+ "lang": "en",
+ "verses": {
+  "1": "Praise the LORD, all nations shall praise Him; all peoples shall give thanks to Him.",
+  "2": "For He has done great things for us, and His truth endures forever. Praise the Lord!"
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

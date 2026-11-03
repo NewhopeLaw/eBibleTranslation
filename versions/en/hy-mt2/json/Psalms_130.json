@@ -1,0 +1,19 @@
+{
+ "book": "Psalms",
+ "chapter": 130,
+ "lang": "en",
+ "verses": {
+  "1": "The songs that rise from the depths, O LORD, you are called upon to hear them.",
+  "2": "O Adonai, may your ears be attentive to my voice. May your ears be ready to hear the sound of my call.",
+  "3": "If they are not kept safe, then who will stand against them?",
+  "4": "Since you have forgiveness, let it be your reward.",
+  "5": "I cried out to the LORD; my soul and my words were filled with sorrow.",
+  "6": "My soul belongs to the Lord; they keep it in the morning, and they continue to keep it throughout the day.",
+  "7": "Israel shall begin to worship Yahweh, for with Yahweh comes grace and many blessings.",
+  "8": "And he will save Israel from all its troubles."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

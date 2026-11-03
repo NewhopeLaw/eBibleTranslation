@@ -1,0 +1,19 @@
+{
+ "book": "Psalms",
+ "chapter": 138,
+ "lang": "en",
+ "verses": {
+  "1": "To David, I sing your praises with all my heart, in the face of God.",
+  "2": "I will bow down before your holy temple, and I will praise your name for your kindness and truth. For you have exalted your name above all others.",
+  "3": "On that day, I cried out to God, and He answered me with a terrible response. My heart was filled with sorrow.",
+  "4": "May the LORD be praised, O all the kings of the earth! For they have heard Your words.",
+  "5": "And they will serve in the ways of Jehovah, for Jehovah’s glory is great.",
+  "6": "For Jehovah is exalted and humble at the same time; He is far away, yet His power is known.",
+  "7": "If I am in distress, may your right hand save me from my enemies. May your hand rescue me from all my troubles.",
+  "8": "May the LORD finish what He has begun. May Your kindness last forever, O Lord. May Your works be done forever."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

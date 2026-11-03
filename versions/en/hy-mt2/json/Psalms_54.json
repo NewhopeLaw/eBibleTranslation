@@ -1,0 +1,20 @@
+{
+ "book": "Psalms",
+ "chapter": 54,
+ "lang": "en",
+ "verses": {
+  "1": "To be destroyed by the skillful music of David.",
+  "2": "When the enemies came, they said to Shaul, “David is with us now.”",
+  "3": "May God, in your name, save me, and may you judge me with your authority.",
+  "4": "God has heard my prayers. He listens to what I say.",
+  "5": "For strangers have risen against me, and they demand my soul. But God has not placed any resistance against them.",
+  "6": "Look, God has helped me, my Lord, through the trials of my soul.",
+  "7": "The wicked will be put back in their proper places, in your true nature.",
+  "8": "In thanksgiving, I offer you my worship; may your name be glorified, O LORD. For it is good.",
+  "9": "For from all dangers he saved me; in all difficulties, my eyes saw."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

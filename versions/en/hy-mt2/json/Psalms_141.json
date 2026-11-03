@@ -1,0 +1,21 @@
+{
+ "book": "Psalms",
+ "chapter": 141,
+ "lang": "en",
+ "verses": {
+  "1": "A song for David, Jehovah. You have called me; I hear your voice as I call out to you.",
+  "2": "My prayers are humble before you; I offer my hands as an offering.",
+  "3": "The LORD has established a guard over my lips, according to his covenant.",
+  "4": "Do not allow my heart to dwell on evil things. Do not dwell upon the insults and slander against those who are good people. Do not be hostile towards them in their moments of weakness.",
+  "5": "May the righteous and the merciful help me. May they protect me from those who are evil. For my prayers are still being heard in their midst.",
+  "6": "They were judged by the stones of judgment, and they heard my words, for they were righteous.",
+  "7": "Just like birds and insects that scatter across the earth, our souls also scatter in various directions.",
+  "8": "For Jehovah our God, my eyes are filled with tears. I fear that my soul will be destroyed.",
+  "9": "They protected me from the difficulties that came my way, and from the hardships that faced me.",
+  "10": "The wicked will fall together in their sins. I will not go away until they are destroyed."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

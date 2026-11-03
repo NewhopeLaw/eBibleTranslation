@@ -1,0 +1,19 @@
+{
+ "book": "Psalms",
+ "chapter": 114,
+ "lang": "en",
+ "verses": {
+  "1": "When Israel left Egypt, the house of Jacob was separated from the people of Lot.",
+  "2": "Judea was the sacred land of Israel, ruled by its rulers.",
+  "3": "The sea saw that the Jordan River would be divided into two parts.",
+  "4": "The mountains danced like wild oxen, like columns of stone.",
+  "5": "What is the sea doing? The Jordan River has turned into a river of blood.",
+  "6": "The mountains danced like wild oxen, like the buildings of a city.",
+  "7": "Before Adonai Huli, before the Lord Jacob.",
+  "8": "The turning of the shape into a sea-like appearance is like a dreamy vision of a sea."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

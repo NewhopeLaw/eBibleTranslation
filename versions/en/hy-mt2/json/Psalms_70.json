@@ -1,0 +1,17 @@
+{
+ "book": "Psalms",
+ "chapter": 70,
+ "lang": "en",
+ "verses": {
+  "1": "For the redemption of David’s soul.",
+  "2": "May Jehovah save me! May He be my help.",
+  "3": "They will search and dig, those who seek souls. They will be destroyed, and those who desire evil will be defeated.",
+  "4": "Let them return to their tracks, those words that were spoken by the one who said “Oh!”",
+  "5": "May they be blessed and rejoice in you. May they always say, “May God bless you, my friends who bring salvation to me.”",
+  "6": "I am poor and needy; may God help me. Please, do not leave me alone. You, LORD, do not abandon me."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

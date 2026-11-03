@@ -1,0 +1,19 @@
+{
+ "book": "Psalms",
+ "chapter": 124,
+ "lang": "en",
+ "verses": {
+  "1": "The song of praise to David, who was the servant of the LORD. May it be said by us: “O Israel!”",
+  "2": "May the Lord have mercy on us, so that there would be a man who can rise up against us.",
+  "3": "Then they live in their own nests, with their beaks stuck in their mouths.",
+  "4": "Then, the waters that flooded us became a blessing upon our souls.",
+  "5": "Then, those bitter waters rushed over our souls.",
+  "6": "Blessed is Jehovah, who did not give us over to their hands.",
+  "7": "Our souls, like threads, were pulled out of the depths of sorrow. The pit has been filled, and we have been rescued.",
+  "8": "Help us in the name of Jehovah, who creates heaven and earth."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}
