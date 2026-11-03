@@ -53,3 +53,187 @@ Luke 23: 55 verses, 446s of audio in 727s
 Trainable Parameters: 4.481M
 D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\df\io.py:9: UserWarning: `torchaudio.backend.common.AudioMetaData` has been moved to `torchaudio.AudioMetaData`. Please update the import path.
   from torchaudio.backend.common import AudioMetaData
+Luke 24: 53 verses, 430s of audio in 367s
+John 1: 51 verses, 441s of audio in 375s
+John 2: 25 verses, 210s of audio in 188s, no reading for 嚐
+John 3: 36 verses, 319s of audio in 283s
+John 4: 54 verses, 482s of audio in 413s
+John 5: 46 verses, 404s of audio in 343s
+John 6: 71 verses, 622s of audio in 511s
+John 7: 53 verses, 452s of audio in 354s
+John 8: 59 verses, 533s of audio in 437s
+John 9: 41 verses, 380s of audio in 305s
+John 10: 42 verses, 365s of audio in 284s
+John 11: 57 verses, 487s of audio in 399s
+John 12: 50 verses, 470s of audio in 364s, no reading for 噠
+John 13: 38 verses, 351s of audio in 275s
+John 14: 31 verses, 295s of audio in 238s
+John 15: 27 verses, 238s of audio in 192s
+John 16: 33 verses, 310s of audio in 248s
+John 17: 26 verses, 261s of audio in 210s
+John 18: 40 verses, 381s of audio in 302s
+John 19: 42 verses, 446s of audio in 339s, no reading for 嚐
+John 20: 31 verses, 317s of audio in 254s
+John 21: 25 verses, 295s of audio in 219s
+Acts 1: 26 verses, 272s of audio in 209s
+Acts 2: 47 verses, 408s of audio in 339s
+Acts 3: 26 verses, 254s of audio in 223s
+Acts 4: 37 verses, 341s of audio in 275s
+Acts 5: 42 verses, 403s of audio in 339s
+Acts 6: 15 verses, 148s of audio in 110s
+Acts 7: 60 verses, 588s of audio in 476s
+Acts 8: 39 verses, 356s of audio in 292s
+Acts 9: 43 verses, 401s of audio in 311s
+Acts 10: 48 verses, 465s of audio in 360s
+Acts 11: 30 verses, 260s of audio in 214s
+Acts 12: 25 verses, 262s of audio in 211s
+Acts 13: 52 verses, 499s of audio in 374s
+Acts 14: 28 verses, 257s of audio in 193s
+Acts 15: 40 verses, 365s of audio in 306s
+Acts 16: 40 verses, 375s of audio in 279s
+Acts 17: 34 verses, 350s of audio in 299s
+Acts 18: 28 verses, 288s of audio in 225s
+Acts 19: 40 verses, 371s of audio in 328s
+Acts 20: 38 verses, 348s of audio in 294s
+Acts 21: 40 verses, 413s of audio in 340s
+Acts 22: 30 verses, 294s of audio in 227s
+Acts 23: 35 verses, 360s of audio in 312s
+Acts 24: 26 verses, 239s of audio in 196s
+Acts 25: 27 verses, 283s of audio in 239s
+Acts 26: 32 verses, 349s of audio in 280s
+Acts 27: 44 verses, 409s of audio in 331s
+Acts 28: 30 verses, 311s of audio in 243s
+Romans 1: 32 verses, 319s of audio in 253s
+Romans 2: 29 verses, 262s of audio in 225s
+Romans 3: 31 verses, 262s of audio in 216s
+Romans 4: 25 verses, 229s of audio in 196s
+Romans 5: 21 verses, 241s of audio in 198s
+Romans 6: 23 verses, 216s of audio in 171s
+Romans 7: 25 verses, 271s of audio in 222s
+Romans 8: 39 verses, 390s of audio in 303s
+Romans 9: 33 verses, 316s of audio in 255s
+Romans 10: 21 verses, 187s of audio in 141s
+Romans 11: 36 verses, 345s of audio in 279s
+Romans 12: 21 verses, 180s of audio in 140s
+Romans 13: 14 verses, 159s of audio in 130s
+Romans 14: 23 verses, 232s of audio in 185s
+Romans 15: 33 verses, 296s of audio in 231s
+Romans 16: 24 verses, 226s of audio in 173s, no reading for 諂
+1 Corinthians 1: 31 verses, 289s of audio in 237s
+1 Corinthians 2: 16 verses, 152s of audio in 129s
+1 Corinthians 3: 23 verses, 213s of audio in 166s
+1 Corinthians 4: 21 verses, 207s of audio in 162s
+1 Corinthians 5: 13 verses, 126s of audio in 119s
+1 Corinthians 6: 20 verses, 193s of audio in 161s
+1 Corinthians 7: 40 verses, 387s of audio in 329s
+1 Corinthians 8: 13 verses, 144s of audio in 115s
+1 Corinthians 9: 27 verses, 277s of audio in 235s
+1 Corinthians 10: 33 verses, 300s of audio in 259s
+1 Corinthians 11: 34 verses, 294s of audio in 211s
+1 Corinthians 12: 31 verses, 277s of audio in 233s
+1 Corinthians 13: 13 verses, 135s of audio in 97s
+1 Corinthians 14: 40 verses, 378s of audio in 292s
+1 Corinthians 15: 58 verses, 506s of audio in 399s
+1 Corinthians 16: 24 verses, 188s of audio in 157s
+2 Corinthians 1: 24 verses, 267s of audio in 231s
+2 Corinthians 2: 17 verses, 157s of audio in 141s, no reading for 垮
+2 Corinthians 3: 18 verses, 169s of audio in 147s
+2 Corinthians 4: 18 verses, 188s of audio in 160s
+2 Corinthians 5: 21 verses, 197s of audio in 167s
+2 Corinthians 6: 18 verses, 181s of audio in 142s
+2 Corinthians 7: 16 verses, 201s of audio in 185s
+2 Corinthians 8: 24 verses, 227s of audio in 173s
+2 Corinthians 9: 15 verses, 160s of audio in 141s
+2 Corinthians 10: 18 verses, 169s of audio in 131s
+2 Corinthians 11: 33 verses, 304s of audio in 251s
+2 Corinthians 12: 21 verses, 250s of audio in 198s
+2 Corinthians 13: 13 verses, 153s of audio in 148s
+Galatians 1: 24 verses, 213s of audio in 168s, no reading for 嘅
+Galatians 2: 21 verses, 232s of audio in 202s
+Galatians 3: 29 verses, 291s of audio in 228s
+Galatians 4: 31 verses, 285s of audio in 231s
+Galatians 5: 26 verses, 208s of audio in 160s
+Galatians 6: 18 verses, 160s of audio in 126s
+Ephesians 1: 23 verses, 197s of audio in 163s
+Ephesians 2: 22 verses, 197s of audio in 167s
+Ephesians 3: 21 verses, 161s of audio in 134s
+Ephesians 4: 32 verses, 264s of audio in 232s
+Ephesians 5: 33 verses, 248s of audio in 205s
+Ephesians 6: 24 verses, 212s of audio in 167s
+Philippians 1: 30 verses, 273s of audio in 229s
+Philippians 2: 30 verses, 261s of audio in 220s
+Philippians 3: 21 verses, 205s of audio in 157s
+Philippians 4: 23 verses, 219s of audio in 177s
+Colossians 1: 29 verses, 277s of audio in 221s
+Colossians 2: 23 verses, 210s of audio in 170s
+Colossians 3: 25 verses, 236s of audio in 188s
+Colossians 4: 18 verses, 164s of audio in 151s
+1 Thessalonians 1: 10 verses, 113s of audio in 85s
+1 Thessalonians 2: 20 verses, 233s of audio in 213s, no reading for 諂
+1 Thessalonians 3: 13 verses, 129s of audio in 114s
+1 Thessalonians 4: 18 verses, 171s of audio in 139s
+1 Thessalonians 5: 28 verses, 204s of audio in 175s
+2 Thessalonians 1: 12 verses, 133s of audio in 117s
+2 Thessalonians 2: 17 verses, 179s of audio in 157s
+2 Thessalonians 3: 18 verses, 154s of audio in 123s
+1 Timothy 1: 20 verses, 209s of audio in 172s
+1 Timothy 2: 15 verses, 115s of audio in 85s
+1 Timothy 3: 16 verses, 143s of audio in 111s
+1 Timothy 4: 16 verses, 138s of audio in 105s
+1 Timothy 5: 25 verses, 213s of audio in 168s
+1 Timothy 6: 21 verses, 209s of audio in 166s
+2 Timothy 1: 18 verses, 181s of audio in 148s
+2 Timothy 2: 26 verses, 236s of audio in 192s
+2 Timothy 3: 17 verses, 166s of audio in 127s
+2 Timothy 4: 22 verses, 205s of audio in 162s
+Titus 1: 16 verses, 180s of audio in 136s
+Titus 2: 15 verses, 136s of audio in 113s
+Titus 3: 15 verses, 145s of audio in 114s
+Philemon 1: 25 verses, 199s of audio in 173s
+Hebrews 1: 14 verses, 139s of audio in 110s
+Hebrews 2: 18 verses, 191s of audio in 156s, no reading for 嚐
+Hebrews 3: 19 verses, 154s of audio in 176s
+Hebrews 4: 16 verses, 174s of audio in 142s
+Hebrews 5: 14 verses, 130s of audio in 110s
+Hebrews 6: 20 verses, 176s of audio in 160s
+Hebrews 7: 28 verses, 286s of audio in 226s
+Hebrews 8: 13 verses, 142s of audio in 118s
+Hebrews 9: 28 verses, 295s of audio in 371s
+Hebrews 10: 39 verses, 307s of audio in 255s
+Hebrews 11: 40 verses, 395s of audio in 310s
+Hebrews 12: 29 verses, 298s of audio in 255s
+Hebrews 13: 25 verses, 243s of audio in 211s
+James 1: 27 verses, 240s of audio in 188s
+James 2: 26 verses, 238s of audio in 211s
+James 3: 18 verses, 182s of audio in 172s
+James 4: 17 verses, 176s of audio in 174s
+James 5: 20 verses, 203s of audio in 164s
+1 Peter 1: 25 verses, 241s of audio in 216s
+1 Peter 2: 25 verses, 240s of audio in 230s
+1 Peter 3: 22 verses, 239s of audio in 234s
+1 Peter 4: 19 verses, 199s of audio in 174s
+1 Peter 5: 14 verses, 150s of audio in 119s
+2 Peter 1: 21 verses, 215s of audio in 167s
+2 Peter 2: 22 verses, 249s of audio in 255s
+2 Peter 3: 18 verses, 196s of audio in 186s
+1 John 1: 10 verses, 96s of audio in 81s
+1 John 2: 29 verses, 286s of audio in 249s
+1 John 3: 24 verses, 251s of audio in 198s
+1 John 4: 21 verses, 212s of audio in 180s
+1 John 5: 21 verses, 202s of audio in 202s
+2 John 1: 13 verses, 132s of audio in 114s
+3 John 1: 15 verses, 134s of audio in 116s
+Jude 1: 25 verses, 281s of audio in 332s, no reading for 諂
+Revelation 1: 20 verses, 228s of audio in 270s
+Revelation 2: 29 verses, 318s of audio in 420s
+Revelation 3: 22 verses, 261s of audio in 334s
+Revelation 4: 11 verses, 134s of audio in 176s
+Revelation 5: 14 verses, 164s of audio in 233s
+Revelation 6: 17 verses, 204s of audio in 278s
+Revelation 7: 17 verses, 215s of audio in 301s
+Revelation 8: 13 verses, 162s of audio in 232s
+Revelation 9: 21 verses, 215s of audio in 188s
+Revelation 10: 11 verses, 136s of audio in 120s
+Revelation 11: 19 verses, 228s of audio in 177s, no reading for 棵
+Revelation 12: 18 verses, 198s of audio in 154s
+Revelation 13: 18 verses, 186s of audio in 146s

@@ -814,6 +814,10 @@ const DATA = __DATA__;
 const ORDER = __ORDER__;
 const LANGS = __LANGS__;
 const TARGETS = __TARGETS__;          // {code: {name, native}} in canonical order
+/* The chapters read aloud by a voice made for the language, where no phone or
+   computer has one (scripts/build_audio.py): {lang: {"John|1": [[verse, start,
+   end], ...]}}, the recording beside the page at audio/<lang>/John_01.ogg. */
+const RECORDED = __RECORDED__;
 const ABBREV = __ABBREV__;
 const $ = s => document.querySelector(s);
 /* Two names for a book. dataKey() is the English every built layer (MORPH,
@@ -2458,11 +2462,29 @@ function setChosenVoice(lang, name){
   if (name) localStorage.setItem(voiceKey(lang), name); else localStorage.removeItem(voiceKey(lang));
   redrawSheet();
 }
-function voicesFor(lang){                                 // the phone's, best first; [] in a browser
+function phoneVoices(lang){                               // everything the shell offers for it, best first
   if (!(PHONE && PHONE.voices)) return [];
   try { return JSON.parse(PHONE.voices(lang) || "[]").sort((a, b) => b.quality - a.quality); }
   catch (e) { return []; }
 }
+/* The phone's voices that read the language itself, best first; [] in a
+   browser. A shell matches voices by the first part of their tag, so for
+   Cantonese it offered every Chinese voice, Mandarin ones included, and a
+   shell from before Taiwanese and Hakka were refused still offers its Taiwan
+   Mandarin voices for both. The page asks ttsSpeaks which of them are right. */
+function voicesFor(lang){
+  return phoneVoices(lang).filter(v => typeof ttsSpeaks !== "function" || ttsSpeaks(lang, v.locale));
+}
+/* The voice the phone is told to use: the reader's choice if it reads the
+   language, or the best that does. Named outright, so that a shell left to
+   pick for itself cannot settle on a Mandarin voice for Cantonese. */
+function phoneVoiceName(lang){
+  const vs = voicesFor(lang), mine = chosenVoice(lang);
+  return vs.some(v => v.name === mine) ? mine : (vs[0] ? vs[0].name : mine);
+}
+/* Languages no phone or computer has a voice for. Taiwanese and Hakka are
+   heard only from this project's recordings (RECORDED), where they exist. */
+const NO_VOICE_ANYWHERE = {nan: 1, hak: 1, ksw: 1};
 if (!(VOICE.rate > 0)) VOICE.rate = 0.8;
 if (!(VOICE.pitch > 0)) VOICE.pitch = 1;
 function setVoice(k, v){ VOICE[k] = v; localStorage.setItem(k === "rate" ? "ttsRate" : "ttsPitch", v); redrawSheet(); }
@@ -2540,7 +2562,17 @@ function selQuote(sel){
 }
 
 function speechFor(lang){                                // "" = not ready yet, "yes", "no"
-  if (PHONE && PHONE.voiceFor) { try { return PHONE.voiceFor(lang); } catch (e) { return "no"; } }
+  if (PHONE && PHONE.voiceFor) {
+    let r;
+    try { r = PHONE.voiceFor(lang); } catch (e) { return "no"; }
+    /* A shell says yes when it has a voice for the first part of the tag,
+       which for Cantonese is any Chinese voice, and older shells said yes to
+       Taiwanese and Hakka meaning Mandarin. Yes stands only if one of the
+       voices it lists reads the language itself - or, for an engine that
+       will not list its voices, if it is not a language read as another. */
+    if (r === "yes" && !voicesFor(lang).length && (phoneVoices(lang).length || NO_VOICE_ANYWHERE[lang])) return "no";
+    return r;
+  }
   if (!("speechSynthesis" in window)) return "no";
   /* A browser takes any language and, given one it has no voice for, says
      nothing and reports nothing: Thai on a PC with English, Japanese and
@@ -2548,14 +2580,42 @@ function speechFor(lang){                                // "" = not ready yet, 
      asked the same question the phone is asked - is there a voice for this
      language - and the list it answers from fills in late, so an empty list
      is "not yet" rather than "no". */
-  if (typeof ttsVoice !== "function") return "yes";
+  if (typeof ttsVoiceFor !== "function") return "yes";
   if (!ttsVoices.length) return "";
-  return ttsVoice(TTS_LANG[lang] || lang) ? "yes" : "no";
+  return ttsVoiceFor(lang) ? "yes" : "no";
+}
+/* ---------- recordings: Taiwanese and Hakka, read by voices made for them ---------- */
+const recKey = r => r.book + "|" + r.ch;
+function recFor(lang, r){                                // -> {src, s, e} for a verse that was recorded, or null
+  const ch = RECORDED[lang] && RECORDED[lang][recKey(r)];
+  const t = ch && ch.find(x => x[0] === r.v);
+  return t ? {src: `audio/${lang}/${r.book}_${String(r.ch).padStart(2, "0")}.ogg`, s: t[1], e: t[2]} : null;
+}
+const recCount = lang => Object.keys(RECORDED[lang] || {}).length;
+/* Whether the held verses can be heard, each in its own language: "yes", ""
+   while the voices are still loading, or "no", with the first language that
+   cannot be - a passage is not offered to be heard with a piece of it missing. */
+function selHearing(sel){
+  let state = "yes", lang = sel.length ? sel[0].c.lang : "";
+  for (const {r, c} of sel) {
+    const v = recFor(c.lang, r) ? "yes" : speechFor(c.lang);
+    if (v === "no") return {state: "no", lang: c.lang};
+    if (v === "") state = "";
+  }
+  return {state, lang};
 }
 /* Where a voice comes from, said for the machine in hand. On a phone the
    settings path is in the display tray already; on a computer it is here. */
 function noVoiceHelp(lang){
   const name = langName(lang);
+  /* Pointing someone at their settings for a voice that does not exist sends
+     them looking for nothing. For these languages there is none to install;
+     what can be heard is what this project has recorded. */
+  if (NO_VOICE_ANYWHERE[lang]) {
+    const n = recCount(lang);
+    return `No phone or computer has a ${name} voice, and one for another language would misread it.`
+      + (n ? ` ${n} chapter${n === 1 ? " has" : "s have"} been recorded for this Bible and can be heard; this one has not been yet.` : "");
+  }
   if (PHONE) return `This phone has no voice for ${name} installed.`;
   const mac = /Mac|iPhone|iPad/.test(navigator.platform || "");
   return `This computer has no ${name} voice. ` + (mac
@@ -2566,18 +2626,70 @@ function noVoiceHelp(lang){
    number when it ends - finished, or stopped - so that an answer about a
    reading already replaced is not taken for the one being waited on. */
 let SPEAKSEQ = 0;
-function speakVerse(txt, lang){
-  const id = ++SPEAKSEQ;
+/* Nothing is said in a language the device has no voice for. Both a phone and
+   a browser, asked to, read it with whatever voice they have - Taiwanese in
+   Mandarin, Burmese in English - and a reader takes that for the language. */
+function speakVerse(txt, lang, id){
+  id = id || ++SPEAKSEQ;
+  if (speechFor(lang) === "no") { setTimeout(() => speechDone(id, false)); return id; }
   if (PHONE && PHONE.speak) {
-    try { PHONE.speak(txt, lang, VOICE.rate, VOICE.pitch, chosenVoice(lang), id); }
-    catch (e) { PHONE.speak(txt, lang, VOICE.rate, VOICE.pitch, chosenVoice(lang)); }   // a shell from before readings were numbered
+    const name = phoneVoiceName(lang);
+    try { PHONE.speak(txt, lang, VOICE.rate, VOICE.pitch, name, id); }
+    catch (e) { PHONE.speak(txt, lang, VOICE.rate, VOICE.pitch, name); }   // a shell from before readings were numbered
     return id;
   }
   if (typeof ttsSpeak === "function") ttsSpeak(txt, lang, null, ok => speechDone(id, ok));
   return id;
 }
+/* A recording is a chapter, and a verse is played out of it from where it
+   starts to where it ends. Over http it is fetched whole first: a plain static
+   server does not answer the range requests a browser seeks with, and the
+   verse would start from the top of the chapter. A chapter is a megabyte or
+   two, and the last few are kept for the next verse. */
+let recAudio = null;
+const recUrls = new Map();
+function recUrl(src){
+  if (recUrls.has(src)) return recUrls.get(src);
+  const p = !/^https?:$/.test(location.protocol) ? Promise.resolve(src)
+    : fetch(src).then(r => { if (!r.ok) throw new Error("missing"); return r.blob(); }).then(b => URL.createObjectURL(b));
+  recUrls.set(src, p);
+  p.catch(() => recUrls.delete(src));
+  while (recUrls.size > 4) {
+    const [k, old] = recUrls.entries().next().value;
+    recUrls.delete(k);
+    old.then(u => { if (u.startsWith("blob:")) URL.revokeObjectURL(u); }, () => {});
+  }
+  return p;
+}
+function playRecording(seg, id){
+  const a = recAudio || (recAudio = new Audio());
+  a.pause(); a.ontimeupdate = a.onended = a.onerror = null;
+  const mine = () => hearing && hearing.seq === id;
+  const fail = () => {
+    if (!mine()) return;
+    toast(`The ${langName(seg.lang)} recording of ${disp(seg.book)} ${seg.ch} could not be played.`);
+    speechDone(id, false);
+  };
+  recUrl(seg.src).then(url => {
+    if (!mine()) return;
+    // A recording plays as it was read: the speed and pitch settings are for
+    // the device's voices, and a voice made for one speaker sped up is not it.
+    const go = () => {
+      if (!mine()) return;
+      a.playbackRate = 1;
+      a.currentTime = seg.s;
+      a.ontimeupdate = () => { if (a.currentTime >= seg.e) { a.pause(); a.ontimeupdate = a.onended = null; if (mine()) speechDone(id, true); } };
+      a.onended = () => { a.ontimeupdate = null; if (mine()) speechDone(id, true); };
+      a.play().catch(fail);
+    };
+    a.onerror = fail;
+    if (a.dataset.src !== seg.src) { a.dataset.src = seg.src; a.src = url; a.addEventListener("loadedmetadata", go, {once: true}); }
+    else go();
+  }, fail);
+}
 function stopSpeaking(){
   hearing = null; speakUi();
+  if (recAudio) { recAudio.pause(); recAudio.ontimeupdate = recAudio.onended = null; }
   if (PHONE && PHONE.stopSpeaking) { PHONE.stopSpeaking(); return; }
   if (typeof ttsStop === "function") ttsStop();
   else if ("speechSynthesis" in window) speechSynthesis.cancel();
@@ -2670,7 +2782,7 @@ function drawVbar(){
   const sel = selContent();
   vbarSig = selSig(sel);
   if (!sel.length) { vbar.hidden = true; vbar.innerHTML = ""; vbar.className = ""; return; }
-  const lang = sel[0].c.lang, voice = speechFor(lang), many = sel.length > 1;
+  const voice = selHearing(sel).state, many = sel.length > 1;
   const ref = selRef(sel);
   vbar.setAttribute("aria-label", many ? t('What to do with these verses') : t('What to do with this verse'));
   vbar.innerHTML = `<span class="ref" title="${attr(ref)}">${esc(ref)}</span>`
@@ -2685,8 +2797,9 @@ function drawVbar(){
   const hear = vbar.querySelector('[data-a="listen"]');
   if (hear) hear.onclick = () => {
     if (hearing) { stopSpeaking(); return; }               // the same button, while it reads, is Stop
-    if (speechFor(lang) === "no") { toast(noVoiceHelp(lang)); return; }
-    hearSel(sel, lang);
+    const h = selHearing(sel);
+    if (h.state === "no") { toast(noVoiceHelp(h.lang)); return; }
+    hearSel(sel);
   };
   const refs = vbar.querySelector('[data-a="refs"]');
   if (refs) refs.onclick = e => showRefs(sel[0].r.book, sel[0].r.ch, sel[0].r.v, e);
@@ -2931,7 +3044,7 @@ function drawSearch(){
      for looking a word up comes under it, for the reader who by now knows
      what to look for. */
   const heard = STORIES.filter(s => HEARD[s.id]).length, earned = BADGES.filter(b => EARNED[b.id]).length;
-  const voice = speechFor(tl);
+  const voice = recCount(tl) ? "yes" : speechFor(tl);
   $("#whoSlot").innerHTML =
     `<button type="button" class="primary who" id="whoGo">${CROSS}${esc(t('Who is Jesus?'))}</button>
      <p class="hint">${esc(t('A story from his life, read aloud — twenty of them tell the whole gospel. Heard to the end, a story counts towards a milestone.'))}</p>
@@ -3083,9 +3196,9 @@ function playStory(s){
     setSel(storyKeys(s));
     const sel = selContent();
     if (!sel.length) return;
-    const lang = sel[0].c.lang;
-    if (speechFor(lang) === "no") { toast(`No voice for ${langName(lang)} on this device \u2014 ${s.name} is here to read.`); return; }
-    hearSel(sel, lang);
+    const h = selHearing(sel);
+    if (h.state === "no") { toast(`No voice for ${langName(h.lang)} on this device \u2014 ${s.name} is here to read.`); return; }
+    hearSel(sel);
   });
 }
 /* The address change is what draws the chapter, and it arrives after this
@@ -3098,16 +3211,38 @@ function landOn(h, then){
 /* What is being read, when it is a story - and only when the verses held are
    exactly the story's, in the translation: a reader who tapped Listen on those
    same verses has heard the story as surely as one who pressed the button. */
-let hearing = null;                                       // {seq, story} while a reading is under way
+let hearing = null;                                       // {seq, story, queue} while a reading is under way
 function storyOfSel(sel){
   const sig = sel.map(x => vkey(x.r)).join(",");
   if (sel[0].c.lang !== tl) return null;
   return STORIES.find(s => storyKeys(s).join(",") === sig) || null;
 }
-function hearSel(sel, lang){
+/* The held verses, as the pieces they are heard in. Verses that run on in one
+   recording are one piece, played straight through; the rest are read by the
+   device's voice, a run of one language at a time. A passage held across two
+   chapters can be in two languages - one the chosen language has reached and
+   one it has not - and each is read in its own. */
+function piecesOf(sel){
+  const out = [];
+  for (const {r, c} of sel) {
+    const rec = recFor(c.lang, r), last = out[out.length - 1];
+    if (rec) {
+      if (last && last.src === rec.src && last.v + 1 === r.v) { last.e = rec.e; last.v = r.v; continue; }
+      out.push({...rec, v: r.v, lang: c.lang, book: r.book, ch: r.ch});
+    } else if (last && !last.src && last.lang === c.lang) last.txt += " " + c.txt;   // the numbers are not read out; they are not the text
+    else out.push({txt: c.txt, lang: c.lang});
+  }
+  return out;
+}
+function nextPiece(){
+  const seg = hearing.queue.shift(), id = ++SPEAKSEQ;
+  hearing.seq = id;
+  if (seg.src) playRecording(seg, id); else speakVerse(seg.txt, seg.lang, id);
+}
+function hearSel(sel){
   readyBell();
-  const seq = speakVerse(sel.map(x => x.c.txt).join(" "), lang);   // the numbers are not read out; they are not the text
-  hearing = {seq, story: storyOfSel(sel)};
+  hearing = {seq: 0, story: storyOfSel(sel), queue: piecesOf(sel)};
+  nextPiece();
   speakUi();
   if (hearing.story) toast(`${hearing.story.name} \u2014 ${storyRef(hearing.story)}. Heard to the end, it counts.`);
 }
@@ -3124,12 +3259,13 @@ function rehear(){
   stopSpeaking();
   const sel = selContent();
   if (!sel.length) return;
-  const lang = sel[0].c.lang;
-  if (speechFor(lang) === "no") { toast(noVoiceHelp(lang)); return; }
-  hearSel(sel, lang);
+  const h = selHearing(sel);
+  if (h.state === "no") { toast(noVoiceHelp(h.lang)); return; }
+  hearSel(sel);
 }
 window.speechDone = function(id, ok){
   if (!hearing || hearing.seq !== id) return;
+  if (ok && hearing.queue.length) { nextPiece(); return; }   // the next piece, until the passage is done
   const h = hearing; hearing = null; speakUi();
   if (ok && h.story) storyHeard(h.story);
 };
@@ -3280,6 +3416,10 @@ function drawSettings(){
     + `</div>`;
   h += `<div class="shead">${esc(t("Read aloud"))}</div><p class="hint">${PHONE
       ? esc(t("Tap a verse and choose Listen. The voices are the phone's own, so whichever languages it has installed are the ones it can read; Hebrew and Greek are read with modern voices."))
+      : recCount(tl) && speechFor(tl) === "no"
+      ? esc(`${langName(tl)} is heard from recordings made for this Bible, as no phone or computer has a voice for it: `
+            + `${recCount(tl)} of ${Object.keys(DATA).reduce((n, b) => n + Object.values(DATA[b]).filter(d => d.tr && d.tr[tl]).length, 0)} chapters so far. `
+            + `Tap a verse and choose Listen; a recording plays at the pace it was read.`)
       : ("speechSynthesis" in window)
       ? (speechFor(tl) === "no" ? esc(noVoiceHelp(tl)) + " " + esc(t('Until then the page can be read here but not heard in it.'))
          : esc(t('Tap a verse and choose Listen, or press and hold it (right-click) for the same in its own language.')))
@@ -3743,10 +3883,23 @@ def main():
         print("WARNING: no language is complete, so this page carries the original text alone")
     out_dir = Path(a.out)
     out_dir.mkdir(parents=True, exist_ok=True)
+    # Recordings are counted where the page is written, not in site/: an APK's
+    # staging folder carries none, and a page that offered them there would
+    # promise a Listen that could only fail.
+    recorded = {}
+    for code in targets:
+        made_for = out_dir / "audio" / f"{code}.json"
+        if made_for.exists():
+            got = json.loads(made_for.read_text(encoding="utf-8"))
+            have = {k: v for k, v in got.items()
+                    if (out_dir / "audio" / code / f"{k.split('|')[0]}_{int(k.split('|')[1]):02d}.ogg").exists()}
+            if have:
+                recorded[code] = have
     page = (PAGE
             .replace("__DATA__", json.dumps(data, ensure_ascii=False))
             .replace("__ORDER__", json.dumps(ORDER))
             .replace("__LANGS__", json.dumps({**LANGS, "mixed": MIXED}))
+            .replace("__RECORDED__", json.dumps(recorded, separators=(",", ":")))
             .replace("__TARGETS__", json.dumps({c: {"name": t["name"], "native": t["native"], "dir": t.get("dir", "ltr"),
                                                      "engine": main_engine(made.get(c)),
                                                      # a second-hand, machine-only translation says so above its text
@@ -3777,8 +3930,9 @@ def main():
     out.write_text(page, encoding="utf-8")
     nch = sum(len(v) for v in data.values())
     tr = ", ".join(f"{c}={n}" for c, n in counts.items()) or "none"
+    rec = ", ".join(f"{c}={len(v)}" for c, v in recorded.items()) or "none"
     print(f"site built{' (reader only)' if a.reader_only else ''}: {out} ({len(data)} books, {nch} chapters of original text; "
-          f"translated chapters: {tr}; {out.stat().st_size // 1024} KB)")
+          f"translated chapters: {tr}; recorded chapters: {rec}; {out.stat().st_size // 1024} KB)")
 
 
 if __name__ == "__main__":

@@ -581,13 +581,43 @@ public class MainActivity extends ComponentActivity {
             });
         }
 
+        /**
+         * Whether this voice reads the language itself, not a neighbour of it.
+         *
+         * The language part of the locale was enough until Chinese. Mandarin,
+         * Cantonese, Taiwanese and Hakka are all written in characters, zh
+         * covers the first two, and a voice for any of them reads the others'
+         * text without complaint, in its own language: Taiwanese came out of
+         * the phone as Taiwan Mandarin. So Cantonese wants a Cantonese voice
+         * (yue, or zh-HK as most engines have it), Mandarin a Chinese voice
+         * that is not that, and Taiwanese and Hakka a voice of their own,
+         * which no engine has yet. The page applies the same test to the list
+         * it is given (ttsSpeaks in readaloud.py), for shells older than this.
+         */
+        private boolean reads(Voice v, String lang) {
+            Locale l = v.getLocale();
+            String base = l.getLanguage(), tag = l.toLanguageTag().toLowerCase(Locale.ROOT);
+            boolean canto = base.equals("yue") || "HK".equals(l.getCountry()) || "MO".equals(l.getCountry())
+                            || tag.contains("yue");
+            switch (lang == null ? "" : lang) {
+                case "yue": return canto && (base.equals("yue") || base.equals("zh"));
+                case "zh": return (base.equals("zh") || base.equals("cmn")) && !canto;
+                default: return base.equals(locale(lang).getLanguage());
+            }
+        }
+
+        /** The languages read only by a voice that passes reads(): the engine's own answer is not to be trusted for them. */
+        private boolean strict(String lang) {
+            return "zh".equals(lang) || "yue".equals(lang) || "nan".equals(lang) || "hak".equals(lang);
+        }
+
         @Nullable
-        private Voice pick(Locale loc, String wanted) {
+        private Voice pick(String lang, String wanted) {
             Voice best = null;
             try {
                 for (Voice v : tts.getVoices()) {
                     if (v == null || v.isNetworkConnectionRequired()) continue;
-                    if (!v.getLocale().getLanguage().equals(loc.getLanguage())) continue;
+                    if (!reads(v, lang)) continue;
                     if (wanted != null && wanted.equals(v.getName())) return v;
                     if (best == null || v.getQuality() > best.getQuality()) best = v;
                 }
@@ -599,12 +629,11 @@ public class MainActivity extends ComponentActivity {
 
         String voiceList(String lang) {
             if (!ready) return "[]";
-            Locale loc = locale(lang);
             StringBuilder out = new StringBuilder("[");
             try {
                 for (Voice v : tts.getVoices()) {
                     if (v == null || v.isNetworkConnectionRequired()) continue;
-                    if (!v.getLocale().getLanguage().equals(loc.getLanguage())) continue;
+                    if (!reads(v, lang)) continue;
                     if (out.length() > 1) out.append(',');
                     out.append("{\"name\":\"").append(v.getName().replace("\"", ""))
                        .append("\",\"locale\":\"").append(v.getLocale().toLanguageTag())
@@ -636,7 +665,8 @@ public class MainActivity extends ComponentActivity {
                 case "grc": return new Locale("el", "GR");                // modern Greek for the Greek
                 case "zh": return Locale.SIMPLIFIED_CHINESE;
                 case "yue": return Locale.forLanguageTag("zh-HK");
-                case "nan": case "hak": return Locale.forLanguageTag("zh-TW");
+                case "nan": return Locale.forLanguageTag("nan-TW");      // a Taiwanese voice, not the Taiwan Mandarin one
+                case "hak": return Locale.forLanguageTag("hak-TW");      // nor for Hakka
                 case "ja-easy": return Locale.JAPANESE;
                 default: return Locale.forLanguageTag(lang.isEmpty() ? "en" : lang);
             }
@@ -648,6 +678,10 @@ public class MainActivity extends ComponentActivity {
             // coming, or it would offer a Listen button that does nothing.
             if (failed) return "no";
             if (!ready) return "";                                          // still starting up; the page asks again
+            // An engine asked about zh-HK says yes when it has Mandarin alone,
+            // the country being only a preference to it; these are answered
+            // from the voices themselves.
+            if (strict(lang)) return pick(lang, null) != null ? "yes" : "no";
             int r = tts.isLanguageAvailable(locale(lang));
             return r >= TextToSpeech.LANG_AVAILABLE ? "yes" : "no";
         }
@@ -656,6 +690,17 @@ public class MainActivity extends ComponentActivity {
             if (text == null || text.isEmpty()) return;
             if (!ready) { pendingText = text; pendingLang = lang; pendingRate = rate; pendingPitch = pitch;
                           pendingVoice = wanted; pendingId = id; return; }
+            Voice v = pick(lang, wanted);
+            if (v == null && strict(lang)) {
+                // No voice reads it, and the engine left to choose would read it
+                // in another language; nothing is said, and the page is told so.
+                final int which = id;
+                runOnUiThread(() -> {
+                    if (web != null)
+                        web.evaluateJavascript("if(typeof window.speechDone==='function')speechDone(" + which + ",false)", null);
+                });
+                return;
+            }
             root.removeCallbacks(finish);
             run++;
             pageId = id;
@@ -670,7 +715,6 @@ public class MainActivity extends ComponentActivity {
             // the compact voice - the one that sounds like a machine reading
             // letters. The best one installed for that language is chosen here
             // instead, unless the reader has picked one themselves.
-            Voice v = pick(loc, wanted);
             if (v != null) tts.setVoice(v);
             tts.setSpeechRate(clamp(rate));
             tts.setPitch(clamp(pitch));

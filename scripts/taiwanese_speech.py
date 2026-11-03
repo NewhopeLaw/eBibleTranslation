@@ -430,25 +430,37 @@ def raise_pitch(audio, fs, semitones):
 
 
 def read(voice, passage, show=False, clean=None, pitch=0.0):
+    """The passage as one track, every unread character with its verse, and
+    where each verse is in the track - (verse, start, end) in seconds, from its
+    first sound to its last - so the reader can play a verse out of a chapter."""
     import numpy as np
-    parts, unread = [], []
+    parts, unread, spans, at = [], [], [], 0
     for n, text in passage:
         text = re.sub(r"[「」『』（）()“”‘’]", "", text.replace("\n", "，"))
+        start = end = at
         for piece, gap in pieces(text):
             wav, unknown = voice.say(piece, show)
             unread += [(n, c) for c in unknown]
             if wav is not None:
                 parts += [wav, np.zeros(int(voice.fs * gap), dtype=np.float32)]
+                end = at + len(wav)
+                at += len(wav) + len(parts[-1])
+        spans.append((n, start, end))
         parts.append(np.zeros(int(voice.fs * GAP["verse"]), dtype=np.float32))
+        at += len(parts[-1])
     audio = np.concatenate(parts) if parts else np.zeros(1, dtype=np.float32)
     if clean is not None and len(audio) > voice.fs:
         audio = clean(audio, voice.fs)
     if len(audio) > voice.fs:
         audio = raise_pitch(audio, voice.fs, pitch)
-    return audio / max(1e-9, float(np.abs(audio).max())) * 0.9, unread
+    # Cleaning and the pitch change both keep the timing, give or take the odd
+    # sample from resampling; scaled, the spans still fall where they did.
+    k = len(audio) / max(1, at) / voice.fs
+    times = [(n, round(s * k, 3), round(e * k, 3)) for n, s, e in spans if n is not None and e > s]
+    return audio / max(1e-9, float(np.abs(audio).max())) * 0.9, unread, times
 
 
-def write_wav(audio, fs, path):
+def write_wav(audio, fs, path, times=None):
     import numpy as np
     path.parent.mkdir(parents=True, exist_ok=True)
     with wave.open(str(path), "wb") as w:
@@ -456,6 +468,14 @@ def write_wav(audio, fs, path):
         w.setsampwidth(2)
         w.setframerate(fs)
         w.writeframes((np.clip(audio, -1, 1) * 32767).astype("<i2").tobytes())
+    # Where each verse is, beside the recording, for scripts/build_audio.py to
+    # take to the reader; a reading with no verses (--text) leaves no stale
+    # file of timings behind it.
+    side = path.with_suffix(".json")
+    if times:
+        side.write_text(json.dumps({"verses": times}), encoding="utf-8")
+    elif side.exists():
+        side.unlink()
 
 
 def translating():
@@ -505,8 +525,8 @@ def read_all(vocoder="wavernn", clean=True, pitch=None):
             if not passage:
                 continue
             t0 = time.time()
-            audio, unread = read(voice, passage, clean=cleaner, pitch=PITCH if pitch is None else pitch)
-            write_wav(audio, voice.fs, AUDIO / f"{BOOKS[code]['name'].replace(' ', '_')}_{ch:02d}.wav")
+            audio, unread, times = read(voice, passage, clean=cleaner, pitch=PITCH if pitch is None else pitch)
+            write_wav(audio, voice.fs, AUDIO / f"{BOOKS[code]['name'].replace(' ', '_')}_{ch:02d}.wav", times)
             print(f"{BOOKS[code]['name']} {ch}: {len(passage)} verses, {len(audio) / voice.fs:.0f}s of audio in "
                   f"{time.time() - t0:.0f}s" + (f", no reading for {' '.join(sorted({c for _, c in unread}))}"
                                                 if unread else ""))
@@ -549,9 +569,9 @@ def main():
         stem = f"{BOOKS[a.book]['name'].replace(' ', '_')}_{a.chapter:02d}{'_' + a.verses if a.verses else ''}"
     t0 = time.time()
     voice = Voice(a.vocoder)
-    audio, unread = read(voice, passage, a.show, Cleaner() if a.clean == "dfn" else None, a.pitch)
+    audio, unread, times = read(voice, passage, a.show, Cleaner() if a.clean == "dfn" else None, a.pitch)
     out = Path(a.out) if a.out else AUDIO / f"{stem}.wav"
-    write_wav(audio, voice.fs, out)
+    write_wav(audio, voice.fs, out, times)
     print(f"{len(passage)} verse(s), {len(audio) / voice.fs:.0f}s of audio in {time.time() - t0:.0f}s -> {out}")
     if unread:
         print("no reading, left out:", file=sys.stderr)
