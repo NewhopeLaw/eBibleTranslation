@@ -387,6 +387,9 @@ LAYERS = [
                               "into audio/nan (scripts/taiwanese_speech.py --all)", "job:taiwanese-voice"),
         ("karen-voice", "the Sgaw Karen voice being taught (NGAW KAREN TTS/train_mms.py): carries the newest run "
                         "on from its last checkpoint to the epochs it was set for", "job:karen-voice"),
+        ("taiwanese-student", "the phone-sized Taiwanese voice, taught by the recordings (scripts/taiwanese_student.py): "
+                              "carries the newest run on, at full speed, to the minutes it was set for",
+         "job:taiwanese-student"),
     ]),
     ("forms", "letters and forms", [
         ("lexeme-inventory", "word forms analysed", "job:lexemes"),
@@ -505,6 +508,8 @@ def foreign_jobs():
             job = "queue"
         elif "train_mms.py" in cmd and "--train" in cmd:      # --say only reads a line aloud
             job = "karen-voice"
+        elif "taiwanese_student.py" in cmd and " train" in cmd:   # say, check and export are not the job
+            job = "taiwanese-student"
         if job:
             found.setdefault(job, []).append(info["pid"])
     _scan.update(at=time.time(), found=found)
@@ -518,13 +523,19 @@ def worker_running(job):
     return bool(foreign_jobs().get(job))
 
 
-def work_start(job):
-    """Run one job in its own process, so it can be stopped on its own."""
+def work_start(job, table=None):
+    """Run one job in its own process, so it can be stopped on its own, and keep
+    it running (supervise) until it is done or stopped here."""
     if worker_running(job):
         return "already running"
-    table = work_jobs()
+    table = table or work_jobs()
     if job not in table:
         return f"unknown job {job!r}"
+    if job not in WANTED:
+        WANTED.add(job)
+        MON[job] = {"restarts": [], "next": None}
+        save_wanted()
+    MON.setdefault(job, {"restarts": [], "next": None}).update(since=time.time(), gave_up=None, procs={})
     cmd = table[job][3]
     log = ROOT / "logs" / f"job_{job}.log"
     log.parent.mkdir(exist_ok=True)
@@ -537,7 +548,12 @@ def work_start(job):
 
 
 def work_stop(job=None):
-    """Stop one job, or every job — whether this dashboard started it or not."""
+    """Stop one job, or every job — whether this dashboard started it or not.
+    A job stopped here is no longer wanted, so it is not started again."""
+    for name in [n for n in WANTED if not job or n == job]:
+        WANTED.discard(name)
+        MON.pop(name, None)
+    save_wanted()
     stopped = []
     for name, proc in list(WORKERS.items()):
         if job and name != job:
@@ -556,6 +572,192 @@ def work_stop(job=None):
     if stopped:
         print(f"jobs stopped: {', '.join(sorted(set(stopped)))}")
     return sorted(set(stopped))
+
+
+# Keeping the jobs going. A job started here is wanted until it is stopped here
+# or finishes, and if its process ends before then the dashboard starts it
+# again: every job resumes from what it has written. Genesis 24 stopped the
+# Taiwanese voice at midnight on 2026-11-03 and nothing noticed until morning;
+# a night's work is meant to run while nobody is watching. The wanted list is
+# kept on disk, so a dashboard restarted in the night takes its jobs up again.
+# A job that keeps failing is given up after MAX_RESTARTS in an hour, and says
+# why, rather than being started for ever.
+WANTED: set = set()
+WANTED_FILE = ROOT / "logs" / "jobs_wanted.json"
+HISTORY_FILE = ROOT / "logs" / "jobs_history.json"
+MAX_RESTARTS = 5
+MON: dict = {}          # job -> {"since", "restarts": [t, ...], "next", "exit", "why", "stopped", "gave_up", "procs"}
+HISTORY: dict = {}      # job -> [[unix time, done], ...], a point a minute while it runs, for the chart
+GPU = {"at": 0.0, "data": None}
+
+
+def save_wanted():
+    try:
+        WANTED_FILE.write_text(json.dumps(sorted(WANTED)), encoding="utf-8")
+    except OSError:
+        pass
+
+
+def job_log_tail(job):
+    """(last line the job wrote, when its log was written, the line that says why it stopped)."""
+    f = ROOT / "logs" / f"job_{job}.log"
+    if not f.exists():
+        return "", 0, ""
+    with open(f, "rb") as fh:
+        fh.seek(max(0, f.stat().st_size - 6000))
+        lines = [x.strip() for x in fh.read().decode("utf-8", "replace").splitlines() if x.strip()]
+    lines = [x for x in lines if "Warning" not in x and not x.startswith(("from ", "warnings.warn"))] or lines
+    why = next((x for x in reversed(lines) if re.search(r"Error|Exception|Traceback|Killed", x)), lines[-1] if lines else "")
+    return (lines[-1] if lines else ""), f.stat().st_mtime, why
+
+
+def gpu_state():
+    """The card's load, memory, heat and power, read every 10 s (nvidia-smi), or None."""
+    if time.time() - GPU["at"] < 10:
+        return GPU["data"]
+    GPU["at"] = time.time()
+    try:
+        r = subprocess.run(["nvidia-smi", "--query-gpu=utilization.gpu,memory.used,memory.total,temperature.gpu,power.draw",
+                            "--format=csv,noheader,nounits"], capture_output=True, text=True, timeout=5,
+                           creationflags=NO_WINDOW)
+        u, m, mt, t, p = (float(x) for x in r.stdout.splitlines()[0].split(","))
+        GPU["data"] = {"util": u, "mem": m, "mem_total": mt, "temp": t, "power": p}
+    except (OSError, ValueError, IndexError, subprocess.SubprocessError):
+        GPU["data"] = None
+    return GPU["data"]
+
+
+def job_pids(job):
+    proc = WORKERS.get(job)
+    if proc is not None and proc.poll() is None:
+        return [proc.pid]
+    return foreign_jobs().get(job, [])
+
+
+def job_usage(job):
+    """CPU (% of one core) and memory of the job's processes, its children included."""
+    try:
+        import psutil
+    except ImportError:
+        return None
+    m = MON.setdefault(job, {"restarts": [], "next": None})
+    keep, cpu, ram = {}, 0.0, 0
+    for pid in job_pids(job):
+        try:
+            top = psutil.Process(pid)
+            for p in [top] + top.children(recursive=True):
+                if p.pid in keep:                               # the voices re-run themselves: parent and child both found
+                    continue
+                q = (m.get("procs") or {}).get(p.pid) or p      # the same object, so cpu_percent has a last reading
+                keep[p.pid] = q
+                cpu += q.cpu_percent(None)
+                ram += q.memory_info().rss
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            continue
+    m["procs"] = keep
+    return {"cpu": round(cpu), "ram": ram} if keep else None
+
+
+def record_history(table):
+    """A point a minute for each job running, for the chart of how it is getting on."""
+    now = time.time()
+    for job, (_, done, total, _) in table.items():
+        if not worker_running(job):
+            continue
+        pts = HISTORY.setdefault(job, [])
+        if pts and pts[-1][1] == done and now - pts[-1][0] < 600:
+            continue                                        # nothing new: a point every 10 min keeps the line going
+        pts.append([round(now), done])
+        if len(pts) > 600:
+            HISTORY[job] = pts[:-1:2] + pts[-1:]
+
+
+def rate_of(job, done, total):
+    """(how many an hour over the last hour or so, hours left at that rate), or (None, None)."""
+    pts = HISTORY.get(job) or []
+    if len(pts) < 2:
+        return None, None
+    now = pts[-1][0]
+    then = next((p for p in pts if now - p[0] <= 3 * 3600), pts[0])
+    hours = (now - then[0]) / 3600
+    if hours < 0.15 or done <= then[1]:
+        return None, None
+    rate = (done - then[1]) / hours
+    return rate, max(0, total - done) / rate
+
+
+def supervise():
+    """Every 15 s: start again any wanted job whose process has ended, after a
+    pause that grows with each restart (30 s, 1, 2, 4, 8 min); every minute,
+    a point on each running job's chart."""
+    last_point = last_save = 0.0
+    while not STOP.is_set():
+        try:
+            table = None
+            for job in sorted(WANTED):
+                m = MON.setdefault(job, {"restarts": [], "next": None})
+                if worker_running(job):
+                    m["next"] = None
+                    continue
+                table = table or work_jobs()
+                if job not in table:
+                    WANTED.discard(job)
+                    save_wanted()
+                    continue
+                _, done, total, _ = table[job]
+                proc = WORKERS.get(job)
+                rc = proc.returncode if proc is not None else m.get("exit")
+                # The rebuild has no count of its own: it is done when it ends well.
+                if (total and done >= total and job != "rebuild") or (job == "rebuild" and rc == 0):
+                    WANTED.discard(job)
+                    WORKERS.pop(job, None)
+                    m.update(finished=time.time(), next=None)
+                    save_wanted()
+                    print(f"job {job}: finished ({done}/{total})")
+                    continue
+                now = time.time()
+                if m.get("next") is None:                  # it has just been found stopped
+                    WORKERS.pop(job, None)
+                    m["exit"] = rc
+                    m["why"] = job_log_tail(job)[2]
+                    m["stopped"] = now
+                    m["restarts"] = [t for t in m.get("restarts", []) if now - t < 3600]
+                    if len(m["restarts"]) >= MAX_RESTARTS:
+                        WANTED.discard(job)
+                        m["gave_up"] = now
+                        save_wanted()
+                        print(f"job {job}: stopped {MAX_RESTARTS} times in an hour; not starting it again: {m['why']}")
+                        continue
+                    m["next"] = now + 30 * 2 ** len(m["restarts"])
+                    print(f"job {job}: stopped (exit {m['exit']}): {m['why']} - starting again in "
+                          f"{m['next'] - now:.0f}s")
+                elif now >= m["next"]:
+                    m["restarts"].append(now)
+                    m["next"] = None
+                    err = work_start(job, table)
+                    print(f"job {job}: started again ({len(m['restarts'])} in the last hour)" + (f": {err}" if err else ""))
+            if time.time() - last_point >= 60:
+                last_point = time.time()
+                record_history(table or work_jobs())
+            if time.time() - last_save >= 300:
+                last_save = time.time()
+                HISTORY_FILE.write_text(json.dumps(HISTORY), encoding="utf-8")
+        except Exception as e:                              # noqa: BLE001 - the watcher must outlive a bad minute
+            print(f"supervise: {e}")
+        STOP.wait(15)
+
+
+def start_supervisor():
+    for f, into in ((WANTED_FILE, WANTED), (HISTORY_FILE, HISTORY)):
+        try:
+            into.update(json.loads(f.read_text(encoding="utf-8")))
+        except (OSError, ValueError):
+            pass
+    for job in WANTED:                                      # left running when the dashboard last stopped
+        MON[job] = {"restarts": [], "next": None, "since": time.time()}
+    if WANTED:
+        print(f"jobs to keep running: {', '.join(sorted(WANTED))}")
+    threading.Thread(target=supervise, daemon=True, name="supervise").start()
 
 
 _wtok = {"mtime": None, "size": None, "data": None}
@@ -765,6 +967,10 @@ def work_progress():
         except json.JSONDecodeError:
             manifest = {}
     table = work_jobs()
+    try:
+        w_mod = importlib.import_module("work")
+    except Exception:                                       # noqa: BLE001
+        w_mod = None
     jobs = {name: (v[1], v[2]) for name, v in table.items()}
     tr_done = sum(d for n, (d, t) in jobs.items() if n.startswith("lexicon-"))
     tr_total = sum(t for n, (d, t) in jobs.items() if n.startswith("lexicon-")) or 1
@@ -786,11 +992,45 @@ def work_progress():
                             "running": bool(jobname) and worker_running(jobname),
                             "mine": bool(jobname) and jobname in WORKERS and WORKERS[jobname].poll() is None,
                             "startable": bool(jobname) and jobname in table,
+                            "held": bool(jobname) and (jobname.startswith("lexicon-") or jobname == "lexicon-translations"),
                             "view": gkey != "tts"})
+            if jobname and jobname in table and total and done < total:
+                entries[-1].update(watch(jobname, done, total, w_mod))
         out.append({"group": gkey, "label": glabel, "items": entries})
     running = [i["key"] for g in out for i in g["items"] if i["running"]]
     return {"groups": out, "now": time.time(), "anyrunning": bool(running), "running": running,
-            "tokens": work_tokens()}
+            "tokens": work_tokens(), "gpu": gpu_state(), "wanted": sorted(WANTED)}
+
+
+def watch(job, done, total, w_mod):
+    """What the dashboard knows of an unfinished job beyond its count: whether
+    it is kept running, its processes, its log, how fast it goes, and its chart."""
+    m = MON.get(job) or {}
+    line, written, _ = job_log_tail(job)
+    rate, left = rate_of(job, done, total)
+    since = m.get("since")
+    pids = job_pids(job)
+    if pids:
+        try:
+            import psutil
+            since = psutil.Process(pids[0]).create_time()
+        except Exception:                                   # noqa: BLE001
+            pass
+    scores = None
+    if w_mod is not None and hasattr(w_mod, "scores"):
+        try:
+            scores = w_mod.scores(job)
+        except Exception:                                   # noqa: BLE001
+            scores = None
+    now = time.time()
+    return {"auto": job in WANTED, "pids": pids, "since": since if pids else None,
+            "usage": job_usage(job) if pids else None,
+            "restarts": len([t for t in m.get("restarts", []) if now - t < 3600]),
+            "restart_in": max(0, round(m["next"] - now)) if m.get("next") else None,
+            "exit": m.get("exit"), "why": m.get("why") or "", "stopped": m.get("stopped"),
+            "gave_up": m.get("gave_up"), "log": line, "log_at": written,
+            "rate": round(rate, 2) if rate else None, "left_h": round(left, 2) if left is not None else None,
+            "history": (HISTORY.get(job) or [])[-400:], "scores": scores}
 
 
 REBUILD_LOCK = threading.Lock()
@@ -1218,6 +1458,49 @@ label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); fo
   border-top:1px solid var(--border); background:var(--card); }
 #work .wtot small { font-size:10px; text-transform:uppercase; letter-spacing:.06em; margin-right:.5rem; }
 #work .wtot b { color:var(--fg); font-variant-numeric:tabular-nums; font-weight:600; }
+/* The model work's two parts: to do, a card a job, and done, the rungs above. */
+#work { max-height:62vh; overflow-y:auto; }
+#work .hd { flex-wrap:wrap; }
+#work .hd .sp, #work .card .sp { flex:1; }
+#work .hd .gpu { font-size:11px; padding:.1rem .5rem; border:1px solid var(--border); border-radius:999px; background:var(--card); white-space:nowrap; }
+#work .hd .gpu b, #work .hd .nrun { color:var(--fg); font-weight:600; font-variant-numeric:tabular-nums; }
+#work .hd button.go, #work .card button.go { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:600; }
+#work .hd button:disabled { opacity:.45; cursor:default; }
+#work .sec { display:block; font-size:10px; text-transform:uppercase; letter-spacing:.07em; font-weight:600; color:var(--muted); margin:.45rem 0 .3rem; }
+#work .sec span { color:var(--fg); margin-left:.3rem; }
+#work summary.sec { cursor:pointer; }
+#work .none { padding:.2rem 0 .3rem; }
+#work .todo { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:.5rem; }
+#work .card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:.5rem .65rem;
+  display:flex; flex-direction:column; gap:.3rem; min-width:0; }
+#work .card.run { border-color:var(--accent); } #work .card.warn { border-color:var(--warn); } #work .card.err { border-color:var(--err); }
+#work .card .top { display:flex; align-items:center; gap:.45rem; }
+#work .card .nm { color:var(--fg); font-weight:600; font-size:13px; text-transform:capitalize; }
+#work .card .tag { font-size:9.5px; text-transform:uppercase; letter-spacing:.06em; white-space:nowrap; }
+#work .card .what { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#work .card button { font:12px system-ui,sans-serif; padding:.22rem .7rem; border:1px solid var(--border); border-radius:6px;
+  background:var(--card); color:var(--fg); cursor:pointer; }
+#work .card button.halt { color:var(--err); border-color:var(--err); }
+#work .bar2 { height:7px; background:var(--border); border-radius:99px; overflow:hidden; }
+#work .bar2 i { display:block; height:100%; background:var(--accent); transition:width .4s; }
+#work .card.run .bar2 i { animation:pulse 1.4s infinite; }
+#work .nums b, #work .state b { color:var(--fg); font-variant-numeric:tabular-nums; }
+#work .state { display:flex; align-items:center; gap:.35rem; flex-wrap:wrap; }
+#work .dot { width:8px; height:8px; border-radius:50%; border:1.5px solid var(--muted); flex:none; }
+#work .dot.run { background:var(--ok); border-color:var(--ok); animation:pulse 1.4s infinite; }
+#work .dot.warn { background:var(--warn); border-color:var(--warn); } #work .dot.err { background:var(--err); border-color:var(--err); }
+#work .why, #work .lg { font:11px ui-monospace, Consolas, monospace; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--fg); }
+#work .why { border-left:3px solid var(--err); padding-left:.4rem; }
+#work .stats2 { display:grid; grid-template-columns:repeat(auto-fit, minmax(5.2rem, 1fr)); gap:.3rem; }
+#work .stats2 div { border:1px solid var(--border); border-radius:6px; padding:.2rem .4rem; min-width:0; }   /* on the card's white: the muted grey is under 4.5:1 on --soft */
+#work .stats2 small { display:block; font-size:9.5px; text-transform:uppercase; letter-spacing:.04em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#work .stats2 b { color:var(--fg); font-weight:600; font-variant-numeric:tabular-nums; font-size:12px; white-space:nowrap; }
+#work .stats2 .quiet, #work .lg.quiet { box-shadow:inset 3px 0 var(--warn); }
+#work .lg.quiet { padding-left:.4rem; }
+#work .wch { width:100%; height:auto; display:block; }
+#work .wch.none { padding:.4rem 0; font-size:11px; text-align:center; }
+#work label.chk { font-size:11px; }
+@media (max-width:480px) { #work .todo { grid-template-columns:1fr; } }
 body.reading #work { display:none; }
 #tpane { margin-bottom:.35rem; }
 #stats { display:flex; flex-wrap:wrap; gap:.4rem .5rem; padding:.5rem .9rem; align-items:stretch;
@@ -1720,34 +2003,162 @@ function workTotals(t){
     + row('Analysis', t, 'every call the analysis jobs have made, counted apart from the translation above'
           + (byJob ? NL + NL + byJob : '')) + `</div>`;
 }
+/* The model work in two parts: what is left to do above, a card a job with its
+   Start and Stop, how its processes are doing and a chart of how it is getting
+   on; what is done below, as short rungs. A job started here is kept running -
+   started again if its process ends - until it is done or stopped here, so a
+   night's work goes on while nobody watches. "Tonight" ticks the jobs to start
+   together with one button at the end of the day; the ticks are this browser's. */
+const TONIGHT = 'ebible.tonight', DONE_OPEN = 'ebible.doneOpen';
+function tonight(){ try { return new Set(JSON.parse(localStorage.getItem(TONIGHT) || '[]')); } catch (e) { return new Set(); } }
+function setTonight(job, on){
+  const s = tonight(); on ? s.add(job) : s.delete(job);
+  try { localStorage.setItem(TONIGHT, JSON.stringify([...s])); } catch (e) {}
+  workBar();
+}
+function doneOpen(){ try { return localStorage.getItem(DONE_OPEN) !== '0'; } catch (e) { return true; } }
+function setDoneOpen(on){ try { localStorage.setItem(DONE_OPEN, on ? '1' : '0'); } catch (e) {} }
+const ago = t => { if (!t) return ''; const s = Date.now()/1000 - t;
+  return s < 90 ? `${Math.max(0, Math.round(s))} s ago` : s < 5400 ? `${Math.round(s/60)} min ago` : s < 172800 ? `${(s/3600).toFixed(1)} h ago` : `${Math.round(s/86400)} days ago`; };
+const hrs = h => h == null ? '—' : h < 1 ? `${Math.max(1, Math.round(h*60))} min` : h < 48 ? `${h.toFixed(h < 10 ? 1 : 0)} h` : `${(h/24).toFixed(1)} days`;
+const clock = t => new Date(t*1000).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+const bytes = b => b >= 1073741824 ? (b/1073741824).toFixed(1) + ' GB' : Math.round(b/1048576) + ' MB';
+const QUIET_MIN = 30;                      // a running job whose log says nothing this long is worth a look
+
+/* The chart from the Voice Lab dashboard (ShrineGirl/VoiceLab/dashboard): for
+   a voice being taught, the thin line is every reading of its loss and the dots
+   the steady ones, lower being better, the top tenth cut off so the first steep
+   minutes do not flatten the rest; for any other job, how many are done over
+   the time it has run. */
+function wchart(pts, steady, o){
+  const W = 360, H = 104, L = 42, R = 6, T = 8, B = 16;
+  const all = [...pts, ...steady];
+  if (all.length < 2) return `<div class="wch none">${esc(o.empty)}</div>`;
+  const xs = all.map(p => p[0]), ys = all.map(p => p[1]);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs, x0 + 1e-9);
+  let lo, hi;
+  if (o.score) {
+    const s = [...ys].sort((a, b) => a - b);
+    lo = s[0]; hi = s[Math.floor(s.length * 0.9)] ?? lo;
+    const pad = Math.max((hi - lo) * 0.15, 0.002); lo -= pad; hi = Math.max(hi + pad, lo + 0.01);
+  } else { lo = Math.min(...ys); hi = Math.max(...ys); if (hi - lo < 1) hi = lo + 1; }
+  const X = x => L + (x - x0) / (x1 - x0) * (W - L - R), Y = y => T + (1 - (Math.min(y, hi) - lo) / (hi - lo)) * (H - T - B);
+  let g = '';
+  let said = null;
+  for (let i = 0; i <= 2; i++) {
+    const y = lo + (hi - lo) * i / 2, txt = o.yfmt(y);
+    g += `<line x1="${L}" x2="${W - R}" y1="${Y(y)}" y2="${Y(y)}" stroke="var(--border)"/>`
+       + (txt === said ? '' : `<text x="${L - 4}" y="${Y(y) + 3.5}" text-anchor="end" font-size="9.5" fill="var(--muted)">${txt}</text>`);
+    said = txt;                            // a count that has moved by one says each number once
+  }
+  g += `<text x="${L}" y="${H - 3}" font-size="9.5" fill="var(--muted)">${o.xfmt(x0)}</text>`
+     + `<text x="${W - R}" y="${H - 3}" text-anchor="end" font-size="9.5" fill="var(--muted)">${o.xfmt(x1)}</text>`;
+  const line = (ps, w, op) => `<path d="${ps.map((p, i) => (i ? 'L' : 'M') + X(p[0]).toFixed(1) + ' ' + Y(p[1]).toFixed(1)).join('')}"`
+     + ` fill="none" stroke="var(--accent)" stroke-width="${w}" stroke-opacity="${op}" vector-effect="non-scaling-stroke"/>`;
+  if (pts.length) g += line(pts, steady.length ? 1.1 : 1.8, steady.length ? 0.45 : 1);
+  if (steady.length) {
+    g += line(steady, 1.8, 1);
+    for (const p of steady) g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="2.4" fill="var(--accent)"/>`;
+  } else { const p = pts[pts.length - 1]; g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="3" fill="var(--accent)"/>`; }
+  return `<svg class="wch" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.label)}"><title>${esc(o.label)}</title>${g}</svg>`;
+}
+
+const nice = k => k.replace(/-/g, ' ');
+function jobCard(it, group, ticked){
+  const run = it.running, waiting = !run && it.restart_in != null, gaveUp = !run && !!it.gave_up;
+  const cls = run ? 'run' : waiting ? 'warn' : gaveUp ? 'err' : 'idle';
+  const sc = it.scores, unit = sc ? ' ' + sc.x : '';
+  const pct = it.total ? Math.min(100, 100 * it.done / it.total) : 0;   // an unfinished job never reads 100%
+  const pctTxt = pct >= 99.95 ? '99.9' : pct.toFixed(pct < 10 || pct > 99 ? 1 : 0);
+  const quiet = run && it.log_at && (Date.now()/1000 - it.log_at) / 60 > QUIET_MIN;
+  const state = run
+      ? `<span class="dot run"></span><b>Running</b>${it.since ? ' for ' + fmtT(Date.now()/1000 - it.since) : ''}`
+        + (it.auto ? ' · started again if it stops' : ' · started outside the dashboard, so not started again if it stops')
+    : waiting ? `<span class="dot warn"></span><b>Stopped${it.stopped ? ' at ' + clock(it.stopped) : ''}</b> · starting again in ${fmtT(it.restart_in)}`
+    : gaveUp ? `<span class="dot err"></span><b>Kept stopping</b> · started again ${it.restarts} time${it.restarts === 1 ? '' : 's'} in an hour, then left: press Start to try again`
+    : `<span class="dot"></span>Not running`;
+  const pace = run && it.rate ? ` · ${it.rate >= 10 ? Math.round(it.rate) : it.rate.toFixed(1)}${unit} an hour · about ${hrs(it.left_h)} left` : '';
+  const buttons = (it.startable ? `<label class="chk" title="start this with the others ticked, from Start tonight's jobs">`
+        + `<input type="checkbox" data-f="t-${it.job}" ${ticked ? 'checked' : ''} onchange="setTonight('${it.job}', this.checked)"> tonight</label>` : '')
+    + (it.startable ? (run || waiting
+        ? `<button class="halt" data-f="s-${it.job}" onclick="workStop('${it.job}')">Stop</button>`
+        : `<button class="go" data-f="g-${it.job}" onclick="workStart('${it.job}')">Start</button>`)
+      : `<span class="tag">${it.held ? 'held until step 4' : 'not a job here'}</span>`);
+  let body = `<div class="top"><span class="nm">${esc(nice(it.key))}</span><span class="tag">${esc(group)}</span><span class="sp"></span>${buttons}</div>`
+    + `<div class="what" title="${esc(it.what)}">${esc(it.what)}</div>`
+    + `<div class="bar2" role="progressbar" aria-valuemin="0" aria-valuemax="${it.total}" aria-valuenow="${it.done}" aria-label="${esc(nice(it.key))}"><i style="width:${pct.toFixed(1)}%"></i></div>`
+    + `<div class="nums"><b>${fmtN(it.done)}</b> / ${fmtN(it.total)}${unit} · ${pctTxt}%${pace}</div>`
+    + `<div class="state">${state}</div>`;
+  if (!run && (waiting || gaveUp) && it.why)
+    body += `<div class="why" title="${esc(it.why)}">${it.exit != null ? 'exit ' + it.exit + ': ' : ''}${esc(it.why)}</div>`;
+  if (run) {
+    const u = it.usage;
+    body += `<div class="stats2">`
+      + `<div title="times it was started again in the last hour"><small>Restarts · 1 h</small><b>${it.restarts || 0}</b></div>`
+      + `<div title="processor (share of one core) and memory, its child processes included"><small>CPU · RAM</small><b>${u ? u.cpu + '% · ' + bytes(u.ram) : '—'}</b></div>`
+      + `<div class="${quiet ? 'quiet' : ''}"><small>Last log</small><b>${it.log_at ? ago(it.log_at) + (quiet ? ' · quiet' : '') : '—'}</b></div>`
+      + `<div title="process ids: ${(it.pids || []).join(', ')}"><small>Process</small><b>${(it.pids || [])[0] || '—'}${(it.pids || []).length > 1 ? ' +' + (it.pids.length - 1) : ''}</b></div></div>`;
+  }
+  if (sc && (sc.points.length || sc.scores.length)) {
+    body += wchart(sc.points, sc.scores, {score: true, yfmt: y => y.toFixed(3), xfmt: x => x === sc.points.concat(sc.scores).reduce((m, p) => Math.max(m, p[0]), 0) ? `${Math.round(x)} ${sc.x}` : `${Math.round(x)}`, empty: '',
+      label: `${sc.label} by ${sc.x} trained: lower is better${sc.best != null ? '; best ' + sc.best.toFixed(3) : ''}`});
+  } else if (run || (it.history || []).length > 1) {
+    body += wchart(it.history || [], [], {yfmt: y => fmtN(Math.round(y)), xfmt: clock, empty: 'the chart starts after a few minutes of running',
+      label: `${nice(it.key)} done over time`});
+  }
+  if (run && it.log) body += `<div class="lg${quiet ? ' quiet' : ''}" title="last line of logs/job_${esc(it.job)}.log">${esc(it.log)}</div>`;
+  return `<section class="card ${cls}">${body}</section>`;
+}
+
+function doneRungs(groups){
+  return groups.map(g => {
+    const items = g.items.filter(i => i.done || i.count);
+    if (!items.length) return '';
+    return `<div class="grp"><span class="gl">${esc(g.label)}</span>` + items.map(it => {
+      const done = it.done || it.count || 0;
+      const tip = `${it.what}${it.unit ? ' — ' + fmtN(it.count) + ' ' + it.unit : ''}${it.built ? ' · ' + fmtAge(it.built) : ''}`;
+      const nm = it.view === false ? `<span class="nm plain">${esc(nice(it.key))}</span>`
+        : `<span class="nm" onclick="showLayer('${it.key}')" title="show what this has produced">${esc(nice(it.key))}</span>`;
+      return `<span class="j full" title="${esc(tip)}">${nm} <span class="b"><i style="width:100%"></i></span> <b>${fmtN(done)}</b></span>`;
+    }).join('') + `</div>`;
+  }).join('');
+}
+
 async function workBar(){
   let w;
   try { w = await (await fetch('/work')).json(); } catch (e) { return; }
   const el = $('work');
-  const groups = (w.groups || []).filter(g => g.items.some(i => i.done || i.count));
+  const groups = (w.groups || []).filter(g => g.items.some(i => i.done || i.count || (i.startable && i.total)));
   if (!groups.length) { el.hidden = $('split').hidden = true; return; }
   el.hidden = $('split').hidden = false;
-  const anyrun = !!w.anyrunning;
-  const byJob = (w.tokens && w.tokens.by_job) || {};
-  el.innerHTML = `<div class="hd"><b>Model work</b>${anyrun ? `<button class="stopall" onclick="workStop()">stop all — free the GPU</button>`
-      : `<button onclick="workStart('queue')" title="run every unfinished job, one after another">run the queue</button>`}
-      <span style="font-size:11px">${anyrun ? "using the GPU now" : "idle"}</span></div>`
-    + groups.map(g => `<div class="grp"><span class="gl">${esc(g.label)}</span>` + g.items.map(it => {
-    const total = it.total || it.count || 0, done = it.done || it.count || 0;
-    const pct = total ? Math.min(100, 100 * done / total) : 0;
-    const cls = !done ? 'none' : (it.running ? 'run' : (done >= total ? 'full' : ''));
-    const num = it.running || done < total ? `<b>${fmtN(done)}</b>/${fmtN(total)}` : `<b>${fmtN(done)}</b>`;
-    const tip = `${it.what}${it.unit ? ' — ' + fmtN(it.count) + ' ' + it.unit : ''}${it.built ? ' · ' + fmtAge(it.built) : ''}${it.running ? ' · running now' : ''}`;
-    const btn = it.startable ? (it.running
-        ? `<button class="on" title="stop this job" onclick="workStop('${it.job}')">\u25a0</button>`
-        : (done >= total ? "" : `<button title="start this job" onclick="workStart('${it.job}')">\u25b6</button>`)) : "";
-    const spent = it.job && byJob[it.job];
-    const tok = spent ? ` <span class="tk" title="${esc(fmtN(spent.output_tokens) + ' tokens out over ' + fmtN(spent.calls) + ' calls')}">${fmtN(spent.output_tokens)} tok</span>` : "";
-    const nm = it.view === false ? `<span class="nm plain">${esc(it.key.replace(/-/g, ' '))}</span>`
-      : `<span class="nm" onclick="showLayer('${it.key}')" title="show what this has produced">${esc(it.key.replace(/-/g, ' '))}</span>`;
-    return `<span class="j ${cls}" title="${esc(tip)}">${nm} <span class="b"><i style="width:${pct.toFixed(1)}%"></i></span> ${num}${tok}${btn}</span>`;
-  }).join('') + `</div>`).join('')
-    + workTotals(w.tokens);                 // the counter closes the area, under the last rung
+  const isTodo = i => i.job && i.total && i.done < i.total;
+  const order = i => i.running ? 0 : i.restart_in != null ? 1 : i.gave_up ? 2 : i.startable ? 3 : 4;
+  const todo = groups.flatMap(g => g.items.filter(isTodo).map(i => [i, g.label])).sort((a, b) => order(a[0]) - order(b[0]));
+  const done = groups.map(g => ({...g, items: g.items.filter(i => !isTodo(i))}));
+  const ticks = tonight();
+  const ready = todo.filter(([i]) => i.startable && ticks.has(i.job) && !i.running && i.restart_in == null);
+  const nrun = todo.filter(([i]) => i.running).length;
+  const gpu = w.gpu ? `<span class="gpu" title="the graphics card, read every 10 s">GPU <b>${w.gpu.util.toFixed(0)}%</b> · <b>${(w.gpu.mem/1024).toFixed(1)}</b>/${(w.gpu.mem_total/1024).toFixed(0)} GB · <b>${w.gpu.temp.toFixed(0)}°C</b> · <b>${w.gpu.power.toFixed(0)} W</b></span>` : '';
+  const ndone = done.reduce((n, g) => n + g.items.filter(i => i.done || i.count).length, 0);
+  const keep = document.activeElement && document.activeElement.dataset ? document.activeElement.dataset.f : null;
+  el.innerHTML = `<div class="hd"><b>Model work</b>${gpu}<span class="sp"></span>`
+      + `<span class="nrun">${nrun ? nrun + (nrun > 1 ? ' jobs' : ' job') + ' running' : 'nothing running'}</span>`
+      + `<button class="go" data-f="tonight" ${ready.length ? '' : 'disabled'} onclick="startTonight()" title="start every job ticked tonight that is not running">Start tonight's jobs${ready.length ? ' (' + ready.length + ')' : ''}</button>`
+      + (w.anyrunning ? `<button class="stopall" data-f="stopall" onclick="workStop()">Stop all — free the GPU</button>`
+          : `<button data-f="queue" onclick="workStart('queue')" title="run every unfinished study job, one after another">Run the queue</button>`)
+      + `</div>`
+      + `<div class="sec">To do <span>${todo.length}</span></div>`
+      + (todo.length ? `<div class="todo">${todo.map(([i, g]) => jobCard(i, g, ticks.has(i.job))).join('')}</div>` : `<div class="none">Nothing left to do.</div>`)
+      + `<details class="done" ${doneOpen() ? 'open' : ''} ontoggle="setDoneOpen(this.open)"><summary class="sec">Done <span>${ndone}</span></summary>${doneRungs(done)}</details>`
+      + workTotals(w.tokens);                 // the counter closes the area, under the last rung
+  if (keep) { const f = el.querySelector(`[data-f="${keep}"]`); if (f) f.focus(); }
+  W_LAST = todo;
+}
+let W_LAST = [];
+async function startTonight(){
+  const ticks = tonight();
+  for (const [i] of W_LAST) if (i.startable && ticks.has(i.job) && !i.running && i.restart_in == null) await post('/work/start', {job: i.job});
+  setTimeout(workBar, 700);
 }
 async function showLayer(key){          // open, in the reader, whatever this layer has produced
   mode = 'read'; applyMode();
@@ -2056,6 +2467,7 @@ __READALOUD_JS__
 def main():
     srv = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
     srv.daemon_threads = True
+    start_supervisor()
     print(f"live dashboard: http://localhost:{PORT}  (model {T.CONFIG['model']}, "
           f"targets {', '.join(TARGETS)}, Ctrl-C to quit)")
     try:

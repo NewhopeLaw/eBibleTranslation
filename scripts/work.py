@@ -52,7 +52,7 @@ def lexeme_total(min_count=2):
 # overnight queue should not start a voice training someone is tuning by
 # hand, nor a thousand-chapter language nobody asked it for. `--only <name>`
 # runs one.
-TTS_JOBS = ("hakka-text", "hakka-voice", "taiwanese-text", "taiwanese-voice", "karen-voice")
+TTS_JOBS = ("hakka-text", "hakka-voice", "taiwanese-text", "taiwanese-voice", "karen-voice", "taiwanese-student")
 
 
 def held(name):
@@ -115,6 +115,68 @@ def karen_voice_job():
     if cfg.get("unconfirmed"):
         cmd.append("--unconfirmed")
     return (f"teach the Sgaw Karen voice: carry run {run.name} on to epoch {target}", done, target, cmd)
+
+
+def thin(points, most=300):
+    """Every other point dropped until no more than `most` are left, the last always kept."""
+    while len(points) > most:
+        points = points[:-1:2] + points[-1:]
+    return points
+
+
+def scores(name):
+    """How a voice being taught is getting on, for the dashboard's chart: {"x": what the
+    axis counts, "points": [[x, score], ...], "scores": [[x, steady score], ...], "best"}.
+    Lower is better. None for a job that is not teaching a voice."""
+    if name == "karen-voice":
+        runs = sorted(KAREN_RUNS.glob("*/run.json"), key=lambda p: p.stat().st_mtime)
+        f = runs[-1].parent / "log.jsonl" if runs else None
+        if not f or not f.exists():
+            return None
+        pts = []
+        for line in f.read_text(encoding="utf-8").splitlines():
+            try:
+                r = json.loads(line)
+                pts.append([r["epoch"], r["mel"]])
+            except (json.JSONDecodeError, KeyError):
+                pass
+        return {"x": "epochs", "label": "mel loss", "points": thin(pts), "scores": [],
+                "best": min((p[1] for p in pts), default=None)} if pts else None
+    if name == "taiwanese-student":
+        runs = sorted(STUDENT.glob("run-*/progress.json"), key=lambda p: p.stat().st_mtime)
+        if not runs:
+            return None
+        try:
+            p = json.loads(runs[-1].read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            return None
+        return {"x": "minutes", "label": "mel loss", "points": thin(p.get("points") or []),
+                "scores": thin(p.get("scores") or []), "best": p.get("best")}
+    return None
+
+
+STUDENT = ROOT / "models" / "taiwanese-student"
+STUDENT_PY = Path(sys.executable)
+STUDENT_MINUTES = 180          # the trial: three hours of training, then listened to beside the recordings
+
+
+def student_job():
+    """The phone-sized Taiwanese voice taught by the recordings (scripts/taiwanese_student.py,
+    docs/taiwanese-student.md): carry the newest run on to the minutes it was set for.
+    (what, minutes done, minutes planned, command), or None before the script is here."""
+    script = S / "taiwanese_student.py"
+    if not script.exists():
+        return None
+    done, target = 0, STUDENT_MINUTES
+    runs = sorted(STUDENT.glob("run-*/progress.json"), key=lambda p: p.stat().st_mtime)
+    if runs:
+        try:
+            p = json.loads(runs[-1].read_text(encoding="utf-8"))
+            done, target = int(p.get("minutes") or 0), int(p.get("target_minutes") or target)
+        except (json.JSONDecodeError, OSError, ValueError):
+            pass
+    cmd = [str(STUDENT_PY), str(script), "train", "--resume", "newest", "--hours", f"{max(0.1, (target - done) / 60):.2f}"]
+    return ("teach the phone-sized Taiwanese voice from the recordings, at full speed", done, target, cmd)
 
 
 def jobs():
@@ -191,6 +253,9 @@ def jobs():
     karen = karen_voice_job()
     if karen:
         out.append(("karen-voice", *karen))
+    student = student_job()
+    if student:
+        out.append(("taiwanese-student", *student))
     out.append(("rebuild", "rebuild every layer and the reader page", 0, 1,
                 [sys.executable, str(S / "build_all.py")]))
     total_left = sum(max(0, t - d) for name, _, d, t, _ in out if t and name not in TTS_JOBS and not held(name))
