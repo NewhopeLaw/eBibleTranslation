@@ -401,7 +401,33 @@ class Cleaner:
             self.model, self.state, _ = init_df()
         self.enhance = enhance
 
+    # cuDNN will not run the network's GRU over more than 65535 frames of 10 ms,
+    # so Genesis 24, the first chapter to run past eleven minutes, stopped the
+    # job overnight (2026-11-03). A chapter is cleaned five minutes or less at a
+    # time, each piece cut in the silence between two verses.
+    LONGEST = 300
+
     def __call__(self, audio, fs):
+        import numpy as np
+        return np.concatenate([self.piece(p, fs) for p in self.pieces(audio, fs)])
+
+    def pieces(self, audio, fs):
+        """The reading cut at the middle of verse gaps (the voice leaves digital
+        silence there) into pieces no longer than LONGEST seconds."""
+        import numpy as np
+        quiet = np.r_[0, (np.abs(audio) < 1e-6).astype(np.int8), 0]
+        edges = np.flatnonzero(np.diff(quiet))
+        gap = int(fs * GAP["verse"] * 0.9)
+        mids = [(s + e) // 2 for s, e in zip(edges[::2], edges[1::2]) if e - s >= gap]
+        out, start, most = [], 0, int(fs * self.LONGEST)
+        while len(audio) - start > most:
+            cuts = [m for m in mids if start < m <= start + most]
+            cut = cuts[-1] if cuts else start + most
+            out.append(audio[start:cut])
+            start = cut
+        return out + [audio[start:]]
+
+    def piece(self, audio, fs):
         import librosa
         import numpy as np
         import scipy.signal as ss
