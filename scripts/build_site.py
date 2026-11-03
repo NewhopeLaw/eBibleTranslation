@@ -6,7 +6,8 @@ translation found under output/<lang>/json/, and writes site/index.html:
   - reading view per target language, with superscript verse numbers,
     translator's notes, prev/next chapter, adjustable text size (persisted)
   - tabs per chapter: original | each translation | side by side | compare
-  - full-text search over the selected translation
+  - full-text search over the selected translation; English typed into another
+    language is found in the English and shown where it stands in that language
   - reference finder ("Genesis 2:7", "gen 2", "1 sam 3:10")
   - works on phone screens (book menu collapses into a dropdown)
 
@@ -428,6 +429,7 @@ main.inter .orig .w[data-m]::before { content:attr(data-m); display:block; font:
 .gs select, .gs input { font:calc(14px * var(--ui)) system-ui,sans-serif; padding:.35rem .5rem; border:1px solid var(--border); border-radius:8px; background:var(--card); color:var(--fg); }
 .gs button { grid-column:1 / -1; justify-self:start; font:calc(14px * var(--ui)) system-ui,sans-serif; min-height:44px; padding:.45rem 1rem; border:1px solid var(--accent); border-radius:8px; background:var(--accent); color:var(--on-accent); cursor:pointer; }
 .hit .orig { display:block; margin-top:.15rem; } .hit mark { background:var(--hl); color:inherit; border-radius:3px; }
+.hit .via { display:block; margin:.3rem 0 0; }
 /* The verse number is the button that takes the verse: one tap holds it, a
    second lets it go, and as many as wanted can be held at once. Held, it is
    pressed in - filled and set down into the page - so a glance down the
@@ -1895,6 +1897,48 @@ function idxCandidates(name, q, forms){                  // verses holding every
   }
   return acc ? [...acc].sort((a, b) => a - b) : [];
 }
+/* Whether a translation is written in Latin letters, judged from its first
+   chapter. A Thai or a Chinese Bible has Latin letters only where a name
+   slipped through untranslated, so Latin typing into one is never a word of
+   it; a Spanish Bible is Latin through and through, and its own verses are
+   asked first. */
+const SCRIPT = {};
+function latinScript(t){
+  if (t in SCRIPT) return SCRIPT[t];
+  const b = booksWith(t)[0], c = b && chapterList(b).find(c => trOf(b, c)[t]);
+  const sample = c ? Object.values(trOf(b, c)[t].verses).slice(0, 5).join(" ") : "";
+  const all = (sample.match(/\p{L}/gu) || []).length, lat = (sample.match(/\p{Script=Latin}/gu) || []).length;
+  return SCRIPT[t] = !all || lat * 2 > all;
+}
+/* The verses of one translation that match, each checked against its own text:
+   the index's candidates when there is an index, a walk through the whole text
+   when there is not. The walk is cut short, so its answer is a first part. */
+function findIn(lang, rx, cand, cap){
+  const out = [];
+  if (cand) {
+    for (const id of cand) {
+      const book = byNumBook[Math.floor(id / 1000000)], ch = String(Math.floor(id / 1000) % 1000), v = String(id % 1000);
+      const t = book && trOf(book, ch)[lang];
+      const sv = t && t.verses[v];
+      if (!sv) continue;
+      rx.lastIndex = 0;
+      if (rx.test(apart(sv))) { out.push({id, book, ch, v, t: sv}); if (out.length >= cap) break; }
+    }
+    return out;
+  }
+  outer:
+  for (const book of booksWith(lang)) {
+    for (const ch of chapterList(book)) {
+      const t = trOf(book, ch)[lang];
+      if (!t) continue;
+      for (const [v, sv] of Object.entries(t.verses)) {
+        rx.lastIndex = 0;
+        if (rx.test(apart(sv))) { out.push({id: ORDER[book] * 1000000 + ch * 1000 + +v, book, ch, v, t: sv}); if (out.length >= cap) break outer; }
+      }
+    }
+  }
+  return out;
+}
 /* The index folds accents so that oracion finds oración; the check against the
    verse itself did not, and threw those verses away again. This matches a
    letter however it is accented, against the verse taken apart the same way. */
@@ -2172,32 +2216,35 @@ async function search(q) {
   if (tl === "en" && words.length === 1 && IDX.en && IDX.en[words[0]]) forms = {[words[0]]: formsOf(IDX.en, words[0])};
   const rx = looseRx(forms ? forms[words[0]].concat(q) : [q]);
   const KEPT = 5000;                    // how many are kept, to trace the original words from
-  const lit = [];
   const cand = idxCandidates(tl, q, forms);
-  if (cand) {
-    for (const id of cand) {
-      const book = byNumBook[Math.floor(id / 1000000)], ch = String(Math.floor(id / 1000) % 1000), v = String(id % 1000);
-      const t = book && trOf(book, ch)[tl];
-      const sv = t && t.verses[v];
-      if (!sv) continue;
-      rx.lastIndex = 0;
-      if (rx.test(apart(sv))) { lit.push({id, book, ch, v, t: sv}); if (lit.length >= KEPT) break; }
-    }
-  } else {
-    outer:
-    for (const book of booksWith(tl)) {
-      for (const ch of chapterList(book)) {
-        const t = trOf(book, ch)[tl];
-        if (!t) continue;
-        for (const [v, sv] of Object.entries(t.verses)) {
-          rx.lastIndex = 0;
-          if (rx.test(apart(sv))) { lit.push({id: ORDER[book] * 1000000 + ch * 1000 + +v, book, ch, v, t: sv}); if (lit.length >= 200) break outer; }
-        }
-      }
-    }
-  }
+  const lit = findIn(tl, rx, cand, cand ? KEPT : 200);
   const whole = cand ? lit.length < KEPT : lit.length < 200;      // is this every verse that has the words, or a first part
   const litIds = lit.map(h => h.id), litSet = new Set(litIds);
+  /* Someone reading the Thai or the Chinese may well type English: the words
+     stand in none of its verses, and until now the page could only guess at
+     them through the study layers, with "0 verses" at the top. Every
+     translation shares its verse numbers with the English, so the English is
+     searched for them instead, and what it finds is shown as it stands in the
+     reader's own language, with the English line under each verse so the match
+     can be seen. A translation in another script is read through the English
+     whenever Latin letters are typed; one in Latin letters only when its own
+     verses have none of the words, because sin and con are Spanish before they
+     are English. A copy that carries no English (an APK built for one
+     language) has nothing to ask, and asks nothing. */
+  const enHits = [];
+  let enRx = null, enWhole = true, enMissing = 0;
+  if (tl !== "en" && /\p{Script=Latin}/u.test(q) && (!lit.length || !latinScript(tl)) && booksWith("en").length) {
+    await idxLoad("en").catch(() => {});
+    if (seq !== SEARCHSEQ) return;
+    const ef = words.length === 1 && IDX.en && IDX.en[words[0]] ? {[words[0]]: formsOf(IDX.en, words[0])} : null;
+    enRx = looseRx(ef ? ef[words[0]].concat(q) : [q]);
+    const ec = idxCandidates("en", q, ef), found = findIn("en", enRx, ec, ec ? KEPT : 200);
+    enWhole = found.length < (ec ? KEPT : 200);
+    for (const h of found) {
+      const t = trOf(h.book, h.ch)[tl], own = t && t.verses[h.v];
+      if (own) { enHits.push({...h, own}); litSet.add(h.id); } else enMissing++;
+    }
+  }
   /* The glosses and the topical lines are English. A reader of the English is
      answered from them directly. So is anyone whose words are in no verse of
      their own translation - they may well have typed English. But words that
@@ -2230,10 +2277,13 @@ async function search(q) {
   const verse = h => `<div class="hit" lang="${tl}" dir="${tdir(tl)}" onclick="goto('#${h.book}/${h.ch}/${h.v}')">
       <div class="ref">${disp(h.book)} ${h.ch}:${h.v}</div>
       ${ruby(esc(apart(h.t)).replace(rx, m => `<mark>${m}</mark>`).normalize("NFC"))}</div>`;
+  const enVerse = h => `<div class="hit" lang="${tl}" dir="${tdir(tl)}" onclick="goto('#${h.book}/${h.ch}/${h.v}')">
+      <div class="ref">${disp(h.book)} ${h.ch}:${h.v}</div>
+      ${ruby(esc(h.own))}<small class="sectnote via" lang="en" dir="ltr">${esc(apart(h.t)).replace(enRx, m => `<mark>${m}</mark>`).normalize("NFC")}</small></div>`;
   const layers = !READER_ONLY;
   const waiting = layers && typeof ENTIDX === "undefined";
-  const mine = SR = {q, litIds, litSet, whole, direct, via, words: null, more: 0, nLit: lit.length, nAbout: about.length,
-                     rest: {lit: lit.slice(FIRST, 500).map(verse)}};
+  const mine = SR = {q, litIds, litSet, whole, direct, via, words: null, more: 0, nLit: lit.length, nEn: enHits.length, nAbout: about.length,
+                     rest: {lit: lit.slice(FIRST, 500).map(verse), en: enHits.slice(FIRST, 500).map(enVerse)}};
 
   let html = `<h2>${esc(t('Search'))}: “${esc(q)}”<small class="lang">${esc(TARGETS[tl].native)}</small></h2>`
     + `<div id="askslot"></div>`
@@ -2242,6 +2292,12 @@ async function search(q) {
   html += `<div class="sect" id="s-lit">${esc(t('Verses with these words'))}<small>${lit.length}${whole ? "" : "+"}${IDX[tl] ? "" : " · " + esc(t('scanned: the index for this text could not be opened, so only the first are found'))}</small></div>`;
   html += lit.length ? lit.slice(0, FIRST).map(verse).join("") + moreBtn("lit", Math.min(lit.length, 500) - FIRST, lit.length - 500)
         : `<p class="empty" style="margin-top:.5rem">${esc(TARGETS[tl].native)}: ${esc(t('no verse uses these words.'))}</p>`;
+  if (enRx) {
+    html += `<div class="sect" id="s-en">${esc(t('Found in the English'))}<small>${enHits.length}${enWhole ? "" : "+"} · ${esc(t('verses where the English has these words, shown as they stand in'))} ${esc(TARGETS[tl].native)}`
+      + (enMissing ? ` · ${enMissing} ${esc(t('more in chapters this language has not reached'))}` : "") + `</small></div>`;
+    html += enHits.length ? enHits.slice(0, FIRST).map(enVerse).join("") + moreBtn("en", Math.min(enHits.length, 500) - FIRST, enHits.length - 500)
+          : `<p class="empty" style="margin-top:.5rem">English: ${esc(t('no verse uses these words.'))}</p>`;
+  }
   html += `<div id="origslot"></div>`;
   if (about.length) {
     html += `<div class="sect" id="s-about">${esc(t('Verses about this'))}<small>${about.length}${about.length >= 60 ? "+" : ""} · ${esc(t('found by what the verse is about, not by its wording'))}</small></div>`;
@@ -2392,7 +2448,7 @@ function origWords(s){
    goes there when asked. */
 function drawJumps(){
   const el = $("#jumps"), s = SR; if (!el || !s) return;
-  const parts = [[s.nLit, "s-lit", "with these words"], [s.more, "s-orig", "more through the original words"], [s.nAbout, "s-about", "about this"]]
+  const parts = [[s.nLit, "s-lit", "with these words"], [s.nEn, "s-en", "found in the English"], [s.more, "s-orig", "more through the original words"], [s.nAbout, "s-about", "about this"]]
     .filter(p => p[0]);
   el.innerHTML = parts.length < 2 ? "" : "On this page: " + parts.map(([n, id, what]) =>
     `<a onclick="document.getElementById('${id}').scrollIntoView({block:'start'})">${n}${id === "s-about" && n >= 60 ? "+" : ""} ${what}</a>`).join(" · ");
