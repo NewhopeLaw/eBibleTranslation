@@ -77,6 +77,9 @@ scripts/taiwanese_from_zh.py John 1     Taiwanese the same way (targets/nan/repl
                                         dictionary); both run on scripts/from_zh.py
 scripts/taiwanese_speech.py  John 1     read a Taiwanese chapter aloud (ga642381's SuíSiann voice) -> audio/nan/
                                         (all four are TTS processing jobs on the dashboard; --all for the lot)
+scripts/taiwanese_phonemes.py           what the Taiwanese voice is given to read, every chapter, ahead of time
+scripts/taiwanese_student.py  cut|train|say|check|export   a phone-sized Taiwanese voice taught by the
+                                        recordings (a trial; see docs/taiwanese-student.md)
 scripts/add_lxx.py    [--fetch]         attach the Septuagint to the normalized OT
 scripts/verify.py     [--lang zh] [Gen [1-3]]  flag missing/dup verses, untranslated
                                         text, truncation, name inconsistencies
