@@ -1906,6 +1906,9 @@ async function diagnostics(){
   let idxState = "not loaded";
   try { await idxLoad(tl); idxState = `${Object.keys(IDX[tl] || {}).length} indexed words`; }
   catch (e) { idxState = `could not load morph/idx_${tl}.js (${e && e.message || e})`; }
+  let vecState;
+  try { const V = await vecLoad(tl); vecState = `${V.ids.length} verses, ${VT.at.size} word pieces`; }
+  catch (e) { vecState = `not in this copy (morph/vec_${tl}.js: ${e && e.message || e})`; }
   const chapters = srcBooks.reduce((n, b) => n + Object.keys(DATA[b]).length, 0);
   const translated = srcBooks.reduce((n, b) => n + Object.values(DATA[b]).filter(c => c.tr && c.tr[tl]).length, 0);
   let store = "working";
@@ -1913,7 +1916,7 @@ async function diagnostics(){
   const rows = [["Built", BUILD], ["Address", location.href], ["Reading language", tl],
                 ["Languages in this copy", Object.keys(TARGETS).join(", ") || "none"],
                 ["Books / chapters", `${srcBooks.length} / ${chapters}`],
-                ["Chapters in " + tl, translated], ["Search index", idxState],
+                ["Chapters in " + tl, translated], ["Search index", idxState], ["Search by meaning", vecState],
                 ["Study layers", READER_ONLY ? "not in this build (the reader alone)"
                     : `${Object.keys(typeof MORPH === "undefined" ? {} : MORPH).length} books of word tags loaded`],
                 ["Settings storage", store], ["Browser", navigator.userAgent]];
@@ -2220,10 +2223,10 @@ async function search(q) {
     const t = book && trOf(book, ch)[tl];
     const sv = t && t.verses[v];
     if (!sv) continue;
-    about.push({book, ch, v, t: sv});
+    about.push({id, book, ch, v, t: sv});
     if (about.length >= 60) break;
   }
-  const verse = h => `<div class="hit" lang="${tl}" dir="${tdir(tl)}" onclick="goto('#${h.book}/${h.ch}/${h.v}')">
+  const verse = h => `<div class="hit" lang="${tl}" dir="${tdir(tl)}"${h.id ? ` data-id="${h.id}"` : ""} onclick="goto('#${h.book}/${h.ch}/${h.v}')">
       <div class="ref">${disp(h.book)} ${h.ch}:${h.v}</div>
       ${ruby(esc(apart(h.t)).replace(rx, m => `<mark>${m}</mark>`).normalize("NFC"))}</div>`;
   const layers = !READER_ONLY;
@@ -2238,15 +2241,16 @@ async function search(q) {
   html += `<div class="sect" id="s-lit">${esc(t('Verses with these words'))}<small>${lit.length}${whole ? "" : "+"}${IDX[tl] ? "" : " · " + esc(t('scanned: the index for this text could not be opened, so only the first are found'))}</small></div>`;
   html += lit.length ? lit.slice(0, FIRST).map(verse).join("") + moreBtn("lit", Math.min(lit.length, 500) - FIRST, lit.length - 500)
         : `<p class="empty" style="margin-top:.5rem">${esc(TARGETS[tl].native)}: ${esc(t('no verse uses these words.'))}</p>`;
-  html += `<div id="origslot"></div>`;
+  html += `<div id="origslot"></div><div id="likeslot"></div>`;
   if (about.length) {
-    html += `<div class="sect" id="s-about">${esc(t('Verses about this'))}<small>${about.length}${about.length >= 60 ? "+" : ""} · ${esc(t('found by what the verse is about, not by its wording'))}</small></div>`;
+    html += `<div class="sect" id="s-about">${esc(t('Verses about this'))}<small><span id="aboutn">${about.length}${about.length >= 60 ? "+" : ""}</span> · ${esc(t('found by what the verse is about, not by its wording'))}</small></div>`;
     if (via.length) html += `<p class="sectnote">The verses with “${esc(q)}” are mostly about <b lang="en">${via.map(t => esc(t.k)).join(", ")}</b>; these are the others that are.</p>`;
-    html += about.map(verse).join("");
+    html += `<div id="aboutlist">${about.map(verse).join("")}</div>`;
   }
   main.innerHTML = html + "</div>";
   drawJumps();
   askDraw();
+  likeDraw(mine, verse);                                  // not waited for: the verses with the words are drawn first
 
   if (!layers) return;
   await entLoad().catch(() => {});
@@ -2259,6 +2263,136 @@ async function search(q) {
   if (SR !== mine || typeof CONC === "undefined") return;
   mine.words = origWords(mine);
   origDraw();
+}
+/* ---- verses like what was typed: search by meaning, on the phone ----
+   The sections above find letters, or the English words a verse is described
+   with. A reader who half-remembers a passage - the man thrown to the lions,
+   the shepherd who leaves the ninety-nine - usually types none of the words the
+   verse itself uses, and found nothing. build_vectors.py gives every verse a
+   vector, and a table of vectors for the pieces words are cut into. The
+   question is cut into those same pieces here, by the teacher's own unigram
+   model walked with Viterbi over the scores the table carries, and its pieces'
+   vectors are summed by their weights into a vector of the same kind; the
+   verses nearest it are the ones described. It is arithmetic over two files, so
+   it runs in the WebView with no model, no runtime and no network. It chooses
+   verses and never words, so what is drawn is this page's own text. A language
+   whose vectors were not built, or a copy that left them out, has no such
+   section rather than an empty one. */
+const VECS = {};                                          // lang -> {d, ids, v}, or false when this copy has none
+let VT = null;                                            // the piece table, decoded once and shared by every language
+const LIKE = 12;                                          // the nearest few are the answer; past a dozen they are neighbours of neighbours
+const LIKEFLOOR = .5, LIKEBAND = .12;                     // how close the best must be, and how far behind it the rest may fall (see likeDraw)
+const b64bytes = s => { const bin = atob(s), u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u; };
+function half(u16){                                       // float16 -> float32, by hand: older WebViews have no Float16Array
+  const out = new Float32Array(u16.length);
+  for (let i = 0; i < u16.length; i++) {
+    const h = u16[i], s = h & 0x8000 ? -1 : 1, e = (h >> 10) & 31, f = h & 1023;
+    out[i] = e === 0 ? s * f * 5.960464477539063e-8 : e === 31 ? (f ? NaN : s * Infinity) : s * Math.pow(2, e - 15) * (1 + f / 1024);
+  }
+  return out;
+}
+async function vecLoad(lang){
+  if (!VT) {
+    await loadJs("morph/vec_table.js");
+    const raw = window.VECTAB, at = new Map(); let maxLen = 0;
+    raw.p.forEach((p, i) => { at.set(p, i); maxLen = Math.max(maxLen, [...p].length); });
+    const g = half(new Uint16Array(b64bytes(raw.g).buffer));
+    let lo = 0; for (const x of g) if (x < lo) lo = x;
+    /* The tokenizer gives a character it has no piece for the lowest score less
+       ten; the same penalty here keeps an unknown letter from being preferred to
+       any real piece, which is what keeps the cut the teacher's. */
+    VT = {d: raw.d, at, maxLen, g, unk: lo - 10, w: half(new Uint16Array(b64bytes(raw.w).buffer)), v: new Int8Array(b64bytes(raw.v).buffer)};
+    window.VECTAB = null;                                 // the decoded arrays are the copy kept; the base64 is let go
+  }
+  if (!VECS[lang]) {
+    await loadJs(`morph/vec_${lang}.js`);
+    const one = VEC[lang];
+    VECS[lang] = {d: one.d, s: one.s, ids: new Int32Array(b64bytes(one.i).buffer), v: new Int8Array(b64bytes(one.v).buffer)};
+    VEC[lang] = null;
+  }
+  return VECS[lang];
+}
+function vecPieces(q){                                    // -> table rows, cut the way the teacher's tokenizer cuts the same words
+  const rows = [];
+  for (const word of q.normalize("NFKC").split(/\s+/).filter(Boolean)) {
+    const ch = [..."▁" + word], n = ch.length;            // every word begins with the tokenizer's space mark, as in the corpus
+    const best = new Float64Array(n + 1).fill(-Infinity), from = new Int32Array(n + 1), row = new Int32Array(n + 1);
+    best[0] = 0;
+    for (let i = 0; i < n; i++) {
+      if (best[i] === -Infinity) continue;
+      let sub = "";
+      for (let j = i; j < n && j - i < VT.maxLen; j++) {
+        sub += ch[j];
+        const r = VT.at.get(sub);
+        if (r !== undefined && best[i] + VT.g[r] > best[j + 1]) { best[j + 1] = best[i] + VT.g[r]; from[j + 1] = i; row[j + 1] = r; }
+      }
+      if (best[i] + VT.unk > best[i + 1]) { best[i + 1] = best[i] + VT.unk; from[i + 1] = i; row[i + 1] = -1; }
+    }
+    const got = []; for (let k = n; k > 0; k = from[k]) if (row[k] >= 0) got.push(row[k]);
+    rows.push(...got.reverse());
+  }
+  return rows;
+}
+function vecNearest(V, rows, k, skip){                    // -> [[cosine, verse id]] for the k nearest the question, nearest first
+  const d = VT.d, q = new Float32Array(d);
+  for (const r of rows) { const w = VT.w[r], o = r * d; for (let i = 0; i < d; i++) q[i] += VT.v[o + i] * w; }
+  let mag = 0; for (let i = 0; i < d; i++) mag += q[i] * q[i];
+  if (!mag) return [];
+  /* The verses are stored as unit vectors scaled into int8, so the dot product
+     times that one scale, over the question's length, is the cosine itself -
+     which is what the floor in likeDraw is measured in. */
+  const top = [], norm = V.s / Math.sqrt(mag);
+  for (let j = 0, o = 0; j < V.ids.length; j++, o += d) {
+    if (skip.has(V.ids[j])) continue;
+    let s = 0; for (let i = 0; i < d; i++) s += V.v[o + i] * q[i];
+    s *= norm;
+    if (top.length < k) { top.push([s, V.ids[j]]); top.sort((a, b) => b[0] - a[0]); }
+    else if (s > top[k - 1][0]) { top[k - 1] = [s, V.ids[j]]; top.sort((a, b) => b[0] - a[0]); }
+  }
+  return top;
+}
+async function likeDraw(mine, verse){
+  const slot = $("#likeslot"); if (!slot || VECS[tl] === false) return;
+  /* Fifteen megabytes to read the first time on a phone: say so, rather than
+     leave a gap that fills in later with nothing to explain it. */
+  if (!VECS[tl]) slot.innerHTML = `<p class="sectnote">${esc(t('Looking for verses like this…'))}</p>`;
+  let V;
+  try { V = await vecLoad(tl); }
+  catch (e) { VECS[tl] = false; if (SR === mine) slot.innerHTML = ""; return; }
+  if (SR !== mine) return;
+  const out = [];
+  /* Every question has twelve nearest verses, including "zzqx". What tells a
+     passage found from the neighbours of nothing is how close the best of them
+     is, and how far the rest fall behind it. Measured on English, Thai, Spanish
+     and Chinese questions, a described passage comes back above 0.55 and a
+     single common word or a typing slip below 0.5; within a passage that was
+     found, the verses that belong to it sit near the first and the strays a
+     good way under. So the section shows only what clears the floor and stays
+     within reach of the best - often two or three verses, sometimes none,
+     which is the honest answer when a description matched nothing. */
+  const near = vecNearest(V, vecPieces(mine.q), LIKE, mine.litSet);
+  const bar = near.length ? Math.max(LIKEFLOOR, near[0][0] - LIKEBAND) : 1;
+  for (const [score, id] of near) {
+    if (score < bar) break;
+    const book = byNumBook[Math.floor(id / 1000000)], ch = String(Math.floor(id / 1000) % 1000), v = String(id % 1000);
+    const tr = book && trOf(book, ch)[tl], sv = tr && tr.verses[v];
+    if (sv) out.push({id, book, ch, v, t: sv});
+  }
+  mine.nLike = out.length;
+  /* A verse found both ways is drawn once. It stays here, where it is ranked
+     by how near it is, and leaves the list below, which is in Bible order and
+     would otherwise repeat the best of this one further down the page. */
+  const list = $("#aboutlist");
+  if (list) {
+    for (const h of out) { const dup = list.querySelector(`.hit[data-id="${h.id}"]`); if (dup) { dup.remove(); mine.nAbout--; } }
+    const n = $("#aboutn"); if (n) n.textContent = mine.nAbout + (n.textContent.endsWith("+") ? "+" : "");
+    if (!mine.nAbout) { const head = $("#s-about"); if (head) { const note = head.nextElementSibling; if (note && note.classList.contains("sectnote")) note.remove(); head.remove(); } }
+  }
+  slot.innerHTML = out.length
+    ? `<div class="sect" id="s-like">${esc(t('Verses like this'))}<small>${esc(t('the nearest in meaning to what you typed, nearest first'))}</small></div>`
+      + out.map(verse).join("")
+    : "";
+  drawJumps();
 }
 /* ---- the PC's search: the same box, with the model behind it ----
    Everything above runs on a phone with nothing to ask. Served from the
@@ -2388,7 +2522,8 @@ function origWords(s){
    goes there when asked. */
 function drawJumps(){
   const el = $("#jumps"), s = SR; if (!el || !s) return;
-  const parts = [[s.nLit, "s-lit", "with these words"], [s.more, "s-orig", "more through the original words"], [s.nAbout, "s-about", "about this"]]
+  const parts = [[s.nLit, "s-lit", "with these words"], [s.more, "s-orig", "more through the original words"],
+                 [s.nLike, "s-like", "like what you typed"], [s.nAbout, "s-about", "about this"]]
     .filter(p => p[0]);
   el.innerHTML = parts.length < 2 ? "" : "On this page: " + parts.map(([n, id, what]) =>
     `<a onclick="document.getElementById('${id}').scrollIntoView({block:'start'})">${n}${id === "s-about" && n >= 60 ? "+" : ""} ${what}</a>`).join(" · ");

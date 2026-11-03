@@ -9,8 +9,9 @@
                                                  # fetch the toolchain into tools/android/, then build
 
 The reader APK carries the page built with --reader-only - always basic mode,
-no study layers - and the search indexes beside it: an 11 MB APK, 26 MB on the
-phone. --full carries the same page with the "Everything" switch and the whole
+no study layers - and the search indexes beside it, both the word indexes and
+the verse vectors that search by meaning (about 4 MB per language packed, and
+a 7 MB table they share). --full carries the same page with the "Everything" switch and the whole
 of site/morph/ behind it - word tags, lexicon, concordance, syntax,
 cross-references, apparatus, themes, places, chronology - which is a 26 MB APK
 and 78 MB installed. It freezes those layers as they stand: the jobs still
@@ -302,12 +303,18 @@ def stage_page(full: bool, langs_wanted: list[str]):
     chapters = m.group(1) if m else ""
     langs = [p.split("=")[0].strip() for p in chapters.split(",") if "=" in p]
     morph = ROOT / "site" / "morph"
-    files = sorted(f for f in morph.glob("*.js" if full else "idx_*.js") if f.is_file())
+    # The reader carries both halves of its search: the word indexes, and the
+    # verse vectors that let a reader describe a passage and be taken to it.
+    files = sorted(f for f in (morph.glob("*.js") if full else [*morph.glob("idx_*.js"), *morph.glob("vec_*.js")])
+                   if f.is_file())
     # A search index or a translated lexicon for a language the page no longer
     # offers is weight with nothing to open it. The Hebrew and Greek ones stay:
-    # they are the text itself, not a translation of it.
+    # they are the text itself, not a translation of it. vec_table.js is shared
+    # by every language, and has no code in its name to be dropped by.
     def wanted(f):
-        for prefix in ("idx_", "lexx_"):
+        if f.name == "vec_table.js":
+            return True
+        for prefix in ("idx_", "lexx_", "vec_"):
             if f.name.startswith(prefix):
                 code = f.name[len(prefix):-3]
                 return code in ("hbo", "grc") or code in langs

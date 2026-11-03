@@ -209,6 +209,20 @@ The postings are built in code, not by the model — a list of occurrences has t
 be exact. The model's part is the layer above: grouping the forms of a word so
 that a search for one form finds the others.
 
+### Search by meaning, on the phone
+
+`scripts/build_vectors.py` gives every verse a vector and writes a table of
+vectors for the word pieces they are built from; the head of that script says
+how and why. The reader cuts what was typed into the same pieces, adds up their
+vectors and shows the verses nearest it as **Verses like this**, so "the man
+thrown into the den of lions" reaches Daniel 6 and a Thai reader typing "do not
+worry about tomorrow" reaches Matthew 6:34, with no word in common. It is
+arithmetic in the page - no model on the phone - and it only ever picks verses,
+so what is shown is the reader's own text. A question nothing is near (a single
+common word, a typing slip) gets no such section rather than twelve strays. The
+reader APK carries the vectors for its languages, about 4 MB each plus a 7 MB
+table once packed.
+
 ### Search with the model behind it (the PC)
 
 The index is what a phone can carry. On this machine the reader is served by the
@@ -320,6 +334,7 @@ python scripts/build_all.py --fast      skip morphology and syntax (the slow two
 | places and the map | `build_places.py` | OpenBible.info + Natural Earth | `places.js` |
 | chronology | `build_chronology.py` | our English text + hand-entered anchors | `chron.js` |
 | search index | `build_index.py` | every text | `idx_<lang>.js` |
+| search by meaning | `build_vectors.py` | multilingual-e5-small, distilled to a table | `vec_table.js`, `vec_<lang>.js` |
 | themes | `build_themes.py` | the model, chapter by chapter | `themes.js` |
 | book arguments, theme trajectories | `build_theology.py` | the model over the themes | `theology.js` |
 | our lexicon | `build_lexicon.py` | the model over the concordance | `lexx.js` |
