@@ -237,3 +237,9 @@ Revelation 10: 11 verses, 136s of audio in 120s
 Revelation 11: 19 verses, 228s of audio in 177s, no reading for 棵
 Revelation 12: 18 verses, 198s of audio in 154s
 Revelation 13: 18 verses, 186s of audio in 146s
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\module.py:1355: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:35.)
+  return t.to(
+Trainable Parameters: 4.481M
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\df\io.py:9: UserWarning: `torchaudio.backend.common.AudioMetaData` has been moved to `torchaudio.AudioMetaData`. Please update the import path.
+  from torchaudio.backend.common import AudioMetaData
+Revelation 19: 21 verses, 240s of audio in 181s

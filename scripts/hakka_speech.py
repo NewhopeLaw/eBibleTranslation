@@ -70,7 +70,11 @@ VENV_PY = VENV / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
 if Path(sys.prefix).resolve() != VENV.resolve() or not sys.flags.utf8_mode:
     if not VENV_PY.exists():
         raise SystemExit(f"the Hakka voice's environment is not set up; see the top of {Path(__file__).name}")
-    raise SystemExit(subprocess.call([str(VENV_PY), __file__, *sys.argv[1:]], env={**os.environ, "PYTHONUTF8": "1"}))
+    # Its output goes where ours does, named outright: the dashboard runs under
+    # pythonw, which hands a child nothing it is not told to, and the chapter
+    # lines of a job started there went nowhere (2026-11-02).
+    raise SystemExit(subprocess.call([str(VENV_PY), __file__, *sys.argv[1:]], env={**os.environ, "PYTHONUTF8": "1"},
+                                     stdout=sys.stdout, stderr=sys.stderr))
 
 for stream in (sys.stdout, sys.stderr):
     if hasattr(stream, "reconfigure"):
