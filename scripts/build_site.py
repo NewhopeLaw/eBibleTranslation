@@ -5,7 +5,7 @@ Embeds the original text of every chapter (Hebrew / Aramaic / Greek) and every
 translation found under output/<lang>/json/, and writes site/index.html:
   - reading view per target language, with superscript verse numbers,
     translator's notes, prev/next chapter, adjustable text size (persisted)
-  - tabs per chapter: original | each translation | side by side | compare
+  - tabs per chapter: original | each translation | side by side | with English | compare
   - full-text search over the selected translation; English typed into another
     language is found in the English and shown where it stands in that language
   - reference finder ("Genesis 2:7", "gen 2", "1 sam 3:10")
@@ -569,7 +569,7 @@ ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
 /* ---------- what a phone shows, and what it does not ---------- */
 @media (max-width:760px){
   .par { grid-template-columns:1fr; }
-  .par .o { border-bottom:0; padding-bottom:.1rem; }
+  .par .o, .par .a { border-bottom:0; padding-bottom:.1rem; }
   nav#books { display:none }
   header .brand, header .goto, header .sources, header #bookSel, header #tlSel, header .who,
   header #q, header #fsMinus, header #fsPlus, header #toolsBtn, header #gear { display:none }
@@ -1689,14 +1689,20 @@ function renderChapter(book, ch, highlightVerse) {
   else if (!tr && !analysis) v = ((v === "lxx" || v === "hl") && lxx) ? v : "orig";
   else if (v === "all" && avail.length < 2 && !lxx) v = "par";
   if ((v === "lxx" || v === "hl") && !lxx) v = "orig";
-  /* Basic mode is the book: the translation, or the text it was made from. */
-  if (!adv() && v !== "tr" && v !== "orig") v = tr ? "tr" : "orig";
+  /* The reading language beside the English, for two people reading one page
+     who do not share a language. A chapter the English has not reached, or a
+     reader of the English itself, has no pair to show. */
+  const pairable = tr && shown !== "en" && !!trs.en;
+  if (v === "pair" && !pairable) v = tr ? "tr" : "orig";
+  /* Basic mode is the book: the translation, or the text it was made from,
+     or the two languages the book is being read in. */
+  if (!adv() && v !== "tr" && v !== "orig" && v !== "pair") v = tr ? "tr" : "orig";
   /* The heading says what is actually on the screen rather than everything the
      chapter has, because the bar repeats it and a reader in the Septuagint
      should not be told they are reading Hebrew. */
   /* The translation is named as its own readers name it, as the trays do: a
      Thai reader was being told, in English, that this was Thai. */
-  const sub = v === "orig" ? L.name : v === "lxx" ? t('Septuagint') : v === "hl" ? `${L.name} · ${t('Septuagint')}`
+  const sub = v === "orig" ? L.name : v === "lxx" ? t('Septuagint') : v === "hl" ? `${L.name} · ${t('Septuagint')}` : v === "pair" ? `${TARGETS[shown].native} · English`
     : v === "all" ? `${L.name}${lxx ? " + " + t('Septuagint') : ""} → ${avail.map(x => TARGETS[x].native).join(" · ")}`
     : tr ? `${L.name} → ${TARGETS[shown].native}` : L.name;
   setTitle(`${disp(book)} ${ch}`, sub);
@@ -1713,6 +1719,7 @@ function renderChapter(book, ch, highlightVerse) {
     for (const x of haveTargets)
       html += `<a class="${v==='tr'&&shown===x?'on':''} ${trs[x]?'':'off'}" onclick="setTl('${x}');setView('tr')">${TARGETS[x].native}</a>`;
     html += `<span class="sep"></span><a class="${v==='par'?'on':''} ${tr?'':'off'}" onclick="setView('par')">${esc(t('Side by side'))}</a>`;
+    if (tl !== "en") html += `<a class="${v==='pair'?'on':''} ${pairable?'':'off'}" onclick="setView('pair')">${esc(t('With English'))}</a>`;
     html += `<a class="${v==='all'?'on':''} ${(avail.length + (lxx?1:0))>1?'':'off'}" onclick="setView('all')">${esc(t('Compare'))}</a>`;
     // the analysis tabs, in the order the layers are built: words, then lexemes and meaning, then themes, then arguments, then notes on a verse
     html += `<i class="sep" title="analysis"></i>`;
@@ -1724,7 +1731,7 @@ function renderChapter(book, ch, highlightVerse) {
     html += `<a class="tool ${v==='map'?'on':''}" onclick="setView('map')" title="notes: the places this chapter mentions, on a map">places</a>`;
     html += `<a class="tool ${v==='chron'?'on':''}" onclick="setView('chron')" title="notes: the chronological statements here, and the dated anchors">chronology</a></div>`;
   }
-  main.className = ((v === "par" || v === "all" || v === "hl" || v === "harm" || v === "map" || v === "chron" || v === "themes") ? "wide" : "") + (inter && adv() && src && (v === "orig" || v === "par" || v === "all" || v === "hl") ? " inter" : "");
+  main.className = ((v === "par" || v === "pair" || v === "all" || v === "hl" || v === "harm" || v === "map" || v === "chron" || v === "themes") ? "wide" : "") + (inter && adv() && src && (v === "orig" || v === "par" || v === "all" || v === "hl") ? " inter" : "");
   /* The word tags are a file per book, fetched the first time the book is
      opened. Until it arrives the text reads normally with no glosses under it,
      which is silent and puzzling in interlinear; and if it never arrives the
@@ -1756,7 +1763,7 @@ function renderChapter(book, ch, highlightVerse) {
   if (v === "chron") { renderChron(book, ch, html); return; }
   if (v === "themes") { renderThemes(book, ch, html); return; }
   if (!tr && v !== "orig" && v !== "lxx" && v !== "hl" && v !== "all") { main.innerHTML = html; return; }
-  const nums = Object.keys(v === "tr" ? trs[shown].verses : src).filter(k => !k.startsWith("_")).map(Number).sort((a,b)=>a-b);
+  const nums = Object.keys((v === "tr" || v === "pair") ? trs[shown].verses : src).filter(k => !k.startsWith("_")).map(Number).sort((a,b)=>a-b);
   if (v === "orig") {
     for (const n of nums)
       html += `<p class="ov ${ocls}" dir="${rtl?'rtl':'ltr'}" id="v-${book}-${ch}-${n}">${vnum(book,ch,n)}${vtag(src,n)}${wrapSrc(src[n], book, ch, n)}</p>`;
@@ -1775,6 +1782,14 @@ function renderChapter(book, ch, highlightVerse) {
       const e = trs[shown].verses[n];
       html += `<div class="o ${ocls}" dir="${rtl?'rtl':'ltr'}">${vnum(book,ch,n)}${vtag(src,n)}${wrapSrc(src[n], book, ch, n)}</div>
         <div class="e" lang="${shown}" dir="${tdir(shown)}" id="v-${book}-${ch}-${n}">${vnum(book,ch,n)}${e ? flat(e) : "<i style='color:var(--muted)'>—</i>"}</div>`;
+    }
+    html += `</div>`;
+  } else if (v === "pair") {                                 // the reading language and the English, verse by verse
+    html += `<div class="par">`;
+    for (const n of nums) {
+      const a = trs[shown].verses[n], e = trs.en.verses[n];
+      html += `<div class="e a" lang="${shown}" dir="${tdir(shown)}" id="v-${book}-${ch}-${n}">${vnum(book,ch,n)}${a ? flat(a) : "<i style='color:var(--muted)'>—</i>"}</div>
+        <div class="e" lang="en" dir="ltr">${vnum(book,ch,n)}${e ? flat(e) : "<i style='color:var(--muted)'>—</i>"}</div>`;
     }
     html += `</div>`;
   } else if (v === "all") {
@@ -2180,6 +2195,16 @@ function phraseBlock(nums, how, q){
       }).join("") + `</div>`;
 }
 
+/* In any language but English a hit carries its English line too, so that
+   two readers of one page who share no language are both answered; and a
+   verse found through the English opens with the English beside it, since
+   the reader who typed English needs the line they can read. */
+function enLineOf(b, c, v){
+  if (tl === "en") return "";
+  const e = trOf(b, c).en, s = e && e.verses[v];
+  return s ? `<small class="sectnote via" lang="en" dir="ltr">${esc(s)}</small>` : "";
+}
+function openPair(h){ if (view !== "pair") { view = "pair"; localStorage.setItem("view", "pair"); } goto(h); }
 let SR = null;                                            // the search on the page now
 let SEARCHSEQ = 0;
 const FIRST = 100;                                        // verses drawn at once; the rest wait to be asked for
@@ -2276,8 +2301,8 @@ async function search(q) {
   }
   const verse = h => `<div class="hit" lang="${tl}" dir="${tdir(tl)}" onclick="goto('#${h.book}/${h.ch}/${h.v}')">
       <div class="ref">${disp(h.book)} ${h.ch}:${h.v}</div>
-      ${ruby(esc(apart(h.t)).replace(rx, m => `<mark>${m}</mark>`).normalize("NFC"))}</div>`;
-  const enVerse = h => `<div class="hit" lang="${tl}" dir="${tdir(tl)}" onclick="goto('#${h.book}/${h.ch}/${h.v}')">
+      ${ruby(esc(apart(h.t)).replace(rx, m => `<mark>${m}</mark>`).normalize("NFC"))}${enLineOf(h.book, h.ch, h.v)}</div>`;
+  const enVerse = h => `<div class="hit" lang="${tl}" dir="${tdir(tl)}" onclick="openPair('#${h.book}/${h.ch}/${h.v}')">
       <div class="ref">${disp(h.book)} ${h.ch}:${h.v}</div>
       ${ruby(esc(h.own))}<small class="sectnote via" lang="en" dir="ltr">${esc(apart(h.t)).replace(enRx, m => `<mark>${m}</mark>`).normalize("NFC")}</small></div>`;
   const layers = !READER_ONLY;
@@ -2377,7 +2402,7 @@ function askCard(h){
   const b = byNum[Math.floor(h.id / 1000000)], c = String(Math.floor(h.id / 1000) % 1000), v = String(h.id % 1000); if (!b) return "";
   const t = trOf(b, c)[tl], sv = t && t.verses[v];
   /* A verse this language has not reached yet is shown as it stands in the original, as the concordance does. */
-  return `<div class="hit" ${sv ? `lang="${tl}" dir="${tdir(tl)}"` : ""} onclick="goto('#${b}/${c}/${v}')"><div class="ref">${disp(b)} ${c}:${v}${h.n > 1 ? "–" + (+v + h.n - 1) : ""}</div>${sv ? ruby(esc(sv)) : verseHtml(b, c, v)}`
+  return `<div class="hit" ${sv ? `lang="${tl}" dir="${tdir(tl)}"` : ""} onclick="goto('#${b}/${c}/${v}')"><div class="ref">${disp(b)} ${c}:${v}${h.n > 1 ? "–" + (+v + h.n - 1) : ""}</div>${sv ? ruby(esc(sv)) + enLineOf(b, c, v) : verseHtml(b, c, v)}`
     + (h.n > 1 ? ` <small class="sectnote" lang="en" dir="ltr">… and the ${h.n - 1} verse${h.n === 2 ? "" : "s"} after it</small>` : "") + `</div>`;
 }
 async function askRun(fresh){
@@ -2482,7 +2507,7 @@ function origDraw(){
     const t = trOf(b, String(c))[tl], sv = t && t.verses[String(v)];
     /* Where the chosen language has not reached this verse yet, the verse is
        shown as it stands in the original, with the word marked. */
-    return `<div class="hit" ${sv ? `lang="${tl}" dir="${tdir(tl)}"` : ""} onclick="goto('#${b}/${c}/${v}')"><div class="ref">${disp(b)} ${c}:${v} · <span class="orig">${esc(entOfTag(w.tag)[2])}</span></div>${sv ? ruby(esc(sv)) : verseHtml(b, c, v, r[3])}</div>`;
+    return `<div class="hit" ${sv ? `lang="${tl}" dir="${tdir(tl)}"` : ""} onclick="goto('#${b}/${c}/${v}')"><div class="ref">${disp(b)} ${c}:${v} · <span class="orig">${esc(entOfTag(w.tag)[2])}</span></div>${sv ? ruby(esc(sv)) + enLineOf(b, c, v) : verseHtml(b, c, v, r[3])}</div>`;
   };
   h = `<div class="sect" id="s-orig">Other verses where the original has ${on.length === 1 ? "it" : "one of them"}<small>${ids.length}${s.whole ? " · the translation words these differently" : ""}</small></div>`;
   if (!ids.length) h += `<p class="sectnote">None: every verse with ${on.length === 1 ? "this word" : "these words"} is already above.</p>`;
@@ -3157,6 +3182,7 @@ function drawTools(){
     if (lxx) h += B("v:lxx", t('Septuagint'), t('the old Greek of this chapter'), view === "lxx", false);
     if (lxx) h += B("v:hl", t('Hebrew · Septuagint'), t('the two side by side'), view === "hl", false);
     h += B("v:par", t('Side by side'), t('original and translation, verse by verse'), view === "par", !src || !avail.length);
+    if (tl !== "en") h += B("v:pair", t('With English'), t('the reading language and the English, verse by verse'), view === "pair", !trs[tl] || !trs.en);
     h += B("v:all", t('Compare'), t('every language this chapter has'), view === "all", (avail.length + (lxx ? 1 : 0)) < 2);
     h += B("inter", t('Interlinear'), t('gloss and parsing under each word'), inter, !src);
     h += B("v:themes", t('Themes'), t('what this chapter is about'), view === "themes", false);
@@ -3482,6 +3508,15 @@ function drawSettings(){
     + `<div><div class="shead">${esc(t("Display language"))}</div><div class="rowlist">${dlRows()}</div></div>`
     + `<div><div class="shead">${esc(t("Reading language"))}</div><div class="rowlist">${langRows()}</div></div>`
     + `</div>`;
+  /* Two people reading one page who do not share a language: the reading
+     language with the English beside it, verse by verse. It is offered here,
+     and not only among the tools, because the tools are put away in basic
+     mode and this is a way of reading the book, not a study of it. */
+  if (tl !== "en" && booksWith("en").length) h += `<div class="shead">${esc(t('Reading together'))}</div>
+    <div class="seg" role="group" aria-label="${attr(t('Reading together'))}">
+      <button type="button" data-pair="0" aria-pressed="${view !== "pair"}">${esc(TARGETS[tl].native)}</button>
+      <button type="button" data-pair="1" aria-pressed="${view === "pair"}">${esc(TARGETS[tl].native)} · English</button></div>
+    <p class="hint">${esc(t('For two readers of one page: every verse with the English beside it, and the search answered in either language. A verse found through the English opens this way.'))}</p>`;
   h += `<div class="shead">${esc(t("Read aloud"))}</div><p class="hint">${PHONE
       ? esc(t("Tap a verse and choose Listen. The voices are the phone's own, so whichever languages it has installed are the ones it can read; Hebrew and Greek are read with modern voices."))
       : recCount(tl) && speechFor(tl) === "no"
@@ -3535,6 +3570,7 @@ function drawSettings(){
   dyn.innerHTML = h;
   dyn.querySelectorAll("[data-mode]").forEach(el => el.onclick = () => setMode(el.dataset.mode));
   dyn.querySelectorAll("[data-skin]").forEach(el => el.onclick = () => setSkin(el.dataset.skin));
+  dyn.querySelectorAll("[data-pair]").forEach(el => el.onclick = () => { setView(el.dataset.pair === "1" ? "pair" : "tr"); redrawSheet(); });
   dyn.querySelectorAll("[data-fs]").forEach(el => el.onclick = () => fsStep(+el.dataset.fs));
   dyn.querySelectorAll("[data-lh]").forEach(el => el.onclick = () => setLh(+el.dataset.lh));
   dyn.querySelectorAll("[data-rate]").forEach(el => el.onclick = () => { setVoice("rate", +el.dataset.rate); tryVoice(); });
