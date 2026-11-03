@@ -15,3 +15,7 @@
 # the mapping file that goes with the build translates the rest.
 -keepattributes SourceFile,LineNumberTable
 -renamesourcefileattribute SourceFile
+
+# ONNX Runtime's native library calls back into its Java classes by name, so
+# R8 must leave them as they are or a release build loses search by meaning.
+-keep class ai.onnxruntime.** { *; }
