@@ -1498,6 +1498,8 @@ label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); fo
 #work .stats2 .quiet, #work .lg.quiet { box-shadow:inset 3px 0 var(--warn); }
 #work .lg.quiet { padding-left:.4rem; }
 #work .wch { width:100%; height:auto; display:block; }
+#work .stats2 .w { display:block; color:var(--fg); font-size:11px; white-space:nowrap; }
+#work .flat { color:var(--fg); border-left:3px solid var(--warn); padding-left:.4rem; }
 #work .wch.none { padding:.4rem 0; font-size:11px; text-align:center; }
 #work label.chk { font-size:11px; }
 @media (max-width:480px) { #work .todo { grid-template-columns:1fr; } }
@@ -2063,6 +2065,24 @@ function wchart(pts, steady, o){
   return `<svg class="wch" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.label)}"><title>${esc(o.label)}</title>${g}</svg>`;
 }
 
+/* Whether a voice is still learning, as the Voice Lab's "last 10 min" says it:
+   the newest score against the score a while back - 30 minutes, or 10 epochs -
+   each the mean of three readings, so one noisy reading does not decide it.
+   Under 1% either way is levelling off. The steady scores are used when the
+   trainer gives them, being measured on the same lessons every time. */
+function scoreTrend(sc){
+  const s = (sc.scores.length >= 2 ? sc.scores : sc.points).slice().sort((a, b) => a[0] - b[0]);
+  const span = sc.x === 'minutes' ? 30 : 10;
+  const mean = ps => ps.reduce((n, p) => n + p[1], 0) / ps.length;
+  if (!s.length) return {now: null, delta: null, span};
+  const end = s[s.length - 1][0], now = mean(s.slice(-3));
+  let i = -1;
+  for (let k = 0; k < s.length; k++) if (s[k][0] <= end - span) i = k;
+  if (i < 0) return {now, delta: null, span};
+  const then = mean(s.slice(Math.max(0, i - 1), i + 2)), delta = now - then;
+  const word = Math.abs(delta) < 0.01 * Math.abs(then) ? 'levelling off' : delta < 0 ? 'better' : 'worse';
+  return {now, delta, span, word};
+}
 const nice = k => k.replace(/-/g, ' ');
 function jobCard(it, group, ticked){
   const run = it.running, waiting = !run && it.restart_in != null, gaveUp = !run && !!it.gave_up;
@@ -2100,6 +2120,14 @@ function jobCard(it, group, ticked){
       + `<div title="process ids: ${(it.pids || []).join(', ')}"><small>Process</small><b>${(it.pids || [])[0] || '—'}${(it.pids || []).length > 1 ? ' +' + (it.pids.length - 1) : ''}</b></div></div>`;
   }
   if (sc && (sc.points.length || sc.scores.length)) {
+    const t = scoreTrend(sc);
+    body += `<div class="stats2">`
+      + `<div title="the newest ${sc.scores.length ? 'steady score (the same lessons every time)' : 'reading'} of the ${esc(sc.label)}; lower is better"><small>Score now</small><b>${t.now != null ? t.now.toFixed(3) : '—'}</b></div>`
+      + `<div title="the lowest it has reached"><small>Best</small><b>${sc.best != null ? sc.best.toFixed(3) : '—'}</b></div>`
+      + `<div class="${t.word === 'worse' ? 'quiet' : ''}" title="the change over the last ${t.span} ${sc.x}, averaged over the newest readings so one noisy reading does not decide it">`
+      + `<small>Last ${t.span} ${sc.x}</small><b>${t.delta == null ? '—' : Math.abs(t.delta) < 0.0005 ? '0.000' : (t.delta > 0 ? '+' : '') + t.delta.toFixed(3)}</b>${t.word ? `<span class="w">${t.word}</span>` : ''}</div></div>`;
+    if (t.word === 'levelling off')
+      body += `<div class="flat">Hardly changed over the last ${t.span} ${sc.x}: more training at this rate will gain little.</div>`;
     body += wchart(sc.points, sc.scores, {score: true, yfmt: y => y.toFixed(3), xfmt: x => x === sc.points.concat(sc.scores).reduce((m, p) => Math.max(m, p[0]), 0) ? `${Math.round(x)} ${sc.x}` : `${Math.round(x)}`, empty: '',
       label: `${sc.label} by ${sc.x} trained: lower is better${sc.best != null ? '; best ' + sc.best.toFixed(3) : ''}`});
   } else if (run || (it.history || []).length > 1) {

@@ -150,8 +150,11 @@ def scores(name):
             p = json.loads(runs[-1].read_text(encoding="utf-8"))
         except (json.JSONDecodeError, OSError):
             return None
+        best = p.get("best")
+        if best is None:                                    # before its first steady score: the best reading so far
+            best = min((q[1] for q in p.get("scores") or p.get("points") or []), default=None)
         return {"x": "minutes", "label": "mel loss", "points": thin(p.get("points") or []),
-                "scores": thin(p.get("scores") or []), "best": p.get("best")}
+                "scores": thin(p.get("scores") or []), "best": best}
     return None
 
 
