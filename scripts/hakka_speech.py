@@ -284,6 +284,14 @@ def read_all(pace):
             write_wav(audio, voice.fs, out, times)
             print(f"{BOOKS[code]['name']} {ch}: {len(passage)} verses, {len(audio) / voice.fs:.0f}s"
                   + (f", skipped {' '.join(w for _, w in unread)}" if unread else ""), flush=True)
+            # Straight to the reader, as the Taiwanese voice does; a failure
+            # here waits for build_audio.py and does not stop the recording.
+            try:
+                from build_audio import add
+                add("hak", out)
+            except Exception as e:                 # noqa: BLE001
+                print(f"    not yet in the reader ({type(e).__name__}: {e}); scripts/build_audio.py will add it",
+                      flush=True)
 
 
 def main():

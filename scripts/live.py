@@ -806,7 +806,8 @@ def rebuild_site() -> str:
     with REBUILD_LOCK:
         tmp = ROOT / "site" / ".build"
         tmp.mkdir(exist_ok=True)
-        r = subprocess.run([sys.executable, str(ROOT / "scripts" / "build_site.py"), "--out", str(tmp)],
+        r = subprocess.run([sys.executable, str(ROOT / "scripts" / "build_site.py"), "--out", str(tmp),
+                            "--audio", str(ROOT / "site" / "audio")],    # served from site/, so counted there
                            capture_output=True, text=True, encoding="utf-8", errors="replace",
                            creationflags=NO_WINDOW)
         built = tmp / "index.html"
@@ -1016,6 +1017,21 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header("Content-Type", "text/javascript; charset=utf-8")
             self.send_header("Content-Length", str(len(body)))
             self.send_header("Cache-Control", "no-cache")
+            self.end_headers()
+            self.wfile.write(body)
+        elif re.fullmatch(r"/audio/[a-z-]+\.json|/audio/[a-z-]+/[A-Za-z0-9_]+\.ogg", path):
+            # The Taiwanese and Hakka recordings, for the reader's Listen
+            # (scripts/build_audio.py). The list changes as the voices record,
+            # so it is never cached; a chapter's recording is.
+            f = ROOT / "site" / path.lstrip("/")
+            if not f.exists():
+                self._json({"error": "not recorded yet"}, 404)
+                return
+            body = f.read_bytes()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json" if f.suffix == ".json" else "audio/ogg")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-cache" if f.suffix == ".json" else "max-age=3600")
             self.end_headers()
             self.wfile.write(body)
         elif path == "/work":

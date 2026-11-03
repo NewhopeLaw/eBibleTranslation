@@ -2592,6 +2592,18 @@ function recFor(lang, r){                                // -> {src, s, e} for a
   return t ? {src: `audio/${lang}/${r.book}_${String(r.ch).padStart(2, "0")}.ogg`, s: t[1], e: t[2]} : null;
 }
 const recCount = lang => Object.keys(RECORDED[lang] || {}).length;
+/* The voices add each chapter as they record it (build_audio.add), so a page
+   built before then does not know of it. Served over http, the page asks for
+   the lists as they stand now; opened from a file it keeps the ones it was
+   built with. Only languages that had a list when the page was built are
+   asked about, so the others make no failed requests. */
+if (/^https?:$/.test(location.protocol))
+  for (const lang of Object.keys(RECORDED))
+    fetch(`audio/${lang}.json`, {cache: "no-store"}).then(r => r.ok ? r.json() : null).then(m => {
+      if (!m || !Object.keys(m).length) return;
+      RECORDED[lang] = m;
+      if (!vbar.hidden) drawVbar();
+    }).catch(() => {});
 /* Whether the held verses can be heard, each in its own language: "yes", ""
    while the voices are still loading, or "no", with the first language that
    cannot be - a passage is not offered to be heard with a piece of it missing. */
@@ -3801,6 +3813,9 @@ def main():
                     help="the text alone, always in basic mode: the page for the Android reader APK, "
                          "which ships without the study layers in morph/")
     ap.add_argument("--out", default=str(SITE), help="folder to write index.html into (default: site/)")
+    ap.add_argument("--audio", default="",
+                    help="the recordings the page will be served beside (default: <out>/audio); the dashboard "
+                         "builds into site/.build/ and serves the page from site/, so it names site/audio")
     ap.add_argument("--complete-only", action="store_true",
                     help="carry only the languages the whole Bible has been translated into; "
                          "what is shipped (the APKs) should not offer a language with books missing")
@@ -3883,18 +3898,21 @@ def main():
         print("WARNING: no language is complete, so this page carries the original text alone")
     out_dir = Path(a.out)
     out_dir.mkdir(parents=True, exist_ok=True)
-    # Recordings are counted where the page is written, not in site/: an APK's
-    # staging folder carries none, and a page that offered them there would
-    # promise a Listen that could only fail.
+    # Recordings are counted where the page will be served from, by default
+    # where it is written: an APK's staging folder carries none, and a page
+    # that offered them there would promise a Listen that could only fail.
+    # The dashboard writes into site/.build/ and serves from site/, so it says
+    # where; counted in .build/, its reader found no recordings at all.
+    audio = Path(a.audio) if a.audio else out_dir / "audio"
     recorded = {}
     for code in targets:
-        made_for = out_dir / "audio" / f"{code}.json"
+        made_for = audio / f"{code}.json"
         if made_for.exists():
             got = json.loads(made_for.read_text(encoding="utf-8"))
-            have = {k: v for k, v in got.items()
-                    if (out_dir / "audio" / code / f"{k.split('|')[0]}_{int(k.split('|')[1]):02d}.ogg").exists()}
-            if have:
-                recorded[code] = have
+            # Kept even when empty: the page asks for the list again when it
+            # opens, and picks up what the voice has recorded since.
+            recorded[code] = {k: v for k, v in got.items()
+                              if (audio / code / f"{k.split('|')[0]}_{int(k.split('|')[1]):02d}.ogg").exists()}
     page = (PAGE
             .replace("__DATA__", json.dumps(data, ensure_ascii=False))
             .replace("__ORDER__", json.dumps(ORDER))

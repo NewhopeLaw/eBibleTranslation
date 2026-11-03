@@ -158,13 +158,45 @@ def build(lang, workers):
             counts[how] = counts.get(how, 0) + 1
             if times:
                 made[(book, ch)] = times
-    # {"John|1": [[verse, start, end], ...]}: the recording is site/audio/<lang>/John_01.ogg
-    made = {f"{b}|{c}": made[b, c] for b, c in sorted(made, key=lambda k: (NUM[k[0]], k[1]))}
-    OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / f"{lang}.json").write_text(json.dumps(made, separators=(",", ":")), encoding="utf-8")
+    write_manifest(lang, made)
     size = sum(f.stat().st_size for f in (OUT / lang).glob("*.ogg")) if (OUT / lang).exists() else 0
     said = ", ".join(f"{n} {k}" for k, n in sorted(counts.items()))
     print(f"{lang}: {len(made)} chapters ready ({said}), {size >> 20} MB, in {time.time() - t0:.0f}s")
+
+
+def write_manifest(lang, made):
+    """{"John|1": [[verse, start, end], ...]}: the recording is site/audio/<lang>/John_01.ogg.
+    Written whole and then moved into place: the reader fetches it while the
+    voice's job is adding to it, and half a file would hide every chapter."""
+    made = {f"{b}|{c}": made[b, c] for b, c in sorted(made, key=lambda k: (NUM[k[0]], k[1]))}
+    OUT.mkdir(parents=True, exist_ok=True)
+    part = OUT / f"{lang}.json.part"
+    part.write_text(json.dumps(made, separators=(",", ":")), encoding="utf-8")
+    part.replace(OUT / f"{lang}.json")
+
+
+def add(lang, wav):
+    """One chapter just recorded, made ready for the reader at once. The voices
+    call this after each chapter, so a job that takes days is heard as it goes
+    rather than when someone next remembers to run this script; the reader
+    picks the chapter up on its next load, without being rebuilt."""
+    m = re.fullmatch(r"(.+)_(\d{2,3})", wav.stem)
+    if not (m and m.group(1) in NUM):
+        return None
+    book, ch = m.group(1), int(m.group(2))
+    _, _, times, how = make((lang, book, ch, wav, ROOT / "output" / lang / "json" / f"{wav.stem}.json"))
+    side = OUT / f"{lang}.json"
+    made = {}
+    if side.exists():
+        for k, v in json.loads(side.read_text(encoding="utf-8")).items():
+            b, c = k.split("|")
+            made[(b, int(c))] = v
+    if times:
+        made[(book, ch)] = times
+    else:
+        made.pop((book, ch), None)
+    write_manifest(lang, made)
+    return how
 
 
 def main():

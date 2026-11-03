@@ -526,10 +526,19 @@ def read_all(vocoder="wavernn", clean=True, pitch=None):
                 continue
             t0 = time.time()
             audio, unread, times = read(voice, passage, clean=cleaner, pitch=PITCH if pitch is None else pitch)
-            write_wav(audio, voice.fs, AUDIO / f"{BOOKS[code]['name'].replace(' ', '_')}_{ch:02d}.wav", times)
+            wav = AUDIO / f"{BOOKS[code]['name'].replace(' ', '_')}_{ch:02d}.wav"
+            write_wav(audio, voice.fs, wav, times)
             print(f"{BOOKS[code]['name']} {ch}: {len(passage)} verses, {len(audio) / voice.fs:.0f}s of audio in "
                   f"{time.time() - t0:.0f}s" + (f", no reading for {' '.join(sorted({c for _, c in unread}))}"
                                                 if unread else ""))
+            # Straight to the reader, so the chapter can be heard on its next
+            # load. A failure here costs the reader one chapter until
+            # build_audio.py runs again; it must not stop the recording.
+            try:
+                from build_audio import add
+                add("nan", wav)
+            except Exception as e:                 # noqa: BLE001
+                print(f"    not yet in the reader ({type(e).__name__}: {e}); scripts/build_audio.py will add it")
 
 
 def main():
