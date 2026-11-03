@@ -1917,6 +1917,9 @@ async function diagnostics(){
                 ["Languages in this copy", Object.keys(TARGETS).join(", ") || "none"],
                 ["Books / chapters", `${srcBooks.length} / ${chapters}`],
                 ["Chapters in " + tl, translated], ["Search index", idxState], ["Search by meaning", vecState],
+                ["Search by meaning, model", window.AndroidApp && AndroidApp.meaningState
+                    ? `${modelLangs().join(", ") || "no languages"} · ${AndroidApp.meaningState()}${MODELWHY ? " · last error: " + MODELWHY : ""}`
+                    : "not in this copy (the app carries it; a browser uses the table)"],
                 ["Study layers", READER_ONLY ? "not in this build (the reader alone)"
                     : `${Object.keys(typeof MORPH === "undefined" ? {} : MORPH).length} books of word tags loaded`],
                 ["Settings storage", store], ["Browser", navigator.userAgent]];
@@ -2351,27 +2354,67 @@ function vecNearest(V, rows, k, skip){                    // -> [[cosine, verse 
   }
   return top;
 }
+/* ---- the same question, put to the model itself, in the app ----
+   The table above is what a page can carry and compute with alone. The Android
+   app can do more: it carries the model the table was distilled from and ONNX
+   Runtime to run it (android/.../Meaning.java, scripts/build_encoder.py), and
+   a model that reads the question whole is far better than a table of its
+   pieces where the pieces mean little alone - in Thai it found the passage for
+   five questions of eight where the table found two. So in the app, and only
+   for the languages it has verses for, the page asks it, by number, and the
+   app answers with meaningDone(). Anywhere else, or if the app cannot (an x86
+   phone the runtime was not built for), the table answers as before. */
+const ASKING = new Map();                                 // question number -> its promise's resolve
+let ASKN = 0, MODELWHY = "", MODELREADY = false;
+const MODELFLOOR = .5, MODELBAND = .12;                   // the model's own scale: provisional until measured against the built verses
+function modelLangs(){
+  try { return window.AndroidApp && AndroidApp.meaningLangs ? AndroidApp.meaningLangs().split(",").filter(Boolean) : []; }
+  catch (e) { return []; }
+}
+function meaningDone(n, hits, why){
+  const done = ASKING.get(n); if (!done) return;
+  ASKING.delete(n); done(Array.isArray(hits) ? hits : {why: why || "no answer"});
+}
+const askModel = (lang, q) => new Promise(done => { const n = ++ASKN; ASKING.set(n, done); AndroidApp.meaning(n, lang, q); });
 async function likeDraw(mine, verse){
-  const slot = $("#likeslot"); if (!slot || VECS[tl] === false) return;
-  /* Fifteen megabytes to read the first time on a phone: say so, rather than
-     leave a gap that fills in later with nothing to explain it. */
-  if (!VECS[tl]) slot.innerHTML = `<p class="sectnote">${esc(t('Looking for verses like this…'))}</p>`;
-  let V;
-  try { V = await vecLoad(tl); }
-  catch (e) { VECS[tl] = false; if (SR === mine) slot.innerHTML = ""; return; }
-  if (SR !== mine) return;
-  const out = [];
+  const slot = $("#likeslot"); if (!slot) return;
+  const note = `<p class="sectnote">${esc(t('Looking for verses like this…'))}</p>`;
+  let near = null, floor = LIKEFLOOR, band = LIKEBAND;
+  if (modelLangs().includes(tl)) {
+    /* The first question copies the model out of the app and loads it, a few
+       seconds on a slow phone; every one after is a fraction of a second. */
+    if (!MODELREADY) slot.innerHTML = note;
+    const got = await askModel(tl, mine.q);
+    if (SR !== mine) return;
+    if (Array.isArray(got)) {
+      MODELREADY = true; MODELWHY = "";
+      near = got.filter(h => !mine.litSet.has(h[1])).slice(0, LIKE);
+      floor = MODELFLOOR; band = MODELBAND;
+    } else MODELWHY = got.why;                            // and the table answers, if this copy has one
+  }
+  if (!near) {
+    if (VECS[tl] === false) { slot.innerHTML = ""; return; }
+    /* Fifteen megabytes to read the first time on a phone: say so, rather than
+       leave a gap that fills in later with nothing to explain it. */
+    if (!VECS[tl]) slot.innerHTML = note;
+    let V;
+    try { V = await vecLoad(tl); }
+    catch (e) { VECS[tl] = false; if (SR === mine) slot.innerHTML = ""; return; }
+    if (SR !== mine) return;
+    near = vecNearest(V, vecPieces(mine.q), LIKE, mine.litSet);
+  }
   /* Every question has twelve nearest verses, including "zzqx". What tells a
      passage found from the neighbours of nothing is how close the best of them
      is, and how far the rest fall behind it. Measured on English, Thai, Spanish
-     and Chinese questions, a described passage comes back above 0.55 and a
-     single common word or a typing slip below 0.5; within a passage that was
-     found, the verses that belong to it sit near the first and the strays a
+     and Chinese questions, a described passage comes back well above the floor
+     and a single common word or a typing slip below it; within a passage that
+     was found, the verses that belong to it sit near the first and the strays a
      good way under. So the section shows only what clears the floor and stays
      within reach of the best - often two or three verses, sometimes none,
-     which is the honest answer when a description matched nothing. */
-  const near = vecNearest(V, vecPieces(mine.q), LIKE, mine.litSet);
-  const bar = near.length ? Math.max(LIKEFLOOR, near[0][0] - LIKEBAND) : 1;
+     which is the honest answer when a description matched nothing. The table
+     and the model measure on different scales, so each has its own pair. */
+  const out = [];
+  const bar = near.length ? Math.max(floor, near[0][0] - band) : 1;
   for (const [score, id] of near) {
     if (score < bar) break;
     const book = byNumBook[Math.floor(id / 1000000)], ch = String(Math.floor(id / 1000) % 1000), v = String(id % 1000);
