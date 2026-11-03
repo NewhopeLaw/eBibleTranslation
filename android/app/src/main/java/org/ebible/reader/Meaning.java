@@ -83,12 +83,18 @@ final class Meaning {
         byte[] v;
     }
 
-    /** -> [[cosine, verse id], ...] for the k verses nearest the question, nearest first. */
-    synchronized float[][] nearest(String lang, String question, int k) throws IOException, OrtException {
+    /**
+     * -> [[cosine, verse id], ...] for the k verses nearest the question, nearest first.
+     *
+     * Doubles, not floats: a verse id is eight digits, past the 2^24 a float
+     * holds exactly, and as floats Matthew 6:34 came back as 6:32.
+     */
+    synchronized double[][] nearest(String lang, String question, int k) throws IOException, OrtException {
         load();
         Verses vs = verses(lang);
         float[] q = project(embed(question));
-        float[] top = new float[k], tid = new float[k];
+        float[] top = new float[k];
+        int[] tid = new int[k];
         int have = 0;
         for (int j = 0, o = 0; j < vs.n; j++, o += vs.d) {
             float s = 0;
@@ -97,13 +103,13 @@ final class Meaning {
             if (have < k) { insert(top, tid, have++, s, vs.ids[j]); }
             else if (s > top[k - 1]) { insert(top, tid, k - 1, s, vs.ids[j]); }
         }
-        float[][] out = new float[have][];
-        for (int i = 0; i < have; i++) out[i] = new float[]{top[i], tid[i]};
+        double[][] out = new double[have][];
+        for (int i = 0; i < have; i++) out[i] = new double[]{top[i], tid[i]};
         return out;
     }
 
     /** Put (s, id) at `at` and let it rise to its place; the list stays sorted, highest first. */
-    private static void insert(float[] top, float[] tid, int at, float s, int id) {
+    private static void insert(float[] top, int[] tid, int at, float s, int id) {
         int i = at;
         while (i > 0 && top[i - 1] < s) { top[i] = top[i - 1]; tid[i] = tid[i - 1]; i--; }
         top[i] = s;

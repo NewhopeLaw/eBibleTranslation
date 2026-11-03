@@ -67,6 +67,17 @@ android {
         }
     }
 
+    packaging {
+        // Android stores native libraries uncompressed by default, so a phone
+        // can map them straight from the APK. ONNX Runtime is fifty-eight
+        // megabytes that way, and this APK travels phone to phone over Quick
+        // Share and Bluetooth, where every megabyte is waiting. Compressed, it
+        // is about half: the phone unpacks it once at install, at the cost of
+        // that much more storage, which is the better trade for an app that is
+        // carried around rather than downloaded from a shop.
+        jniLibs { useLegacyPackaging = true }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17

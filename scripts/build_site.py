@@ -2366,7 +2366,12 @@ function vecNearest(V, rows, k, skip){                    // -> [[cosine, verse 
    phone the runtime was not built for), the table answers as before. */
 const ASKING = new Map();                                 // question number -> its promise's resolve
 let ASKN = 0, MODELWHY = "", MODELREADY = false;
-const MODELFLOOR = .5, MODELBAND = .12;                   // the model's own scale: provisional until measured against the built verses
+/* The model's cosines sit in a narrower band than the table's: measured, a
+   typing slip or a lone "the" tops out near 0.44, a described passage or a
+   real word near 0.55 to 0.68, and the verses of one passage within about 0.07
+   of each other. Unlike the table, the model is good on single words - "love"
+   reaches 1 Corinthians 13:4 - so only the slips are held back. */
+const MODELFLOOR = .5, MODELBAND = .07;
 function modelLangs(){
   try { return window.AndroidApp && AndroidApp.meaningLangs ? AndroidApp.meaningLangs().split(",").filter(Boolean) : []; }
   catch (e) { return []; }

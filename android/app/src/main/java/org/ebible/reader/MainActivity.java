@@ -534,10 +534,10 @@ public class MainActivity extends ComponentActivity {
             meaningWorker().execute(() -> {
                 String hits = "null", why = "";
                 try {
-                    float[][] near = meaningModel().nearest(lang, question, 60);
+                    double[][] near = meaningModel().nearest(lang, question, 60);
                     StringBuilder b = new StringBuilder("[");
-                    for (float[] h : near)
-                        b.append(b.length() > 1 ? "," : "").append('[').append(h[0]).append(',').append((int) h[1]).append(']');
+                    for (double[] h : near)
+                        b.append(b.length() > 1 ? "," : "").append('[').append((float) h[0]).append(',').append((long) h[1]).append(']');
                     hits = b.append(']').toString();
                 } catch (Throwable e) {        // a phone whose processor the runtime does not support says so, rather than crash
                     why = e.getClass().getSimpleName() + ": " + e.getMessage();
