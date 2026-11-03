@@ -621,6 +621,32 @@ def work_stop(job=None):
     return sorted(set(stopped))
 
 
+SAMPLING: dict = {}                     # job -> Popen of a sample read while the job is not running
+
+
+def work_sample(job):
+    """Make sample, for a voice being taught (work.SAMPLERS): a running trainer is
+    asked to read the sample verses at its next step, with the weights it has that
+    minute; one that is not running has its newest checkpoint read by a process of
+    its own, which is small enough to share the GPU with whatever else is on it."""
+    import work as w
+    if job not in getattr(w, "SAMPLERS", {}):
+        return f"{job} makes no samples"
+    ask, cmd = w.SAMPLERS[job]
+    if job_pids(job):
+        ask.parent.mkdir(parents=True, exist_ok=True)
+        ask.write_text("sample", encoding="utf-8")
+        return None
+    s = SAMPLING.get(job)
+    if s is not None and s.poll() is None:
+        return "already making one"
+    ask.unlink(missing_ok=True)                             # asked of a trainer that has since stopped
+    log = open(ROOT / "logs" / f"job_{job}.log", "a", encoding="utf-8", buffering=1)
+    SAMPLING[job] = subprocess.Popen(cmd(), cwd=str(ROOT), stdout=log, stderr=log, stdin=subprocess.DEVNULL,
+                                     creationflags=NO_WINDOW)
+    return None
+
+
 # Keeping the jobs going. A job started here is wanted until it is stopped here
 # or finishes, and if its process ends before then the dashboard starts it
 # again: every job resumes from what it has written. Genesis 24 stopped the
@@ -1069,6 +1095,10 @@ def watch(job, done, total, w_mod):
             scores = w_mod.scores(job)
         except Exception:                                   # noqa: BLE001
             scores = None
+    if scores is not None and job in getattr(w_mod, "SAMPLERS", {}):
+        s = SAMPLING.get(job)                               # a sample asked of the trainer, or being read apart
+        scores["making"] = bool((pids and scores.get("asked")) or (s is not None and s.poll() is None))
+        scores["can_sample"] = True
     now = time.time()
     return {"auto": job in WANTED, "pids": pids, "stopping": job in STOPPING, "since": since if pids else None,
             "usage": job_usage(job) if pids else None,
@@ -1321,6 +1351,34 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header("Cache-Control", "no-cache" if f.suffix == ".json" else "max-age=3600")
             self.end_headers()
             self.wfile.write(body)
+        elif re.fullmatch(r"/student/run-[A-Za-z0-9_+-]+/(teacher|\d{4}min)\.wav", path):
+            # the Taiwanese student's samples and the teacher's reading beside them
+            # (taiwanese_student.progress_sample), for the job card's players
+            f = ROOT / "models" / "taiwanese-student" / Path(path).parent.name / "samples" / Path(path).name
+            if not f.exists():
+                self._json({"error": "no such sample"}, 404)
+                return
+            body = f.read_bytes()
+            # Chrome will not move along a sound whose server does not answer for
+            # part of it: the slider and a paused sample keeping its place need this
+            m = re.fullmatch(r"bytes=(\d*)-(\d*)", self.headers.get("Range") or "")
+            lo, hi = 0, len(body) - 1
+            if m and (m.group(1) or m.group(2)):
+                lo, hi = (int(m.group(1)), min(int(m.group(2) or hi), hi)) if m.group(1) else (max(0, len(body) - int(m.group(2))), hi)
+            if lo > hi:
+                self.send_response(416)
+                self.send_header("Content-Range", f"bytes */{len(body)}")
+                self.end_headers()
+                return
+            self.send_response(206 if m else 200)
+            self.send_header("Content-Type", "audio/wav")
+            self.send_header("Accept-Ranges", "bytes")
+            if m:
+                self.send_header("Content-Range", f"bytes {lo}-{hi}/{len(body)}")
+            self.send_header("Content-Length", str(hi - lo + 1))
+            self.send_header("Cache-Control", "no-cache")      # a sample made twice in a minute keeps its name
+            self.end_headers()
+            self.wfile.write(body[lo:hi + 1])
         elif path == "/work":
             self._json(work_progress())
         elif path == "/apk":
@@ -1372,6 +1430,9 @@ class Handler(BaseHTTPRequestHandler):
             self._json({"ok": err is None, "error": err}, 409 if err else 200)
         elif self.path == "/work/stop":
             self._json({"ok": True, "stopped": work_stop((self._body().get("job") or "").strip() or None)})
+        elif self.path == "/work/sample":
+            err = work_sample((self._body().get("job") or "").strip())
+            self._json({"ok": err is None, "error": err}, 409 if err else 200)
         elif self.path == "/apk/build":
             body = self._body()
             err = apk_start(bool(body.get("setup")), bool(body.get("full")), body.get("langs") or ())
@@ -1553,6 +1614,14 @@ label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); fo
 #work .flat { color:var(--fg); border-left:3px solid var(--warn); padding-left:.4rem; }
 #work .wch.none { padding:.4rem 0; font-size:11px; text-align:center; }
 #work label.chk { font-size:11px; }
+#work .smp summary { cursor:pointer; color:var(--fg); font-weight:600; font-size:12px; }
+#work .smp .hd2 { display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; margin:.3rem 0; font-size:11px; }
+#work .smp .list { max-height:15rem; overflow-y:auto; display:flex; flex-direction:column; gap:.35rem; padding-right:.2rem; }
+#work .smp .row { display:grid; grid-template-columns:6.2rem 1fr; gap:.4rem; align-items:center; }
+#work .smp .row.teacher { border-bottom:1px solid var(--border); padding-bottom:.35rem; }
+#work .smp .row b { color:var(--fg); font-variant-numeric:tabular-nums; font-size:12px; display:block; }
+#work .smp .row small { font-size:10.5px; font-variant-numeric:tabular-nums; display:block; white-space:nowrap; }
+#work .smp audio { width:100%; height:32px; min-width:0; }
 @media (max-width:480px) { #work .todo { grid-template-columns:1fr; } }
 body.reading #work { display:none; }
 #tpane { margin-bottom:.35rem; }
@@ -2205,8 +2274,43 @@ function jobCard(it, group, ticked, mini){
     body += wchart(it.history || [], [], {yfmt: y => fmtN(Math.round(y)), xfmt: clock, empty: 'the chart starts after a few minutes of running',
       label: `${nice(it.key)} done over time`});
   }
+  if (sc && sc.can_sample) body += samplesBox(it, sc);
   if (run && it.log) body += `<div class="lg${quiet ? ' quiet' : ''}" title="last line of logs/job_${esc(it.job)}.log">${esc(it.log)}</div>`;
   return `<section class="card ${cls}">${body}</section>`;
+}
+
+/* What a voice being taught sounds like, as VoiceLab plays it: the same verses read
+   every 15 minutes of training, newest first, under the recording it learns from, so
+   an ear can tell what the loss cannot - whether it is getting nearer. */
+const SMP_SHUT = 'ebible.samplesShut';
+function smpOpen(key){ try { return !JSON.parse(localStorage.getItem(SMP_SHUT) || '[]').includes(key); } catch (e) { return true; } }
+function setSmpOpen(key, on){
+  try { const s = new Set(JSON.parse(localStorage.getItem(SMP_SHUT) || '[]')); on ? s.delete(key) : s.add(key);
+        localStorage.setItem(SMP_SHUT, JSON.stringify([...s])); } catch (e) {}
+}
+function samplesBox(it, sc){
+  const smp = sc.samples || [];
+  const when = t => { const d = new Date(t*1000);       // the day only when it is not today
+    return (d.toDateString() === new Date().toDateString() ? '' : d.toLocaleDateString([], {month:'short', day:'numeric'}) + ' ') + clock(t); };
+  const mins = m => m < 60 ? `${Math.round(m)} min` : `${Math.floor(m/60)} h ${String(Math.round(m % 60)).padStart(2, '0')}`;
+  const make = sc.making
+    ? `<button data-f="p-${it.job}" disabled>Making a sample…</button><span>${it.running ? 'at its next step' : 'from the newest checkpoint'}</span>`
+    : `<button data-f="p-${it.job}" onclick="workSample('${it.job}')" title="${it.running ? 'the voice as it is this minute' : 'the voice as its newest checkpoint holds it'}">Make sample</button>`;
+  const what = sc.verses ? `<span>${esc(sc.verses.join(' · '))}</span>` : '';
+  const row = (head, sub, url, label, cls) => `<div class="row${cls ? ' ' + cls : ''}"><div><b>${head}</b><small>${sub}</small></div>`
+    + `<audio controls preload="none" src="${url}" data-f="a-${url}" aria-label="${esc(label)}"></audio></div>`;
+  let list = sc.teacher ? row('Recording', 'what it learns from', sc.teacher, 'the recording it learns from', 'teacher') : '';
+  list += smp.map(s => row(mins(s.minutes),
+      `${s.score != null ? 'score ' + s.score.toFixed(3) + '<br>' : ''}${when(s.made)}`, s.url,
+      `sample after ${Math.round(s.minutes)} minutes of training`)).join('');
+  if (!smp.length) list += `<div class="none">The first sample comes after 15 minutes of training.</div>`;
+  return `<details class="smp" ${smpOpen(it.key) ? 'open' : ''} ontoggle="setSmpOpen('${it.key}', this.open)">`
+    + `<summary>Samples (${smp.length})</summary><div class="hd2">${make}${what}</div><div class="list" data-s="l-${it.job}">${list}</div></details>`;
+}
+async function workSample(job){
+  const r = await post('/work/sample', {job});
+  if (!r.ok) alert(r.error || 'could not make a sample');
+  setTimeout(workBar, 700);
 }
 
 function doneRungs(groups){
@@ -2240,6 +2344,13 @@ async function workBar(){
   const gpu = w.gpu ? `<span class="gpu" title="the graphics card, read every 10 s">GPU <b>${w.gpu.util.toFixed(0)}%</b> · <b>${(w.gpu.mem/1024).toFixed(1)}</b>/${(w.gpu.mem_total/1024).toFixed(0)} GB · <b>${w.gpu.temp.toFixed(0)}°C</b> · <b>${w.gpu.power.toFixed(0)} W</b></span>` : '';
   const ndone = done.reduce((n, g) => n + g.items.filter(i => i.done || i.count).length, 0);
   const keep = document.activeElement && document.activeElement.dataset ? document.activeElement.dataset.f : null;
+  // Drawing the bar again would cut off a sample being listened to: wait until it ends.
+  // One paused part-way keeps its place, and a sample list its scroll.
+  const players = [...el.querySelectorAll('audio')];
+  if (players.some(a => !a.paused && !a.ended)) { W_LAST = todo; return; }
+  const at = {}, scrolled = {};
+  players.forEach(a => { if (a.currentTime && !a.ended) at[a.getAttribute('src')] = a.currentTime; });
+  el.querySelectorAll('[data-s]').forEach(l => { if (l.scrollTop) scrolled[l.dataset.s] = l.scrollTop; });
   el.innerHTML = `<div class="hd"><b>Model work</b>${gpu}<span class="sp"></span>`
       + `<span class="nrun">${nrun ? nrun + (nrun > 1 ? ' jobs' : ' job') + ' running' : 'nothing running'}</span>`
       + `<button class="go" data-f="tonight" ${ready.length ? '' : 'disabled'} onclick="startTonight()" title="start every job ticked tonight that is not running">Start tonight's jobs${ready.length ? ' (' + ready.length + ')' : ''}</button>`
@@ -2250,6 +2361,9 @@ async function workBar(){
       + (todo.length ? `<div class="todo">${todo.map(([i, g]) => jobCard(i, g, ticks.has(i.job), folded.has(i.key))).join('')}</div>` : `<div class="none">Nothing left to do.</div>`)
       + `<details class="done" ${doneOpen() ? 'open' : ''} ontoggle="setDoneOpen(this.open)"><summary class="sec">Done <span>${ndone}</span></summary>${doneRungs(done)}</details>`
       + workTotals(w.tokens);                 // the counter closes the area, under the last rung
+  el.querySelectorAll('audio').forEach(a => { const t = at[a.getAttribute('src')];
+    if (t) { a.addEventListener('loadedmetadata', () => { a.currentTime = t; }, {once: true}); a.preload = 'auto'; a.load(); } });
+  el.querySelectorAll('[data-s]').forEach(l => { if (scrolled[l.dataset.s]) l.scrollTop = scrolled[l.dataset.s]; });
   if (keep) { const f = el.querySelector(`[data-f="${keep}"]`); if (f) f.focus(); }
   W_LAST = todo;
 }

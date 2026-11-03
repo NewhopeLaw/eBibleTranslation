@@ -154,8 +154,25 @@ def scores(name):
         if best is None:                                    # before its first steady score: the best reading so far
             best = min((q[1] for q in p.get("scores") or p.get("points") or []), default=None)
         return {"x": "minutes", "label": "mel loss", "points": thin(p.get("points") or []),
-                "scores": thin(p.get("scores") or []), "best": best}
+                "scores": thin(p.get("scores") or []), "best": best, **student_samples(runs[-1].parent)}
     return None
+
+
+def student_samples(run):
+    """The run's samples to listen to, newest first, each {minutes, score, made, url}, and the
+    teacher's reading of the same verses ({"teacher": url}), as live.py serves them."""
+    d, out = run / "samples", []
+    for j in sorted(d.glob("*min.json"), reverse=True):
+        try:
+            meta = json.loads(j.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            continue
+        if j.with_suffix(".wav").exists():
+            out.append({**meta, "url": f"/student/{run.name}/{j.stem}.wav"})
+    teacher = d / "teacher.wav"
+    return {"samples": out, "verses": out[0].get("verses") if out else None,
+            "teacher": f"/student/{run.name}/teacher.wav" if teacher.exists() else None,
+            "asked": STUDENT_SAMPLE.exists()}
 
 
 STUDENT = ROOT / "models" / "taiwanese-student"
@@ -166,6 +183,12 @@ STUDENT_STOP = STUDENT / "STOP"   # the trainer saves its place and leaves withi
 # Jobs that can be asked to stop and save before they are made to: the dashboard's
 # Stop writes the file and waits for the job to go (live.work_stop).
 STOP_FILES = {"taiwanese-student": STUDENT_STOP}
+# The dashboard's Make sample: while the trainer runs it is asked, by this file, to read the
+# sample verses at its next step (the voice as it is that minute, and no second model on the
+# GPU); when it is not running, the newest checkpoint is read by a process of its own.
+STUDENT_SAMPLE = STUDENT / "SAMPLE"
+SAMPLERS = {"taiwanese-student": (STUDENT_SAMPLE, lambda: [
+    str(STUDENT_PY if STUDENT_PY.exists() else sys.executable), str(S / "taiwanese_student.py"), "sample"])}
 
 
 def student_job():

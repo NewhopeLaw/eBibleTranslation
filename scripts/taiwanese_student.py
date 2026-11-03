@@ -4,6 +4,7 @@
     python scripts/taiwanese_student.py cut      # the recordings cut into the pieces the teacher read -> data/
     python scripts/taiwanese_student.py train --resume newest [--minutes 360] [--duty 0.5]   (the dashboard's job)
     python scripts/taiwanese_student.py say John 1 1-5     # the student reads -> samples/
+    python scripts/taiwanese_student.py sample   # the dashboard's sample verses from the newest checkpoint
     python scripts/taiwanese_student.py check [--only John_01]   # every verse against its recording, worst first
     python scripts/taiwanese_student.py export   # ONNX, as a phone would run it, and its speed on this CPU
 
@@ -57,6 +58,10 @@ LONGEST = 15.0         # seconds: a verse that cannot be cut into its pieces is 
 TRIAL_MINUTES = 360    # a night at full speed: about 70,000 steps, where VITS on one clean voice reads well
 RATE = (2.3, 5.5)     # syllables a second a lesson must fall within (see cut)
 HELD_OUT = {("John", 1)}   # a trial never trains on John 1, the usual ear test (cut --all keeps it in)
+# What the dashboard plays as the run goes, as VoiceLab does: a verse it never trains on and one it does, read by
+# the voice as it stands every SAMPLE_EVERY minutes of training, beside the teacher's own reading of them.
+SAMPLE_VERSES = [("John", 1, 1), ("John", 3, 16)]
+SAMPLE_EVERY = 15
 INITIALS = ["tsʰ", "kʰ", "pʰ", "tʰ", "ts", "dz", "p", "b", "m", "t", "n", "l", "k", "g", "ŋ", "h", "s", "ʔ"]
 SYLLABLE = re.compile(r"^(" + "|".join(INITIALS) + r")?(.*?)(\d+)$")
 MARKS = {",": ",", ".": ".", "?": "?", "-": "-", " ": " "}
@@ -340,7 +345,8 @@ class Progress:
         self.p = {"state": "training", "heartbeat": time.time(), "minutes": base, "target_minutes": target,
                   "points": [x for x in old.get("points", []) if x[0] <= base],
                   "scores": [x for x in old.get("scores", []) if x[0] <= base],
-                  "best": None, "checkpoint_minutes": base, "checkpoint": old.get("checkpoint")}
+                  "best": None, "checkpoint_minutes": base, "checkpoint": old.get("checkpoint"),
+                  "sampled": min(old.get("sampled", base), base)}
         scores = [s for _, s in self.p["scores"]]
         self.p["best"] = min(scores) if scores else None
         self.base, self.t0, self.last = base, time.time(), 0.0
@@ -396,11 +402,12 @@ def sound_checkpoint(run):
     return None
 
 
-def student_class(duty, progress, stop_file):
+def student_class(duty, progress, stop_file, sample=None, ask_file=None):
     """Coqui's VITS with what the dashboard needs. It rests between steps when it shares the GPU (`duty` is the
     share of the time it computes, 1 = never rests: the recording job runs Tacotron2 and WaveRNN a step at a time,
-    and a run at full tilt would hold the GPU in front of it); it writes progress.json; and it stops, saving a
-    checkpoint first, once the run's minutes reach the target or stop_file appears.
+    and a run at full tilt would hold the GPU in front of it); it writes progress.json; it reads the sample verses
+    (sample(model)) every SAMPLE_EVERY minutes, when ask_file appears (the dashboard's Make sample) and as it
+    leaves; and it stops, saving a checkpoint first, once the run's minutes reach the target or stop_file appears.
 
     Coqui's trainer answers Ctrl+C by exiting with 130 whatever happens, so a run that has done what it was asked
     leaves by os._exit(0) instead, once its checkpoint and progress are written: the dashboard restarts a job that
@@ -408,11 +415,22 @@ def student_class(duty, progress, stop_file):
     from TTS.tts.models.vits import Vits
 
     class Student(Vits):
+        def read_sample(self):
+            # a sample that fails is reported and training goes on: it is something to listen to, not the run
+            if ask_file:
+                ask_file.unlink(missing_ok=True)
+            try:
+                sample(self)
+            except Exception as e:                 # noqa: BLE001
+                print(f"no sample: {type(e).__name__}: {e}", flush=True)
+
         def on_train_step_start(self, trainer):
             done = progress.minutes() >= progress.p["target_minutes"]
             if done or stop_file.exists():
                 stop_file.unlink(missing_ok=True)
                 trainer.save_checkpoint()
+                if sample and progress.minutes() - progress.p["sampled"] >= 1:
+                    self.read_sample()             # how it sounds where it stopped
                 progress.write("finished" if done else "stopped", force=True)
                 print(f"{'finished' if done else 'stopped'} at {progress.minutes():.0f} min", flush=True)
                 # the data loader's workers would outlive an os._exit, waiting for a parent that is gone
@@ -420,6 +438,9 @@ def student_class(duty, progress, stop_file):
                 for child in multiprocessing.active_children():
                     child.kill()
                 os._exit(0)
+            if sample and (progress.minutes() - progress.p["sampled"] >= SAMPLE_EVERY
+                           or (ask_file and ask_file.exists())):
+                self.read_sample()
             now = time.time()
             last = getattr(self, "_rest_mark", None)
             if last is not None and duty < 1:
@@ -485,7 +506,13 @@ def train(root, minutes, duty, resume=None):
     stop = h / "STOP"
     if not resume:
         progress = Progress(h / "pending", minutes)       # given its folder once the trainer has made it
-    model = student_class(duty, progress, stop)(cfg, ap, tok, speaker_manager=None)
+
+    def sample(m):
+        made = progress_sample(m, vocab, root, progress.path.parent, progress.minutes(), progress.p["scores"])
+        progress.p["sampled"] = progress.minutes()
+        progress.write(force=True)
+        print(f"sample -> {made}", flush=True)
+    model = student_class(duty, progress, stop, sample, h / "SAMPLE")(cfg, ap, tok, speaker_manager=None)
     weights = sum(p.numel() for n, p in model.named_parameters() if not n.startswith(("posterior_encoder", "disc")))
     print(f"student: {weights / 1e6:.2f} M weights at reading time ({weights * 2 / 1e6:.0f} MB as half floats); "
           f"{len(train_rows)} lessons, {len(eval_rows)} to check against")
@@ -633,6 +660,60 @@ def say(root, book, chapter, verses, run=None, out=None):
           f"({path.parent.name}/{path.name}) -> {out}")
 
 
+def teacher_sample(root, wavdir):
+    """The teacher's reading of the sample verses, cut from its chapter recordings once per run folder, for the
+    dashboard to play above the student's."""
+    out = wavdir / "teacher.wav"
+    if out.exists():
+        return
+    parts = []
+    for book, ch, v in SAMPLE_VERSES:
+        teacher = read_wav(Path(root) / "audio" / "nan" / f"{chapter_name(book, ch)}.wav")
+        s, e = sounds(teacher, 0, len(teacher), VERSE_GAP)[v - 1]
+        parts += [teacher[max(0, s - SR // 10):e + SR // 10], np.zeros(int(SR * GAP["verse"]), np.float32)]
+    write_wav(out, np.concatenate(parts[:-1]))
+
+
+def progress_sample(model, vocab, root, run, minutes, scores):
+    """The sample verses in the voice as it is now, into the run's samples/, named by the minutes it has trained,
+    with a .json beside it (minutes, the newest steady score, when it was made). model may be the one in training:
+    it is put in eval mode for the reading and back after."""
+    h, wavdir = home(root), Path(run) / "samples"
+    wavdir.mkdir(parents=True, exist_ok=True)
+    teacher_sample(root, wavdir)
+    was = model.training
+    model.eval()
+    try:
+        parts = []
+        for book, ch, v in SAMPLE_VERSES:
+            verses = dict(json.loads((h / "phonemes" / f"{chapter_name(book, ch)}.json")
+                                     .read_text(encoding="utf-8"))["verses"])
+            parts += [read_verse(model, vocab, verses[v]), np.zeros(int(SR * GAP["verse"]), np.float32)]
+    finally:
+        model.train(was)
+    audio = np.concatenate(parts[:-1])
+    name = f"{int(minutes):04d}min"
+    write_wav(wavdir / f"{name}.wav", audio / max(1e-9, float(np.abs(audio).max())) * 0.9)
+    (wavdir / f"{name}.json").write_text(json.dumps(
+        {"minutes": round(minutes, 1), "score": scores[-1][1] if scores else None, "made": time.time(),
+         "verses": [f"{b} {c}:{v}" + (" (never trained on)" if (b, c) in HELD_OUT else " (trained on)")
+                    for b, c, v in SAMPLE_VERSES]}), encoding="utf-8")
+    return wavdir / f"{name}.wav"
+
+
+def sample_now(root, run=None):
+    """The dashboard's Make sample when nothing is training: the sample verses from the run's newest checkpoint,
+    at the minutes that checkpoint holds."""
+    run = Path(run) if run else latest_run(root)
+    model, vocab, path = load_student(run)
+    try:
+        p = json.loads((run / "progress.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        p = {}
+    print(f"sample -> {progress_sample(model, vocab, root, run, p.get('checkpoint_minutes') or 0, p.get('scores'))} "
+          f"({path.name})")
+
+
 # ------------------------------------------------------------------ on a phone
 def weights_in_8_bits(src, dst):
     """The ONNX file with every large weight kept as 8-bit integers and a scale per output channel, widened back to
@@ -728,7 +809,7 @@ def export(root, run=None):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["cut", "train", "say", "check", "export"])
+    ap.add_argument("cmd", choices=["cut", "train", "say", "sample", "check", "export"])
     ap.add_argument("book", nargs="?", default="John")
     ap.add_argument("chapter", nargs="?", type=int, default=1)
     ap.add_argument("verses", nargs="?", default="1-5")
@@ -748,6 +829,8 @@ def main():
         train(a.root, a.minutes, a.duty, a.resume)
     elif a.cmd == "say":
         say(a.root, a.book, a.chapter, a.verses, a.run)
+    elif a.cmd == "sample":
+        sample_now(a.root, a.run)
     elif a.cmd == "check":
         check(a.root, a.only.split(",") if a.only else None, a.run)
     else:
