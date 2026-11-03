@@ -159,8 +159,13 @@ def scores(name):
 
 
 STUDENT = ROOT / "models" / "taiwanese-student"
-STUDENT_PY = Path(sys.executable)
-STUDENT_MINUTES = 180          # the trial: three hours of training, then listened to beside the recordings
+# Coqui TTS and its torch are in the system Python, not a venv of their own.
+STUDENT_PY = Path.home() / "AppData" / "Local" / "Programs" / "Python" / "Python312" / "python.exe"
+STUDENT_MINUTES = 360          # the trial: one night at full speed, then listened to beside the recordings
+STUDENT_STOP = STUDENT / "STOP"   # the trainer saves its place and leaves within a step when this appears
+# Jobs that can be asked to stop and save before they are made to: the dashboard's
+# Stop writes the file and waits for the job to go (live.work_stop).
+STOP_FILES = {"taiwanese-student": STUDENT_STOP}
 
 
 def student_job():
@@ -170,15 +175,16 @@ def student_job():
     script = S / "taiwanese_student.py"
     if not script.exists():
         return None
-    done, target = 0, STUDENT_MINUTES
+    done, target = 0, STUDENT_MINUTES                   # the plan is ours: --minutes carries any run on to it
     runs = sorted(STUDENT.glob("run-*/progress.json"), key=lambda p: p.stat().st_mtime)
     if runs:
         try:
             p = json.loads(runs[-1].read_text(encoding="utf-8"))
-            done, target = int(p.get("minutes") or 0), int(p.get("target_minutes") or target)
+            done = int(p.get("minutes") or 0)
         except (json.JSONDecodeError, OSError, ValueError):
             pass
-    cmd = [str(STUDENT_PY), str(script), "train", "--resume", "newest", "--hours", f"{max(0.1, (target - done) / 60):.2f}"]
+    cmd = [str(STUDENT_PY if STUDENT_PY.exists() else sys.executable), str(script), "train", "--resume", "newest",
+           "--minutes", str(target)]
     return ("teach the phone-sized Taiwanese voice from the recordings, at full speed", done, target, cmd)
 
 

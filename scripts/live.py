@@ -536,6 +536,13 @@ def work_start(job, table=None):
         MON[job] = {"restarts": [], "next": None}
         save_wanted()
     MON.setdefault(job, {"restarts": [], "next": None}).update(since=time.time(), gave_up=None, procs={})
+    try:                                                    # a stop request left over must not stop this start
+        import work as w
+        f = getattr(w, "STOP_FILES", {}).get(job)
+        if f:
+            f.unlink(missing_ok=True)
+    except Exception:                                       # noqa: BLE001
+        pass
     cmd = table[job][3]
     log = ROOT / "logs" / f"job_{job}.log"
     log.parent.mkdir(exist_ok=True)
@@ -545,6 +552,47 @@ def work_start(job, table=None):
                                     creationflags=flags)
     print(f"job {job}: started (pid {WORKERS[job].pid}) -> {log.name}")
     return None
+
+
+STOPPING: dict = {}                     # job -> when it was asked to stop and save (work.STOP_FILES)
+
+
+def end_job(name, pids):
+    """Stop a job's processes. One that can be asked to stop (work.STOP_FILES) is
+    asked, and given two minutes to save its place before it is made to: the
+    Taiwanese student saves a checkpoint, where a kill loses what it learned
+    since the last one, up to five minutes of a night's training."""
+    try:
+        import work as w
+        ask = getattr(w, "STOP_FILES", {}).get(name)
+    except Exception:                                       # noqa: BLE001
+        ask = None
+    def kill(ps):
+        for pid in ps:
+            subprocess.run(["taskkill", "/PID", str(pid), "/T", "/F"], capture_output=True, creationflags=NO_WINDOW)
+    if not ask:
+        kill(pids)
+        return
+    try:
+        ask.parent.mkdir(parents=True, exist_ok=True)
+        ask.write_text("stop", encoding="utf-8")
+    except OSError:
+        kill(pids)
+        return
+    STOPPING[name] = time.time()
+    def wait():
+        import psutil
+        end = time.time() + 120
+        while time.time() < end and any(psutil.pid_exists(p) for p in pids):
+            time.sleep(2)
+        left = [p for p in pids if psutil.pid_exists(p)]
+        if left:
+            print(f"job {name}: did not stop in two minutes; stopping it")
+            kill(left)
+        STOPPING.pop(name, None)
+        ask.unlink(missing_ok=True)                         # a stop file left behind would stop the next start
+        _scan["at"] = 0.0
+    threading.Thread(target=wait, daemon=True).start()
 
 
 def work_stop(job=None):
@@ -559,15 +607,14 @@ def work_stop(job=None):
         if job and name != job:
             continue
         if proc.poll() is None:
-            subprocess.run(["taskkill", "/PID", str(proc.pid), "/T", "/F"], capture_output=True, creationflags=NO_WINDOW)
+            end_job(name, [proc.pid])
             stopped.append(name)
         WORKERS.pop(name, None)
     for name, pids in foreign_jobs().items():              # started from a terminal or start_work.cmd
-        if job and name != job:
+        if (job and name != job) or name in stopped:
             continue
-        for pid in pids:
-            subprocess.run(["taskkill", "/PID", str(pid), "/T", "/F"], capture_output=True, creationflags=NO_WINDOW)
-            stopped.append(name)
+        end_job(name, pids)
+        stopped.append(name)
     _scan["at"] = 0.0
     if stopped:
         print(f"jobs stopped: {', '.join(sorted(set(stopped)))}")
@@ -1023,7 +1070,7 @@ def watch(job, done, total, w_mod):
         except Exception:                                   # noqa: BLE001
             scores = None
     now = time.time()
-    return {"auto": job in WANTED, "pids": pids, "since": since if pids else None,
+    return {"auto": job in WANTED, "pids": pids, "stopping": job in STOPPING, "since": since if pids else None,
             "usage": job_usage(job) if pids else None,
             "restarts": len([t for t in m.get("restarts", []) if now - t < 3600]),
             "restart_in": max(0, round(m["next"] - now)) if m.get("next") else None,
@@ -1470,7 +1517,11 @@ label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); fo
 #work .sec span { color:var(--fg); margin-left:.3rem; }
 #work summary.sec { cursor:pointer; }
 #work .none { padding:.2rem 0 .3rem; }
-#work .todo { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:.5rem; }
+#work .todo { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:.5rem; align-items:start; }
+#work .card button.mini { padding:.1rem .35rem; min-width:1.6rem; border-color:transparent; background:none; color:var(--fg); font-size:13px; line-height:1; }
+#work .card button.mini:hover { border-color:var(--border); }
+#work .card.folded { gap:.25rem; }
+#work .nums .dot { display:inline-block; vertical-align:-1px; }
 #work .card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:.5rem .65rem;
   display:flex; flex-direction:column; gap:.3rem; min-width:0; }
 #work .card.run { border-color:var(--accent); } #work .card.warn { border-color:var(--warn); } #work .card.err { border-color:var(--err); }
@@ -2018,6 +2069,14 @@ function setTonight(job, on){
   try { localStorage.setItem(TONIGHT, JSON.stringify([...s])); } catch (e) {}
   workBar();
 }
+/* A card folded to its one line stays folded, in this browser, until opened again. */
+const MINI = 'ebible.minimized';
+function minis(){ try { return new Set(JSON.parse(localStorage.getItem(MINI) || '[]')); } catch (e) { return new Set(); } }
+function setMini(key, on){
+  const s = minis(); on ? s.add(key) : s.delete(key);
+  try { localStorage.setItem(MINI, JSON.stringify([...s])); } catch (e) {}
+  workBar();
+}
 function doneOpen(){ try { return localStorage.getItem(DONE_OPEN) !== '0'; } catch (e) { return true; } }
 function setDoneOpen(on){ try { localStorage.setItem(DONE_OPEN, on ? '1' : '0'); } catch (e) {} }
 const ago = t => { if (!t) return ''; const s = Date.now()/1000 - t;
@@ -2084,14 +2143,16 @@ function scoreTrend(sc){
   return {now, delta, span, word};
 }
 const nice = k => k.replace(/-/g, ' ');
-function jobCard(it, group, ticked){
+function jobCard(it, group, ticked, mini){
   const run = it.running, waiting = !run && it.restart_in != null, gaveUp = !run && !!it.gave_up;
   const cls = run ? 'run' : waiting ? 'warn' : gaveUp ? 'err' : 'idle';
   const sc = it.scores, unit = sc ? ' ' + sc.x : '';
   const pct = it.total ? Math.min(100, 100 * it.done / it.total) : 0;   // an unfinished job never reads 100%
   const pctTxt = pct >= 99.95 ? '99.9' : pct.toFixed(pct < 10 || pct > 99 ? 1 : 0);
   const quiet = run && it.log_at && (Date.now()/1000 - it.log_at) / 60 > QUIET_MIN;
-  const state = run
+  const state = run && it.stopping
+      ? `<span class="dot warn"></span><b>Stopping</b> · saving its place first, up to two minutes`
+    : run
       ? `<span class="dot run"></span><b>Running</b>${it.since ? ' for ' + fmtT(Date.now()/1000 - it.since) : ''}`
         + (it.auto ? ' · started again if it stops' : ' · started outside the dashboard, so not started again if it stops')
     : waiting ? `<span class="dot warn"></span><b>Stopped${it.stopped ? ' at ' + clock(it.stopped) : ''}</b> · starting again in ${fmtT(it.restart_in)}`
@@ -2104,9 +2165,19 @@ function jobCard(it, group, ticked){
         ? `<button class="halt" data-f="s-${it.job}" onclick="workStop('${it.job}')">Stop</button>`
         : `<button class="go" data-f="g-${it.job}" onclick="workStart('${it.job}')">Start</button>`)
       : `<span class="tag">${it.held ? 'held until step 4' : 'not a job here'}</span>`);
-  let body = `<div class="top"><span class="nm">${esc(nice(it.key))}</span><span class="tag">${esc(group)}</span><span class="sp"></span>${buttons}</div>`
+  const fold = `<button class="mini" data-f="m-${it.key}" aria-expanded="${mini ? 'false' : 'true'}" onclick="setMini('${it.key}', ${!mini})"`
+    + ` title="${mini ? 'show this card in full' : 'fold this card to one line'}" aria-label="${mini ? 'expand' : 'minimize'} ${esc(nice(it.key))}">${mini ? '▸' : '▾'}</button>`;
+  const head = `<div class="top">${fold}<span class="nm">${esc(nice(it.key))}</span><span class="tag">${esc(group)}</span><span class="sp"></span>${buttons}</div>`;
+  const bar = `<div class="bar2" role="progressbar" aria-valuemin="0" aria-valuemax="${it.total}" aria-valuenow="${it.done}" aria-label="${esc(nice(it.key))}"><i style="width:${pct.toFixed(1)}%"></i></div>`;
+  if (mini) {                              // folded: one line of how it stands; a stop and its reason still shown
+    const word = run && it.stopping ? 'Stopping' : run ? 'Running' : waiting ? 'Waiting to restart' : gaveUp ? 'Kept stopping' : 'Not running';
+    let m = head + bar + `<div class="nums"><span class="dot ${cls === 'idle' ? '' : cls}"></span> ${word} · <b>${fmtN(it.done)}</b> / ${fmtN(it.total)}${unit} · ${pctTxt}%${pace}</div>`;
+    if (waiting || gaveUp) m += `<div class="state">${state}</div>` + (it.why ? `<div class="why" title="${esc(it.why)}">${esc(it.why)}</div>` : '');
+    return `<section class="card ${cls} folded">${m}</section>`;
+  }
+  let body = head
     + `<div class="what" title="${esc(it.what)}">${esc(it.what)}</div>`
-    + `<div class="bar2" role="progressbar" aria-valuemin="0" aria-valuemax="${it.total}" aria-valuenow="${it.done}" aria-label="${esc(nice(it.key))}"><i style="width:${pct.toFixed(1)}%"></i></div>`
+    + bar
     + `<div class="nums"><b>${fmtN(it.done)}</b> / ${fmtN(it.total)}${unit} · ${pctTxt}%${pace}</div>`
     + `<div class="state">${state}</div>`;
   if (!run && (waiting || gaveUp) && it.why)
@@ -2163,7 +2234,7 @@ async function workBar(){
   const order = i => i.running ? 0 : i.restart_in != null ? 1 : i.gave_up ? 2 : i.startable ? 3 : 4;
   const todo = groups.flatMap(g => g.items.filter(isTodo).map(i => [i, g.label])).sort((a, b) => order(a[0]) - order(b[0]));
   const done = groups.map(g => ({...g, items: g.items.filter(i => !isTodo(i))}));
-  const ticks = tonight();
+  const ticks = tonight(), folded = minis();
   const ready = todo.filter(([i]) => i.startable && ticks.has(i.job) && !i.running && i.restart_in == null);
   const nrun = todo.filter(([i]) => i.running).length;
   const gpu = w.gpu ? `<span class="gpu" title="the graphics card, read every 10 s">GPU <b>${w.gpu.util.toFixed(0)}%</b> · <b>${(w.gpu.mem/1024).toFixed(1)}</b>/${(w.gpu.mem_total/1024).toFixed(0)} GB · <b>${w.gpu.temp.toFixed(0)}°C</b> · <b>${w.gpu.power.toFixed(0)} W</b></span>` : '';
@@ -2176,7 +2247,7 @@ async function workBar(){
           : `<button data-f="queue" onclick="workStart('queue')" title="run every unfinished study job, one after another">Run the queue</button>`)
       + `</div>`
       + `<div class="sec">To do <span>${todo.length}</span></div>`
-      + (todo.length ? `<div class="todo">${todo.map(([i, g]) => jobCard(i, g, ticks.has(i.job))).join('')}</div>` : `<div class="none">Nothing left to do.</div>`)
+      + (todo.length ? `<div class="todo">${todo.map(([i, g]) => jobCard(i, g, ticks.has(i.job), folded.has(i.key))).join('')}</div>` : `<div class="none">Nothing left to do.</div>`)
       + `<details class="done" ${doneOpen() ? 'open' : ''} ontoggle="setDoneOpen(this.open)"><summary class="sec">Done <span>${ndone}</span></summary>${doneRungs(done)}</details>`
       + workTotals(w.tokens);                 // the counter closes the area, under the last rung
   if (keep) { const f = el.querySelector(`[data-f="${keep}"]`); if (f) f.focus(); }
