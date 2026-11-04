@@ -112,11 +112,11 @@
   "built": 1790791200.8219404
  },
  "vectors": {
-  "count": 31152,
+  "count": 218064,
   "unit": "verse vectors",
   "note": "semantic search, with the topical lines",
   "script": "build_vectors.py",
-  "built": 1789988346.1297116
+  "built": 1793672582.4632592
  },
  "entries": {
   "count": 24708,
