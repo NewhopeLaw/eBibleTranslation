@@ -5,6 +5,10 @@ lexicon, themes, parallels - is in the APK, and the app asks for no
 permissions at all, the INTERNET one least of any: nothing is fetched and
 nothing is reported back.
 
+Before building, `python scripts/build_encoder.py` makes the search model and
+its verses in `site/model/` (gitignored); without it the APK searches by
+meaning with the page's table alone.
+
 ## The reader APK, in one step
 
 `python scripts/build_apk.py` - or **Make Android APK** in the PC dashboard - builds the reader-only page (`build_site.py --reader-only`: always
@@ -140,6 +144,22 @@ key that is lost has to be reset with Google before another release can go up.
   handed a copy of our own APK through a `FileProvider` - Android will not let
   one app read another's file by path. The copy goes to `cache/share/`, and
   that folder is the only thing the provider exposes.
+- **Search by meaning.** A reader who describes a passage ("the man thrown to
+  the lions") is answered by a model, not by the page: the app carries
+  multilingual-e5-small, cut down to this project's vocabulary and stored as
+  int8 by `scripts/build_encoder.py`, and ONNX Runtime to run it (`Meaning.java`).
+  The page asks through `AndroidApp.meaning(n, lang, question)` and is answered
+  with `meaningDone(n, [[cosine, verse id], ...])`, by number, because the
+  reader types on while the model reads. The page could search by meaning alone
+  with the table `build_vectors.py` makes, and does in a browser, but a table
+  of word pieces knows little about Thai, whose pieces mean little alone; the
+  model found the passage for five Thai questions of eight where the table
+  found two. ONNX Runtime opens a file and an asset has no path, so the model is
+  copied into the app's own storage the first time, under a name for this
+  install, and the last install's copy is removed. Only the two ARM builds of
+  the runtime are carried (`abiFilters`); on an x86 phone the app still runs
+  and the page falls back to the table, or to no such section. `?diag` says
+  which.
 - **Rotation.** The activity handles the configuration changes itself rather
   than being rebuilt: parsing an eighteen-megabyte page again would lose the
   reader's place every time the phone turns. Process death is covered

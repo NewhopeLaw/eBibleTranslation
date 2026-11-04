@@ -30,6 +30,12 @@ android {
         targetSdk 36         // what Play asks of every new app and update from 31 August 2026
         versionCode versionCodeProp ? (versionCodeProp as Integer) : 1
         versionName versionNameProp ?: "1.0"
+        // ONNX Runtime is native code, built for each kind of processor, and
+        // every one carried is several megabytes. Phones are ARM: 64-bit for
+        // anything recent, 32-bit for the cheapest and oldest. An x86 phone is
+        // rare enough to go without - it still installs the app, and search by
+        // meaning there says it is not available rather than crash.
+        ndk { abiFilters "arm64-v8a", "armeabi-v7a" }
     }
 
     sourceSets {
@@ -61,6 +67,17 @@ android {
         }
     }
 
+    packaging {
+        // Android stores native libraries uncompressed by default, so a phone
+        // can map them straight from the APK. ONNX Runtime is fifty-eight
+        // megabytes that way, and this APK travels phone to phone over Quick
+        // Share and Bluetooth, where every megabyte is waiting. Compressed, it
+        // is about half: the phone unpacks it once at install, at the cost of
+        // that much more storage, which is the better trade for an app that is
+        // carried around rather than downloaded from a shop.
+        jniLibs { useLegacyPackaging = true }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
@@ -90,6 +107,7 @@ dependencies {
     implementation "androidx.core:core:1.13.1"                // window insets, edge to edge, system bar appearance
     implementation "androidx.activity:activity:1.9.3"           // ComponentActivity and the back dispatcher the predictive gesture needs
     implementation "androidx.core:core-splashscreen:1.0.1"      // the Android 12 splash, back to Android 7
+    implementation "com.microsoft.onnxruntime:onnxruntime-android:1.31.1"   // runs the search model on the phone (Meaning.java)
 }
 
 // The page is the app. Building without it produces an APK that opens on an
