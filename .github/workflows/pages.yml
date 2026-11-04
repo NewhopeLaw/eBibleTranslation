@@ -72,10 +72,24 @@ jobs:
             echo "::warning::no ANDROID_DEBUG_KEYSTORE secret, so the site goes up without the APK"
             exit 0
           fi
-          mkdir -p ~/.android
-          echo "$DEBUG_KEYSTORE" | base64 -d > ~/.android/debug.keystore
-          python scripts/build_apk.py
-          cp dist/eBible-reader-*-debug.apk site/eBible-reader.apk
+          key="$RUNNER_TEMP/debug.keystore"
+          echo "$DEBUG_KEYSTORE" | base64 -d > "$key"
+          EBIBLE_DEBUG_KEYSTORE="$key" python scripts/build_apk.py
+          apk=$(ls dist/eBible-reader-*-debug.apk)
+          # The first build here went out signed with a key Gradle made for
+          # itself, and nothing said so. An APK whose certificate is not the
+          # one in the secret would install over nothing already on a phone,
+          # so it is not published.
+          want=$(keytool -list -v -keystore "$key" -storepass android -alias androiddebugkey \
+                 | sed -n 's/.*SHA256: *//p' | tr -d ':' | tr 'A-F' 'a-f')
+          signer=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)/apksigner
+          got=$("$signer" verify --print-certs "$apk" | sed -n 's/^Signer #1 certificate SHA-256 digest: *//p')
+          echo "key $want, APK $got"
+          if [ -z "$want" ] || [ "$want" != "$got" ]; then
+            echo "::error::the APK is not signed with the key in ANDROID_DEBUG_KEYSTORE, so it is not published"
+            exit 1
+          fi
+          cp "$apk" site/eBible-reader.apk
 
       - name: Build the reader
         run: |
