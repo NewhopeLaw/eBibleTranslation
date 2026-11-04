@@ -402,12 +402,13 @@ def sound_checkpoint(run):
     return None
 
 
-def student_class(duty, progress, stop_file, sample=None, ask_file=None):
+def student_class(duty, progress, stop_file, sample=None, ask_file=None, finish=None):
     """Coqui's VITS with what the dashboard needs. It rests between steps when it shares the GPU (`duty` is the
     share of the time it computes, 1 = never rests: the recording job runs Tacotron2 and WaveRNN a step at a time,
     and a run at full tilt would hold the GPU in front of it); it writes progress.json; it reads the sample verses
     (sample(model)) every SAMPLE_EVERY minutes, when ask_file appears (the dashboard's Make sample) and as it
     leaves; and it stops, saving a checkpoint first, once the run's minutes reach the target or stop_file appears.
+    A run that reaches its target also calls finish() (the export to ONNX the phone preview reads) before it goes.
 
     Coqui's trainer answers Ctrl+C by exiting with 130 whatever happens, so a run that has done what it was asked
     leaves by os._exit(0) instead, once its checkpoint and progress are written: the dashboard restarts a job that
@@ -431,6 +432,11 @@ def student_class(duty, progress, stop_file, sample=None, ask_file=None):
                 trainer.save_checkpoint()
                 if sample and progress.minutes() - progress.p["sampled"] >= 1:
                     self.read_sample()             # how it sounds where it stopped
+                if done and finish:
+                    try:
+                        finish()
+                    except Exception as e:         # noqa: BLE001
+                        print(f"not exported: {type(e).__name__}: {e}", flush=True)
                 progress.write("finished" if done else "stopped", force=True)
                 print(f"{'finished' if done else 'stopped'} at {progress.minutes():.0f} min", flush=True)
                 # the data loader's workers would outlive an os._exit, waiting for a parent that is gone
@@ -512,7 +518,8 @@ def train(root, minutes, duty, resume=None):
         progress.p["sampled"] = progress.minutes()
         progress.write(force=True)
         print(f"sample -> {made}", flush=True)
-    model = student_class(duty, progress, stop, sample, h / "SAMPLE")(cfg, ap, tok, speaker_manager=None)
+    model = student_class(duty, progress, stop, sample, h / "SAMPLE",
+                          lambda: export(root, Path(trainer.output_path)))(cfg, ap, tok, speaker_manager=None)
     weights = sum(p.numel() for n, p in model.named_parameters() if not n.startswith(("posterior_encoder", "disc")))
     print(f"student: {weights / 1e6:.2f} M weights at reading time ({weights * 2 / 1e6:.0f} MB as half floats); "
           f"{len(train_rows)} lessons, {len(eval_rows)} to check against")
@@ -805,6 +812,32 @@ def export(root, run=None):
                   f"{dt:.2f} s ({secs / dt:.0f}x real time)")
         if f is q8:
             write_wav(h / "samples" / "John_01_1_student_int8.wav", wav.reshape(-1) / max(1e-9, np.abs(wav).max()) * 0.9)
+    phone_tokens(root, model.tokenizer, vocab, path.parent.name)
+
+
+def phone_tokens(root, tokenizer=None, vocab=None, run=""):
+    """onnx/tokens.json: the id of every character the student reads and of the blank set between them, so a phone
+    (or scripts/phone.py, the dashboard's stand-in for one) can turn a spoken form into the model's input without
+    Coqui. Checked against Coqui's own text_to_ids on John 1 before it is written."""
+    h = home(root)
+    if tokenizer is None:
+        from TTS.tts.utils.text.tokenizer import TTSTokenizer
+        tokenizer, _ = TTSTokenizer.init_from_config(config(root))
+    vocab = vocab or Vocab.load(h / "data" / "vocab.json")
+    chars = tokenizer.characters
+    ids = {c: chars.char_to_id(c) for c in vocab.letters() + "".join(MARKS)}
+    blank = chars.char_to_id(chars.blank)
+    john = json.loads((h / "phonemes" / "John_01.json").read_text(encoding="utf-8"))["verses"]
+    for _, ps in john[:5]:
+        for p, _ in ps:
+            text = vocab.text(p)
+            mine = [blank] + [x for c in text for x in (ids[c], blank)]
+            assert mine == tokenizer.text_to_ids(text), f"the token ids differ from Coqui's for {p!r}"
+    (h / "onnx").mkdir(exist_ok=True)
+    (h / "onnx" / "tokens.json").write_text(json.dumps(
+        {"ids": ids, "blank": blank, "tokens": vocab.toks, "scales": [0.667, 1.0, 0.8], "run": run,
+         "made": time.time()}, ensure_ascii=False), encoding="utf-8")
+    print(f"tokens.json: {len(ids)} characters, blank {blank}")
 
 
 def main():

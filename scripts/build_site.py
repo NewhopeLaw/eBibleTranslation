@@ -2538,6 +2538,7 @@ async function likeDraw(mine, verse){
    seconds, and a good many more when a job is translating on it. Anywhere but
    the dashboard - a file, a phone, a static server - none of this is drawn. */
 const ASKHERE = /^https?:$/.test(location.protocol) && location.pathname === "/reader";
+let PREVIEW = false, PREVIEWINFO = {};                    // the dashboard's phone preview (phonePreview, below)
 const ASKED = new Map();                                  // "lang|question" -> {state, ...}, so typing on and coming back keeps the answer
 let ASKPC = null;                                         // what GET /ask said: {model, busy}, or false when nobody answered
 const askKey = () => SR ? tl + "|" + SR.q : "";
@@ -2547,6 +2548,7 @@ async function askProbe(){
 }
 async function askDraw(){
   const key = askKey(); if (!ASKHERE || !key) return;
+  if (PREVIEW) { const s = $("#askslot"); if (s) s.innerHTML = ""; return; }   // a phone has no model to ask
   if (ASKPC === null) await askProbe();
   const slot = $("#askslot"); if (!slot || key !== askKey() || !ASKPC) return;
   const a = ASKED.get(key), model = esc(ASKPC.model);
@@ -2851,11 +2853,52 @@ function speechFor(lang){                                // "" = not ready yet, 
 /* ---------- recordings: Taiwanese and Hakka, read by voices made for them ---------- */
 const recKey = r => r.book + "|" + r.ch;
 function recFor(lang, r){                                // -> {src, s, e} for a verse that was recorded, or null
+  if (PREVIEW) return previewVoice(lang, r);
   const ch = RECORDED[lang] && RECORDED[lang][recKey(r)];
   const t = ch && ch.find(x => x[0] === r.v);
   return t ? {src: `audio/${lang}/${r.book}_${String(r.ch).padStart(2, "0")}.ogg`, s: t[1], e: t[2]} : null;
 }
 const recCount = lang => Object.keys(RECORDED[lang] || {}).length;
+/* ---------- the phone, previewed on the PC ----------
+   The dashboard's mobile switch shows this page at a phone's size, and calls
+   phonePreview so that where the APK works differently underneath, the page
+   does as the APK would: Taiwanese and Hakka are not played from the PC's
+   recordings, which the APK does not carry; Taiwanese is read by the phone's
+   own voice, the student, which the dashboard runs from its phone file on the
+   CPU as a phone runs it (scripts/phone.py); search by meaning asks the model
+   the APK carries, through a stand-in for the app's bridge, so the page's side
+   of it can be tried and its errors seen here; and the PC's question to the big
+   model is not offered. The device's own voices still read the other languages,
+   as a phone's do. Only the dashboard, serving the page at /reader, calls this. */
+function previewVoice(lang, r){
+  if (lang !== "nan" || !(PREVIEWINFO.voice && PREVIEWINFO.voice.nan)) return null;
+  return {src: `/phone/say?book=${encodeURIComponent(r.book)}&ch=${r.ch}&v=${r.v}`, s: 0, e: 1e9};
+}
+const PREVIEWBRIDGE = {
+  meaningLangs: () => (PREVIEWINFO.meaning || []).join(","),
+  meaningState: () => `the dashboard, as the phone: ${PREVIEWINFO.loaded ? "loaded" : "not loaded yet"}`,
+  meaning(n, lang, q){
+    fetch("/phone/meaning", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({lang, q})})
+      .then(r => r.json()).then(j => { if (j.ok) PREVIEWINFO.loaded = true; meaningDone(n, j.ok ? j.hits : null, j.error); })
+      .catch(() => meaningDone(n, null, "the dashboard did not answer"));
+  },
+};
+if (ASKHERE) window.phonePreview = async on => {
+  on = !!on;
+  if (on === PREVIEW) return;
+  stopSpeaking();
+  if (on) {
+    try { const r = await fetch("/phone", {cache: "no-store"}); PREVIEWINFO = r.ok ? await r.json() : {}; }
+    catch (e) { PREVIEWINFO = {}; }
+  }
+  PREVIEW = on;
+  if (!PHONE) window.AndroidApp = on ? PREVIEWBRIDGE : undefined;   // read by modelLangs and askModel as they go
+  MODELREADY = false; MODELWHY = "";
+  document.documentElement.classList.toggle("phonepreview", on);
+  if (!vbar.hidden) drawVbar();
+  redrawSheet();                                                    // the display tray says what can be heard
+  if (SR) search(SR.q);                                             // a search on the page is asked again, as the phone asks it
+};
 /* The voices add each chapter as they record it (build_audio.add), so a page
    built before then does not know of it. Served over http, the page asks for
    the lists as they stand now; opened from a file it keeps the ones it was
@@ -2887,6 +2930,10 @@ function noVoiceHelp(lang){
   /* Pointing someone at their settings for a voice that does not exist sends
      them looking for nothing. For these languages there is none to install;
      what can be heard is what this project has recorded. */
+  if (PREVIEW && NO_VOICE_ANYWHERE[lang])
+    return lang === "nan"
+      ? `Phone preview: the phone's ${name} voice has not been made yet (scripts/taiwanese_student.py export). The PC plays the recordings; switch back to PC to hear them.`
+      : `Phone preview: the phone carries no ${name} recordings and has no ${name} voice yet. The PC plays the recordings; switch back to PC to hear them.`;
   if (NO_VOICE_ANYWHERE[lang]) {
     const n = recCount(lang);
     return `No phone or computer has a ${name} voice, and one for another language would misread it.`
@@ -3515,6 +3562,10 @@ function nextPiece(){
   const seg = hearing.queue.shift(), id = ++SPEAKSEQ;
   hearing.seq = id;
   if (seg.src) playRecording(seg, id); else speakVerse(seg.txt, seg.lang, id);
+  // The next one is fetched while this one plays: the phone preview's voice makes
+  // each verse when asked, a second's wait that would otherwise fall between them.
+  const next = hearing.queue[0];
+  if (next && next.src) recUrl(next.src);
 }
 function hearSel(sel){
   readyBell();
@@ -3702,7 +3753,9 @@ function drawSettings(){
     <p class="hint">${esc(t('For two readers of one page: every verse with the English beside it, and the search answered in either language. A verse found through the English opens this way.'))}</p>`;
   h += `<div class="shead">${esc(t("Read aloud"))}</div><p class="hint">${PHONE
       ? esc(t("Tap a verse and choose Listen. The voices are the phone's own, so whichever languages it has installed are the ones it can read; Hebrew and Greek are read with modern voices."))
-      : recCount(tl) && speechFor(tl) === "no"
+      : PREVIEW && previewVoice(tl, {book: "John", ch: 1, v: 1})
+      ? esc(`Phone preview: ${langName(tl)} is read by the phone's own voice, taught from the recordings and run here as a phone runs it (exported ${new Date(PREVIEWINFO.voice[tl].made * 1000).toLocaleString([], {month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}). Tap a verse and choose Listen.`)
+      : !PREVIEW && recCount(tl) && speechFor(tl) === "no"
       ? esc(`${langName(tl)} is heard from recordings made for this Bible, as no phone or computer has a voice for it: `
             + `${recCount(tl)} of ${Object.keys(DATA).reduce((n, b) => n + Object.values(DATA[b]).filter(d => d.tr && d.tr[tl]).length, 0)} chapters so far. `
             + `Tap a verse and choose Listen; a recording plays at the pace it was read.`)

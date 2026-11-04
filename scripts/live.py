@@ -1379,6 +1379,28 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header("Cache-Control", "no-cache")      # a sample made twice in a minute keeps its name
             self.end_headers()
             self.wfile.write(body[lo:hi + 1])
+        elif path == "/phone":                      # what the mobile preview can do as the APK does (scripts/phone.py)
+            try:
+                import phone
+                self._json({"ok": True, **phone.state()})
+            except Exception as e:                  # noqa: BLE001
+                self._json({"ok": False, "error": f"{type(e).__name__}: {e}"})
+        elif path == "/phone/say":                  # a verse in the phone's Taiwanese voice, made as the phone makes it
+            try:
+                import phone
+                body = phone.say(q.get("book", ""), q.get("ch", "0"), q.get("v", "0"))
+            except (LookupError, KeyError, ValueError) as e:
+                self._json({"error": str(e)}, 404)
+                return
+            except Exception as e:                  # noqa: BLE001
+                self._json({"error": f"{type(e).__name__}: {e}"}, 500)
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", "audio/wav")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-cache")
+            self.end_headers()
+            self.wfile.write(body)
         elif path == "/work":
             self._json(work_progress())
         elif path == "/apk":
@@ -1430,6 +1452,17 @@ class Handler(BaseHTTPRequestHandler):
             self._json({"ok": err is None, "error": err}, 409 if err else 200)
         elif self.path == "/work/stop":
             self._json({"ok": True, "stopped": work_stop((self._body().get("job") or "").strip() or None)})
+        elif self.path == "/phone/meaning":         # the APK's search by meaning, for the mobile preview
+            body = self._body()
+            try:
+                import phone
+                t0 = time.time()
+                hits = phone.meaning((body.get("lang") or "").strip(), body.get("q") or "", int(body.get("k") or 12))
+                self._json({"ok": True, "hits": hits, "seconds": round(time.time() - t0, 3)})
+            except LookupError as e:
+                self._json({"ok": False, "error": str(e)}, 404)
+            except Exception as e:                  # noqa: BLE001
+                self._json({"ok": False, "error": f"{type(e).__name__}: {e}"}, 500)
         elif self.path == "/work/sample":
             err = work_sample((self._body().get("job") or "").strip())
             self._json({"ok": err is None, "error": err}, 409 if err else 200)
@@ -1779,7 +1812,7 @@ __READALOUD_CSS__
   <div class="group" id="mode" title="read: the window becomes the reader (rebuilt when translations are newer) · translate: the live dashboard, with the side panel">
     <span data-m="read">read</span><span data-m="translate" class="on">translate</span>
   </div>
-  <div class="group" id="device" title="mobile: preview the screen at phone size (390 x 844) for UI testing">
+  <div class="group" id="device" title="mobile: preview the reader as the phone has it - its screen size (390 x 844), its own Taiwanese voice in place of the recordings, and its search model in place of the PC's">
     <span data-d="pc" class="on">PC</span><span data-d="mobile">mobile</span>
   </div>
   <div class="group" id="apk" title="Build an Android app holding the reader alone - larger type, no study tools. It carries only the languages the whole Bible has been translated into; one still in progress is left out until it is finished">
@@ -1874,7 +1907,15 @@ function applyDevice(){
   } else app.style.transform = '';
   $('device').querySelectorAll('span').forEach(x => x.classList.toggle('on', x.dataset.d === device));
   localStorage.setItem('liveDevice', device);
+  tellReader();
 }
+/* At phone size the reader also works as the APK does underneath: the phone's
+   own Taiwanese voice and its search model, run here by scripts/phone.py, in
+   place of the PC's recordings and the PC's model (the reader's phonePreview). */
+function tellReader(){
+  try { const w = $('reader').contentWindow; if (w && w.phonePreview) w.phonePreview(device === 'mobile'); } catch (e) {}
+}
+$('reader').addEventListener('load', tellReader);
 $('device').querySelectorAll('span').forEach(x => x.onclick = () => { device = x.dataset.d; applyDevice(); });
 window.addEventListener('resize', () => { if (device === 'mobile') applyDevice(); });
 /* The reader is loaded once and kept. It is served as it stands and, when
