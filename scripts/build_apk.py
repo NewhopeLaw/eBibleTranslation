@@ -126,7 +126,9 @@ def find_jdk() -> Path | None:
         cands.append(Path(base) / "Android" / "Android Studio" / "jbr")
         cands.append(Path(base) / "Android Studio" / "jbr")
     for home in cands:
-        if (home / "bin" / "java.exe").exists() and java_major(home) >= 17:
+        # java.exe on this PC; plain java on the Linux runner that builds the
+        # copy offered on GitHub Pages.
+        if any((home / "bin" / j).exists() for j in ("java.exe", "java")) and java_major(home) >= 17:
             return home
     return None
 

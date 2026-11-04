@@ -268,6 +268,7 @@ dialog.sheet::backdrop { background:var(--scrim); }
   min-height:52px; border:1px solid var(--accent); border-radius:14px; margin:.6rem 0 .2rem;
   background:var(--accent); color:var(--on-accent); cursor:pointer; font:700 calc(15px * var(--ui)) system-ui,sans-serif; }
 .sheet .primary.share { gap:.6rem; margin-top:1.4rem; min-height:56px; text-transform:uppercase; letter-spacing:.06em; }
+.sheet a.primary { text-decoration:none; box-sizing:border-box; }
 .sheet .primary .mark { width:26px; height:22px; fill:currentColor; flex:none; }
 /* ---------- Who is Jesus?: the button, the milestones, the badge ---------- */
 header .who { flex:none; min-height:40px; padding:0 .9rem; border:1px solid var(--accent); border-radius:999px;
@@ -937,6 +938,9 @@ applySkin();
    study layers in morph/, so advanced mode would open onto empty views: it is
    basic, always, and the switch is not offered. */
 const READER_ONLY = __READER_ONLY__;
+/* The Pages copy has the reader APK beside it ({href, mb}); every other build
+   has none, and inside the app the phone already holds it. */
+const APK = __APK__;
 let mode = localStorage.getItem("mode");
 if (mode !== "basic" && mode !== "advanced")
   mode = (localStorage.getItem("view") || localStorage.getItem("tl")) ? "advanced" : "basic";
@@ -3322,6 +3326,12 @@ function drawSettings(){
      with a paragraph explaining that the whole Bible goes with it, and the
      explanation was longer than the act: the phone's share sheet says the rest. */
   if (PHONE) h += `<button type="button" class="primary share" id="setShareApp">${BOOKMARK}${esc(t('Share this Bible'))}</button>`;
+  /* Where the app offers to share itself, the website offers the app. It is
+     not from Play, so the phone will ask once to allow installs from the
+     browser, and someone who has not met that should know before it asks. */
+  else if (APK) h += `<a class="primary share" href="${attr(APK.href)}" download>${BOOKMARK}${esc(t('Get the Android app'))}</a>`
+    + `<p class="hint">${esc(t('The whole Bible on the phone, readable with no network.'))} ${APK.mb} MB. `
+    + `${esc(t('It is not from the Play Store, so the phone asks once to allow installs from this browser.'))}</p>`;
   h += `<div class="shead">${esc(t('About the text'))}</div><div class="rowlist"><button type="button" id="setSrc"><span class="nm">${esc(t('Sources and licenses'))}</span><span class="ct">${esc(t('what each layer came from'))}</span></button></div>`;
   const dyn = $("#setDyn");
   dyn.innerHTML = h;
@@ -3678,6 +3688,9 @@ def main():
     ap.add_argument("--langs", default="",
                     help="comma list of target codes to carry, e.g. en,zh (default: every one there is); "
                          "with --complete-only, naming a language that is not finished is an error")
+    ap.add_argument("--apk", default="",
+                    help="file name of a reader APK already in --out, offered for download on the page "
+                         "(the GitHub Pages build); a name that is not there is an error, not a dead link")
     a = ap.parse_args()
     asked = [c.strip() for c in a.langs.split(",") if c.strip()]
     unknown = [c for c in asked if c not in TARGETS]
@@ -3754,6 +3767,12 @@ def main():
         print("WARNING: no language is complete, so this page carries the original text alone")
     out_dir = Path(a.out)
     out_dir.mkdir(parents=True, exist_ok=True)
+    apk = None
+    if a.apk:
+        f = out_dir / a.apk
+        if not f.is_file():
+            raise SystemExit(f"--apk {a.apk}: no such file in {out_dir}")
+        apk = {"href": a.apk, "mb": round(f.stat().st_size / 1048576, 1)}
     page = (PAGE
             .replace("__DATA__", json.dumps(data, ensure_ascii=False))
             .replace("__ORDER__", json.dumps(ORDER))
@@ -3768,6 +3787,7 @@ def main():
                 {k: v.replace(" ", "_") for k, v in ABBREV.items()}))
             .replace("__UI__", ui_table(targets))
             .replace("__READER_ONLY__", "true" if a.reader_only else "false")
+            .replace("__APK__", json.dumps(apk))
             .replace("__BUILT__", __import__("datetime").datetime.now().strftime("%Y-%m-%d %H:%M"))
             .replace("__READALOUD_CSS__", RA.CSS)
             .replace("__READALOUD_JS__", RA.js('main', '.par .o, .par .e, .cmp .row .txt, p.ov, .poetry, .vv span, .hit, .notes')))
