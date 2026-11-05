@@ -77,5 +77,3 @@ site/model/
 sources/mya-judson/
 # Burmese Common Language Bible (Bible Society of Myanmar, 2005) from eBible.org, the modern yardstick for the same trial
 sources/mya-cl/
-# The reader APK the Pages build puts beside the page (.github/workflows/pages.yml)
-site/*.apk

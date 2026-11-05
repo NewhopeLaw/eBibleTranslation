@@ -585,6 +585,49 @@ built.
 For a Play upload the AAB still comes from `android/sync_assets.sh` and Gradle,
 as `android/README.md` describes.
 
+### The reader on the web, and its Download tray
+
+`.github/workflows/pages.yml` publishes the reader on GitHub Pages from each
+push to `main`, built with `--complete-only --downloads`. The `--downloads`
+flag gives that copy, and no other, a **Download** button in the header (and a
+way into it from Display), opening a tray that offers two things:
+
+- **The Android app.** The workflow builds one APK with every finished language
+  and one for English with each of the others (`scripts/release_apks.py`), and
+  puts them in the `reader-apk` Release. The Release takes them because the site
+  cannot: eight APKs with the search model in each come to several hundred
+  megabytes, and a Pages site has 1 GB in all. The file names stay the same from
+  one publish to the next, so a link to one keeps working; the Release notes say
+  which commit they were built from. They are signed with the PC's debug key
+  (the `ANDROID_DEBUG_KEYSTORE` secret, the base64 of `~/.android/debug.keystore`),
+  so each new copy installs over the last and over the copies already handed round.
+- **The offline reader, for a computer.** A zip put together in the visitor's
+  browser from what the site already serves: the page, cut to the languages
+  they tick, and the files of `site/morph/` that go with the search, search by
+  meaning and study layers they tick. The tray shows what each part comes to
+  zipped (measured at publish time by `build_site.py`) and the total. Unzipped,
+  it is `index.html` and its `morph/` folder, opened from the file as
+  `start_reader.cmd` opens the reader here.
+
+The recordings of Taiwanese and Hakka are not offered: they are not in git, and
+at more than a gigabyte for Hakka alone they are not something to put together
+in a browser.
+
+#### The search model on GitHub
+
+The APKs search by meaning with the model when the workflow can fetch it, and
+with the table otherwise. The model is made on the PC (`scripts/build_encoder.py`)
+and is not in git, so the PC puts it in a Release of its own after building it,
+and starts the workflow by hand, since an upload is not a push:
+
+```
+gh release create meaning-model --title "Search model for the Android reader" --notes "site/model/ from scripts/build_encoder.py" --latest=false site/model/*
+gh release upload meaning-model site/model/* --clobber     # after each rebuild
+gh workflow run pages.yml
+```
+
+The encoder is multilingual-e5-small (MIT licence), cut down and stored as int8.
+
 ### The app as one folder (`scripts/package_app.py`)
 
 `python scripts/package_app.py` builds `dist/eBible-app/`: the dashboard, the
