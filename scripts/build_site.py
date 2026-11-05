@@ -17,6 +17,7 @@ the planned Android APK will wrap unchanged.
 import html
 import json
 import sys
+import zlib
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -270,6 +271,46 @@ dialog.sheet::backdrop { background:var(--scrim); }
 .sheet .primary.share { gap:.6rem; margin-top:1.4rem; min-height:56px; text-transform:uppercase; letter-spacing:.06em; }
 .sheet a.primary { text-decoration:none; box-sizing:border-box; }
 .sheet .primary .mark { width:26px; height:22px; fill:currentColor; flex:none; }
+/* ---------- the Download tray (the copy on GitHub Pages only) ----------
+   Outlined rather than filled: Who is Jesus? is the one filled pill in the
+   header, and taking the reader away is a lesser thing than reading it. */
+header .get { flex:none; display:inline-flex; align-items:center; gap:.35rem; min-height:44px; min-width:44px;
+  padding:0 .85rem; border:1px solid var(--edge); border-radius:999px; background:var(--card); color:var(--fg);
+  cursor:pointer; white-space:nowrap; font:600 calc(13px * var(--ui)) system-ui,sans-serif; }
+header .get:hover { border-color:var(--accent); }
+header .get[hidden] { display:none; }
+header .get svg { width:19px; height:19px; flex:none; fill:none; stroke:currentColor; stroke-width:2;
+  stroke-linecap:round; stroke-linejoin:round; }
+/* Beside a long reference on a small phone the word goes and the arrow stays;
+   the button keeps its name for a screen reader through the label it lost. */
+@media (max-width:400px){ header .get { padding:0; justify-content:center; } header .get .lb { display:none; } }
+/* Native radios and checkboxes, a whole row to tap: the choice is plain, and
+   the platform draws the state with a shape, not only a colour. */
+.getopts { display:flex; flex-direction:column; }
+.getopts label { display:flex; align-items:center; gap:.7rem; min-height:48px; padding:.4rem .7rem;
+  border-radius:12px; cursor:pointer; font:calc(15px * var(--ui)) system-ui,sans-serif; }
+.getopts label:hover { background:var(--soft); }
+.getopts input { width:22px; height:22px; margin:0; flex:none; accent-color:var(--accent); cursor:pointer; }
+.getopts input:disabled + .nm { opacity:.55; }
+.getopts .nm { flex:1 1 auto; min-width:0; overflow-wrap:anywhere; }
+.getopts .nm small { display:block; margin-top:.1rem; color:var(--muted); font:calc(12px * var(--ui))/1.35 system-ui,sans-serif; }
+.getopts input:checked + .nm > b { font-weight:700; }
+.getopts .nm > b { font-weight:500; }
+.getopts .ct { flex:none; color:var(--muted); font:calc(12.5px * var(--ui)) system-ui,sans-serif;
+  font-variant-numeric:tabular-nums; white-space:nowrap; }
+.getfixed { display:flex; align-items:center; gap:.7rem; padding:.35rem .7rem; color:var(--muted);
+  font:calc(13px * var(--ui))/1.4 system-ui,sans-serif; }
+.getfixed span:first-child { flex:1 1 auto; min-width:0; }
+.getfixed .ct { flex:none; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.gettotal { display:flex; align-items:baseline; justify-content:space-between; gap:.6rem; margin:.7rem 0 0;
+  padding:.6rem .7rem 0; border-top:1px solid var(--border); font:700 calc(15px * var(--ui)) system-ui,sans-serif; }
+.gettotal .ct { font-variant-numeric:tabular-nums; white-space:nowrap; }
+.sheet .primary:disabled { opacity:.45; cursor:default; }
+.getmsg { margin:.5rem 0 0; padding:.6rem .75rem; border-radius:12px; background:var(--soft);
+  font:calc(13.5px * var(--ui))/1.45 system-ui,sans-serif; }
+.getmsg.bad { border-left:4px solid var(--accent); }
+.getmsg a, .getmsg button { color:var(--accent); font:inherit; font-weight:600; }
+.getmsg button { background:none; border:0; padding:0; min-height:44px; cursor:pointer; text-decoration:underline; }
 /* ---------- Who is Jesus?: the button, the milestones, the badge ---------- */
 header .who { flex:none; min-height:40px; padding:0 .9rem; border:1px solid var(--accent); border-radius:999px;
   background:var(--accent); color:var(--on-accent); cursor:pointer; white-space:nowrap;
@@ -712,6 +753,7 @@ try {
   <button class="fs" id="fsPlus" title="Larger text" data-tt="Larger text" aria-label="Larger text" data-ta="Larger text">A+</button>
   <button class="ib adv" id="toolsBtn" aria-label="Tools and study views" data-ta="Tools and study views" title="Tools and study views" data-tt="Tools and study views" aria-haspopup="dialog" aria-expanded="false" aria-controls="toolsSheet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h5M13 7h7M4 17h9M17 17h3"/><circle cx="11" cy="7" r="2.2"/><circle cx="15" cy="17" r="2.2"/></svg></button>
   <button class="ib" id="gear" aria-label="Display and reading settings" data-ta="Display and reading settings" title="Display and reading settings" data-tt="Display and reading settings" aria-haspopup="dialog" aria-expanded="false" aria-controls="setSheet"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6M18.4 18.4l-1.6-1.6M7.2 7.2L5.6 5.6"/></svg></button>
+  <button class="get" id="getBtn" hidden title="Take the reader with you: the Android app, or this page to keep" data-tt="Take the reader with you: the Android app, or this page to keep" aria-haspopup="dialog" aria-expanded="false" aria-controls="getSheet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19.5h14"/></svg><span class="lb" data-t="Download">Download</span></button>
   <button class="who" id="whoHdr" title="A story from the life of Jesus, read aloud" data-tt="A story from the life of Jesus, read aloud" data-t="Who is Jesus?">Who is Jesus?</button>
   <button class="sources" id="sources" title="Source texts, licenses and attributions" data-tt="Source texts, licenses and attributions" data-t="Sources and licenses">Sources and licenses</button>
 </header>
@@ -756,6 +798,12 @@ try {
   <div class="sh"><span class="st" id="setSheetT" data-t="Display and reading">Display and reading</span>
     <button class="ib" data-close aria-label="Close" data-ta="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <div class="bd" id="setBody"><div id="setDyn"></div></div>
+</dialog>
+<dialog class="sheet" id="getSheet" aria-labelledby="getSheetT">
+  <div class="grab"><i></i></div>
+  <div class="sh"><span class="st" id="getSheetT" data-t="Download">Download</span>
+    <button class="ib" data-close aria-label="Close" data-ta="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="bd" id="getBody"><div id="getDyn"></div></div>
 </dialog>
 <div id="zoomchip" hidden><span id="zoomlvl" role="status"></span><button id="zoomreset" type="button" data-t="Reset">Reset</button></div>
 <div id="toast" hidden role="status"></div>
@@ -807,14 +855,16 @@ try {
   <p><b>Chronology:</b> the numbers are extracted from this project's own English translation by pattern, each shown with its verse; nothing is summed into a date.
     The anchor dates are entered by hand from Assyrian, Babylonian, Persian and Roman records and are marked as externally attested. No copyrighted chronology
     (Thiele, Finegan or any other) is used.</p>
-  <p><b>Translations:</b> __MADE__
+  <p><b>Translations:</b> <span id="madeBy">__MADE__</span>
     Full notes: LEGAL.md in the project repository.</p>
 </footer>
 <script>
 const DATA = __DATA__;
 const ORDER = __ORDER__;
 const LANGS = __LANGS__;
-const TARGETS = __TARGETS__;          // {code: {name, native}} in canonical order
+// {code: {name, native}} in canonical order. Alone on its line, as DATA is: the
+// Download tray finds both by their line when it cuts the page (CUT_ANCHORS).
+const TARGETS = __TARGETS__;
 const ABBREV = __ABBREV__;
 const $ = s => document.querySelector(s);
 /* Two names for a book. dataKey() is the English every built layer (MORPH,
@@ -938,9 +988,11 @@ applySkin();
    study layers in morph/, so advanced mode would open onto empty views: it is
    basic, always, and the switch is not offered. */
 const READER_ONLY = __READER_ONLY__;
-/* The Pages copy has the reader APK beside it ({href, mb}); every other build
-   has none, and inside the app the phone already holds it. */
-const APK = __APK__;
+/* Only the copy published on GitHub Pages has a Download tray: what it can
+   offer and what each part weighs (build_site.py downloads_offer). Every other
+   build has null - the dashboard is the PC's own copy, and inside the app the
+   phone already holds it. */
+const DOWNLOADS = __DOWNLOADS__;
 let mode = localStorage.getItem("mode");
 if (mode !== "basic" && mode !== "advanced")
   mode = (localStorage.getItem("view") || localStorage.getItem("tl")) ? "advanced" : "basic";
@@ -1910,6 +1962,9 @@ async function diagnostics(){
   let idxState = "not loaded";
   try { await idxLoad(tl); idxState = `${Object.keys(IDX[tl] || {}).length} indexed words`; }
   catch (e) { idxState = `could not load morph/idx_${tl}.js (${e && e.message || e})`; }
+  let vecState;
+  try { const V = await vecLoad(tl); vecState = `${V.ids.length} verses, ${VT.at.size} word pieces`; }
+  catch (e) { vecState = `not in this copy (morph/vec_${tl}.js: ${e && e.message || e})`; }
   const chapters = srcBooks.reduce((n, b) => n + Object.keys(DATA[b]).length, 0);
   const translated = srcBooks.reduce((n, b) => n + Object.values(DATA[b]).filter(c => c.tr && c.tr[tl]).length, 0);
   let store = "working";
@@ -1917,7 +1972,10 @@ async function diagnostics(){
   const rows = [["Built", BUILD], ["Address", location.href], ["Reading language", tl],
                 ["Languages in this copy", Object.keys(TARGETS).join(", ") || "none"],
                 ["Books / chapters", `${srcBooks.length} / ${chapters}`],
-                ["Chapters in " + tl, translated], ["Search index", idxState],
+                ["Chapters in " + tl, translated], ["Search index", idxState], ["Search by meaning", vecState],
+                ["Search by meaning, model", window.AndroidApp && AndroidApp.meaningState
+                    ? `${modelLangs().join(", ") || "no languages"} · ${AndroidApp.meaningState()}${MODELWHY ? " · last error: " + MODELWHY : ""}`
+                    : "not in this copy (the app carries it; a browser uses the table)"],
                 ["Study layers", READER_ONLY ? "not in this build (the reader alone)"
                     : `${Object.keys(typeof MORPH === "undefined" ? {} : MORPH).length} books of word tags loaded`],
                 ["Settings storage", store], ["Browser", navigator.userAgent]];
@@ -2224,10 +2282,10 @@ async function search(q) {
     const t = book && trOf(book, ch)[tl];
     const sv = t && t.verses[v];
     if (!sv) continue;
-    about.push({book, ch, v, t: sv});
+    about.push({id, book, ch, v, t: sv});
     if (about.length >= 60) break;
   }
-  const verse = h => `<div class="hit" lang="${tl}" dir="${tdir(tl)}" onclick="goto('#${h.book}/${h.ch}/${h.v}')">
+  const verse = h => `<div class="hit" lang="${tl}" dir="${tdir(tl)}"${h.id ? ` data-id="${h.id}"` : ""} onclick="goto('#${h.book}/${h.ch}/${h.v}')">
       <div class="ref">${disp(h.book)} ${h.ch}:${h.v}</div>
       ${ruby(esc(apart(h.t)).replace(rx, m => `<mark>${m}</mark>`).normalize("NFC"))}</div>`;
   const layers = !READER_ONLY;
@@ -2242,15 +2300,16 @@ async function search(q) {
   html += `<div class="sect" id="s-lit">${esc(t('Verses with these words'))}<small>${lit.length}${whole ? "" : "+"}${IDX[tl] ? "" : " · " + esc(t('scanned: the index for this text could not be opened, so only the first are found'))}</small></div>`;
   html += lit.length ? lit.slice(0, FIRST).map(verse).join("") + moreBtn("lit", Math.min(lit.length, 500) - FIRST, lit.length - 500)
         : `<p class="empty" style="margin-top:.5rem">${esc(TARGETS[tl].native)}: ${esc(t('no verse uses these words.'))}</p>`;
-  html += `<div id="origslot"></div>`;
+  html += `<div id="origslot"></div><div id="likeslot"></div>`;
   if (about.length) {
-    html += `<div class="sect" id="s-about">${esc(t('Verses about this'))}<small>${about.length}${about.length >= 60 ? "+" : ""} · ${esc(t('found by what the verse is about, not by its wording'))}</small></div>`;
+    html += `<div class="sect" id="s-about">${esc(t('Verses about this'))}<small><span id="aboutn">${about.length}${about.length >= 60 ? "+" : ""}</span> · ${esc(t('found by what the verse is about, not by its wording'))}</small></div>`;
     if (via.length) html += `<p class="sectnote">The verses with “${esc(q)}” are mostly about <b lang="en">${via.map(t => esc(t.k)).join(", ")}</b>; these are the others that are.</p>`;
-    html += about.map(verse).join("");
+    html += `<div id="aboutlist">${about.map(verse).join("")}</div>`;
   }
   main.innerHTML = html + "</div>";
   drawJumps();
   askDraw();
+  likeDraw(mine, verse);                                  // not waited for: the verses with the words are drawn first
 
   if (!layers) return;
   await entLoad().catch(() => {});
@@ -2263,6 +2322,181 @@ async function search(q) {
   if (SR !== mine || typeof CONC === "undefined") return;
   mine.words = origWords(mine);
   origDraw();
+}
+/* ---- verses like what was typed: search by meaning, on the phone ----
+   The sections above find letters, or the English words a verse is described
+   with. A reader who half-remembers a passage - the man thrown to the lions,
+   the shepherd who leaves the ninety-nine - usually types none of the words the
+   verse itself uses, and found nothing. build_vectors.py gives every verse a
+   vector, and a table of vectors for the pieces words are cut into. The
+   question is cut into those same pieces here, by the teacher's own unigram
+   model walked with Viterbi over the scores the table carries, and its pieces'
+   vectors are summed by their weights into a vector of the same kind; the
+   verses nearest it are the ones described. It is arithmetic over two files, so
+   it runs in the WebView with no model, no runtime and no network. It chooses
+   verses and never words, so what is drawn is this page's own text. A language
+   whose vectors were not built, or a copy that left them out, has no such
+   section rather than an empty one. */
+const VECS = {};                                          // lang -> {d, ids, v}, or false when this copy has none
+let VT = null;                                            // the piece table, decoded once and shared by every language
+const LIKE = 12;                                          // the nearest few are the answer; past a dozen they are neighbours of neighbours
+const LIKEFLOOR = .5, LIKEBAND = .12;                     // how close the best must be, and how far behind it the rest may fall (see likeDraw)
+const b64bytes = s => { const bin = atob(s), u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u; };
+function half(u16){                                       // float16 -> float32, by hand: older WebViews have no Float16Array
+  const out = new Float32Array(u16.length);
+  for (let i = 0; i < u16.length; i++) {
+    const h = u16[i], s = h & 0x8000 ? -1 : 1, e = (h >> 10) & 31, f = h & 1023;
+    out[i] = e === 0 ? s * f * 5.960464477539063e-8 : e === 31 ? (f ? NaN : s * Infinity) : s * Math.pow(2, e - 15) * (1 + f / 1024);
+  }
+  return out;
+}
+async function vecLoad(lang){
+  if (!VT) {
+    await loadJs("morph/vec_table.js");
+    const raw = window.VECTAB, at = new Map(); let maxLen = 0;
+    raw.p.forEach((p, i) => { at.set(p, i); maxLen = Math.max(maxLen, [...p].length); });
+    const g = half(new Uint16Array(b64bytes(raw.g).buffer));
+    let lo = 0; for (const x of g) if (x < lo) lo = x;
+    /* The tokenizer gives a character it has no piece for the lowest score less
+       ten; the same penalty here keeps an unknown letter from being preferred to
+       any real piece, which is what keeps the cut the teacher's. */
+    VT = {d: raw.d, at, maxLen, g, unk: lo - 10, w: half(new Uint16Array(b64bytes(raw.w).buffer)), v: new Int8Array(b64bytes(raw.v).buffer)};
+    window.VECTAB = null;                                 // the decoded arrays are the copy kept; the base64 is let go
+  }
+  if (!VECS[lang]) {
+    await loadJs(`morph/vec_${lang}.js`);
+    const one = VEC[lang];
+    VECS[lang] = {d: one.d, s: one.s, ids: new Int32Array(b64bytes(one.i).buffer), v: new Int8Array(b64bytes(one.v).buffer)};
+    VEC[lang] = null;
+  }
+  return VECS[lang];
+}
+function vecPieces(q){                                    // -> table rows, cut the way the teacher's tokenizer cuts the same words
+  const rows = [];
+  for (const word of q.normalize("NFKC").split(/\s+/).filter(Boolean)) {
+    const ch = [..."▁" + word], n = ch.length;            // every word begins with the tokenizer's space mark, as in the corpus
+    const best = new Float64Array(n + 1).fill(-Infinity), from = new Int32Array(n + 1), row = new Int32Array(n + 1);
+    best[0] = 0;
+    for (let i = 0; i < n; i++) {
+      if (best[i] === -Infinity) continue;
+      let sub = "";
+      for (let j = i; j < n && j - i < VT.maxLen; j++) {
+        sub += ch[j];
+        const r = VT.at.get(sub);
+        if (r !== undefined && best[i] + VT.g[r] > best[j + 1]) { best[j + 1] = best[i] + VT.g[r]; from[j + 1] = i; row[j + 1] = r; }
+      }
+      if (best[i] + VT.unk > best[i + 1]) { best[i + 1] = best[i] + VT.unk; from[i + 1] = i; row[i + 1] = -1; }
+    }
+    const got = []; for (let k = n; k > 0; k = from[k]) if (row[k] >= 0) got.push(row[k]);
+    rows.push(...got.reverse());
+  }
+  return rows;
+}
+function vecNearest(V, rows, k, skip){                    // -> [[cosine, verse id]] for the k nearest the question, nearest first
+  const d = VT.d, q = new Float32Array(d);
+  for (const r of rows) { const w = VT.w[r], o = r * d; for (let i = 0; i < d; i++) q[i] += VT.v[o + i] * w; }
+  let mag = 0; for (let i = 0; i < d; i++) mag += q[i] * q[i];
+  if (!mag) return [];
+  /* The verses are stored as unit vectors scaled into int8, so the dot product
+     times that one scale, over the question's length, is the cosine itself -
+     which is what the floor in likeDraw is measured in. */
+  const top = [], norm = V.s / Math.sqrt(mag);
+  for (let j = 0, o = 0; j < V.ids.length; j++, o += d) {
+    if (skip.has(V.ids[j])) continue;
+    let s = 0; for (let i = 0; i < d; i++) s += V.v[o + i] * q[i];
+    s *= norm;
+    if (top.length < k) { top.push([s, V.ids[j]]); top.sort((a, b) => b[0] - a[0]); }
+    else if (s > top[k - 1][0]) { top[k - 1] = [s, V.ids[j]]; top.sort((a, b) => b[0] - a[0]); }
+  }
+  return top;
+}
+/* ---- the same question, put to the model itself, in the app ----
+   The table above is what a page can carry and compute with alone. The Android
+   app can do more: it carries the model the table was distilled from and ONNX
+   Runtime to run it (android/.../Meaning.java, scripts/build_encoder.py), and
+   a model that reads the question whole is far better than a table of its
+   pieces where the pieces mean little alone - in Thai it found the passage for
+   five questions of eight where the table found two. So in the app, and only
+   for the languages it has verses for, the page asks it, by number, and the
+   app answers with meaningDone(). Anywhere else, or if the app cannot (an x86
+   phone the runtime was not built for), the table answers as before. */
+const ASKING = new Map();                                 // question number -> its promise's resolve
+let ASKN = 0, MODELWHY = "", MODELREADY = false;
+/* The model's cosines sit in a narrower band than the table's: measured, a
+   typing slip or a lone "the" tops out near 0.44, a described passage or a
+   real word near 0.55 to 0.68, and the verses of one passage within about 0.07
+   of each other. Unlike the table, the model is good on single words - "love"
+   reaches 1 Corinthians 13:4 - so only the slips are held back. */
+const MODELFLOOR = .5, MODELBAND = .07;
+function modelLangs(){
+  try { return window.AndroidApp && AndroidApp.meaningLangs ? AndroidApp.meaningLangs().split(",").filter(Boolean) : []; }
+  catch (e) { return []; }
+}
+function meaningDone(n, hits, why){
+  const done = ASKING.get(n); if (!done) return;
+  ASKING.delete(n); done(Array.isArray(hits) ? hits : {why: why || "no answer"});
+}
+const askModel = (lang, q) => new Promise(done => { const n = ++ASKN; ASKING.set(n, done); AndroidApp.meaning(n, lang, q); });
+async function likeDraw(mine, verse){
+  const slot = $("#likeslot"); if (!slot) return;
+  const note = `<p class="sectnote">${esc(t('Looking for verses like this…'))}</p>`;
+  let near = null, floor = LIKEFLOOR, band = LIKEBAND;
+  if (modelLangs().includes(tl)) {
+    /* The first question copies the model out of the app and loads it, a few
+       seconds on a slow phone; every one after is a fraction of a second. */
+    if (!MODELREADY) slot.innerHTML = note;
+    const got = await askModel(tl, mine.q);
+    if (SR !== mine) return;
+    if (Array.isArray(got)) {
+      MODELREADY = true; MODELWHY = "";
+      near = got.filter(h => !mine.litSet.has(h[1])).slice(0, LIKE);
+      floor = MODELFLOOR; band = MODELBAND;
+    } else MODELWHY = got.why;                            // and the table answers, if this copy has one
+  }
+  if (!near) {
+    if (VECS[tl] === false) { slot.innerHTML = ""; return; }
+    /* Fifteen megabytes to read the first time on a phone: say so, rather than
+       leave a gap that fills in later with nothing to explain it. */
+    if (!VECS[tl]) slot.innerHTML = note;
+    let V;
+    try { V = await vecLoad(tl); }
+    catch (e) { VECS[tl] = false; if (SR === mine) slot.innerHTML = ""; return; }
+    if (SR !== mine) return;
+    near = vecNearest(V, vecPieces(mine.q), LIKE, mine.litSet);
+  }
+  /* Every question has twelve nearest verses, including "zzqx". What tells a
+     passage found from the neighbours of nothing is how close the best of them
+     is, and how far the rest fall behind it. Measured on English, Thai, Spanish
+     and Chinese questions, a described passage comes back well above the floor
+     and a single common word or a typing slip below it; within a passage that
+     was found, the verses that belong to it sit near the first and the strays a
+     good way under. So the section shows only what clears the floor and stays
+     within reach of the best - often two or three verses, sometimes none,
+     which is the honest answer when a description matched nothing. The table
+     and the model measure on different scales, so each has its own pair. */
+  const out = [];
+  const bar = near.length ? Math.max(floor, near[0][0] - band) : 1;
+  for (const [score, id] of near) {
+    if (score < bar) break;
+    const book = byNumBook[Math.floor(id / 1000000)], ch = String(Math.floor(id / 1000) % 1000), v = String(id % 1000);
+    const tr = book && trOf(book, ch)[tl], sv = tr && tr.verses[v];
+    if (sv) out.push({id, book, ch, v, t: sv});
+  }
+  mine.nLike = out.length;
+  /* A verse found both ways is drawn once. It stays here, where it is ranked
+     by how near it is, and leaves the list below, which is in Bible order and
+     would otherwise repeat the best of this one further down the page. */
+  const list = $("#aboutlist");
+  if (list) {
+    for (const h of out) { const dup = list.querySelector(`.hit[data-id="${h.id}"]`); if (dup) { dup.remove(); mine.nAbout--; } }
+    const n = $("#aboutn"); if (n) n.textContent = mine.nAbout + (n.textContent.endsWith("+") ? "+" : "");
+    if (!mine.nAbout) { const head = $("#s-about"); if (head) { const note = head.nextElementSibling; if (note && note.classList.contains("sectnote")) note.remove(); head.remove(); } }
+  }
+  slot.innerHTML = out.length
+    ? `<div class="sect" id="s-like">${esc(t('Verses like this'))}<small>${esc(t('the nearest in meaning to what you typed, nearest first'))}</small></div>`
+      + out.map(verse).join("")
+    : "";
+  drawJumps();
 }
 /* ---- the PC's search: the same box, with the model behind it ----
    Everything above runs on a phone with nothing to ask. Served from the
@@ -2392,7 +2626,8 @@ function origWords(s){
    goes there when asked. */
 function drawJumps(){
   const el = $("#jumps"), s = SR; if (!el || !s) return;
-  const parts = [[s.nLit, "s-lit", "with these words"], [s.more, "s-orig", "more through the original words"], [s.nAbout, "s-about", "about this"]]
+  const parts = [[s.nLit, "s-lit", "with these words"], [s.more, "s-orig", "more through the original words"],
+                 [s.nLike, "s-like", "like what you typed"], [s.nAbout, "s-about", "about this"]]
     .filter(p => p[0]);
   el.innerHTML = parts.length < 2 ? "" : "On this page: " + parts.map(([n, id, what]) =>
     `<a onclick="document.getElementById('${id}').scrollIntoView({block:'start'})">${n}${id === "s-about" && n >= 60 ? "+" : ""} ${what}</a>`).join(" · ");
@@ -2778,8 +3013,8 @@ window.androidBack = function(){
    where the scrim, the focus trap and Escape come from — none of that is worth
    writing by hand. Each tray's contents are drawn fresh every time it opens,
    so nothing in them can fall out of step with the page behind. */
-const SHEETS = {nav: $("#navSheet"), search: $("#searchSheet"), tools: $("#toolsSheet"), set: $("#setSheet"), miles: $("#milesSheet")};
-const OPENERS = {nav: ["#tbBooks", "#title"], search: ["#tbSearch"], tools: ["#tbTools", "#toolsBtn"], set: ["#tbDisp", "#gear"], miles: []};
+const SHEETS = {nav: $("#navSheet"), search: $("#searchSheet"), tools: $("#toolsSheet"), set: $("#setSheet"), miles: $("#milesSheet"), get: $("#getSheet")};
+const OPENERS = {nav: ["#tbBooks", "#title"], search: ["#tbSearch"], tools: ["#tbTools", "#toolsBtn"], set: ["#tbDisp", "#gear"], miles: [], get: ["#getBtn"]};
 const mqNarrow = matchMedia("(max-width:760px)");
 let openName = null, navBook = null, navPane = "chapters";
 function openSheet(name){
@@ -2816,7 +3051,7 @@ function markOpeners(){
   for (const n in OPENERS) for (const s of OPENERS[n]) {
     const el = $(s); if (el) el.setAttribute("aria-expanded", openName === n ? "true" : "false"); }
 }
-function drawSheet(n){ ({nav: drawNav, search: drawSearch, tools: drawTools, set: drawSettings, miles: drawMiles})[n](); }
+function drawSheet(n){ ({nav: drawNav, search: drawSearch, tools: drawTools, set: drawSettings, miles: drawMiles, get: drawGet})[n](); }
 function redrawSheet(){ if (openName) drawSheet(openName); }
 /* A tray is dragged down by its handle or its heading only. Starting a drag
    anywhere in the contents would fight the list the reader is scrolling. */
@@ -3326,12 +3561,11 @@ function drawSettings(){
      with a paragraph explaining that the whole Bible goes with it, and the
      explanation was longer than the act: the phone's share sheet says the rest. */
   if (PHONE) h += `<button type="button" class="primary share" id="setShareApp">${BOOKMARK}${esc(t('Share this Bible'))}</button>`;
-  /* Where the app offers to share itself, the website offers the app. It is
-     not from Play, so the phone will ask once to allow installs from the
-     browser, and someone who has not met that should know before it asks. */
-  else if (APK) h += `<a class="primary share" href="${attr(APK.href)}" download>${BOOKMARK}${esc(t('Get the Android app'))}</a>`
-    + `<p class="hint">${esc(t('The whole Bible on the phone, readable with no network.'))} ${APK.mb} MB. `
-    + `${esc(t('It is not from the Play Store, so the phone asks once to allow installs from this browser.'))}</p>`;
+  /* Where the app offers to share itself, the website offers the app, and the
+     reader to keep. The Download tray has the choices; this is a second way
+     into it, for someone who came here looking for how to read offline. */
+  else if (DOWNLOADS) h += `<button type="button" class="primary share" id="setGet">${BOOKMARK}${esc(t('Download'))}</button>`
+    + `<p class="hint">${esc(t('The Android app, or this reader to keep on a computer, with the languages you choose. Both read with no network.'))}</p>`;
   h += `<div class="shead">${esc(t('About the text'))}</div><div class="rowlist"><button type="button" id="setSrc"><span class="nm">${esc(t('Sources and licenses'))}</span><span class="ct">${esc(t('what each layer came from'))}</span></button></div>`;
   const dyn = $("#setDyn");
   dyn.innerHTML = h;
@@ -3355,7 +3589,296 @@ function drawSettings(){
   $("#setSrc").onclick = () => { closeSheet(); $("#credits").scrollIntoView({behavior: "smooth", block: "start"}); };
   const shareApp = $("#setShareApp");
   if (shareApp) shareApp.onclick = () => { closeSheet(); if (PHONE && PHONE.shareApp) PHONE.shareApp(); };
+  const getIt = $("#setGet");
+  if (getIt) getIt.onclick = () => openSheet("get");
 }
+
+/* ---------- the Download tray: the app, or this reader to keep ----------
+   Only the copy on GitHub Pages has it. Two things can be taken away from
+   here, and they are made in different places for a reason. The Android app
+   is built whole when the site is published - an APK has to be signed, which a
+   browser cannot do - so it comes in the variants that build made: every
+   language, or English with one other (the reader pairs any language with
+   English). The offline reader is put together here instead, in the visitor's
+   browser, from this page and the files the site already serves, so any mix
+   of languages and layers can be had without the site storing every mix. */
+const GET = {apk: null, langs: null, search: true, meaning: true, study: false, job: null};
+const ANDROID = /Android/i.test(navigator.userAgent);
+const APPLE_PHONE = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+const CAN_DEFLATE = (() => { try { new CompressionStream("deflate-raw"); return true; } catch (e) { return false; } })();
+const mb = n => { const m = n / 1048576; return (m < 10 ? m.toFixed(1) : String(Math.round(m))) + " MB"; };
+/* The native name in its own script's font, the English name in the tray's. */
+const langLabel = c => !TARGETS[c] ? esc(c) : TARGETS[c].native && TARGETS[c].native !== TARGETS[c].name
+  ? `<span lang="${attr(c)}">${esc(TARGETS[c].native)}</span> · ${esc(TARGETS[c].name)}` : esc(TARGETS[c].name);
+const nativeName = c => TARGETS[c] ? `<span lang="${attr(c)}">${esc(TARGETS[c].native || TARGETS[c].name)}</span>` : esc(c);
+const apkName = x => !x.langs.length ? esc(t("Every language")) : x.langs.map(nativeName).join(" + ");
+/* Which files of morph/ go with what was ticked. The rule is the APK's
+   (build_apk.py stage_page): an index or a translated lexicon for a language
+   that is not in the copy is weight with nothing to open it, and the Hebrew
+   and Greek indexes are the text itself, so they go with any search. */
+function getFiles(langs, o){
+  const out = [];
+  for (const name in DOWNLOADS.files) {
+    const m = name.match(/^(idx|vec|lexx)_(.+)\.js$/);
+    const want = !m ? o.study
+      : m[1] === "idx" ? o.search && (langs.includes(m[2]) || ["hbo", "grc", "topics"].includes(m[2]))
+      : m[1] === "vec" ? o.meaning && (m[2] === "table" || langs.includes(m[2]))
+      : o.study && langs.includes(m[2]);
+    if (want) out.push(name);
+  }
+  return out;
+}
+const fileBytes = names => names.reduce((n, f) => n + DOWNLOADS.files[f][CAN_DEFLATE ? 1 : 0], 0);
+const pageBytes = langs => DOWNLOADS.page.base[CAN_DEFLATE ? "gz" : "raw"]
+  + langs.reduce((n, c) => n + DOWNLOADS.page.langs[c][CAN_DEFLATE ? "gz" : "raw"], 0);
+function getSizes(){
+  const L = GET.langs, part = k => fileBytes(getFiles(L, {search: k === "search", meaning: k === "meaning", study: k === "study"}));
+  const sizes = {search: part("search"), meaning: part("meaning"), study: part("study"), page: pageBytes(L)};
+  sizes.total = sizes.page + (GET.search ? sizes.search : 0) + (GET.meaning ? sizes.meaning : 0) + (GET.study ? sizes.study : 0);
+  return sizes;
+}
+function getDefaults(){
+  const have = Object.keys(DOWNLOADS.page.langs);
+  /* What the visitor is reading now, and English beside it: the pairing the
+     reader is built around, and the guess least likely to need changing. */
+  if (!GET.langs) GET.langs = have.filter(c => c === tl || c === "en");
+  if (!GET.apk && DOWNLOADS.apks.length) {
+    const want = tl === "en" ? "en" : TARGETS[tl] ? "en," + tl : "";
+    GET.apk = DOWNLOADS.apks.find(x => x.langs.join(",") === want) || DOWNLOADS.apks.find(x => !x.langs.length) || DOWNLOADS.apks[0];
+  }
+}
+function drawGet(){
+  getDefaults();
+  const s = getSizes(), job = GET.job, busy = !!(job && !job.error && !job.ready);
+  let app = "", kit = "";
+  /* An APK offered to an iPhone is a file that does nothing when it arrives. */
+  if (DOWNLOADS.apks.length && APPLE_PHONE)
+    app = `<div class="shead">${esc(t("Android app"))}</div><p class="hint">${esc(t("This is an app for Android phones. There is no iPhone app yet; on an iPhone the Bible can be read here, on this site."))}</p>`;
+  else if (DOWNLOADS.apks.length) {
+    app = `<div class="shead">${esc(t("Android app"))}</div>`
+      + `<div class="getopts" role="radiogroup" aria-label="${attr(t("Which languages the app carries"))}">`
+      + DOWNLOADS.apks.map((x, i) => `<label><input type="radio" name="getApk" value="${i}"${x === GET.apk ? " checked" : ""}>`
+          + `<span class="nm"><b>${apkName(x)}</b>${!x.langs.length ? `<small>${Object.keys(TARGETS).map(nativeName).join(", ")}</small>` : ""}</span>`
+          + `<span class="ct">${mb(x.bytes)}</span></label>`).join("")
+      + `</div><a class="primary share" id="getApkGo" href="${attr(GET.apk.href)}">${BOOKMARK}<span id="getApkLb">${esc(t("Download the app"))} · ${mb(GET.apk.bytes)}</span></a>`
+      + `<p class="hint">${esc(t("Open the file once it has arrived to install it. It is not from the Play Store, so the phone asks once to allow installs from this browser. After that it reads with no network, and search by meaning works on the phone itself."))}</p>`;
+  }
+  const opt = (k, name, note) => `<label><input type="checkbox" data-getopt="${k}"${GET[k] ? " checked" : ""}${busy ? " disabled" : ""}>`
+    + `<span class="nm"><b>${esc(t(name))}</b><small>${esc(t(note))}</small></span><span class="ct" id="getSz-${k}">${mb(s[k])}</span></label>`;
+  kit = `<div class="shead">${esc(t("Offline reader, for a computer"))}</div>`
+    + `<p class="hint">${esc(t("This page to keep: one file and a folder beside it, opened in any web browser with no connection. It comes as a zip, made here in your browser from the parts you choose."))}</p>`
+    + `<div class="shead">${esc(t("Languages"))}</div>`
+    + `<div class="getopts" role="group" aria-label="${attr(t("Languages"))}">`
+    + Object.keys(DOWNLOADS.page.langs).map(c => `<label><input type="checkbox" data-getlang="${c}"${GET.langs.includes(c) ? " checked" : ""}${busy ? " disabled" : ""}>`
+        + `<span class="nm"><b>${langLabel(c)}</b></span>`
+        + `<span class="ct">${mb(DOWNLOADS.page.langs[c][CAN_DEFLATE ? "gz" : "raw"])}</span></label>`).join("")
+    + `</div><div class="getfixed"><span>${esc(t("Always included: the Hebrew, Aramaic and Greek, and the reader itself"))}</span><span class="ct">${mb(DOWNLOADS.page.base[CAN_DEFLATE ? "gz" : "raw"])}</span></div>`
+    + `<div class="shead">${esc(t("With it"))}</div><div class="getopts" role="group" aria-label="${attr(t("With it"))}">`
+    + opt("search", "Search the text", "Finds a word at once. Without it, search reads through the whole Bible and is slow.")
+    + opt("meaning", "Search by meaning", "Describe a passage in your own words and be taken to it.")
+    + opt("study", "Study layers", "Word tags, the lexicon, cross-references, syntax, text notes, themes, maps and chronology. Without them the reader is the text alone.")
+    + `</div><div class="gettotal"><span>${esc(t("Total"))}</span><span class="ct" id="getTotal" role="status">${mb(s.total)}</span></div>`;
+  if (!job || job.error || job.ready)
+    kit += `<button type="button" class="primary" id="getGo"${!CAN_FETCH ? " disabled" : ""}>${esc(t("Make the download"))}</button>`;
+  if (!CAN_DEFLATE) kit += `<p class="hint">${esc(t("This browser cannot compress, so the zip is the full size of the files, as shown."))}</p>`;
+  if (!CAN_FETCH) kit += `<p class="hint">${esc(t("This copy is opened from a file, so it cannot gather its parts. Download it from the website instead."))}</p>`;
+  if (job && job.error) kit += `<div class="getmsg bad" role="alert"><b>${esc(t("The download stopped."))}</b> ${esc(job.error)} ${esc(t("Nothing was saved. Try again; if it stops at the same file, this copy of the site is being republished, and it will be whole in a few minutes."))}</div>`;
+  else if (job && job.ready) kit += `<div class="getmsg" role="status">${esc(t("Saved as"))} <b>${esc(job.ready.name)}</b> (${mb(job.ready.size)}). `
+    + `${esc(t("Unzip it and open index.html in the folder."))} <a href="${attr(job.ready.url)}" download="${attr(job.ready.name)}">${esc(t("Save it again"))}</a></div>`;
+  else if (job) kit += `<div class="progress"><span id="getProg" role="status">${esc(getProgress(job))}</span><button type="button" id="getStop">${esc(t("Cancel"))}</button></div>`;
+  /* The visitor most likely to want the app is the one holding an Android
+     phone, so for them it comes first; at a computer the reader to keep does. */
+  const dyn = $("#getDyn");
+  dyn.innerHTML = (ANDROID || mqNarrow.matches) ? app + kit : kit + app;
+  dyn.querySelectorAll('input[name="getApk"]').forEach(el => el.onchange = () => {
+    GET.apk = DOWNLOADS.apks[+el.value];
+    $("#getApkGo").href = GET.apk.href;
+    $("#getApkLb").textContent = `${t("Download the app")} · ${mb(GET.apk.bytes)}`;
+  });
+  dyn.querySelectorAll("[data-getlang]").forEach(el => el.onchange = () => {
+    const c = el.dataset.getlang;
+    GET.langs = el.checked ? Object.keys(DOWNLOADS.page.langs).filter(x => x === c || GET.langs.includes(x)) : GET.langs.filter(x => x !== c);
+    getRefresh();
+  });
+  dyn.querySelectorAll("[data-getopt]").forEach(el => el.onchange = () => { GET[el.dataset.getopt] = el.checked; getRefresh(); });
+  const go = $("#getGo"); if (go) go.onclick = makeReader;
+  const stop = $("#getStop"); if (stop) stop.onclick = () => { if (GET.job) GET.job.ctl.abort(); GET.job = null; drawGet(); const g = $("#getGo"); if (g) g.focus(); };
+}
+/* A tick changes the sizes and nothing else, so only the sizes are rewritten:
+   redrawing the tray would take the keyboard focus off the box just ticked. */
+function getRefresh(){
+  const s = getSizes();
+  for (const k of ["search", "meaning", "study"]) { const el = $("#getSz-" + k); if (el) el.textContent = mb(s[k]); }
+  const tot = $("#getTotal"); if (tot) tot.textContent = mb(s.total);
+}
+const CAN_FETCH = location.protocol === "http:" || location.protocol === "https:";
+const getProgress = j => j.zipping ? t("Packing the zip…")
+  : `${t("Gathering")} ${j.done} / ${j.total} · ${mb(j.got)} / ${mb(j.want)}`;
+function getTick(){ const el = $("#getProg"); if (el && GET.job) el.textContent = getProgress(GET.job); }
+
+/* This page, cut to the languages ticked. The page's own source is fetched
+   again (the browser has it already) and the lines that carry the languages
+   are rewritten; build_site.py checks at publish time that each of them is
+   there once (CUT_ANCHORS). Everything else - the reader, the original text,
+   the interface in every language - goes as it is. */
+function swapLine(text, prefix, f){
+  const i = text.indexOf(prefix);
+  if (i < 0) throw new Error(`this page has no ${prefix.trim()} line to cut`);
+  const s = i + prefix.length, e = text.indexOf("\n", s), line = text.slice(s, e);
+  return text.slice(0, s) + f(line.slice(0, line.lastIndexOf(";"))) + ";" + text.slice(e);
+}
+function cutPage(text, langs, readerOnly){
+  const keep = new Set(langs);
+  text = swapLine(text, "\nconst DATA = ", v => {
+    const d = JSON.parse(v);
+    for (const b in d) for (const c in d[b]) { const tr = d[b][c].tr || {}; for (const k in tr) if (!keep.has(k)) delete tr[k]; }
+    return JSON.stringify(d);
+  });
+  text = swapLine(text, "\nconst TARGETS = ", v => {
+    const T = JSON.parse(v); for (const k in T) if (!keep.has(k)) delete T[k]; return JSON.stringify(T); });
+  // Without the study layers the copy is the reader alone, as the reader APK
+  // is: an "Everything" switch would open onto views with nothing behind them.
+  if (readerOnly) text = swapLine(text, "\nconst READER_ONLY = ", () => "true");
+  text = swapLine(text, "\nconst DOWNLOADS = ", () => "null");
+  // The footer's account of who wrote which translation, for these languages
+  // only - the same sentences build_site.py made_text writes. The marker is
+  // written in two halves so that this line is not a second copy of it.
+  const at = '<span id="made' + 'By">', i = text.indexOf(at);
+  if (i < 0) throw new Error("this page has no footer to cut");
+  const e = text.indexOf("</span>", i);
+  return text.slice(0, i + at.length) + madeBy(langs) + text.slice(e);
+}
+function madeBy(langs){
+  const groups = new Map();
+  for (const c of langs) {
+    const T = TARGETS[c]; if (!T || !T.engine) continue;
+    const k = T.engine + "\u0000" + (DOWNLOADS.page.langs[c].mt ? 1 : 0);
+    if (!groups.has(k)) groups.set(k, {engine: T.engine, mt: DOWNLOADS.page.langs[c].mt, names: []});
+    groups.get(k).names.push(T.name);
+  }
+  const parts = [...groups.values()].map(({engine, mt, names}) => {
+    const who = names.length === 1 ? names[0] : names.slice(0, -1).join(", ") + " and " + names[names.length - 1];
+    const one = names.length === 1;
+    return mt ? `${who} ${one ? "was" : "were"} produced from this project's own English translation by ${engine}, `
+        + `a machine translation model, and ${one ? "has" : "have"} not yet been read by a speaker of the language.`
+      : `${who} ${one ? "was" : "were"} produced from the Hebrew, Aramaic and Greek above by ${engine}, `
+        + `a language model run on the project's own machine, checked and corrected by the project.`;
+  });
+  return parts.length ? esc(parts.join(" ")).replace(/"/g, "&quot;") : "none are carried in this copy.";
+}
+
+/* A zip, written by hand: the format is a header before each file and a
+   directory at the end, and nothing here needs more than that. The browser's
+   own CompressionStream does the compressing; where it is missing the files
+   are stored as they are, which is larger but opens the same. */
+const CRC_T = (() => { const T = new Uint32Array(256);
+  for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; T[n] = c >>> 0; }
+  return T; })();
+function crc32(u){ let c = 0xFFFFFFFF; for (let i = 0; i < u.length; i++) c = CRC_T[(c ^ u[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+async function deflateRaw(u){
+  return new Uint8Array(await new Response(new Blob([u]).stream().pipeThrough(new CompressionStream("deflate-raw"))).arrayBuffer());
+}
+function zipWriter(){
+  const parts = [], dir = [], now = new Date();
+  const time = (now.getHours() << 11) | (now.getMinutes() << 5) | (now.getSeconds() >> 1);
+  const date = ((now.getFullYear() - 1980) << 9) | ((now.getMonth() + 1) << 5) | now.getDate();
+  let at = 0;
+  return {
+    async add(name, data){
+      const nm = new TextEncoder().encode(name), crc = crc32(data);
+      let body = data, method = 0;
+      if (CAN_DEFLATE) { const z = await deflateRaw(data); if (z.length < data.length) { body = z; method = 8; } }
+      const h = new DataView(new ArrayBuffer(30));
+      h.setUint32(0, 0x04034b50, true); h.setUint16(4, 20, true); h.setUint16(6, 0x0800, true); h.setUint16(8, method, true);
+      h.setUint16(10, time, true); h.setUint16(12, date, true); h.setUint32(14, crc, true);
+      h.setUint32(18, body.length, true); h.setUint32(22, data.length, true); h.setUint16(26, nm.length, true); h.setUint16(28, 0, true);
+      parts.push(h.buffer, nm, body);
+      dir.push({nm, crc, method, csize: body.length, size: data.length, off: at});
+      at += 30 + nm.length + body.length;
+    },
+    finish(){
+      let size = 0;
+      for (const e of dir) {
+        const c = new DataView(new ArrayBuffer(46));
+        c.setUint32(0, 0x02014b50, true); c.setUint16(4, 20, true); c.setUint16(6, 20, true); c.setUint16(8, 0x0800, true);
+        c.setUint16(10, e.method, true); c.setUint16(12, time, true); c.setUint16(14, date, true); c.setUint32(16, e.crc, true);
+        c.setUint32(20, e.csize, true); c.setUint32(24, e.size, true); c.setUint16(28, e.nm.length, true);
+        c.setUint32(42, e.off, true);
+        parts.push(c.buffer, e.nm); size += 46 + e.nm.length;
+      }
+      const end = new DataView(new ArrayBuffer(22));
+      end.setUint32(0, 0x06054b50, true); end.setUint16(8, dir.length, true); end.setUint16(10, dir.length, true);
+      end.setUint32(12, size, true); end.setUint32(16, at, true);
+      parts.push(end.buffer);
+      return new Blob(parts, {type: "application/zip"});
+    }
+  };
+}
+async function makeReader(){
+  const langs = [...GET.langs], o = {search: GET.search, meaning: GET.meaning, study: GET.study};
+  const files = getFiles(langs, o), ctl = new AbortController();
+  if (GET.job && GET.job.ready) URL.revokeObjectURL(GET.job.ready.url);
+  const job = GET.job = {done: 0, total: files.length + 1, got: 0, want: getSizes().total, ctl, error: "", ready: null};
+  drawGet();
+  const p = $("#getProg"); if (p) p.parentNode.querySelector("button").focus();
+  const live = () => GET.job === job;
+  try {
+    const zip = zipWriter(), root = "eBible/";
+    const self = location.href.split("#")[0];
+    const r = await fetch(self, {signal: ctl.signal});
+    if (!r.ok) throw new Error(`${t("The page itself could not be fetched")} (${r.status}).`);
+    const page = new TextEncoder().encode(cutPage(await r.text(), langs, !o.study));
+    await zip.add(root + "index.html", page);
+    job.done++; job.got += pageBytes(langs); getTick();
+    const named = langs.map(c => TARGETS[c].name).join(", ") || "none - the Hebrew, Aramaic and Greek alone";
+    await zip.add(root + "README.txt", new TextEncoder().encode(
+      `eBible - the reader, to keep\r\n\r\nOpen index.html in a web browser: double-click it. It needs no connection.\r\n`
+      + `Keep the morph folder beside index.html; the search and the study layers are read from it.\r\n\r\n`
+      + `Languages in this copy: ${named}\r\nBuilt: ${BUILD}\r\nFrom: ${self}\r\n`));
+    /* Four at a time: enough to keep the line busy, few enough that a slow
+       phone is not holding a dozen large files in memory at once. They are
+       packed in the order they were asked for, so the zip is the same every
+       time for the same choices. */
+    const got = new Array(files.length);
+    let next = 0, packed = 0, chain = Promise.resolve();
+    // One packer at a time, whichever fetch finished: two adding at once would
+    // interleave their headers. A packed file's bytes are let go at once.
+    const pack = () => chain = chain.then(async () => {
+      while (packed < files.length && got[packed]) {
+        await zip.add(root + "morph/" + files[packed], got[packed]); got[packed] = null; packed++;
+      }
+    });
+    const worker = async () => {
+      while (next < files.length) {
+        const i = next++, name = files[i];
+        const res = await fetch(`morph/${name}?v=${encodeURIComponent(BUILD)}`, {signal: ctl.signal});
+        if (!res.ok) throw new Error(`morph/${name} ${t("could not be fetched")} (${res.status}).`);
+        got[i] = new Uint8Array(await res.arrayBuffer());
+        if (!live()) return;
+        job.done++; job.got += DOWNLOADS.files[name][CAN_DEFLATE ? 1 : 0]; getTick();
+        await pack();
+      }
+    };
+    await Promise.all([worker(), worker(), worker(), worker()]);
+    await pack();
+    if (!live()) return;
+    job.zipping = true; getTick();
+    const blob = zip.finish();
+    const name = `eBible-reader${langs.length && langs.length < Object.keys(DOWNLOADS.page.langs).length ? "-" + langs.join("-") : ""}${o.study ? "-study" : ""}.zip`;
+    const url = URL.createObjectURL(blob);
+    job.ready = {name, url, size: blob.size};
+    const a = document.createElement("a"); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  } catch (e) {
+    ctl.abort();                           // the other fetches still running are for a zip that will not be made
+    if (!live()) return;                   // cancelled: the tray has already been put back
+    job.error = (e && e.message) || String(e);
+  }
+  if (!live()) return;
+  // The tray may have been closed while it worked; the reader is still told.
+  if (openName === "get") drawGet();
+  else toast(job.ready ? t("The download is ready.") : t("The download stopped."));
+}
+if (DOWNLOADS && !PHONE) $("#getBtn").hidden = false;
 
 /* A setting is worth hearing rather than reading: the sample is a verse of the
    text itself, in the language on screen, so the speed is judged on the thing
@@ -3675,6 +4198,58 @@ def source_chapter(book_key, ch):
     return src, lang
 
 
+# The lines of the built page the Download tray rewrites when it cuts the page
+# to the languages a visitor picked. Each holds one value on one line, which
+# json.dumps guarantees: a newline inside a string is written as \n.
+CUT_ANCHORS = ("\nconst DATA = ", "\nconst TARGETS = ", "\nconst READER_ONLY = ", "\nconst DOWNLOADS = ",
+               '<span id="madeBy">')
+
+
+def deflated(b: bytes) -> int:
+    """What a file comes to inside a zip: raw deflate, at the level a browser's
+    CompressionStream uses. The tray shows these, not the sizes on disk, so the
+    total it promises is the size of the file that arrives."""
+    z = zlib.compressobj(6, zlib.DEFLATED, -15)
+    return len(z.compress(b)) + len(z.flush())
+
+
+def downloads_offer(page: str, data: dict, targets: dict, out_dir: Path, apks_file: str) -> dict:
+    """What the Download tray on the published copy can offer, and what each part weighs.
+
+    The offline reader is put together in the visitor's browser from what the
+    site already serves: this page cut to the languages they tick, and the files
+    in morph/ that go with what they tick. So the sizes are measured here, once
+    per publish, rather than by fetching everything to find out. A language's
+    share of the page is its translations alone; the rest of the page - the
+    original text, the reader itself - goes with every download.
+
+    The APKs cannot be made in a browser (an APK has to be signed), so they are
+    whatever scripts/release_apks.py built and listed in apks.json.
+    """
+    langs = {}
+    for code in targets:
+        part = {b: {c: e["tr"][code] for c, e in chs.items() if code in e["tr"]} for b, chs in data.items()}
+        raw = json.dumps(part, ensure_ascii=False).encode("utf-8")
+        langs[code] = {"raw": len(raw), "gz": deflated(raw), "mt": bool(targets[code].get("mt"))}
+    whole = page.encode("utf-8")
+    base = {"raw": len(whole) - sum(v["raw"] for v in langs.values()),
+            "gz": deflated(whole) - sum(v["gz"] for v in langs.values())}
+    # The same files the full APK carries (scripts/build_apk.py): the .js the
+    # page loads, and not manifest.json, which only the dashboard reads.
+    files = {}
+    for f in sorted((out_dir / "morph").glob("*.js")):
+        b = f.read_bytes()
+        files[f.name] = [len(b), deflated(b)]
+    apks, base_url = [], ""
+    if apks_file:
+        got = json.loads(Path(apks_file).read_text(encoding="utf-8"))
+        base_url = got["base"]
+        apks = [{"langs": x["langs"], "href": base_url + x["file"], "bytes": x["bytes"]} for x in got["apks"]]
+    print(f"download tray: {len(files)} morph files ({sum(v[1] for v in files.values()) >> 20} MB zipped), "
+          f"{len(apks)} APK{'' if len(apks) == 1 else 's'}")
+    return {"page": {"base": base, "langs": langs}, "files": files, "apks": apks}
+
+
 def main():
     import argparse
     ap = argparse.ArgumentParser(description="Build the offline reader page.")
@@ -3688,10 +4263,15 @@ def main():
     ap.add_argument("--langs", default="",
                     help="comma list of target codes to carry, e.g. en,zh (default: every one there is); "
                          "with --complete-only, naming a language that is not finished is an error")
-    ap.add_argument("--apk", default="",
-                    help="file name of a reader APK already in --out, offered for download on the page "
-                         "(the GitHub Pages build); a name that is not there is an error, not a dead link")
+    ap.add_argument("--downloads", action="store_true",
+                    help="give the page its Download tray (the GitHub Pages build): the offline reader "
+                         "put together in the visitor's browser from the files in --out/morph")
+    ap.add_argument("--apks", default="",
+                    help="with --downloads, the apks.json scripts/release_apks.py wrote, so the tray "
+                         "offers those APKs too; without it the tray offers the offline reader alone")
     a = ap.parse_args()
+    if a.apks and not a.downloads:
+        raise SystemExit("--apks is the Download tray's list of APKs, so it needs --downloads")
     asked = [c.strip() for c in a.langs.split(",") if c.strip()]
     unknown = [c for c in asked if c not in TARGETS]
     if unknown:
@@ -3767,12 +4347,6 @@ def main():
         print("WARNING: no language is complete, so this page carries the original text alone")
     out_dir = Path(a.out)
     out_dir.mkdir(parents=True, exist_ok=True)
-    apk = None
-    if a.apk:
-        f = out_dir / a.apk
-        if not f.is_file():
-            raise SystemExit(f"--apk {a.apk}: no such file in {out_dir}")
-        apk = {"href": a.apk, "mb": round(f.stat().st_size / 1048576, 1)}
     page = (PAGE
             .replace("__DATA__", json.dumps(data, ensure_ascii=False))
             .replace("__ORDER__", json.dumps(ORDER))
@@ -3787,10 +4361,19 @@ def main():
                 {k: v.replace(" ", "_") for k, v in ABBREV.items()}))
             .replace("__UI__", ui_table(targets))
             .replace("__READER_ONLY__", "true" if a.reader_only else "false")
-            .replace("__APK__", json.dumps(apk))
             .replace("__BUILT__", __import__("datetime").datetime.now().strftime("%Y-%m-%d %H:%M"))
             .replace("__READALOUD_CSS__", RA.CSS)
             .replace("__READALOUD_JS__", RA.js('main', '.par .o, .par .e, .cmp .row .txt, p.ov, .poetry, .vv span, .hit, .notes')))
+    downloads = downloads_offer(page, data, targets, out_dir, a.apks) if a.downloads else None
+    page = page.replace("__DOWNLOADS__", json.dumps(downloads, ensure_ascii=False, separators=(",", ":")))
+    if downloads:
+        # The tray cuts this page down by finding these lines in its own source,
+        # so a change to the template that moved or merged one of them would
+        # give every visitor a broken zip. It is caught here instead.
+        for anchor in CUT_ANCHORS:
+            if page.count(anchor) != 1:
+                raise SystemExit(f"the Download tray cannot cut this page: {anchor.strip()!r} is there "
+                                 f"{page.count(anchor)} times, not once")
     # The search index is built by a different script, and nothing used to
     # notice when it had fallen behind: search quietly answered from whatever
     # text existed the last time build_index.py ran.

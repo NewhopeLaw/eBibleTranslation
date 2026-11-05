@@ -9,8 +9,12 @@
                                                  # fetch the toolchain into tools/android/, then build
 
 The reader APK carries the page built with --reader-only - always basic mode,
-no study layers - and the search indexes beside it: an 11 MB APK, 26 MB on the
-phone. --full carries the same page with the "Everything" switch and the whole
+no study layers - and the search indexes beside it, both the word indexes and
+what searches by meaning: the model and its verses from site/model/ where
+scripts/build_encoder.py has made them (about 40 MB for the model and 6 MB a
+language, and ONNX Runtime in the app to run it), else the table from
+build_vectors.py (about 4 MB a language and a 7 MB table the page computes
+with). --full carries the same page with the "Everything" switch and the whole
 of site/morph/ behind it - word tags, lexicon, concordance, syntax,
 cross-references, apparatus, themes, places, chronology - which is a 26 MB APK
 and 78 MB installed. It freezes those layers as they stand: the jobs still
@@ -304,17 +308,43 @@ def stage_page(full: bool, langs_wanted: list[str]):
     chapters = m.group(1) if m else ""
     langs = [p.split("=")[0].strip() for p in chapters.split(",") if "=" in p]
     morph = ROOT / "site" / "morph"
-    files = sorted(f for f in morph.glob("*.js" if full else "idx_*.js") if f.is_file())
+    # Search by meaning comes in two kinds. Where scripts/build_encoder.py has
+    # been run, the app carries the model and the verses it measures against
+    # (site/model/), and the app's shell runs it; that is much the better of the
+    # two, in Thai above all. A language the model has no verses for keeps the
+    # table that build_vectors.py makes, which the page computes with alone.
+    # Never both for one language: the table's files would be twenty-odd
+    # megabytes nobody opens.
+    model = ROOT / "site" / "model"
+    modelled = [c for c in langs if (model / f"vecm_{c}.bin").exists()] if (model / "encoder.onnx").exists() else []
+    # The reader carries both halves of its search: the word indexes, and the
+    # verse vectors that let a reader describe a passage and be taken to it.
+    files = sorted(f for f in (morph.glob("*.js") if full else [*morph.glob("idx_*.js"), *morph.glob("vec_*.js")])
+                   if f.is_file())
     # A search index or a translated lexicon for a language the page no longer
     # offers is weight with nothing to open it. The Hebrew and Greek ones stay:
-    # they are the text itself, not a translation of it.
+    # they are the text itself, not a translation of it. vec_table.js is shared
+    # by every language, and has no code in its name to be dropped by: it goes
+    # when every language is answered by the model.
     def wanted(f):
-        for prefix in ("idx_", "lexx_"):
+        if f.name == "vec_table.js":
+            return any(c not in modelled for c in langs)
+        for prefix in ("idx_", "lexx_", "vec_"):
             if f.name.startswith(prefix):
                 code = f.name[len(prefix):-3]
+                if prefix == "vec_" and code in modelled:
+                    return False
                 return code in ("hbo", "grc") or code in langs
         return True
     files = [f for f in files if wanted(f)]
+    if modelled:
+        (stage / "model").mkdir()
+        for name in ["encoder.onnx", "vocab.tsv", "proj.bin", *(f"vecm_{c}.bin" for c in modelled)]:
+            shutil.copy2(model / name, stage / "model" / name)
+        say(f"search by meaning with the model for {', '.join(modelled)}")
+    elif langs:
+        say("search by meaning from the table only - run scripts/build_encoder.py for the model, "
+            "which is much better in Thai")
     if full and not files:
         fail("site/morph is empty - build the study layers first (scripts/build_all.py)")
     (stage / "morph").mkdir()

@@ -69,10 +69,11 @@ site/.build/
 # site/morph/ is a study layer the model wrote over hours, and stays in git.
 site/index.html
 site/morph/idx_*.js
+# The encoder and its verse vectors (scripts/build_encoder.py): a model is made
+# from its source rather than kept in git, and they are rebuilt with the text.
+site/model/
 
 # Judson Burmese Bible from eBible.org, a yardstick for the Burmese trial (scripts/trial_lang.py); fetched, not ours to ship
 sources/mya-judson/
 # Burmese Common Language Bible (Bible Society of Myanmar, 2005) from eBible.org, the modern yardstick for the same trial
 sources/mya-cl/
-# The reader APK the Pages build puts beside the page (.github/workflows/pages.yml)
-site/*.apk

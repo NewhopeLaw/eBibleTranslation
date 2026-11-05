@@ -51,6 +51,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import org.json.JSONObject;
 
 /**
  * The app is a window and nothing else: the reader is the page in assets, and
@@ -108,6 +112,9 @@ public class MainActivity extends ComponentActivity {
     private boolean painted;           // the splash waits on this
     @Nullable private Integer barColour;                          // what the bars were last given
     @Nullable private volatile Speech speech;                     // the phone's voice, started when first asked for
+    @Nullable private Meaning meaning;                            // search by meaning, built the first time it is asked
+    @Nullable private String meaningFailed;                       // why it could not be, once that is known
+    @Nullable private ExecutorService meaningWork;                // one question at a time, off every thread the page waits on
     private long leaveAskedAt;                                    // when back was last pressed with nowhere to go
     private final Runnable recheckBars = this::matchBarsToPage;
 
@@ -482,6 +489,100 @@ public class MainActivity extends ComponentActivity {
         public void toast(String msg) {
             runOnUiThread(() -> Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show());
         }
+
+        /**
+         * The languages this copy can search by meaning with the model, comma
+         * separated; "" when it carries no model, and the page then uses its
+         * own table if it has one.
+         *
+         * Read from the assets rather than asked of the model, so answering
+         * costs nothing and loads nothing: the page asks once, before anyone
+         * has searched.
+         */
+        @JavascriptInterface
+        public String meaningLangs() {
+            if (meaningFailed != null) return "";
+            try {
+                String[] files = getAssets().list(Meaning.DIR.substring(0, Meaning.DIR.length() - 1));
+                if (files == null) return "";
+                StringBuilder out = new StringBuilder();
+                boolean model = false;
+                for (String f : files) {
+                    if (f.equals("encoder.onnx")) model = true;
+                    else if (f.startsWith("vecm_") && f.endsWith(".bin"))
+                        out.append(out.length() > 0 ? "," : "").append(f, 5, f.length() - 4);
+                }
+                return model ? out.toString() : "";
+            } catch (IOException e) {
+                return "";
+            }
+        }
+
+        /**
+         * Find the verses nearest a question, and answer the page with
+         * meaningDone(seq, [[cosine, verse id], ...]) - or with null and the
+         * reason, which ?diag shows.
+         *
+         * The answer goes back by number, as speech does, because the reader
+         * types on while the model reads: an answer to an earlier question must
+         * not be drawn under a later one, and the page drops it by its number.
+         * Sixty are sent back so the page can leave out the verses it has
+         * already found by their words and still have a dozen to choose from.
+         */
+        @JavascriptInterface
+        public void meaning(int seq, String lang, String question) {
+            meaningWorker().execute(() -> {
+                String hits = "null", why = "";
+                try {
+                    double[][] near = meaningModel().nearest(lang, question, 60);
+                    StringBuilder b = new StringBuilder("[");
+                    for (double[] h : near)
+                        b.append(b.length() > 1 ? "," : "").append('[').append((float) h[0]).append(',').append((long) h[1]).append(']');
+                    hits = b.append(']').toString();
+                } catch (Throwable e) {        // a phone whose processor the runtime does not support says so, rather than crash
+                    why = e.getClass().getSimpleName() + ": " + e.getMessage();
+                    if (e instanceof LinkageError) meaningFailed = why;
+                }
+                final String js = "if(typeof window.meaningDone==='function')meaningDone(" + seq + ","
+                        + hits + "," + JSONObject.quote(why) + ")";
+                runOnUiThread(() -> { if (web != null) web.evaluateJavascript(js, null); });
+            });
+        }
+
+        /** For ?diag: whether the model has been loaded, or why it cannot be. */
+        @JavascriptInterface
+        public String meaningState() {
+            if (meaningFailed != null) return "failed - " + meaningFailed;
+            Meaning m = meaning;
+            return m != null && m.loaded() ? "ready" : "not loaded yet (it loads with the first search)";
+        }
+    }
+
+    private synchronized ExecutorService meaningWorker() {
+        if (meaningWork == null) meaningWork = Executors.newSingleThreadExecutor();
+        return meaningWork;
+    }
+
+    /**
+     * The model is copied out of the APK into the app's own storage the first
+     * time, because ONNX Runtime opens a file and an asset has no path. The
+     * copy is named for this install, so an update brings its own model and the
+     * last one's copy is cleared rather than left taking forty megabytes.
+     */
+    private Meaning meaningModel() {
+        if (meaning != null) return meaning;
+        long stamp;
+        try {
+            stamp = getPackageManager().getPackageInfo(getPackageName(), 0).lastUpdateTime;
+        } catch (Exception e) {
+            stamp = 0;
+        }
+        String keep = "encoder-" + stamp + ".onnx";
+        File[] old = getFilesDir().listFiles((d, n) -> n.startsWith("encoder-") && !n.equals(keep));
+        if (old != null) for (File f : old) //noinspection ResultOfMethodCallIgnored
+            f.delete();
+        meaning = new Meaning(name -> getAssets().open(name), new File(getFilesDir(), keep));
+        return meaning;
     }
 
     /**
@@ -865,6 +966,7 @@ public class MainActivity extends ComponentActivity {
     protected void onDestroy() {
         if (root != null) root.removeCallbacks(recheckBars);
         if (speech != null) { speech.shutdown(); speech = null; }
+        if (meaningWork != null) { meaningWork.shutdownNow(); meaningWork = null; }
         if (web != null) {
             holder.removeView(web);
             web.destroy();

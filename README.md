@@ -209,6 +209,26 @@ The postings are built in code, not by the model — a list of occurrences has t
 be exact. The model's part is the layer above: grouping the forms of a word so
 that a search for one form finds the others.
 
+### Search by meaning, on the phone
+
+`scripts/build_vectors.py` gives every verse a vector and writes a table of
+vectors for the word pieces they are built from; the head of that script says
+how and why. The reader cuts what was typed into the same pieces, adds up their
+vectors and shows the verses nearest it as **Verses like this**, so "the man
+thrown into the den of lions" reaches Daniel 6 and a Thai reader typing "do not
+worry about tomorrow" reaches Matthew 6:34, with no word in common. In a browser
+it is arithmetic in the page, over a table of what each word piece means alone.
+In the Android app it is the model itself: `scripts/build_encoder.py` cuts
+multilingual-e5-small down to this project's vocabulary, stores it as int8 and
+embeds every verse with it, and the app runs it with ONNX Runtime and hands the
+page verse numbers. The model reads the question whole, which matters most in
+Thai, where the table found the passage for two questions of eight and the
+model for five. Either way it only ever picks verses, so what is shown is the
+reader's own text, and a question nothing is near (a single common word, a
+typing slip) gets no such section rather than twelve strays. Run
+`build_encoder.py` before `build_apk.py`; the APK carries the model where it
+was built and the table where it was not.
+
 ### Search with the model behind it (the PC)
 
 The index is what a phone can carry. On this machine the reader is served by the
@@ -320,6 +340,8 @@ python scripts/build_all.py --fast      skip morphology and syntax (the slow two
 | places and the map | `build_places.py` | OpenBible.info + Natural Earth | `places.js` |
 | chronology | `build_chronology.py` | our English text + hand-entered anchors | `chron.js` |
 | search index | `build_index.py` | every text | `idx_<lang>.js` |
+| search by meaning | `build_vectors.py` | multilingual-e5-small, distilled to a table | `vec_table.js`, `vec_<lang>.js` |
+| search by meaning, in the app | `build_encoder.py` | multilingual-e5-small itself, int8 | `site/model/` (not in git) |
 | themes | `build_themes.py` | the model, chapter by chapter | `themes.js` |
 | book arguments, theme trajectories | `build_theology.py` | the model over the themes | `theology.js` |
 | our lexicon | `build_lexicon.py` | the model over the concordance | `lexx.js` |
@@ -562,6 +584,49 @@ built.
 
 For a Play upload the AAB still comes from `android/sync_assets.sh` and Gradle,
 as `android/README.md` describes.
+
+### The reader on the web, and its Download tray
+
+`.github/workflows/pages.yml` publishes the reader on GitHub Pages from each
+push to `main`, built with `--complete-only --downloads`. The `--downloads`
+flag gives that copy, and no other, a **Download** button in the header (and a
+way into it from Display), opening a tray that offers two things:
+
+- **The Android app.** The workflow builds one APK with every finished language
+  and one for English with each of the others (`scripts/release_apks.py`), and
+  puts them in the `reader-apk` Release. The Release takes them because the site
+  cannot: eight APKs with the search model in each come to several hundred
+  megabytes, and a Pages site has 1 GB in all. The file names stay the same from
+  one publish to the next, so a link to one keeps working; the Release notes say
+  which commit they were built from. They are signed with the PC's debug key
+  (the `ANDROID_DEBUG_KEYSTORE` secret, the base64 of `~/.android/debug.keystore`),
+  so each new copy installs over the last and over the copies already handed round.
+- **The offline reader, for a computer.** A zip put together in the visitor's
+  browser from what the site already serves: the page, cut to the languages
+  they tick, and the files of `site/morph/` that go with the search, search by
+  meaning and study layers they tick. The tray shows what each part comes to
+  zipped (measured at publish time by `build_site.py`) and the total. Unzipped,
+  it is `index.html` and its `morph/` folder, opened from the file as
+  `start_reader.cmd` opens the reader here.
+
+The recordings of Taiwanese and Hakka are not offered: they are not in git, and
+at more than a gigabyte for Hakka alone they are not something to put together
+in a browser.
+
+#### The search model on GitHub
+
+The APKs search by meaning with the model when the workflow can fetch it, and
+with the table otherwise. The model is made on the PC (`scripts/build_encoder.py`)
+and is not in git, so the PC puts it in a Release of its own after building it,
+and starts the workflow by hand, since an upload is not a push:
+
+```
+gh release create meaning-model --title "Search model for the Android reader" --notes "site/model/ from scripts/build_encoder.py" --latest=false site/model/*
+gh release upload meaning-model site/model/* --clobber     # after each rebuild
+gh workflow run pages.yml
+```
+
+The encoder is multilingual-e5-small (MIT licence), cut down and stored as int8.
 
 ### The app as one folder (`scripts/package_app.py`)
 

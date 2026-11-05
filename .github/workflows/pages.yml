@@ -1,4 +1,4 @@
-# The reader on GitHub Pages.
+# The reader on GitHub Pages, and the downloads it offers.
 #
 # site/index.html and the search indexes are not in git - the page passed
 # GitHub's 50 MB file limit - so they are built here from what is: the
@@ -6,6 +6,12 @@
 # the model writes is made on this runner; it only puts together what the PC
 # has already pushed. --complete-only keeps out a language whose chapters are
 # still hollow, as it does for the APK.
+#
+# The page has a Download tray. The offline reader it offers is assembled in
+# the visitor's browser from what this site serves, so it costs the site
+# nothing. The APKs are built here and go to a GitHub Release, reader-apk,
+# not onto the site: eight of them, each carrying the search model, come to
+# several hundred megabytes, and a Pages site has 1 GB in all.
 name: Reader on Pages
 
 on:
@@ -21,12 +27,15 @@ on:
       - "scripts/readaloud.py"
       - "scripts/manifest.py"
       - "scripts/build_apk.py"
+      - "scripts/release_apks.py"
       - "android/**"
       - ".github/workflows/pages.yml"
+  # Also run by hand after the PC uploads a new search model (README.md,
+  # "The search model on GitHub"): an upload to a Release is not a push.
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write          # the APKs are uploaded to the reader-apk Release
   pages: write
   id-token: write
 
@@ -36,6 +45,11 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+env:
+  GH_TOKEN: ${{ github.token }}
+  APK_RELEASE: reader-apk
+  MODEL_RELEASE: meaning-model
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -44,18 +58,31 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      # The search indexes come first: the APK carries them, and the page
+      # The search indexes come first: the APKs carry them, and the page
       # checks they are not older than the text.
       - name: Build the search indexes
         run: python scripts/build_index.py
 
-      # The reader APK, made from the same commit as the page, so the copy a
-      # visitor downloads is the text they were just reading. It is signed
+      # The search model is made on the PC (scripts/build_encoder.py) and is
+      # not in git; the PC puts it in a Release and it is fetched from there.
+      # Without it the APKs search by meaning with the table, as a browser
+      # does, and say nothing worse than that.
+      - name: Fetch the search model
+        continue-on-error: true
+        run: |
+          if gh release download "$MODEL_RELEASE" --dir site/model --clobber; then
+            ls -l site/model
+          else
+            echo "::warning::no $MODEL_RELEASE Release, so the APKs search by meaning with the table"
+          fi
+
+      # The reader APKs, made from the same commit as the page, so the copy a
+      # visitor downloads is the text they were just reading. They are signed
       # with the PC's debug key, kept as a secret: a phone only lets an APK
       # replace one signed with the same key, and a fresh key on every run
       # would make each new copy refuse to install over the last. Without the
-      # secret, or if the build fails, the site still goes up, without the
-      # download.
+      # secret, or if every build fails, the site still goes up, offering the
+      # offline reader alone.
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -63,26 +90,47 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.13"
-      - name: Build the reader APK
+      - name: Build the reader APKs
+        id: apks
         continue-on-error: true
         env:
           DEBUG_KEYSTORE: ${{ secrets.ANDROID_DEBUG_KEYSTORE }}
         run: |
           if [ -z "$DEBUG_KEYSTORE" ]; then
-            echo "::warning::no ANDROID_DEBUG_KEYSTORE secret, so the site goes up without the APK"
+            echo "::warning::no ANDROID_DEBUG_KEYSTORE secret, so the site goes up without the APKs"
             exit 0
           fi
           mkdir -p ~/.android
           echo "$DEBUG_KEYSTORE" | base64 -d > ~/.android/debug.keystore
-          python scripts/build_apk.py
-          cp dist/eBible-reader-*-debug.apk site/eBible-reader.apk
+          python scripts/release_apks.py \
+            --base-url "https://github.com/${GITHUB_REPOSITORY}/releases/download/${APK_RELEASE}/"
 
+      # --clobber replaces each file in place, so a link is missing only for
+      # the seconds its own upload takes. The notes say which commit the APKs
+      # are, which the file names, kept the same for the links, do not.
+      - name: Put the APKs in the Release
+        id: release
+        if: steps.apks.outcome == 'success' && hashFiles('dist/release/apks.json') != ''
+        continue-on-error: true
+        run: |
+          site="https://${GITHUB_REPOSITORY_OWNER,,}.github.io/${GITHUB_REPOSITORY#*/}/"
+          notes="The eBible reader for Android, built from ${GITHUB_SHA::7} on $(date -u +%Y-%m-%d) and offered on $site. eBible-reader.apk carries every finished language; each of the others carries English and one more."
+          gh release view "$APK_RELEASE" >/dev/null 2>&1 \
+            || gh release create "$APK_RELEASE" --title "eBible reader for Android" --notes "$notes" --target "$GITHUB_SHA"
+          gh release upload "$APK_RELEASE" dist/release/*.apk --clobber
+          gh release edit "$APK_RELEASE" --notes "$notes"
+
+      # The page is built last, so its Download tray lists exactly the APKs
+      # now in the Release, at the sizes they are. The model has done its
+      # work in the APKs and is taken out: a browser cannot run it, and the
+      # site has no room to spare for 80 MB nobody here can use.
       - name: Build the reader
         run: |
-          if [ -f site/eBible-reader.apk ]; then
-            python scripts/build_site.py --complete-only --apk eBible-reader.apk
+          rm -rf site/model
+          if [ "${{ steps.release.outcome }}" = "success" ]; then
+            python scripts/build_site.py --complete-only --downloads --apks dist/release/apks.json
           else
-            python scripts/build_site.py --complete-only
+            python scripts/build_site.py --complete-only --downloads
           fi
       - uses: actions/upload-pages-artifact@v3
         with:
