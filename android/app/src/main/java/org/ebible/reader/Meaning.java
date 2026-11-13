@@ -63,6 +63,9 @@ final class Meaning {
     private float[] mu, proj;                          // the projection every language's verses were reduced with
     private int din, dout;
     private final Map<String, Verses> langs = new HashMap<>();
+    private final Map<String, Stories> stories = new HashMap<>();
+    /** Taken off a passage's score before it lifts its verses; scripts/search_test.py STORY_GAP. */
+    static final float STORY_GAP = 0.02f;
 
     /**
      * @param modelFile where the model is to be found, or copied to if it is
@@ -83,6 +86,14 @@ final class Meaning {
         byte[] v;
     }
 
+    /** The passages the chapter themes describe: a run of verses each, and its vector. */
+    private static final class Stories {
+        int n, d;
+        float scale;
+        int[] lo, hi;
+        byte[] v;
+    }
+
     /**
      * -> [[cosine, verse id], ...] for the k verses nearest the question, nearest first.
      *
@@ -93,15 +104,50 @@ final class Meaning {
         load();
         Verses vs = verses(lang);
         float[] q = project(embed(question));
+        float[] own = new float[vs.n];
         float[] top = new float[k];
         int[] tid = new int[k];
         int have = 0;
         for (int j = 0, o = 0; j < vs.n; j++, o += vs.d) {
             float s = 0;
             for (int i = 0; i < vs.d; i++) s += vs.v[o + i] * q[i];
-            s *= vs.scale;
-            if (have < k) { insert(top, tid, have++, s, vs.ids[j]); }
-            else if (s > top[k - 1]) { insert(top, tid, k - 1, s, vs.ids[j]); }
+            own[j] = s * vs.scale;
+            if (have < k) { insert(top, tid, have++, own[j], vs.ids[j]); }
+            else if (own[j] > top[k - 1]) { insert(top, tid, k - 1, own[j], vs.ids[j]); }
+        }
+        Stories st = stories(lang);
+        if (st != null && have == k) {
+            /* A reader describes a story, and a verse is one sentence of it.
+               A passage whose description is nearer the question than any of
+               its own verses lifts its run as a block: the best verse rises to
+               the passage's score and the rest rise with it, keeping their
+               order, so the page still shows the best few of the passage and
+               not all of it. Only a passage that beats the k-th verse can
+               bring anything into view, so the rest are not looked at. */
+            float[] score = own.clone();
+            float floor = top[k - 1];
+            boolean lifted = false;
+            for (int j = 0, o = 0; j < st.n; j++, o += st.d) {
+                float s = 0;
+                for (int i = 0; i < st.d; i++) s += st.v[o + i] * q[i];
+                s = s * st.scale - STORY_GAP;
+                if (s <= floor) continue;
+                int a = lowerBound(vs.ids, st.lo[j]), b = lowerBound(vs.ids, st.hi[j] + 1);
+                if (b <= a) continue;
+                float best = Float.NEGATIVE_INFINITY;
+                for (int i = a; i < b; i++) best = Math.max(best, own[i]);
+                float lift = s - best;
+                if (lift <= 0) continue;
+                for (int i = a; i < b; i++) score[i] = Math.max(score[i], own[i] + lift);
+                lifted = true;
+            }
+            if (lifted) {
+                have = 0;
+                for (int j = 0; j < vs.n; j++) {
+                    if (have < k) { insert(top, tid, have++, score[j], vs.ids[j]); }
+                    else if (score[j] > top[k - 1]) { insert(top, tid, k - 1, score[j], vs.ids[j]); }
+                }
+            }
         }
         double[][] out = new double[have][];
         for (int i = 0; i < have; i++) out[i] = new double[]{top[i], tid[i]};
@@ -114,6 +160,56 @@ final class Meaning {
         while (i > 0 && top[i - 1] < s) { top[i] = top[i - 1]; tid[i] = tid[i - 1]; i--; }
         top[i] = s;
         tid[i] = id;
+    }
+
+    /** The first index in sorted ids holding a value of at least id. */
+    private static int lowerBound(int[] ids, int id) {
+        int a = 0, b = ids.length;
+        while (a < b) {
+            int m = (a + b) >>> 1;
+            if (ids[m] < id) a = m + 1; else b = m;
+        }
+        return a;
+    }
+
+    /**
+     * The passages for a language: its own descriptions where they have been
+     * translated (vecm_stories_th.bin), else the English ones, which the model
+     * still reaches from another language, less well. null when the app has
+     * none, and search is the verses alone, as before.
+     */
+    private Stories stories(String lang) throws IOException {
+        if (stories.containsKey(lang)) return stories.get(lang);
+        stories.clear();
+        byte[] raw = null;
+        for (String name : new String[]{"vecm_stories_" + lang + ".bin", "vecm_stories.bin"}) {
+            try {
+                raw = readAll(DIR + name);
+                break;
+            } catch (IOException e) {
+                // not in this copy; try the next
+            }
+        }
+        Stories st = null;
+        if (raw != null) {
+            ByteBuffer b = ByteBuffer.wrap(raw).order(ByteOrder.LITTLE_ENDIAN);
+            if (b.getInt() != 0x53434556) throw new IOException("the passages file is not one");  // "VECS"
+            st = new Stories();
+            st.n = b.getInt();
+            st.d = b.getInt();
+            st.scale = b.getFloat();
+            if (st.d != dout) throw new IOException("the passages do not match proj.bin - rebuild them together");
+            st.lo = new int[st.n];
+            st.hi = new int[st.n];
+            b.asIntBuffer().get(st.lo);
+            b.position(16 + 4 * st.n);
+            b.asIntBuffer().get(st.hi);
+            b.position(16 + 8 * st.n);
+            st.v = new byte[st.n * st.d];
+            b.get(st.v);
+        }
+        stories.put(lang, st);
+        return st;
     }
 
     /** Whether this copy of the app has verses for that language at all. */
