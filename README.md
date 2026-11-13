@@ -592,15 +592,25 @@ push to `main`, built with `--complete-only --downloads`. The `--downloads`
 flag gives that copy, and no other, a **Download** button in the header (and a
 way into it from Display), opening a tray that offers two things:
 
-- **The Android app.** The workflow builds one APK with every finished language
-  and one for English with each of the others (`scripts/release_apks.py`), and
-  puts them in the `reader-apk` Release. The Release takes them because the site
-  cannot: eight APKs with the search model in each come to several hundred
-  megabytes, and a Pages site has 1 GB in all. The file names stay the same from
+- **The Android app.** The visitor picks a language (or every language),
+  whether English comes beside it, and whether it searches by meaning, and the
+  tray shows the size of what that comes to. The workflow builds every one of
+  those (`scripts/release_apks.py`): every language, each language alone, and
+  English with each of the others, each once with search by meaning and once
+  without (`build_apk.py --no-meaning`, which leaves out the model and ONNX
+  Runtime: Thai alone is about 18 MB that way). They go in the `reader-apk`
+  Release, because the site cannot hold them: with the model in most of them
+  they come to well over a gigabyte, and a Pages site has 1 GB in all. The file names stay the same from
   one publish to the next, so a link to one keeps working; the Release notes say
   which commit they were built from. They are signed with the PC's debug key
   (the `ANDROID_DEBUG_KEYSTORE` secret, the base64 of `~/.android/debug.keystore`),
   so each new copy installs over the last and over the copies already handed round.
+- **A newer version, for the app.** The app has no network, so its Display
+  tray has **Check for a newer version**, a link to this site carrying the
+  app's version number, its languages and whether it searches by meaning. The
+  page opens the tray at once, says whether the Release has anything newer,
+  and has the same choice already picked. The address is `build_site.py
+  --site-url`, or `EBIBLE_SITE_URL`, and defaults to this repository's Pages.
 - **The offline reader, for a computer.** A zip put together in the visitor's
   browser from what the site already serves: the page, cut to the languages
   they tick, and the files of `site/morph/` that go with the search, search by
