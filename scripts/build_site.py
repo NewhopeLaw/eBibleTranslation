@@ -16,6 +16,7 @@ the planned Android APK will wrap unchanged.
 """
 import html
 import json
+import os
 import sys
 import zlib
 from pathlib import Path
@@ -271,6 +272,12 @@ dialog.sheet::backdrop { background:var(--scrim); }
 .sheet .primary.share { gap:.6rem; margin-top:1.4rem; min-height:56px; text-transform:uppercase; letter-spacing:.06em; }
 .sheet a.primary { text-decoration:none; box-sizing:border-box; }
 .sheet .primary .mark { width:26px; height:22px; fill:currentColor; flex:none; }
+/* The second thing under Share this Bible: the same width and height, but
+   outlined, so the one filled button stays the thing the tray is for. */
+.sheet .secondary { display:flex; width:100%; box-sizing:border-box; align-items:center; justify-content:center;
+  min-height:48px; margin:.6rem 0 0; border:1px solid var(--accent); border-radius:14px; background:transparent;
+  color:var(--accent); text-decoration:none; font:600 calc(14px * var(--ui)) system-ui,sans-serif; }
+.sheet .secondary:hover { background:var(--soft); }
 /* ---------- the Download tray (the copy on GitHub Pages only) ----------
    Outlined rather than filled: Who is Jesus? is the one filled pill in the
    header, and taking the reader away is a lesser thing than reading it. */
@@ -993,6 +1000,11 @@ const READER_ONLY = __READER_ONLY__;
    build has null - the dashboard is the PC's own copy, and inside the app the
    phone already holds it. */
 const DOWNLOADS = __DOWNLOADS__;
+/* Where the published copy lives. The app has no network of its own (its
+   manifest asks for none), so "Check for a newer version" is a link to here,
+   opened in the phone's browser with the app's version number on it; the
+   page there says whether a newer one exists and offers it. */
+const SITE = __SITE__;
 let mode = localStorage.getItem("mode");
 if (mode !== "basic" && mode !== "advanced")
   mode = (localStorage.getItem("view") || localStorage.getItem("tl")) ? "advanced" : "basic";
@@ -3561,6 +3573,13 @@ function drawSettings(){
      with a paragraph explaining that the whole Bible goes with it, and the
      explanation was longer than the act: the phone's share sheet says the rest. */
   if (PHONE) h += `<button type="button" class="primary share" id="setShareApp">${BOOKMARK}${esc(t('Share this Bible'))}</button>`;
+  /* Under it, the way to a newer copy. It is a link, not a download: the app
+     has no network, so the phone's browser opens the website, and the page
+     there compares the number this copy carries with the newest and offers
+     the same languages again. Without a connection the browser says so, and
+     the hint says the other way: a newer copy from a phone that has one. */
+  if (PHONE && SITE) h += `<a class="secondary update" id="setUpdate" href="${attr(updateUrl())}">${esc(t('Check for a newer version'))}</a>`
+    + `<p class="hint">${esc(t('Opens the website in your browser, which needs a connection. Or get a newer copy from someone whose phone has one, through Share this Bible.'))}${appVersionText()}</p>`;
   /* Where the app offers to share itself, the website offers the app, and the
      reader to keep. The Download tray has the choices; this is a second way
      into it, for someone who came here looking for how to read offline. */
@@ -3593,6 +3612,27 @@ function drawSettings(){
   if (getIt) getIt.onclick = () => openSheet("get");
 }
 
+/* The app's version is the minutes from the start of 2026 to its build
+   (build_apk.py), so it reads back as the day it was made. A shell from
+   before it could say its number answers nothing, and the link then just
+   opens the tray. */
+const appVersion = () => { try { return PHONE && PHONE.appVersion ? +PHONE.appVersion() || 0 : 0; } catch (e) { return 0; } };
+const versionDate = v => new Date(Date.UTC(2026, 0, 1) + v * 60000).toLocaleDateString(undefined, {year: "numeric", month: "long", day: "numeric"});
+function appVersionText(){
+  const v = appVersion();
+  return v ? " " + esc(t("This copy was made on")) + " " + esc(versionDate(v)) + "." : "";
+}
+/* The link carries what this copy is, so the website can offer the same
+   again: its number, its languages, and whether it searches by meaning. */
+function updateUrl(){
+  const q = new URLSearchParams();
+  const v = appVersion(); if (v) q.set("have", v);
+  q.set("langs", haveTargets.join(","));
+  let meaning = false; try { meaning = !!(PHONE.meaningLangs && PHONE.meaningLangs()); } catch (e) {}
+  q.set("meaning", meaning ? "1" : "0");
+  return SITE + "?" + q.toString();
+}
+
 /* ---------- the Download tray: the app, or this reader to keep ----------
    Only the copy on GitHub Pages has it. Two things can be taken away from
    here, and they are made in different places for a reason. The Android app
@@ -3602,7 +3642,7 @@ function drawSettings(){
    English). The offline reader is put together here instead, in the visitor's
    browser, from this page and the files the site already serves, so any mix
    of languages and layers can be had without the site storing every mix. */
-const GET = {apk: null, langs: null, search: true, meaning: true, study: false, job: null};
+const GET = {pick: null, update: null, langs: null, search: true, meaning: true, study: false, job: null};
 const ANDROID = /Android/i.test(navigator.userAgent);
 const APPLE_PHONE = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 const CAN_DEFLATE = (() => { try { new CompressionStream("deflate-raw"); return true; } catch (e) { return false; } })();
@@ -3611,7 +3651,25 @@ const mb = n => { const m = n / 1048576; return (m < 10 ? m.toFixed(1) : String(
 const langLabel = c => !TARGETS[c] ? esc(c) : TARGETS[c].native && TARGETS[c].native !== TARGETS[c].name
   ? `<span lang="${attr(c)}">${esc(TARGETS[c].native)}</span> · ${esc(TARGETS[c].name)}` : esc(TARGETS[c].name);
 const nativeName = c => TARGETS[c] ? `<span lang="${attr(c)}">${esc(TARGETS[c].native || TARGETS[c].name)}</span>` : esc(c);
-const apkName = x => !x.langs.length ? esc(t("Every language")) : x.langs.map(nativeName).join(" + ");
+/* The app is picked in three parts - which language, English beside it or
+   not, search by meaning or not - and the three answers name one of the APKs
+   release_apks.py built. A part the build did not make (an older list, or a
+   variant that failed) is not offered, rather than offered and missing. */
+const apkFor = (lang, en, meaning) => {
+  const langs = !lang ? [] : (en && lang !== "en") ? ["en", lang] : [lang];
+  return DOWNLOADS.apks.find(x => x.langs.join(",") === langs.join(",") && !!x.meaning === !!meaning) || null;
+};
+const apkLangs = () => [...new Set(DOWNLOADS.apks.flatMap(x => x.langs.length === 2 ? [x.langs[1]] : x.langs))]
+  .sort((a, b) => Object.keys(TARGETS).indexOf(a) - Object.keys(TARGETS).indexOf(b));
+/* The nearest choice that exists to the one asked for: the meaning setting
+   gives way first, then English, so the language itself is kept if at all. */
+function apkSettle(p){
+  for (const [en, m] of [[p.en, p.meaning], [p.en, !p.meaning], [!p.en, p.meaning], [!p.en, !p.meaning]]) {
+    const x = apkFor(p.lang, en, m);
+    if (x) return Object.assign(p, {en, meaning: m}), x;
+  }
+  return null;
+}
 /* Which files of morph/ go with what was ticked. The rule is the APK's
    (build_apk.py stage_page): an index or a translated lexicon for a language
    that is not in the copy is weight with nothing to open it, and the Hebrew
@@ -3642,9 +3700,17 @@ function getDefaults(){
   /* What the visitor is reading now, and English beside it: the pairing the
      reader is built around, and the guess least likely to need changing. */
   if (!GET.langs) GET.langs = have.filter(c => c === tl || c === "en");
-  if (!GET.apk && DOWNLOADS.apks.length) {
-    const want = tl === "en" ? "en" : TARGETS[tl] ? "en," + tl : "";
-    GET.apk = DOWNLOADS.apks.find(x => x.langs.join(",") === want) || DOWNLOADS.apks.find(x => !x.langs.length) || DOWNLOADS.apks[0];
+  if (!GET.pick && DOWNLOADS.apks.length) {
+    const u = GET.update;
+    if (u && u.langs.length) {
+      /* Come from the app: the same languages it carries, if that copy is one
+         the site builds, and its own choice about search by meaning. */
+      const other = u.langs.filter(c => c !== "en");
+      GET.pick = other.length > 1 || !u.langs.length ? {lang: "", en: true, meaning: u.meaning}
+        : {lang: other[0] || "en", en: u.langs.includes("en"), meaning: u.meaning};
+    } else GET.pick = {lang: TARGETS[tl] ? tl : "", en: true, meaning: true};
+    if (GET.pick.lang && !apkLangs().includes(GET.pick.lang)) GET.pick.lang = "";
+    if (!apkSettle(GET.pick)) GET.pick = {lang: "", en: true, meaning: true};
   }
 }
 function drawGet(){
@@ -3654,15 +3720,7 @@ function drawGet(){
   /* An APK offered to an iPhone is a file that does nothing when it arrives. */
   if (DOWNLOADS.apks.length && APPLE_PHONE)
     app = `<div class="shead">${esc(t("Android app"))}</div><p class="hint">${esc(t("This is an app for Android phones. There is no iPhone app yet; on an iPhone the Bible can be read here, on this site."))}</p>`;
-  else if (DOWNLOADS.apks.length) {
-    app = `<div class="shead">${esc(t("Android app"))}</div>`
-      + `<div class="getopts" role="radiogroup" aria-label="${attr(t("Which languages the app carries"))}">`
-      + DOWNLOADS.apks.map((x, i) => `<label><input type="radio" name="getApk" value="${i}"${x === GET.apk ? " checked" : ""}>`
-          + `<span class="nm"><b>${apkName(x)}</b>${!x.langs.length ? `<small>${Object.keys(TARGETS).map(nativeName).join(", ")}</small>` : ""}</span>`
-          + `<span class="ct">${mb(x.bytes)}</span></label>`).join("")
-      + `</div><a class="primary share" id="getApkGo" href="${attr(GET.apk.href)}">${BOOKMARK}<span id="getApkLb">${esc(t("Download the app"))} · ${mb(GET.apk.bytes)}</span></a>`
-      + `<p class="hint">${esc(t("Open the file once it has arrived to install it. It is not from the Play Store, so the phone asks once to allow installs from this browser. After that it reads with no network, and search by meaning works on the phone itself."))}</p>`;
-  }
+  else if (DOWNLOADS.apks.length) app = drawApkPick();
   const opt = (k, name, note) => `<label><input type="checkbox" data-getopt="${k}"${GET[k] ? " checked" : ""}${busy ? " disabled" : ""}>`
     + `<span class="nm"><b>${esc(t(name))}</b><small>${esc(t(note))}</small></span><span class="ct" id="getSz-${k}">${mb(s[k])}</span></label>`;
   kit = `<div class="shead">${esc(t("Offline reader, for a computer"))}</div>`
@@ -3690,10 +3748,12 @@ function drawGet(){
      phone, so for them it comes first; at a computer the reader to keep does. */
   const dyn = $("#getDyn");
   dyn.innerHTML = (ANDROID || mqNarrow.matches) ? app + kit : kit + app;
-  dyn.querySelectorAll('input[name="getApk"]').forEach(el => el.onchange = () => {
-    GET.apk = DOWNLOADS.apks[+el.value];
-    $("#getApkGo").href = GET.apk.href;
-    $("#getApkLb").textContent = `${t("Download the app")} · ${mb(GET.apk.bytes)}`;
+  apkRefresh();
+  dyn.querySelectorAll('input[name="getApkLang"]').forEach(el => el.onchange = () => {
+    GET.pick.lang = el.value; apkSettle(GET.pick); apkRefresh();
+  });
+  dyn.querySelectorAll("[data-apkopt]").forEach(el => el.onchange = () => {
+    GET.pick[el.dataset.apkopt] = el.checked; apkSettle(GET.pick); apkRefresh();
   });
   dyn.querySelectorAll("[data-getlang]").forEach(el => el.onchange = () => {
     const c = el.dataset.getlang;
@@ -3703,6 +3763,57 @@ function drawGet(){
   dyn.querySelectorAll("[data-getopt]").forEach(el => el.onchange = () => { GET[el.dataset.getopt] = el.checked; getRefresh(); });
   const go = $("#getGo"); if (go) go.onclick = makeReader;
   const stop = $("#getStop"); if (stop) stop.onclick = () => { if (GET.job) GET.job.ctl.abort(); GET.job = null; drawGet(); const g = $("#getGo"); if (g) g.focus(); };
+}
+function drawApkPick(){
+  const p = GET.pick, x = apkSettle(p) || DOWNLOADS.apks[0], u = GET.update, langs = apkLangs();
+  const every = DOWNLOADS.apks.some(a => !a.langs.length);
+  const radio = (v, label, small) => `<label><input type="radio" name="getApkLang" value="${attr(v)}"${p.lang === v ? " checked" : ""}>`
+    + `<span class="nm"><b>${label}</b>${small ? `<small>${small}</small>` : ""}</span></label>`;
+  let h = `<div class="shead">${esc(t("Android app"))}</div>`;
+  /* Sent here by the app's "Check for a newer version": the answer first,
+     before any choice, because it may be that there is nothing to do. */
+  if (u && u.have) {
+    const newest = Math.max(0, ...DOWNLOADS.apks.map(a => a.vcode || 0));
+    if (!newest) h += "";
+    else if (u.have >= newest) h += `<div class="getmsg" role="status"><b>${esc(t("Your app is up to date."))}</b> ${esc(t("It was made on"))} ${esc(versionDate(u.have))}, ${esc(t("and there is nothing newer here."))}</div>`;
+    else h += `<div class="getmsg" role="status"><b>${esc(t("A newer version is here."))}</b> ${esc(t("Yours was made on"))} ${esc(versionDate(u.have))}; ${esc(t("this one on"))} ${esc(versionDate(newest))}. ${esc(t("It installs over yours, and keeps your place and settings."))}</div>`;
+  }
+  h += `<div class="shead">${esc(t("Language"))}</div>`
+    + `<div class="getopts" role="radiogroup" aria-label="${attr(t("Which language the app carries"))}">`
+    + (every ? radio("", esc(t("Every language")), Object.keys(TARGETS).filter(c => langs.includes(c)).map(nativeName).join(", ")) : "")
+    + langs.map(c => radio(c, langLabel(c), "")).join("")
+    + `</div><div class="getopts" role="group" aria-label="${attr(t("With it"))}" id="apkOpts"></div>`
+    + `<a class="primary share" id="getApkGo" href="${attr(x.href)}">${BOOKMARK}<span id="getApkLb">${esc(t("Download the app"))} · ${mb(x.bytes)}</span></a>`
+    + `<p class="hint">${esc(t("Open the file once it has arrived to install it. It is not from the Play Store, so the phone asks once to allow installs from this browser. After that it reads with no network."))}</p>`;
+  return h;
+}
+/* The two ticks under the languages, and the button: drawn again on every
+   change, because which ticks make sense depends on the language picked
+   (English beside English means nothing). The radios are not redrawn, so the
+   keyboard stays on the one just chosen. */
+function apkRefresh(){
+  const box = $("#apkOpts"); if (!box) return;
+  const p = GET.pick, x = apkSettle(p);
+  const alt = (en, m) => apkFor(p.lang, en, m);
+  const tick = (k, name, note, can) => `<label><input type="checkbox" data-apkopt="${k}"${p[k] ? " checked" : ""}${can ? "" : " disabled"}>`
+    + `<span class="nm"><b>${esc(t(name))}</b><small>${esc(t(note))}</small></span>${can ? `<span class="ct">${esc(note2(k))}</span>` : ""}</label>`;
+  /* What ticking would add or save, measured from the files themselves. */
+  const note2 = k => {
+    const on = k === "en" ? alt(true, p.meaning) : alt(p.en, true), off = k === "en" ? alt(false, p.meaning) : alt(p.en, false);
+    return on && off ? "+" + mb(Math.max(0, on.bytes - off.bytes)) : "";
+  };
+  const had = document.activeElement && box.contains(document.activeElement) ? document.activeElement.dataset.apkopt : null;
+  let h = "";
+  if (p.lang && p.lang !== "en" && TARGETS.en && (alt(true, p.meaning) || alt(true, !p.meaning)))
+    h += tick("en", "English beside it", "Read side by side with English, or switch to it.", !!(alt(true, p.meaning) && alt(false, p.meaning)));
+  if (DOWNLOADS.apks.some(a => !a.meaning))
+    h += tick("meaning", "Search by meaning", "Describe a passage in your own words and be taken to it, on the phone itself. Without it, search finds words, and the app is much smaller.", !!(alt(p.en, true) && alt(p.en, false)));
+  box.innerHTML = h;
+  box.hidden = !h;
+  box.querySelectorAll("[data-apkopt]").forEach(el => el.onchange = () => { GET.pick[el.dataset.apkopt] = el.checked; apkSettle(GET.pick); apkRefresh(); });
+  /* Redrawn under the keyboard: the box just ticked keeps the focus. */
+  if (had) { const el = box.querySelector(`[data-apkopt="${had}"]`); if (el) el.focus(); }
+  if (x) { $("#getApkGo").href = x.href; $("#getApkLb").textContent = `${t("Download the app")} · ${mb(x.bytes)}`; }
 }
 /* A tick changes the sizes and nothing else, so only the sizes are rewritten:
    redrawing the tray would take the keyboard focus off the box just ticked. */
@@ -3879,6 +3990,20 @@ async function makeReader(){
   else toast(job.ready ? t("The download is ready.") : t("The download stopped."));
 }
 if (DOWNLOADS && !PHONE) $("#getBtn").hidden = false;
+/* Arrived from the app's "Check for a newer version": open the tray at once
+   with the answer in it. The query is taken off the address afterwards, so
+   a reload or a bookmark opens the reader as usual rather than ask again. */
+if (DOWNLOADS && !PHONE && DOWNLOADS.apks.length) {
+  const q = new URLSearchParams(location.search);
+  if (q.has("have") || q.has("langs")) {
+    GET.update = {have: +q.get("have") || 0, langs: (q.get("langs") || "").split(",").filter(Boolean), meaning: q.get("meaning") !== "0"};
+    history.replaceState(null, "", location.pathname + location.hash);
+    /* With no chapter in the address, route() is about to put one there, and
+       a change of chapter closes any tray; so it opens after that, not before. */
+    const show = () => setTimeout(() => openSheet("get"), 0);
+    if (location.hash) requestAnimationFrame(show); else addEventListener("hashchange", show, {once: true});
+  }
+}
 
 /* A setting is worth hearing rather than reading: the sample is a verse of the
    text itself, in the language on screen, so the speed is judged on the thing
@@ -4213,6 +4338,12 @@ def deflated(b: bytes) -> int:
     return len(z.compress(b)) + len(z.flush())
 
 
+# The reader on GitHub Pages. An APK built on the PC carries it too, so its
+# "Check for a newer version" has somewhere to go; EBIBLE_SITE_URL (or
+# --site-url) points a fork's copies at its own site.
+SITE_URL = os.environ.get("EBIBLE_SITE_URL", "https://newhopelaw.github.io/eBibleTranslation/")
+
+
 def downloads_offer(page: str, data: dict, targets: dict, out_dir: Path, apks_file: str) -> dict:
     """What the Download tray on the published copy can offer, and what each part weighs.
 
@@ -4244,7 +4375,11 @@ def downloads_offer(page: str, data: dict, targets: dict, out_dir: Path, apks_fi
     if apks_file:
         got = json.loads(Path(apks_file).read_text(encoding="utf-8"))
         base_url = got["base"]
-        apks = [{"langs": x["langs"], "href": base_url + x["file"], "bytes": x["bytes"]} for x in got["apks"]]
+        # An apks.json from before the copies without search by meaning has
+        # neither key: every APK in it carried the model, and its version is
+        # unknown, so the update check says nothing rather than guess.
+        apks = [{"langs": x["langs"], "href": base_url + x["file"], "bytes": x["bytes"],
+                 "meaning": x.get("meaning", True), "vcode": x.get("vcode", 0)} for x in got["apks"]]
     print(f"download tray: {len(files)} morph files ({sum(v[1] for v in files.values()) >> 20} MB zipped), "
           f"{len(apks)} APK{'' if len(apks) == 1 else 's'}")
     return {"page": {"base": base, "langs": langs}, "files": files, "apks": apks}
@@ -4266,6 +4401,8 @@ def main():
     ap.add_argument("--downloads", action="store_true",
                     help="give the page its Download tray (the GitHub Pages build): the offline reader "
                          "put together in the visitor's browser from the files in --out/morph")
+    ap.add_argument("--site-url", default=SITE_URL,
+                    help="where the published reader lives; the app's \"Check for a newer version\" opens it")
     ap.add_argument("--apks", default="",
                     help="with --downloads, the apks.json scripts/release_apks.py wrote, so the tray "
                          "offers those APKs too; without it the tray offers the offline reader alone")
@@ -4366,6 +4503,7 @@ def main():
             .replace("__READALOUD_JS__", RA.js('main', '.par .o, .par .e, .cmp .row .txt, p.ov, .poetry, .vv span, .hit, .notes')))
     downloads = downloads_offer(page, data, targets, out_dir, a.apks) if a.downloads else None
     page = page.replace("__DOWNLOADS__", json.dumps(downloads, ensure_ascii=False, separators=(",", ":")))
+    page = page.replace("__SITE__", json.dumps(a.site_url or None))
     if downloads:
         # The tray cuts this page down by finding these lines in its own source,
         # so a change to the template that moved or merged one of them would

@@ -114,7 +114,7 @@ jobs:
         continue-on-error: true
         run: |
           site="https://${GITHUB_REPOSITORY_OWNER,,}.github.io/${GITHUB_REPOSITORY#*/}/"
-          notes="The eBible reader for Android, built from ${GITHUB_SHA::7} on $(date -u +%Y-%m-%d) and offered on $site. eBible-reader.apk carries every finished language; each of the others carries English and one more."
+          notes="The eBible reader for Android, built from ${GITHUB_SHA::7} on $(date -u +%Y-%m-%d) and offered on $site. eBible-reader.apk carries every finished language; the others carry the languages in their names. A name ending in -lite has no search by meaning, and is much smaller."
           gh release view "$APK_RELEASE" >/dev/null 2>&1 \
             || gh release create "$APK_RELEASE" --title "eBible reader for Android" --notes "$notes" --target "$GITHUB_SHA"
           gh release upload "$APK_RELEASE" dist/release/*.apk --clobber

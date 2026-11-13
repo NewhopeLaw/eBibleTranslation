@@ -4,6 +4,7 @@
     python scripts/build_apk.py                  # the reader alone (the toolchain must be there)
     python scripts/build_apk.py --full           # the reader with every study layer
     python scripts/build_apk.py --langs en,zh    # only these languages (default: every finished one)
+    python scripts/build_apk.py --no-meaning     # without search by meaning: a much smaller APK
     python scripts/build_apk.py --check          # say what is installed, as JSON
     python scripts/build_apk.py --setup --accept-android-sdk-license
                                                  # fetch the toolchain into tools/android/, then build
@@ -27,7 +28,10 @@ which books are missing, and a translation still being written should not be
 read as though it were finished; the build says what it left out and how far
 that language has got. --langs narrows that to the ones named - a copy for
 one congregation need not carry every language the project has - and naming
-one that is not finished stops the build rather than leave it out unseen. An
+one that is not finished stops the build rather than leave it out unseen.
+--no-meaning leaves out search by meaning - the model, its verses, the table
+and ONNX Runtime - for a phone with little room or a plan that counts every
+megabyte; word search still works. An
 APK of chosen languages is named after them, so it does not overwrite the
 one that carries them all.
 
@@ -278,7 +282,7 @@ def setup():
 
 
 # ------------------------------------------------------------------ building
-def stage_page(full: bool, langs_wanted: list[str]):
+def stage_page(full: bool, langs_wanted: list[str], meaning: bool = True):
     """The page and the data files that variant needs, and nothing else.
 
     The reader takes the search indexes only; the full app takes all of
@@ -316,7 +320,7 @@ def stage_page(full: bool, langs_wanted: list[str]):
     # Never both for one language: the table's files would be twenty-odd
     # megabytes nobody opens.
     model = ROOT / "site" / "model"
-    modelled = [c for c in langs if (model / f"vecm_{c}.bin").exists()] if (model / "encoder.onnx").exists() else []
+    modelled = [c for c in langs if (model / f"vecm_{c}.bin").exists()] if meaning and (model / "encoder.onnx").exists() else []
     # The reader carries both halves of its search: the word indexes, and the
     # verse vectors that let a reader describe a passage and be taken to it.
     files = sorted(f for f in (morph.glob("*.js") if full else [*morph.glob("idx_*.js"), *morph.glob("vec_*.js")])
@@ -327,6 +331,8 @@ def stage_page(full: bool, langs_wanted: list[str]):
     # by every language, and has no code in its name to be dropped by: it goes
     # when every language is answered by the model.
     def wanted(f):
+        if not meaning and f.name.startswith("vec_"):
+            return False
         if f.name == "vec_table.js":
             return any(c not in modelled for c in langs)
         for prefix in ("idx_", "lexx_", "vec_"):
@@ -342,6 +348,8 @@ def stage_page(full: bool, langs_wanted: list[str]):
         for name in ["encoder.onnx", "vocab.tsv", "proj.bin", *(f"vecm_{c}.bin" for c in modelled)]:
             shutil.copy2(model / name, stage / "model" / name)
         say(f"search by meaning with the model for {', '.join(modelled)}")
+    elif not meaning:
+        say("no search by meaning in this APK (--no-meaning): word search only")
     elif langs:
         say("search by meaning from the table only - run scripts/build_encoder.py for the model, "
             "which is much better in Thai")
@@ -357,7 +365,7 @@ def stage_page(full: bool, langs_wanted: list[str]):
     return chapters
 
 
-def build(tc: dict, chapters: str, full: bool, langs_wanted: list[str]):
+def build(tc: dict, chapters: str, full: bool, langs_wanted: list[str], meaning: bool = True):
     signed = tc["signed"]
     task = "assembleRelease" if signed else "assembleDebug"
     now = dt.datetime.now()
@@ -378,6 +386,14 @@ def build(tc: dict, chapters: str, full: bool, langs_wanted: list[str]):
            "GRADLE_USER_HOME": str(gradle_home)}
     cmd = [tc["gradle"], "-p", str(ANDROID), task, "--no-daemon", "--console=plain",
            f"-PappAssets={STAGE[full].as_posix()}", f"-PversionCode={vcode}", f"-PversionName={vname}"]
+    if not meaning:
+        cmd.append("-PnoMeaning=true")
+    # A debug build packages incrementally: it rewrites the last APK in place,
+    # and an asset taken out since leaves its space behind in the file. One
+    # build after another with different languages (release_apks.py) then
+    # made a copy without the model as large as the one with it. Without the
+    # last APK there is nothing to rewrite, and the file is packed from new.
+    shutil.rmtree(ANDROID / "app" / "build" / "outputs" / "apk", ignore_errors=True)
     say("gradle " + " ".join(cmd[1:]))
     state(step=f"gradle {task} (the first build fetches its libraries and takes a few minutes)")
     proc = subprocess.Popen(cmd, cwd=str(ANDROID), env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
@@ -407,12 +423,13 @@ def build(tc: dict, chapters: str, full: bool, langs_wanted: list[str]):
         fail("keystore.properties is there but the release came out unsigned - check that it names "
              "storeFile, storePassword, keyAlias and keyPassword (see android/keystore.properties.example)")
     DIST.mkdir(exist_ok=True)
-    only = ("-" + "-".join(langs_wanted)) if langs_wanted else ""
+    only = (("-" + "-".join(langs_wanted)) if langs_wanted else "") + ("" if meaning else "-lite")
     dest = DIST / f"eBible-{'full' if full else 'reader'}{only}-{vname}{'' if signed else '-debug'}.apk"
     shutil.copy2(apks[-1], dest)
     say(f"APK: {dest} ({dest.stat().st_size / 1048576:.1f} MB, {kind}, versionCode {vcode})")
     state(state="done", step="", apk=str(dest), size=dest.stat().st_size, kind=kind, version=vname,
-          variant="full" if full else "reader", langs=langs_wanted, chapters=chapters, finished=time.time(), error="")
+          variant="full" if full else "reader", langs=langs_wanted, chapters=chapters, finished=time.time(), error="",
+          vcode=vcode, meaning=meaning)
 
 
 def main():
@@ -421,6 +438,8 @@ def main():
                     help="carry the study layers too: every file in site/morph/, as they stand now")
     ap.add_argument("--langs", default="",
                     help="comma list of languages to carry, e.g. en,zh (default: every finished one)")
+    ap.add_argument("--no-meaning", action="store_true",
+                    help="leave out search by meaning (the model, its verses and ONNX Runtime): a much smaller APK")
     ap.add_argument("--check", action="store_true", help="print what is installed, as JSON, and stop")
     ap.add_argument("--setup", action="store_true", help="fetch the toolchain into tools/android/ first")
     ap.add_argument("--accept-android-sdk-license", action="store_true",
@@ -443,8 +462,8 @@ def main():
         say("missing: " + ", ".join(tc["missing"]))
         state(state="needs-setup", step="", error="missing: " + ", ".join(tc["missing"]), finished=time.time())
         sys.exit(2)
-    chapters = stage_page(a.full, langs_wanted)
-    build(tc, chapters, a.full, langs_wanted)
+    chapters = stage_page(a.full, langs_wanted, not a.no_meaning)
+    build(tc, chapters, a.full, langs_wanted, not a.no_meaning)
 
 
 if __name__ == "__main__":
