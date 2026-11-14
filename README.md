@@ -229,6 +229,44 @@ typing slip) gets no such section rather than twelve strays. Run
 `build_encoder.py` before `build_apk.py`; the APK carries the model where it
 was built and the table where it was not.
 
+**Stories, not only verses.** A reader describes a story, and a verse is one
+sentence of it. `build_encoder.py` also embeds the chapter themes' plain
+descriptions of each run of verses ("Daniel's refusal of the royal diet",
+Daniel 1:8-16), and in the app a description nearer the question than any of
+its verses lifts that run as a block. In English that took the right passage
+first from 37 of 100 hand-written questions to 44. The descriptions are in
+English, and Thai, Spanish and Chinese questions gained nothing from them, so
+`scripts/translate_stories.py` puts them into each language, and the app reads
+a language's own where it has them.
+
+**Measuring it.** `targets/search/tests.jsonl` holds 100 questions a reader
+might type, in English, Thai, Spanish and Chinese, written by hand and each
+answer checked against the text. `scripts/search_test.py` asks them the way the
+phone does and says how often the passage came first, in the first five and in
+the first ten; `--compare` sets verses alone beside verses with stories, and
+`--misses` lists what was not found. `scripts/make_search_tests.py` has the
+model write more, in every language, Karen too.
+
+**Teaching the model the Bible.** No multilingual Bible search model exists to
+take, so `scripts/train_search.py` teaches ours, on the PC's GPU, from pairs the
+project already has: questions the model wrote about passages, each passage's
+description in every language, and the same verse in two languages. Passages
+the hand-written questions ask about are kept out of training, so the test
+stays honest. Tried on a CPU with what the cloud had (English descriptions,
+and verses paired with their translations), it made search worse in every
+language but English, and worse overall (right passage first 41% → 34% at
+best); `train_search.py`'s head has the numbers. The run still to try is the
+one with the model's questions and the descriptions in every language. The
+order on the PC:
+
+```
+python scripts/translate_stories.py                 # the descriptions in every language (hours, once)
+python scripts/make_search_tests.py --train --n 3000 # questions to train on
+python scripts/train_search.py                      # -> models/e5-bible/
+python scripts/build_encoder.py                     # the phone's files, from the taught model
+python scripts/search_test.py                       # better than before? if not, delete models/e5-bible/
+```
+
 ### Search with the model behind it (the PC)
 
 The index is what a phone can carry. On this machine the reader is served by the

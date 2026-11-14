@@ -337,7 +337,11 @@ def stage_page(full: bool, langs_wanted: list[str]):
     files = [f for f in files if wanted(f)]
     if modelled:
         (stage / "model").mkdir()
-        for name in ["encoder.onnx", "vocab.tsv", "proj.bin", *(f"vecm_{c}.bin" for c in modelled)]:
+        # The passages: the English descriptions, and each carried language's
+        # own where they have been translated (Meaning.java prefers those).
+        passages = [n for n in ["vecm_stories.bin", *(f"vecm_stories_{c}.bin" for c in modelled)]
+                    if (model / n).exists()]
+        for name in ["encoder.onnx", "vocab.tsv", "proj.bin", *(f"vecm_{c}.bin" for c in modelled), *passages]:
             shutil.copy2(model / name, stage / "model" / name)
         say(f"search by meaning with the model for {', '.join(modelled)}")
     elif langs:
