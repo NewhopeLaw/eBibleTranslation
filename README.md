@@ -252,7 +252,12 @@ take, so `scripts/train_search.py` teaches ours, on the PC's GPU, from pairs the
 project already has: questions the model wrote about passages, each passage's
 description in every language, and the same verse in two languages. Passages
 the hand-written questions ask about are kept out of training, so the test
-stays honest. The order on the PC:
+stays honest. Tried on a CPU with what the cloud had (English descriptions,
+and verses paired with their translations), it made search worse in every
+language but English, and worse overall (right passage first 41% → 34% at
+best); `train_search.py`'s head has the numbers. The run still to try is the
+one with the model's questions and the descriptions in every language. The
+order on the PC:
 
 ```
 python scripts/translate_stories.py                 # the descriptions in every language (hours, once)

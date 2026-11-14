@@ -24,9 +24,25 @@ The pairs come from what the project already has:
   - each chapter theme's description of a run of verses, in every language it
     has been translated into (translate_stories.py), paired with a verse of
     the run in the same language: the way a reader describes a story;
-  - the same verse in two languages: what lets a Thai question reach an
-    English description, and Karen, which no model writes well, learn from
-    the translation it already has.
+  - the same verse in two languages (--cross, off by default: see below).
+
+What has been measured (scripts/search_test.py, the hand-written questions,
+right passage first / in the first ten, all four languages together; the
+untaught model scores 41% / 71%), on a CPU with the word-piece table frozen:
+
+  - English descriptions and 5,000 verse pairs across en/th/es/zh, lr 2e-5:
+    28% / 50%. Chinese fell from 48% first to 21%. A verse and its
+    translation are too easy a pair: the model learnt to match translations,
+    not questions to passages.
+  - English descriptions alone, lr 1e-5: 34% / 54%. English first rose
+    (37% to 45% on verses alone) but everything else fell: trained on one
+    language, the model forgot some of the others.
+
+So teaching it on English, or on translations, is worse than not teaching it.
+What has not been tried is the run this was written for: questions the model
+wrote in every language (make_search_tests.py --train) and the descriptions
+translated into every language (translate_stories.py), which needs the PC.
+Keep the result only if search_test.py says it wins.
 
 Any pair touching a passage the hand-written test questions ask about
 (targets/search/tests.jsonl, "by": "hand") is left out, so search_test.py
@@ -134,8 +150,12 @@ def main():
     ap.add_argument("--epochs", type=float, default=1.0)
     ap.add_argument("--batch", type=int, default=64)
     ap.add_argument("--lr", type=float, default=2e-5)
-    ap.add_argument("--cross", type=int, default=40000, help="verse pairs across languages (default 40000)")
+    ap.add_argument("--cross", type=int, default=0,
+                    help="verse pairs across languages (default 0: measured, they made search worse)")
     ap.add_argument("--temp", type=float, default=0.05, help="InfoNCE temperature")
+    ap.add_argument("--maxlen", type=int, default=E.MAXLEN, help=f"tokens a text is cut to (default {E.MAXLEN})")
+    ap.add_argument("--train-vocab", action="store_true",
+                    help="train the word-piece table too (frozen by default)")
     ap.add_argument("--tiny", action="store_true", help="20 small steps, written to a scratch folder: a check")
     ap.add_argument("--out", default=str(OUT))
     a = ap.parse_args()
@@ -158,14 +178,20 @@ def main():
     dev = "cuda" if torch.cuda.is_available() else "cpu"
     tok = AutoTokenizer.from_pretrained(E.TEACHER)
     model = AutoModel.from_pretrained(E.TEACHER).to(dev).train()
+    # The word-piece table is 250,000 rows, two thirds of the model, and these
+    # pairs touch a sliver of it. Left frozen it keeps what every language's
+    # pieces mean, and training needs a fraction of the memory: on a machine
+    # with 8 GB the whole table and its optimiser state did not fit.
+    if not a.train_vocab:
+        model.embeddings.word_embeddings.weight.requires_grad_(False)
     steps = max(1, int(math.ceil(len(data) / a.batch) * a.epochs))
-    opt = torch.optim.AdamW(model.parameters(), lr=a.lr, weight_decay=0.01)
+    opt = torch.optim.AdamW([p for p in model.parameters() if p.requires_grad], lr=a.lr, weight_decay=0.01)
     warm = max(1, steps // 20)
     sched = torch.optim.lr_scheduler.LambdaLR(opt, lambda s: min((s + 1) / warm, max(0.0, (steps - s) / (steps - warm + 1))))
     amp = dev == "cuda"
 
     def embed(texts):
-        enc = tok(texts, padding=True, truncation=True, max_length=E.MAXLEN, return_tensors="pt").to(dev)
+        enc = tok(texts, padding=True, truncation=True, max_length=a.maxlen, return_tensors="pt").to(dev)
         h = model(**enc).last_hidden_state
         m = enc["attention_mask"].unsqueeze(-1).to(h.dtype)
         return torch.nn.functional.normalize((h * m).sum(1) / m.sum(1).clamp(min=1e-9), dim=-1)
@@ -195,7 +221,7 @@ def main():
             sched.step()
             step += 1
             seen += len(part)
-            if step % 50 == 0 or step == steps or a.tiny:
+            if step % 10 == 0 or step == steps or a.tiny:
                 print(f"  step {step}/{steps}  loss {loss.item():.3f}  [{time.time() - t0:.0f}s]", flush=True)
     out.mkdir(parents=True, exist_ok=True)
     model.save_pretrained(out)
