@@ -820,6 +820,10 @@ const TARGETS = __TARGETS__;          // {code: {name, native}} in canonical ord
    computer has one (scripts/build_audio.py): {lang: {"John|1": [[verse, start,
    end], ...]}}, the recording beside the page at audio/<lang>/John_01.ogg. */
 const RECORDED = __RECORDED__;
+/* The phone's own voices beside the page (scripts/build_voices.py): {lang:
+   {blank, scales, sr, books, made, credit}}, read in the browser where no
+   recording is (genFor). Empty where the page is served without them. */
+const PHONEVOICE = __PHONEVOICE__;
 const ABBREV = __ABBREV__;
 const $ = s => document.querySelector(s);
 /* Two names for a book. dataKey() is the English every built layer (MORPH,
@@ -2856,9 +2860,72 @@ function recFor(lang, r){                                // -> {src, s, e} for a
   if (PREVIEW) return previewVoice(lang, r);
   const ch = RECORDED[lang] && RECORDED[lang][recKey(r)];
   const t = ch && ch.find(x => x[0] === r.v);
-  return t ? {src: `audio/${lang}/${r.book}_${String(r.ch).padStart(2, "0")}.ogg`, s: t[1], e: t[2]} : null;
+  return t ? {src: `audio/${lang}/${r.book}_${String(r.ch).padStart(2, "0")}.ogg`, s: t[1], e: t[2]} : genFor(lang, r);
 }
 const recCount = lang => Object.keys(RECORDED[lang] || {}).length;
+/* ---------- the phone's own voices, made in the browser ----------
+   Where a verse has no recording beside the page - the website, which cannot
+   carry 1.5 GB of them, or a chapter the PC has not recorded yet - Taiwanese
+   and Hakka are read by the small voices taught from those recordings
+   (scripts/build_voices.py), run here by ONNX Runtime's web build: the model
+   once, a book's verse numbers when one of its verses is first heard, then a
+   second or so a verse on one thread. A verse made this way is handed to the
+   player as a recording would be (recUrl), so a reading goes on from verse to
+   verse in the same way, the next made while this one plays. Not from a file:
+   a browser will not fetch the model or the runtime there. */
+const GENOK = /^https?:$/.test(location.protocol) && typeof WebAssembly === "object";
+const GENSESS = {};
+window.VOICEIDS = window.VOICEIDS || {};
+function genFor(lang, r){
+  const v = GENOK && PHONEVOICE[lang];
+  return v && v.books.includes(r.book) ? {src: `gen:${lang}:${r.book}:${r.ch}:${r.v}`, s: 0, e: 1e9, gen: true} : null;
+}
+function genSession(lang){
+  if (!GENSESS[lang]) {
+    GENSESS[lang] = (async () => {
+      if (typeof ort === "undefined") await loadJs("voice/ort/ort.wasm.min.js");
+      ort.env.wasm.wasmPaths = new URL("voice/ort/", location.href).href;
+      // threads need a page isolated from others, which GitHub Pages cannot ask for; one is fast enough
+      ort.env.wasm.numThreads = self.crossOriginIsolated ? Math.min(4, navigator.hardwareConcurrency || 1) : 1;
+      const r = await fetch(`voice/${lang}/student.onnx?v=${PHONEVOICE[lang].made}`);
+      if (!r.ok) throw new Error("the voice is not beside this page");
+      return ort.InferenceSession.create(await r.arrayBuffer(), {executionProviders: ["wasm"]});
+    })();
+    GENSESS[lang].catch(() => delete GENSESS[lang]);
+  }
+  return GENSESS[lang];
+}
+async function genWav(src){                               // "gen:nan:Genesis:1:3" -> a blob URL of the verse, read
+  const [, lang, book, ch, v] = src.split(":"), pv = PHONEVOICE[lang], key = lang + "|" + book;
+  if (!VOICEIDS[key]) await loadJs(`voice/${lang}/${book}.js`);
+  const row = ((VOICEIDS[key] || {})[ch] || []).find(x => x[0] === +v);
+  if (!row) throw new Error("this verse has no spoken form");
+  const s = await genSession(lang), parts = [];
+  for (const [b64, pause] of row[1]) {
+    // the ids come a byte each, without the blank the model reads between every two
+    const raw = atob(b64), ids = new BigInt64Array(raw.length * 2 + 1).fill(BigInt(pv.blank));
+    for (let i = 0; i < raw.length; i++) ids[2 * i + 1] = BigInt(raw.charCodeAt(i));
+    const feeds = {input: new ort.Tensor("int64", ids, [1, ids.length]),
+                   input_lengths: new ort.Tensor("int64", BigInt64Array.of(BigInt(ids.length)), [1]),
+                   scales: new ort.Tensor("float32", Float32Array.from(pv.scales), [3])};
+    const out = await s.run(Object.fromEntries(Object.entries(feeds).filter(([k]) => s.inputNames.includes(k))));
+    parts.push(out[s.outputNames[0]].data, new Float32Array(Math.round(pv.sr * pause)));   // the teacher's pause after it
+  }
+  return URL.createObjectURL(wavBlob(parts, pv.sr));
+}
+function wavBlob(parts, sr){                              // 16-bit mono, brought up to 0.9 of full scale as the PC's are
+  const n = parts.reduce((k, p) => k + p.length, 0);
+  let peak = 1e-9;
+  for (const p of parts) for (let i = 0; i < p.length; i++) peak = Math.max(peak, Math.abs(p[i]));
+  const d = new DataView(new ArrayBuffer(44 + 2 * n)), g = 0.9 / peak;
+  const tag = (o, s) => { for (let i = 0; i < 4; i++) d.setUint8(o + i, s.charCodeAt(i)); };
+  tag(0, "RIFF"); d.setUint32(4, 36 + 2 * n, true); tag(8, "WAVE"); tag(12, "fmt ");
+  d.setUint32(16, 16, true); d.setUint16(20, 1, true); d.setUint16(22, 1, true); d.setUint32(24, sr, true);
+  d.setUint32(28, sr * 2, true); d.setUint16(32, 2, true); d.setUint16(34, 16, true); tag(36, "data"); d.setUint32(40, 2 * n, true);
+  let o = 44;
+  for (const p of parts) for (let i = 0; i < p.length; i++, o += 2) d.setInt16(o, Math.max(-1, Math.min(1, p[i] * g)) * 32767, true);
+  return new Blob([d], {type: "audio/wav"});
+}
 /* ---------- the phone, previewed on the PC ----------
    The dashboard's mobile switch shows this page at a phone's size, and calls
    phonePreview so that where the APK works differently underneath, the page
@@ -2872,6 +2939,8 @@ const recCount = lang => Object.keys(RECORDED[lang] || {}).length;
    model is not offered. The device's own voices still read the other languages,
    as a phone's do. Only the dashboard, serving the page at /reader, calls this. */
 function previewVoice(lang, r){
+  const here = genFor(lang, r);                           // as the website does it, when the voices are beside the page
+  if (here) return here;
   if (!(PREVIEWINFO.voice && PREVIEWINFO.voice[lang])) return null;
   return {src: `/phone/say?lang=${lang}&book=${encodeURIComponent(r.book)}&ch=${r.ch}&v=${r.v}`, s: 0, e: 1e9};
 }
@@ -2974,7 +3043,8 @@ let recAudio = null;
 const recUrls = new Map();
 function recUrl(src){
   if (recUrls.has(src)) return recUrls.get(src);
-  const p = !/^https?:$/.test(location.protocol) ? Promise.resolve(src)
+  const p = src.startsWith("gen:") ? genWav(src)
+    : !/^https?:$/.test(location.protocol) ? Promise.resolve(src)
     : fetch(src).then(r => { if (!r.ok) throw new Error("missing"); return r.blob(); }).then(b => URL.createObjectURL(b));
   recUrls.set(src, p);
   p.catch(() => recUrls.delete(src));
@@ -2989,9 +3059,10 @@ function playRecording(seg, id){
   const a = recAudio || (recAudio = new Audio());
   a.pause(); a.ontimeupdate = a.onended = a.onerror = null;
   const mine = () => hearing && hearing.seq === id;
-  const fail = () => {
+  const fail = e => {
     if (!mine()) return;
-    toast(`The ${langName(seg.lang)} recording of ${disp(seg.book)} ${seg.ch} could not be played.`);
+    toast(seg.gen ? `The ${langName(seg.lang)} voice could not read ${disp(seg.book)} ${seg.ch}:${seg.v}${e && e.message ? ": " + e.message : ""}.`
+                  : `The ${langName(seg.lang)} recording of ${disp(seg.book)} ${seg.ch} could not be played.`);
     speechDone(id, false);
   };
   recUrl(seg.src).then(url => {
@@ -3756,10 +3827,15 @@ function drawSettings(){
       ? esc(t("Tap a verse and choose Listen. The voices are the phone's own, so whichever languages it has installed are the ones it can read; Hebrew and Greek are read with modern voices."))
       : PREVIEW && previewVoice(tl, {book: "John", ch: 1, v: 1})
       ? esc(`Phone preview: ${langName(tl)} is read by the phone's own voice, taught from the recordings and run here as a phone runs it (exported ${new Date(PREVIEWINFO.voice[tl].made * 1000).toLocaleString([], {month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}). Tap a verse and choose Listen.`)
+      : !PREVIEW && !recCount(tl) && GENOK && PHONEVOICE[tl]
+      ? esc(`${langName(tl)} is read by a voice made for this Bible, as no phone or computer has one: taught from the recordings `
+            + `made for it, small enough for a phone, and run here in the browser. Tap a verse and choose Listen; the first takes `
+            + `a few seconds while the voice loads. ${PHONEVOICE[tl].credit}.`)
       : !PREVIEW && recCount(tl) && speechFor(tl) === "no"
       ? esc(`${langName(tl)} is heard from recordings made for this Bible, as no phone or computer has a voice for it: `
             + `${recCount(tl)} of ${Object.keys(DATA).reduce((n, b) => n + Object.values(DATA[b]).filter(d => d.tr && d.tr[tl]).length, 0)} chapters so far. `
-            + `Tap a verse and choose Listen; a recording plays at the pace it was read.`)
+            + `Tap a verse and choose Listen; a recording plays at the pace it was read.`
+            + (GENOK && PHONEVOICE[tl] ? ` The chapters not recorded yet are read by a smaller voice taught from those recordings, run here in the browser. ${PHONEVOICE[tl].credit}.` : ""))
       : ("speechSynthesis" in window)
       ? (speechFor(tl) === "no" ? esc(noVoiceHelp(tl)) + " " + esc(t('Until then the page can be read here but not heard in it.'))
          : esc(t('Tap a verse and choose Listen, or press and hold it (right-click) for the same in its own language.')))
@@ -4253,11 +4329,17 @@ def main():
             # opens, and picks up what the voice has recorded since.
             recorded[code] = {k: v for k, v in got.items()
                               if (audio / code / f"{k.split('|')[0]}_{int(k.split('|')[1]):02d}.ogg").exists()}
+    # The phone voices are counted the same way, where the page is served from:
+    # the APK's staging folder has none, and the APK reads aloud with its own.
+    voices = audio.parent / "voice" / "voices.json"
+    phonevoice = {c: v for c, v in json.loads(voices.read_text(encoding="utf-8")).items() if c in targets} \
+        if voices.exists() else {}
     page = (PAGE
             .replace("__DATA__", json.dumps(data, ensure_ascii=False))
             .replace("__ORDER__", json.dumps(ORDER))
             .replace("__LANGS__", json.dumps({**LANGS, "mixed": MIXED}))
             .replace("__RECORDED__", json.dumps(recorded, separators=(",", ":")))
+            .replace("__PHONEVOICE__", json.dumps(phonevoice, ensure_ascii=False, separators=(",", ":")))
             .replace("__TARGETS__", json.dumps({c: {"name": t["name"], "native": t["native"], "dir": t.get("dir", "ltr"),
                                                      "engine": main_engine(made.get(c)),
                                                      # a second-hand, machine-only translation says so above its text

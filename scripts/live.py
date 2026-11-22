@@ -1423,6 +1423,20 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header("Cache-Control", "no-cache")      # a sample made twice in a minute keeps its name
             self.end_headers()
             self.wfile.write(body[lo:hi + 1])
+        elif re.fullmatch(r"/voice/(ort|[a-z]{2,3})/[A-Za-z0-9_.-]+\.(js|mjs|wasm|onnx)|/voice/voices\.json", path):
+            # the phone voices the reader runs in the browser where a chapter is not recorded (build_voices.py)
+            f = ROOT / "site" / path.lstrip("/")
+            if not f.exists():
+                self._json({"error": "not built - run scripts/build_voices.py"}, 404)
+                return
+            body = f.read_bytes()
+            self.send_response(200)
+            self.send_header("Content-Type", {".js": "text/javascript", ".mjs": "text/javascript", ".wasm": "application/wasm",
+                                              ".json": "application/json"}.get(f.suffix, "application/octet-stream"))
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-cache")
+            self.end_headers()
+            self.wfile.write(body)
         elif path == "/phone":                      # what the mobile preview can do as the APK does (scripts/phone.py)
             try:
                 import phone

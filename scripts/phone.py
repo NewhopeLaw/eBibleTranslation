@@ -87,7 +87,8 @@ def say(book, ch, v, lang="nan"):
     which, script = ("Taiwanese", "taiwanese") if lang == "nan" else ("Hakka", "hakka")
     if lang not in voice_state():
         raise LookupError(f"the phone's {which} voice has not been exported yet ({script}_student.py export)")
-    name = f"{BOOKS[book]['name'].replace(' ', '_')}_{int(ch):02d}"
+    # the reader names a book as the files do (Genesis, 1_Samuel); a short key (Gen) is taken too
+    name = f"{BOOKS[book]['name'].replace(' ', '_') if book in BOOKS else book}_{int(ch):02d}"
     phon = home / "phonemes" / f"{name}.json"
     if not phon.exists():
         raise LookupError(f"{name} has no spoken form worked out ({script}_phonemes.py)")
