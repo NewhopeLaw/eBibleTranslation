@@ -523,6 +523,9 @@ def worker_running(job):
     return bool(foreign_jobs().get(job))
 
 
+RUN_MARK = "--- started by the dashboard"   # a job's log, where each run begins (job_log_tail)
+
+
 def work_start(job, table=None):
     """Run one job in its own process, so it can be stopped on its own, and keep
     it running (supervise) until it is done or stopped here."""
@@ -547,6 +550,7 @@ def work_start(job, table=None):
     log = ROOT / "logs" / f"job_{job}.log"
     log.parent.mkdir(exist_ok=True)
     fh = open(log, "a", encoding="utf-8", buffering=1)
+    fh.write(f"{RUN_MARK} {time.strftime('%Y-%m-%d %H:%M')}\n")
     flags = getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0) | NO_WINDOW
     WORKERS[job] = subprocess.Popen(cmd, cwd=str(ROOT), stdout=fh, stderr=fh, stdin=subprocess.DEVNULL,
                                     creationflags=flags)
@@ -680,7 +684,14 @@ def job_log_tail(job):
         fh.seek(max(0, f.stat().st_size - 6000))
         lines = [x.strip() for x in fh.read().decode("utf-8", "replace").splitlines() if x.strip()]
     lines = [x for x in lines if "Warning" not in x and not x.startswith(("from ", "warnings.warn"))] or lines
-    why = next((x for x in reversed(lines) if re.search(r"Error|Exception|Traceback|Killed", x)), lines[-1] if lines else "")
+    # Only this run's lines can say why it stopped: the Taiwanese voice was shown
+    # stopping for a cuDNN error that an earlier run had hit and been mended of.
+    # work_start marks where each run begins.
+    mark = max((i for i, x in enumerate(lines) if x.startswith(RUN_MARK)), default=-1)
+    run = lines[mark + 1:] or lines
+    why = next((x for x in reversed(run) if re.search(r"Error|Exception|Traceback|Killed|forrtl: error", x)), run[-1] if run else "")
+    if "window-CLOSE event" in why:      # the Fortran runtime under numpy, when the console the job ran in went away
+        why = "ended when the console it ran in was closed (the dashboard closed, or Windows logged off): " + why
     return (lines[-1] if lines else ""), f.stat().st_mtime, why
 
 
@@ -759,14 +770,35 @@ def rate_of(job, done, total):
     return rate, max(0, total - done) / rate
 
 
+AWAKE = {"on": False}
+
+
+def keep_awake(on):
+    """Keep Windows from sleeping while wanted jobs run, and let it sleep again
+    when none do. Between 6 and 21 November the PC slept for fifteen days with
+    the Taiwanese voice wanted and running, and recorded nothing. The screen may
+    still go dark; only sleep is held off. The request belongs to the thread that
+    makes it, so it is made from the supervisor's, which lives as long as the
+    dashboard does."""
+    if on == AWAKE["on"] or os.name != "nt":
+        return
+    import ctypes
+    ES_CONTINUOUS, ES_SYSTEM_REQUIRED = 0x80000000, 0x00000001
+    ctypes.windll.kernel32.SetThreadExecutionState(ES_CONTINUOUS | (ES_SYSTEM_REQUIRED if on else 0))
+    AWAKE["on"] = on
+    print("keeping the PC awake while jobs run" if on else "nothing wanted is running: the PC may sleep again")
+
+
 def supervise():
     """Every 15 s: start again any wanted job whose process has ended, after a
     pause that grows with each restart (30 s, 1, 2, 4, 8 min); every minute,
-    a point on each running job's chart."""
+    a point on each running job's chart. While any wanted job runs or is about
+    to be started again, the PC is kept awake."""
     last_point = last_save = 0.0
     while not STOP.is_set():
         try:
             table = None
+            keep_awake(bool(WANTED))
             for job in sorted(WANTED):
                 m = MON.setdefault(job, {"restarts": [], "next": None})
                 if worker_running(job):
@@ -1072,7 +1104,7 @@ def work_progress():
         out.append({"group": gkey, "label": glabel, "items": entries})
     running = [i["key"] for g in out for i in g["items"] if i["running"]]
     return {"groups": out, "now": time.time(), "anyrunning": bool(running), "running": running,
-            "tokens": work_tokens(), "gpu": gpu_state(), "wanted": sorted(WANTED)}
+            "tokens": work_tokens(), "gpu": gpu_state(), "wanted": sorted(WANTED), "awake": AWAKE["on"]}
 
 
 def watch(job, done, total, w_mod):
@@ -2393,7 +2425,8 @@ async function workBar(){
   players.forEach(a => { if (a.currentTime && !a.ended) at[a.getAttribute('src')] = a.currentTime; });
   el.querySelectorAll('[data-s]').forEach(l => { if (l.scrollTop) scrolled[l.dataset.s] = l.scrollTop; });
   el.innerHTML = `<div class="hd"><b>Model work</b>${gpu}<span class="sp"></span>`
-      + `<span class="nrun">${nrun ? nrun + (nrun > 1 ? ' jobs' : ' job') + ' running' : 'nothing running'}</span>`
+      + `<span class="nrun">${nrun ? nrun + (nrun > 1 ? ' jobs' : ' job') + ' running' : 'nothing running'}`
+      + (w.awake ? ` · <span title="Windows is kept from sleeping while the jobs you started run; the screen may still turn off. Stop all to let it sleep.">keeping the PC awake</span>` : '') + `</span>`
       + `<button class="go" data-f="tonight" ${ready.length ? '' : 'disabled'} onclick="startTonight()" title="start every job ticked tonight that is not running">Start tonight's jobs${ready.length ? ' (' + ready.length + ')' : ''}</button>`
       + (w.anyrunning ? `<button class="stopall" data-f="stopall" onclick="workStop()">Stop all — free the GPU</button>`
           : `<button data-f="queue" onclick="workStart('queue')" title="run every unfinished study job, one after another">Run the queue</button>`)
