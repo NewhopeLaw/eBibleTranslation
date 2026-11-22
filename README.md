@@ -421,7 +421,8 @@ described once in `TARGETS` in `scripts/books.py`:
 | `id` | Indonesian | `prompts/targets/id.txt` | `targets/id/` | `output/id/` |
 | `ms` | Malay | `prompts/targets/ms.txt` | `targets/ms/` | `output/ms/` |
 | `ja-easy` | やさしい日本語 (Easy Japanese: short sentences, furigana on all but the most basic kanji) | `prompts/targets/ja-easy.txt` | `targets/ja-easy/` | `output/ja-easy/` |
-| `ksw` | Sgaw Karen — machine-translated from our English by MADLAD-400, see below | — | — | `output/ksw/` |
+| `ksw` | Sgaw Karen — machine-translated from our English by MADLAD-400, see below | — | `targets/ksw/` (names only) | `output/ksw/` |
+| `my` | Burmese — machine-translated from our English by NLLB-200, see below | — | `targets/my/` | `output/my/` |
 
 Easy Japanese writes furigana as `{漢字|かんじ}`; the reader and dashboard
 render it as ruby text, the markdown output as 漢字（かんじ）. Persian is
@@ -458,6 +459,15 @@ Karen reader to correct, and every chapter and the reader's footer say so.
 No phone or computer ships a Sgaw Karen voice, so the reader's Listen is not
 offered for it; the voice work is in `NGAW KAREN TTS/`.
 
+Burmese goes the same way for a different reason. The chat models write it
+fluently, which is the danger: on four trial chapters (`scripts/trial_lang.py`,
+report in `trials/my/report.md`) they now and then said the opposite of the
+text, and the verifier cannot tell. NLLB-200 scored well ahead of both against
+two published Burmese Bibles, so `my` is an `mt` target too, written from our
+English by `mt_translate.py`, which keeps it out of Zawgyi and closes up
+syllable spacing. It is part-way through (see Status) and, like the Karen, has
+not been read by a speaker.
+
 Teaching a model Karen: `scripts/karen_corpus.py` reads Mason's 1853 Karen
 Bible (public domain, the SWORD module in `sources/ksw-mason/`) and pairs its
 verses with ours where the numbering agrees, 27,500 pairs; `scripts/train_karen.py`
@@ -467,7 +477,7 @@ then uses by default.
 
 ### Voice
 
-No phone or computer ships a Sgaw Karen voice. `scripts/karen_speech.py`
+No phone or computer ships a Sgaw Karen voice. `NGAW KAREN TTS/karen_speech.py`
 reads Karen with Meta's offline Burmese voice by respelling each syllable
 into the Burmese spelling with the nearest sounds, then, through the WORLD
 vocoder, giving each syllable the pitch curve and length of its Karen tone -
@@ -615,8 +625,23 @@ model, reading and building APKs do not.
 
 - [x] Sources fetched and normalized (66 books, 31,102 verses)
 - [x] Prompt, glossary, name table, driver, verifier, site builder
-- [x] Genesis 1–3 translated with llama3.3:70b and verified (0 flags)
+- [x] The whole Bible, 1,189 chapters with every verse present, in seven
+  languages (counted against the source on 22 November 2026, the way
+  `build_site.py --complete-only` counts):
+  - English, Chinese, Spanish, Thai — `qwen3:32b`, from the Hebrew and Greek
+  - Taiwanese, Hakka — from our Mandarin: word table, then `qwen3.5:35b-a3b`
+  - Sgaw Karen — the MADLAD model taught on Mason's Karen Bible, from our English
+- [ ] Burmese — 630 of 1,189 chapters (NLLB-200, from our English)
+- [ ] Japanese — 208 of 1,189 chapters
+- [ ] Cantonese, Easy Japanese — one chapter each, as a test of the rules
+- [ ] Vietnamese, Korean, Persian, Turkish, Indonesian, Malay — declared in
+  `TARGETS`, nothing translated
+- [ ] A verifier report over every chapter of every finished language.
+  `logs/verify_<lang>.md` covers all 1,189 chapters for English, Spanish, Thai
+  and Karen, and those reports still carry flags to be read (mostly SHORT, a
+  verse brief against its source). The Chinese and Hakka reports are from a
+  21-chapter run; Taiwanese and Burmese have none.
+- [ ] Any of the machine-translated languages read by a speaker
 - [ ] Side-by-side comparison with the claude.ai "Claude Fable" rendering
-- [ ] Narrative books
-- [ ] Poetry and prophets (heavier review budget)
+- [ ] Poetry and prophets given their heavier review
 - [ ] Aramaic sections of Daniel/Ezra in their own run

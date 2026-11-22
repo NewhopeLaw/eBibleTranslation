@@ -169,11 +169,12 @@ TARGETS = {
     # lexicon jobs off a language not yet decided on.
     "my": {"name": "Burmese", "native": "မြန်မာ", "latin": False, "ratio": 0.6, "mt": "mya_Mymr",
            "note": "machine translation from the English (NLLB-200), not yet read by a Burmese speaker"},
-    # To be written by a translation model from our English (scripts/
+    # Written by a translation model from our English (scripts/
     # mt_translate.py), not by the chat model from the originals: Qwen answers
     # in Burmese, NLLB-200 has no Karen, and MADLAD-400's "ksw" is Shan (see
-    # README). "mt" marks it as that kind of target; translate.py leaves it
-    # alone. Nothing has been written into output/ksw yet.
+    # README), so MADLAD was taught Karen from Mason's Karen Bible
+    # (scripts/train_karen.py) and that model wrote output/ksw. "mt" marks it
+    # as that kind of target; translate.py leaves it alone.
     "ksw": {"name": "Sgaw Karen", "native": "ကညီကျိာ်", "latin": False, "ratio": 0.6, "mt": "ksw",
             "note": "machine translation from the English, not yet read by a Karen speaker"},
 }
