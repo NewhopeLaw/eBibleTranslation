@@ -96,6 +96,10 @@ browser, console, Claude Code or IDE needed. It serves `live.py` in-process
 uses the system WebView2; without it Edge's app mode is used). Closing the
 window stops the server it started — it asks first if a translation is
 running. Output from a windowless start goes to `logs/app.log`.
+**Desktop icons** in the header makes those shortcuts: the dashboard and the
+reader, each on the Desktop, in the Start menu or both, ticked on and off in a
+small grid (`scripts/shortcuts.py`, which also runs from the command line).
+Each has its own icon, the app's open book, drawn into `tools/icons/`.
 The **read / translate** toggle in the header turns the window into the
 reader, rebuilding `site/index.html` first whenever translations are newer
 than it, and back. In translate mode the side panel (translations, session,

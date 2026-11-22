@@ -1437,6 +1437,12 @@ class Handler(BaseHTTPRequestHandler):
             self._json(work_progress())
         elif path == "/apk":
             self._json(apk_status())
+        elif path == "/shortcuts":                   # the Desktop and Start menu icons (scripts/shortcuts.py)
+            try:
+                import shortcuts
+                self._json(shortcuts.status())
+            except Exception as e:                    # noqa: BLE001 - the header says so rather than going blank
+                self._json({"supported": False, "error": f"{type(e).__name__}: {e}", "shortcuts": []})
         elif path == "/reader-stale":
             self._json(reader_state())
         elif path == "/ask":
@@ -1507,6 +1513,14 @@ class Handler(BaseHTTPRequestHandler):
             self._json({"ok": err is None, "error": err}, 409 if err else 200)
         elif self.path == "/apk/open":
             self._json({"ok": True, "apk": apk_open()})
+        elif self.path == "/shortcuts":
+            body = self._body()
+            try:
+                import shortcuts
+                act = shortcuts.make if body.get("make") else shortcuts.remove
+                self._json({"ok": True, **act(str(body.get("kind")), str(body.get("place")))})
+            except Exception as e:                    # noqa: BLE001
+                self._json({"ok": False, "error": str(e)}, 409)
         elif self.path == "/rebuild":
             self._json({"ok": True, "output": rebuild_site()})
         elif self.path == "/align":
@@ -1826,6 +1840,31 @@ body.mobile #text.plain { max-width:none; } body.mobile #text { padding:.9rem 1r
 #apkLangs label:hover { background:var(--soft); }
 #apkLangs label input { padding:0; margin:0; width:1rem; height:1rem; }
 #apkLangs .hint { font-size:11px; color:var(--muted); margin:.35rem .35rem 0; max-width:15rem; }
+/* eBible on this PC: the Desktop and Start menu icons, as a small menu beside
+   the APK, since both are ways of taking the project out of this window. A
+   grid of ticks, one per icon: ticked is there, unticked is not, and a tick
+   makes or removes it at once, so the state on screen is the state on disk. */
+#lnk[hidden] { display:none; }
+#lnkMenu { position:relative; }
+#lnkMenu summary { list-style:none; display:flex; align-items:center; gap:.4rem; cursor:pointer; font-size:12px;
+  min-height:28px; padding:.2rem .6rem; border-radius:999px; white-space:nowrap; }
+#lnkMenu summary::-webkit-details-marker { display:none; }
+#lnkMenu summary::after { content:" \25BE"; color:var(--muted); }
+#lnkMenu summary svg { width:16px; height:16px; flex:none; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+#lnkMenu summary .n { color:var(--muted); }
+#lnkMenu .menu { position:absolute; right:0; top:calc(100% + .45rem); z-index:20; width:19rem; padding:.6rem;
+  background:var(--card); border:1px solid var(--border); border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,.18); }
+#lnkMenu table { width:100%; border-collapse:collapse; font-size:13px; }
+#lnkMenu th { font-weight:600; text-align:left; padding:.2rem .3rem; }
+#lnkMenu thead th { font-size:11px; font-weight:500; color:var(--muted); text-align:center; }
+#lnkMenu td { text-align:center; padding:0; }
+#lnkMenu td label { display:flex; align-items:center; justify-content:center; min-width:44px; min-height:40px; border-radius:6px; cursor:pointer; }
+#lnkMenu td label:hover { background:var(--soft); }
+#lnkMenu td input { width:1.05rem; height:1.05rem; margin:0; accent-color:var(--accent); cursor:pointer; }
+#lnkMenu .busy { opacity:.5; pointer-events:none; }
+#lnkMenu .hint { font-size:11px; line-height:1.45; color:var(--muted); margin:.45rem .3rem 0; }
+#lnkMenu .hint.err { color:var(--err); }
+#lnkMenu .hint.ok { color:var(--fg); }
 __READALOUD_CSS__
 </style></head><body>
 <div id="app">
@@ -1864,6 +1903,17 @@ __READALOUD_CSS__
     <span id="apkMsg" role="status"></span>
     <button id="apkStop" hidden title="Stop this build and free the machine">stop</button>
     <button id="apkOpen" hidden title="Show the APK in its folder">open folder</button>
+  </div>
+  <div class="group" id="lnk" hidden>
+    <details id="lnkMenu">
+      <summary id="lnkSum" title="Put the dashboard and the reader on this PC's Desktop or Start menu, with their own icons"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span>Desktop icons</span><span class="n" id="lnkCount"></span></summary>
+      <div class="menu" role="group" aria-label="eBible on this PC">
+        <div id="lnkList"></div>
+        <p class="hint" id="lnkNote"></p>
+        <p class="hint" id="lnkMsg" role="status" aria-live="polite"></p>
+        <p class="hint">A double-click opens it in its own window, as start_dashboard.cmd and start_reader.cmd do. Untick to take the icon away again.</p>
+      </div>
+    </details>
   </div>
 </header>
 <div class="pane" id="tpane">
@@ -2702,6 +2752,63 @@ async function apkBar(){
   clearTimeout(apkT);
   apkT = setTimeout(apkBar, s.running ? 2500 : 30000);
 }
+/* ---------- eBible on this PC: the Desktop and Start menu icons ----------
+   scripts/shortcuts.py does the work; this is a grid of ticks over it. Asked
+   for again each time the menu opens, because a shortcut can be deleted from
+   the Desktop by hand at any moment, and the tick must say what is there. */
+const LNK_KINDS = [['dashboard', 'eBible dashboard'], ['reader', 'eBible reader']], LNK_PLACES = [['desktop', 'Desktop'], ['start', 'Start menu']];
+function lnkDraw(s, msg, bad){
+  const rows = s.shortcuts || [];
+  // Off Windows there is nothing to make, so the control is not shown at all;
+  // on Windows with PowerShell failing it is, with the reason.
+  $('lnk').hidden = !s.supported && !s.error;
+  const made = rows.filter(r => r.state === 'here').length;
+  $('lnkCount').textContent = made ? `· ${made}` : '';
+  $('lnkSum').setAttribute('aria-label', `Desktop icons, ${made} of ${rows.length || 4} made`);
+  const cell = (k, p) => {
+    const r = rows.find(x => x.kind === k && x.place === p);
+    if (!r) return '<td></td>';
+    const what = r.state === 'here' ? 'there - untick to remove it' : r.state === 'elsewhere' ? 'there, but it opens another copy - tick to make it open this one' : 'not there - tick to make it';
+    return `<td><label title="${apkEsc(r.path)}"><input type="checkbox" data-kind="${k}" data-place="${p}"${r.state === 'here' ? ' checked' : ''}`
+      + ` aria-label="${apkEsc(r.label)}: ${what}"></label></td>`;
+  };
+  const list = $('lnkList'), had = document.activeElement && list.contains(document.activeElement)
+    ? [document.activeElement.dataset.kind, document.activeElement.dataset.place] : null;
+  list.innerHTML = !s.supported ? '' : '<table><thead><tr><th></th>' + LNK_PLACES.map(([, n]) => `<th scope="col">${n}</th>`).join('') + '</tr></thead><tbody>'
+    + LNK_KINDS.map(([k, n]) => `<tr><th scope="row">${n}</th>` + LNK_PLACES.map(([p]) => cell(k, p)).join('') + '</tr>').join('') + '</tbody></table>';
+  if (had) { const el = list.querySelector(`input[data-kind="${had[0]}"][data-place="${had[1]}"]`); if (el) el.focus(); }
+  const other = rows.filter(r => r.state === 'elsewhere');
+  $('lnkNote').textContent = other.length
+    ? `${other.map(r => r.label).join(', ')} ${other.length === 1 ? 'is' : 'are'} there already but ${other.length === 1 ? 'opens' : 'open'} another copy of eBible (${other[0].dir || other[0].target}). Tick to make ${other.length === 1 ? 'it' : 'them'} open this one.` : '';
+  $('lnkMsg').textContent = msg || s.error || '';
+  $('lnkMsg').className = 'hint' + (bad || s.error ? ' err' : msg ? ' ok' : '');
+}
+async function lnkLoad(msg, bad){
+  try { lnkDraw(await (await fetch('/shortcuts')).json(), msg, bad); }
+  catch (e) { lnkDraw({supported: true, error: 'The dashboard did not answer: ' + e.message, shortcuts: []}); }
+}
+$('lnkMenu').addEventListener('toggle', () => { if ($('lnkMenu').open) lnkLoad(); });
+$('lnkList').onchange = async e => {
+  const el = e.target; if (!el.dataset.kind) return;
+  const make = el.checked, name = LNK_KINDS.find(k => k[0] === el.dataset.kind)[1], where = LNK_PLACES.find(p => p[0] === el.dataset.place)[1];
+  // One at a time: the boxes are disabled, not only dimmed, so a key press
+  // cannot start a second change while the first is being written.
+  const key = `input[data-kind="${el.dataset.kind}"][data-place="${el.dataset.place}"]`;
+  $('lnkList').classList.add('busy');
+  for (const i of $('lnkList').querySelectorAll('input')) i.disabled = true;
+  $('lnkMsg').className = 'hint'; $('lnkMsg').textContent = (make ? 'Making ' : 'Removing ') + `${name} · ${where}…`;
+  let r;
+  try { r = await (await fetch('/shortcuts', {method: 'POST', headers: {'Content-Type': 'application/json'},
+                                             body: JSON.stringify({kind: el.dataset.kind, place: el.dataset.place, make})})).json(); }
+  catch (err) { r = {ok: false, error: err.message}; }
+  $('lnkList').classList.remove('busy');
+  if (r.ok) lnkDraw(r, make ? `${name} is on the ${where}.` : `${name} is gone from the ${where}.`);
+  else await lnkLoad((make ? 'Could not make it: ' : 'Could not remove it: ') + (r.error || 'no reason given'), true);
+  const back = $('lnkList').querySelector(key); if (back) back.focus();      // the redraw would otherwise drop the keyboard
+};
+document.addEventListener('click', e => { if ($('lnkMenu').open && !$('lnkMenu').contains(e.target)) $('lnkMenu').open = false; });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('lnkMenu').open) { $('lnkMenu').open = false; $('lnkSum').focus(); } });
+lnkLoad();
 $('apkBtn').onclick = async () => {
   let s = {};
   try { s = await (await fetch('/apk')).json(); } catch (e) {}
