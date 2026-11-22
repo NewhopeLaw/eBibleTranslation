@@ -177,6 +177,12 @@ TARGETS = {
     # as that kind of target; translate.py leaves it alone.
     "ksw": {"name": "Sgaw Karen", "native": "ကညီကျိာ်", "latin": False, "ratio": 0.6, "mt": "ksw",
             "note": "machine translation from the English, not yet read by a Karen speaker"},
+    # Shan (Tai Yai), on trial: scripts/trial_lang.py has each candidate write
+    # four chapters before any of them is given the Bible. No "mt" code yet,
+    # because which model writes it is what the trial is for; once one is
+    # chosen, "trial" gives way to "mt" as it did for Burmese.
+    "shn": {"name": "Shan", "native": "တႆး", "latin": False, "ratio": 0.6, "trial": True,
+            "note": "Tai Yai, in Shan script; on trial, not yet read by a Shan speaker"},
 }
 DEFAULT_TARGET = "en"
 

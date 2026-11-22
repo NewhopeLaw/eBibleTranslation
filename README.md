@@ -468,6 +468,16 @@ English by `mt_translate.py`, which keeps it out of Zawgyi and closes up
 syllable spacing. It is part-way through (see Status) and, like the Karen, has
 not been read by a speaker.
 
+Shan (Tai Yai, `shn`) is on trial and has no output yet. NLLB-200 and
+MADLAD-400 both list it, and no Shan Bible could be had as text to score them
+against, so `trial_lang.py` measures two other things on the same four
+chapters: whether each verse is in Shan's own letters or in Burmese's, which
+share a Unicode block, and how much of our English is left when the chapter
+is put back into English by NLLB-200. That ranks the candidates (the two
+translation models and the two chat models) and no more; the report is
+`trials/shn/report.md`, and a Shan reader decides. `targets/shn/` is empty on
+purpose until there is a Shan source for the divine names and name spellings.
+
 Teaching a model Karen: `scripts/karen_corpus.py` reads Mason's 1853 Karen
 Bible (public domain, the SWORD module in `sources/ksw-mason/`) and pairs its
 verses with ours where the numbering agrees, 27,500 pairs; `scripts/train_karen.py`
@@ -634,6 +644,7 @@ model, reading and building APKs do not.
 - [ ] Burmese — 630 of 1,189 chapters (NLLB-200, from our English)
 - [ ] Japanese — 208 of 1,189 chapters
 - [ ] Cantonese, Easy Japanese — one chapter each, as a test of the rules
+- [ ] Shan — on trial (`work.py` job `trial-shn`), not yet run
 - [ ] Vietnamese, Korean, Persian, Turkish, Indonesian, Malay — declared in
   `TARGETS`, nothing translated
 - [ ] A verifier report over every chapter of every finished language.
