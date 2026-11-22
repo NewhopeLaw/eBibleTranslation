@@ -80,6 +80,9 @@ scripts/taiwanese_speech.py  John 1     read a Taiwanese chapter aloud (ga642381
 scripts/taiwanese_phonemes.py           what the Taiwanese voice is given to read, every chapter, ahead of time
 scripts/taiwanese_student.py  cut|train|say|check|export   a phone-sized Taiwanese voice taught by the
                                         recordings (a trial; see docs/taiwanese-student.md)
+scripts/hakka_phonemes.py               what the Hakka voice is given to read (formog2p's Sixian), ahead of time
+scripts/hakka_student.py  cut|train|say|check|export   the same for Hakka, taught by audio/hak/
+                                        (docs/hakka-student.md); both students are dashboard jobs
 scripts/add_lxx.py    [--fetch]         attach the Septuagint to the normalized OT
 scripts/verify.py     [--lang zh] [Gen [1-3]]  flag missing/dup verses, untranslated
                                         text, truncation, name inconsistencies

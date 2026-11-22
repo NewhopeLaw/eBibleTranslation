@@ -390,6 +390,9 @@ LAYERS = [
         ("taiwanese-student", "the phone-sized Taiwanese voice, taught by the recordings (scripts/taiwanese_student.py): "
                               "carries the newest run on, at full speed, to the minutes it was set for",
          "job:taiwanese-student"),
+        ("hakka-student", "the phone-sized Hakka voice, taught by the Sixian recordings (scripts/hakka_student.py): "
+                          "carries the newest run on, at full speed, to the minutes it was set for",
+         "job:hakka-student"),
     ]),
     ("forms", "letters and forms", [
         ("lexeme-inventory", "word forms analysed", "job:lexemes"),
@@ -510,6 +513,8 @@ def foreign_jobs():
             job = "karen-voice"
         elif "taiwanese_student.py" in cmd and " train" in cmd:   # say, check and export are not the job
             job = "taiwanese-student"
+        elif "hakka_student.py" in cmd and " train" in cmd:
+            job = "hakka-student"
         if job:
             found.setdefault(job, []).append(info["pid"])
     _scan.update(at=time.time(), found=found)
@@ -1388,10 +1393,12 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header("Cache-Control", "no-cache" if f.suffix == ".json" else "max-age=3600")
             self.end_headers()
             self.wfile.write(body)
-        elif re.fullmatch(r"/student/run-[A-Za-z0-9_+-]+/(teacher|\d{4}min)\.wav", path):
-            # the Taiwanese student's samples and the teacher's reading beside them
-            # (taiwanese_student.progress_sample), for the job card's players
-            f = ROOT / "models" / "taiwanese-student" / Path(path).parent.name / "samples" / Path(path).name
+        elif re.fullmatch(r"/student/(hakka-student/)?run-[A-Za-z0-9_+-]+/(teacher|\d{4}min)\.wav", path):
+            # a student's samples and the teacher's reading beside them (taiwanese_student.progress_sample),
+            # for the job card's players: /student/<run>/ is the Taiwanese one's, as it was before the Hakka
+            # one, whose are /student/hakka-student/<run>/ (work.student_samples)
+            who = "hakka-student" if path.startswith("/student/hakka-student/") else "taiwanese-student"
+            f = ROOT / "models" / who / Path(path).parent.name / "samples" / Path(path).name
             if not f.exists():
                 self._json({"error": "no such sample"}, 404)
                 return
@@ -1422,10 +1429,10 @@ class Handler(BaseHTTPRequestHandler):
                 self._json({"ok": True, **phone.state()})
             except Exception as e:                  # noqa: BLE001
                 self._json({"ok": False, "error": f"{type(e).__name__}: {e}"})
-        elif path == "/phone/say":                  # a verse in the phone's Taiwanese voice, made as the phone makes it
+        elif path == "/phone/say":                  # a verse in the phone's Taiwanese or Hakka voice, made as the phone makes it
             try:
                 import phone
-                body = phone.say(q.get("book", ""), q.get("ch", "0"), q.get("v", "0"))
+                body = phone.say(q.get("book", ""), q.get("ch", "0"), q.get("v", "0"), q.get("lang", "nan"))
             except (LookupError, KeyError, ValueError) as e:
                 self._json({"error": str(e)}, 404)
                 return
@@ -1888,7 +1895,7 @@ __READALOUD_CSS__
   <div class="group" id="mode" title="read: the window becomes the reader (rebuilt when translations are newer) · translate: the live dashboard, with the side panel">
     <span data-m="read">read</span><span data-m="translate" class="on">translate</span>
   </div>
-  <div class="group" id="device" title="mobile: preview the reader as the phone has it - its screen size (390 x 844), its own Taiwanese voice in place of the recordings, and its search model in place of the PC's">
+  <div class="group" id="device" title="mobile: preview the reader as the phone has it - its screen size (390 x 844), its own Taiwanese and Hakka voices in place of the recordings, and its search model in place of the PC's">
     <span data-d="pc" class="on">PC</span><span data-d="mobile">mobile</span>
   </div>
   <div class="group" id="apk" title="Build an Android app holding the reader alone - larger type, no study tools. It carries only the languages the whole Bible has been translated into; one still in progress is left out until it is finished">
@@ -1997,7 +2004,7 @@ function applyDevice(){
   tellReader();
 }
 /* At phone size the reader also works as the APK does underneath: the phone's
-   own Taiwanese voice and its search model, run here by scripts/phone.py, in
+   own Taiwanese and Hakka voices and its search model, run here by scripts/phone.py, in
    place of the PC's recordings and the PC's model (the reader's phonePreview). */
 function tellReader(){
   try { const w = $('reader').contentWindow; if (w && w.phonePreview) w.phonePreview(device === 'mobile'); } catch (e) {}

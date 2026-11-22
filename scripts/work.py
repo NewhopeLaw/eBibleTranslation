@@ -52,7 +52,8 @@ def lexeme_total(min_count=2):
 # overnight queue should not start a voice training someone is tuning by
 # hand, nor a thousand-chapter language nobody asked it for. `--only <name>`
 # runs one.
-TTS_JOBS = ("hakka-text", "hakka-voice", "taiwanese-text", "taiwanese-voice", "karen-voice", "taiwanese-student")
+TTS_JOBS = ("hakka-text", "hakka-voice", "taiwanese-text", "taiwanese-voice", "karen-voice", "taiwanese-student",
+            "hakka-student")
 
 
 def held(name):
@@ -142,8 +143,8 @@ def scores(name):
                 pass
         return {"x": "epochs", "label": "mel loss", "points": thin(pts), "scores": [],
                 "best": min((p[1] for p in pts), default=None)} if pts else None
-    if name == "taiwanese-student":
-        runs = sorted(STUDENT.glob("run-*/progress.json"), key=lambda p: p.stat().st_mtime)
+    if name in STUDENTS:
+        runs = sorted((MODELS / name).glob("run-*/progress.json"), key=lambda p: p.stat().st_mtime)
         if not runs:
             return None
         try:
@@ -154,61 +155,76 @@ def scores(name):
         if best is None:                                    # before its first steady score: the best reading so far
             best = min((q[1] for q in p.get("scores") or p.get("points") or []), default=None)
         return {"x": "minutes", "label": "mel loss", "points": thin(p.get("points") or []),
-                "scores": thin(p.get("scores") or []), "best": best, **student_samples(runs[-1].parent)}
+                "scores": thin(p.get("scores") or []), "best": best, **student_samples(name, runs[-1].parent)}
     return None
 
 
-def student_samples(run):
+def student_samples(name, run):
     """The run's samples to listen to, newest first, each {minutes, score, made, url}, and the
-    teacher's reading of the same verses ({"teacher": url}), as live.py serves them."""
+    teacher's reading of the same verses ({"teacher": url}), as live.py serves them. The
+    Taiwanese student's keep the address they had before there was a second student."""
     d, out = run / "samples", []
+    at = f"/student/{run.name}" if name == "taiwanese-student" else f"/student/{name}/{run.name}"
     for j in sorted(d.glob("*min.json"), reverse=True):
         try:
             meta = json.loads(j.read_text(encoding="utf-8"))
         except (json.JSONDecodeError, OSError):
             continue
         if j.with_suffix(".wav").exists():
-            out.append({**meta, "url": f"/student/{run.name}/{j.stem}.wav"})
+            out.append({**meta, "url": f"{at}/{j.stem}.wav"})
     teacher = d / "teacher.wav"
     return {"samples": out, "verses": out[0].get("verses") if out else None,
-            "teacher": f"/student/{run.name}/teacher.wav" if teacher.exists() else None,
-            "asked": STUDENT_SAMPLE.exists()}
+            "teacher": f"{at}/teacher.wav" if teacher.exists() else None,
+            "asked": (MODELS / name / "SAMPLE").exists()}
 
 
-STUDENT = ROOT / "models" / "taiwanese-student"
+# The phone-sized voices, each taught by a voice's recordings: job -> its script and the
+# language it teaches. Both are one trainer (taiwanese_student.py; hakka_student.py sets it
+# for Hakka), and each keeps its runs, samples and phone file under models/<job>/.
+MODELS = ROOT / "models"
+STUDENTS = {"taiwanese-student": ("taiwanese_student.py", "Taiwanese"), "hakka-student": ("hakka_student.py", "Hakka")}
+STUDENT = MODELS / "taiwanese-student"
 # Coqui TTS and its torch are in the system Python, not a venv of their own.
 STUDENT_PY = Path.home() / "AppData" / "Local" / "Programs" / "Python" / "Python312" / "python.exe"
 STUDENT_MINUTES = 360          # the trial: one night at full speed, then listened to beside the recordings
-STUDENT_STOP = STUDENT / "STOP"   # the trainer saves its place and leaves within a step when this appears
-# Jobs that can be asked to stop and save before they are made to: the dashboard's
-# Stop writes the file and waits for the job to go (live.work_stop).
-STOP_FILES = {"taiwanese-student": STUDENT_STOP}
+# Jobs that can be asked to stop and save before they are made to: the dashboard's Stop
+# writes the file and waits for the job to go (live.work_stop). The trainer saves its place
+# and leaves within a step when it appears.
+STOP_FILES = {name: MODELS / name / "STOP" for name in STUDENTS}
+STUDENT_STOP = STOP_FILES["taiwanese-student"]
+
+
+def student_py():
+    return str(STUDENT_PY if STUDENT_PY.exists() else sys.executable)
+
+
 # The dashboard's Make sample: while the trainer runs it is asked, by this file, to read the
 # sample verses at its next step (the voice as it is that minute, and no second model on the
 # GPU); when it is not running, the newest checkpoint is read by a process of its own.
-STUDENT_SAMPLE = STUDENT / "SAMPLE"
-SAMPLERS = {"taiwanese-student": (STUDENT_SAMPLE, lambda: [
-    str(STUDENT_PY if STUDENT_PY.exists() else sys.executable), str(S / "taiwanese_student.py"), "sample"])}
+SAMPLERS = {name: (MODELS / name / "SAMPLE", lambda script=script: [student_py(), str(S / script), "sample"])
+            for name, (script, _) in STUDENTS.items()}
+STUDENT_SAMPLE = SAMPLERS["taiwanese-student"][0]
 
 
-def student_job():
-    """The phone-sized Taiwanese voice taught by the recordings (scripts/taiwanese_student.py,
-    docs/taiwanese-student.md): carry the newest run on to the minutes it was set for.
-    (what, minutes done, minutes planned, command), or None before the script is here."""
-    script = S / "taiwanese_student.py"
-    if not script.exists():
+def student_job(name="taiwanese-student"):
+    """A phone-sized voice taught by the recordings (scripts/taiwanese_student.py and
+    docs/taiwanese-student.md; scripts/hakka_student.py and docs/hakka-student.md): carry the
+    newest run on to the minutes it was set for. (what, minutes done, minutes planned,
+    command), or None before the script is here or its lessons are cut."""
+    script, lang = STUDENTS[name]
+    if not (S / script).exists() or not (MODELS / name / "data" / "metadata.csv").exists():
         return None
+    script = S / script
     done, target = 0, STUDENT_MINUTES                   # the plan is ours: --minutes carries any run on to it
-    runs = sorted(STUDENT.glob("run-*/progress.json"), key=lambda p: p.stat().st_mtime)
+    runs = sorted((MODELS / name).glob("run-*/progress.json"), key=lambda p: p.stat().st_mtime)
     if runs:
         try:
             p = json.loads(runs[-1].read_text(encoding="utf-8"))
             done = int(p.get("minutes") or 0)
         except (json.JSONDecodeError, OSError, ValueError):
             pass
-    cmd = [str(STUDENT_PY if STUDENT_PY.exists() else sys.executable), str(script), "train", "--resume", "newest",
-           "--minutes", str(target)]
-    return ("teach the phone-sized Taiwanese voice from the recordings, at full speed", done, target, cmd)
+    cmd = [student_py(), str(script), "train", "--resume", "newest", "--minutes", str(target)]
+    return (f"teach the phone-sized {lang} voice from the recordings, at full speed", done, target, cmd)
 
 
 def jobs():
@@ -285,9 +301,10 @@ def jobs():
     karen = karen_voice_job()
     if karen:
         out.append(("karen-voice", *karen))
-    student = student_job()
-    if student:
-        out.append(("taiwanese-student", *student))
+    for name in STUDENTS:
+        student = student_job(name)
+        if student:
+            out.append((name, *student))
     out.append(("rebuild", "rebuild every layer and the reader page", 0, 1,
                 [sys.executable, str(S / "build_all.py")]))
     total_left = sum(max(0, t - d) for name, _, d, t, _ in out if t and name not in TTS_JOBS and not held(name))

@@ -32,6 +32,9 @@ Everything here lives under models/taiwanese-student/ (gitignored, like the
 other models): phonemes/ from taiwanese_phonemes.py, data/ from cut, run/
 from train, samples/ from say, onnx/ from export. --root points at the
 checkout whose recordings to learn from.
+
+Nothing past the tokens is Taiwanese: scripts/hakka_student.py teaches a Hakka
+voice with the same code, by setting LANG, NAME and the few things that differ.
 """
 import argparse
 import json
@@ -48,6 +51,10 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).parent))
 from books import BOOKS   # noqa: E402
 
+# The language being taught, and the folder under models/ its student lives in. scripts/hakka_student.py sets them
+# (and tokens, GAP, the pause lengths and RATE) for Hakka before it calls anything here.
+LANG = "nan"
+NAME = "taiwanese-student"
 SR = 22050
 GAP = {"clause": 0.25, "sentence": 0.45, "verse": 0.7}   # as the teacher leaves them (taiwanese_speech.GAP)
 QUIET = -60.0          # dB below the chapter's loudest 10 ms: the teacher's pauses, after cleaning, sit below this
@@ -68,7 +75,7 @@ MARKS = {",": ",", ".": ".", "?": "?", "-": "-", " ": " "}
 
 
 def home(root):
-    return Path(root) / "models" / "taiwanese-student"
+    return Path(root) / "models" / NAME
 
 
 # ------------------------------------------------------------------ tokens
@@ -172,7 +179,7 @@ def cut(root, hold_out=True):
     build_audio = importlib.import_module("build_audio")
     place = build_audio.place
     h = home(root)
-    audio_dir, text_dir, phon_dir = Path(root) / "audio" / "nan", Path(root) / "output" / "nan" / "json", h / "phonemes"
+    audio_dir, text_dir, phon_dir = Path(root) / "audio" / LANG, Path(root) / "output" / LANG / "json", h / "phonemes"
     data = h / "data"
     (data / "wavs").mkdir(parents=True, exist_ok=True)
     every = set()
@@ -608,7 +615,7 @@ def check(root, which, run=None):
     h = home(root)
     held = {chapter_name(b, c) for b, c in HELD_OUT}
     rows, t0 = [], time.time()
-    wavs = sorted((Path(root) / "audio" / "nan").glob("*.wav"))
+    wavs = sorted((Path(root) / "audio" / LANG).glob("*.wav"))
     for wav in wavs:
         if not re.fullmatch(r".+_\d{2,3}", wav.stem) or (which and not any(wav.stem.startswith(w) for w in which)):
             continue
@@ -659,7 +666,7 @@ def say(root, book, chapter, verses, run=None, out=None):
     out = Path(out) if out else h / "samples"
     stem = f"{name}_{verses}"
     write_wav(out / f"{stem}_student.wav", audio)
-    teacher = read_wav(Path(root) / "audio" / "nan" / f"{name}.wav")
+    teacher = read_wav(Path(root) / "audio" / LANG / f"{name}.wav")
     spans = sounds(teacher, 0, len(teacher), VERSE_GAP)
     first, last = wanted.start - 1, min(wanted.stop - 1, len(spans)) - 1
     write_wav(out / f"{stem}_teacher.wav", teacher[max(0, spans[first][0] - SR // 10):spans[last][1] + SR // 2])
@@ -675,7 +682,7 @@ def teacher_sample(root, wavdir):
         return
     parts = []
     for book, ch, v in SAMPLE_VERSES:
-        teacher = read_wav(Path(root) / "audio" / "nan" / f"{chapter_name(book, ch)}.wav")
+        teacher = read_wav(Path(root) / "audio" / LANG / f"{chapter_name(book, ch)}.wav")
         s, e = sounds(teacher, 0, len(teacher), VERSE_GAP)[v - 1]
         parts += [teacher[max(0, s - SR // 10):e + SR // 10], np.zeros(int(SR * GAP["verse"]), np.float32)]
     write_wav(out, np.concatenate(parts[:-1]))

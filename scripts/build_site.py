@@ -2863,16 +2863,17 @@ const recCount = lang => Object.keys(RECORDED[lang] || {}).length;
    The dashboard's mobile switch shows this page at a phone's size, and calls
    phonePreview so that where the APK works differently underneath, the page
    does as the APK would: Taiwanese and Hakka are not played from the PC's
-   recordings, which the APK does not carry; Taiwanese is read by the phone's
-   own voice, the student, which the dashboard runs from its phone file on the
-   CPU as a phone runs it (scripts/phone.py); search by meaning asks the model
+   recordings, which the APK does not carry; each is read by the phone's own
+   voice for it, its student, once one has been exported, which the dashboard
+   runs from its phone file on the CPU as a phone runs it (scripts/phone.py),
+   and a language with no student yet is not heard; search by meaning asks the model
    the APK carries, through a stand-in for the app's bridge, so the page's side
    of it can be tried and its errors seen here; and the PC's question to the big
    model is not offered. The device's own voices still read the other languages,
    as a phone's do. Only the dashboard, serving the page at /reader, calls this. */
 function previewVoice(lang, r){
-  if (lang !== "nan" || !(PREVIEWINFO.voice && PREVIEWINFO.voice.nan)) return null;
-  return {src: `/phone/say?book=${encodeURIComponent(r.book)}&ch=${r.ch}&v=${r.v}`, s: 0, e: 1e9};
+  if (!(PREVIEWINFO.voice && PREVIEWINFO.voice[lang])) return null;
+  return {src: `/phone/say?lang=${lang}&book=${encodeURIComponent(r.book)}&ch=${r.ch}&v=${r.v}`, s: 0, e: 1e9};
 }
 const PREVIEWBRIDGE = {
   meaningLangs: () => (PREVIEWINFO.meaning || []).join(","),
@@ -2931,8 +2932,8 @@ function noVoiceHelp(lang){
      them looking for nothing. For these languages there is none to install;
      what can be heard is what this project has recorded. */
   if (PREVIEW && NO_VOICE_ANYWHERE[lang])
-    return lang === "nan"
-      ? `Phone preview: the phone's ${name} voice has not been made yet (scripts/taiwanese_student.py export). The PC plays the recordings; switch back to PC to hear them.`
+    return lang === "nan" || lang === "hak"
+      ? `Phone preview: the phone's ${name} voice has not been made yet (scripts/${lang === "nan" ? "taiwanese" : "hakka"}_student.py export). The PC plays the recordings; switch back to PC to hear them.`
       : `Phone preview: the phone carries no ${name} recordings and has no ${name} voice yet. The PC plays the recordings; switch back to PC to hear them.`;
   if (NO_VOICE_ANYWHERE[lang]) {
     const n = recCount(lang);

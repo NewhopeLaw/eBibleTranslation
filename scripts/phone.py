@@ -2,6 +2,7 @@
 """The APK's own workings, run on the PC, for the dashboard's mobile preview.
 
     python scripts/phone.py say John 1 1            # the phone's Taiwanese voice -> phone_say.wav
+    python scripts/phone.py say John 1 1 hak        # its Hakka one
     python scripts/phone.py meaning en "the man thrown to the lions"
 
 The dashboard's mobile switch shows the reader at a phone's size. Where the PC
@@ -11,10 +12,11 @@ APK does not carry, and the page searches by meaning with a table where the APK
 asks the model itself. So the preview asks this instead, and this does what the
 phone does, with the files the phone is given:
 
-  - say: the Taiwanese student (scripts/taiwanese_student.py) from its int8 ONNX
-    file and onnx/tokens.json, on the CPU, two threads, as ONNX Runtime on
-    Android runs it - not the checkpoint, and not the GPU. Hakka has no phone
-    voice, and none is made here.
+  - say: the Taiwanese or the Hakka student (scripts/taiwanese_student.py,
+    scripts/hakka_student.py) from its int8 ONNX file and onnx/tokens.json, on
+    the CPU, two threads, as ONNX Runtime on Android runs it - not the
+    checkpoint, and not the GPU. A language whose student has not been
+    exported has no phone voice.
   - meaning: the search model from site/model/ (scripts/build_encoder.py), the
     question cut into pieces by the same unigram search Meaning.java makes over
     vocab.tsv, run by ONNX Runtime and measured against vecm_<lang>.bin. This is
@@ -42,7 +44,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).parent))
 from books import BOOKS   # noqa: E402
 
-STUDENT = ROOT / "models" / "taiwanese-student"
+STUDENTS = {"nan": ROOT / "models" / "taiwanese-student", "hak": ROOT / "models" / "hakka-student"}
 MODEL = ROOT / "site" / "model"
 SR = 22050
 GAP_VERSE = 0.7
@@ -66,34 +68,45 @@ def _session(path, threads=2):
 
 # ------------------------------------------------------------------ the voice
 def voice_state():
-    """{"nan": {made, run, minutes}} for the phone voices there are files for; Hakka never, for now."""
-    f, tok = STUDENT / "onnx" / "student.int8.onnx", STUDENT / "onnx" / "tokens.json"
-    if not (f.exists() and tok.exists()):
-        return {}
-    t = json.loads(tok.read_text(encoding="utf-8"))
-    return {"nan": {"made": f.stat().st_mtime, "run": t.get("run") or "", "mb": round(f.stat().st_size / 1e6, 1)}}
+    """{lang: {made, run, mb}} for the phone voices there are files for."""
+    out = {}
+    for lang, home in STUDENTS.items():
+        f, tok = home / "onnx" / "student.int8.onnx", home / "onnx" / "tokens.json"
+        if f.exists() and tok.exists():
+            t = json.loads(tok.read_text(encoding="utf-8"))
+            out[lang] = {"made": f.stat().st_mtime, "run": t.get("run") or "", "mb": round(f.stat().st_size / 1e6, 1)}
+    return out
 
 
-def say(book, ch, v):
-    """One verse in the phone's Taiwanese voice -> wav bytes, or raises LookupError saying why not."""
+def say(book, ch, v, lang="nan"):
+    """One verse in the phone's Taiwanese or Hakka voice -> wav bytes, or raises LookupError saying why not."""
     import taiwanese_student as ts
-    if "nan" not in voice_state():
-        raise LookupError("the phone's Taiwanese voice has not been exported yet (taiwanese_student.py export)")
+    if lang not in STUDENTS:
+        raise LookupError(f"the phone has no voice of its own for {lang!r}")
+    home = STUDENTS[lang]
+    which, script = ("Taiwanese", "taiwanese") if lang == "nan" else ("Hakka", "hakka")
+    if lang not in voice_state():
+        raise LookupError(f"the phone's {which} voice has not been exported yet ({script}_student.py export)")
     name = f"{BOOKS[book]['name'].replace(' ', '_')}_{int(ch):02d}"
-    phon = STUDENT / "phonemes" / f"{name}.json"
+    phon = home / "phonemes" / f"{name}.json"
     if not phon.exists():
-        raise LookupError(f"{name} has no spoken form worked out (taiwanese_phonemes.py)")
+        raise LookupError(f"{name} has no spoken form worked out ({script}_phonemes.py)")
     pieces = dict(json.loads(phon.read_text(encoding="utf-8"))["verses"]).get(int(v))
     if not pieces:
         raise LookupError(f"{book} {ch}:{v} has no spoken form")
-    t = json.loads((STUDENT / "onnx" / "tokens.json").read_text(encoding="utf-8"))
+    t = json.loads((home / "onnx" / "tokens.json").read_text(encoding="utf-8"))
     vocab, ids, blank = ts.Vocab(t["tokens"]), t["ids"], t["blank"]
+    if lang == "hak":                               # its own tokens, without setting the Taiwanese module for Hakka
+        import hakka_student
+        text = lambda p: hakka_student.text(vocab, p)   # noqa: E731
+    else:
+        text = vocab.text
     with _lock:
-        s = _session(STUDENT / "onnx" / "student.int8.onnx")
+        s = _session(home / "onnx" / "student.int8.onnx")
         names = {i.name for i in s.get_inputs()}
         parts = []
         for p, gap in pieces:
-            x = [blank] + [y for c in vocab.text(p) for y in (ids[c], blank)]
+            x = [blank] + [y for c in text(p) for y in (ids[c], blank)]
             feeds = {"input": np.array([x], np.int64), "input_lengths": np.array([len(x)], np.int64),
                      "scales": np.array(t["scales"], np.float32)}
             parts += [s.run(None, {k: a for k, a in feeds.items() if k in names})[0].reshape(-1),
@@ -204,7 +217,7 @@ def state():
 if __name__ == "__main__":
     if sys.argv[1:2] == ["say"]:
         t0 = time.time()
-        Path("phone_say.wav").write_bytes(say(*sys.argv[2:5]))
+        Path("phone_say.wav").write_bytes(say(*sys.argv[2:6]))
         print(f"phone_say.wav in {time.time() - t0:.2f} s")
     elif sys.argv[1:2] == ["meaning"]:
         bynum = {m["num"]: k for k, m in BOOKS.items()}
