@@ -297,7 +297,8 @@ def jobs():
     out.append(("taiwanese-text", "make the Taiwanese from our Mandarin: word replacement, then the model mends "
                 "what is left", nan_text, mandarin, [sys.executable, str(S / "taiwanese_from_zh.py"), "--all"]))
     out.append(("taiwanese-voice", "read every Taiwanese chapter aloud with the SuíSiann voice (ga642381)",
-                nan_voiced, nan_text, [sys.executable, str(S / "taiwanese_speech.py"), "--all"]))
+                nan_voiced, nan_text,
+                [sys.executable, str(S / "taiwanese_speech.py"), "--all", "--workers", "4"]))
     karen = karen_voice_job()
     if karen:
         out.append(("karen-voice", *karen))
