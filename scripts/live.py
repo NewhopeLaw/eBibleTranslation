@@ -805,6 +805,11 @@ def supervise():
                     m["next"] = None
                     continue
                 table = table or work_jobs()
+                if not table:
+                    # work.py could not be read - another session part-way through an edit
+                    # of it. Every job would look unknown and be let go, as the Taiwanese
+                    # voice and student were at 02:40 on 22 November; wait for it instead.
+                    break
                 if job not in table:
                     WANTED.discard(job)
                     save_wanted()
