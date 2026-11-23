@@ -1,0 +1,16 @@
+{
+ "book": "Psalms",
+ "chapter": 93,
+ "lang": "en",
+ "verses": {
+  "1": "YHWH, King of Glory, let the sea be filled with blood. YHWH, mighty and powerful, even if Egypt is destroyed, it will not be defeated.",
+  "2": "May your throne remain stable from all eternity.",
+  "3": "Let the rivers carry away the sins of Jehovah. Let them carry away the sins of His people.",
+  "4": "From the depths of great waters, from the depths of the sea, there comes a great power from the depths of the sea. It is the power of Jehovah.",
+  "5": "May our prayers be accepted by you, O holy house of God. May the Lord bless you for ever."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

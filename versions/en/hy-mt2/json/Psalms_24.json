@@ -1,0 +1,21 @@
+{
+ "book": "Psalms",
+ "chapter": 24,
+ "lang": "en",
+ "verses": {
+  "1": "To David, a song for the Lord: The earth and its wealth belong to God; the people who dwell there also belong to Him.",
+  "2": "For he has established it on the seas, and he has arranged it along the rivers.",
+  "3": "Who will ascend to the mountain of Jehovah? Who will rise in his holy place?",
+  "4": "Clean hands and a pure heart, so that my soul may not be brought into shame, and I may not be deceived by lies.",
+  "5": "May He receive blessings from Jehovah, and righteousness from the God of salvation.",
+  "6": "This is the time when those who seek your face will be satisfied, Jacob.",
+  "7": "Open your doors, and lift up the gates of heaven. Then the King of Glory will come.",
+  "8": "Who is this king of glory? He is Jehovah, the mighty and powerful king. He is a king who rules over wars.",
+  "9": "Open your doors, and let the gates of heaven be opened. Then the King of Glory will come in.",
+  "10": "Who is this king of glory? Jehovah, the Lord of hosts, he is the king of glory."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

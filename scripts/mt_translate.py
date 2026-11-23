@@ -17,13 +17,14 @@ verse, never from the originals. The result is a second-hand translation,
 written by a machine and so far read by nobody who knows the language, and it
 is presented as one - the TARGETS note says so and the reader shows it.
 
-No model on hand can write Karen yet. NLLB-200 knows Burmese and Shan but no
+No model as it comes can write Karen. NLLB-200 knows Burmese and Shan but no
 Karen; MADLAD-400 lists ksw, and what it writes under that tag is Shan with
 Burmese mixed in and, now and then, a memorised line of the Karen Bible that
 means something else (README, "Target languages"). The driver is written for
-MADLAD's kind of model - a tag in front of the text - and waits for one
-trained on the Karen Bible; the checks below caught the Shan, which is why
-they stay.
+MADLAD's kind of model - a tag in front of the text - and uses the one
+scripts/train_karen.py taught from the Karen Bible (models/madlad-ksw*),
+which wrote all of output/ksw; the checks below caught the Shan, which is
+why they stay.
 
 Burmese is the other case: the chat models write it fluently, and in a
 four-chapter trial now and then said the opposite of the text, where NLLB-200

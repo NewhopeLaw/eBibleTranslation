@@ -1,0 +1,16 @@
+{
+ "book": "Psalms",
+ "chapter": 127,
+ "lang": "en",
+ "verses": {
+  "1": "The songs of praise for Solomon, if Jehovah does not build the house. They worked hard to build it, but if Jehovah does not protect the city, then all their efforts will be in vain.",
+  "2": "I will give you those who rise up from their beds after eating bread of sorrow. So, it will be given to his friend.",
+  "3": "Behold, the inheritance of Jehovah belongs to those who bear fruit from the womb.",
+  "4": "As rulers in the hands of a sovereign, so also are the young men.",
+  "5": "For those who are full of pride, and whose hearts are filled with arrogance, they will not be forgiven. They will not be able to speak to their enemies in the street."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

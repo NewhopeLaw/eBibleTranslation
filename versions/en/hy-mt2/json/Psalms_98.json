@@ -1,0 +1,20 @@
+{
+ "book": "Psalms",
+ "chapter": 98,
+ "lang": "en",
+ "verses": {
+  "1": "A song for Jehovah, a new song. It was created by His mercy; His right hand and His holy one have made it possible.",
+  "2": "The LORD revealed His salvation to the eyes of the nations, thereby showing His righteousness.",
+  "3": "They remembered His kindness and mercy toward the house of Israel. All the people of the earth saw the salvation that our God brought.",
+  "4": "All the nations praised the LORD; they sang and rejoiced.",
+  "5": "Sing to Jehovah with instruments and songs.",
+  "6": "In the courts and with loud voices, they praised before the king, Jehovah.",
+  "7": "The sea will rage, and the Mediterranean will be filled with waves. And those who live there will be destroyed.",
+  "8": "The rivers wash away the stones together; they nourish us along the mountains.",
+  "9": "Before the LORD, for He will come to judge the earth. He will judge Tiberias with righteousness, and nations with fairness."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

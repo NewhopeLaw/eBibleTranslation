@@ -1,0 +1,17 @@
+{
+ "book": "Psalms",
+ "chapter": 13,
+ "lang": "en",
+ "verses": {
+  "1": "A prayer for David’s forgiveness.",
+  "2": "May Jehovah never forget me forever. May He hide His face from me.",
+  "3": "Until then, I will keep these words in my heart. They will be with me forever. Until then, my enemies will not be able to harm me.",
+  "4": "The Lord, my God, has darkened my eyes, so that no one can see.",
+  "5": "Then he will say, “My enemies can do whatever they want. My troubles will be revealed, for I am the One who knows everything.”",
+  "6": "And in your grace, I trust that my heart will be saved through your salvation. I will serve the LORD, for He has forgiven me."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

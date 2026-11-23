@@ -70,7 +70,11 @@ VENV_PY = VENV / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
 if Path(sys.prefix).resolve() != VENV.resolve() or not sys.flags.utf8_mode:
     if not VENV_PY.exists():
         raise SystemExit(f"the Hakka voice's environment is not set up; see the top of {Path(__file__).name}")
-    raise SystemExit(subprocess.call([str(VENV_PY), __file__, *sys.argv[1:]], env={**os.environ, "PYTHONUTF8": "1"}))
+    # Its output goes where ours does, named outright: the dashboard runs under
+    # pythonw, which hands a child nothing it is not told to, and the chapter
+    # lines of a job started there went nowhere (2026-11-02).
+    raise SystemExit(subprocess.call([str(VENV_PY), __file__, *sys.argv[1:]], env={**os.environ, "PYTHONUTF8": "1"},
+                                     stdout=sys.stdout, stderr=sys.stderr))
 
 for stream in (sys.stdout, sys.stderr):
     if hasattr(stream, "reconfigure"):
@@ -188,7 +192,7 @@ class Voice:
         return np.asarray(wav, dtype=np.float32), [w for w in r.unknown_words if w != "，"]
 
 
-def write_wav(audio, fs, path):
+def write_wav(audio, fs, path, times=None):
     import numpy as np
     path.parent.mkdir(parents=True, exist_ok=True)
     pcm = (np.clip(audio, -1, 1) * 32767).astype("<i2")
@@ -197,24 +201,38 @@ def write_wav(audio, fs, path):
         w.setsampwidth(2)
         w.setframerate(fs)
         w.writeframes(pcm.tobytes())
+    # Where each verse is, beside the recording, for scripts/build_audio.py to
+    # take to the reader; a reading with no verses leaves no stale file behind.
+    side = path.with_suffix(".json")
+    if times:
+        side.write_text(json.dumps({"verses": times}), encoding="utf-8")
+    elif side.exists():
+        side.unlink()
 
 
 def read(voice, passage, speaker, pace, show):
-    """The passage as one track, and every unread word with its verse."""
+    """The passage as one track, every unread word with its verse, and where
+    each verse is in the track - (verse, start, end) in seconds."""
     import numpy as np
-    parts, unread = [], []
+    parts, unread, times, at = [], [], [], 0
     for n, text in passage:
         if show:
             print(f"{n or ''} {text}".strip())
+        start = at
         for i, s in enumerate(sentences(text)):
             if i:
                 parts.append(np.zeros(int(voice.fs * SENTENCE_GAP), dtype=np.float32))
+                at += len(parts[-1])
             wav, unknown = voice.say(s, speaker, pace, show)
             parts.append(wav)
+            at += len(wav)
             unread += [(n, w) for w in unknown]
+        if n is not None and at > start:
+            times.append((n, round(start / voice.fs, 3), round(at / voice.fs, 3)))
         parts.append(np.zeros(int(voice.fs * VERSE_GAP), dtype=np.float32))
+        at += len(parts[-1])
     audio = np.concatenate(parts)
-    return audio / max(1e-9, float(np.abs(audio).max())) * 0.9, unread
+    return audio / max(1e-9, float(np.abs(audio).max())) * 0.9, unread, times
 
 
 def translating():
@@ -265,11 +283,19 @@ def read_all(pace):
             passage = verses_of(code, ch, range(1, 200))
             if not passage:
                 continue
-            audio, unread = read(voice, passage, SPEAKER, pace, False)
+            audio, unread, times = read(voice, passage, SPEAKER, pace, False)
             out = AUDIO / f"{BOOKS[code]['name'].replace(' ', '_')}_{ch:02d}.wav"
-            write_wav(audio, voice.fs, out)
+            write_wav(audio, voice.fs, out, times)
             print(f"{BOOKS[code]['name']} {ch}: {len(passage)} verses, {len(audio) / voice.fs:.0f}s"
                   + (f", skipped {' '.join(w for _, w in unread)}" if unread else ""), flush=True)
+            # Straight to the reader, as the Taiwanese voice does; a failure
+            # here waits for build_audio.py and does not stop the recording.
+            try:
+                from build_audio import add
+                add("hak", out)
+            except Exception as e:                 # noqa: BLE001
+                print(f"    not yet in the reader ({type(e).__name__}: {e}); scripts/build_audio.py will add it",
+                      flush=True)
 
 
 def main():
@@ -308,12 +334,12 @@ def main():
         if sp not in voice.speakers:
             raise SystemExit(f"no reader {sp!r}; the voice has: {', '.join(voice.speakers)}")
     for sp in speakers:
-        audio, unread = read(voice, passage, sp, a.pace, a.show and sp == speakers[0])
+        audio, unread, times = read(voice, passage, sp, a.pace, a.show and sp == speakers[0])
         if a.out and len(speakers) == 1:
             out = Path(a.out)
         else:
             out = AUDIO / f"{stem}{'' if sp == SPEAKER and len(speakers) == 1 else '_' + sp}.wav"
-        write_wav(audio, voice.fs, out)
+        write_wav(audio, voice.fs, out, times)
         print(f"{sp}: {len(passage)} verse(s), {len(audio) / voice.fs:.0f}s of audio -> {out}")
     if unread:
         print("not read (the voice skipped these):", file=sys.stderr)

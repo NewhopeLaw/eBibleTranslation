@@ -77,6 +77,12 @@ scripts/taiwanese_from_zh.py John 1     Taiwanese the same way (targets/nan/repl
                                         dictionary); both run on scripts/from_zh.py
 scripts/taiwanese_speech.py  John 1     read a Taiwanese chapter aloud (ga642381's SuíSiann voice) -> audio/nan/
                                         (all four are TTS processing jobs on the dashboard; --all for the lot)
+scripts/taiwanese_phonemes.py           what the Taiwanese voice is given to read, every chapter, ahead of time
+scripts/taiwanese_student.py  cut|train|say|check|export   a phone-sized Taiwanese voice taught by the
+                                        recordings (a trial; see docs/taiwanese-student.md)
+scripts/hakka_phonemes.py               what the Hakka voice is given to read (formog2p's Sixian), ahead of time
+scripts/hakka_student.py  cut|train|say|check|export   the same for Hakka, taught by audio/hak/
+                                        (docs/hakka-student.md); both students are dashboard jobs
 scripts/add_lxx.py    [--fetch]         attach the Septuagint to the normalized OT
 scripts/verify.py     [--lang zh] [Gen [1-3]]  flag missing/dup verses, untranslated
                                         text, truncation, name inconsistencies
@@ -93,6 +99,10 @@ browser, console, Claude Code or IDE needed. It serves `live.py` in-process
 uses the system WebView2; without it Edge's app mode is used). Closing the
 window stops the server it started — it asks first if a translation is
 running. Output from a windowless start goes to `logs/app.log`.
+**Desktop icons** in the header makes those shortcuts: the dashboard and the
+reader, each on the Desktop, in the Start menu or both, ticked on and off in a
+small grid (`scripts/shortcuts.py`, which also runs from the command line).
+Each has its own icon, the app's open book, drawn into `tools/icons/`.
 The **read / translate** toggle in the header turns the window into the
 reader, rebuilding `site/index.html` first whenever translations are newer
 than it, and back. In translate mode the side panel (translations, session,
@@ -448,7 +458,8 @@ described once in `TARGETS` in `scripts/books.py`:
 | `id` | Indonesian | `prompts/targets/id.txt` | `targets/id/` | `output/id/` |
 | `ms` | Malay | `prompts/targets/ms.txt` | `targets/ms/` | `output/ms/` |
 | `ja-easy` | やさしい日本語 (Easy Japanese: short sentences, furigana on all but the most basic kanji) | `prompts/targets/ja-easy.txt` | `targets/ja-easy/` | `output/ja-easy/` |
-| `ksw` | Sgaw Karen — machine-translated from our English by MADLAD-400, see below | — | — | `output/ksw/` |
+| `ksw` | Sgaw Karen — machine-translated from our English by MADLAD-400, see below | — | `targets/ksw/` (names only) | `output/ksw/` |
+| `my` | Burmese — machine-translated from our English by NLLB-200, see below | — | `targets/my/` | `output/my/` |
 
 Easy Japanese writes furigana as `{漢字|かんじ}`; the reader and dashboard
 render it as ruby text, the markdown output as 漢字（かんじ）. A right-to-left
@@ -486,6 +497,43 @@ Karen reader to correct, and every chapter and the reader's footer say so.
 No phone or computer ships a Sgaw Karen voice, so the reader's Listen is not
 offered for it; the voice work is in `NGAW KAREN TTS/`.
 
+Burmese goes the same way for a different reason. The chat models write it
+fluently, which is the danger: on four trial chapters (`scripts/trial_lang.py`,
+report in `trials/my/report.md`) they now and then said the opposite of the
+text, and the verifier cannot tell. NLLB-200 scored well ahead of both against
+two published Burmese Bibles, so `my` is an `mt` target too, written from our
+English by `mt_translate.py`, which keeps it out of Zawgyi and closes up
+syllable spacing. It is part-way through (see Status) and, like the Karen, has
+not been read by a speaker.
+
+Shan (Tai Yai, `shn`) is on trial; the trial was run on 2026-11-22 and nothing
+has been written to `output/`. NLLB-200 and
+MADLAD-400 both list it, and no Shan Bible could be had as text to score them
+against, so `trial_lang.py` measures two other things on the same four
+chapters: whether each verse is in Shan's own letters or in Burmese's, which
+share a Unicode block, and how much of our English is left when the chapter
+is put back into English by NLLB-200. That ranks the candidates (the two
+translation models and the two chat models) and no more; the report is
+`trials/shn/report.md`, and a Shan reader decides. `targets/shn/` is empty on
+purpose until there is a Shan source for the divine names and name spellings.
+
+One candidate in that trial is not a model on this machine.
+`trials/shn/claude-opus/` holds the same four chapters written by Claude Opus,
+from the Hebrew and Greek, by agents in a Claude Code session on 2026-11-22.
+It is a placeholder. Neither chat model that runs here wrote Shan: `qwen3:32b`
+looped in Burmese and in a jumble of the two scripts, gave Genesis 1 in Burmese
+letters and three verses of Ruth 1's twenty-two, and `qwen3.5:35b-a3b` filled
+every verse with Shan letters that say nothing of the chapter (put back into
+English they score 13 where NLLB's score 57). Until `qwen3:32b`, or another
+model that runs here, can be made to write Shan, the Opus chapters stand in for
+what a chat model reading the original would give. They are all in Shan
+letters, every verse is there and none loops, which is all that could be
+checked: the agents that wrote them said themselves that the names, the word
+for the LORD (two of them chose differently) and much of the idiom are guesses.
+They were written in a session, not by a script, so they cannot be run again
+from this repository, and like every other candidate they have not been read
+by a Shan speaker.
+
 Teaching a model Karen: `scripts/karen_corpus.py` reads Mason's 1853 Karen
 Bible (public domain, the SWORD module in `sources/ksw-mason/`) and pairs its
 verses with ours where the numbering agrees, 27,500 pairs; `scripts/train_karen.py`
@@ -495,7 +543,7 @@ then uses by default.
 
 ### Voice
 
-No phone or computer ships a Sgaw Karen voice. `scripts/karen_speech.py`
+No phone or computer ships a Sgaw Karen voice. `NGAW KAREN TTS/karen_speech.py`
 reads Karen with Meta's offline Burmese voice by respelling each syllable
 into the Burmese spelling with the nearest sounds, then, through the WORLD
 vocoder, giving each syllable the pitch curve and length of its Karen tone -
@@ -643,8 +691,26 @@ model, reading and building APKs do not.
 
 - [x] Sources fetched and normalized (66 books, 31,102 verses)
 - [x] Prompt, glossary, name table, driver, verifier, site builder
-- [x] Genesis 1–3 translated with llama3.3:70b and verified (0 flags)
+- [x] The whole Bible, 1,189 chapters with every verse present, in seven
+  languages (counted against the source on 22 November 2026, the way
+  `build_site.py --complete-only` counts):
+  - English, Chinese, Spanish, Thai — `qwen3:32b`, from the Hebrew and Greek
+  - Taiwanese, Hakka — from our Mandarin: word table, then `qwen3.5:35b-a3b`
+  - Sgaw Karen — the MADLAD model taught on Mason's Karen Bible, from our English
+- [ ] Burmese — 630 of 1,189 chapters (NLLB-200, from our English)
+- [ ] Japanese — 208 of 1,189 chapters
+- [ ] Cantonese, Easy Japanese — one chapter each, as a test of the rules
+- [ ] Shan — on trial (`work.py` job `trial-shn`), run 2026-11-22: NLLB-200 is
+      the best that runs here, both chat models fail, and Claude Opus's four
+      chapters are a placeholder for them; no candidate read by a Shan speaker
+- [ ] Vietnamese, Korean, Persian, Turkish, Indonesian, Malay — declared in
+  `TARGETS`, nothing translated
+- [ ] A verifier report over every chapter of every finished language.
+  `logs/verify_<lang>.md` covers all 1,189 chapters for English, Spanish, Thai
+  and Karen, and those reports still carry flags to be read (mostly SHORT, a
+  verse brief against its source). The Chinese and Hakka reports are from a
+  21-chapter run; Taiwanese and Burmese have none.
+- [ ] Any of the machine-translated languages read by a speaker
 - [ ] Side-by-side comparison with the claude.ai "Claude Fable" rendering
-- [ ] Narrative books
-- [ ] Poetry and prophets (heavier review budget)
+- [ ] Poetry and prophets given their heavier review
 - [ ] Aramaic sections of Daniel/Ezra in their own run

@@ -21,6 +21,11 @@ gospel), and they are measured against a published Bible in that language:
   which a model trained on web text may have learned.
 - verses missing or doubled, as translate.py reports them.
 
+Shan has no published Bible to be had as text, so its plan measures two other
+things instead: whether a verse is in Shan's own letters or in Burmese's, and
+how much of our English is left when the chapter is put back into English
+(see the plan below). MADLAD-400 as it comes is a candidate there too.
+
 Each model writes into trials/<lang>/<model>/, never into output/, so a trial
 is not mistaken for the translation. The chat models go through translate.py
 exactly as a real run would (same prompt, glossary, names, retries). NLLB-200,
@@ -54,9 +59,35 @@ PLANS = {
            "references": [("Judson 1835", ROOT / "sources" / "mya-judson" / "myajvb_vpl.txt"),
                           ("Common Language 2005", ROOT / "sources" / "mya-cl" / "mya_vpl.txt")],
            "nllb": "mya_Mymr",
+           "burmese": True,
            "script": (0x1000, 0x109F)},
+    # Shan (Tai Yai). No Shan Bible could be had as text - Cushing's of 1892
+    # is public domain and nowhere digitised, the Bible Society's and OMF's are
+    # theirs - so there is no chrF here, and two things stand in for it.
+    # One is the letters. Shan shares the Myanmar block with Burmese but not
+    # its alphabet: it writes ၵ ၶ ၸ ၼ ၽ ႁ ဢ where Burmese writes က ခ စ န ဖ ဟ အ,
+    # and marks its tones with ႇ ႈ ႉ ႊ. "in script %" cannot tell the two apart,
+    # which is how Burmese once passed for Karen; a verse with Burmese's own
+    # letters in it is not Shan, whatever the block.
+    # The other is the way back: every candidate's Shan is put into English
+    # again by NLLB-200 and measured against the English it started from. That
+    # says whether the meaning survived, roughly, and it flatters NLLB's own
+    # chapters, since the same model reads what it wrote. It ranks; a Shan
+    # reader decides.
+    # MADLAD-400 is a candidate as well as NLLB: it lists Shan, and what it
+    # wrote under Karen's tag was Shan (README, "Target languages").
+    "shn": {"models": ["qwen3:32b", "qwen3.5:35b-a3b"],
+            "chapters": ["Gen.1", "Ruth.1", "Ps.23", "John.1"],
+            "references": [],
+            "nllb": "shn_Mymr",
+            "madlad": "shn",
+            "back": "shn_Mymr",
+            "own": ("ၵ-ႊ", "Shan"),
+            "foreign": ("ကခစဆညနဖဟအ", "Burmese"),
+            "script": (0x1000, 0x109F)},
 }
 NLLB_DIR = ROOT / "models" / "nllb-200-distilled-1.3B"
+MADLAD = "google/madlad400-3b-mt"      # from the Hugging Face cache, where train_karen.py left it
 
 USFM = ("GEN EXO LEV NUM DEU JOS JDG RUT 1SA 2SA 1KI 2KI 1CH 2CH EZR NEH EST JOB PSA PRO ECC SNG ISA JER "
         "LAM EZK DAN HOS JOL AMO OBA JON MIC NAM HAB ZEP HAG ZEC MAL MAT MRK LUK JHN ACT ROM 1CO 2CO GAL "
@@ -89,7 +120,8 @@ def chapters(plan):
 def trial_total(lang):
     """How many chapters the whole trial writes, and how many are written."""
     plan = PLANS[lang]
-    who = plan["models"] + (["nllb-200"] if NLLB_DIR.exists() else [])
+    who = (plan["models"] + (["nllb-200"] if NLLB_DIR.exists() else [])
+           + (["madlad-400"] if plan.get("madlad") else []))
     want = [(m, slug(BOOKS[c]["name"]), ch) for m in who for c, ch in chapters(plan)]
     done = sum(1 for m, name, ch in want
                if (model_dir(lang, m) / lang / "json" / f"{name}_{int(ch):02d}.json").exists())
@@ -107,37 +139,87 @@ def run_chat_model(lang, model, plan):
         T.translate_chapter(meta, ch, src["chapters"][ch], None, system, False, lang)
 
 
-def run_nllb(lang, plan):
-    """NLLB-200 from our English, one verse at a time, in translate.py's file shape."""
-    out = model_dir(lang, "nllb-200") / lang / "json"
+def load_mt(model_name, src_lang=None):
+    import torch
+    from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    tok = AutoTokenizer.from_pretrained(model_name, **({"src_lang": src_lang} if src_lang else {}))
+    model = AutoModelForSeq2SeqLM.from_pretrained(
+        model_name, torch_dtype=torch.bfloat16 if device == "cuda" else torch.float32).to(device).eval()
+
+    def put(text, tag="", bos=None):
+        enc = tok(tag + " ".join(text.split()), return_tensors="pt", truncation=True, max_length=400).to(device)
+        with torch.no_grad():
+            gen = model.generate(**enc, num_beams=4, max_new_tokens=min(512, enc["input_ids"].shape[1] * 4 + 30),
+                                 **({"forced_bos_token_id": tok.convert_tokens_to_ids(bos)} if bos else {}))
+        return tok.batch_decode(gen, skip_special_tokens=True)[0].strip()
+    return tok, put
+
+
+def unload():
+    """Give the GPU back before the next model: two translation models and
+    Ollama's do not fit side by side, and Windows spills into system RAM
+    without saying so (mt_translate.py)."""
+    import gc
+    import torch
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+
+
+def run_mt(lang, plan, who, model_name, engine, tag="", bos=None):
+    """A translation model from our English, one verse at a time, in
+    translate.py's file shape. NLLB-200 is told the target by the first token
+    of its answer (bos), MADLAD-400 by a tag in front of the text."""
+    out = model_dir(lang, who) / lang / "json"
     todo = [(c, ch) for c, ch in chapters(plan)
             if not (out / f"{slug(BOOKS[c]['name'])}_{int(ch):02d}.json").exists()]
     if not todo:
         return
-    import torch
-    from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    tok = AutoTokenizer.from_pretrained(NLLB_DIR, src_lang="eng_Latn")
-    model = AutoModelForSeq2SeqLM.from_pretrained(
-        NLLB_DIR, torch_dtype=torch.bfloat16 if device == "cuda" else torch.float32).to(device).eval()
-    bos = tok.convert_tokens_to_ids(plan["nllb"])
+    tok, put = load_mt(model_name, "eng_Latn" if bos else None)
+    if (bos or tag.strip()) not in tok.get_vocab():
+        print(f"  {who}: no code {bos or tag.strip()}, so it does not write {TARGETS[lang]['name']}; left out")
+        return
     out.mkdir(parents=True, exist_ok=True)
     for code, ch in todo:
         name = slug(BOOKS[code]["name"])
         en = json.loads((ROOT / "output" / "en" / "json" / f"{name}_{int(ch):02d}.json")
                         .read_text(encoding="utf-8"))["verses"]
-        t0, verses = time.time(), {}
-        for v, text in en.items():
-            enc = tok(" ".join(text.split()), return_tensors="pt", truncation=True, max_length=400).to(device)
-            with torch.no_grad():
-                gen = model.generate(**enc, forced_bos_token_id=bos, num_beams=4,
-                                     max_new_tokens=min(512, enc["input_ids"].shape[1] * 4 + 30))
-            verses[v] = tok.batch_decode(gen, skip_special_tokens=True)[0]
+        t0 = time.time()
+        verses = {v: put(text, tag, bos) for v, text in en.items()}
         (out / f"{name}_{int(ch):02d}.json").write_text(json.dumps(
             {"book": BOOKS[code]["name"], "chapter": int(ch), "lang": lang, "verses": verses,
-             "notes": "", "engine": "nllb-200-distilled-1.3B, from our English"},
+             "notes": "", "engine": engine},
             ensure_ascii=False, indent=1), encoding="utf-8")
-        print(f"  {BOOKS[code]['name']} {ch} [{lang}] nllb-200: {len(verses)} vv, {time.time() - t0:.0f}s")
+        print(f"  {BOOKS[code]['name']} {ch} [{lang}] {who}: {len(verses)} vv, {time.time() - t0:.0f}s")
+    del tok, put
+    unload()
+
+
+def run_back(lang, plan):
+    """Every candidate's chapters put back into English by NLLB-200, beside
+    the chapter (back/), for the report to measure against our English. The
+    only reading of the meaning a trial can have where no published Bible in
+    the language is to hand - see the Shan plan above for what it is worth."""
+    todo = []
+    for d in sorted(p for p in (TRIALS / lang).iterdir() if p.is_dir()):
+        for f in sorted((d / lang / "json").glob("*.json")):
+            back = d / lang / "back" / f.name
+            if not back.exists():
+                todo.append((d.name, f, back))
+    if not todo:
+        return
+    _, put = load_mt(NLLB_DIR, plan["back"])
+    for who, f, back in todo:
+        t0 = time.time()
+        verses = {v: put(text, bos="eng_Latn") if text.strip() else ""
+                  for v, text in json.loads(f.read_text(encoding="utf-8"))["verses"].items()}
+        back.parent.mkdir(parents=True, exist_ok=True)
+        back.write_text(json.dumps({"verses": verses, "engine": "nllb-200-distilled-1.3B, back into English"},
+                                   ensure_ascii=False, indent=1), encoding="utf-8")
+        print(f"  {f.stem} [{lang}] {who}, back into English: {time.time() - t0:.0f}s")
+    del put
+    unload()
 
 
 # ------------------------------------------------------------------ scoring
@@ -192,14 +274,16 @@ def score(lang):
     plan = PLANS[lang]
     refs = {name: read_reference(p) for name, p in plan["references"] if p.exists()}
     chrf = chrf_scorer()
+    own = re.compile(f"[{plan['own'][0]}]") if plan.get("own") else None
+    foreign = re.compile(f"[{plan['foreign'][0]}]") if plan.get("foreign") else None
     rows = []
     # Each reference Bible is also scored as if it were a candidate, against
     # the others: what two human translations score against each other is the
     # best a model can be expected to reach, and puts the models' numbers in
     # proportion.
-    entrants = [(d.name, lambda meta, ch, d=d: (
+    entrants = [(d.name, lambda meta, ch, d=d, kind="json": (
                     json.loads(f.read_text(encoding="utf-8"))["verses"]
-                    if (f := d / lang / "json" / f"{slug(meta['name'])}_{int(ch):02d}.json").exists() else None))
+                    if (f := d / lang / kind / f"{slug(meta['name'])}_{int(ch):02d}.json").exists() else None))
                 for d in (sorted(p for p in (TRIALS / lang).iterdir() if p.is_dir())
                           if (TRIALS / lang).exists() else [])]
     if len(refs) > 1:
@@ -213,6 +297,15 @@ def score(lang):
             vv = verses_of(meta, ch)
             if vv is None:
                 continue
+            # The way back: this chapter in English again, against the English it came from.
+            back = None
+            if chrf and plan.get("back") and not who.startswith("("):
+                again = verses_of(meta, ch, kind="back")
+                en = json.loads((ROOT / "output" / "en" / "json" / f"{slug(meta['name'])}_{int(ch):02d}.json")
+                                .read_text(encoding="utf-8"))["verses"]
+                both = [v for v in en if again and again.get(v)]
+                if both:
+                    back = round(chrf([again[v] for v in both], [" ".join(en[v].split()) for v in both]), 1)
             src = json.loads((T.NORM_DIR / f"{meta['num']:02d}_{slug(meta['name'])}.json")
                              .read_text(encoding="utf-8"))["chapters"][ch]
             want = [str(v["v"]) for v in src]
@@ -229,6 +322,9 @@ def score(lang):
                 "verses": f"{sum(1 for v in want if v in vv)}/{len(want)}",
                 "chrf": scores,
                 "script": round(100 * script_share(text, plan["script"])),
+                "back": back,
+                "own": sum(1 for t in vv.values() if own.search(t)) if own else None,
+                "foreign": sum(1 for t in vv.values() if foreign.search(t)) if foreign else None,
                 "zawgyi": sum(1 for t in vv.values() if ZAWGYI.search(t)),
                 "spoken": sum(t.count(w) for t in vv.values() for w in SPOKEN)})
     return rows, list(refs), chrf is not None
@@ -240,21 +336,46 @@ def report(lang):
     name = TARGETS[lang]["name"]
     lines = [f"# {name} trial", "",
              f"Written {time.strftime('%Y-%m-%d %H:%M')} by scripts/trial_lang.py. "
-             f"Each model translated the same chapters; chrF is measured against "
-             f"{' and '.join(have) or 'no reference'} and ranks the models rather than grading them "
-             "(see the script's docstring).", ""]
+             "Each model translated the same chapters; "
+             + (f"chrF is measured against {' and '.join(have)} and ranks the models rather than grading them "
+                if have else "there is no published Bible to measure them against, so nothing here grades them ")
+             + "(see the script's docstring).", ""]
     for ref_name, p in plan["references"]:
         if ref_name not in have:
             lines += [f"Missing reference: {p.relative_to(ROOT)}, so no chrF against {ref_name}.", ""]
     if not have_chrf:
         lines += ["sacrebleu is not installed (pip install sacrebleu), so there is no chrF.", ""]
-    lines += ["| model | chapter | verses | " + " | ".join(f"chrF {n}" for n in have)
-              + " | in script % | Zawgyi verses | spoken-register words |",
-              "|---|---|---|" + "---|" * len(have) + "---|---|---|"]
+    # What is worth a column differs by language: Zawgyi and the spoken
+    # register are Burmese's faults; a language that shares its block with
+    # another is told from it by its own letters; the way back to English is
+    # for a language with no Bible to measure against.
+    cols = [(f"chrF {n}", lambda r, n=n: r["chrf"].get(n, "-")) for n in have]
+    if plan.get("back"):
+        cols.append(("chrF back to English", lambda r: "-" if r["back"] is None else r["back"]))
+        lines += ['"chrF back to English" is the chapter put into English again by NLLB-200 and measured '
+                  "against our English: a rough reading of whether the meaning survived, kinder to NLLB's own "
+                  "chapters than to the others'.", ""]
+    cols.append(("in script %", lambda r: r["script"]))
+    if plan.get("own"):
+        cols.append((f"verses with {plan['own'][1]} letters", lambda r: r["own"]))
+    if plan.get("foreign"):
+        cols.append((f"verses with {plan['foreign'][1]} letters", lambda r: r["foreign"]))
+    if plan.get("burmese"):
+        cols += [("Zawgyi verses", lambda r: r["zawgyi"]), ("spoken-register words", lambda r: r["spoken"])]
+    lines += ["| model | chapter | verses | " + " | ".join(h for h, _ in cols) + " |",
+              "|---|---|---|" + "---|" * len(cols)]
     for r in rows:
         lines.append(f"| {r['model']} | {r['chapter']} | {r['verses']} | "
-                     + "".join(f"{r['chrf'].get(n, '-')} | " for n in have)
-                     + f"{r['script']} | {r['zawgyi']} | {r['spoken']} |")
+                     + " | ".join(str(get(r)) for _, get in cols) + " |")
+    if plan.get("back"):
+        by_model = {}
+        for r in rows:
+            if r["back"] is not None:
+                by_model.setdefault(r["model"], []).append(r["back"])
+        if by_model:
+            lines += ["", "Mean chrF back to English: " + ", ".join(
+                f"{m} {sum(v) / len(v):.1f}" for m, v in
+                sorted(by_model.items(), key=lambda kv: -sum(kv[1]) / len(kv[1])))]
     for n in have:
         by_model = {}
         for r in rows:
@@ -291,9 +412,16 @@ def main():
             run_chat_model(a.lang, model, plan)
         if NLLB_DIR.exists():
             print(f"[{a.lang}] nllb-200")
-            run_nllb(a.lang, plan)
+            run_mt(a.lang, plan, "nllb-200", NLLB_DIR, "nllb-200-distilled-1.3B, from our English", bos=plan["nllb"])
         else:
             print(f"[{a.lang}] nllb-200: not on disk ({NLLB_DIR.relative_to(ROOT)}), left out")
+        if plan.get("madlad"):
+            print(f"[{a.lang}] madlad-400")
+            run_mt(a.lang, plan, "madlad-400", MADLAD, "MADLAD-400 3B as it comes, from our English",
+                   tag=f"<2{plan['madlad']}> ")
+        if plan.get("back") and NLLB_DIR.exists():
+            print(f"[{a.lang}] back into English")
+            run_back(a.lang, plan)
     report(a.lang)
 
 

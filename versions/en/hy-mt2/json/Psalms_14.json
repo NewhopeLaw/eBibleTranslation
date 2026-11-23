@@ -1,0 +1,18 @@
+{
+ "book": "Psalms",
+ "chapter": 14,
+ "lang": "en",
+ "verses": {
+  "1": "To David, the prophet said, “In his heart, there is no God. They have been destroyed and ruined. There is no one who does good.”",
+  "2": "The LORD from heaven looks down upon mankind, to see whether there is anyone who is wise and seeks after God.",
+  "3": "Everything is ruined together; no one does anything good. There’s not even a single person who does anything right.",
+  "4": "They did not know that all those who ate from the offerings of my people ate bread given by Jehovah. They did not call out for help.",
+  "5": "There, they were filled with fear, because God was in the midst of the wicked.",
+  "6": "The advice of the poor will be despised, because Jehovah will protect them.",
+  "7": "Who will give Israel salvation again, when Jehovah brings his people back? Jacob will rejoice, and Israel will be happy."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

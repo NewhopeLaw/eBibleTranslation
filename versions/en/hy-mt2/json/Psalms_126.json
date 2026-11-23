@@ -1,0 +1,17 @@
+{
+ "book": "Psalms",
+ "chapter": 126,
+ "lang": "en",
+ "verses": {
+  "1": "The songs of joy, when Jehovah returns to take back Zion, are like shofars.",
+  "2": "Then, the voids will be filled, and our desires will be satisfied. Then, people will say, “In these nations, Jehovah has increased His actions towards them.”",
+  "3": "The LORD increased His kindness toward us, and we were filled with joy.",
+  "4": "May the LORD bring us back, like birds flying over the mountains.",
+  "5": "The seeds will be planted in fertile soil.",
+  "6": "Let him go away! Let him leave, and take along with him the seeds of his planting. When the time comes, let him carry them away with him."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

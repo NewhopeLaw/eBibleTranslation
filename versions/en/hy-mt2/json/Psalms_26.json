@@ -1,0 +1,23 @@
+{
+ "book": "Psalms",
+ "chapter": 26,
+ "lang": "en",
+ "verses": {
+  "1": "To David, “The LORD has judged me. For I have walked in His ways, and I have trusted in the LORD forever.”",
+  "2": "May the LORD be with me, and may He help me in all my endeavors.",
+  "3": "For your kindness is before my eyes, and I walk in your truth.",
+  "4": "I will not sit with those who are evil, nor with those who are invisible. I will not come.",
+  "5": "I hate a crowd of evil people and those who are wicked. I will not stay with them.",
+  "6": "I will wash my hands in your blood, and I will defile your altar, O LORD.",
+  "7": "To hear the voice of God and to recount all your miracles.",
+  "8": "YHWH, I love your house and the place where you dwell.",
+  "9": "Do not associate with those who are spiritually guilty, and with those who are full of deceit.",
+  "10": "For they have power and authority in their hands.",
+  "11": "And I, in my own power, will go and save me from this situation.",
+  "12": "My feet stood in the midst of the crowds, may the LORD bless you."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

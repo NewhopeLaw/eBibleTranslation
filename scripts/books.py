@@ -168,13 +168,20 @@ TARGETS = {
     # lexicon jobs off a language not yet decided on.
     "my": {"name": "Burmese", "native": "မြန်မာ", "latin": False, "ratio": 0.6, "mt": "mya_Mymr",
            "note": "machine translation from the English (NLLB-200), not yet read by a Burmese speaker"},
-    # To be written by a translation model from our English (scripts/
+    # Written by a translation model from our English (scripts/
     # mt_translate.py), not by the chat model from the originals: Qwen answers
     # in Burmese, NLLB-200 has no Karen, and MADLAD-400's "ksw" is Shan (see
-    # README). "mt" marks it as that kind of target; translate.py leaves it
-    # alone. Nothing has been written into output/ksw yet.
+    # README), so MADLAD was taught Karen from Mason's Karen Bible
+    # (scripts/train_karen.py) and that model wrote output/ksw. "mt" marks it
+    # as that kind of target; translate.py leaves it alone.
     "ksw": {"name": "Sgaw Karen", "native": "ကညီကျိာ်", "latin": False, "ratio": 0.6, "mt": "ksw",
             "note": "machine translation from the English, not yet read by a Karen speaker"},
+    # Shan (Tai Yai), on trial: scripts/trial_lang.py has each candidate write
+    # four chapters before any of them is given the Bible. No "mt" code yet,
+    # because which model writes it is what the trial is for; once one is
+    # chosen, "trial" gives way to "mt" as it did for Burmese.
+    "shn": {"name": "Shan", "native": "တႆး", "latin": False, "ratio": 0.6, "trial": True,
+            "note": "Tai Yai, in Shan script; on trial, not yet read by a Shan speaker"},
 }
 DEFAULT_TARGET = "en"
 

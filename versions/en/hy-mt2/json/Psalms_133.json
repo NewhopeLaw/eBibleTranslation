@@ -1,0 +1,14 @@
+{
+ "book": "Psalms",
+ "chapter": 133,
+ "lang": "en",
+ "verses": {
+  "1": "The songs of praise for David show what is good and pleasant when brothers are together.",
+  "2": "When the good news reaches the head, it spreads to the feet. This is what happens with Aaron’s old age; he falls down because of his old age.",
+  "3": "As the rain falls upon the mountains of Zion, so shall the blessing of God continue forever."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

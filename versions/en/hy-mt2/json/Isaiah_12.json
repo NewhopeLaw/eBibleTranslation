@@ -1,0 +1,17 @@
+{
+ "book": "Isaiah",
+ "chapter": 12,
+ "lang": "en",
+ "verses": {
+  "1": "And you said on that day, “May the LORD be with you, for you have sat in my place and comforted me.”",
+  "2": "See, my Savior is with me; I will not fear anymore. For the Lord has spoken through His prophets. May there be salvation for me.",
+  "3": "And you took water from the springs of salvation.",
+  "4": "And on that day, you shall say: “Praise the LORD!” Call upon His name. Let people know about His greatness. Remember that His name is honored among all nations.",
+  "5": "Sing to the LORD, for he has made known this truth throughout all the earth.",
+  "6": "Tzahalivorni sits in Zion, as if she were a great queen among you. Holy Israel!"
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

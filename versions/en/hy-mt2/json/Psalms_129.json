@@ -1,0 +1,19 @@
+{
+ "book": "Psalms",
+ "chapter": 129,
+ "lang": "en",
+ "verses": {
+  "1": "The song of those who rise up against me from my youth says, “O Israel!”",
+  "2": "My rabbi of Tzruruni, from my youth onward, never could do anything for me.",
+  "3": "On the hillside, they dug holes; they made holes for their purposes.",
+  "4": "YHWH is righteous; He punishes the wicked.",
+  "5": "They will be destroyed and defeated by all those who hate Zion.",
+  "6": "They will be like wildflowers that grow in the path of those who walk through them.",
+  "7": "Whoever’s hands are filled with thorns and thorns are growing on them.",
+  "8": "And the travelers who went through the land of Jehovah did not say, “We bless you in the name of Jehovah.”"
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

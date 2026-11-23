@@ -1,0 +1,20 @@
+{
+ "book": "Psalms",
+ "chapter": 113,
+ "lang": "en",
+ "verses": {
+  "1": "Hallelujah! Hallelujah! Praise the servants of Jehovah! Praise the name of Jehovah!",
+  "2": "May the name of the LORD be blessed from now on and forever.",
+  "3": "From east to west, the name of Jehovah is praised.",
+  "4": "Great is Jehovah over all the nations, and His glory fills the heavens.",
+  "5": "Who is like our God, who raises us from the dead?",
+  "6": "The one who sees in the heavens and on earth.",
+  "7": "I stand on the edge of a valley, far from the flames of war.",
+  "8": "To have friends who are generous and kind-hearted people.",
+  "9": "I will restore the house to its former glory. May the children be joyful and celebrate!"
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

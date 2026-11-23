@@ -1,0 +1,20 @@
+{
+ "book": "Psalms",
+ "chapter": 4,
+ "lang": "en",
+ "verses": {
+  "1": "To be destroyed by the songs of David’s lamentations.",
+  "2": "In my prayers, O God of righteousness, you have provided me with shelter in this vast wilderness. Hear my pleas.",
+  "3": "Children of man, what is my honor in all your love? You seek it in vain, like a fool.",
+  "4": "And know that when Jehovah falls, He will hear those who call upon Him.",
+  "5": "Do not sin or commit any wrongdoing. Say this in your hearts, while you are lying in bed. And remember these words.",
+  "6": "Worship the righteous gods and trust in Jehovah.",
+  "7": "Many say, “Who will protect us from harm? May your light shine upon us, O LORD.”",
+  "8": "You have given me joy in my heart from the time they were first born and grew up.",
+  "9": "In peace, together we will rest. May you, O LORD, be alone, so that I can rest in your presence safely."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

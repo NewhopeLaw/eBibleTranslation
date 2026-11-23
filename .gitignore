@@ -22,6 +22,9 @@ android/local.properties
 .claude/
 logs/app.log
 logs/webview/
+# the dashboard's watch over the jobs: which to keep running, and their charts
+logs/jobs_wanted.json
+logs/jobs_history.json
 sources/STEPBible-Data/
 sources/openbible/
 sources/macula/

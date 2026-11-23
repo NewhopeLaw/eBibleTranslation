@@ -1,0 +1,20 @@
+{
+ "book": "Psalms",
+ "chapter": 149,
+ "lang": "en",
+ "verses": {
+  "1": "Hallelujah! Praise the LORD with new songs, a hymn of praise in the midst of the righteous.",
+  "2": "Israel shall rejoice in its deeds. The children of Zion will praise their king.",
+  "3": "Let them praise His name in the valleys and on the hills. Let them sing His praises.",
+  "4": "For Jehovah desires to bless his people with salvation.",
+  "5": "The righteous will be honored and praised for their good deeds.",
+  "6": "They destroyed their homes and caused great destruction in their midst.",
+  "7": "To take revenge on those nations who are arrogant and wicked.",
+  "8": "They shall be bound with ropes when they are old, and their bodies shall be tied up with ropes.",
+  "9": "To carry out their laws is the judgment written by God for all his faithful ones. Praise be to Him!"
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

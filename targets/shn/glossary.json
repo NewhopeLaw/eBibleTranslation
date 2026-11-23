@@ -1,0 +1,5 @@
+{
+  "_comment": "Key Hebrew/Aramaic/Greek terms with their fixed Shan renderings, injected into every prompt. Empty on purpose: no Shan Bible is to hand to take them from (Cushing's of 1892 is not digitised, the modern ones are not ours to copy), and a rendering guessed here would be fixed into every chapter. To be filled from a Shan reader or a Shan Bible before anything past the trial is written.",
+  "hebrew": {},
+  "greek": {}
+}

@@ -1,0 +1,30 @@
+{
+ "book": "Psalms",
+ "chapter": 88,
+ "lang": "en",
+ "verses": {
+  "1": "A song for the children of Korah, to be sung in honor of those who suffer from illnesses. It’s a song for those who are wise and capable of understanding the world around them.",
+  "2": "YHWH, my God of salvation! On that night when I cried out to you.",
+  "3": "My prayers will come before you; please listen to my supplications.",
+  "4": "For my soul and my life are in the hands of those who are evil.",
+  "5": "I was considered one of those who lived on the banks of the river. I was like a drunkard without any sense of shame.",
+  "6": "In the dead, they lie like fugitives; their bodies are forgotten by those who remember them no longer. They have been taken away from you by your own hands.",
+  "7": "Be broken in the depths of darkness, under the weight of suffering and despair.",
+  "8": "On my shoulders, your heat has been applied; and all your wounds have been healed.",
+  "9": "You have strayed from my knowledge. I am subjected to many hardships, and I cannot escape them.",
+  "10": "My eyes are filled with sorrow because of you, O Lord. Every day I cry out to you, as my hands tremble.",
+  "11": "The healing will be complete if the doctors come and treat you.",
+  "12": "Your kindness has been recorded in the house of your grace; your mercy has come upon those who die.",
+  "13": "May I know your righteousness in darkness, and your truth in the land of women.",
+  "14": "And I will come to you, O LORD, in the evening; then I will pray and advance before you.",
+  "15": "Why, LORD, do you abandon my soul? Why hide your face from me?",
+  "16": "I am poor and suffering from hunger. I have carried your words on my shoulders.",
+  "17": "Your thorns have passed over me in your flight; they have pierced me.",
+  "18": "My ancestors were like water; they surrounded me all day long.",
+  "19": "You have gone far away from me, both lover and enemy of my heart."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

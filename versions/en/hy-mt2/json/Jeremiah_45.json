@@ -1,0 +1,16 @@
+{
+ "book": "Jeremiah",
+ "chapter": 45,
+ "lang": "en",
+ "verses": {
+  "1": "The words that the prophet Jeremiah spoke to Baruch ben Neriah, as recorded in his writings. These words were written by Jeremiah during the fifth year of Jehoiakim’s reign, son of Josiah, king of Judah.",
+  "2": "As Jehovah, the God of Israel, says: Bless you!",
+  "3": "You said, “Oh, please, may the LORD comfort me! I have suffered greatly; I’ve been in pain, and I haven’t found any relief at all.”",
+  "4": "Then say to him, “As Jehovah has said: ‘Behold, I will destroy what I have built; and what I have planted, I will uproot. And all the land shall be destroyed.’”",
+  "5": "And you will seek great things for yourself. But do not do so, for I will bring harm upon all those who go there. As the LORD says, “I will give you your soul over to be used as a sacrifice in all the places where you go.”"
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

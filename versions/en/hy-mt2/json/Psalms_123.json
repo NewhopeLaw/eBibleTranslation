@@ -1,0 +1,15 @@
+{
+ "book": "Psalms",
+ "chapter": 123,
+ "lang": "en",
+ "verses": {
+  "1": "The song of praise I have brought to you. I raise my eyes to the heavens.",
+  "2": "See, just as the eyes of servants are fixed on their masters, and those of slaves on their masters’ hands, so too should our eyes be fixed upon our God, our Lord, until we find peace.",
+  "3": "May the LORD bless us! We have been blessed greatly.",
+  "4": "May our hearts be filled with joy, and may we be free from all sorrow and suffering."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

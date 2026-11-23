@@ -1,0 +1,22 @@
+{
+ "book": "Psalms",
+ "chapter": 6,
+ "lang": "en",
+ "verses": {
+  "1": "To be destroyed by music on the eighth note – a song for David.",
+  "2": "May the LORD not let me fall, and may He not abandon me in your hands.",
+  "3": "Save me, O LORD! For I am in need of healing. Restore me, O LORD! For my soul is in distress.",
+  "4": "And my soul is filled with fear, and you, LORD, are eternal.",
+  "5": "May the LORD save my soul, so that I may receive Your mercy.",
+  "6": "For in darkness, no one will remember you. Who will take care of you then?",
+  "7": "I will suffer from sighs every night. My heart burns with pain. My womb is filled with sorrow.",
+  "8": "My eyes were filled with anger, and it remained there in every situation.",
+  "9": "Let all the works of Aon be destroyed from me, when Jehovah hears the cry in Kiyi.",
+  "10": "Hear, O LORD, my cries; hear, O LORD, my pleas for help.",
+  "11": "They will be terrified and frightened greatly. All their enemies will be destroyed. They will be in fear for a moment."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

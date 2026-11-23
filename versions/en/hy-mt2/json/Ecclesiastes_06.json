@@ -1,0 +1,23 @@
+{
+ "book": "Ecclesiastes",
+ "chapter": 6,
+ "lang": "en",
+ "verses": {
+  "1": "There is a evil that I have seen under the sun; it is very severe upon people.",
+  "2": "A man who is given by God wealth, possessions, and honor… yet he isn’t satisfied with all this. God doesn’t allow him to eat from these things. For a common person will surely eat him up; he’ll be consumed by hunger and disease.",
+  "3": "If a man lives for a hundred years or more, and his years become longer, yet his soul does not grow more virtuous, and he also lacks wisdom, then I say that he is worse off than those who die young.",
+  "4": "For darkness will come, and in the darkness it will go; and in the darkness its name will be forgotten.",
+  "5": "Even the sun cannot see or know about this. It’s beyond his understanding.",
+  "6": "And if he lived a thousand years, and still never saw even one single place where everything would be in order.",
+  "7": "All the man’s efforts are in vain; even his soul will not be satisfied.",
+  "8": "For what can be better for a wise man than the foolish? What can be better for a poor man than knowing how to walk in the direction of life?",
+  "9": "Good looks is pleasing to the eyes, but it also brings sorrow and evil thoughts.",
+  "10": "What would have happened long ago if his name had been known, and people knew who he was? Then he wouldn’t have been able to do anything against us.",
+  "11": "For there are many things that are far too difficult for a person to understand.",
+  "12": "For who can know what is good for a person during the days of their life? They will do things that are like a shadow—something that no one can predict what will happen to them under the sun."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

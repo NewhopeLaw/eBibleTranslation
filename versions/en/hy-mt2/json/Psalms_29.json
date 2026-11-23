@@ -1,0 +1,22 @@
+{
+ "book": "Psalms",
+ "chapter": 29,
+ "lang": "en",
+ "verses": {
+  "1": "A prayer for David, who serves the LORD. May the children of El may also serve the LORD with honor and glory.",
+  "2": "Hallow the name of the LORD with great honor. Worship the LORD in holiness.",
+  "3": "The voice of the LORD is upon the waters; it brings destruction upon those who are evil. The LORD has brought great destruction upon many waters.",
+  "4": "The voice of Jehovah in power. The voice of Jehovah from heaven.",
+  "5": "The voice of the LORD shatters thorns; and the LORD shall shatter the thorns of the Lavan.",
+  "6": "And they were like wheels made of gold, and like cherubsim.",
+  "7": "The voice of Jehovah shouts to the flames.",
+  "8": "The voice of the LORD will be heard from the desert. The LORD will speak from the Holy Land.",
+  "9": "The voice of the LORD will bring destruction upon the wicked. It will destroy forests and ruin their homes. In their dwellings, they will say, “Woe!”",
+  "10": "The Lord will reign forever; the Lord will sit as king for ever.",
+  "11": "YHWH will be strong for His people. YHWH will bless His people in peace."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

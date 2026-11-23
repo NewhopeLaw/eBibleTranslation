@@ -1,0 +1,21 @@
+{
+ "book": "Psalms",
+ "chapter": 47,
+ "lang": "en",
+ "verses": {
+  "1": "For destruction, children of desolation from the time of creation.",
+  "2": "All the nations shall raise their voices in praise to God with a joyful cry.",
+  "3": "For Jehovah is a great king over all the earth.",
+  "4": "Let the nations speak under us, and let the peoples be subject to our feet.",
+  "5": "May He choose for us our portion from Jacob’s inheritance, that which He loved.",
+  "6": "God rose up in triumph, Jehovah with a loud shout.",
+  "7": "Sing to God! Sing for our king! Sing!",
+  "8": "For the king of all the earth is God. Let him sing praises to Him.",
+  "9": "The King of God reigns over all nations. God sits upon His holy throne.",
+  "10": "The generous people were gathered together with the God of Abraham. For there are many gods in the earth, but only one God."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

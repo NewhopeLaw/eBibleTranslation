@@ -1,0 +1,18 @@
+{
+ "book": "Psalms",
+ "chapter": 110,
+ "lang": "en",
+ "verses": {
+  "1": "To David, the words of Jehovah: “May the Lord be with me, my God who stands before me until the end. May his enemies bleed from their wounds.”",
+  "2": "The Lord will send His arrows from Zion, to strike you near your enemies.",
+  "3": "Your people will offer sacrifices on the day of your battle, in the holy days, from far away, from every direction. They will bring you rain and blessings.",
+  "4": "May the LORD be praised, and may you, priest, never weep forever over my words, O righteous king.",
+  "5": "Adonai, on your right hand, is exalted on the day of kings.",
+  "6": "The nations are full of many tribes; they cover a vast land.",
+  "7": "From the spring along the path, it will flow down to the ground."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

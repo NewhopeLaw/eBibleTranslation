@@ -593,6 +593,10 @@ def main():
         raise SystemExit(f"{', '.join(by_mt)}: written by a translation model from the English, not by the chat model - "
                          f"python scripts/mt_translate.py --lang {by_mt[0]}")
     langs = [lang for lang in langs if lang not in by_mt]
+    # A language on trial (scripts/trial_lang.py) has no model chosen for it
+    # yet, so "all" does not start writing its Bible; named, it is still done.
+    if args.lang == "all":
+        langs = [lang for lang in langs if not TARGETS[lang].get("trial")]
     systems = {lang: build_system_prompt(lang) for lang in langs}
     for lang in langs:
         print(f"[{lang}] {model_for(lang)}")

@@ -55,6 +55,7 @@ def start_server():
     srv = ThreadingHTTPServer(("127.0.0.1", live.PORT), live.Handler)
     srv.daemon_threads = True
     threading.Thread(target=srv.serve_forever, daemon=True, name="dashboard").start()
+    live.start_supervisor()                                   # the model work kept running (live.supervise)
     print(f"dashboard on {URL} (model {live.T.CONFIG['model']})")
     return srv
 
@@ -72,6 +73,15 @@ def run_window(srv) -> bool:
                 "Translation in progress",
                 "A translation is running. Closing the app stops it: the chapter in progress "
                 "is discarded, finished chapters are kept. Close anyway?")
+            if not ok:
+                return False
+        # The jobs are processes of their own and carry on without the window,
+        # but nothing starts one again if it stops until the dashboard is back.
+        if srv is not None and live.WANTED:
+            ok = win.create_confirmation_dialog(
+                "Model work is being kept running",
+                f"{', '.join(sorted(live.WANTED))}: these carry on when the app closes, but if one stops "
+                "nothing starts it again until the app is opened. Leave the app open overnight. Close anyway?")
             if not ok:
                 return False
         live.STOP.set()
