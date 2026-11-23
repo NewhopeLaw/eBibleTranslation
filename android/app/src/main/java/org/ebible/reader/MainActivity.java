@@ -6,6 +6,8 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.media.AudioManager;
@@ -422,6 +424,28 @@ public class MainActivity extends ComponentActivity {
                     .putExtra(Intent.EXTRA_TEXT, text)
                     .putExtra(Intent.EXTRA_SUBJECT, subject);
             runOnUiThread(() -> open(send, subject));
+        }
+
+        /**
+         * This copy's version number, for "Check for a newer version". The
+         * app cannot ask the website itself - it has no network - so the page
+         * puts the number on the link it opens in the browser, and the website
+         * compares it with the newest it has. "0" when it cannot be read.
+         */
+        @JavascriptInterface
+        public String appVersion() {
+            try {
+                PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), 0);
+                return Long.toString(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+                        ? info.getLongVersionCode() : versionCodeBefore28(info));
+            } catch (PackageManager.NameNotFoundException e) {
+                return "0";
+            }
+        }
+
+        @SuppressWarnings("deprecation")
+        private long versionCodeBefore28(PackageInfo info) {
+            return info.versionCode;
         }
 
         /**
