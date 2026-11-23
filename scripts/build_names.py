@@ -132,7 +132,7 @@ def is_spaced(ref):
     """Does this language put spaces between its words?
 
     Chinese and Japanese do not, and a name has to be found by reading runs of
-    the characters names are written with. Korean, Vietnamese and Persian do,
+    the characters names are written with. Korean and Vietnamese do,
     and there the words are already marked out - which is better evidence, so
     it is used where it exists rather than guessed at.
     """
