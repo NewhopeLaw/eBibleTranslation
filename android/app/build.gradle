@@ -19,6 +19,15 @@ if (keystoreFile.exists()) keystoreFile.withInputStream { keystoreProps.load(it)
 def appAssets = project.findProperty("appAssets")
 def versionCodeProp = project.findProperty("versionCode")
 def versionNameProp = project.findProperty("versionName")
+// The copy on GitHub Pages is built on a runner, and must carry the same debug
+// key as the copies already handed round from the PC or no phone will let it
+// replace them. Left to find that key by itself, Gradle on the runner signed
+// with one of its own, so the workflow names the file instead of trusting
+// where it is looked for. It is an environment variable in capitals because
+// it passes through build_apk.py, and Python on Windows upper-cases every name
+// it hands on: ORG_GRADLE_PROJECT_debugKeystore reached Gradle as a property
+// nothing asked for.
+def debugKeystore = System.getenv("EBIBLE_DEBUG_KEYSTORE")
 
 android {
     namespace "org.ebible.reader"
@@ -39,6 +48,14 @@ android {
     }
 
     signingConfigs {
+        debug {
+            if (debugKeystore) {
+                storeFile file(debugKeystore)
+                storePassword "android"         // the fixed passwords every Android debug key has
+                keyAlias "androiddebugkey"
+                keyPassword "android"
+            }
+        }
         release {
             if (keystoreProps.containsKey("storeFile")) {
                 storeFile file(keystoreProps["storeFile"])
