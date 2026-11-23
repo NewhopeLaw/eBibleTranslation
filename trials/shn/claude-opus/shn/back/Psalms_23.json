@@ -1,0 +1,11 @@
+{
+ "verses": {
+  "1": "He is my shepherd; I will not be ashamed.",
+  "2": "He made me lie down in green pastures; he led me beside still waters.",
+  "3": "Restore my spirit; lead me in the right paths for your name's sake.",
+  "4": "For though I walk through the valley of the shadow of death, I will fear no evil, for you are with me; your rod and your staff comfort me.",
+  "5": "You pour water in front of me, in front of my staff, you pour water over my head, and my cup runs out.",
+  "6": "Nevertheless, goodness and loving - kindness will follow me as long as I live, and I will spend many days in your house."
+ },
+ "engine": "nllb-200-distilled-1.3B, back into English"
+}

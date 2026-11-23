@@ -468,7 +468,8 @@ English by `mt_translate.py`, which keeps it out of Zawgyi and closes up
 syllable spacing. It is part-way through (see Status) and, like the Karen, has
 not been read by a speaker.
 
-Shan (Tai Yai, `shn`) is on trial and has no output yet. NLLB-200 and
+Shan (Tai Yai, `shn`) is on trial; the trial was run on 2026-11-22 and nothing
+has been written to `output/`. NLLB-200 and
 MADLAD-400 both list it, and no Shan Bible could be had as text to score them
 against, so `trial_lang.py` measures two other things on the same four
 chapters: whether each verse is in Shan's own letters or in Burmese's, which
@@ -477,6 +478,23 @@ is put back into English by NLLB-200. That ranks the candidates (the two
 translation models and the two chat models) and no more; the report is
 `trials/shn/report.md`, and a Shan reader decides. `targets/shn/` is empty on
 purpose until there is a Shan source for the divine names and name spellings.
+
+One candidate in that trial is not a model on this machine.
+`trials/shn/claude-opus/` holds the same four chapters written by Claude Opus,
+from the Hebrew and Greek, by agents in a Claude Code session on 2026-11-22.
+It is a placeholder. Neither chat model that runs here wrote Shan: `qwen3:32b`
+looped in Burmese and in a jumble of the two scripts, gave Genesis 1 in Burmese
+letters and three verses of Ruth 1's twenty-two, and `qwen3.5:35b-a3b` filled
+every verse with Shan letters that say nothing of the chapter (put back into
+English they score 13 where NLLB's score 57). Until `qwen3:32b`, or another
+model that runs here, can be made to write Shan, the Opus chapters stand in for
+what a chat model reading the original would give. They are all in Shan
+letters, every verse is there and none loops, which is all that could be
+checked: the agents that wrote them said themselves that the names, the word
+for the LORD (two of them chose differently) and much of the idiom are guesses.
+They were written in a session, not by a script, so they cannot be run again
+from this repository, and like every other candidate they have not been read
+by a Shan speaker.
 
 Teaching a model Karen: `scripts/karen_corpus.py` reads Mason's 1853 Karen
 Bible (public domain, the SWORD module in `sources/ksw-mason/`) and pairs its
@@ -644,7 +662,9 @@ model, reading and building APKs do not.
 - [ ] Burmese — 630 of 1,189 chapters (NLLB-200, from our English)
 - [ ] Japanese — 208 of 1,189 chapters
 - [ ] Cantonese, Easy Japanese — one chapter each, as a test of the rules
-- [ ] Shan — on trial (`work.py` job `trial-shn`), not yet run
+- [ ] Shan — on trial (`work.py` job `trial-shn`), run 2026-11-22: NLLB-200 is
+      the best that runs here, both chat models fail, and Claude Opus's four
+      chapters are a placeholder for them; no candidate read by a Shan speaker
 - [ ] Vietnamese, Korean, Persian, Turkish, Indonesian, Malay — declared in
   `TARGETS`, nothing translated
 - [ ] A verifier report over every chapter of every finished language.
