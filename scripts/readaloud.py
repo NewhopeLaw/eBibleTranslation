@@ -20,11 +20,12 @@ CSS = r"""
 JS = r"""
 /* ---------- read aloud: right-click a selection or a verse ---------- */
 const TTS_LANG = {en:'en-US', zh:'zh-CN', es:'es-ES', ja:'ja-JP', 'ja-easy':'ja-JP', th:'th-TH', yue:'zh-HK', nan:'nan-TW', hak:'hak-TW',
-                  vi:'vi-VN', ko:'ko-KR', tr:'tr-TR', id:'id-ID', ms:'ms-MY', my:'my-MM', ksw:'ksw-MM', hbo:'he-IL', arc:'he-IL', grc:'el-GR', lxx:'el-GR'};
+                  vi:'vi-VN', ko:'ko-KR', ug:'ug-CN', id:'id-ID', ms:'ms-MY', my:'my-MM', ksw:'ksw-MM', hbo:'he-IL', arc:'he-IL', grc:'el-GR', lxx:'el-GR'};
 const TTS_NOTE = {nan:'no phone or computer has a Taiwanese voice, and a Mandarin one would read it as Mandarin',
                   hak:'no phone or computer has a Hakka voice, and a Mandarin one would read it as Mandarin',
                   grc:'Modern Greek pronunciation', hbo:'Modern Hebrew pronunciation', arc:'Modern Hebrew pronunciation',
-                  ksw:'no phone or computer ships a Sgaw Karen voice yet; a Burmese voice would misread it'};
+                  ksw:'no phone or computer ships a Sgaw Karen voice yet; a Burmese voice would misread it',
+                  ug:'few phones or computers ship a Uyghur voice'};
 let ttsVoices = [];
 if ('speechSynthesis' in window) { ttsVoices = speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => { ttsVoices = speechSynthesis.getVoices(); }; }
 /* Whether a voice tagged so reads this language, rather than a neighbour of it.

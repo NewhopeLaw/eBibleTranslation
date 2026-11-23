@@ -557,7 +557,7 @@ p.ov { margin:0 0 .6em; }
 .cmp .row .txt { white-space:pre-wrap; }
 /* Each script keeps the leading it needs, but as a multiple of the reader's
    chosen line spacing rather than a fixed number, or the spacing control would
-   do nothing at all in Chinese, Thai or Korean. */
+   do nothing at all in Chinese, Thai, Korean or Uyghur. */
 [lang="zh"], [lang="ja"] { font-family:Georgia, "Noto Serif CJK SC", "Noto Serif CJK JP", "Source Han Serif", "Yu Mincho", "MS Mincho", "SimSun", "Songti SC", serif; line-height:calc(var(--lh) * 1.134); }
 [lang="th"] { font-family:"Noto Serif Thai", "Leelawadee UI", "Tahoma", sans-serif; line-height:calc(var(--lh) * 1.163); }
 [lang="ksw"] { font-family:"Noto Serif Myanmar", "Noto Sans Myanmar", "Padauk", "Myanmar Text", "Pyidaungsu", sans-serif; line-height:calc(var(--lh) * 1.25); }
@@ -565,6 +565,7 @@ p.ov { margin:0 0 .6em; }
 [lang="ja-easy"] { font-family:Georgia, "Noto Serif CJK JP", "Source Han Serif", "Yu Mincho", "MS Mincho", serif; line-height:calc(var(--lh) * 1.337); }
 ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
 [lang="ko"] { font-family:"Noto Serif KR", "Batang", "Malgun Gothic", "Apple SD Gothic Neo", serif; line-height:calc(var(--lh) * 1.105); }
+[lang="ug"] { font-family:"Noto Naskh Arabic", "Microsoft Uighur", "UKIJ Tuz Tom", "Segoe UI", "Tahoma", serif; line-height:calc(var(--lh) * 1.221); font-size:1.06em; }
 [dir="rtl"] { text-align:right; }
 /* ---------- what a phone shows, and what it does not ---------- */
 @media (max-width:760px){

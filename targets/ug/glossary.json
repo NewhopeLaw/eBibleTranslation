@@ -1,0 +1,31 @@
+{
+  "_comment": "Key Hebrew, Aramaic and Greek terms and their fixed Uyghur renderings, put into every prompt. Written by hand as a start, to be checked by a Uyghur reader and grown over time.",
+  "hebrew": {
+    "יהוה (YHWH)": "پەرۋەردىگار",
+    "אלהים (elohim, as title of God)": "خۇدا",
+    "יהוה אלהים": "پەرۋەردىگار خۇدا",
+    "אדני יהוה (adonai YHWH)": "رەب پەرۋەردىگار",
+    "האדם (ha-adam)": "ئىنسان (until the narrative plainly uses ئادەم as a name)",
+    "חסד (hesed)": "ئۆزگەرمەس مۇھەببەت",
+    "נפש (nephesh)": "by context: جان، ھايات، ئۆزى، ئارزۇ، گال - not روھ by default",
+    "רוח (ruach)": "by context: نەپەس، شامال، روھ",
+    "תהום (tehom)": "چوڭقۇر سۇلار",
+    "תהו ובהו (tohu va-bohu)": "شەكىلسىز ۋە قۇرۇق",
+    "ברית (berit)": "ئەھدە",
+    "תורה (torah)": "by context: تەلىم، قانۇن",
+    "שלום (shalom)": "by context: ئامانلىق، تىنچلىق، خاتىرجەملىك",
+    "שאול (sheol)": "تەھتىسارا"
+  },
+  "greek": {
+    "κύριος (kyrios)": "رەب",
+    "χριστός (christos)": "مەسىھ (as title and as name)",
+    "λόγος (logos, John 1)": "كالام",
+    "ἀγάπη (agapē)": "مۇھەببەت",
+    "ἐκκλησία (ekklēsia)": "جامائەت",
+    "βασιλεία τοῦ θεοῦ": "خۇدانىڭ پادىشاھلىقى",
+    "εὐαγγέλιον (euangelion)": "خۇش خەۋەر",
+    "μετάνοια (metanoia)": "توۋا",
+    "πνεῦμα (pneuma)": "by context: روھ، نەپەس، شامال",
+    "δικαιοσύνη (dikaiosynē)": "ھەققانىيلىق"
+  }
+}

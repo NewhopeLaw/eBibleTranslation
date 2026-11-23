@@ -48,7 +48,7 @@ API = T.CONFIG["api_url"]
 # Our targets that Hy-MT2 lists among its languages, by the name it knows them
 # by. Hakka, Taiwanese, Easy Japanese and Sgaw Karen are not among them.
 SUPPORTED = {"en": "English", "zh": "Simplified Chinese", "es": "Spanish", "ja": "Japanese", "th": "Thai",
-             "yue": "Cantonese", "vi": "Vietnamese", "ko": "Korean", "fa": "Persian", "tr": "Turkish",
+             "yue": "Cantonese", "vi": "Vietnamese", "ko": "Korean",
              "id": "Indonesian", "ms": "Malay", "my": "Burmese"}
 SOURCE_NAME = {"hbo": "Biblical Hebrew", "arc": "Biblical Aramaic", "grc": "Koine Greek"}
 # Where a language needs its register named. Burmese is the one we know of:

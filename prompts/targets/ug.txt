@@ -1,0 +1,14 @@
+STYLE (ئۇيغۇرچە)
+- Write Uyghur in the Uyghur Arabic script (UEY) only: never Latin or Cyrillic Uyghur, and never Turkish, Uzbek, Kazakh or Chinese words where Uyghur has its own. The text runs right to left; numbers and punctuation follow Uyghur usage (، ؛ ؟).
+- Natural, clear modern Uyghur with a light literary tone; not the heavy Arabic and Persian loans of older religious prose where a plain Uyghur word says the same.
+- Prose in flowing paragraphs; poetry line by line (one clause or couplet to a line).
+- Faithful to the meaning; do not paraphrase freely, but do not copy Hebrew or Greek word order where it breaks Uyghur, which puts the verb last.
+- Speech in « » quotation marks. Proper names as spelled in the name table.
+- God addressing people uses سەن or سىلەر as the context asks; people addressing God are reverent but plain (سەن, as in prayer).
+
+TERMINOLOGY (fixed renderings, consistent across the whole Bible)
+- The name YHWH (יהוה) -> «پەرۋەردىگار». Elohim as the title of God -> «خۇدا». YHWH Elohim together -> «پەرۋەردىگار خۇدا». Adonai YHWH -> «رەب پەرۋەردىگار».
+- ha-adam (הָאָדָם) -> «ئىنسان»; it does not become the name ئادەم until the narrative plainly uses it as a name.
+- Genesis 1:1 follows the clause reading: «خۇدا ئاسمان بىلەن زېمىننى يارىتىشقا باشلىغاندا…»
+- Kyrios (κύριος) -> «رەب» («پەرۋەردىگار» only where it plainly quotes an Old Testament YHWH text).
+- Christos (χριστός) -> «مەسىھ» (as title and as name). Jesus -> «ئەيسا».
