@@ -1,0 +1,22 @@
+{
+ "book": "Psalms",
+ "chapter": 2,
+ "lang": "tl",
+ "verses": {
+  "1": "Bakit nagkakagulo ang mga bansa,\nat nagbabalak ng walang kabuluhan ang mga bayan?",
+  "2": "Naninindigan ang mga hari sa lupa,\nat nagsasabwatan ang mga pinuno\nlaban sa PANGINOON at laban sa Kanyang hinirang:",
+  "3": "“Lagutin natin ang kanilang mga gapos,\nat itapon natin mula sa atin ang kanilang mga lubid!”",
+  "4": "Ang nakaupo sa kalangitan ay natatawa;\nkinukutya sila ng Panginoon.",
+  "5": "Pagkatapos ay kakausapin Niya sila sa Kanyang galit,\nat sa Kanyang poot ay sisindakin Niya sila:",
+  "6": "“Ako mismo ang nagluklok sa Aking hari\nsa Sion, ang Aking banal na bundok.”",
+  "7": "Ipahahayag ko ang pasya ng PANGINOON.\nSinabi Niya sa akin: “Ikaw ay Aking anak;\nngayong araw na ito ay naging ama mo Ako.",
+  "8": "Humingi ka sa Akin, at ibibigay Ko sa iyo ang mga bansa bilang mana mo,\nat ang mga dulo ng lupa bilang pag-aari mo.",
+  "9": "Dudurugin mo sila ng tungkod na bakal;\nbabasagin mo silang parang palayok ng magpapalayok.”",
+  "10": "Kaya ngayon, mga hari, magpakatalino kayo;\ntumanggap kayo ng babala, mga hukom sa lupa.",
+  "11": "Paglingkuran ninyo ang PANGINOON nang may takot,\nat magsaya kayo nang may panginginig.",
+  "12": "Hagkan ninyo ang anak, baka Siya'y magalit at kayo'y mapahamak sa daan,\nsapagkat madaling mag-alab ang Kanyang galit.\nMapalad ang lahat ng nanganganlong sa Kanya."
+ },
+ "notes": "Notes\n- v. 2: Ang \"meshicho\" ay isinalin na \"Kanyang hinirang\" (literal: \"Kanyang pinahiran\"), ang haring itinalaga ng PANGINOON.\n- v. 7: Ang \"yelidtikha\" ay literal na \"ipinanganak kita\"; isinalin na \"naging ama mo Ako\" upang lumitaw ang pagtatalaga sa hari bilang anak.\n- v. 9: Ang \"tero'em\" ayon sa pagbasang Masoretiko ay \"dudurugin\"; may sinaunang pagbasa na \"papastulin\" (tir'em).\n- v. 12: Ang \"nashqu-bar\" ay hindi tiyak; ang \"bar\" ay salitang Aramaiko para sa \"anak,\" ngunit maaari ring \"dalisay\" o \"sa kadalisayan.\" Isinalin ang pinakakaraniwang pagbasa.",
+ "raw": "[1] Bakit nagkakagulo ang mga bansa,\nat nagbabalak ng walang kabuluhan ang mga bayan?\n[2] Naninindigan ang mga hari sa lupa,\nat nagsasabwatan ang mga pinuno\nlaban sa PANGINOON at laban sa Kanyang hinirang:\n[3] “Lagutin natin ang kanilang mga gapos,\nat itapon natin mula sa atin ang kanilang mga lubid!”\n[4] Ang nakaupo sa kalangitan ay natatawa;\nkinukutya sila ng Panginoon.\n[5] Pagkatapos ay kakausapin Niya sila sa Kanyang galit,\nat sa Kanyang poot ay sisindakin Niya sila:\n[6] “Ako mismo ang nagluklok sa Aking hari\nsa Sion, ang Aking banal na bundok.”\n[7] Ipahahayag ko ang pasya ng PANGINOON.\nSinabi Niya sa akin: “Ikaw ay Aking anak;\nngayong araw na ito ay naging ama mo Ako.\n[8] Humingi ka sa Akin, at ibibigay Ko sa iyo ang mga bansa bilang mana mo,\nat ang mga dulo ng lupa bilang pag-aari mo.\n[9] Dudurugin mo sila ng tungkod na bakal;\nbabasagin mo silang parang palayok ng magpapalayok.”\n[10] Kaya ngayon, mga hari, magpakatalino kayo;\ntumanggap kayo ng babala, mga hukom sa lupa.\n[11] Paglingkuran ninyo ang PANGINOON nang may takot,\nat magsaya kayo nang may panginginig.\n[12] Hagkan ninyo ang anak, baka Siya'y magalit at kayo'y mapahamak sa daan,\nsapagkat madaling mag-alab ang Kanyang galit.\nMapalad ang lahat ng nanganganlong sa Kanya.\n---\nNotes\n- v. 2: Ang \"meshicho\" ay isinalin na \"Kanyang hinirang\" (literal: \"Kanyang pinahiran\"), ang haring itinalaga ng PANGINOON.\n- v. 7: Ang \"yelidtikha\" ay literal na \"ipinanganak kita\"; isinalin na \"naging ama mo Ako\" upang lumitaw ang pagtatalaga sa hari bilang anak.\n- v. 9: Ang \"tero'em\" ayon sa pagbasang Masoretiko ay \"dudurugin\"; may sinaunang pagbasa na \"papastulin\" (tir'em).\n- v. 12: Ang \"nashqu-bar\" ay hindi tiyak; ang \"bar\" ay salitang Aramaiko para sa \"anak,\" ngunit maaari ring \"dalisay\" o \"sa kadalisayan.\" Isinalin ang pinakakaraniwang pagbasa.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

@@ -1,0 +1,24 @@
+{
+ "book": "Psalms",
+ "chapter": 85,
+ "lang": "tl",
+ "verses": {
+  "1": "Para sa punong mang-aawit. Awit ng mga anak ni Core.",
+  "2": "PANGINOON, naging mabuti Ka sa Iyong lupain;\n    ibinalik Mo ang kapalaran ni Jacob.",
+  "3": "Pinatawad Mo ang kasamaan ng Iyong bayan;\n    tinakpan Mo ang lahat nilang kasalanan. Selah",
+  "4": "Binawi Mo ang lahat ng Iyong poot;\n    tumalikod Ka sa bangis ng Iyong galit.",
+  "5": "Panumbalikin Mo kami, O Diyos ng aming kaligtasan,\n    at alisin Mo ang Iyong pagkayamot sa amin.",
+  "6": "Magagalit Ka ba sa amin magpakailanman?\n    Palalawigin Mo ba ang Iyong galit sa lahat ng salinlahi?",
+  "7": "Hindi ba't Ikaw ang muling bubuhay sa amin,\n    upang ang Iyong bayan ay magalak sa Iyo?",
+  "8": "Ipakita Mo sa amin, PANGINOON, ang Iyong tapat na pag-ibig,\n    at ipagkaloob Mo sa amin ang Iyong pagliligtas.",
+  "9": "Pakikinggan ko ang sasabihin ng Diyos na PANGINOON,\n    sapagkat kapayapaan ang sasabihin Niya sa Kanyang bayan,\n    sa Kanyang mga tapat—\n    huwag lamang silang bumalik sa kahangalan.",
+  "10": "Tunay na malapit ang Kanyang pagliligtas sa mga may takot sa Kanya,\n    upang manahan ang kaluwalhatian sa aming lupain.",
+  "11": "Ang tapat na pag-ibig at katapatan ay nagtagpo;\n    ang katuwiran at kapayapaan ay naghalikan.",
+  "12": "Ang katapatan ay sisibol mula sa lupa,\n    at ang katuwiran ay tumutunghay mula sa langit.",
+  "13": "Oo, ibibigay ng PANGINOON ang mabuti,\n    at ang aming lupain ay magbibigay ng kanyang ani.",
+  "14": "Ang katuwiran ay lalakad sa unahan Niya,\n    at gagawa ng daan para sa Kanyang mga hakbang."
+ },
+ "notes": "Notes\n- v. 2: Ang שַׁבְתָּ שְׁבִית ay maaaring \"ibinalik Mo ang kapalaran\" o \"ibinalik Mo ang mga bihag\"; pinili ang una.\n- v. 9: Ang huling linya (וְאַל־יָשׁוּבוּ לְכִסְלָה) ay binasang babala; ang Griyego ay may ibang basa (\"sa mga nagbabalik-loob sa Kanya ng puso\").\n- v. 14: Malabo ang וְיָשֵׂם לְדֶרֶךְ פְּעָמָיו; maaari ring \"at gagawing daan ang Kanyang mga yapak.\"",
+ "raw": "[1] Para sa punong mang-aawit. Awit ng mga anak ni Core.\n[2] PANGINOON, naging mabuti Ka sa Iyong lupain;\n    ibinalik Mo ang kapalaran ni Jacob.\n[3] Pinatawad Mo ang kasamaan ng Iyong bayan;\n    tinakpan Mo ang lahat nilang kasalanan. Selah\n[4] Binawi Mo ang lahat ng Iyong poot;\n    tumalikod Ka sa bangis ng Iyong galit.\n[5] Panumbalikin Mo kami, O Diyos ng aming kaligtasan,\n    at alisin Mo ang Iyong pagkayamot sa amin.\n[6] Magagalit Ka ba sa amin magpakailanman?\n    Palalawigin Mo ba ang Iyong galit sa lahat ng salinlahi?\n[7] Hindi ba't Ikaw ang muling bubuhay sa amin,\n    upang ang Iyong bayan ay magalak sa Iyo?\n[8] Ipakita Mo sa amin, PANGINOON, ang Iyong tapat na pag-ibig,\n    at ipagkaloob Mo sa amin ang Iyong pagliligtas.\n[9] Pakikinggan ko ang sasabihin ng Diyos na PANGINOON,\n    sapagkat kapayapaan ang sasabihin Niya sa Kanyang bayan,\n    sa Kanyang mga tapat—\n    huwag lamang silang bumalik sa kahangalan.\n[10] Tunay na malapit ang Kanyang pagliligtas sa mga may takot sa Kanya,\n    upang manahan ang kaluwalhatian sa aming lupain.\n[11] Ang tapat na pag-ibig at katapatan ay nagtagpo;\n    ang katuwiran at kapayapaan ay naghalikan.\n[12] Ang katapatan ay sisibol mula sa lupa,\n    at ang katuwiran ay tumutunghay mula sa langit.\n[13] Oo, ibibigay ng PANGINOON ang mabuti,\n    at ang aming lupain ay magbibigay ng kanyang ani.\n[14] Ang katuwiran ay lalakad sa unahan Niya,\n    at gagawa ng daan para sa Kanyang mga hakbang.\n---\nNotes\n- v. 2: Ang שַׁבְתָּ שְׁבִית ay maaaring \"ibinalik Mo ang kapalaran\" o \"ibinalik Mo ang mga bihag\"; pinili ang una.\n- v. 9: Ang huling linya (וְאַל־יָשׁוּבוּ לְכִסְלָה) ay binasang babala; ang Griyego ay may ibang basa (\"sa mga nagbabalik-loob sa Kanya ng puso\").\n- v. 14: Malabo ang וְיָשֵׂם לְדֶרֶךְ פְּעָמָיו; maaari ring \"at gagawing daan ang Kanyang mga yapak.\"\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

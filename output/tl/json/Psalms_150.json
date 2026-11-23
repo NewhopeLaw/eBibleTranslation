@@ -1,0 +1,16 @@
+{
+ "book": "Psalms",
+ "chapter": 150,
+ "lang": "tl",
+ "verses": {
+  "1": "Purihin ang PANGINOON!\nPurihin ang Diyos sa Kanyang santuwaryo;\npurihin Siya sa Kanyang makapangyarihang kalawakan.",
+  "2": "Purihin Siya dahil sa Kanyang makapangyarihang mga gawa;\npurihin Siya ayon sa kasaganaan ng Kanyang kadakilaan.",
+  "3": "Purihin Siya sa hihip ng tambuli;\npurihin Siya sa lira at alpa.",
+  "4": "Purihin Siya sa tamburin at sayaw;\npurihin Siya sa mga instrumentong may kuwerdas at sa plawta.",
+  "5": "Purihin Siya sa mga pompiyang na umaalingawngaw;\npurihin Siya sa mga pompiyang na malakas ang tunog.",
+  "6": "Ang lahat ng may hininga ay magpuri sa PANGINOON!\nPurihin ang PANGINOON!"
+ },
+ "notes": "Notes\n- v. 1: Ang בְּקָדְשׁוֹ ay maaaring \"sa Kanyang santuwaryo\" o \"sa Kanyang kabanalan\"; pinili ang santuwaryo, katapat ng \"kalawakan\" sa kasunod na linya.\n- v. 1, 6: Ang \"Yah\" (maikling anyo ng Pangalan) ay isinalin bilang \"PANGINOON\".\n- v. 3–5: Hindi tiyak ang eksaktong uri ng ilang instrumento (נֵבֶל, מִנִּים, עוּגָב); ibinigay ang pinakamalapit na katumbas.",
+ "raw": "[1] Purihin ang PANGINOON!\nPurihin ang Diyos sa Kanyang santuwaryo;\npurihin Siya sa Kanyang makapangyarihang kalawakan.\n[2] Purihin Siya dahil sa Kanyang makapangyarihang mga gawa;\npurihin Siya ayon sa kasaganaan ng Kanyang kadakilaan.\n[3] Purihin Siya sa hihip ng tambuli;\npurihin Siya sa lira at alpa.\n[4] Purihin Siya sa tamburin at sayaw;\npurihin Siya sa mga instrumentong may kuwerdas at sa plawta.\n[5] Purihin Siya sa mga pompiyang na umaalingawngaw;\npurihin Siya sa mga pompiyang na malakas ang tunog.\n[6] Ang lahat ng may hininga ay magpuri sa PANGINOON!\nPurihin ang PANGINOON!\n---\nNotes\n- v. 1: Ang בְּקָדְשׁוֹ ay maaaring \"sa Kanyang santuwaryo\" o \"sa Kanyang kabanalan\"; pinili ang santuwaryo, katapat ng \"kalawakan\" sa kasunod na linya.\n- v. 1, 6: Ang \"Yah\" (maikling anyo ng Pangalan) ay isinalin bilang \"PANGINOON\".\n- v. 3–5: Hindi tiyak ang eksaktong uri ng ilang instrumento (נֵבֶל, מִנִּים, עוּגָב); ibinigay ang pinakamalapit na katumbas.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

@@ -1,0 +1,17 @@
+{
+ "book": "Psalms",
+ "chapter": 110,
+ "lang": "tl",
+ "verses": {
+  "1": "Salmo ni David.\nIto ang pahayag ng PANGINOON sa aking panginoon:\n“Umupo ka sa Aking kanan,\nhanggang gawin Kong tuntungan ng iyong mga paa ang iyong mga kaaway.”",
+  "2": "Iuunat ng PANGINOON mula sa Sion ang setro ng iyong kapangyarihan:\n“Maghari ka sa gitna ng iyong mga kaaway!”",
+  "3": "Kusang-loob na maghahandog ng sarili ang iyong bayan\nsa araw na tipunin mo ang iyong hukbo, sa banal na karilagan.\nMula sa sinapupunan ng bukang-liwayway\nay sasaiyo ang hamog ng iyong kabataan.",
+  "4": "Sumumpa ang PANGINOON, at hindi Siya magbabago ng isip:\n“Ikaw ay saserdote magpakailanman,\nayon sa pagkasaserdote ni Melquisedec.”",
+  "5": "Ang Panginoon na nasa iyong kanan\nay dudurog sa mga hari sa araw ng Kanyang galit.",
+  "6": "Hahatulan Niya ang mga bansa, pupunuin Niya ng mga bangkay;\ndudurugin Niya ang mga pinuno sa buong malawak na lupain.",
+  "7": "Iinom siya mula sa batis sa tabi ng daan;\nkaya itataas niya ang kanyang ulo."
+ },
+ "notes": "Notes\n- v. 1: “sa aking panginoon” (לַאדֹנִי) — karaniwang pantawag sa isang taong nakatataas (hari), kaya maliit na titik.\n- v. 3: Napakahirap ng Hebreo. “Kusang-loob na maghahandog ng sarili” — literal na “ang iyong bayan ay kusang-loob na mga handog.” “Banal na karilagan” — may mga manuskritong bumabasang “sa mga banal na bundok.” Ang “iyong kabataan” (יַלְדֻתֶיךָ) ay maaari ring basahing “ipinanganak kita.”\n- v. 4: “ayon sa pagkasaserdote ni” — literal na “ayon sa paraan ni” (עַל־דִּבְרָתִי); maaari ring “alang-alang sa akin, isang Melquisedec.”\n- v. 6: “mga pinuno” — literal na “ulo” (iisa), na maaaring tumukoy sa isang pinuno.\n- v. 7: Hindi tiyak kung sino ang “siya” sa v. 5–7; inunawa ang v. 7 na tungkol sa hari.",
+ "raw": "[1] Salmo ni David.\nIto ang pahayag ng PANGINOON sa aking panginoon:\n“Umupo ka sa Aking kanan,\nhanggang gawin Kong tuntungan ng iyong mga paa ang iyong mga kaaway.”\n[2] Iuunat ng PANGINOON mula sa Sion ang setro ng iyong kapangyarihan:\n“Maghari ka sa gitna ng iyong mga kaaway!”\n[3] Kusang-loob na maghahandog ng sarili ang iyong bayan\nsa araw na tipunin mo ang iyong hukbo, sa banal na karilagan.\nMula sa sinapupunan ng bukang-liwayway\nay sasaiyo ang hamog ng iyong kabataan.\n[4] Sumumpa ang PANGINOON, at hindi Siya magbabago ng isip:\n“Ikaw ay saserdote magpakailanman,\nayon sa pagkasaserdote ni Melquisedec.”\n[5] Ang Panginoon na nasa iyong kanan\nay dudurog sa mga hari sa araw ng Kanyang galit.\n[6] Hahatulan Niya ang mga bansa, pupunuin Niya ng mga bangkay;\ndudurugin Niya ang mga pinuno sa buong malawak na lupain.\n[7] Iinom siya mula sa batis sa tabi ng daan;\nkaya itataas niya ang kanyang ulo.\n---\nNotes\n- v. 1: “sa aking panginoon” (לַאדֹנִי) — karaniwang pantawag sa isang taong nakatataas (hari), kaya maliit na titik.\n- v. 3: Napakahirap ng Hebreo. “Kusang-loob na maghahandog ng sarili” — literal na “ang iyong bayan ay kusang-loob na mga handog.” “Banal na karilagan” — may mga manuskritong bumabasang “sa mga banal na bundok.” Ang “iyong kabataan” (יַלְדֻתֶיךָ) ay maaari ring basahing “ipinanganak kita.”\n- v. 4: “ayon sa pagkasaserdote ni” — literal na “ayon sa paraan ni” (עַל־דִּבְרָתִי); maaari ring “alang-alang sa akin, isang Melquisedec.”\n- v. 6: “mga pinuno” — literal na “ulo” (iisa), na maaaring tumukoy sa isang pinuno.\n- v. 7: Hindi tiyak kung sino ang “siya” sa v. 5–7; inunawa ang v. 7 na tungkol sa hari.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

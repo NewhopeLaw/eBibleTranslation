@@ -1,0 +1,15 @@
+{
+ "book": "Psalms",
+ "chapter": 100,
+ "lang": "tl",
+ "verses": {
+  "1": "Isang salmo ng pasasalamat.\nSumigaw kayo sa galak sa PANGINOON, buong daigdig!",
+  "2": "Paglingkuran ninyo ang PANGINOON nang may kagalakan;\nlumapit kayo sa Kanyang harapan na umaawit sa tuwa.",
+  "3": "Kilalanin ninyo na ang PANGINOON ay Diyos.\nSiya ang gumawa sa atin, at tayo'y Kanya;\ntayo ang Kanyang bayan at ang kawang Kanyang pinapastol.",
+  "4": "Pumasok kayo sa Kanyang mga pintuan na may pasasalamat,\nsa Kanyang mga bulwagan na may papuri;\nmagpasalamat kayo sa Kanya, purihin ang Kanyang pangalan.",
+  "5": "Sapagkat mabuti ang PANGINOON;\nang Kanyang tapat na pag-ibig ay magpakailanman,\nat ang Kanyang katapatan ay sa lahat ng salinlahi."
+ },
+ "notes": "Notes\n- v. 3: Ang וְלוֹ אֲנַחְנוּ (\"at tayo'y Kanya\") ay sinunod ayon sa basang qere; ang ketiv na וְלֹא ay magbibigay ng \"at hindi tayo ang gumawa sa ating sarili\".",
+ "raw": "[1] Isang salmo ng pasasalamat.\nSumigaw kayo sa galak sa PANGINOON, buong daigdig!\n[2] Paglingkuran ninyo ang PANGINOON nang may kagalakan;\nlumapit kayo sa Kanyang harapan na umaawit sa tuwa.\n[3] Kilalanin ninyo na ang PANGINOON ay Diyos.\nSiya ang gumawa sa atin, at tayo'y Kanya;\ntayo ang Kanyang bayan at ang kawang Kanyang pinapastol.\n[4] Pumasok kayo sa Kanyang mga pintuan na may pasasalamat,\nsa Kanyang mga bulwagan na may papuri;\nmagpasalamat kayo sa Kanya, purihin ang Kanyang pangalan.\n[5] Sapagkat mabuti ang PANGINOON;\nang Kanyang tapat na pag-ibig ay magpakailanman,\nat ang Kanyang katapatan ay sa lahat ng salinlahi.\n---\nNotes\n- v. 3: Ang וְלוֹ אֲנַחְנוּ (\"at tayo'y Kanya\") ay sinunod ayon sa basang qere; ang ketiv na וְלֹא ay magbibigay ng \"at hindi tayo ang gumawa sa ating sarili\".\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

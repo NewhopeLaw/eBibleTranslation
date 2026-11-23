@@ -1,0 +1,15 @@
+{
+ "book": "Psalms",
+ "chapter": 93,
+ "lang": "tl",
+ "verses": {
+  "1": "Ang PANGINOON ay naghahari; nararamtan Siya ng kamahalan;\nnararamtan ang PANGINOON, nabibigkisan Siya ng kalakasan.\nTunay na matatag ang sanlibutan; hindi ito matitinag.",
+  "2": "Matatag ang Iyong trono mula pa noong una;\nmula sa walang hanggan ay Ikaw na.",
+  "3": "Nagtaas ang mga ilog, PANGINOON,\nnagtaas ang mga ilog ng kanilang tinig;\nitinataas ng mga ilog ang kanilang dagundong.",
+  "4": "Higit pa sa ugong ng maraming tubig,\nhigit na makapangyarihan kaysa sa mga alon ng dagat,\nmakapangyarihan sa kaitaasan ang PANGINOON.",
+  "5": "Lubos na mapagkakatiwalaan ang Iyong mga patotoo;\nkabanalan ang nababagay sa Iyong bahay, PANGINOON,\nsa habang panahon."
+ },
+ "notes": "Notes\n- v. 3: Ang דָּכְיָם ay bihirang salita, malamang \"paghampas/dagundong\" ng alon; isinalin bilang \"dagundong\".",
+ "raw": "[1] Ang PANGINOON ay naghahari; nararamtan Siya ng kamahalan;\nnararamtan ang PANGINOON, nabibigkisan Siya ng kalakasan.\nTunay na matatag ang sanlibutan; hindi ito matitinag.\n[2] Matatag ang Iyong trono mula pa noong una;\nmula sa walang hanggan ay Ikaw na.\n[3] Nagtaas ang mga ilog, PANGINOON,\nnagtaas ang mga ilog ng kanilang tinig;\nitinataas ng mga ilog ang kanilang dagundong.\n[4] Higit pa sa ugong ng maraming tubig,\nhigit na makapangyarihan kaysa sa mga alon ng dagat,\nmakapangyarihan sa kaitaasan ang PANGINOON.\n[5] Lubos na mapagkakatiwalaan ang Iyong mga patotoo;\nkabanalan ang nababagay sa Iyong bahay, PANGINOON,\nsa habang panahon.\n---\nNotes\n- v. 3: Ang דָּכְיָם ay bihirang salita, malamang \"paghampas/dagundong\" ng alon; isinalin bilang \"dagundong\".\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

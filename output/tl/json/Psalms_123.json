@@ -1,0 +1,14 @@
+{
+ "book": "Psalms",
+ "chapter": 123,
+ "lang": "tl",
+ "verses": {
+  "1": "Awit ng Pag-akyat.\nSa Iyo ko itinitingin ang aking mga mata,\nIkaw na nakaluklok sa kalangitan.",
+  "2": "Gaya ng mga mata ng mga alipin na nakatuon sa kamay ng kanilang panginoon,\ngaya ng mga mata ng aliping babae na nakatuon sa kamay ng kanyang among babae,\ngayon nakatuon ang aming mga mata sa PANGINOON na aming Diyos,\nhanggang sa kahabagan Niya kami.",
+  "3": "Kahabagan Mo kami, PANGINOON, kahabagan Mo kami,\nsapagkat lubos na kaming nabusog sa paghamak.",
+  "4": "Lubos nang nabusog ang aming kaluluwa\nsa pangungutya ng mga nagpapakasarap sa buhay,\nsa paghamak ng mga palalo."
+ },
+ "notes": "Notes\n- v. 4: Ang huling linya, לִגְאֵיוֹנִים, ay may kakaibang anyo (Ketiv/Qere); binasa bilang \"ng mga palalo\".",
+ "raw": "[1] Awit ng Pag-akyat.\nSa Iyo ko itinitingin ang aking mga mata,\nIkaw na nakaluklok sa kalangitan.\n[2] Gaya ng mga mata ng mga alipin na nakatuon sa kamay ng kanilang panginoon,\ngaya ng mga mata ng aliping babae na nakatuon sa kamay ng kanyang among babae,\ngayon nakatuon ang aming mga mata sa PANGINOON na aming Diyos,\nhanggang sa kahabagan Niya kami.\n[3] Kahabagan Mo kami, PANGINOON, kahabagan Mo kami,\nsapagkat lubos na kaming nabusog sa paghamak.\n[4] Lubos nang nabusog ang aming kaluluwa\nsa pangungutya ng mga nagpapakasarap sa buhay,\nsa paghamak ng mga palalo.\n---\nNotes\n- v. 4: Ang huling linya, לִגְאֵיוֹנִים, ay may kakaibang anyo (Ketiv/Qere); binasa bilang \"ng mga palalo\".\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

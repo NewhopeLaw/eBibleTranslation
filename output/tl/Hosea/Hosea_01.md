@@ -1,0 +1,12 @@
+# Hosea 1
+
+¹ Ang salita ng PANGINOON na dumating kay Oseas na anak ni Beeri, noong panahon nina Uzias, Jotham, Achaz at Ezequias, na mga hari ng Juda, at noong panahon ni Jeroboam na anak ni Joas, na hari ng Israel. ² Nang unang magsalita ang PANGINOON sa pamamagitan ni Oseas, sinabi ng PANGINOON kay Oseas, “Humayo ka, mag-asawa ka ng babaeng bayaran at magkaroon ka ng mga anak sa pagbebenta ng aliw, sapagkat ang lupain ay lubusang nagbebenta ng aliw at tumalikod sa PANGINOON.” ³ Kaya humayo siya at pinakasalan si Gomer na anak ni Diblaim. Naglihi ito at nanganak sa kanya ng isang lalaki. ⁴ Sinabi sa kanya ng PANGINOON, “Pangalanan mo siyang Jezreel, sapagkat sandali na lamang at pagbabayarin Ko ang sambahayan ni Jehu sa dugong ibinuhos sa Jezreel, at wawakasan Ko ang paghahari ng sambahayan ng Israel. ⁵ Sa araw na iyon ay babaliin Ko ang pana ng Israel sa lambak ng Jezreel.” ⁶ Muling naglihi si Gomer at nanganak ng isang babae. Sinabi ng PANGINOON kay Oseas, “Pangalanan mo siyang Lo-ruhama, sapagkat hindi Ko na muling kahahabagan ang sambahayan ng Israel upang patawarin pa sila. ⁷ Ngunit kahahabagan Ko ang sambahayan ng Juda, at ililigtas Ko sila sa pamamagitan Ko, ang PANGINOON na kanilang Diyos. Hindi Ko sila ililigtas sa pamamagitan ng pana, ng tabak, o ng digmaan, ng mga kabayo o ng mga mangangabayo.” ⁸ Nang maawat na ni Gomer si Lo-ruhama, naglihi siya at nanganak ng isang lalaki. ⁹ Sinabi ng PANGINOON, “Pangalanan mo siyang Lo-ammi, sapagkat hindi Ko kayo bayan, at hindi Ako magiging inyo.”
+
+---
+
+Notes
+- v. 2: Ang “eshet zenunim” at “yalde zenunim” ay literal na “asawa ng pagbebenta ng aliw” at “mga anak ng pagbebenta ng aliw”; isinalin ito ayon sa diwa ng pandiwang “zanah” na umuulit sa talata.
+- v. 4: Ang “Jezreel” ay nangangahulugang “naghahasik ang Diyos”; ang pagbabayad ay tumutukoy sa pagdanak ng dugo ni Jehu sa Jezreel.
+- v. 6: Ang “Lo-ruhama” ay nangangahulugang “Hindi Kinahahabagan.” Ang huling sugnay (“ki naso essa lahem”) ay malabo: maaaring “upang patawarin pa sila” (pinili rito, na may kahulugang hindi na) o “lubusan Ko silang aalisin.”
+- v. 7: Ang “sa pamamagitan ng PANGINOON na kanilang Diyos” ay sinabi ng Diyos tungkol sa Kanyang sarili; ginawang “sa pamamagitan Ko, ang PANGINOON” para malinaw.
+- v. 9: Ang “Lo-ammi” ay nangangahulugang “Hindi Ko Bayan.” Ang “at hindi Ako magiging inyo” ay literal na “at Ako ay hindi ehyeh para sa inyo,” na maaaring tumutukoy sa pangalang “Ehyeh” (Ako Nga).

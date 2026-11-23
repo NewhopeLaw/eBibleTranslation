@@ -1,0 +1,21 @@
+{
+ "book": "Jonah",
+ "chapter": 2,
+ "lang": "tl",
+ "verses": {
+  "1": "Nagtalaga ang PANGINOON ng isang malaking isda upang lunukin si Jonas, at si Jonas ay nasa tiyan ng isda nang tatlong araw at tatlong gabi.",
+  "2": "Nanalangin si Jonas sa PANGINOON na kanyang Diyos mula sa tiyan ng isda.",
+  "3": "Sinabi niya,\n“Sa aking kagipitan ay tumawag ako sa PANGINOON,\nat sinagot Niya ako.\nMula sa kaibuturan ng Sheol, ang daigdig ng mga patay, ay humingi ako ng saklolo,\nat narinig Mo ang aking tinig.",
+  "4": "Inihagis Mo ako sa kailaliman, sa pinakapuso ng mga dagat,\nat pinalibutan ako ng agos;\nang lahat ng Iyong mga alon at daluyong\nay dumaan sa ibabaw ko.",
+  "5": "Kaya sinabi ko, ‘Itinaboy ako mula sa Iyong paningin;\ngayunma'y muli akong titingin\nsa Iyong banal na templo.’",
+  "6": "Nilukuban ako ng tubig hanggang sa aking leeg,\npinalibutan ako ng kalaliman;\nang damong-dagat ay pumulupot sa aking ulo.",
+  "7": "Bumaba ako hanggang sa paanan ng mga bundok;\nang lupa at ang mga halang nito ay nagsara sa akin magpakailanman.\nNgunit iniahon Mo mula sa hukay ang aking buhay,\nO PANGINOON kong Diyos.",
+  "8": "Nang nanlulupaypay na ang aking buhay,\nang PANGINOON ang aking naalala,\nat umabot sa Iyo ang aking dalangin,\nsa Iyong banal na templo.",
+  "9": "Ang mga nagtataguyod sa mga walang-kabuluhang diyus-diyosan\nay tumatalikod sa tapat na pag-ibig na para sa kanila.",
+  "10": "Ngunit ako, na may awit ng pasasalamat,\nay maghahandog sa Iyo;\nang aking ipinanata ay tutuparin ko.\nAng kaligtasan ay mula sa PANGINOON!”",
+  "11": "At nag-utos ang PANGINOON sa isda, at iniluwa nito si Jonas sa tuyong lupa."
+ },
+ "notes": "Notes\n- v. 3: Ang talaan ng pangalan ay nagbibigay ng “Sheol”, at ang glossary ay “daigdig ng mga patay”; pareho ang inilagay.\n- v. 6: עַד־נֶפֶשׁ, ang נֶפֶשׁ dito ay “lalamunan/leeg”, ayon sa glossary na “by context”.\n- v. 7: בְּרִחֶיהָ, “ang mga halang nito”, larawan ng lupa bilang lungsod na may mga trangka.\n- v. 9: חַסְדָּם ay maaaring “ang tapat na pag-ibig sa kanila [ng Diyos]” o “ang kanilang katapatan”; pinili ang una.",
+ "raw": "[1] Nagtalaga ang PANGINOON ng isang malaking isda upang lunukin si Jonas, at si Jonas ay nasa tiyan ng isda nang tatlong araw at tatlong gabi.\n[2] Nanalangin si Jonas sa PANGINOON na kanyang Diyos mula sa tiyan ng isda.\n[3] Sinabi niya,\n“Sa aking kagipitan ay tumawag ako sa PANGINOON,\nat sinagot Niya ako.\nMula sa kaibuturan ng Sheol, ang daigdig ng mga patay, ay humingi ako ng saklolo,\nat narinig Mo ang aking tinig.\n[4] Inihagis Mo ako sa kailaliman, sa pinakapuso ng mga dagat,\nat pinalibutan ako ng agos;\nang lahat ng Iyong mga alon at daluyong\nay dumaan sa ibabaw ko.\n[5] Kaya sinabi ko, ‘Itinaboy ako mula sa Iyong paningin;\ngayunma'y muli akong titingin\nsa Iyong banal na templo.’\n[6] Nilukuban ako ng tubig hanggang sa aking leeg,\npinalibutan ako ng kalaliman;\nang damong-dagat ay pumulupot sa aking ulo.\n[7] Bumaba ako hanggang sa paanan ng mga bundok;\nang lupa at ang mga halang nito ay nagsara sa akin magpakailanman.\nNgunit iniahon Mo mula sa hukay ang aking buhay,\nO PANGINOON kong Diyos.\n[8] Nang nanlulupaypay na ang aking buhay,\nang PANGINOON ang aking naalala,\nat umabot sa Iyo ang aking dalangin,\nsa Iyong banal na templo.\n[9] Ang mga nagtataguyod sa mga walang-kabuluhang diyus-diyosan\nay tumatalikod sa tapat na pag-ibig na para sa kanila.\n[10] Ngunit ako, na may awit ng pasasalamat,\nay maghahandog sa Iyo;\nang aking ipinanata ay tutuparin ko.\nAng kaligtasan ay mula sa PANGINOON!”\n[11] At nag-utos ang PANGINOON sa isda, at iniluwa nito si Jonas sa tuyong lupa.\n---\nNotes\n- v. 3: Ang talaan ng pangalan ay nagbibigay ng “Sheol”, at ang glossary ay “daigdig ng mga patay”; pareho ang inilagay.\n- v. 6: עַד־נֶפֶשׁ, ang נֶפֶשׁ dito ay “lalamunan/leeg”, ayon sa glossary na “by context”.\n- v. 7: בְּרִחֶיהָ, “ang mga halang nito”, larawan ng lupa bilang lungsod na may mga trangka.\n- v. 9: חַסְדָּם ay maaaring “ang tapat na pag-ibig sa kanila [ng Diyos]” o “ang kanilang katapatan”; pinili ang una.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

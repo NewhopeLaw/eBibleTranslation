@@ -1,0 +1,16 @@
+{
+ "book": "Psalms",
+ "chapter": 13,
+ "lang": "tl",
+ "verses": {
+  "1": "Para sa punong mang-aawit. Awit ni David.",
+  "2": "Hanggang kailan, PANGINOON? Kalilimutan Mo ba ako magpakailanman?\nHanggang kailan Mo itatago sa akin ang Iyong mukha?",
+  "3": "Hanggang kailan ako mag-iisip ng mga paraan sa aking sarili,\nna may lungkot sa aking puso araw-araw?\nHanggang kailan mangingibabaw sa akin ang aking kaaway?",
+  "4": "Tingnan Mo ako at sagutin, PANGINOON kong Diyos;\nliwanagan Mo ang aking mga mata, baka ako'y matulog sa kamatayan,",
+  "5": "baka sabihin ng aking kaaway, “Natalo ko siya,”\nat magalak ang aking mga kalaban kapag ako'y nabuwal.",
+  "6": "Ngunit ako ay nagtitiwala sa Iyong tapat na pag-ibig;\nmagagalak ang aking puso sa Iyong pagliligtas.\nAawit ako sa PANGINOON,\nsapagkat Siya'y naging mabuti sa akin."
+ },
+ "notes": "Notes\n- v. 3: Ang \"etsot\" (mga payo, mga balak) ay isinalin na \"mga paraan,\" ang pagbabalak na makaalpas sa kagipitan.",
+ "raw": "[1] Para sa punong mang-aawit. Awit ni David.\n[2] Hanggang kailan, PANGINOON? Kalilimutan Mo ba ako magpakailanman?\nHanggang kailan Mo itatago sa akin ang Iyong mukha?\n[3] Hanggang kailan ako mag-iisip ng mga paraan sa aking sarili,\nna may lungkot sa aking puso araw-araw?\nHanggang kailan mangingibabaw sa akin ang aking kaaway?\n[4] Tingnan Mo ako at sagutin, PANGINOON kong Diyos;\nliwanagan Mo ang aking mga mata, baka ako'y matulog sa kamatayan,\n[5] baka sabihin ng aking kaaway, “Natalo ko siya,”\nat magalak ang aking mga kalaban kapag ako'y nabuwal.\n[6] Ngunit ako ay nagtitiwala sa Iyong tapat na pag-ibig;\nmagagalak ang aking puso sa Iyong pagliligtas.\nAawit ako sa PANGINOON,\nsapagkat Siya'y naging mabuti sa akin.\n---\nNotes\n- v. 3: Ang \"etsot\" (mga payo, mga balak) ay isinalin na \"mga paraan,\" ang pagbabalak na makaalpas sa kagipitan.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

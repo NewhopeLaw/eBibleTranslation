@@ -1,0 +1,20 @@
+{
+ "book": "Psalms",
+ "chapter": 24,
+ "lang": "tl",
+ "verses": {
+  "1": "Kay David. Isang salmo.\nSa PANGINOON ang lupa at ang lahat ng naroon,\nang sanlibutan at ang lahat ng naninirahan dito.",
+  "2": "Sapagkat itinayo Niya ito sa ibabaw ng mga dagat,\nat itinatag sa ibabaw ng mga ilog.",
+  "3": "Sino ang makaaakyat sa bundok ng PANGINOON?\nSino ang makatatayo sa Kanyang banal na dako?",
+  "4": "Ang may malinis na mga kamay at may dalisay na puso,\nna hindi nagtataas ng kanyang kaluluwa sa kasinungalingan,\nat hindi sumusumpa upang manlinlang.",
+  "5": "Tatanggap siya ng pagpapala mula sa PANGINOON,\nat ng katuwiran mula sa Diyos na kanyang Tagapagligtas.",
+  "6": "Ganito ang lahi ng mga humahanap sa Kanya,\nng mga naghahanap sa Iyong mukha, O Diyos ni Jacob. Selah",
+  "7": "Itaas ninyo ang inyong mga ulo, kayong mga pintuang-bayan!\nTumaas kayo, kayong mga sinaunang pintuan,\nupang makapasok ang Hari ng kaluwalhatian.",
+  "8": "Sino ang Haring ito ng kaluwalhatian?\nAng PANGINOON, malakas at makapangyarihan,\nang PANGINOON, makapangyarihan sa digmaan.",
+  "9": "Itaas ninyo ang inyong mga ulo, kayong mga pintuang-bayan!\nItaas ninyo, kayong mga sinaunang pintuan,\nupang makapasok ang Hari ng kaluwalhatian.",
+  "10": "Sino ba Siya, ang Haring ito ng kaluwalhatian?\nAng PANGINOON ng mga hukbo,\nSiya ang Hari ng kaluwalhatian. Selah"
+ },
+ "notes": "Notes\n- v. 4: Ang tekstong Masoretiko ay may \"aking kaluluwa\" (נַפְשִׁי); maraming manuskrito ang may \"kanyang kaluluwa.\" Sinunod ang \"kanyang\" dahil sa daloy ng talata.\n- v. 6: \"O Diyos ni Jacob\" — ang Hebreo ay \"Iyong mukha, Jacob\" lamang; idinagdag ang \"Diyos\" upang maging malinaw na ang Diyos ang kinakausap. Maaari ring basahin: \"ang naghahanap sa Iyong mukha — ito ang Jacob.\"\n- v. 7: \"sinaunang pintuan\" — literal na \"mga pintuan ng walang hanggan.\"",
+ "raw": "[1] Kay David. Isang salmo.\nSa PANGINOON ang lupa at ang lahat ng naroon,\nang sanlibutan at ang lahat ng naninirahan dito.\n[2] Sapagkat itinayo Niya ito sa ibabaw ng mga dagat,\nat itinatag sa ibabaw ng mga ilog.\n[3] Sino ang makaaakyat sa bundok ng PANGINOON?\nSino ang makatatayo sa Kanyang banal na dako?\n[4] Ang may malinis na mga kamay at may dalisay na puso,\nna hindi nagtataas ng kanyang kaluluwa sa kasinungalingan,\nat hindi sumusumpa upang manlinlang.\n[5] Tatanggap siya ng pagpapala mula sa PANGINOON,\nat ng katuwiran mula sa Diyos na kanyang Tagapagligtas.\n[6] Ganito ang lahi ng mga humahanap sa Kanya,\nng mga naghahanap sa Iyong mukha, O Diyos ni Jacob. Selah\n[7] Itaas ninyo ang inyong mga ulo, kayong mga pintuang-bayan!\nTumaas kayo, kayong mga sinaunang pintuan,\nupang makapasok ang Hari ng kaluwalhatian.\n[8] Sino ang Haring ito ng kaluwalhatian?\nAng PANGINOON, malakas at makapangyarihan,\nang PANGINOON, makapangyarihan sa digmaan.\n[9] Itaas ninyo ang inyong mga ulo, kayong mga pintuang-bayan!\nItaas ninyo, kayong mga sinaunang pintuan,\nupang makapasok ang Hari ng kaluwalhatian.\n[10] Sino ba Siya, ang Haring ito ng kaluwalhatian?\nAng PANGINOON ng mga hukbo,\nSiya ang Hari ng kaluwalhatian. Selah\n---\nNotes\n- v. 4: Ang tekstong Masoretiko ay may \"aking kaluluwa\" (נַפְשִׁי); maraming manuskrito ang may \"kanyang kaluluwa.\" Sinunod ang \"kanyang\" dahil sa daloy ng talata.\n- v. 6: \"O Diyos ni Jacob\" — ang Hebreo ay \"Iyong mukha, Jacob\" lamang; idinagdag ang \"Diyos\" upang maging malinaw na ang Diyos ang kinakausap. Maaari ring basahin: \"ang naghahanap sa Iyong mukha — ito ang Jacob.\"\n- v. 7: \"sinaunang pintuan\" — literal na \"mga pintuan ng walang hanggan.\"\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

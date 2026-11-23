@@ -1,0 +1,23 @@
+{
+ "book": "Psalms",
+ "chapter": 36,
+ "lang": "tl",
+ "verses": {
+  "1": "Para sa punong mang-aawit. Kay David, ang lingkod ng PANGINOON.",
+  "2": "Ang pagsuway ay nagsasalita sa masama sa kaibuturan ng kanyang puso;\nwalang takot sa Diyos sa harap ng kanyang mga mata.",
+  "3": "Sapagkat nililinlang niya ang sarili sa kanyang sariling paningin,\nna hindi raw matutuklasan at kapopootan ang kanyang kasalanan.",
+  "4": "Kasamaan at panlilinlang ang mga salita ng kanyang bibig;\ntumigil na siyang maging marunong at gumawa ng mabuti.",
+  "5": "Nagbabalak siya ng kasamaan sa kanyang higaan;\npumupuwesto siya sa daang hindi mabuti;\nhindi niya tinatanggihan ang masama.",
+  "6": "PANGINOON, ang Iyong tapat na pag-ibig ay umaabot sa kalangitan,\nang Iyong katapatan hanggang sa mga ulap.",
+  "7": "Ang Iyong katuwiran ay gaya ng matatayog na bundok,\nang Iyong mga paghatol ay gaya ng malawak na kalaliman;\ntao at hayop ay Iyong iniingatan, PANGINOON.",
+  "8": "Kay mahal ng Iyong tapat na pag-ibig, O Diyos!\nAng mga anak ng tao ay nanganganlong sa lilim ng Iyong mga pakpak.",
+  "9": "Nabubusog sila sa kasaganaan ng Iyong tahanan,\nat pinaiinom Mo sila sa ilog ng Iyong mga kaluguran.",
+  "10": "Sapagkat nasa Iyo ang bukal ng buhay;\nsa Iyong liwanag ay nakakakita kami ng liwanag.",
+  "11": "Ipagpatuloy Mo ang Iyong tapat na pag-ibig sa mga nakakakilala sa Iyo,\nat ang Iyong katuwiran sa mga matuwid ang puso.",
+  "12": "Huwag Mong hayaang yurakan ako ng paa ng palalo,\no itaboy ako ng kamay ng masasama.",
+  "13": "Doon nabuwal ang mga gumagawa ng kasamaan;\nitinumba sila at hindi na makabangon."
+ },
+ "notes": "Notes\n- v. 2: \"לִבִּי\" (aking puso) sa tekstong Masoretiko; maraming iskolar ang bumabasa ng \"לִבּוֹ\" (kanyang puso), na mas akma sa konteksto. Ito ang sinunod.\n- v. 3: Malabo ang Hebreo; ang \"לִמְצֹא עֲוֺנוֹ לִשְׂנֹא\" ay isinalin bilang iniisip ng masama na hindi matutuklasan at kapopootan ang kanyang kasalanan.\n- v. 7: \"הַרְרֵי־אֵל\" (literal na \"mga bundok ng Diyos\") ay idyoma para sa napakataas; isinalin na \"matatayog na bundok.\"",
+ "raw": "[1] Para sa punong mang-aawit. Kay David, ang lingkod ng PANGINOON.\n[2] Ang pagsuway ay nagsasalita sa masama sa kaibuturan ng kanyang puso;\nwalang takot sa Diyos sa harap ng kanyang mga mata.\n[3] Sapagkat nililinlang niya ang sarili sa kanyang sariling paningin,\nna hindi raw matutuklasan at kapopootan ang kanyang kasalanan.\n[4] Kasamaan at panlilinlang ang mga salita ng kanyang bibig;\ntumigil na siyang maging marunong at gumawa ng mabuti.\n[5] Nagbabalak siya ng kasamaan sa kanyang higaan;\npumupuwesto siya sa daang hindi mabuti;\nhindi niya tinatanggihan ang masama.\n[6] PANGINOON, ang Iyong tapat na pag-ibig ay umaabot sa kalangitan,\nang Iyong katapatan hanggang sa mga ulap.\n[7] Ang Iyong katuwiran ay gaya ng matatayog na bundok,\nang Iyong mga paghatol ay gaya ng malawak na kalaliman;\ntao at hayop ay Iyong iniingatan, PANGINOON.\n[8] Kay mahal ng Iyong tapat na pag-ibig, O Diyos!\nAng mga anak ng tao ay nanganganlong sa lilim ng Iyong mga pakpak.\n[9] Nabubusog sila sa kasaganaan ng Iyong tahanan,\nat pinaiinom Mo sila sa ilog ng Iyong mga kaluguran.\n[10] Sapagkat nasa Iyo ang bukal ng buhay;\nsa Iyong liwanag ay nakakakita kami ng liwanag.\n[11] Ipagpatuloy Mo ang Iyong tapat na pag-ibig sa mga nakakakilala sa Iyo,\nat ang Iyong katuwiran sa mga matuwid ang puso.\n[12] Huwag Mong hayaang yurakan ako ng paa ng palalo,\no itaboy ako ng kamay ng masasama.\n[13] Doon nabuwal ang mga gumagawa ng kasamaan;\nitinumba sila at hindi na makabangon.\n---\nNotes\n- v. 2: \"לִבִּי\" (aking puso) sa tekstong Masoretiko; maraming iskolar ang bumabasa ng \"לִבּוֹ\" (kanyang puso), na mas akma sa konteksto. Ito ang sinunod.\n- v. 3: Malabo ang Hebreo; ang \"לִמְצֹא עֲוֺנוֹ לִשְׂנֹא\" ay isinalin bilang iniisip ng masama na hindi matutuklasan at kapopootan ang kanyang kasalanan.\n- v. 7: \"הַרְרֵי־אֵל\" (literal na \"mga bundok ng Diyos\") ay idyoma para sa napakataas; isinalin na \"matatayog na bundok.\"\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

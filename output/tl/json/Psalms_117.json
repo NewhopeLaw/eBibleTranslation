@@ -1,0 +1,12 @@
+{
+ "book": "Psalms",
+ "chapter": 117,
+ "lang": "tl",
+ "verses": {
+  "1": "Purihin ninyo ang PANGINOON, kayong lahat ng mga bansa;\ndakilain ninyo Siya, kayong lahat ng mga bayan.",
+  "2": "Sapagkat dakila ang Kanyang tapat na pag-ibig sa atin,\nat ang katapatan ng PANGINOON ay magpakailanman.\nAleluya!"
+ },
+ "notes": "Notes\n- v. 2: Ang גָבַר עָלֵינוּ ay “nanaig/naging malakas sa atin”; isinalin na “dakila … sa atin.”",
+ "raw": "[1] Purihin ninyo ang PANGINOON, kayong lahat ng mga bansa;\ndakilain ninyo Siya, kayong lahat ng mga bayan.\n[2] Sapagkat dakila ang Kanyang tapat na pag-ibig sa atin,\nat ang katapatan ng PANGINOON ay magpakailanman.\nAleluya!\n---\nNotes\n- v. 2: Ang גָבַר עָלֵינוּ ay “nanaig/naging malakas sa atin”; isinalin na “dakila … sa atin.”\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

@@ -1,0 +1,31 @@
+{
+  "_comment": "Key Hebrew/Aramaic/Greek terms and their fixed Tagalog renderings; pasted into every prompt.",
+  "hebrew": {
+    "יהוה (YHWH)": "PANGINOON",
+    "אלהים (elohim, as title of God)": "Diyos",
+    "יהוה אלהים": "PANGINOONG Diyos",
+    "אדני יהוה (adonai YHWH)": "Panginoong DIYOS",
+    "האדם (ha-adam)": "ang tao (until the story plainly uses Adam as a name)",
+    "חסד (hesed)": "tapat na pag-ibig",
+    "נפש (nephesh)": "by context: buhay, sarili, kaluluwa, nais, lalamunan — not automatically “kaluluwa”",
+    "רוח (ruach)": "by context: hininga, hangin, espiritu",
+    "תהום (tehom)": "kalaliman",
+    "תהו ובהו (tohu va-bohu)": "walang anyo at walang laman",
+    "ברית (berit)": "tipan",
+    "תורה (torah)": "kautusan / aral (by context)",
+    "שלום (shalom)": "kapayapaan (by context: kapakanan, kabutihan)",
+    "שאול (sheol)": "daigdig ng mga patay"
+  },
+  "greek": {
+    "κύριος (kyrios)": "Panginoon",
+    "χριστός (christos)": "Mesiyas (as a title) / Cristo (as a name)",
+    "λόγος (logos, John 1)": "Salita",
+    "ἀγάπη (agapē)": "pag-ibig",
+    "ἐκκλησία (ekklēsia)": "iglesya",
+    "βασιλεία τοῦ θεοῦ": "kaharian ng Diyos",
+    "εὐαγγέλιον (euangelion)": "Magandang Balita",
+    "μετάνοια (metanoia)": "pagsisisi",
+    "πνεῦμα (pneuma)": "by context: espiritu, hininga, hangin",
+    "δικαιοσύνη (dikaiosynē)": "katuwiran"
+  }
+}

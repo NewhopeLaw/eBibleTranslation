@@ -1,0 +1,17 @@
+{
+ "book": "Psalms",
+ "chapter": 53,
+ "lang": "tl",
+ "verses": {
+  "1": "Para sa punong mang-aawit; ayon sa Mahalat. Maskil ni David.",
+  "2": "Sinasabi ng hangal sa kanyang puso, “Walang Diyos.”\nSila'y masasama at gumagawa ng kasuklam-suklam na kalikuan;\nwalang gumagawa ng mabuti.",
+  "3": "Mula sa langit ay tumunghay ang Diyos sa mga anak ng tao,\nupang tingnan kung may sinumang may unawa,\nna naghahanap sa Diyos.",
+  "4": "Lahat sila'y tumalikod; sama-sama silang naging bulok;\nwalang gumagawa ng mabuti, wala kahit isa.",
+  "5": "Wala bang kaalaman ang mga gumagawa ng masama,\nna lumalamon sa aking bayan na parang kumakain ng tinapay,\nat hindi tumatawag sa Diyos?",
+  "6": "Doon ay sinakmal sila ng matinding takot,\nkahit walang dapat katakutan;\nsapagkat ikinalat ng Diyos ang mga buto ng nagkampo laban sa iyo;\ninilagay mo sila sa kahihiyan, sapagkat itinakwil sila ng Diyos.",
+  "7": "O, dumating nawa mula sa Sion ang kaligtasan ng Israel!\nKapag ibinalik ng Diyos ang kapalaran ng Kanyang bayan,\nmagdiriwang ang Jacob, magagalak ang Israel."
+ },
+ "notes": "Notes\n- v. 1: Hindi tiyak ang kahulugan ng \"מָחֲלַת\"; iniwan bilang pangalan ng himig, \"Mahalat\".\n- v. 4: Ang \"סָג\" ay mula sa \"tumalikod/lumihis\".\n- v. 6: Ang \"חֹנָךְ\" (ang nagkampo laban sa iyo) ay bihirang anyo; ang kausap ay ang bayan.\n- v. 7: Ang \"שְׁבוּת\" ay maaaring \"kapalaran\" o \"mga bihag\"; pinili ang \"kapalaran\".",
+ "raw": "[1] Para sa punong mang-aawit; ayon sa Mahalat. Maskil ni David.\n[2] Sinasabi ng hangal sa kanyang puso, “Walang Diyos.”\nSila'y masasama at gumagawa ng kasuklam-suklam na kalikuan;\nwalang gumagawa ng mabuti.\n[3] Mula sa langit ay tumunghay ang Diyos sa mga anak ng tao,\nupang tingnan kung may sinumang may unawa,\nna naghahanap sa Diyos.\n[4] Lahat sila'y tumalikod; sama-sama silang naging bulok;\nwalang gumagawa ng mabuti, wala kahit isa.\n[5] Wala bang kaalaman ang mga gumagawa ng masama,\nna lumalamon sa aking bayan na parang kumakain ng tinapay,\nat hindi tumatawag sa Diyos?\n[6] Doon ay sinakmal sila ng matinding takot,\nkahit walang dapat katakutan;\nsapagkat ikinalat ng Diyos ang mga buto ng nagkampo laban sa iyo;\ninilagay mo sila sa kahihiyan, sapagkat itinakwil sila ng Diyos.\n[7] O, dumating nawa mula sa Sion ang kaligtasan ng Israel!\nKapag ibinalik ng Diyos ang kapalaran ng Kanyang bayan,\nmagdiriwang ang Jacob, magagalak ang Israel.\n---\nNotes\n- v. 1: Hindi tiyak ang kahulugan ng \"מָחֲלַת\"; iniwan bilang pangalan ng himig, \"Mahalat\".\n- v. 4: Ang \"סָג\" ay mula sa \"tumalikod/lumihis\".\n- v. 6: Ang \"חֹנָךְ\" (ang nagkampo laban sa iyo) ay bihirang anyo; ang kausap ay ang bayan.\n- v. 7: Ang \"שְׁבוּת\" ay maaaring \"kapalaran\" o \"mga bihag\"; pinili ang \"kapalaran\".\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

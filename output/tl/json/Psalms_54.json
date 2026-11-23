@@ -1,0 +1,19 @@
+{
+ "book": "Psalms",
+ "chapter": 54,
+ "lang": "tl",
+ "verses": {
+  "1": "Para sa punong mang-aawit; sa saliw ng mga instrumentong may kuwerdas. Maskil ni David,",
+  "2": "nang dumating ang mga Zifeo at sabihin kay Saul, “Hindi ba nagtatago si David sa amin?”",
+  "3": "O Diyos, iligtas Mo ako sa pamamagitan ng Iyong pangalan,\nat ipagtanggol Mo ang aking katuwiran sa pamamagitan ng Iyong kapangyarihan.",
+  "4": "O Diyos, dinggin Mo ang aking panalangin;\npakinggan Mo ang mga salita ng aking bibig.",
+  "5": "Sapagkat mga dayuhan ang bumangon laban sa akin,\nat mga malupit ang naghahangad ng aking buhay;\nhindi nila inilalagay ang Diyos sa kanilang harapan. Selah",
+  "6": "Narito, ang Diyos ang aking katulong;\nang Panginoon ang umaalalay sa aking buhay.",
+  "7": "Ibabalik Niya ang kasamaan sa aking mga kaaway;\nsa Iyong katapatan ay lipulin Mo sila.",
+  "8": "Kusang-loob akong maghahandog sa Iyo;\npasasalamatan ko ang Iyong pangalan, O PANGINOON, sapagkat ito'y mabuti.",
+  "9": "Sapagkat iniligtas Niya ako sa bawat kagipitan,\nat nakita ng aking mata ang pagbagsak ng aking mga kaaway."
+ },
+ "notes": "Notes\n- v. 6: Ang \"בְּסֹמְכֵי נַפְשִׁי\" ay literal na \"kabilang sa mga umaalalay sa aking buhay\"; isinalin bilang \"ang umaalalay\".\n- v. 9: Ang \"רָאֲתָה עֵינִי בְּ...\" ay pagtingin nang may tagumpay sa mga kaaway; idinagdag ang \"pagbagsak\" para sa linaw.",
+ "raw": "[1] Para sa punong mang-aawit; sa saliw ng mga instrumentong may kuwerdas. Maskil ni David,\n[2] nang dumating ang mga Zifeo at sabihin kay Saul, “Hindi ba nagtatago si David sa amin?”\n[3] O Diyos, iligtas Mo ako sa pamamagitan ng Iyong pangalan,\nat ipagtanggol Mo ang aking katuwiran sa pamamagitan ng Iyong kapangyarihan.\n[4] O Diyos, dinggin Mo ang aking panalangin;\npakinggan Mo ang mga salita ng aking bibig.\n[5] Sapagkat mga dayuhan ang bumangon laban sa akin,\nat mga malupit ang naghahangad ng aking buhay;\nhindi nila inilalagay ang Diyos sa kanilang harapan. Selah\n[6] Narito, ang Diyos ang aking katulong;\nang Panginoon ang umaalalay sa aking buhay.\n[7] Ibabalik Niya ang kasamaan sa aking mga kaaway;\nsa Iyong katapatan ay lipulin Mo sila.\n[8] Kusang-loob akong maghahandog sa Iyo;\npasasalamatan ko ang Iyong pangalan, O PANGINOON, sapagkat ito'y mabuti.\n[9] Sapagkat iniligtas Niya ako sa bawat kagipitan,\nat nakita ng aking mata ang pagbagsak ng aking mga kaaway.\n---\nNotes\n- v. 6: Ang \"בְּסֹמְכֵי נַפְשִׁי\" ay literal na \"kabilang sa mga umaalalay sa aking buhay\"; isinalin bilang \"ang umaalalay\".\n- v. 9: Ang \"רָאֲתָה עֵינִי בְּ...\" ay pagtingin nang may tagumpay sa mga kaaway; idinagdag ang \"pagbagsak\" para sa linaw.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

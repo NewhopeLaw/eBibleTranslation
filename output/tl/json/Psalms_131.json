@@ -1,0 +1,13 @@
+{
+ "book": "Psalms",
+ "chapter": 131,
+ "lang": "tl",
+ "verses": {
+  "1": "Awit ng Pag-akyat. Kay David.\nPANGINOON, hindi mapagmataas ang aking puso,\nat hindi palalo ang aking mga mata;\nhindi ako nakikialam sa mga bagay na napakadakila\nat napakahiwaga para sa akin.",
+  "2": "Sa halip, pinatahimik at pinayapa ko ang aking kaluluwa,\ngaya ng batang awat na sa suso na nasa piling ng kanyang ina;\ngaya ng batang awat na ang aking kaluluwa sa loob ko.",
+  "3": "O Israel, umasa ka sa PANGINOON,\nmula ngayon at magpakailanman."
+ },
+ "notes": "Notes\n- v. 2: Ang אִם־לֹא ay anyo ng panunumpa na nangangahulugang \"tunay na…\"; isinalin bilang \"Sa halip\".",
+ "raw": "[1] Awit ng Pag-akyat. Kay David.\nPANGINOON, hindi mapagmataas ang aking puso,\nat hindi palalo ang aking mga mata;\nhindi ako nakikialam sa mga bagay na napakadakila\nat napakahiwaga para sa akin.\n[2] Sa halip, pinatahimik at pinayapa ko ang aking kaluluwa,\ngaya ng batang awat na sa suso na nasa piling ng kanyang ina;\ngaya ng batang awat na ang aking kaluluwa sa loob ko.\n[3] O Israel, umasa ka sa PANGINOON,\nmula ngayon at magpakailanman.\n---\nNotes\n- v. 2: Ang אִם־לֹא ay anyo ng panunumpa na nangangahulugang \"tunay na…\"; isinalin bilang \"Sa halip\".\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

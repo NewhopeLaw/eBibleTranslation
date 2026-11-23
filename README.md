@@ -457,6 +457,7 @@ described once in `TARGETS` in `scripts/books.py`:
 | `tr` | Turkish | `prompts/targets/tr.txt` | `targets/tr/` | `output/tr/` |
 | `id` | Indonesian | `prompts/targets/id.txt` | `targets/id/` | `output/id/` |
 | `ms` | Malay | `prompts/targets/ms.txt` | `targets/ms/` | `output/ms/` |
+| `tl` | Tagalog — written by Claude agents in a Claude Code session, see below | `prompts/targets/tl.txt` | `targets/tl/` | `output/tl/` |
 | `ja-easy` | やさしい日本語 (Easy Japanese: short sentences, furigana on all but the most basic kanji) | `prompts/targets/ja-easy.txt` | `targets/ja-easy/` | `output/ja-easy/` |
 | `ksw` | Sgaw Karen — machine-translated from our English by MADLAD-400, see below | — | `targets/ksw/` (names only) | `output/ksw/` |
 | `my` | Burmese — machine-translated from our English by NLLB-200, see below | — | `targets/my/` | `output/my/` |
@@ -473,6 +474,16 @@ register, punctuation). Glossaries and name tables are seeded with the divine
 names and the most frequent people and places and grow as each translation
 proceeds. To add a language: one line in `TARGETS`, one rules file, one
 glossary, one name table.
+
+Tagalog was not written on the GPU at all, but by Claude Opus
+agents in a Claude Code session, about forty-eight at once, each taking a
+parcel of some 160 verses. `scripts/session_chapter.py` is the part of
+`translate.py` that needs no Ollama: it gives an agent the same rules,
+glossary, names and closed verse list a model would get, and saves a chapter
+only when every verse of the source is in it. The proper names were spelled
+first, in one table (`targets/tl/names.map.json`), so that fifty writers who
+never see each other's work still agree on Abiathar. No Tagalog speaker has
+read it yet.
 
 Sgaw Karen is the exception: a language the chat model cannot write, so its
 text comes from a translation model taught for it. The chat model writes
@@ -744,12 +755,13 @@ model, reading and building APKs do not.
 
 - [x] Sources fetched and normalized (66 books, 31,102 verses)
 - [x] Prompt, glossary, name table, driver, verifier, site builder
-- [x] The whole Bible, 1,189 chapters with every verse present, in seven
+- [x] The whole Bible, 1,189 chapters with every verse present, in eight
   languages (counted against the source on 22 November 2026, the way
   `build_site.py --complete-only` counts):
   - English, Chinese, Spanish, Thai — `qwen3:32b`, from the Hebrew and Greek
   - Taiwanese, Hakka — from our Mandarin: word table, then `qwen3.5:35b-a3b`
   - Sgaw Karen — the MADLAD model taught on Mason's Karen Bible, from our English
+  - Tagalog — Claude Opus 5.5 agents, from the Hebrew and Greek (below)
 - [ ] Burmese — 630 of 1,189 chapters (NLLB-200, from our English)
 - [ ] Japanese — 208 of 1,189 chapters
 - [ ] Cantonese, Easy Japanese — one chapter each, as a test of the rules

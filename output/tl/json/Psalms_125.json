@@ -1,0 +1,15 @@
+{
+ "book": "Psalms",
+ "chapter": 125,
+ "lang": "tl",
+ "verses": {
+  "1": "Awit ng Pag-akyat.\nAng mga nagtitiwala sa PANGINOON ay gaya ng Bundok ng Sion,\nna hindi natitinag, kundi nananatili magpakailanman.",
+  "2": "Kung paanong pinalilibutan ng mga bundok ang Jerusalem,\ngayon pinalilibutan ng PANGINOON ang Kanyang bayan,\nmula ngayon at magpakailanman.",
+  "3": "Sapagkat hindi mananatili ang setro ng kasamaan\nsa lupaing itinakda sa mga matuwid,\nupang hindi iunat ng mga matuwid\nang kanilang mga kamay sa kalikuan.",
+  "4": "Gawan Mo ng mabuti, PANGINOON, ang mabubuti,\nat ang mga tapat sa kanilang puso.",
+  "5": "Ngunit ang mga lumilihis sa kanilang mga liko-likong landas\nay itataboy ng PANGINOON kasama ng mga gumagawa ng masama.\nKapayapaan nawa sa Israel!"
+ },
+ "notes": "Notes\n- v. 3: Ang גּוֹרַל ay \"kapalaran\" o bahaging lupang pinaghatian sa palabunutan; isinalin bilang \"lupaing itinakda\".",
+ "raw": "[1] Awit ng Pag-akyat.\nAng mga nagtitiwala sa PANGINOON ay gaya ng Bundok ng Sion,\nna hindi natitinag, kundi nananatili magpakailanman.\n[2] Kung paanong pinalilibutan ng mga bundok ang Jerusalem,\ngayon pinalilibutan ng PANGINOON ang Kanyang bayan,\nmula ngayon at magpakailanman.\n[3] Sapagkat hindi mananatili ang setro ng kasamaan\nsa lupaing itinakda sa mga matuwid,\nupang hindi iunat ng mga matuwid\nang kanilang mga kamay sa kalikuan.\n[4] Gawan Mo ng mabuti, PANGINOON, ang mabubuti,\nat ang mga tapat sa kanilang puso.\n[5] Ngunit ang mga lumilihis sa kanilang mga liko-likong landas\nay itataboy ng PANGINOON kasama ng mga gumagawa ng masama.\nKapayapaan nawa sa Israel!\n---\nNotes\n- v. 3: Ang גּוֹרַל ay \"kapalaran\" o bahaging lupang pinaghatian sa palabunutan; isinalin bilang \"lupaing itinakda\".\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

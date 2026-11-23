@@ -1,0 +1,13 @@
+{
+ "book": "Psalms",
+ "chapter": 134,
+ "lang": "tl",
+ "verses": {
+  "1": "Awit ng Pag-akyat.\nHalina, purihin ninyo ang PANGINOON,\nkayong lahat na mga lingkod ng PANGINOON,\nna tumatayo sa bahay ng PANGINOON sa gabi.",
+  "2": "Itaas ninyo ang inyong mga kamay sa banal na dako,\nat purihin ninyo ang PANGINOON.",
+  "3": "Pagpalain ka nawa ng PANGINOON mula sa Sion,\nSiya na lumikha ng langit at lupa."
+ },
+ "notes": "Notes\n- v. 2: Ang קֹדֶשׁ ay maaaring \"sa santuwaryo\" o \"nang may kabanalan\"; pinili ang \"sa banal na dako\".",
+ "raw": "[1] Awit ng Pag-akyat.\nHalina, purihin ninyo ang PANGINOON,\nkayong lahat na mga lingkod ng PANGINOON,\nna tumatayo sa bahay ng PANGINOON sa gabi.\n[2] Itaas ninyo ang inyong mga kamay sa banal na dako,\nat purihin ninyo ang PANGINOON.\n[3] Pagpalain ka nawa ng PANGINOON mula sa Sion,\nSiya na lumikha ng langit at lupa.\n---\nNotes\n- v. 2: Ang קֹדֶשׁ ay maaaring \"sa santuwaryo\" o \"nang may kabanalan\"; pinili ang \"sa banal na dako\".\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

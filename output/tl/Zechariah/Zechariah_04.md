@@ -1,0 +1,12 @@
+# Zechariah 4
+
+¹ Bumalik ang anghel na nakikipag-usap sa akin at ginising ako, gaya ng taong ginigising mula sa pagkakatulog. ² Tinanong niya ako, “Ano ang nakikita mo?” Sumagot ako, “May nakikita akong ilawang purong ginto, may sisidlan sa ibabaw nito, at pitong ilaw sa ibabaw nito; at may tig-pitong padaluyan ang bawat ilaw na nasa ibabaw nito. ³ May dalawang puno ng olibo sa tabi nito, isa sa kanan ng sisidlan at isa sa kaliwa nito.” ⁴ Tinanong ko ang anghel na nakikipag-usap sa akin, “Ano po ang mga ito, panginoon ko?” ⁵ Sumagot ang anghel na nakikipag-usap sa akin, “Hindi mo ba alam kung ano ang mga ito?” Sabi ko, “Hindi po, panginoon ko.” ⁶ Kaya sinabi niya sa akin, “Ito ang salita ng PANGINOON kay Zorobabel: ‘Hindi sa pamamagitan ng hukbo, ni ng lakas, kundi sa pamamagitan ng Aking Espiritu,’ sabi ng PANGINOON ng mga hukbo. ⁷ ‘Sino ka, O malaking bundok? Sa harap ni Zorobabel ay magiging patag ka! Ilalabas niya ang pangunahing bato habang sumisigaw ang mga tao, “Pagpalain ito! Pagpalain ito!”’” ⁸ Dumating sa akin ang salita ng PANGINOON: ⁹ “Ang mga kamay ni Zorobabel ang naglagay ng pundasyon ng bahay na ito, at ang kanyang mga kamay rin ang tatapos dito.” At malalaman mo na ang PANGINOON ng mga hukbo ang nagsugo sa akin sa inyo. ¹⁰ “Sino ang humahamak sa araw ng maliliit na bagay? Magagalak sila kapag nakita nila ang panghulog na tingga sa kamay ni Zorobabel. Ang pitong ito ay ang mga mata ng PANGINOON na sumisiyasat sa buong lupa.” ¹¹ Tinanong ko siya, “Ano ang dalawang punong olibong ito sa kanan at sa kaliwa ng ilawan?” ¹² Muli akong nagtanong, “Ano ang dalawang sanga ng olibo na nasa tabi ng dalawang gintong tubo na nagbubuhos ng gintong langis?” ¹³ Sinabi niya sa akin, “Hindi mo ba alam kung ano ang mga ito?” Sabi ko, “Hindi po, panginoon ko.” ¹⁴ Sinabi niya, “Ito ang dalawang hinirang na pinahiran ng langis, na nakatayo sa tabi ng Panginoon ng buong lupa.”
+
+---
+
+Notes
+- v. 2: “שִׁבְעָה וְשִׁבְעָה מוּצָקוֹת” ay maaaring “pitong padaluyan para sa bawat ilaw” o “pito't pitong padaluyan” sa kabuuan; pinili ang una.
+- v. 7: “תְּשֻׁאוֹת חֵן חֵן לָהּ” ay literal na “mga sigaw: Biyaya, biyaya sa kanya”; isinalin na “Pagpalain ito!”
+- v. 10: “הָאֶבֶן הַבְּדִיל” ay literal na “batong lata/tingga”; malamang ang panghulog o batong panukat; pinili ang “panghulog na tingga.”
+- v. 12: “הַזָּהָב” (literal na “ang ginto”) ay tumutukoy sa ginintuang langis; isinalin na “gintong langis.”
+- v. 14: “בְנֵי־הַיִּצְהָר” ay literal na “mga anak ng sariwang langis”; isinalin na “hinirang na pinahiran ng langis.”

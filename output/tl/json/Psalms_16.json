@@ -1,0 +1,21 @@
+{
+ "book": "Psalms",
+ "chapter": 16,
+ "lang": "tl",
+ "verses": {
+  "1": "Miktam ni David.\nIngatan Mo ako, O Diyos, sapagkat sa Iyo ako nanganganlong.",
+  "2": "Sinabi ko sa PANGINOON, “Ikaw ang aking Panginoon;\nwala akong kabutihan na hiwalay sa Iyo.”",
+  "3": "Tungkol sa mga banal na nasa lupain,\nsila ang mararangal, na sa kanila ang buo kong kaluguran.",
+  "4": "Dadami ang mga hapdi ng mga nagmamadaling sumunod sa ibang diyos;\nhindi ko ibubuhos ang kanilang mga handog na inumin na dugo,\nni hindi ko bibigkasin ng aking mga labi ang kanilang mga pangalan.",
+  "5": "PANGINOON, Ikaw ang aking bahagi at ang aking saro;\nIkaw ang humahawak sa aking kapalaran.",
+  "6": "Nahulog sa akin ang mga hangganan sa magagandang lugar;\ntunay na kaaya-aya sa akin ang aking mana.",
+  "7": "Pupurihin ko ang PANGINOON na nagpapayo sa akin;\nmaging sa gabi ay itinuturo ako ng aking kalooban.",
+  "8": "Lagi kong inilalagay ang PANGINOON sa aking harapan;\ndahil Siya ay nasa aking kanan, hindi ako matitinag.",
+  "9": "Kaya nagagalak ang aking puso at nagdiriwang ang aking kaluluwa;\nmaging ang aking katawan ay mamamahinga nang panatag.",
+  "10": "Sapagkat hindi Mo iiwan ang aking buhay sa daigdig ng mga patay;\nhindi Mo hahayaang makita ng Iyong tapat na lingkod ang hukay.",
+  "11": "Ipinakikilala Mo sa akin ang landas ng buhay;\nsa Iyong harapan ay may lubos na kagalakan,\nsa Iyong kanang kamay ay may kaligayahan magpakailanman."
+ },
+ "notes": "Notes\n- v. 2: Ang “amart” sa tekstong Masoretiko ay anyong pambabae (“sinabi mo”); binasa itong “sinabi ko” ayon sa karaniwang pagbasa.\n- v. 2: Ang “bal-aleikha” ay mahirap; binasa itong “wala akong kabutihan na hiwalay sa Iyo.”\n- v. 3–4: Malabo ang balarila ng dalawang talatang ito; ang pagkakahati at kahulugan ay pinakamabuting pagbasa lamang.\n- v. 9: Ang “kevodi” (literal na “aking kaluwalhatian”) ay isinalin na “aking kaluluwa,” bilang tumutukoy sa kalooban ng tao.\n- v. 10: Ang “Sheol” ay isinalin ayon sa glosaryo bilang “daigdig ng mga patay.” Ang “shachat” ay maaaring “hukay” o “pagkabulok”; “hukay” ang pinili.",
+ "raw": "[1] Miktam ni David.\nIngatan Mo ako, O Diyos, sapagkat sa Iyo ako nanganganlong.\n[2] Sinabi ko sa PANGINOON, “Ikaw ang aking Panginoon;\nwala akong kabutihan na hiwalay sa Iyo.”\n[3] Tungkol sa mga banal na nasa lupain,\nsila ang mararangal, na sa kanila ang buo kong kaluguran.\n[4] Dadami ang mga hapdi ng mga nagmamadaling sumunod sa ibang diyos;\nhindi ko ibubuhos ang kanilang mga handog na inumin na dugo,\nni hindi ko bibigkasin ng aking mga labi ang kanilang mga pangalan.\n[5] PANGINOON, Ikaw ang aking bahagi at ang aking saro;\nIkaw ang humahawak sa aking kapalaran.\n[6] Nahulog sa akin ang mga hangganan sa magagandang lugar;\ntunay na kaaya-aya sa akin ang aking mana.\n[7] Pupurihin ko ang PANGINOON na nagpapayo sa akin;\nmaging sa gabi ay itinuturo ako ng aking kalooban.\n[8] Lagi kong inilalagay ang PANGINOON sa aking harapan;\ndahil Siya ay nasa aking kanan, hindi ako matitinag.\n[9] Kaya nagagalak ang aking puso at nagdiriwang ang aking kaluluwa;\nmaging ang aking katawan ay mamamahinga nang panatag.\n[10] Sapagkat hindi Mo iiwan ang aking buhay sa daigdig ng mga patay;\nhindi Mo hahayaang makita ng Iyong tapat na lingkod ang hukay.\n[11] Ipinakikilala Mo sa akin ang landas ng buhay;\nsa Iyong harapan ay may lubos na kagalakan,\nsa Iyong kanang kamay ay may kaligayahan magpakailanman.\n---\nNotes\n- v. 2: Ang “amart” sa tekstong Masoretiko ay anyong pambabae (“sinabi mo”); binasa itong “sinabi ko” ayon sa karaniwang pagbasa.\n- v. 2: Ang “bal-aleikha” ay mahirap; binasa itong “wala akong kabutihan na hiwalay sa Iyo.”\n- v. 3–4: Malabo ang balarila ng dalawang talatang ito; ang pagkakahati at kahulugan ay pinakamabuting pagbasa lamang.\n- v. 9: Ang “kevodi” (literal na “aking kaluwalhatian”) ay isinalin na “aking kaluluwa,” bilang tumutukoy sa kalooban ng tao.\n- v. 10: Ang “Sheol” ay isinalin ayon sa glosaryo bilang “daigdig ng mga patay.” Ang “shachat” ay maaaring “hukay” o “pagkabulok”; “hukay” ang pinili.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

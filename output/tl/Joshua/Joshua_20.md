@@ -1,0 +1,10 @@
+# Joshua 20
+
+¹ Sinabi ng PANGINOON kay Josue: ² “Sabihin mo sa mga Israelita, ‘Magtalaga kayo ng mga lungsod-kanlungan, gaya ng sinabi Ko sa inyo sa pamamagitan ni Moises, ³ upang doon makatakas ang sinumang nakapatay ng tao nang hindi sinasadya at hindi niya alam. Magiging kanlungan ninyo ang mga ito laban sa tagapaghiganti ng dugo. ⁴ Tatakas siya sa isa sa mga lungsod na ito, tatayo sa pasukan ng pintuang-bayan, at isasalaysay niya ang kanyang kaso sa harap ng matatanda ng lungsod na iyon. Pagkatapos ay tatanggapin nila siya sa loob ng lungsod, bibigyan siya ng matitirhan, at maninirahan siyang kasama nila. ⁵ Kapag hinabol siya ng tagapaghiganti ng dugo, hindi nila ibibigay sa kamay nito ang nakapatay, sapagkat hindi niya sinasadyang napatay ang kanyang kapwa at wala siyang galit dito noon pa man. ⁶ Maninirahan siya sa lungsod na iyon hanggang sa humarap siya sa kapulungan upang hatulan, at hanggang sa mamatay ang pinakapunong saserdote na naglilingkod sa panahong iyon. Pagkatapos ay makababalik na ang nakapatay sa kanyang bayan at sa kanyang tahanan, sa bayang kanyang tinakasan.’” ⁷ Kaya itinalaga nila ang Cedes sa Galilea sa kaburulan ng Neftali, ang Siquem sa kaburulan ng Efraim, at ang Kiriat-arba, na siyang Hebron, sa kaburulan ng Juda. ⁸ Sa silangang ibayo ng Ilog Jordan, sa tapat ng Jerico, itinalaga nila ang Beser sa ilang, sa talampas, mula sa lipi ni Ruben; ang Ramot sa Gilead mula sa lipi ni Gad; at ang Golan sa Basan mula sa lipi ni Manases. ⁹ Ito ang mga lungsod na itinalaga para sa lahat ng Israelita at para sa mga dayuhang nakikipamuhay sa gitna nila, upang ang sinumang nakapatay ng tao nang hindi sinasadya ay makatakas doon at hindi mamatay sa kamay ng tagapaghiganti ng dugo hangga't hindi pa siya humaharap sa kapulungan.
+
+---
+
+Notes
+- v. 3, 5, 9: Ang גֹּאֵל הַדָּם ay isinalin bilang “tagapaghiganti ng dugo,” ang kamag-anak na may tungkuling ipaghiganti ang napatay.
+- v. 6: Dalawang “hanggang” ang magkasunod sa Hebreo (hanggang sa paglilitis at hanggang sa pagkamatay ng punong saserdote); iningatan ang dalawa.
+- v. 9: Ang עָרֵי הַמּוּעָדָה ay bihirang anyo; binasa bilang “mga itinalagang lungsod.”

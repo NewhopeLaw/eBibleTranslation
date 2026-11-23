@@ -1,0 +1,18 @@
+{
+ "book": "Psalms",
+ "chapter": 101,
+ "lang": "tl",
+ "verses": {
+  "1": "Kay David. Isang salmo.\nAawitin ko ang tapat na pag-ibig at katarungan;\nsa Iyo, PANGINOON, ako'y aawit ng papuri.",
+  "2": "Pag-iingatan kong lumakad sa daang walang kapintasan—\nkailan Ka darating sa akin?\nMamumuhay ako nang may pusong tapat\nsa loob ng aking bahay.",
+  "3": "Hindi ako maglalagay sa harap ng aking mga mata\nng anumang bagay na walang kabuluhan.\nKinapopootan ko ang gawa ng mga tumatalikod;\nhindi ito kakapit sa akin.",
+  "4": "Ang pusong baluktot ay lalayo sa akin;\nwala akong pakikialam sa masama.",
+  "5": "Ang lihim na naninirang-puri sa kanyang kapwa\nay patatahimikin ko;\nang may mapagmataas na tingin at palalong puso\nay hindi ko titiisin.",
+  "6": "Ang aking mga mata ay nasa mga tapat sa lupain,\nupang sila'y manirahang kasama ko;\nang lumalakad sa daang walang kapintasan\nang siyang maglilingkod sa akin.",
+  "7": "Hindi maninirahan sa loob ng aking bahay\nang gumagawa ng pandaraya;\nang nagsasalita ng kasinungalingan\nay hindi mananatili sa harap ng aking mga mata.",
+  "8": "Tuwing umaga ay patatahimikin ko\nang lahat ng masasama sa lupain,\nupang alisin sa lungsod ng PANGINOON\nang lahat ng gumagawa ng kasamaan."
+ },
+ "notes": "Notes\n- v. 2: Ang אַשְׂכִּילָה ay maaaring \"mag-iingat ako\" o \"pag-aaralan ko\"; pinili ang una. Ang \"kailan Ka darating sa akin?\" ay maaari ring basahing \"kapag dumating Ka sa akin\".\n- v. 3: Ang סֵטִים ay bihirang salita (\"mga lumilihis/tumatalikod\"); isinalin bilang \"mga tumatalikod\".\n- v. 5, 8: Ang אַצְמִית ay \"lilipulin/patatahimikin\"; pinili ang \"patatahimikin\".",
+ "raw": "[1] Kay David. Isang salmo.\nAawitin ko ang tapat na pag-ibig at katarungan;\nsa Iyo, PANGINOON, ako'y aawit ng papuri.\n[2] Pag-iingatan kong lumakad sa daang walang kapintasan—\nkailan Ka darating sa akin?\nMamumuhay ako nang may pusong tapat\nsa loob ng aking bahay.\n[3] Hindi ako maglalagay sa harap ng aking mga mata\nng anumang bagay na walang kabuluhan.\nKinapopootan ko ang gawa ng mga tumatalikod;\nhindi ito kakapit sa akin.\n[4] Ang pusong baluktot ay lalayo sa akin;\nwala akong pakikialam sa masama.\n[5] Ang lihim na naninirang-puri sa kanyang kapwa\nay patatahimikin ko;\nang may mapagmataas na tingin at palalong puso\nay hindi ko titiisin.\n[6] Ang aking mga mata ay nasa mga tapat sa lupain,\nupang sila'y manirahang kasama ko;\nang lumalakad sa daang walang kapintasan\nang siyang maglilingkod sa akin.\n[7] Hindi maninirahan sa loob ng aking bahay\nang gumagawa ng pandaraya;\nang nagsasalita ng kasinungalingan\nay hindi mananatili sa harap ng aking mga mata.\n[8] Tuwing umaga ay patatahimikin ko\nang lahat ng masasama sa lupain,\nupang alisin sa lungsod ng PANGINOON\nang lahat ng gumagawa ng kasamaan.\n---\nNotes\n- v. 2: Ang אַשְׂכִּילָה ay maaaring \"mag-iingat ako\" o \"pag-aaralan ko\"; pinili ang una. Ang \"kailan Ka darating sa akin?\" ay maaari ring basahing \"kapag dumating Ka sa akin\".\n- v. 3: Ang סֵטִים ay bihirang salita (\"mga lumilihis/tumatalikod\"); isinalin bilang \"mga tumatalikod\".\n- v. 5, 8: Ang אַצְמִית ay \"lilipulin/patatahimikin\"; pinili ang \"patatahimikin\".\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

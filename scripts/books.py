@@ -158,6 +158,11 @@ TARGETS = {
     "tr": {"name": "Turkish", "native": "Türkçe", "latin": True, "ratio": 0.7},
     "id": {"name": "Indonesian", "native": "Bahasa Indonesia", "latin": True, "ratio": 0.8},
     "ms": {"name": "Malay", "native": "Bahasa Melayu", "latin": True, "ratio": 0.8},
+    # Written by Claude agents in a Claude Code session (scripts/session_chapter.py),
+    # not by the model on the GPU: the user asked for it to be done that way,
+    # fifty agents at once, rather than wait weeks for qwen on one card.
+    "tl": {"name": "Tagalog", "native": "Tagalog", "latin": True, "ratio": 0.9,
+           "note": "written by Claude agents from the Hebrew and Greek, not yet read by a Tagalog speaker"},
     "ja-easy": {"name": "Easy Japanese", "native": "やさしい日本語", "latin": False, "ratio": 0.3,
                 "note": "yasashii nihongo: short sentences, common words, furigana as {漢字|かんじ}"},
     # Written by NLLB-200 from our English (scripts/mt_translate.py). A trial
