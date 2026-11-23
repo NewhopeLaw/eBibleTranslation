@@ -1,0 +1,22 @@
+{
+ "book": "Psalms",
+ "chapter": 16,
+ "lang": "en",
+ "verses": {
+  "1": "From their mouths, David kept me safe, for I trusted in you.",
+  "2": "You said to the LORD, “My God, you are my goodness.”",
+  "3": "To those who are holy, who dwell in this land, and who are great in every way.",
+  "4": "Their sorrows increased rapidly. They were covered in blood, and their names were written on their lips.",
+  "5": "Yehova, you who grant me strength and courage, you who make my life meaningful.",
+  "6": "Friends fell upon me in sorrow; even the land of Shephrah was covered with grief.",
+  "7": "May the LORD bless me, who even at night still protects me from all harm.",
+  "8": "I have always opposed Jehovah, because from my right side comes nothing but harm.",
+  "9": "So, my heart was glad, and my glory increased. Even in my speech, I could feel my honor growing.",
+  "10": "For I will not let my soul go to Sheol. Do not allow your faithful one to see the darkness.",
+  "11": "Please tell me about those living beings who are full of joy. Their faces are filled with happiness. They stand on your right side forever."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

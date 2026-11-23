@@ -51,6 +51,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import org.json.JSONObject;
 
 /**
  * The app is a window and nothing else: the reader is the page in assets, and
@@ -108,6 +112,9 @@ public class MainActivity extends ComponentActivity {
     private boolean painted;           // the splash waits on this
     @Nullable private Integer barColour;                          // what the bars were last given
     @Nullable private volatile Speech speech;                     // the phone's voice, started when first asked for
+    @Nullable private Meaning meaning;                            // search by meaning, built the first time it is asked
+    @Nullable private String meaningFailed;                       // why it could not be, once that is known
+    @Nullable private ExecutorService meaningWork;                // one question at a time, off every thread the page waits on
     private long leaveAskedAt;                                    // when back was last pressed with nowhere to go
     private final Runnable recheckBars = this::matchBarsToPage;
 
@@ -482,6 +489,100 @@ public class MainActivity extends ComponentActivity {
         public void toast(String msg) {
             runOnUiThread(() -> Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show());
         }
+
+        /**
+         * The languages this copy can search by meaning with the model, comma
+         * separated; "" when it carries no model, and the page then uses its
+         * own table if it has one.
+         *
+         * Read from the assets rather than asked of the model, so answering
+         * costs nothing and loads nothing: the page asks once, before anyone
+         * has searched.
+         */
+        @JavascriptInterface
+        public String meaningLangs() {
+            if (meaningFailed != null) return "";
+            try {
+                String[] files = getAssets().list(Meaning.DIR.substring(0, Meaning.DIR.length() - 1));
+                if (files == null) return "";
+                StringBuilder out = new StringBuilder();
+                boolean model = false;
+                for (String f : files) {
+                    if (f.equals("encoder.onnx")) model = true;
+                    else if (f.startsWith("vecm_") && f.endsWith(".bin"))
+                        out.append(out.length() > 0 ? "," : "").append(f, 5, f.length() - 4);
+                }
+                return model ? out.toString() : "";
+            } catch (IOException e) {
+                return "";
+            }
+        }
+
+        /**
+         * Find the verses nearest a question, and answer the page with
+         * meaningDone(seq, [[cosine, verse id], ...]) - or with null and the
+         * reason, which ?diag shows.
+         *
+         * The answer goes back by number, as speech does, because the reader
+         * types on while the model reads: an answer to an earlier question must
+         * not be drawn under a later one, and the page drops it by its number.
+         * Sixty are sent back so the page can leave out the verses it has
+         * already found by their words and still have a dozen to choose from.
+         */
+        @JavascriptInterface
+        public void meaning(int seq, String lang, String question) {
+            meaningWorker().execute(() -> {
+                String hits = "null", why = "";
+                try {
+                    double[][] near = meaningModel().nearest(lang, question, 60);
+                    StringBuilder b = new StringBuilder("[");
+                    for (double[] h : near)
+                        b.append(b.length() > 1 ? "," : "").append('[').append((float) h[0]).append(',').append((long) h[1]).append(']');
+                    hits = b.append(']').toString();
+                } catch (Throwable e) {        // a phone whose processor the runtime does not support says so, rather than crash
+                    why = e.getClass().getSimpleName() + ": " + e.getMessage();
+                    if (e instanceof LinkageError) meaningFailed = why;
+                }
+                final String js = "if(typeof window.meaningDone==='function')meaningDone(" + seq + ","
+                        + hits + "," + JSONObject.quote(why) + ")";
+                runOnUiThread(() -> { if (web != null) web.evaluateJavascript(js, null); });
+            });
+        }
+
+        /** For ?diag: whether the model has been loaded, or why it cannot be. */
+        @JavascriptInterface
+        public String meaningState() {
+            if (meaningFailed != null) return "failed - " + meaningFailed;
+            Meaning m = meaning;
+            return m != null && m.loaded() ? "ready" : "not loaded yet (it loads with the first search)";
+        }
+    }
+
+    private synchronized ExecutorService meaningWorker() {
+        if (meaningWork == null) meaningWork = Executors.newSingleThreadExecutor();
+        return meaningWork;
+    }
+
+    /**
+     * The model is copied out of the APK into the app's own storage the first
+     * time, because ONNX Runtime opens a file and an asset has no path. The
+     * copy is named for this install, so an update brings its own model and the
+     * last one's copy is cleared rather than left taking forty megabytes.
+     */
+    private Meaning meaningModel() {
+        if (meaning != null) return meaning;
+        long stamp;
+        try {
+            stamp = getPackageManager().getPackageInfo(getPackageName(), 0).lastUpdateTime;
+        } catch (Exception e) {
+            stamp = 0;
+        }
+        String keep = "encoder-" + stamp + ".onnx";
+        File[] old = getFilesDir().listFiles((d, n) -> n.startsWith("encoder-") && !n.equals(keep));
+        if (old != null) for (File f : old) //noinspection ResultOfMethodCallIgnored
+            f.delete();
+        meaning = new Meaning(name -> getAssets().open(name), new File(getFilesDir(), keep));
+        return meaning;
     }
 
     /**
@@ -581,13 +682,43 @@ public class MainActivity extends ComponentActivity {
             });
         }
 
+        /**
+         * Whether this voice reads the language itself, not a neighbour of it.
+         *
+         * The language part of the locale was enough until Chinese. Mandarin,
+         * Cantonese, Taiwanese and Hakka are all written in characters, zh
+         * covers the first two, and a voice for any of them reads the others'
+         * text without complaint, in its own language: Taiwanese came out of
+         * the phone as Taiwan Mandarin. So Cantonese wants a Cantonese voice
+         * (yue, or zh-HK as most engines have it), Mandarin a Chinese voice
+         * that is not that, and Taiwanese and Hakka a voice of their own,
+         * which no engine has yet. The page applies the same test to the list
+         * it is given (ttsSpeaks in readaloud.py), for shells older than this.
+         */
+        private boolean reads(Voice v, String lang) {
+            Locale l = v.getLocale();
+            String base = l.getLanguage(), tag = l.toLanguageTag().toLowerCase(Locale.ROOT);
+            boolean canto = base.equals("yue") || "HK".equals(l.getCountry()) || "MO".equals(l.getCountry())
+                            || tag.contains("yue");
+            switch (lang == null ? "" : lang) {
+                case "yue": return canto && (base.equals("yue") || base.equals("zh"));
+                case "zh": return (base.equals("zh") || base.equals("cmn")) && !canto;
+                default: return base.equals(locale(lang).getLanguage());
+            }
+        }
+
+        /** The languages read only by a voice that passes reads(): the engine's own answer is not to be trusted for them. */
+        private boolean strict(String lang) {
+            return "zh".equals(lang) || "yue".equals(lang) || "nan".equals(lang) || "hak".equals(lang);
+        }
+
         @Nullable
-        private Voice pick(Locale loc, String wanted) {
+        private Voice pick(String lang, String wanted) {
             Voice best = null;
             try {
                 for (Voice v : tts.getVoices()) {
                     if (v == null || v.isNetworkConnectionRequired()) continue;
-                    if (!v.getLocale().getLanguage().equals(loc.getLanguage())) continue;
+                    if (!reads(v, lang)) continue;
                     if (wanted != null && wanted.equals(v.getName())) return v;
                     if (best == null || v.getQuality() > best.getQuality()) best = v;
                 }
@@ -599,12 +730,11 @@ public class MainActivity extends ComponentActivity {
 
         String voiceList(String lang) {
             if (!ready) return "[]";
-            Locale loc = locale(lang);
             StringBuilder out = new StringBuilder("[");
             try {
                 for (Voice v : tts.getVoices()) {
                     if (v == null || v.isNetworkConnectionRequired()) continue;
-                    if (!v.getLocale().getLanguage().equals(loc.getLanguage())) continue;
+                    if (!reads(v, lang)) continue;
                     if (out.length() > 1) out.append(',');
                     out.append("{\"name\":\"").append(v.getName().replace("\"", ""))
                        .append("\",\"locale\":\"").append(v.getLocale().toLanguageTag())
@@ -636,7 +766,8 @@ public class MainActivity extends ComponentActivity {
                 case "grc": return new Locale("el", "GR");                // modern Greek for the Greek
                 case "zh": return Locale.SIMPLIFIED_CHINESE;
                 case "yue": return Locale.forLanguageTag("zh-HK");
-                case "nan": case "hak": return Locale.forLanguageTag("zh-TW");
+                case "nan": return Locale.forLanguageTag("nan-TW");      // a Taiwanese voice, not the Taiwan Mandarin one
+                case "hak": return Locale.forLanguageTag("hak-TW");      // nor for Hakka
                 case "ja-easy": return Locale.JAPANESE;
                 default: return Locale.forLanguageTag(lang.isEmpty() ? "en" : lang);
             }
@@ -648,6 +779,10 @@ public class MainActivity extends ComponentActivity {
             // coming, or it would offer a Listen button that does nothing.
             if (failed) return "no";
             if (!ready) return "";                                          // still starting up; the page asks again
+            // An engine asked about zh-HK says yes when it has Mandarin alone,
+            // the country being only a preference to it; these are answered
+            // from the voices themselves.
+            if (strict(lang)) return pick(lang, null) != null ? "yes" : "no";
             int r = tts.isLanguageAvailable(locale(lang));
             return r >= TextToSpeech.LANG_AVAILABLE ? "yes" : "no";
         }
@@ -656,6 +791,17 @@ public class MainActivity extends ComponentActivity {
             if (text == null || text.isEmpty()) return;
             if (!ready) { pendingText = text; pendingLang = lang; pendingRate = rate; pendingPitch = pitch;
                           pendingVoice = wanted; pendingId = id; return; }
+            Voice v = pick(lang, wanted);
+            if (v == null && strict(lang)) {
+                // No voice reads it, and the engine left to choose would read it
+                // in another language; nothing is said, and the page is told so.
+                final int which = id;
+                runOnUiThread(() -> {
+                    if (web != null)
+                        web.evaluateJavascript("if(typeof window.speechDone==='function')speechDone(" + which + ",false)", null);
+                });
+                return;
+            }
             root.removeCallbacks(finish);
             run++;
             pageId = id;
@@ -670,7 +816,6 @@ public class MainActivity extends ComponentActivity {
             // the compact voice - the one that sounds like a machine reading
             // letters. The best one installed for that language is chosen here
             // instead, unless the reader has picked one themselves.
-            Voice v = pick(loc, wanted);
             if (v != null) tts.setVoice(v);
             tts.setSpeechRate(clamp(rate));
             tts.setPitch(clamp(pitch));
@@ -865,6 +1010,7 @@ public class MainActivity extends ComponentActivity {
     protected void onDestroy() {
         if (root != null) root.removeCallbacks(recheckBars);
         if (speech != null) { speech.shutdown(); speech = null; }
+        if (meaningWork != null) { meaningWork.shutdownNow(); meaningWork = null; }
         if (web != null) {
             holder.removeView(web);
             web.destroy();

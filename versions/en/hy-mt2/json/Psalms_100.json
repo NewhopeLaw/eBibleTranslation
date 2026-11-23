@@ -1,0 +1,16 @@
+{
+ "book": "Psalms",
+ "chapter": 100,
+ "lang": "en",
+ "verses": {
+  "1": "A prayer for the Lord; all the earth rejoices in Him.",
+  "2": "Serve the LORD with joy, and come before Him with songs of praise.",
+  "3": "Know that Jehovah is the God who created us. To Him we belong, and to Him we will return.",
+  "4": "Let them enter his gates, let them enter the streets of his city. Praise his name!",
+  "5": "For it is good for Jehovah to have his kindness forever; his truth will last from generation to generation."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

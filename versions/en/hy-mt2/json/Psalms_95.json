@@ -1,0 +1,22 @@
+{
+ "book": "Psalms",
+ "chapter": 95,
+ "lang": "en",
+ "verses": {
+  "1": "Let us go, O Lord, and seek Your help for our salvation.",
+  "2": "His face was turned toward us, in praise of the songs of Nari’loh.",
+  "3": "For Jehovah is a great God, and He is a great King over all gods.",
+  "4": "Who has the power to explore the lands and navigate through the mountains?",
+  "5": "To whom the sea belongs; and he created it, and his hands shaped it into its form.",
+  "6": "Let us bow and fall down, in worship before the LORD our God.",
+  "7": "For he is our God, and we are His people. Today, if you listen to Him, then you will be saved.",
+  "8": "Do not make it difficult for yourselves to forgive each other, as it is the right thing to do in times of conflict.",
+  "9": "Those who tried to tempt me, your ancestors did so in their sins. But they also saw my works.",
+  "10": "Forty years passed, and I said to them, “My people, they do not know the ways of God.”",
+  "11": "I will be happy if they come to my place of rest."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

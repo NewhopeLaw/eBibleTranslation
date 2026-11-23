@@ -1,0 +1,21 @@
+{
+ "book": "1 Thessalonians",
+ "chapter": 1,
+ "lang": "en",
+ "verses": {
+  "1": "Pavlos, Silvanus, and Timotheus, in the church of Thessalonica, in the name of God the Father and Lord Jesus Christ. May grace and peace be with you.",
+  "2": "We thank the God always for remembering all of you in our prayers, without interruption.",
+  "3": "In memory of your work in the faith, and the sacrifice of love and patience that you showed in your hope for our Lord Jesus Christ, before God and our Father.",
+  "4": "You know, beloved brothers who are favored by God, this election of you…",
+  "5": "For our gospel has not come to you only through words, but also through power, holy spirit, and great knowledge. As you know, those who came among you did so through you as well.",
+  "6": "And you also became models of us, following in the footsteps of our Lord. You accepted His words with joy and sorrow at the same time.",
+  "7": "So that you may be known by all those who believe in Macedonia and in Achaea.",
+  "8": "For without you, the words of the Lord will not be heard not only in Macedonia and Achaea, but in every place, your faith in God will be strengthened. Therefore, it is unnecessary for us to say anything anymore.",
+  "9": "For they will tell us which entrance we have taken to you. And they will also explain how we can return to the god, from being slaves to those idols, and live as true believers in the god.",
+  "10": "And he expects to raise his son from heaven, whom he has raised from the dead. This son is Jesus, who brings us out of the wrath that is coming."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

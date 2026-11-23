@@ -1,0 +1,14 @@
+{
+ "book": "Psalms",
+ "chapter": 134,
+ "lang": "en",
+ "verses": {
+  "1": "The hymns of praise now bless Jehovah, all the servants of Jehovah who stand in Jehovah’s house on those nights.",
+  "2": "May they be holy and blessed by Jehovah.",
+  "3": "May the LORD bless you, who create the heavens and the earth."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

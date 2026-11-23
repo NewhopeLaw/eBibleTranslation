@@ -1,0 +1,14 @@
+{
+ "book": "Esther",
+ "chapter": 10,
+ "lang": "en",
+ "verses": {
+  "1": "And King Ahşverosh set up a barrier on the land and on the seas.",
+  "2": "And all his actions, his reigns, and the extent of Mordecai’s greatness—all these are recorded in the book of days for the kings of Media.",
+  "3": "For Mordecai, the Jew, became a great leader among the Jews. He was desired by many of his brothers as someone who could bring good things to his people and speak words of peace to all their descendants."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

@@ -1,0 +1,21 @@
+{
+ "book": "Psalms",
+ "chapter": 20,
+ "lang": "en",
+ "verses": {
+  "1": "A prayer for deliverance from David’s troubles.",
+  "2": "The LORD will answer you on the day of trouble. He will bring down your name, O God of Jacob.",
+  "3": "Send your help from the Holy Land and from Zion; they will guide you.",
+  "4": "He will remember all your offerings and sacrifices. They will be remembered forever.",
+  "5": "It will give you your whole heart and all your wisdom.",
+  "6": "May your days be filled with joy, and in the name of our God, may Jehovah answer all your prayers.",
+  "7": "Now I know that the Lord, His Messiah, will answer him from His holy place in power and glory.",
+  "8": "These are chariots, and these are horses. We ride them in the name of Jehovah, our God.",
+  "9": "Many of them fell and died. But we stood up again and continued our journey.",
+  "10": "May Jehovah save the king, and may he answer us on the day we call out to him."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

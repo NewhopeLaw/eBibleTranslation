@@ -68,7 +68,11 @@ VENV_PY = VENV / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
 if Path(sys.prefix).resolve() != VENV.resolve() or not sys.flags.utf8_mode:
     if not VENV_PY.exists():
         raise SystemExit(f"the Taiwanese voice's environment is not set up; see the top of {Path(__file__).name}")
-    raise SystemExit(subprocess.call([str(VENV_PY), __file__, *sys.argv[1:]], env={**os.environ, "PYTHONUTF8": "1"}))
+    # Its output goes where ours does, named outright: the dashboard runs under
+    # pythonw, which hands a child nothing it is not told to, and the chapter
+    # lines of a job started there went nowhere (2026-11-02).
+    raise SystemExit(subprocess.call([str(VENV_PY), __file__, *sys.argv[1:]], env={**os.environ, "PYTHONUTF8": "1"},
+                                     stdout=sys.stdout, stderr=sys.stderr))
 
 for stream in (sys.stdout, sys.stderr):
     if hasattr(stream, "reconfigure"):
@@ -397,7 +401,33 @@ class Cleaner:
             self.model, self.state, _ = init_df()
         self.enhance = enhance
 
+    # cuDNN will not run the network's GRU over more than 65535 frames of 10 ms,
+    # so Genesis 24, the first chapter to run past eleven minutes, stopped the
+    # job overnight (2026-11-03). A chapter is cleaned five minutes or less at a
+    # time, each piece cut in the silence between two verses.
+    LONGEST = 300
+
     def __call__(self, audio, fs):
+        import numpy as np
+        return np.concatenate([self.piece(p, fs) for p in self.pieces(audio, fs)])
+
+    def pieces(self, audio, fs):
+        """The reading cut at the middle of verse gaps (the voice leaves digital
+        silence there) into pieces no longer than LONGEST seconds."""
+        import numpy as np
+        quiet = np.r_[0, (np.abs(audio) < 1e-6).astype(np.int8), 0]
+        edges = np.flatnonzero(np.diff(quiet))
+        gap = int(fs * GAP["verse"] * 0.9)
+        mids = [(s + e) // 2 for s, e in zip(edges[::2], edges[1::2]) if e - s >= gap]
+        out, start, most = [], 0, int(fs * self.LONGEST)
+        while len(audio) - start > most:
+            cuts = [m for m in mids if start < m <= start + most]
+            cut = cuts[-1] if cuts else start + most
+            out.append(audio[start:cut])
+            start = cut
+        return out + [audio[start:]]
+
+    def piece(self, audio, fs):
         import librosa
         import numpy as np
         import scipy.signal as ss
@@ -430,25 +460,37 @@ def raise_pitch(audio, fs, semitones):
 
 
 def read(voice, passage, show=False, clean=None, pitch=0.0):
+    """The passage as one track, every unread character with its verse, and
+    where each verse is in the track - (verse, start, end) in seconds, from its
+    first sound to its last - so the reader can play a verse out of a chapter."""
     import numpy as np
-    parts, unread = [], []
+    parts, unread, spans, at = [], [], [], 0
     for n, text in passage:
         text = re.sub(r"[「」『』（）()“”‘’]", "", text.replace("\n", "，"))
+        start = end = at
         for piece, gap in pieces(text):
             wav, unknown = voice.say(piece, show)
             unread += [(n, c) for c in unknown]
             if wav is not None:
                 parts += [wav, np.zeros(int(voice.fs * gap), dtype=np.float32)]
+                end = at + len(wav)
+                at += len(wav) + len(parts[-1])
+        spans.append((n, start, end))
         parts.append(np.zeros(int(voice.fs * GAP["verse"]), dtype=np.float32))
+        at += len(parts[-1])
     audio = np.concatenate(parts) if parts else np.zeros(1, dtype=np.float32)
     if clean is not None and len(audio) > voice.fs:
         audio = clean(audio, voice.fs)
     if len(audio) > voice.fs:
         audio = raise_pitch(audio, voice.fs, pitch)
-    return audio / max(1e-9, float(np.abs(audio).max())) * 0.9, unread
+    # Cleaning and the pitch change both keep the timing, give or take the odd
+    # sample from resampling; scaled, the spans still fall where they did.
+    k = len(audio) / max(1, at) / voice.fs
+    times = [(n, round(s * k, 3), round(e * k, 3)) for n, s, e in spans if n is not None and e > s]
+    return audio / max(1e-9, float(np.abs(audio).max())) * 0.9, unread, times
 
 
-def write_wav(audio, fs, path):
+def write_wav(audio, fs, path, times=None):
     import numpy as np
     path.parent.mkdir(parents=True, exist_ok=True)
     with wave.open(str(path), "wb") as w:
@@ -456,6 +498,14 @@ def write_wav(audio, fs, path):
         w.setsampwidth(2)
         w.setframerate(fs)
         w.writeframes((np.clip(audio, -1, 1) * 32767).astype("<i2").tobytes())
+    # Where each verse is, beside the recording, for scripts/build_audio.py to
+    # take to the reader; a reading with no verses (--text) leaves no stale
+    # file of timings behind it.
+    side = path.with_suffix(".json")
+    if times:
+        side.write_text(json.dumps({"verses": times}), encoding="utf-8")
+    elif side.exists():
+        side.unlink()
 
 
 def translating():
@@ -485,10 +535,55 @@ def stale_chapters():
     return out
 
 
+# Several readers at once (--workers). WaveRNN makes a wave one sample after
+# another, so one reader cannot fill the GPU however large the card: alone on
+# the 5090 it read at half the speed of speech with the card an eighth busy.
+# Four at once, beside a voice being trained, each ran a third slower and
+# together read about two and a half times as much (2026-11-22). So that two
+# never read the same chapter, each takes a chapter by making a file for it
+# here, which only one of them can do, and takes it away when the chapter is
+# written. A reader that was stopped leaves its file behind; it is known by
+# its process being gone.
+CLAIMS = AUDIO / ".claims"
+
+
+def alive(claim):
+    """Whether the reader that made this claim is still running. A claim that
+    cannot be read is one being written this moment."""
+    try:
+        import psutil
+        return psutil.pid_exists(int(claim.read_text()))
+    except FileNotFoundError:
+        return False
+    except Exception:                              # noqa: BLE001
+        return time.time() - claim.stat().st_mtime < 6 * 3600
+
+
+def take(name, wait=0):
+    """The claim on `name` if it is ours now, else None - after waiting up to
+    `wait` seconds for whoever holds it."""
+    CLAIMS.mkdir(parents=True, exist_ok=True)
+    claim, until = CLAIMS / f"{name}.claim", time.time() + wait
+    while True:
+        try:
+            fd = os.open(claim, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+            os.write(fd, str(os.getpid()).encode())
+            os.close(fd)
+            return claim
+        except FileExistsError:
+            if not alive(claim):
+                claim.unlink(missing_ok=True)      # left by a reader that was stopped; try once more for it
+            elif time.time() >= until:
+                return None
+            else:
+                time.sleep(0.5)
+
+
 def read_all(vocoder="wavernn", clean=True, pitch=None):
     """Every Taiwanese chapter not yet recorded, with the voice loaded once;
     it waits for more while the text is still being made. The dashboard's
-    taiwanese-voice job, stoppable at any point: a chapter is written whole."""
+    taiwanese-voice job, stoppable at any point: a chapter is written whole.
+    Any number of these may run at once (see CLAIMS)."""
     voice = cleaner = None
     while True:
         todo = stale_chapters()
@@ -500,16 +595,67 @@ def read_all(vocoder="wavernn", clean=True, pitch=None):
             return
         if voice is None:
             voice, cleaner = Voice(vocoder), (Cleaner() if clean else None)
+        read_now = taken = 0
         for code, ch in todo:
+            stem = f"{BOOKS[code]['name'].replace(' ', '_')}_{ch:02d}"
+            wav, text = AUDIO / f"{stem}.wav", VERSES / f"{stem}.json"
+            if wav.exists() and wav.stat().st_mtime >= text.stat().st_mtime:
+                continue                           # another reader has done it since the list was made
             passage = verses_of(code, ch, range(1, 200))
             if not passage:
                 continue
-            t0 = time.time()
-            audio, unread = read(voice, passage, clean=cleaner, pitch=PITCH if pitch is None else pitch)
-            write_wav(audio, voice.fs, AUDIO / f"{BOOKS[code]['name'].replace(' ', '_')}_{ch:02d}.wav")
-            print(f"{BOOKS[code]['name']} {ch}: {len(passage)} verses, {len(audio) / voice.fs:.0f}s of audio in "
-                  f"{time.time() - t0:.0f}s" + (f", no reading for {' '.join(sorted({c for _, c in unread}))}"
-                                                if unread else ""))
+            claim = take(stem)
+            if claim is None:
+                taken += 1
+                continue
+            try:
+                t0 = time.time()
+                audio, unread, times = read(voice, passage, clean=cleaner, pitch=PITCH if pitch is None else pitch)
+                write_wav(audio, voice.fs, wav, times)
+                read_now += 1
+                print(f"{BOOKS[code]['name']} {ch}: {len(passage)} verses, {len(audio) / voice.fs:.0f}s of audio in "
+                      f"{time.time() - t0:.0f}s" + (f", no reading for {' '.join(sorted({c for _, c in unread}))}"
+                                                    if unread else ""))
+                # Straight to the reader, so the chapter can be heard on its next
+                # load. A failure here costs the reader one chapter until
+                # build_audio.py runs again; it must not stop the recording.
+                # One at a time: add() reads the reader's list of recordings and
+                # writes it back, and two doing that together lose a chapter.
+                listing = take("reader", wait=120)
+                try:
+                    from build_audio import add
+                    add("nan", wav)
+                except Exception as e:             # noqa: BLE001
+                    print(f"    not yet in the reader ({type(e).__name__}: {e}); scripts/build_audio.py will add it")
+                finally:
+                    if listing:
+                        listing.unlink(missing_ok=True)
+            finally:
+                claim.unlink(missing_ok=True)
+        if not read_now:
+            if not taken and not translating():
+                return                             # what is left has no text to read
+            time.sleep(30)                         # the others are on the last chapters
+
+
+def read_all_together(workers, args, **how):
+    """`workers` readers on the one job: the others are started as copies of
+    this one and this one reads beside them. Started half a minute apart,
+    because three loading their models in the same moment took 13 GB more of
+    the GPU than they then needed."""
+    others = []
+    try:
+        for _ in range(workers - 1):
+            others.append(subprocess.Popen([sys.executable, __file__, *args, "--workers", "1"],
+                                           stdout=sys.stdout, stderr=sys.stderr))
+            time.sleep(30)
+        read_all(**how)
+        for p in others:
+            p.wait()
+    finally:
+        for p in others:
+            if p.poll() is None:
+                p.terminate()
 
 
 def main():
@@ -527,6 +673,8 @@ def main():
                     help=f"semitones higher than the voice reads (default {PITCH:g}; 0 for its own pitch)")
     ap.add_argument("--clean", choices=["dfn", "none"], default="dfn",
                     help="dfn (default): take the hiss out with DeepFilterNet; none: leave the vocoder's output as it is")
+    ap.add_argument("--workers", type=int, default=1,
+                    help="with --all: how many readers at once (the vocoder cannot fill a GPU by itself)")
     ap.add_argument("--rebuild-lexicon", action="store_true", help="rebuild the reading lexicon from the dictionary")
     a = ap.parse_args()
     if a.rebuild_lexicon:
@@ -535,7 +683,12 @@ def main():
         if not (a.book or a.text or a.all):
             return
     if a.all:
-        read_all(a.vocoder, a.clean == "dfn", a.pitch)
+        how = dict(vocoder=a.vocoder, clean=a.clean == "dfn", pitch=a.pitch)
+        if a.workers > 1:
+            passed = ["--all", "--vocoder", a.vocoder, "--pitch", str(a.pitch), "--clean", a.clean]
+            read_all_together(a.workers, passed, **how)
+        else:
+            read_all(**how)
         return
     if a.text:
         passage, stem = [(None, a.text)], "text"
@@ -549,9 +702,9 @@ def main():
         stem = f"{BOOKS[a.book]['name'].replace(' ', '_')}_{a.chapter:02d}{'_' + a.verses if a.verses else ''}"
     t0 = time.time()
     voice = Voice(a.vocoder)
-    audio, unread = read(voice, passage, a.show, Cleaner() if a.clean == "dfn" else None, a.pitch)
+    audio, unread, times = read(voice, passage, a.show, Cleaner() if a.clean == "dfn" else None, a.pitch)
     out = Path(a.out) if a.out else AUDIO / f"{stem}.wav"
-    write_wav(audio, voice.fs, out)
+    write_wav(audio, voice.fs, out, times)
     print(f"{len(passage)} verse(s), {len(audio) / voice.fs:.0f}s of audio in {time.time() - t0:.0f}s -> {out}")
     if unread:
         print("no reading, left out:", file=sys.stderr)

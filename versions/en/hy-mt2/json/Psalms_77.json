@@ -1,0 +1,32 @@
+{
+ "book": "Psalms",
+ "chapter": 77,
+ "lang": "en",
+ "verses": {
+  "1": "To be destroyed by their own hands, so that they may gather together in one place.",
+  "2": "My voice cries out to God; I shout to God, and He hears me.",
+  "3": "On the day of my distress, I pleaded with Adonai. I asked for help in the night, but He did not respond. My soul was filled with sorrow.",
+  "4": "God remembered me, and I will be saved. My soul will be taken up into heaven.",
+  "5": "You have taken hold of my eyes; they are closed, and I cannot speak.",
+  "6": "I thought that many days have passed since those ancient times.",
+  "7": "I remembered the melody I sang that night with my heart. My soul searched for it.",
+  "8": "The nations will abandon their gods, and they will no longer desire them.",
+  "9": "May His kindness last forever. Endure, O Lord, from generation to generation.",
+  "10": "He forgot his promises. If he had clung to His mercy, then everything would have been different.",
+  "11": "And he said, “My wound is on my right side.”",
+  "12": "I remember the evil deeds of those who have done evil; for I remember them from before.",
+  "13": "And I will praise all your deeds and your victories.",
+  "14": "God is holy; your ways are pure. No one else is as great as God.",
+  "15": "You are the God who creates all things in your nations.",
+  "16": "You have redeemed your people, the sons of Jacob and Joseph.",
+  "17": "May God see you from the depths of the sea. May the waves cover you, and may the mountains be destroyed.",
+  "18": "They poured thick waters; they gave loud voices. Your faces were covered with tears.",
+  "19": "Your thunderous voice echoed throughout the heavens. The sky was filled with lightning; the earth trembled and shook.",
+  "20": "Your path through the sea, and your resting place in those vast waters… We do not know where you go.",
+  "21": "I have brought your people down like lambs into Moses’ hands and Aaron’s hands."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

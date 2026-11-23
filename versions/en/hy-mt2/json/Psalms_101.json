@@ -1,0 +1,19 @@
+{
+ "book": "Psalms",
+ "chapter": 101,
+ "lang": "en",
+ "verses": {
+  "1": "To David, a song of grace and justice: The LORD has spoken to you.",
+  "2": "Be humble in your ways, so that you may come before me. Walk in my presence, in the midst of my house.",
+  "3": "I will not do anything that goes against my own eyes. I will not make any decisions that I dislike.",
+  "4": "My heart is upset; it’s better for it to be away from me. I don’t know.",
+  "5": "I tried to open the box, but no one could get inside it. Its eyes were wide open, and its heart was full of kindness. But I couldn’t open it at all.",
+  "6": "My eyes see the truth of the earth; I stand before you. I walk along a path of righteousness. He will guide me.",
+  "7": "He shall not sit near my house. He will speak lies, and his words are false. He shall not be allowed to stand before my eyes.",
+  "8": "Let all the wicked of the earth be destroyed from the city of Jehovah. Let all those who do evil be removed from there."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

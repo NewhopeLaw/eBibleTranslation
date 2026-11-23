@@ -1,0 +1,25 @@
+{
+ "book": "Psalms",
+ "chapter": 108,
+ "lang": "en",
+ "verses": {
+  "1": "A song of praise for David.",
+  "2": "I desire to sing and praise God with all my heart.",
+  "3": "The wounded man and the broken vessel will be raised again.",
+  "4": "You will be honored among the nations, O LORD; and you will be praised in all lands.",
+  "5": "For your kindness is greater than the heavens above us, and your truthfulness knows no bounds.",
+  "6": "May God be exalted above the heavens and above all the earth, in honor of You.",
+  "7": "That your friends may be rescued, that Your Hand may save them, and that You may answer me.",
+  "8": "God, in His holiness, will make it clear what is right and what is wrong.",
+  "9": "I will give Gilad to Manasseh, and Ephraim will be given to Judah’s leaders.",
+  "10": "May the Lord curse him! May he be covered with dirt and rubble. May his clothes be covered with mud.",
+  "11": "Who will save me from this city of captivity? Who will let me live until Adonai comes?",
+  "12": "God has not abandoned us, nor will He leave us in our current state.",
+  "13": "May we receive help from Egypt, and may there be a way out for us.",
+  "14": "May God create a line between us, and He will separate our enemies from us."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

@@ -1,0 +1,22 @@
+{
+ "book": "Psalms",
+ "chapter": 75,
+ "lang": "en",
+ "verses": {
+  "1": "Let it be a time for celebration, not a time for lamentation.",
+  "2": "We praise you, O God! We praise and honor your name. Your praises are countless.",
+  "3": "For when I take a meeting, I will surely remove them from their positions.",
+  "4": "I will destroy the land and all its inhabitants. I will make it a desolate place.",
+  "5": "I said to the blasphemers, “Do not blaspheme.” And to the wicked, “Do not raise your heads.”",
+  "6": "Do not raise your voices to the heavens; speak in a humble manner.",
+  "7": "For it does not come from the mountains, nor from the seas.",
+  "8": "For God who judges this will humble it, and he who punishes will destroy it.",
+  "9": "For she is in the hand of the LORD; her breasts are full of bitterness. She will be destroyed by him. But her children will be saved from all the wickedness of the earth.",
+  "10": "And I will forever sing praises to the God of Jacob.",
+  "11": "And all the horns of the wicked will be broken, and their horns will become useful for the righteous."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

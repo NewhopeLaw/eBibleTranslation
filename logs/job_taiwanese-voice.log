@@ -53,3 +53,409 @@ Luke 23: 55 verses, 446s of audio in 727s
 Trainable Parameters: 4.481M
 D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\df\io.py:9: UserWarning: `torchaudio.backend.common.AudioMetaData` has been moved to `torchaudio.AudioMetaData`. Please update the import path.
   from torchaudio.backend.common import AudioMetaData
+Luke 24: 53 verses, 430s of audio in 367s
+John 1: 51 verses, 441s of audio in 375s
+John 2: 25 verses, 210s of audio in 188s, no reading for 嚐
+John 3: 36 verses, 319s of audio in 283s
+John 4: 54 verses, 482s of audio in 413s
+John 5: 46 verses, 404s of audio in 343s
+John 6: 71 verses, 622s of audio in 511s
+John 7: 53 verses, 452s of audio in 354s
+John 8: 59 verses, 533s of audio in 437s
+John 9: 41 verses, 380s of audio in 305s
+John 10: 42 verses, 365s of audio in 284s
+John 11: 57 verses, 487s of audio in 399s
+John 12: 50 verses, 470s of audio in 364s, no reading for 噠
+John 13: 38 verses, 351s of audio in 275s
+John 14: 31 verses, 295s of audio in 238s
+John 15: 27 verses, 238s of audio in 192s
+John 16: 33 verses, 310s of audio in 248s
+John 17: 26 verses, 261s of audio in 210s
+John 18: 40 verses, 381s of audio in 302s
+John 19: 42 verses, 446s of audio in 339s, no reading for 嚐
+John 20: 31 verses, 317s of audio in 254s
+John 21: 25 verses, 295s of audio in 219s
+Acts 1: 26 verses, 272s of audio in 209s
+Acts 2: 47 verses, 408s of audio in 339s
+Acts 3: 26 verses, 254s of audio in 223s
+Acts 4: 37 verses, 341s of audio in 275s
+Acts 5: 42 verses, 403s of audio in 339s
+Acts 6: 15 verses, 148s of audio in 110s
+Acts 7: 60 verses, 588s of audio in 476s
+Acts 8: 39 verses, 356s of audio in 292s
+Acts 9: 43 verses, 401s of audio in 311s
+Acts 10: 48 verses, 465s of audio in 360s
+Acts 11: 30 verses, 260s of audio in 214s
+Acts 12: 25 verses, 262s of audio in 211s
+Acts 13: 52 verses, 499s of audio in 374s
+Acts 14: 28 verses, 257s of audio in 193s
+Acts 15: 40 verses, 365s of audio in 306s
+Acts 16: 40 verses, 375s of audio in 279s
+Acts 17: 34 verses, 350s of audio in 299s
+Acts 18: 28 verses, 288s of audio in 225s
+Acts 19: 40 verses, 371s of audio in 328s
+Acts 20: 38 verses, 348s of audio in 294s
+Acts 21: 40 verses, 413s of audio in 340s
+Acts 22: 30 verses, 294s of audio in 227s
+Acts 23: 35 verses, 360s of audio in 312s
+Acts 24: 26 verses, 239s of audio in 196s
+Acts 25: 27 verses, 283s of audio in 239s
+Acts 26: 32 verses, 349s of audio in 280s
+Acts 27: 44 verses, 409s of audio in 331s
+Acts 28: 30 verses, 311s of audio in 243s
+Romans 1: 32 verses, 319s of audio in 253s
+Romans 2: 29 verses, 262s of audio in 225s
+Romans 3: 31 verses, 262s of audio in 216s
+Romans 4: 25 verses, 229s of audio in 196s
+Romans 5: 21 verses, 241s of audio in 198s
+Romans 6: 23 verses, 216s of audio in 171s
+Romans 7: 25 verses, 271s of audio in 222s
+Romans 8: 39 verses, 390s of audio in 303s
+Romans 9: 33 verses, 316s of audio in 255s
+Romans 10: 21 verses, 187s of audio in 141s
+Romans 11: 36 verses, 345s of audio in 279s
+Romans 12: 21 verses, 180s of audio in 140s
+Romans 13: 14 verses, 159s of audio in 130s
+Romans 14: 23 verses, 232s of audio in 185s
+Romans 15: 33 verses, 296s of audio in 231s
+Romans 16: 24 verses, 226s of audio in 173s, no reading for 諂
+1 Corinthians 1: 31 verses, 289s of audio in 237s
+1 Corinthians 2: 16 verses, 152s of audio in 129s
+1 Corinthians 3: 23 verses, 213s of audio in 166s
+1 Corinthians 4: 21 verses, 207s of audio in 162s
+1 Corinthians 5: 13 verses, 126s of audio in 119s
+1 Corinthians 6: 20 verses, 193s of audio in 161s
+1 Corinthians 7: 40 verses, 387s of audio in 329s
+1 Corinthians 8: 13 verses, 144s of audio in 115s
+1 Corinthians 9: 27 verses, 277s of audio in 235s
+1 Corinthians 10: 33 verses, 300s of audio in 259s
+1 Corinthians 11: 34 verses, 294s of audio in 211s
+1 Corinthians 12: 31 verses, 277s of audio in 233s
+1 Corinthians 13: 13 verses, 135s of audio in 97s
+1 Corinthians 14: 40 verses, 378s of audio in 292s
+1 Corinthians 15: 58 verses, 506s of audio in 399s
+1 Corinthians 16: 24 verses, 188s of audio in 157s
+2 Corinthians 1: 24 verses, 267s of audio in 231s
+2 Corinthians 2: 17 verses, 157s of audio in 141s, no reading for 垮
+2 Corinthians 3: 18 verses, 169s of audio in 147s
+2 Corinthians 4: 18 verses, 188s of audio in 160s
+2 Corinthians 5: 21 verses, 197s of audio in 167s
+2 Corinthians 6: 18 verses, 181s of audio in 142s
+2 Corinthians 7: 16 verses, 201s of audio in 185s
+2 Corinthians 8: 24 verses, 227s of audio in 173s
+2 Corinthians 9: 15 verses, 160s of audio in 141s
+2 Corinthians 10: 18 verses, 169s of audio in 131s
+2 Corinthians 11: 33 verses, 304s of audio in 251s
+2 Corinthians 12: 21 verses, 250s of audio in 198s
+2 Corinthians 13: 13 verses, 153s of audio in 148s
+Galatians 1: 24 verses, 213s of audio in 168s, no reading for 嘅
+Galatians 2: 21 verses, 232s of audio in 202s
+Galatians 3: 29 verses, 291s of audio in 228s
+Galatians 4: 31 verses, 285s of audio in 231s
+Galatians 5: 26 verses, 208s of audio in 160s
+Galatians 6: 18 verses, 160s of audio in 126s
+Ephesians 1: 23 verses, 197s of audio in 163s
+Ephesians 2: 22 verses, 197s of audio in 167s
+Ephesians 3: 21 verses, 161s of audio in 134s
+Ephesians 4: 32 verses, 264s of audio in 232s
+Ephesians 5: 33 verses, 248s of audio in 205s
+Ephesians 6: 24 verses, 212s of audio in 167s
+Philippians 1: 30 verses, 273s of audio in 229s
+Philippians 2: 30 verses, 261s of audio in 220s
+Philippians 3: 21 verses, 205s of audio in 157s
+Philippians 4: 23 verses, 219s of audio in 177s
+Colossians 1: 29 verses, 277s of audio in 221s
+Colossians 2: 23 verses, 210s of audio in 170s
+Colossians 3: 25 verses, 236s of audio in 188s
+Colossians 4: 18 verses, 164s of audio in 151s
+1 Thessalonians 1: 10 verses, 113s of audio in 85s
+1 Thessalonians 2: 20 verses, 233s of audio in 213s, no reading for 諂
+1 Thessalonians 3: 13 verses, 129s of audio in 114s
+1 Thessalonians 4: 18 verses, 171s of audio in 139s
+1 Thessalonians 5: 28 verses, 204s of audio in 175s
+2 Thessalonians 1: 12 verses, 133s of audio in 117s
+2 Thessalonians 2: 17 verses, 179s of audio in 157s
+2 Thessalonians 3: 18 verses, 154s of audio in 123s
+1 Timothy 1: 20 verses, 209s of audio in 172s
+1 Timothy 2: 15 verses, 115s of audio in 85s
+1 Timothy 3: 16 verses, 143s of audio in 111s
+1 Timothy 4: 16 verses, 138s of audio in 105s
+1 Timothy 5: 25 verses, 213s of audio in 168s
+1 Timothy 6: 21 verses, 209s of audio in 166s
+2 Timothy 1: 18 verses, 181s of audio in 148s
+2 Timothy 2: 26 verses, 236s of audio in 192s
+2 Timothy 3: 17 verses, 166s of audio in 127s
+2 Timothy 4: 22 verses, 205s of audio in 162s
+Titus 1: 16 verses, 180s of audio in 136s
+Titus 2: 15 verses, 136s of audio in 113s
+Titus 3: 15 verses, 145s of audio in 114s
+Philemon 1: 25 verses, 199s of audio in 173s
+Hebrews 1: 14 verses, 139s of audio in 110s
+Hebrews 2: 18 verses, 191s of audio in 156s, no reading for 嚐
+Hebrews 3: 19 verses, 154s of audio in 176s
+Hebrews 4: 16 verses, 174s of audio in 142s
+Hebrews 5: 14 verses, 130s of audio in 110s
+Hebrews 6: 20 verses, 176s of audio in 160s
+Hebrews 7: 28 verses, 286s of audio in 226s
+Hebrews 8: 13 verses, 142s of audio in 118s
+Hebrews 9: 28 verses, 295s of audio in 371s
+Hebrews 10: 39 verses, 307s of audio in 255s
+Hebrews 11: 40 verses, 395s of audio in 310s
+Hebrews 12: 29 verses, 298s of audio in 255s
+Hebrews 13: 25 verses, 243s of audio in 211s
+James 1: 27 verses, 240s of audio in 188s
+James 2: 26 verses, 238s of audio in 211s
+James 3: 18 verses, 182s of audio in 172s
+James 4: 17 verses, 176s of audio in 174s
+James 5: 20 verses, 203s of audio in 164s
+1 Peter 1: 25 verses, 241s of audio in 216s
+1 Peter 2: 25 verses, 240s of audio in 230s
+1 Peter 3: 22 verses, 239s of audio in 234s
+1 Peter 4: 19 verses, 199s of audio in 174s
+1 Peter 5: 14 verses, 150s of audio in 119s
+2 Peter 1: 21 verses, 215s of audio in 167s
+2 Peter 2: 22 verses, 249s of audio in 255s
+2 Peter 3: 18 verses, 196s of audio in 186s
+1 John 1: 10 verses, 96s of audio in 81s
+1 John 2: 29 verses, 286s of audio in 249s
+1 John 3: 24 verses, 251s of audio in 198s
+1 John 4: 21 verses, 212s of audio in 180s
+1 John 5: 21 verses, 202s of audio in 202s
+2 John 1: 13 verses, 132s of audio in 114s
+3 John 1: 15 verses, 134s of audio in 116s
+Jude 1: 25 verses, 281s of audio in 332s, no reading for 諂
+Revelation 1: 20 verses, 228s of audio in 270s
+Revelation 2: 29 verses, 318s of audio in 420s
+Revelation 3: 22 verses, 261s of audio in 334s
+Revelation 4: 11 verses, 134s of audio in 176s
+Revelation 5: 14 verses, 164s of audio in 233s
+Revelation 6: 17 verses, 204s of audio in 278s
+Revelation 7: 17 verses, 215s of audio in 301s
+Revelation 8: 13 verses, 162s of audio in 232s
+Revelation 9: 21 verses, 215s of audio in 188s
+Revelation 10: 11 verses, 136s of audio in 120s
+Revelation 11: 19 verses, 228s of audio in 177s, no reading for 棵
+Revelation 12: 18 verses, 198s of audio in 154s
+Revelation 13: 18 verses, 186s of audio in 146s
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\module.py:1355: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:35.)
+  return t.to(
+Trainable Parameters: 4.481M
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\df\io.py:9: UserWarning: `torchaudio.backend.common.AudioMetaData` has been moved to `torchaudio.AudioMetaData`. Please update the import path.
+  from torchaudio.backend.common import AudioMetaData
+Revelation 19: 21 verses, 240s of audio in 181s
+Revelation 20: 15 verses, 182s of audio in 138s
+Revelation 21: 27 verses, 296s of audio in 225s
+Revelation 22: 21 verses, 219s of audio in 171s
+Genesis 1: 31 verses, 288s of audio in 215s
+Genesis 2: 25 verses, 230s of audio in 170s
+Genesis 3: 24 verses, 249s of audio in 185s, no reading for 棵
+Genesis 4: 26 verses, 241s of audio in 175s
+Genesis 5: 32 verses, 231s of audio in 186s
+Genesis 6: 22 verses, 218s of audio in 164s
+Genesis 7: 24 verses, 219s of audio in 178s
+Genesis 8: 22 verses, 208s of audio in 158s
+Genesis 9: 29 verses, 242s of audio in 178s
+Genesis 10: 32 verses, 257s of audio in 186s
+Genesis 11: 32 verses, 262s of audio in 206s
+Genesis 12: 20 verses, 205s of audio in 162s
+Genesis 13: 18 verses, 167s of audio in 144s
+Genesis 14: 24 verses, 248s of audio in 208s
+Genesis 15: 21 verses, 192s of audio in 147s
+Genesis 16: 16 verses, 166s of audio in 129s
+Genesis 17: 27 verses, 242s of audio in 198s
+Genesis 18: 33 verses, 352s of audio in 270s
+Genesis 19: 38 verses, 387s of audio in 291s
+Genesis 20: 18 verses, 191s of audio in 149s
+Genesis 21: 34 verses, 340s of audio in 274s, no reading for 棵
+Genesis 22: 24 verses, 248s of audio in 194s
+Genesis 23: 20 verses, 202s of audio in 158s
+Traceback (most recent call last):
+  File "D:\Home\4. AI\eBibleTranslation\scripts\taiwanese_speech.py", line 596, in <module>
+    main()
+  File "D:\Home\4. AI\eBibleTranslation\scripts\taiwanese_speech.py", line 571, in main
+    read_all(a.vocoder, a.clean == "dfn", a.pitch)
+  File "D:\Home\4. AI\eBibleTranslation\scripts\taiwanese_speech.py", line 532, in read_all
+    audio, unread, times = read(voice, passage, clean=cleaner, pitch=PITCH if pitch is None else pitch)
+  File "D:\Home\4. AI\eBibleTranslation\scripts\taiwanese_speech.py", line 457, in read
+    audio = clean(audio, voice.fs)
+  File "D:\Home\4. AI\eBibleTranslation\scripts\taiwanese_speech.py", line 412, in __call__
+    y = self.enhance(self.model, self.state, torch.from_numpy(x)[None])
+  File "D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\utils\_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\df\enhance.py", line 235, in enhance
+    enhanced = model(spec.clone(), erb_feat, spec_feat)[0].cpu()
+  File "D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\df\deepfilternet3.py", line 411, in forward
+    e0, e1, e2, e3, emb, c0, lsnr = self.enc(feat_erb, feat_spec)
+  File "D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\df\deepfilternet3.py", line 183, in forward
+    emb, _ = self.emb_gru(emb)  # [B, T, -1]
+  File "D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\df\modules.py", line 734, in forward
+    x, h = self.gru(x, h)
+  File "D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\rnn.py", line 1391, in forward
+    result = _VF.gru(
+RuntimeError: cuDNN error: CUDNN_STATUS_NOT_SUPPORTED. This error may appear if you passed in a non-contiguous input.
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\module.py:1355: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:35.)
+  return t.to(
+Trainable Parameters: 4.481M
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\df\io.py:9: UserWarning: `torchaudio.backend.common.AudioMetaData` has been moved to `torchaudio.AudioMetaData`. Please update the import path.
+  from torchaudio.backend.common import AudioMetaData
+Genesis 24: 67 verses, 693s of audio in 546s
+Genesis 25: 34 verses, 323s of audio in 272s
+Genesis 26: 35 verses, 382s of audio in 287s
+Genesis 27: 46 verses, 501s of audio in 424s
+Genesis 28: 22 verses, 223s of audio in 337s
+Genesis 29: 35 verses, 351s of audio in 557s
+Genesis 30: 43 verses, 442s of audio in 759s
+Genesis 31: 54 verses, 535s of audio in 916s
+Genesis 32: 33 verses, 317s of audio in 749s
+Genesis 33: 20 verses, 204s of audio in 423s
+Genesis 34: 31 verses, 295s of audio in 657s
+Genesis 35: 29 verses, 265s of audio in 572s, no reading for 棵
+Genesis 36: 43 verses, 387s of audio in 742s
+Genesis 37: 36 verses, 361s of audio in 526s
+Genesis 38: 30 verses, 327s of audio in 484s
+Genesis 39: 23 verses, 235s of audio in 915s
+Genesis 40: 23 verses, 227s of audio in 318s
+Genesis 41: 57 verses, 548s of audio in 864s
+Genesis 42: 38 verses, 414s of audio in 609s
+Genesis 43: 34 verses, 374s of audio in 595s, no reading for 嘅
+Genesis 44: 34 verses, 342s of audio in 540s
+Genesis 45: 28 verses, 302s of audio in 440s
+Genesis 46: 34 verses, 336s of audio in 551s
+Genesis 47: 31 verses, 379s of audio in 637s
+Genesis 48: 22 verses, 289s of audio in 451s
+Genesis 49: 33 verses, 334s of audio in 505s
+Genesis 50: 26 verses, 278s of audio in 442s
+Exodus 1: 22 verses, 189s of audio in 342s
+Exodus 2: 25 verses, 252s of audio in 884s
+Exodus 3: 22 verses, 266s of audio in 771s
+Exodus 4: 31 verses, 321s of audio in 949s
+forrtl: error (200): program aborting due to window-CLOSE event
+Image              PC                Routine            Line        Source             
+KERNELBASE.dll     00007FFA89AF63ED  Unknown               Unknown  Unknown
+KERNEL32.DLL       00007FFA8B70DDA7  Unknown               Unknown  Unknown
+ntdll.dll          00007FFA8C77EE4C  Unknown               Unknown  Unknown
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\module.py:1355: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:35.)
+  return t.to(
+Trainable Parameters: 4.481M
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\df\io.py:9: UserWarning: `torchaudio.backend.common.AudioMetaData` has been moved to `torchaudio.AudioMetaData`. Please update the import path.
+  from torchaudio.backend.common import AudioMetaData
+Exodus 5: 23 verses, 237s of audio in 203s
+Exodus 6: 30 verses, 304s of audio in 425s
+Exodus 7: 29 verses, 284s of audio in 366s
+Exodus 8: 28 verses, 320s of audio in 521s
+Exodus 9: 35 verses, 375s of audio in 1603s
+Exodus 10: 29 verses, 361s of audio in 684s
+Exodus 11: 10 verses, 121s of audio in 220s
+Exodus 12: 51 verses, 486s of audio in 878s
+Exodus 13: 22 verses, 250s of audio in 467s
+Exodus 14: 31 verses, 360s of audio in 653s
+Exodus 15: 27 verses, 272s of audio in 500s, no reading for 棵
+Exodus 16: 36 verses, 398s of audio in 736s
+Exodus 17: 16 verses, 185s of audio in 341s
+Exodus 18: 27 verses, 299s of audio in 545s
+Exodus 19: 25 verses, 264s of audio in 471s
+Exodus 20: 26 verses, 217s of audio in 417s
+Exodus 21: 37 verses, 343s of audio in 635s
+Exodus 22: 30 verses, 247s of audio in 430s
+Exodus 23: 33 verses, 301s of audio in 573s
+Exodus 24: 18 verses, 189s of audio in 308s
+Exodus 25: 40 verses, 301s of audio in 540s
+Exodus 26: 37 verses, 321s of audio in 575s
+Exodus 27: 21 verses, 183s of audio in 330s
+Exodus 28: 43 verses, 450s of audio in 813s, no reading for 襬
+Exodus 29: 46 verses, 480s of audio in 855s
+Exodus 30: 38 verses, 331s of audio in 595s
+Exodus 31: 18 verses, 154s of audio in 301s
+Exodus 32: 35 verses, 390s of audio in 696s
+Exodus 33: 23 verses, 251s of audio in 450s
+Exodus 34: 35 verses, 401s of audio in 723s
+Exodus 35: 35 verses, 322s of audio in 529s
+Exodus 36: 38 verses, 377s of audio in 656s
+Exodus 37: 29 verses, 236s of audio in 382s
+Exodus 38: 31 verses, 311s of audio in 562s
+Exodus 39: 43 verses, 387s of audio in 688s, no reading for 襬
+Exodus 40: 38 verses, 299s of audio in 501s
+Leviticus 1: 17 verses, 179s of audio in 356s
+Leviticus 2: 16 verses, 168s of audio in 313s
+Leviticus 3: 17 verses, 186s of audio in 332s
+Leviticus 4: 35 verses, 358s of audio in 608s
+Leviticus 5: 26 verses, 336s of audio in 481s
+Leviticus 6: 23 verses, 218s of audio in 323s
+Leviticus 7: 38 verses, 323s of audio in 469s
+Leviticus 8: 36 verses, 381s of audio in 530s
+Leviticus 9: 24 verses, 256s of audio in 373s
+Leviticus 10: 20 verses, 249s of audio in 373s
+Leviticus 11: 47 verses, 409s of audio in 543s
+Leviticus 12: 8 verses, 84s of audio in 121s
+Leviticus 13: 59 verses, 649s of audio in 1051s
+Leviticus 14: 57 verses, 541s of audio in 1044s
+Leviticus 15: 33 verses, 299s of audio in 498s
+Leviticus 16: 34 verses, 363s of audio in 674s
+Leviticus 17: 16 verses, 174s of audio in 376s
+Leviticus 18: 30 verses, 272s of audio in 580s
+Leviticus 19: 37 verses, 328s of audio in 667s
+Leviticus 20: 27 verses, 294s of audio in 576s
+Leviticus 21: 24 verses, 242s of audio in 475s
+Leviticus 22: 33 verses, 327s of audio in 705s
+Leviticus 23: 44 verses, 425s of audio in 907s
+Leviticus 24: 23 verses, 222s of audio in 408s
+Leviticus 25: 55 verses, 441s of audio in 874s
+Leviticus 26: 46 verses, 395s of audio in 740s
+Leviticus 27: 34 verses, 369s of audio in 754s
+Numbers 1: 54 verses, 463s of audio in 871s
+Numbers 2: 34 verses, 280s of audio in 614s
+Numbers 3: 51 verses, 443s of audio in 927s
+Numbers 4: 49 verses, 471s of audio in 986s
+Numbers 5: 31 verses, 323s of audio in 656s
+Numbers 6: 27 verses, 279s of audio in 636s
+--- started by the dashboard 2026-11-22 13:35
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\module.py:1355: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:35.)
+  return t.to(
+Trainable Parameters: 4.481M
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\df\io.py:9: UserWarning: `torchaudio.backend.common.AudioMetaData` has been moved to `torchaudio.AudioMetaData`. Please update the import path.
+  from torchaudio.backend.common import AudioMetaData
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\module.py:1355: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:35.)
+  return t.to(
+Trainable Parameters: 4.481M
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\df\io.py:9: UserWarning: `torchaudio.backend.common.AudioMetaData` has been moved to `torchaudio.AudioMetaData`. Please update the import path.
+  from torchaudio.backend.common import AudioMetaData
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\module.py:1355: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:35.)
+  return t.to(
+Trainable Parameters: 4.481M
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\df\io.py:9: UserWarning: `torchaudio.backend.common.AudioMetaData` has been moved to `torchaudio.AudioMetaData`. Please update the import path.
+  from torchaudio.backend.common import AudioMetaData
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\module.py:1355: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:35.)
+  return t.to(
+Trainable Parameters: 4.481M
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\df\io.py:9: UserWarning: `torchaudio.backend.common.AudioMetaData` has been moved to `torchaudio.AudioMetaData`. Please update the import path.
+  from torchaudio.backend.common import AudioMetaData
+Numbers 8: 26 verses, 243s of audio in 476s
+Numbers 9: 23 verses, 250s of audio in 547s
+Numbers 10: 36 verses, 296s of audio in 647s
+Numbers 12: 16 verses, 163s of audio in 467s
+Numbers 11: 35 verses, 372s of audio in 3141s
+Numbers 13: 33 verses, 272s of audio in 3126s
+Numbers 7: 89 verses, 859s of audio in 4979s
+Numbers 14: 45 verses, 451s of audio in 3944s
+Numbers 15: 41 verses, 352s of audio in 3106s
+Numbers 16: 35 verses, 356s of audio in 3078s
+Numbers 17: 28 verses, 281s of audio in 2860s
+Numbers 19: 22 verses, 249s of audio in 1238s
+Numbers 18: 32 verses, 390s of audio in 3084s
+Numbers 20: 29 verses, 296s of audio in 1363s

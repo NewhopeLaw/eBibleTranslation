@@ -1,0 +1,17 @@
+{
+ "book": "Psalms",
+ "chapter": 1,
+ "lang": "en",
+ "verses": {
+  "1": "The man who did not go along with the counsel of the wicked, nor followed in the path of sin, and who did not sit on the throne of evilness.",
+  "2": "For if it is in the will of Jehovah, then he will act according to His will, day and night.",
+  "3": "And it shall be like a tree that grows on the shores of the sea. Its fruit will be given to those who ask for it. And nothing that is done will fail.",
+  "4": "It is not the wicked who are punished, but rather those whose souls have been driven away.",
+  "5": "Therefore, the wicked will not stand before judgment, and their sins will not be forgiven by the righteous.",
+  "6": "For Jehovah knows the ways of the righteous and the ways of the wicked."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

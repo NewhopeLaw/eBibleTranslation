@@ -1,0 +1,11 @@
+{
+ "verses": {
+  "1": "The Lord is my shepherd; I will lack nothing.",
+  "2": "He made me sleep in a vineyard of wine, wine, wine, wine, wine, wine, wine, wine, wine, wine, wine, wine, wine.",
+  "3": "He restoreth my soul: he leadeth me in paths of righteousness for his name's sake.",
+  "4": "For though I walk through the valley of the shadow of death, I will fear no evil, for you are with me; your rod and your staff comfort me.",
+  "5": "You prepare a table in front of me in the presence of my enemies. You anoint my head with oil. My cup runs over.",
+  "6": "Surely goodness and loving - kindness will follow me all the days of my life, and I will dwell in the house of the Lord forever."
+ },
+ "engine": "nllb-200-distilled-1.3B, back into English"
+}

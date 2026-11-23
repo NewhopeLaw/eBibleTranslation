@@ -1,0 +1,19 @@
+{
+ "book": "Psalms",
+ "chapter": 142,
+ "lang": "en",
+ "verses": {
+  "1": "Mashkil for David when he was in the cave of Tefila.",
+  "2": "My voice cries out to the LORD! My voice pleads with the LORD!",
+  "3": "I will pour out my troubles before him; I will speak of my sorrows before him.",
+  "4": "As my spirit is enveloped in darkness, you will know where I am. You will know the path I take in this place. Now go ahead, and fill me with sorrow.",
+  "5": "Look to the right, and see that I have no one to know. Manos has gone away from me; there is no one who seeks my soul anymore.",
+  "6": "I cried out to you, O LORD! I said, “You are my protector; you give me a place to live in this land of life.”",
+  "7": "Listen to my cries, for I am in great distress. Save me from my pursuers, for they have come after me.",
+  "8": "I will bring my soul out of its prison, so that I may praise your name. The righteous will be sealed with you, for you will take pity on me."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

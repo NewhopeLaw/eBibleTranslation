@@ -1,0 +1,18 @@
+{
+ "book": "Psalms",
+ "chapter": 11,
+ "lang": "en",
+ "verses": {
+  "1": "May David be delivered by Yahweh! How shall I say to my soul, “You are safe”?",
+  "2": "For behold, the wicked will walk on a path of destruction; they will build barriers against those who are righteous.",
+  "3": "For those who drink wine will be destroyed, even the righteous ones.",
+  "4": "The LORD is in His holy temple; the LORD is in heaven, as a throne. His eyes see everything; His followers are children of man.",
+  "5": "The LORD is righteous; He rewards the good and hates the wicked. He loves those who are faithful, but hates those who are unfaithful.",
+  "6": "May fire and sulfur be poured upon the wicked. May they be tormented by a storm of flames and wind.",
+  "7": "For the LORD is righteous; His judgments are just. He loves those who are righteous and will bless them."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

@@ -1,0 +1,20 @@
+{
+ "book": "Psalms",
+ "chapter": 61,
+ "lang": "en",
+ "verses": {
+  "1": "To be destroyed by the music of David.",
+  "2": "I heard God’s voice; I listened attentively. My prayers were heard.",
+  "3": "From every corner of the earth, I will call to you in my heart, in the darkness of night. Please save me from me.",
+  "4": "For you have protected me from the great power of evil.",
+  "5": "Your wings hide the secrets of eternity in their secrecy.",
+  "6": "For you are God; you have heard my prayer. You have given me a son to glorify your name.",
+  "7": "For days after the king’s reign, his years continued like days and nights.",
+  "8": "There will be a time in eternity when grace and truth will reign before God.",
+  "9": "May your name be praised forever, so that I may be safe from harm day after day."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

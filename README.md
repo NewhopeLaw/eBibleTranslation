@@ -77,6 +77,12 @@ scripts/taiwanese_from_zh.py John 1     Taiwanese the same way (targets/nan/repl
                                         dictionary); both run on scripts/from_zh.py
 scripts/taiwanese_speech.py  John 1     read a Taiwanese chapter aloud (ga642381's SuíSiann voice) -> audio/nan/
                                         (all four are TTS processing jobs on the dashboard; --all for the lot)
+scripts/taiwanese_phonemes.py           what the Taiwanese voice is given to read, every chapter, ahead of time
+scripts/taiwanese_student.py  cut|train|say|check|export   a phone-sized Taiwanese voice taught by the
+                                        recordings (a trial; see docs/taiwanese-student.md)
+scripts/hakka_phonemes.py               what the Hakka voice is given to read (formog2p's Sixian), ahead of time
+scripts/hakka_student.py  cut|train|say|check|export   the same for Hakka, taught by audio/hak/
+                                        (docs/hakka-student.md); both students are dashboard jobs
 scripts/add_lxx.py    [--fetch]         attach the Septuagint to the normalized OT
 scripts/verify.py     [--lang zh] [Gen [1-3]]  flag missing/dup verses, untranslated
                                         text, truncation, name inconsistencies
@@ -93,6 +99,10 @@ browser, console, Claude Code or IDE needed. It serves `live.py` in-process
 uses the system WebView2; without it Edge's app mode is used). Closing the
 window stops the server it started — it asks first if a translation is
 running. Output from a windowless start goes to `logs/app.log`.
+**Desktop icons** in the header makes those shortcuts: the dashboard and the
+reader, each on the Desktop, in the Start menu or both, ticked on and off in a
+small grid (`scripts/shortcuts.py`, which also runs from the command line).
+Each has its own icon, the app's open book, drawn into `tools/icons/`.
 The **read / translate** toggle in the header turns the window into the
 reader, rebuilding `site/index.html` first whenever translations are newer
 than it, and back. In translate mode the side panel (translations, session,
@@ -209,6 +219,64 @@ The postings are built in code, not by the model — a list of occurrences has t
 be exact. The model's part is the layer above: grouping the forms of a word so
 that a search for one form finds the others.
 
+### Search by meaning, on the phone
+
+`scripts/build_vectors.py` gives every verse a vector and writes a table of
+vectors for the word pieces they are built from; the head of that script says
+how and why. The reader cuts what was typed into the same pieces, adds up their
+vectors and shows the verses nearest it as **Verses like this**, so "the man
+thrown into the den of lions" reaches Daniel 6 and a Thai reader typing "do not
+worry about tomorrow" reaches Matthew 6:34, with no word in common. In a browser
+it is arithmetic in the page, over a table of what each word piece means alone.
+In the Android app it is the model itself: `scripts/build_encoder.py` cuts
+multilingual-e5-small down to this project's vocabulary, stores it as int8 and
+embeds every verse with it, and the app runs it with ONNX Runtime and hands the
+page verse numbers. The model reads the question whole, which matters most in
+Thai, where the table found the passage for two questions of eight and the
+model for five. Either way it only ever picks verses, so what is shown is the
+reader's own text, and a question nothing is near (a single common word, a
+typing slip) gets no such section rather than twelve strays. Run
+`build_encoder.py` before `build_apk.py`; the APK carries the model where it
+was built and the table where it was not.
+
+**Stories, not only verses.** A reader describes a story, and a verse is one
+sentence of it. `build_encoder.py` also embeds the chapter themes' plain
+descriptions of each run of verses ("Daniel's refusal of the royal diet",
+Daniel 1:8-16), and in the app a description nearer the question than any of
+its verses lifts that run as a block. In English that took the right passage
+first from 37 of 100 hand-written questions to 44. The descriptions are in
+English, and Thai, Spanish and Chinese questions gained nothing from them, so
+`scripts/translate_stories.py` puts them into each language, and the app reads
+a language's own where it has them.
+
+**Measuring it.** `targets/search/tests.jsonl` holds 100 questions a reader
+might type, in English, Thai, Spanish and Chinese, written by hand and each
+answer checked against the text. `scripts/search_test.py` asks them the way the
+phone does and says how often the passage came first, in the first five and in
+the first ten; `--compare` sets verses alone beside verses with stories, and
+`--misses` lists what was not found. `scripts/make_search_tests.py` has the
+model write more, in every language, Karen too.
+
+**Teaching the model the Bible.** No multilingual Bible search model exists to
+take, so `scripts/train_search.py` teaches ours, on the PC's GPU, from pairs the
+project already has: questions the model wrote about passages, each passage's
+description in every language, and the same verse in two languages. Passages
+the hand-written questions ask about are kept out of training, so the test
+stays honest. Tried on a CPU with what the cloud had (English descriptions,
+and verses paired with their translations), it made search worse in every
+language but English, and worse overall (right passage first 41% → 34% at
+best); `train_search.py`'s head has the numbers. The run still to try is the
+one with the model's questions and the descriptions in every language. The
+order on the PC:
+
+```
+python scripts/translate_stories.py                 # the descriptions in every language (hours, once)
+python scripts/make_search_tests.py --train --n 3000 # questions to train on
+python scripts/train_search.py                      # -> models/e5-bible/
+python scripts/build_encoder.py                     # the phone's files, from the taught model
+python scripts/search_test.py                       # better than before? if not, delete models/e5-bible/
+```
+
 ### Search with the model behind it (the PC)
 
 The index is what a phone can carry. On this machine the reader is served by the
@@ -320,6 +388,8 @@ python scripts/build_all.py --fast      skip morphology and syntax (the slow two
 | places and the map | `build_places.py` | OpenBible.info + Natural Earth | `places.js` |
 | chronology | `build_chronology.py` | our English text + hand-entered anchors | `chron.js` |
 | search index | `build_index.py` | every text | `idx_<lang>.js` |
+| search by meaning | `build_vectors.py` | multilingual-e5-small, distilled to a table | `vec_table.js`, `vec_<lang>.js` |
+| search by meaning, in the app | `build_encoder.py` | multilingual-e5-small itself, int8 | `site/model/` (not in git) |
 | themes | `build_themes.py` | the model, chapter by chapter | `themes.js` |
 | book arguments, theme trajectories | `build_theology.py` | the model over the themes | `theology.js` |
 | our lexicon | `build_lexicon.py` | the model over the concordance | `lexx.js` |
@@ -388,7 +458,8 @@ described once in `TARGETS` in `scripts/books.py`:
 | `id` | Indonesian | `prompts/targets/id.txt` | `targets/id/` | `output/id/` |
 | `ms` | Malay | `prompts/targets/ms.txt` | `targets/ms/` | `output/ms/` |
 | `ja-easy` | やさしい日本語 (Easy Japanese: short sentences, furigana on all but the most basic kanji) | `prompts/targets/ja-easy.txt` | `targets/ja-easy/` | `output/ja-easy/` |
-| `ksw` | Sgaw Karen — machine-translated from our English by MADLAD-400, see below | — | — | `output/ksw/` |
+| `ksw` | Sgaw Karen — machine-translated from our English by MADLAD-400, see below | — | `targets/ksw/` (names only) | `output/ksw/` |
+| `my` | Burmese — machine-translated from our English by NLLB-200, see below | — | `targets/my/` | `output/my/` |
 
 Easy Japanese writes furigana as `{漢字|かんじ}`; the reader and dashboard
 render it as ruby text, the markdown output as 漢字（かんじ）. Uyghur is
@@ -425,6 +496,43 @@ Karen reader to correct, and every chapter and the reader's footer say so.
 No phone or computer ships a Sgaw Karen voice, so the reader's Listen is not
 offered for it; the voice work is in `NGAW KAREN TTS/`.
 
+Burmese goes the same way for a different reason. The chat models write it
+fluently, which is the danger: on four trial chapters (`scripts/trial_lang.py`,
+report in `trials/my/report.md`) they now and then said the opposite of the
+text, and the verifier cannot tell. NLLB-200 scored well ahead of both against
+two published Burmese Bibles, so `my` is an `mt` target too, written from our
+English by `mt_translate.py`, which keeps it out of Zawgyi and closes up
+syllable spacing. It is part-way through (see Status) and, like the Karen, has
+not been read by a speaker.
+
+Shan (Tai Yai, `shn`) is on trial; the trial was run on 2026-11-22 and nothing
+has been written to `output/`. NLLB-200 and
+MADLAD-400 both list it, and no Shan Bible could be had as text to score them
+against, so `trial_lang.py` measures two other things on the same four
+chapters: whether each verse is in Shan's own letters or in Burmese's, which
+share a Unicode block, and how much of our English is left when the chapter
+is put back into English by NLLB-200. That ranks the candidates (the two
+translation models and the two chat models) and no more; the report is
+`trials/shn/report.md`, and a Shan reader decides. `targets/shn/` is empty on
+purpose until there is a Shan source for the divine names and name spellings.
+
+One candidate in that trial is not a model on this machine.
+`trials/shn/claude-opus/` holds the same four chapters written by Claude Opus,
+from the Hebrew and Greek, by agents in a Claude Code session on 2026-11-22.
+It is a placeholder. Neither chat model that runs here wrote Shan: `qwen3:32b`
+looped in Burmese and in a jumble of the two scripts, gave Genesis 1 in Burmese
+letters and three verses of Ruth 1's twenty-two, and `qwen3.5:35b-a3b` filled
+every verse with Shan letters that say nothing of the chapter (put back into
+English they score 13 where NLLB's score 57). Until `qwen3:32b`, or another
+model that runs here, can be made to write Shan, the Opus chapters stand in for
+what a chat model reading the original would give. They are all in Shan
+letters, every verse is there and none loops, which is all that could be
+checked: the agents that wrote them said themselves that the names, the word
+for the LORD (two of them chose differently) and much of the idiom are guesses.
+They were written in a session, not by a script, so they cannot be run again
+from this repository, and like every other candidate they have not been read
+by a Shan speaker.
+
 Teaching a model Karen: `scripts/karen_corpus.py` reads Mason's 1853 Karen
 Bible (public domain, the SWORD module in `sources/ksw-mason/`) and pairs its
 verses with ours where the numbering agrees, 27,500 pairs; `scripts/train_karen.py`
@@ -434,7 +542,7 @@ then uses by default.
 
 ### Voice
 
-No phone or computer ships a Sgaw Karen voice. `scripts/karen_speech.py`
+No phone or computer ships a Sgaw Karen voice. `NGAW KAREN TTS/karen_speech.py`
 reads Karen with Meta's offline Burmese voice by respelling each syllable
 into the Burmese spelling with the nearest sounds, then, through the WORLD
 vocoder, giving each syllable the pitch curve and length of its Karen tone -
@@ -582,8 +690,26 @@ model, reading and building APKs do not.
 
 - [x] Sources fetched and normalized (66 books, 31,102 verses)
 - [x] Prompt, glossary, name table, driver, verifier, site builder
-- [x] Genesis 1–3 translated with llama3.3:70b and verified (0 flags)
+- [x] The whole Bible, 1,189 chapters with every verse present, in seven
+  languages (counted against the source on 22 November 2026, the way
+  `build_site.py --complete-only` counts):
+  - English, Chinese, Spanish, Thai — `qwen3:32b`, from the Hebrew and Greek
+  - Taiwanese, Hakka — from our Mandarin: word table, then `qwen3.5:35b-a3b`
+  - Sgaw Karen — the MADLAD model taught on Mason's Karen Bible, from our English
+- [ ] Burmese — 630 of 1,189 chapters (NLLB-200, from our English)
+- [ ] Japanese — 208 of 1,189 chapters
+- [ ] Cantonese, Easy Japanese — one chapter each, as a test of the rules
+- [ ] Shan — on trial (`work.py` job `trial-shn`), run 2026-11-22: NLLB-200 is
+      the best that runs here, both chat models fail, and Claude Opus's four
+      chapters are a placeholder for them; no candidate read by a Shan speaker
+- [ ] Vietnamese, Korean, Uyghur, Indonesian, Malay — declared in
+  `TARGETS`, nothing translated
+- [ ] A verifier report over every chapter of every finished language.
+  `logs/verify_<lang>.md` covers all 1,189 chapters for English, Spanish, Thai
+  and Karen, and those reports still carry flags to be read (mostly SHORT, a
+  verse brief against its source). The Chinese and Hakka reports are from a
+  21-chapter run; Taiwanese and Burmese have none.
+- [ ] Any of the machine-translated languages read by a speaker
 - [ ] Side-by-side comparison with the claude.ai "Claude Fable" rendering
-- [ ] Narrative books
-- [ ] Poetry and prophets (heavier review budget)
+- [ ] Poetry and prophets given their heavier review
 - [ ] Aramaic sections of Daniel/Ezra in their own run

@@ -1,0 +1,16 @@
+{
+ "book": "Psalms",
+ "chapter": 43,
+ "lang": "en",
+ "verses": {
+  "1": "May God judge me! May my enemies be defeated by those who do not trust in deceitful people. May I be saved from their schemes.",
+  "2": "For you are the God of war! Why did you abandon me? Why do you walk in haste and despair?",
+  "3": "Send your light and your truth; they will guide me. They will bring me to your holy mountain and to your dwellings.",
+  "4": "And I will come before the temple of God, to that place of joy for my life. I will worship You in the sanctuary of God, my Lord.",
+  "5": "What shall I say to my soul? And what shall I do for God, since He still saves my face from destruction?"
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

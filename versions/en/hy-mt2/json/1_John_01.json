@@ -1,0 +1,21 @@
+{
+ "book": "1 John",
+ "chapter": 1,
+ "lang": "en",
+ "verses": {
+  "1": "It was from the beginning that we perceived this; we saw with our eyes, and our arms also rose high, in relation to the words of life.",
+  "2": "And life was revealed to us. We have seen and testified to it, and we declare to you this eternal life that existed before the Father. It has been revealed to us.",
+  "3": "We have announced and declared this to you, so that you too may have fellowship with us. And this fellowship is one that exists between us, along with our Father and His Son, Jesus Christ.",
+  "4": "And we must write these things down, so that our joy may be fulfilled.",
+  "5": "And this is the message that we have heard from Him, and we declare to you: That God is light, and there is no darkness in Him at all.",
+  "6": "If we say that we have fellowship with him even in death, we lie. We do not tell the truth.",
+  "7": "And if we walk in that light, just as he is in the light, then we will have fellowship with each other. And the blood of Jesus, his Son, cleanses us from all sin.",
+  "8": "If we say that we have no sin, we are lying. The truth is not in us at all.",
+  "9": "If we admit our own sins, then it is right and just for Him to remove those sins from us and purify us from all injustice.",
+  "10": "If we say that we have not sinned, we are lying. And the word of God also does not agree with this."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

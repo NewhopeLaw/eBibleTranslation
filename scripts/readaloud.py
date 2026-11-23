@@ -19,18 +19,34 @@ CSS = r"""
 # {host}: elements where the menu applies; {verse}: the unit read when nothing is selected
 JS = r"""
 /* ---------- read aloud: right-click a selection or a verse ---------- */
-const TTS_LANG = {en:'en-US', zh:'zh-CN', es:'es-ES', ja:'ja-JP', 'ja-easy':'ja-JP', th:'th-TH', yue:'zh-HK', nan:'zh-TW', hak:'zh-TW',
-                  vi:'vi-VN', ko:'ko-KR', ug:'ug-CN', id:'id-ID', ms:'ms-MY', ksw:'ksw-MM', hbo:'he-IL', arc:'he-IL', grc:'el-GR', lxx:'el-GR'};
-const TTS_NOTE = {nan:'no Hokkien voice exists; read with a Taiwan Mandarin voice', hak:'no Hakka voice exists; read with a Taiwan Mandarin voice',
+const TTS_LANG = {en:'en-US', zh:'zh-CN', es:'es-ES', ja:'ja-JP', 'ja-easy':'ja-JP', th:'th-TH', yue:'zh-HK', nan:'nan-TW', hak:'hak-TW',
+                  vi:'vi-VN', ko:'ko-KR', ug:'ug-CN', id:'id-ID', ms:'ms-MY', my:'my-MM', ksw:'ksw-MM', hbo:'he-IL', arc:'he-IL', grc:'el-GR', lxx:'el-GR'};
+const TTS_NOTE = {nan:'no phone or computer has a Taiwanese voice, and a Mandarin one would read it as Mandarin',
+                  hak:'no phone or computer has a Hakka voice, and a Mandarin one would read it as Mandarin',
                   grc:'Modern Greek pronunciation', hbo:'Modern Hebrew pronunciation', arc:'Modern Hebrew pronunciation',
                   ksw:'no phone or computer ships a Sgaw Karen voice yet; a Burmese voice would misread it',
                   ug:'few phones or computers ship a Uyghur voice'};
 let ttsVoices = [];
 if ('speechSynthesis' in window) { ttsVoices = speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => { ttsVoices = speechSynthesis.getVoices(); }; }
-function ttsVoice(bcp){
-  const norm = v => v.lang.replace('_', '-').toLowerCase(), base = bcp.split('-')[0];
-  const c = ttsVoices.filter(v => norm(v).startsWith(base)); if (!c.length) return null;
-  const exact = c.filter(v => norm(v) === bcp.toLowerCase()), pool = exact.length ? exact : c;
+/* Whether a voice tagged so reads this language, rather than a neighbour of it.
+   Chinese is where the two part company: Mandarin, Cantonese, Taiwanese and
+   Hakka are all written in Chinese characters, and a voice for any of them
+   will read text in the others without complaint - in its own language. So
+   Cantonese wants a Cantonese voice (yue, or the zh-HK most systems call it),
+   Mandarin anything Chinese but that, and Taiwanese and Hakka a voice of their
+   own, which no phone or computer has yet; elsewhere the language is enough. */
+function ttsSpeaks(code, tag){
+  tag = String(tag || '').replace(/_/g, '-').toLowerCase();
+  const base = tag.split('-')[0], canto = base === 'yue' || /-(hk|mo)(-|$)/.test(tag) || /yue/.test(tag);
+  if (code === 'yue') return canto && (base === 'yue' || base === 'zh');
+  if (code === 'zh') return (base === 'zh' || base === 'cmn') && !canto;
+  const want = TTS_LANG[code];
+  return !!want && base === want.split('-')[0].toLowerCase();
+}
+function ttsVoiceFor(code){                                 // -> the best voice that truly reads this language, or null
+  const want = (TTS_LANG[code] || '').toLowerCase(), norm = v => v.lang.replace(/_/g, '-').toLowerCase();
+  const c = ttsVoices.filter(v => ttsSpeaks(code, v.lang)); if (!c.length) return null;
+  const exact = c.filter(v => norm(v) === want), pool = exact.length ? exact : c;
   return pool.find(v => /natural|online/i.test(v.name)) || pool[0];
 }
 function ttsLangOf(el){                                     // source text first: it sits inside a translation column
@@ -62,10 +78,15 @@ function ttsStop(){
   ttsHalt = true; speechSynthesis.cancel();
   if (ttsMark) { ttsMark.classList.remove('speaking'); ttsMark = null; }
 }
+/* With no voice for the language nothing is said, and the reading is
+   reported as not finished. Handed an utterance it has no voice for, a browser
+   reads it with its default voice instead - Burmese in English, Taiwanese in
+   Mandarin - which is worse than silence, because it sounds like an answer. */
 function ttsSpeak(text, code, node, done){
   ttsHalt = true; speechSynthesis.cancel();
   const run = ++ttsRun; ttsHalt = false;
-  const bcp = TTS_LANG[code] || 'en-US', v = ttsVoice(bcp);
+  const v = ttsVoiceFor(code);
+  if (!v) { if (ttsMark) { ttsMark.classList.remove('speaking'); ttsMark = null; } if (done) setTimeout(() => done(false)); return false; }
   const parts = ttsClean(code, text).match(/[^.!?。！？׃;·]+[.!?。！？׃;·]*\s*/g) || [text];   // sentence-sized pieces: long utterances get cut off
   const chunks = []; let buf = '';
   for (const p of parts) { if ((buf + p).length > 220 && buf) { chunks.push(buf); buf = ''; } buf += p; } if (buf.trim()) chunks.push(buf);
@@ -75,11 +96,12 @@ function ttsSpeak(text, code, node, done){
     if (ttsMark) { ttsMark.classList.remove('speaking'); ttsMark = null; }
     if (done) { const f = done; done = null; f(ok); }      // once, whichever piece answers first
   };
-  chunks.forEach((c, i) => { const u = new SpeechSynthesisUtterance(c); u.lang = bcp; if (v) u.voice = v;
+  chunks.forEach((c, i) => { const u = new SpeechSynthesisUtterance(c); u.lang = v.lang; u.voice = v;
     u.rate = (typeof VOICE !== 'undefined' ? VOICE.rate : 0.95); u.pitch = (typeof VOICE !== 'undefined' ? VOICE.pitch : 1);
     u.onerror = () => fin(false);
     if (i === chunks.length - 1) u.onend = () => fin(!ttsHalt);
     speechSynthesis.speak(u); });
+  return true;
 }
 const ctx = document.createElement('div'); ctx.id = 'ctx'; ctx.hidden = true; document.body.appendChild(ctx);
 function ctxHide(){ ctx.hidden = true; }
@@ -90,15 +112,17 @@ document.addEventListener('contextmenu', e => {
   const sel = ttsSelection(), text = sel || (verse ? ttsTextOf(verse) : '');
   if (!text.trim()) return;
   e.preventDefault();
-  const code = ttsLangOf(verse || e.target), bcp = TTS_LANG[code] || 'en-US', v = ttsVoice(bcp);
-  let voice = v ? v.name.replace(/^Microsoft /, '').replace(/ - .*$/, '') : 'no ' + ttsLangName(code) + ' voice installed, using the default';
-  if (v && v.lang.replace('_', '-').toLowerCase() !== bcp.toLowerCase()) voice += ` (${v.lang} voice; no ${bcp} voice installed)`;
-  ctx.innerHTML = `<div class="it" data-a="read">Read ${sel ? 'selection' : 'verse'} aloud<small>${ttsLangName(code)} · ${voice}${TTS_NOTE[code] ? ' · ' + TTS_NOTE[code] : ''}</small></div>`
+  const code = ttsLangOf(verse || e.target), bcp = TTS_LANG[code] || '', v = ttsVoiceFor(code);
+  let voice = v ? v.name.replace(/^Microsoft /, '').replace(/ - .*$/, '') : '';
+  if (v && v.lang.replace(/_/g, '-').toLowerCase() !== bcp.toLowerCase()) voice += ` (${v.lang} voice)`;
+  ctx.innerHTML = (v
+      ? `<div class="it" data-a="read">Read ${sel ? 'selection' : 'verse'} aloud<small>${ttsLangName(code)} · ${voice}${TTS_NOTE[code] ? ' · ' + TTS_NOTE[code] : ''}</small></div>`
+      : `<div class="it off" aria-disabled="true">No ${ttsLangName(code)} voice on this device<small>${TTS_NOTE[code] || 'a voice for another language would misread it, so it is not read aloud'}</small></div>`)
     + (speechSynthesis.speaking ? `<div class="it" data-a="stop">Stop reading</div>` : '');
   ctx.hidden = false;
   const w = ctx.offsetWidth, h = ctx.offsetHeight;
   ctx.style.left = Math.min(e.clientX, window.innerWidth - w - 8) + 'px'; ctx.style.top = Math.min(e.clientY, window.innerHeight - h - 8) + 'px';
-  ctx.querySelector('[data-a=read]').onclick = () => { ttsSpeak(text, code, sel ? null : verse); ctxHide(); };
+  const rd = ctx.querySelector('[data-a=read]'); if (rd) rd.onclick = () => { ttsSpeak(text, code, sel ? null : verse); ctxHide(); };
   const st = ctx.querySelector('[data-a=stop]'); if (st) st.onclick = () => { ttsStop(); ctxHide(); };
 });
 document.addEventListener('click', e => { if (!e.target.closest('#ctx')) ctxHide(); });

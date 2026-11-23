@@ -387,6 +387,12 @@ LAYERS = [
                               "into audio/nan (scripts/taiwanese_speech.py --all)", "job:taiwanese-voice"),
         ("karen-voice", "the Sgaw Karen voice being taught (NGAW KAREN TTS/train_mms.py): carries the newest run "
                         "on from its last checkpoint to the epochs it was set for", "job:karen-voice"),
+        ("taiwanese-student", "the phone-sized Taiwanese voice, taught by the recordings (scripts/taiwanese_student.py): "
+                              "carries the newest run on, at full speed, to the minutes it was set for",
+         "job:taiwanese-student"),
+        ("hakka-student", "the phone-sized Hakka voice, taught by the Sixian recordings (scripts/hakka_student.py): "
+                          "carries the newest run on, at full speed, to the minutes it was set for",
+         "job:hakka-student"),
     ]),
     ("forms", "letters and forms", [
         ("lexeme-inventory", "word forms analysed", "job:lexemes"),
@@ -505,6 +511,10 @@ def foreign_jobs():
             job = "queue"
         elif "train_mms.py" in cmd and "--train" in cmd:      # --say only reads a line aloud
             job = "karen-voice"
+        elif "taiwanese_student.py" in cmd and " train" in cmd:   # say, check and export are not the job
+            job = "taiwanese-student"
+        elif "hakka_student.py" in cmd and " train" in cmd:
+            job = "hakka-student"
         if job:
             found.setdefault(job, []).append(info["pid"])
     _scan.update(at=time.time(), found=found)
@@ -518,17 +528,34 @@ def worker_running(job):
     return bool(foreign_jobs().get(job))
 
 
-def work_start(job):
-    """Run one job in its own process, so it can be stopped on its own."""
+RUN_MARK = "--- started by the dashboard"   # a job's log, where each run begins (job_log_tail)
+
+
+def work_start(job, table=None):
+    """Run one job in its own process, so it can be stopped on its own, and keep
+    it running (supervise) until it is done or stopped here."""
     if worker_running(job):
         return "already running"
-    table = work_jobs()
+    table = table or work_jobs()
     if job not in table:
         return f"unknown job {job!r}"
+    if job not in WANTED:
+        WANTED.add(job)
+        MON[job] = {"restarts": [], "next": None}
+        save_wanted()
+    MON.setdefault(job, {"restarts": [], "next": None}).update(since=time.time(), gave_up=None, procs={})
+    try:                                                    # a stop request left over must not stop this start
+        import work as w
+        f = getattr(w, "STOP_FILES", {}).get(job)
+        if f:
+            f.unlink(missing_ok=True)
+    except Exception:                                       # noqa: BLE001
+        pass
     cmd = table[job][3]
     log = ROOT / "logs" / f"job_{job}.log"
     log.parent.mkdir(exist_ok=True)
     fh = open(log, "a", encoding="utf-8", buffering=1)
+    fh.write(f"{RUN_MARK} {time.strftime('%Y-%m-%d %H:%M')}\n")
     flags = getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0) | NO_WINDOW
     WORKERS[job] = subprocess.Popen(cmd, cwd=str(ROOT), stdout=fh, stderr=fh, stdin=subprocess.DEVNULL,
                                     creationflags=flags)
@@ -536,26 +563,316 @@ def work_start(job):
     return None
 
 
+STOPPING: dict = {}                     # job -> when it was asked to stop and save (work.STOP_FILES)
+
+
+def end_job(name, pids):
+    """Stop a job's processes. One that can be asked to stop (work.STOP_FILES) is
+    asked, and given two minutes to save its place before it is made to: the
+    Taiwanese student saves a checkpoint, where a kill loses what it learned
+    since the last one, up to five minutes of a night's training."""
+    try:
+        import work as w
+        ask = getattr(w, "STOP_FILES", {}).get(name)
+    except Exception:                                       # noqa: BLE001
+        ask = None
+    def kill(ps):
+        for pid in ps:
+            subprocess.run(["taskkill", "/PID", str(pid), "/T", "/F"], capture_output=True, creationflags=NO_WINDOW)
+    if not ask:
+        kill(pids)
+        return
+    try:
+        ask.parent.mkdir(parents=True, exist_ok=True)
+        ask.write_text("stop", encoding="utf-8")
+    except OSError:
+        kill(pids)
+        return
+    STOPPING[name] = time.time()
+    def wait():
+        import psutil
+        end = time.time() + 120
+        while time.time() < end and any(psutil.pid_exists(p) for p in pids):
+            time.sleep(2)
+        left = [p for p in pids if psutil.pid_exists(p)]
+        if left:
+            print(f"job {name}: did not stop in two minutes; stopping it")
+            kill(left)
+        STOPPING.pop(name, None)
+        ask.unlink(missing_ok=True)                         # a stop file left behind would stop the next start
+        _scan["at"] = 0.0
+    threading.Thread(target=wait, daemon=True).start()
+
+
 def work_stop(job=None):
-    """Stop one job, or every job — whether this dashboard started it or not."""
+    """Stop one job, or every job — whether this dashboard started it or not.
+    A job stopped here is no longer wanted, so it is not started again."""
+    for name in [n for n in WANTED if not job or n == job]:
+        WANTED.discard(name)
+        MON.pop(name, None)
+    save_wanted()
     stopped = []
     for name, proc in list(WORKERS.items()):
         if job and name != job:
             continue
         if proc.poll() is None:
-            subprocess.run(["taskkill", "/PID", str(proc.pid), "/T", "/F"], capture_output=True, creationflags=NO_WINDOW)
+            end_job(name, [proc.pid])
             stopped.append(name)
         WORKERS.pop(name, None)
     for name, pids in foreign_jobs().items():              # started from a terminal or start_work.cmd
-        if job and name != job:
+        if (job and name != job) or name in stopped:
             continue
-        for pid in pids:
-            subprocess.run(["taskkill", "/PID", str(pid), "/T", "/F"], capture_output=True, creationflags=NO_WINDOW)
-            stopped.append(name)
+        end_job(name, pids)
+        stopped.append(name)
     _scan["at"] = 0.0
     if stopped:
         print(f"jobs stopped: {', '.join(sorted(set(stopped)))}")
     return sorted(set(stopped))
+
+
+SAMPLING: dict = {}                     # job -> Popen of a sample read while the job is not running
+
+
+def work_sample(job):
+    """Make sample, for a voice being taught (work.SAMPLERS): a running trainer is
+    asked to read the sample verses at its next step, with the weights it has that
+    minute; one that is not running has its newest checkpoint read by a process of
+    its own, which is small enough to share the GPU with whatever else is on it."""
+    import work as w
+    if job not in getattr(w, "SAMPLERS", {}):
+        return f"{job} makes no samples"
+    ask, cmd = w.SAMPLERS[job]
+    if job_pids(job):
+        ask.parent.mkdir(parents=True, exist_ok=True)
+        ask.write_text("sample", encoding="utf-8")
+        return None
+    s = SAMPLING.get(job)
+    if s is not None and s.poll() is None:
+        return "already making one"
+    ask.unlink(missing_ok=True)                             # asked of a trainer that has since stopped
+    log = open(ROOT / "logs" / f"job_{job}.log", "a", encoding="utf-8", buffering=1)
+    SAMPLING[job] = subprocess.Popen(cmd(), cwd=str(ROOT), stdout=log, stderr=log, stdin=subprocess.DEVNULL,
+                                     creationflags=NO_WINDOW)
+    return None
+
+
+# Keeping the jobs going. A job started here is wanted until it is stopped here
+# or finishes, and if its process ends before then the dashboard starts it
+# again: every job resumes from what it has written. Genesis 24 stopped the
+# Taiwanese voice at midnight on 2026-11-03 and nothing noticed until morning;
+# a night's work is meant to run while nobody is watching. The wanted list is
+# kept on disk, so a dashboard restarted in the night takes its jobs up again.
+# A job that keeps failing is given up after MAX_RESTARTS in an hour, and says
+# why, rather than being started for ever.
+WANTED: set = set()
+WANTED_FILE = ROOT / "logs" / "jobs_wanted.json"
+HISTORY_FILE = ROOT / "logs" / "jobs_history.json"
+MAX_RESTARTS = 5
+MON: dict = {}          # job -> {"since", "restarts": [t, ...], "next", "exit", "why", "stopped", "gave_up", "procs"}
+HISTORY: dict = {}      # job -> [[unix time, done], ...], a point a minute while it runs, for the chart
+GPU = {"at": 0.0, "data": None}
+
+
+def save_wanted():
+    try:
+        WANTED_FILE.write_text(json.dumps(sorted(WANTED)), encoding="utf-8")
+    except OSError:
+        pass
+
+
+def job_log_tail(job):
+    """(last line the job wrote, when its log was written, the line that says why it stopped)."""
+    f = ROOT / "logs" / f"job_{job}.log"
+    if not f.exists():
+        return "", 0, ""
+    with open(f, "rb") as fh:
+        fh.seek(max(0, f.stat().st_size - 6000))
+        lines = [x.strip() for x in fh.read().decode("utf-8", "replace").splitlines() if x.strip()]
+    lines = [x for x in lines if "Warning" not in x and not x.startswith(("from ", "warnings.warn"))] or lines
+    # Only this run's lines can say why it stopped: the Taiwanese voice was shown
+    # stopping for a cuDNN error that an earlier run had hit and been mended of.
+    # work_start marks where each run begins.
+    mark = max((i for i, x in enumerate(lines) if x.startswith(RUN_MARK)), default=-1)
+    run = lines[mark + 1:] or lines
+    why = next((x for x in reversed(run) if re.search(r"Error|Exception|Traceback|Killed|forrtl: error", x)), run[-1] if run else "")
+    if "window-CLOSE event" in why:      # the Fortran runtime under numpy, when the console the job ran in went away
+        why = "ended when the console it ran in was closed (the dashboard closed, or Windows logged off): " + why
+    return (lines[-1] if lines else ""), f.stat().st_mtime, why
+
+
+def gpu_state():
+    """The card's load, memory, heat and power, read every 10 s (nvidia-smi), or None."""
+    if time.time() - GPU["at"] < 10:
+        return GPU["data"]
+    GPU["at"] = time.time()
+    try:
+        r = subprocess.run(["nvidia-smi", "--query-gpu=utilization.gpu,memory.used,memory.total,temperature.gpu,power.draw",
+                            "--format=csv,noheader,nounits"], capture_output=True, text=True, timeout=5,
+                           creationflags=NO_WINDOW)
+        u, m, mt, t, p = (float(x) for x in r.stdout.splitlines()[0].split(","))
+        GPU["data"] = {"util": u, "mem": m, "mem_total": mt, "temp": t, "power": p}
+    except (OSError, ValueError, IndexError, subprocess.SubprocessError):
+        GPU["data"] = None
+    return GPU["data"]
+
+
+def job_pids(job):
+    proc = WORKERS.get(job)
+    if proc is not None and proc.poll() is None:
+        return [proc.pid]
+    return foreign_jobs().get(job, [])
+
+
+def job_usage(job):
+    """CPU (% of one core) and memory of the job's processes, its children included."""
+    try:
+        import psutil
+    except ImportError:
+        return None
+    m = MON.setdefault(job, {"restarts": [], "next": None})
+    keep, cpu, ram = {}, 0.0, 0
+    for pid in job_pids(job):
+        try:
+            top = psutil.Process(pid)
+            for p in [top] + top.children(recursive=True):
+                if p.pid in keep:                               # the voices re-run themselves: parent and child both found
+                    continue
+                q = (m.get("procs") or {}).get(p.pid) or p      # the same object, so cpu_percent has a last reading
+                keep[p.pid] = q
+                cpu += q.cpu_percent(None)
+                ram += q.memory_info().rss
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            continue
+    m["procs"] = keep
+    return {"cpu": round(cpu), "ram": ram} if keep else None
+
+
+def record_history(table):
+    """A point a minute for each job running, for the chart of how it is getting on."""
+    now = time.time()
+    for job, (_, done, total, _) in table.items():
+        if not worker_running(job):
+            continue
+        pts = HISTORY.setdefault(job, [])
+        if pts and pts[-1][1] == done and now - pts[-1][0] < 600:
+            continue                                        # nothing new: a point every 10 min keeps the line going
+        pts.append([round(now), done])
+        if len(pts) > 600:
+            HISTORY[job] = pts[:-1:2] + pts[-1:]
+
+
+def rate_of(job, done, total):
+    """(how many an hour over the last hour or so, hours left at that rate), or (None, None)."""
+    pts = HISTORY.get(job) or []
+    if len(pts) < 2:
+        return None, None
+    now = pts[-1][0]
+    then = next((p for p in pts if now - p[0] <= 3 * 3600), pts[0])
+    hours = (now - then[0]) / 3600
+    if hours < 0.15 or done <= then[1]:
+        return None, None
+    rate = (done - then[1]) / hours
+    return rate, max(0, total - done) / rate
+
+
+AWAKE = {"on": False}
+
+
+def keep_awake(on):
+    """Keep Windows from sleeping while wanted jobs run, and let it sleep again
+    when none do. Between 6 and 21 November the PC slept for fifteen days with
+    the Taiwanese voice wanted and running, and recorded nothing. The screen may
+    still go dark; only sleep is held off. The request belongs to the thread that
+    makes it, so it is made from the supervisor's, which lives as long as the
+    dashboard does."""
+    if on == AWAKE["on"] or os.name != "nt":
+        return
+    import ctypes
+    ES_CONTINUOUS, ES_SYSTEM_REQUIRED = 0x80000000, 0x00000001
+    ctypes.windll.kernel32.SetThreadExecutionState(ES_CONTINUOUS | (ES_SYSTEM_REQUIRED if on else 0))
+    AWAKE["on"] = on
+    print("keeping the PC awake while jobs run" if on else "nothing wanted is running: the PC may sleep again")
+
+
+def supervise():
+    """Every 15 s: start again any wanted job whose process has ended, after a
+    pause that grows with each restart (30 s, 1, 2, 4, 8 min); every minute,
+    a point on each running job's chart. While any wanted job runs or is about
+    to be started again, the PC is kept awake."""
+    last_point = last_save = 0.0
+    while not STOP.is_set():
+        try:
+            table = None
+            keep_awake(bool(WANTED))
+            for job in sorted(WANTED):
+                m = MON.setdefault(job, {"restarts": [], "next": None})
+                if worker_running(job):
+                    m["next"] = None
+                    continue
+                table = table or work_jobs()
+                if not table:
+                    # work.py could not be read - another session part-way through an edit
+                    # of it. Every job would look unknown and be let go, as the Taiwanese
+                    # voice and student were at 02:40 on 22 November; wait for it instead.
+                    break
+                if job not in table:
+                    WANTED.discard(job)
+                    save_wanted()
+                    continue
+                _, done, total, _ = table[job]
+                proc = WORKERS.get(job)
+                rc = proc.returncode if proc is not None else m.get("exit")
+                # The rebuild has no count of its own: it is done when it ends well.
+                if (total and done >= total and job != "rebuild") or (job == "rebuild" and rc == 0):
+                    WANTED.discard(job)
+                    WORKERS.pop(job, None)
+                    m.update(finished=time.time(), next=None)
+                    save_wanted()
+                    print(f"job {job}: finished ({done}/{total})")
+                    continue
+                now = time.time()
+                if m.get("next") is None:                  # it has just been found stopped
+                    WORKERS.pop(job, None)
+                    m["exit"] = rc
+                    m["why"] = job_log_tail(job)[2]
+                    m["stopped"] = now
+                    m["restarts"] = [t for t in m.get("restarts", []) if now - t < 3600]
+                    if len(m["restarts"]) >= MAX_RESTARTS:
+                        WANTED.discard(job)
+                        m["gave_up"] = now
+                        save_wanted()
+                        print(f"job {job}: stopped {MAX_RESTARTS} times in an hour; not starting it again: {m['why']}")
+                        continue
+                    m["next"] = now + 30 * 2 ** len(m["restarts"])
+                    print(f"job {job}: stopped (exit {m['exit']}): {m['why']} - starting again in "
+                          f"{m['next'] - now:.0f}s")
+                elif now >= m["next"]:
+                    m["restarts"].append(now)
+                    m["next"] = None
+                    err = work_start(job, table)
+                    print(f"job {job}: started again ({len(m['restarts'])} in the last hour)" + (f": {err}" if err else ""))
+            if time.time() - last_point >= 60:
+                last_point = time.time()
+                record_history(table or work_jobs())
+            if time.time() - last_save >= 300:
+                last_save = time.time()
+                HISTORY_FILE.write_text(json.dumps(HISTORY), encoding="utf-8")
+        except Exception as e:                              # noqa: BLE001 - the watcher must outlive a bad minute
+            print(f"supervise: {e}")
+        STOP.wait(15)
+
+
+def start_supervisor():
+    for f, into in ((WANTED_FILE, WANTED), (HISTORY_FILE, HISTORY)):
+        try:
+            into.update(json.loads(f.read_text(encoding="utf-8")))
+        except (OSError, ValueError):
+            pass
+    for job in WANTED:                                      # left running when the dashboard last stopped
+        MON[job] = {"restarts": [], "next": None, "since": time.time()}
+    if WANTED:
+        print(f"jobs to keep running: {', '.join(sorted(WANTED))}")
+    threading.Thread(target=supervise, daemon=True, name="supervise").start()
 
 
 _wtok = {"mtime": None, "size": None, "data": None}
@@ -765,6 +1082,10 @@ def work_progress():
         except json.JSONDecodeError:
             manifest = {}
     table = work_jobs()
+    try:
+        w_mod = importlib.import_module("work")
+    except Exception:                                       # noqa: BLE001
+        w_mod = None
     jobs = {name: (v[1], v[2]) for name, v in table.items()}
     tr_done = sum(d for n, (d, t) in jobs.items() if n.startswith("lexicon-"))
     tr_total = sum(t for n, (d, t) in jobs.items() if n.startswith("lexicon-")) or 1
@@ -786,11 +1107,49 @@ def work_progress():
                             "running": bool(jobname) and worker_running(jobname),
                             "mine": bool(jobname) and jobname in WORKERS and WORKERS[jobname].poll() is None,
                             "startable": bool(jobname) and jobname in table,
+                            "held": bool(jobname) and (jobname.startswith("lexicon-") or jobname == "lexicon-translations"),
                             "view": gkey != "tts"})
+            if jobname and jobname in table and total and done < total:
+                entries[-1].update(watch(jobname, done, total, w_mod))
         out.append({"group": gkey, "label": glabel, "items": entries})
     running = [i["key"] for g in out for i in g["items"] if i["running"]]
     return {"groups": out, "now": time.time(), "anyrunning": bool(running), "running": running,
-            "tokens": work_tokens()}
+            "tokens": work_tokens(), "gpu": gpu_state(), "wanted": sorted(WANTED), "awake": AWAKE["on"]}
+
+
+def watch(job, done, total, w_mod):
+    """What the dashboard knows of an unfinished job beyond its count: whether
+    it is kept running, its processes, its log, how fast it goes, and its chart."""
+    m = MON.get(job) or {}
+    line, written, _ = job_log_tail(job)
+    rate, left = rate_of(job, done, total)
+    since = m.get("since")
+    pids = job_pids(job)
+    if pids:
+        try:
+            import psutil
+            since = psutil.Process(pids[0]).create_time()
+        except Exception:                                   # noqa: BLE001
+            pass
+    scores = None
+    if w_mod is not None and hasattr(w_mod, "scores"):
+        try:
+            scores = w_mod.scores(job)
+        except Exception:                                   # noqa: BLE001
+            scores = None
+    if scores is not None and job in getattr(w_mod, "SAMPLERS", {}):
+        s = SAMPLING.get(job)                               # a sample asked of the trainer, or being read apart
+        scores["making"] = bool((pids and scores.get("asked")) or (s is not None and s.poll() is None))
+        scores["can_sample"] = True
+    now = time.time()
+    return {"auto": job in WANTED, "pids": pids, "stopping": job in STOPPING, "since": since if pids else None,
+            "usage": job_usage(job) if pids else None,
+            "restarts": len([t for t in m.get("restarts", []) if now - t < 3600]),
+            "restart_in": max(0, round(m["next"] - now)) if m.get("next") else None,
+            "exit": m.get("exit"), "why": m.get("why") or "", "stopped": m.get("stopped"),
+            "gave_up": m.get("gave_up"), "log": line, "log_at": written,
+            "rate": round(rate, 2) if rate else None, "left_h": round(left, 2) if left is not None else None,
+            "history": (HISTORY.get(job) or [])[-400:], "scores": scores}
 
 
 REBUILD_LOCK = threading.Lock()
@@ -806,7 +1165,8 @@ def rebuild_site() -> str:
     with REBUILD_LOCK:
         tmp = ROOT / "site" / ".build"
         tmp.mkdir(exist_ok=True)
-        r = subprocess.run([sys.executable, str(ROOT / "scripts" / "build_site.py"), "--out", str(tmp)],
+        r = subprocess.run([sys.executable, str(ROOT / "scripts" / "build_site.py"), "--out", str(tmp),
+                            "--audio", str(ROOT / "site" / "audio")],    # served from site/, so counted there
                            capture_output=True, text=True, encoding="utf-8", errors="replace",
                            creationflags=NO_WINDOW)
         built = tmp / "index.html"
@@ -1018,10 +1378,97 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header("Cache-Control", "no-cache")
             self.end_headers()
             self.wfile.write(body)
+        elif re.fullmatch(r"/audio/[a-z-]+\.json|/audio/[a-z-]+/[A-Za-z0-9_]+\.ogg", path):
+            # The Taiwanese and Hakka recordings, for the reader's Listen
+            # (scripts/build_audio.py). The list changes as the voices record,
+            # so it is never cached; a chapter's recording is.
+            f = ROOT / "site" / path.lstrip("/")
+            if not f.exists():
+                self._json({"error": "not recorded yet"}, 404)
+                return
+            body = f.read_bytes()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json" if f.suffix == ".json" else "audio/ogg")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-cache" if f.suffix == ".json" else "max-age=3600")
+            self.end_headers()
+            self.wfile.write(body)
+        elif re.fullmatch(r"/student/(hakka-student/)?run-[A-Za-z0-9_+-]+/(teacher|\d{4}min)\.wav", path):
+            # a student's samples and the teacher's reading beside them (taiwanese_student.progress_sample),
+            # for the job card's players: /student/<run>/ is the Taiwanese one's, as it was before the Hakka
+            # one, whose are /student/hakka-student/<run>/ (work.student_samples)
+            who = "hakka-student" if path.startswith("/student/hakka-student/") else "taiwanese-student"
+            f = ROOT / "models" / who / Path(path).parent.name / "samples" / Path(path).name
+            if not f.exists():
+                self._json({"error": "no such sample"}, 404)
+                return
+            body = f.read_bytes()
+            # Chrome will not move along a sound whose server does not answer for
+            # part of it: the slider and a paused sample keeping its place need this
+            m = re.fullmatch(r"bytes=(\d*)-(\d*)", self.headers.get("Range") or "")
+            lo, hi = 0, len(body) - 1
+            if m and (m.group(1) or m.group(2)):
+                lo, hi = (int(m.group(1)), min(int(m.group(2) or hi), hi)) if m.group(1) else (max(0, len(body) - int(m.group(2))), hi)
+            if lo > hi:
+                self.send_response(416)
+                self.send_header("Content-Range", f"bytes */{len(body)}")
+                self.end_headers()
+                return
+            self.send_response(206 if m else 200)
+            self.send_header("Content-Type", "audio/wav")
+            self.send_header("Accept-Ranges", "bytes")
+            if m:
+                self.send_header("Content-Range", f"bytes {lo}-{hi}/{len(body)}")
+            self.send_header("Content-Length", str(hi - lo + 1))
+            self.send_header("Cache-Control", "no-cache")      # a sample made twice in a minute keeps its name
+            self.end_headers()
+            self.wfile.write(body[lo:hi + 1])
+        elif re.fullmatch(r"/voice/(ort|[a-z]{2,3})/[A-Za-z0-9_.-]+\.(js|mjs|wasm|onnx)|/voice/voices\.json", path):
+            # the phone voices the reader runs in the browser where a chapter is not recorded (build_voices.py)
+            f = ROOT / "site" / path.lstrip("/")
+            if not f.exists():
+                self._json({"error": "not built - run scripts/build_voices.py"}, 404)
+                return
+            body = f.read_bytes()
+            self.send_response(200)
+            self.send_header("Content-Type", {".js": "text/javascript", ".mjs": "text/javascript", ".wasm": "application/wasm",
+                                              ".json": "application/json"}.get(f.suffix, "application/octet-stream"))
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-cache")
+            self.end_headers()
+            self.wfile.write(body)
+        elif path == "/phone":                      # what the mobile preview can do as the APK does (scripts/phone.py)
+            try:
+                import phone
+                self._json({"ok": True, **phone.state()})
+            except Exception as e:                  # noqa: BLE001
+                self._json({"ok": False, "error": f"{type(e).__name__}: {e}"})
+        elif path == "/phone/say":                  # a verse in the phone's Taiwanese or Hakka voice, made as the phone makes it
+            try:
+                import phone
+                body = phone.say(q.get("book", ""), q.get("ch", "0"), q.get("v", "0"), q.get("lang", "nan"))
+            except (LookupError, KeyError, ValueError) as e:
+                self._json({"error": str(e)}, 404)
+                return
+            except Exception as e:                  # noqa: BLE001
+                self._json({"error": f"{type(e).__name__}: {e}"}, 500)
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", "audio/wav")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-cache")
+            self.end_headers()
+            self.wfile.write(body)
         elif path == "/work":
             self._json(work_progress())
         elif path == "/apk":
             self._json(apk_status())
+        elif path == "/shortcuts":                   # the Desktop and Start menu icons (scripts/shortcuts.py)
+            try:
+                import shortcuts
+                self._json(shortcuts.status())
+            except Exception as e:                    # noqa: BLE001 - the header says so rather than going blank
+                self._json({"supported": False, "error": f"{type(e).__name__}: {e}", "shortcuts": []})
         elif path == "/reader-stale":
             self._json(reader_state())
         elif path == "/ask":
@@ -1069,6 +1516,20 @@ class Handler(BaseHTTPRequestHandler):
             self._json({"ok": err is None, "error": err}, 409 if err else 200)
         elif self.path == "/work/stop":
             self._json({"ok": True, "stopped": work_stop((self._body().get("job") or "").strip() or None)})
+        elif self.path == "/phone/meaning":         # the APK's search by meaning, for the mobile preview
+            body = self._body()
+            try:
+                import phone
+                t0 = time.time()
+                hits = phone.meaning((body.get("lang") or "").strip(), body.get("q") or "", int(body.get("k") or 12))
+                self._json({"ok": True, "hits": hits, "seconds": round(time.time() - t0, 3)})
+            except LookupError as e:
+                self._json({"ok": False, "error": str(e)}, 404)
+            except Exception as e:                  # noqa: BLE001
+                self._json({"ok": False, "error": f"{type(e).__name__}: {e}"}, 500)
+        elif self.path == "/work/sample":
+            err = work_sample((self._body().get("job") or "").strip())
+            self._json({"ok": err is None, "error": err}, 409 if err else 200)
         elif self.path == "/apk/build":
             body = self._body()
             err = apk_start(bool(body.get("setup")), bool(body.get("full")), body.get("langs") or ())
@@ -1078,6 +1539,14 @@ class Handler(BaseHTTPRequestHandler):
             self._json({"ok": err is None, "error": err}, 409 if err else 200)
         elif self.path == "/apk/open":
             self._json({"ok": True, "apk": apk_open()})
+        elif self.path == "/shortcuts":
+            body = self._body()
+            try:
+                import shortcuts
+                act = shortcuts.make if body.get("make") else shortcuts.remove
+                self._json({"ok": True, **act(str(body.get("kind")), str(body.get("place")))})
+            except Exception as e:                    # noqa: BLE001
+                self._json({"ok": False, "error": str(e)}, 409)
         elif self.path == "/rebuild":
             self._json({"ok": True, "output": rebuild_site()})
         elif self.path == "/align":
@@ -1202,6 +1671,63 @@ label.chk { display:flex; align-items:center; gap:.25rem; color:var(--muted); fo
   border-top:1px solid var(--border); background:var(--card); }
 #work .wtot small { font-size:10px; text-transform:uppercase; letter-spacing:.06em; margin-right:.5rem; }
 #work .wtot b { color:var(--fg); font-variant-numeric:tabular-nums; font-weight:600; }
+/* The model work's two parts: to do, a card a job, and done, the rungs above. */
+#work { max-height:62vh; overflow-y:auto; }
+#work .hd { flex-wrap:wrap; }
+#work .hd .sp, #work .card .sp { flex:1; }
+#work .hd .gpu { font-size:11px; padding:.1rem .5rem; border:1px solid var(--border); border-radius:999px; background:var(--card); white-space:nowrap; }
+#work .hd .gpu b, #work .hd .nrun { color:var(--fg); font-weight:600; font-variant-numeric:tabular-nums; }
+#work .hd button.go, #work .card button.go { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:600; }
+#work .hd button:disabled { opacity:.45; cursor:default; }
+#work .sec { display:block; font-size:10px; text-transform:uppercase; letter-spacing:.07em; font-weight:600; color:var(--muted); margin:.45rem 0 .3rem; }
+#work .sec span { color:var(--fg); margin-left:.3rem; }
+#work summary.sec { cursor:pointer; }
+#work .none { padding:.2rem 0 .3rem; }
+#work .todo { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:.5rem; align-items:start; }
+#work .card button.mini { padding:.1rem .35rem; min-width:1.6rem; border-color:transparent; background:none; color:var(--fg); font-size:13px; line-height:1; }
+#work .card button.mini:hover { border-color:var(--border); }
+#work .card.folded { gap:.25rem; }
+#work .nums .dot { display:inline-block; vertical-align:-1px; }
+#work .card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:.5rem .65rem;
+  display:flex; flex-direction:column; gap:.3rem; min-width:0; }
+#work .card.run { border-color:var(--accent); } #work .card.warn { border-color:var(--warn); } #work .card.err { border-color:var(--err); }
+#work .card .top { display:flex; align-items:center; gap:.45rem; }
+#work .card .nm { color:var(--fg); font-weight:600; font-size:13px; text-transform:capitalize; }
+#work .card .tag { font-size:9.5px; text-transform:uppercase; letter-spacing:.06em; white-space:nowrap; }
+#work .card .what { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#work .card button { font:12px system-ui,sans-serif; padding:.22rem .7rem; border:1px solid var(--border); border-radius:6px;
+  background:var(--card); color:var(--fg); cursor:pointer; }
+#work .card button.halt { color:var(--err); border-color:var(--err); }
+#work .bar2 { height:7px; background:var(--border); border-radius:99px; overflow:hidden; }
+#work .bar2 i { display:block; height:100%; background:var(--accent); transition:width .4s; }
+#work .card.run .bar2 i { animation:pulse 1.4s infinite; }
+#work .nums b, #work .state b { color:var(--fg); font-variant-numeric:tabular-nums; }
+#work .state { display:flex; align-items:center; gap:.35rem; flex-wrap:wrap; }
+#work .dot { width:8px; height:8px; border-radius:50%; border:1.5px solid var(--muted); flex:none; }
+#work .dot.run { background:var(--ok); border-color:var(--ok); animation:pulse 1.4s infinite; }
+#work .dot.warn { background:var(--warn); border-color:var(--warn); } #work .dot.err { background:var(--err); border-color:var(--err); }
+#work .why, #work .lg { font:11px ui-monospace, Consolas, monospace; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--fg); }
+#work .why { border-left:3px solid var(--err); padding-left:.4rem; }
+#work .stats2 { display:grid; grid-template-columns:repeat(auto-fit, minmax(5.2rem, 1fr)); gap:.3rem; }
+#work .stats2 div { border:1px solid var(--border); border-radius:6px; padding:.2rem .4rem; min-width:0; }   /* on the card's white: the muted grey is under 4.5:1 on --soft */
+#work .stats2 small { display:block; font-size:9.5px; text-transform:uppercase; letter-spacing:.04em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#work .stats2 b { color:var(--fg); font-weight:600; font-variant-numeric:tabular-nums; font-size:12px; white-space:nowrap; }
+#work .stats2 .quiet, #work .lg.quiet { box-shadow:inset 3px 0 var(--warn); }
+#work .lg.quiet { padding-left:.4rem; }
+#work .wch { width:100%; height:auto; display:block; }
+#work .stats2 .w { display:block; color:var(--fg); font-size:11px; white-space:nowrap; }
+#work .flat { color:var(--fg); border-left:3px solid var(--warn); padding-left:.4rem; }
+#work .wch.none { padding:.4rem 0; font-size:11px; text-align:center; }
+#work label.chk { font-size:11px; }
+#work .smp summary { cursor:pointer; color:var(--fg); font-weight:600; font-size:12px; }
+#work .smp .hd2 { display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; margin:.3rem 0; font-size:11px; }
+#work .smp .list { max-height:15rem; overflow-y:auto; display:flex; flex-direction:column; gap:.35rem; padding-right:.2rem; }
+#work .smp .row { display:grid; grid-template-columns:6.2rem 1fr; gap:.4rem; align-items:center; }
+#work .smp .row.teacher { border-bottom:1px solid var(--border); padding-bottom:.35rem; }
+#work .smp .row b { color:var(--fg); font-variant-numeric:tabular-nums; font-size:12px; display:block; }
+#work .smp .row small { font-size:10.5px; font-variant-numeric:tabular-nums; display:block; white-space:nowrap; }
+#work .smp audio { width:100%; height:32px; min-width:0; }
+@media (max-width:480px) { #work .todo { grid-template-columns:1fr; } }
 body.reading #work { display:none; }
 #tpane { margin-bottom:.35rem; }
 #stats { display:flex; flex-wrap:wrap; gap:.4rem .5rem; padding:.5rem .9rem; align-items:stretch;
@@ -1340,6 +1866,31 @@ body.mobile #text.plain { max-width:none; } body.mobile #text { padding:.9rem 1r
 #apkLangs label:hover { background:var(--soft); }
 #apkLangs label input { padding:0; margin:0; width:1rem; height:1rem; }
 #apkLangs .hint { font-size:11px; color:var(--muted); margin:.35rem .35rem 0; max-width:15rem; }
+/* eBible on this PC: the Desktop and Start menu icons, as a small menu beside
+   the APK, since both are ways of taking the project out of this window. A
+   grid of ticks, one per icon: ticked is there, unticked is not, and a tick
+   makes or removes it at once, so the state on screen is the state on disk. */
+#lnk[hidden] { display:none; }
+#lnkMenu { position:relative; }
+#lnkMenu summary { list-style:none; display:flex; align-items:center; gap:.4rem; cursor:pointer; font-size:12px;
+  min-height:28px; padding:.2rem .6rem; border-radius:999px; white-space:nowrap; }
+#lnkMenu summary::-webkit-details-marker { display:none; }
+#lnkMenu summary::after { content:" \25BE"; color:var(--muted); }
+#lnkMenu summary svg { width:16px; height:16px; flex:none; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+#lnkMenu summary .n { color:var(--muted); }
+#lnkMenu .menu { position:absolute; right:0; top:calc(100% + .45rem); z-index:20; width:19rem; padding:.6rem;
+  background:var(--card); border:1px solid var(--border); border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,.18); }
+#lnkMenu table { width:100%; border-collapse:collapse; font-size:13px; }
+#lnkMenu th { font-weight:600; text-align:left; padding:.2rem .3rem; }
+#lnkMenu thead th { font-size:11px; font-weight:500; color:var(--muted); text-align:center; }
+#lnkMenu td { text-align:center; padding:0; }
+#lnkMenu td label { display:flex; align-items:center; justify-content:center; min-width:44px; min-height:40px; border-radius:6px; cursor:pointer; }
+#lnkMenu td label:hover { background:var(--soft); }
+#lnkMenu td input { width:1.05rem; height:1.05rem; margin:0; accent-color:var(--accent); cursor:pointer; }
+#lnkMenu .busy { opacity:.5; pointer-events:none; }
+#lnkMenu .hint { font-size:11px; line-height:1.45; color:var(--muted); margin:.45rem .3rem 0; }
+#lnkMenu .hint.err { color:var(--err); }
+#lnkMenu .hint.ok { color:var(--fg); }
 __READALOUD_CSS__
 </style></head><body>
 <div id="app">
@@ -1358,7 +1909,7 @@ __READALOUD_CSS__
   <div class="group" id="mode" title="read: the window becomes the reader (rebuilt when translations are newer) · translate: the live dashboard, with the side panel">
     <span data-m="read">read</span><span data-m="translate" class="on">translate</span>
   </div>
-  <div class="group" id="device" title="mobile: preview the screen at phone size (390 x 844) for UI testing">
+  <div class="group" id="device" title="mobile: preview the reader as the phone has it - its screen size (390 x 844), its own Taiwanese and Hakka voices in place of the recordings, and its search model in place of the PC's">
     <span data-d="pc" class="on">PC</span><span data-d="mobile">mobile</span>
   </div>
   <div class="group" id="apk" title="Build an Android app holding the reader alone - larger type, no study tools. It carries only the languages the whole Bible has been translated into; one still in progress is left out until it is finished">
@@ -1378,6 +1929,17 @@ __READALOUD_CSS__
     <span id="apkMsg" role="status"></span>
     <button id="apkStop" hidden title="Stop this build and free the machine">stop</button>
     <button id="apkOpen" hidden title="Show the APK in its folder">open folder</button>
+  </div>
+  <div class="group" id="lnk" hidden>
+    <details id="lnkMenu">
+      <summary id="lnkSum" title="Put the dashboard and the reader on this PC's Desktop or Start menu, with their own icons"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span>Desktop icons</span><span class="n" id="lnkCount"></span></summary>
+      <div class="menu" role="group" aria-label="eBible on this PC">
+        <div id="lnkList"></div>
+        <p class="hint" id="lnkNote"></p>
+        <p class="hint" id="lnkMsg" role="status" aria-live="polite"></p>
+        <p class="hint">A double-click opens it in its own window, as start_dashboard.cmd and start_reader.cmd do. Untick to take the icon away again.</p>
+      </div>
+    </details>
   </div>
 </header>
 <div class="pane" id="tpane">
@@ -1453,7 +2015,15 @@ function applyDevice(){
   } else app.style.transform = '';
   $('device').querySelectorAll('span').forEach(x => x.classList.toggle('on', x.dataset.d === device));
   localStorage.setItem('liveDevice', device);
+  tellReader();
 }
+/* At phone size the reader also works as the APK does underneath: the phone's
+   own Taiwanese and Hakka voices and its search model, run here by scripts/phone.py, in
+   place of the PC's recordings and the PC's model (the reader's phonePreview). */
+function tellReader(){
+  try { const w = $('reader').contentWindow; if (w && w.phonePreview) w.phonePreview(device === 'mobile'); } catch (e) {}
+}
+$('reader').addEventListener('load', tellReader);
 $('device').querySelectorAll('span').forEach(x => x.onclick = () => { device = x.dataset.d; applyDevice(); });
 window.addEventListener('resize', () => { if (device === 'mobile') applyDevice(); });
 /* The reader is loaded once and kept. It is served as it stands and, when
@@ -1704,34 +2274,254 @@ function workTotals(t){
     + row('Analysis', t, 'every call the analysis jobs have made, counted apart from the translation above'
           + (byJob ? NL + NL + byJob : '')) + `</div>`;
 }
+/* The model work in two parts: what is left to do above, a card a job with its
+   Start and Stop, how its processes are doing and a chart of how it is getting
+   on; what is done below, as short rungs. A job started here is kept running -
+   started again if its process ends - until it is done or stopped here, so a
+   night's work goes on while nobody watches. "Tonight" ticks the jobs to start
+   together with one button at the end of the day; the ticks are this browser's. */
+const TONIGHT = 'ebible.tonight', DONE_OPEN = 'ebible.doneOpen';
+function tonight(){ try { return new Set(JSON.parse(localStorage.getItem(TONIGHT) || '[]')); } catch (e) { return new Set(); } }
+function setTonight(job, on){
+  const s = tonight(); on ? s.add(job) : s.delete(job);
+  try { localStorage.setItem(TONIGHT, JSON.stringify([...s])); } catch (e) {}
+  workBar();
+}
+/* A card folded to its one line stays folded, in this browser, until opened again. */
+const MINI = 'ebible.minimized';
+function minis(){ try { return new Set(JSON.parse(localStorage.getItem(MINI) || '[]')); } catch (e) { return new Set(); } }
+function setMini(key, on){
+  const s = minis(); on ? s.add(key) : s.delete(key);
+  try { localStorage.setItem(MINI, JSON.stringify([...s])); } catch (e) {}
+  workBar();
+}
+function doneOpen(){ try { return localStorage.getItem(DONE_OPEN) !== '0'; } catch (e) { return true; } }
+function setDoneOpen(on){ try { localStorage.setItem(DONE_OPEN, on ? '1' : '0'); } catch (e) {} }
+const ago = t => { if (!t) return ''; const s = Date.now()/1000 - t;
+  return s < 90 ? `${Math.max(0, Math.round(s))} s ago` : s < 5400 ? `${Math.round(s/60)} min ago` : s < 172800 ? `${(s/3600).toFixed(1)} h ago` : `${Math.round(s/86400)} days ago`; };
+const hrs = h => h == null ? '—' : h < 1 ? `${Math.max(1, Math.round(h*60))} min` : h < 48 ? `${h.toFixed(h < 10 ? 1 : 0)} h` : `${(h/24).toFixed(1)} days`;
+const clock = t => new Date(t*1000).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+const bytes = b => b >= 1073741824 ? (b/1073741824).toFixed(1) + ' GB' : Math.round(b/1048576) + ' MB';
+const QUIET_MIN = 30;                      // a running job whose log says nothing this long is worth a look
+
+/* The chart from the Voice Lab dashboard (ShrineGirl/VoiceLab/dashboard): for
+   a voice being taught, the thin line is every reading of its loss and the dots
+   the steady ones, lower being better, the top tenth cut off so the first steep
+   minutes do not flatten the rest; for any other job, how many are done over
+   the time it has run. */
+function wchart(pts, steady, o){
+  const W = 360, H = 104, L = 42, R = 6, T = 8, B = 16;
+  const all = [...pts, ...steady];
+  if (all.length < 2) return `<div class="wch none">${esc(o.empty)}</div>`;
+  const xs = all.map(p => p[0]), ys = all.map(p => p[1]);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs, x0 + 1e-9);
+  let lo, hi;
+  if (o.score) {
+    const s = [...ys].sort((a, b) => a - b);
+    lo = s[0]; hi = s[Math.floor(s.length * 0.9)] ?? lo;
+    const pad = Math.max((hi - lo) * 0.15, 0.002); lo -= pad; hi = Math.max(hi + pad, lo + 0.01);
+  } else { lo = Math.min(...ys); hi = Math.max(...ys); if (hi - lo < 1) hi = lo + 1; }
+  const X = x => L + (x - x0) / (x1 - x0) * (W - L - R), Y = y => T + (1 - (Math.min(y, hi) - lo) / (hi - lo)) * (H - T - B);
+  let g = '';
+  let said = null;
+  for (let i = 0; i <= 2; i++) {
+    const y = lo + (hi - lo) * i / 2, txt = o.yfmt(y);
+    g += `<line x1="${L}" x2="${W - R}" y1="${Y(y)}" y2="${Y(y)}" stroke="var(--border)"/>`
+       + (txt === said ? '' : `<text x="${L - 4}" y="${Y(y) + 3.5}" text-anchor="end" font-size="9.5" fill="var(--muted)">${txt}</text>`);
+    said = txt;                            // a count that has moved by one says each number once
+  }
+  g += `<text x="${L}" y="${H - 3}" font-size="9.5" fill="var(--muted)">${o.xfmt(x0)}</text>`
+     + `<text x="${W - R}" y="${H - 3}" text-anchor="end" font-size="9.5" fill="var(--muted)">${o.xfmt(x1)}</text>`;
+  const line = (ps, w, op) => `<path d="${ps.map((p, i) => (i ? 'L' : 'M') + X(p[0]).toFixed(1) + ' ' + Y(p[1]).toFixed(1)).join('')}"`
+     + ` fill="none" stroke="var(--accent)" stroke-width="${w}" stroke-opacity="${op}" vector-effect="non-scaling-stroke"/>`;
+  if (pts.length) g += line(pts, steady.length ? 1.1 : 1.8, steady.length ? 0.45 : 1);
+  if (steady.length) {
+    g += line(steady, 1.8, 1);
+    for (const p of steady) g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="2.4" fill="var(--accent)"/>`;
+  } else { const p = pts[pts.length - 1]; g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="3" fill="var(--accent)"/>`; }
+  return `<svg class="wch" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.label)}"><title>${esc(o.label)}</title>${g}</svg>`;
+}
+
+/* Whether a voice is still learning, as the Voice Lab's "last 10 min" says it:
+   the newest score against the score a while back - 30 minutes, or 10 epochs -
+   each the mean of three readings, so one noisy reading does not decide it.
+   Under 1% either way is levelling off. The steady scores are used when the
+   trainer gives them, being measured on the same lessons every time. */
+function scoreTrend(sc){
+  const s = (sc.scores.length >= 2 ? sc.scores : sc.points).slice().sort((a, b) => a[0] - b[0]);
+  const span = sc.x === 'minutes' ? 30 : 10;
+  const mean = ps => ps.reduce((n, p) => n + p[1], 0) / ps.length;
+  if (!s.length) return {now: null, delta: null, span};
+  const end = s[s.length - 1][0], now = mean(s.slice(-3));
+  let i = -1;
+  for (let k = 0; k < s.length; k++) if (s[k][0] <= end - span) i = k;
+  if (i < 0) return {now, delta: null, span};
+  const then = mean(s.slice(Math.max(0, i - 1), i + 2)), delta = now - then;
+  const word = Math.abs(delta) < 0.01 * Math.abs(then) ? 'levelling off' : delta < 0 ? 'better' : 'worse';
+  return {now, delta, span, word};
+}
+const nice = k => k.replace(/-/g, ' ');
+function jobCard(it, group, ticked, mini){
+  const run = it.running, waiting = !run && it.restart_in != null, gaveUp = !run && !!it.gave_up;
+  const cls = run ? 'run' : waiting ? 'warn' : gaveUp ? 'err' : 'idle';
+  const sc = it.scores, unit = sc ? ' ' + sc.x : '';
+  const pct = it.total ? Math.min(100, 100 * it.done / it.total) : 0;   // an unfinished job never reads 100%
+  const pctTxt = pct >= 99.95 ? '99.9' : pct.toFixed(pct < 10 || pct > 99 ? 1 : 0);
+  const quiet = run && it.log_at && (Date.now()/1000 - it.log_at) / 60 > QUIET_MIN;
+  const state = run && it.stopping
+      ? `<span class="dot warn"></span><b>Stopping</b> · saving its place first, up to two minutes`
+    : run
+      ? `<span class="dot run"></span><b>Running</b>${it.since ? ' for ' + fmtT(Date.now()/1000 - it.since) : ''}`
+        + (it.auto ? ' · started again if it stops' : ' · started outside the dashboard, so not started again if it stops')
+    : waiting ? `<span class="dot warn"></span><b>Stopped${it.stopped ? ' at ' + clock(it.stopped) : ''}</b> · starting again in ${fmtT(it.restart_in)}`
+    : gaveUp ? `<span class="dot err"></span><b>Kept stopping</b> · started again ${it.restarts} time${it.restarts === 1 ? '' : 's'} in an hour, then left: press Start to try again`
+    : `<span class="dot"></span>Not running`;
+  const pace = run && it.rate ? ` · ${it.rate >= 10 ? Math.round(it.rate) : it.rate.toFixed(1)}${unit} an hour · about ${hrs(it.left_h)} left` : '';
+  const buttons = (it.startable ? `<label class="chk" title="start this with the others ticked, from Start tonight's jobs">`
+        + `<input type="checkbox" data-f="t-${it.job}" ${ticked ? 'checked' : ''} onchange="setTonight('${it.job}', this.checked)"> tonight</label>` : '')
+    + (it.startable ? (run || waiting
+        ? `<button class="halt" data-f="s-${it.job}" onclick="workStop('${it.job}')">Stop</button>`
+        : `<button class="go" data-f="g-${it.job}" onclick="workStart('${it.job}')">Start</button>`)
+      : `<span class="tag">${it.held ? 'held until step 4' : 'not a job here'}</span>`);
+  const fold = `<button class="mini" data-f="m-${it.key}" aria-expanded="${mini ? 'false' : 'true'}" onclick="setMini('${it.key}', ${!mini})"`
+    + ` title="${mini ? 'show this card in full' : 'fold this card to one line'}" aria-label="${mini ? 'expand' : 'minimize'} ${esc(nice(it.key))}">${mini ? '▸' : '▾'}</button>`;
+  const head = `<div class="top">${fold}<span class="nm">${esc(nice(it.key))}</span><span class="tag">${esc(group)}</span><span class="sp"></span>${buttons}</div>`;
+  const bar = `<div class="bar2" role="progressbar" aria-valuemin="0" aria-valuemax="${it.total}" aria-valuenow="${it.done}" aria-label="${esc(nice(it.key))}"><i style="width:${pct.toFixed(1)}%"></i></div>`;
+  if (mini) {                              // folded: one line of how it stands; a stop and its reason still shown
+    const word = run && it.stopping ? 'Stopping' : run ? 'Running' : waiting ? 'Waiting to restart' : gaveUp ? 'Kept stopping' : 'Not running';
+    let m = head + bar + `<div class="nums"><span class="dot ${cls === 'idle' ? '' : cls}"></span> ${word} · <b>${fmtN(it.done)}</b> / ${fmtN(it.total)}${unit} · ${pctTxt}%${pace}</div>`;
+    if (waiting || gaveUp) m += `<div class="state">${state}</div>` + (it.why ? `<div class="why" title="${esc(it.why)}">${esc(it.why)}</div>` : '');
+    return `<section class="card ${cls} folded">${m}</section>`;
+  }
+  let body = head
+    + `<div class="what" title="${esc(it.what)}">${esc(it.what)}</div>`
+    + bar
+    + `<div class="nums"><b>${fmtN(it.done)}</b> / ${fmtN(it.total)}${unit} · ${pctTxt}%${pace}</div>`
+    + `<div class="state">${state}</div>`;
+  if (!run && (waiting || gaveUp) && it.why)
+    body += `<div class="why" title="${esc(it.why)}">${it.exit != null ? 'exit ' + it.exit + ': ' : ''}${esc(it.why)}</div>`;
+  if (run) {
+    const u = it.usage;
+    body += `<div class="stats2">`
+      + `<div title="times it was started again in the last hour"><small>Restarts · 1 h</small><b>${it.restarts || 0}</b></div>`
+      + `<div title="processor (share of one core) and memory, its child processes included"><small>CPU · RAM</small><b>${u ? u.cpu + '% · ' + bytes(u.ram) : '—'}</b></div>`
+      + `<div class="${quiet ? 'quiet' : ''}"><small>Last log</small><b>${it.log_at ? ago(it.log_at) + (quiet ? ' · quiet' : '') : '—'}</b></div>`
+      + `<div title="process ids: ${(it.pids || []).join(', ')}"><small>Process</small><b>${(it.pids || [])[0] || '—'}${(it.pids || []).length > 1 ? ' +' + (it.pids.length - 1) : ''}</b></div></div>`;
+  }
+  if (sc && (sc.points.length || sc.scores.length)) {
+    const t = scoreTrend(sc);
+    body += `<div class="stats2">`
+      + `<div title="the newest ${sc.scores.length ? 'steady score (the same lessons every time)' : 'reading'} of the ${esc(sc.label)}; lower is better"><small>Score now</small><b>${t.now != null ? t.now.toFixed(3) : '—'}</b></div>`
+      + `<div title="the lowest it has reached"><small>Best</small><b>${sc.best != null ? sc.best.toFixed(3) : '—'}</b></div>`
+      + `<div class="${t.word === 'worse' ? 'quiet' : ''}" title="the change over the last ${t.span} ${sc.x}, averaged over the newest readings so one noisy reading does not decide it">`
+      + `<small>Last ${t.span} ${sc.x}</small><b>${t.delta == null ? '—' : Math.abs(t.delta) < 0.0005 ? '0.000' : (t.delta > 0 ? '+' : '') + t.delta.toFixed(3)}</b>${t.word ? `<span class="w">${t.word}</span>` : ''}</div></div>`;
+    if (t.word === 'levelling off')
+      body += `<div class="flat">Hardly changed over the last ${t.span} ${sc.x}: more training at this rate will gain little.</div>`;
+    body += wchart(sc.points, sc.scores, {score: true, yfmt: y => y.toFixed(3), xfmt: x => x === sc.points.concat(sc.scores).reduce((m, p) => Math.max(m, p[0]), 0) ? `${Math.round(x)} ${sc.x}` : `${Math.round(x)}`, empty: '',
+      label: `${sc.label} by ${sc.x} trained: lower is better${sc.best != null ? '; best ' + sc.best.toFixed(3) : ''}`});
+  } else if (run || (it.history || []).length > 1) {
+    body += wchart(it.history || [], [], {yfmt: y => fmtN(Math.round(y)), xfmt: clock, empty: 'the chart starts after a few minutes of running',
+      label: `${nice(it.key)} done over time`});
+  }
+  if (sc && sc.can_sample) body += samplesBox(it, sc);
+  if (run && it.log) body += `<div class="lg${quiet ? ' quiet' : ''}" title="last line of logs/job_${esc(it.job)}.log">${esc(it.log)}</div>`;
+  return `<section class="card ${cls}">${body}</section>`;
+}
+
+/* What a voice being taught sounds like, as VoiceLab plays it: the same verses read
+   every 15 minutes of training, newest first, under the recording it learns from, so
+   an ear can tell what the loss cannot - whether it is getting nearer. */
+const SMP_SHUT = 'ebible.samplesShut';
+function smpOpen(key){ try { return !JSON.parse(localStorage.getItem(SMP_SHUT) || '[]').includes(key); } catch (e) { return true; } }
+function setSmpOpen(key, on){
+  try { const s = new Set(JSON.parse(localStorage.getItem(SMP_SHUT) || '[]')); on ? s.delete(key) : s.add(key);
+        localStorage.setItem(SMP_SHUT, JSON.stringify([...s])); } catch (e) {}
+}
+function samplesBox(it, sc){
+  const smp = sc.samples || [];
+  const when = t => { const d = new Date(t*1000);       // the day only when it is not today
+    return (d.toDateString() === new Date().toDateString() ? '' : d.toLocaleDateString([], {month:'short', day:'numeric'}) + ' ') + clock(t); };
+  const mins = m => m < 60 ? `${Math.round(m)} min` : `${Math.floor(m/60)} h ${String(Math.round(m % 60)).padStart(2, '0')}`;
+  const make = sc.making
+    ? `<button data-f="p-${it.job}" disabled>Making a sample…</button><span>${it.running ? 'at its next step' : 'from the newest checkpoint'}</span>`
+    : `<button data-f="p-${it.job}" onclick="workSample('${it.job}')" title="${it.running ? 'the voice as it is this minute' : 'the voice as its newest checkpoint holds it'}">Make sample</button>`;
+  const what = sc.verses ? `<span>${esc(sc.verses.join(' · '))}</span>` : '';
+  const row = (head, sub, url, label, cls) => `<div class="row${cls ? ' ' + cls : ''}"><div><b>${head}</b><small>${sub}</small></div>`
+    + `<audio controls preload="none" src="${url}" data-f="a-${url}" aria-label="${esc(label)}"></audio></div>`;
+  let list = sc.teacher ? row('Recording', 'what it learns from', sc.teacher, 'the recording it learns from', 'teacher') : '';
+  list += smp.map(s => row(mins(s.minutes),
+      `${s.score != null ? 'score ' + s.score.toFixed(3) + '<br>' : ''}${when(s.made)}`, s.url,
+      `sample after ${Math.round(s.minutes)} minutes of training`)).join('');
+  if (!smp.length) list += `<div class="none">The first sample comes after 15 minutes of training.</div>`;
+  return `<details class="smp" ${smpOpen(it.key) ? 'open' : ''} ontoggle="setSmpOpen('${it.key}', this.open)">`
+    + `<summary>Samples (${smp.length})</summary><div class="hd2">${make}${what}</div><div class="list" data-s="l-${it.job}">${list}</div></details>`;
+}
+async function workSample(job){
+  const r = await post('/work/sample', {job});
+  if (!r.ok) alert(r.error || 'could not make a sample');
+  setTimeout(workBar, 700);
+}
+
+function doneRungs(groups){
+  return groups.map(g => {
+    const items = g.items.filter(i => i.done || i.count);
+    if (!items.length) return '';
+    return `<div class="grp"><span class="gl">${esc(g.label)}</span>` + items.map(it => {
+      const done = it.done || it.count || 0;
+      const tip = `${it.what}${it.unit ? ' — ' + fmtN(it.count) + ' ' + it.unit : ''}${it.built ? ' · ' + fmtAge(it.built) : ''}`;
+      const nm = it.view === false ? `<span class="nm plain">${esc(nice(it.key))}</span>`
+        : `<span class="nm" onclick="showLayer('${it.key}')" title="show what this has produced">${esc(nice(it.key))}</span>`;
+      return `<span class="j full" title="${esc(tip)}">${nm} <span class="b"><i style="width:100%"></i></span> <b>${fmtN(done)}</b></span>`;
+    }).join('') + `</div>`;
+  }).join('');
+}
+
 async function workBar(){
   let w;
   try { w = await (await fetch('/work')).json(); } catch (e) { return; }
   const el = $('work');
-  const groups = (w.groups || []).filter(g => g.items.some(i => i.done || i.count));
+  const groups = (w.groups || []).filter(g => g.items.some(i => i.done || i.count || (i.startable && i.total)));
   if (!groups.length) { el.hidden = $('split').hidden = true; return; }
   el.hidden = $('split').hidden = false;
-  const anyrun = !!w.anyrunning;
-  const byJob = (w.tokens && w.tokens.by_job) || {};
-  el.innerHTML = `<div class="hd"><b>Model work</b>${anyrun ? `<button class="stopall" onclick="workStop()">stop all — free the GPU</button>`
-      : `<button onclick="workStart('queue')" title="run every unfinished job, one after another">run the queue</button>`}
-      <span style="font-size:11px">${anyrun ? "using the GPU now" : "idle"}</span></div>`
-    + groups.map(g => `<div class="grp"><span class="gl">${esc(g.label)}</span>` + g.items.map(it => {
-    const total = it.total || it.count || 0, done = it.done || it.count || 0;
-    const pct = total ? Math.min(100, 100 * done / total) : 0;
-    const cls = !done ? 'none' : (it.running ? 'run' : (done >= total ? 'full' : ''));
-    const num = it.running || done < total ? `<b>${fmtN(done)}</b>/${fmtN(total)}` : `<b>${fmtN(done)}</b>`;
-    const tip = `${it.what}${it.unit ? ' — ' + fmtN(it.count) + ' ' + it.unit : ''}${it.built ? ' · ' + fmtAge(it.built) : ''}${it.running ? ' · running now' : ''}`;
-    const btn = it.startable ? (it.running
-        ? `<button class="on" title="stop this job" onclick="workStop('${it.job}')">\u25a0</button>`
-        : (done >= total ? "" : `<button title="start this job" onclick="workStart('${it.job}')">\u25b6</button>`)) : "";
-    const spent = it.job && byJob[it.job];
-    const tok = spent ? ` <span class="tk" title="${esc(fmtN(spent.output_tokens) + ' tokens out over ' + fmtN(spent.calls) + ' calls')}">${fmtN(spent.output_tokens)} tok</span>` : "";
-    const nm = it.view === false ? `<span class="nm plain">${esc(it.key.replace(/-/g, ' '))}</span>`
-      : `<span class="nm" onclick="showLayer('${it.key}')" title="show what this has produced">${esc(it.key.replace(/-/g, ' '))}</span>`;
-    return `<span class="j ${cls}" title="${esc(tip)}">${nm} <span class="b"><i style="width:${pct.toFixed(1)}%"></i></span> ${num}${tok}${btn}</span>`;
-  }).join('') + `</div>`).join('')
-    + workTotals(w.tokens);                 // the counter closes the area, under the last rung
+  const isTodo = i => i.job && i.total && i.done < i.total;
+  const order = i => i.running ? 0 : i.restart_in != null ? 1 : i.gave_up ? 2 : i.startable ? 3 : 4;
+  const todo = groups.flatMap(g => g.items.filter(isTodo).map(i => [i, g.label])).sort((a, b) => order(a[0]) - order(b[0]));
+  const done = groups.map(g => ({...g, items: g.items.filter(i => !isTodo(i))}));
+  const ticks = tonight(), folded = minis();
+  const ready = todo.filter(([i]) => i.startable && ticks.has(i.job) && !i.running && i.restart_in == null);
+  const nrun = todo.filter(([i]) => i.running).length;
+  const gpu = w.gpu ? `<span class="gpu" title="the graphics card, read every 10 s">GPU <b>${w.gpu.util.toFixed(0)}%</b> · <b>${(w.gpu.mem/1024).toFixed(1)}</b>/${(w.gpu.mem_total/1024).toFixed(0)} GB · <b>${w.gpu.temp.toFixed(0)}°C</b> · <b>${w.gpu.power.toFixed(0)} W</b></span>` : '';
+  const ndone = done.reduce((n, g) => n + g.items.filter(i => i.done || i.count).length, 0);
+  const keep = document.activeElement && document.activeElement.dataset ? document.activeElement.dataset.f : null;
+  // Drawing the bar again would cut off a sample being listened to: wait until it ends.
+  // One paused part-way keeps its place, and a sample list its scroll.
+  const players = [...el.querySelectorAll('audio')];
+  if (players.some(a => !a.paused && !a.ended)) { W_LAST = todo; return; }
+  const at = {}, scrolled = {};
+  players.forEach(a => { if (a.currentTime && !a.ended) at[a.getAttribute('src')] = a.currentTime; });
+  el.querySelectorAll('[data-s]').forEach(l => { if (l.scrollTop) scrolled[l.dataset.s] = l.scrollTop; });
+  el.innerHTML = `<div class="hd"><b>Model work</b>${gpu}<span class="sp"></span>`
+      + `<span class="nrun">${nrun ? nrun + (nrun > 1 ? ' jobs' : ' job') + ' running' : 'nothing running'}`
+      + (w.awake ? ` · <span title="Windows is kept from sleeping while the jobs you started run; the screen may still turn off. Stop all to let it sleep.">keeping the PC awake</span>` : '') + `</span>`
+      + `<button class="go" data-f="tonight" ${ready.length ? '' : 'disabled'} onclick="startTonight()" title="start every job ticked tonight that is not running">Start tonight's jobs${ready.length ? ' (' + ready.length + ')' : ''}</button>`
+      + (w.anyrunning ? `<button class="stopall" data-f="stopall" onclick="workStop()">Stop all — free the GPU</button>`
+          : `<button data-f="queue" onclick="workStart('queue')" title="run every unfinished study job, one after another">Run the queue</button>`)
+      + `</div>`
+      + `<div class="sec">To do <span>${todo.length}</span></div>`
+      + (todo.length ? `<div class="todo">${todo.map(([i, g]) => jobCard(i, g, ticks.has(i.job), folded.has(i.key))).join('')}</div>` : `<div class="none">Nothing left to do.</div>`)
+      + `<details class="done" ${doneOpen() ? 'open' : ''} ontoggle="setDoneOpen(this.open)"><summary class="sec">Done <span>${ndone}</span></summary>${doneRungs(done)}</details>`
+      + workTotals(w.tokens);                 // the counter closes the area, under the last rung
+  el.querySelectorAll('audio').forEach(a => { const t = at[a.getAttribute('src')];
+    if (t) { a.addEventListener('loadedmetadata', () => { a.currentTime = t; }, {once: true}); a.preload = 'auto'; a.load(); } });
+  el.querySelectorAll('[data-s]').forEach(l => { if (scrolled[l.dataset.s]) l.scrollTop = scrolled[l.dataset.s]; });
+  if (keep) { const f = el.querySelector(`[data-f="${keep}"]`); if (f) f.focus(); }
+  W_LAST = todo;
+}
+let W_LAST = [];
+async function startTonight(){
+  const ticks = tonight();
+  for (const [i] of W_LAST) if (i.startable && ticks.has(i.job) && !i.running && i.restart_in == null) await post('/work/start', {job: i.job});
+  setTimeout(workBar, 700);
 }
 async function showLayer(key){          // open, in the reader, whatever this layer has produced
   mode = 'read'; applyMode();
@@ -1988,6 +2778,63 @@ async function apkBar(){
   clearTimeout(apkT);
   apkT = setTimeout(apkBar, s.running ? 2500 : 30000);
 }
+/* ---------- eBible on this PC: the Desktop and Start menu icons ----------
+   scripts/shortcuts.py does the work; this is a grid of ticks over it. Asked
+   for again each time the menu opens, because a shortcut can be deleted from
+   the Desktop by hand at any moment, and the tick must say what is there. */
+const LNK_KINDS = [['dashboard', 'eBible dashboard'], ['reader', 'eBible reader']], LNK_PLACES = [['desktop', 'Desktop'], ['start', 'Start menu']];
+function lnkDraw(s, msg, bad){
+  const rows = s.shortcuts || [];
+  // Off Windows there is nothing to make, so the control is not shown at all;
+  // on Windows with PowerShell failing it is, with the reason.
+  $('lnk').hidden = !s.supported && !s.error;
+  const made = rows.filter(r => r.state === 'here').length;
+  $('lnkCount').textContent = made ? `· ${made}` : '';
+  $('lnkSum').setAttribute('aria-label', `Desktop icons, ${made} of ${rows.length || 4} made`);
+  const cell = (k, p) => {
+    const r = rows.find(x => x.kind === k && x.place === p);
+    if (!r) return '<td></td>';
+    const what = r.state === 'here' ? 'there - untick to remove it' : r.state === 'elsewhere' ? 'there, but it opens another copy - tick to make it open this one' : 'not there - tick to make it';
+    return `<td><label title="${apkEsc(r.path)}"><input type="checkbox" data-kind="${k}" data-place="${p}"${r.state === 'here' ? ' checked' : ''}`
+      + ` aria-label="${apkEsc(r.label)}: ${what}"></label></td>`;
+  };
+  const list = $('lnkList'), had = document.activeElement && list.contains(document.activeElement)
+    ? [document.activeElement.dataset.kind, document.activeElement.dataset.place] : null;
+  list.innerHTML = !s.supported ? '' : '<table><thead><tr><th></th>' + LNK_PLACES.map(([, n]) => `<th scope="col">${n}</th>`).join('') + '</tr></thead><tbody>'
+    + LNK_KINDS.map(([k, n]) => `<tr><th scope="row">${n}</th>` + LNK_PLACES.map(([p]) => cell(k, p)).join('') + '</tr>').join('') + '</tbody></table>';
+  if (had) { const el = list.querySelector(`input[data-kind="${had[0]}"][data-place="${had[1]}"]`); if (el) el.focus(); }
+  const other = rows.filter(r => r.state === 'elsewhere');
+  $('lnkNote').textContent = other.length
+    ? `${other.map(r => r.label).join(', ')} ${other.length === 1 ? 'is' : 'are'} there already but ${other.length === 1 ? 'opens' : 'open'} another copy of eBible (${other[0].dir || other[0].target}). Tick to make ${other.length === 1 ? 'it' : 'them'} open this one.` : '';
+  $('lnkMsg').textContent = msg || s.error || '';
+  $('lnkMsg').className = 'hint' + (bad || s.error ? ' err' : msg ? ' ok' : '');
+}
+async function lnkLoad(msg, bad){
+  try { lnkDraw(await (await fetch('/shortcuts')).json(), msg, bad); }
+  catch (e) { lnkDraw({supported: true, error: 'The dashboard did not answer: ' + e.message, shortcuts: []}); }
+}
+$('lnkMenu').addEventListener('toggle', () => { if ($('lnkMenu').open) lnkLoad(); });
+$('lnkList').onchange = async e => {
+  const el = e.target; if (!el.dataset.kind) return;
+  const make = el.checked, name = LNK_KINDS.find(k => k[0] === el.dataset.kind)[1], where = LNK_PLACES.find(p => p[0] === el.dataset.place)[1];
+  // One at a time: the boxes are disabled, not only dimmed, so a key press
+  // cannot start a second change while the first is being written.
+  const key = `input[data-kind="${el.dataset.kind}"][data-place="${el.dataset.place}"]`;
+  $('lnkList').classList.add('busy');
+  for (const i of $('lnkList').querySelectorAll('input')) i.disabled = true;
+  $('lnkMsg').className = 'hint'; $('lnkMsg').textContent = (make ? 'Making ' : 'Removing ') + `${name} · ${where}…`;
+  let r;
+  try { r = await (await fetch('/shortcuts', {method: 'POST', headers: {'Content-Type': 'application/json'},
+                                             body: JSON.stringify({kind: el.dataset.kind, place: el.dataset.place, make})})).json(); }
+  catch (err) { r = {ok: false, error: err.message}; }
+  $('lnkList').classList.remove('busy');
+  if (r.ok) lnkDraw(r, make ? `${name} is on the ${where}.` : `${name} is gone from the ${where}.`);
+  else await lnkLoad((make ? 'Could not make it: ' : 'Could not remove it: ') + (r.error || 'no reason given'), true);
+  const back = $('lnkList').querySelector(key); if (back) back.focus();      // the redraw would otherwise drop the keyboard
+};
+document.addEventListener('click', e => { if ($('lnkMenu').open && !$('lnkMenu').contains(e.target)) $('lnkMenu').open = false; });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('lnkMenu').open) { $('lnkMenu').open = false; $('lnkSum').focus(); } });
+lnkLoad();
 $('apkBtn').onclick = async () => {
   let s = {};
   try { s = await (await fetch('/apk')).json(); } catch (e) {}
@@ -2040,6 +2887,7 @@ __READALOUD_JS__
 def main():
     srv = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
     srv.daemon_threads = True
+    start_supervisor()
     print(f"live dashboard: http://localhost:{PORT}  (model {T.CONFIG['model']}, "
           f"targets {', '.join(TARGETS)}, Ctrl-C to quit)")
     try:

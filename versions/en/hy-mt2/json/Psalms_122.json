@@ -1,0 +1,20 @@
+{
+ "book": "Psalms",
+ "chapter": 122,
+ "lang": "en",
+ "verses": {
+  "1": "The songs of praise for David! I rejoiced with these words: “The house of Jehovah will go forth.”",
+  "2": "Our feet stood at your gates, Jerusalem.",
+  "3": "Jerusalem is a city that is built together, as if it were one whole entity.",
+  "4": "There were then set up altars, as offerings to God, for the sake of Israel, so that they could worship God.",
+  "5": "For they will sit on judgment seats, just as David’s house had its seats.",
+  "6": "May peace be upon Jerusalem, my beloved one.",
+  "7": "May there be peace in your army, and may there be freedom in your palaces.",
+  "8": "So that my brothers and friends may speak peace to you.",
+  "9": "So that our God, Jehovah, may grant you good."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

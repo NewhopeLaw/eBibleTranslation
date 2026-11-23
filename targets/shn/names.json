@@ -1,0 +1,4 @@
+{
+  "_comment": "Fixed Shan spellings of proper names, so every book agrees. Empty on purpose, for the reason targets/shn/glossary.json gives: there is no Shan Bible to hand to take the spellings from, and the trial is to see what each model writes unprompted.",
+  "names": {}
+}

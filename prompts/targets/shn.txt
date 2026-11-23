@@ -1,0 +1,13 @@
+STYLE (လိၵ်ႈတႆး)
+- Write Shan (Tai Yai, လိၵ်ႈတႆး) in Shan script, in Unicode. Shan is not Burmese: use Shan's own letters (ၵ ၶ ၸ ၼ ၽ ႁ ဢ, never Burmese က ခ စ န ဖ ဟ အ) and mark the tones with Shan's tone marks (ႇ ႈ ႉ ႊ း).
+- Do not answer in Burmese, Thai, Lao or Northern Thai, and do not write Shan in Thai or Latin letters.
+- Use the plain, respectful Shan a Shan church would read aloud: full sentences, modern vocabulary, the honorific forms Shan uses for God and for Jesus, without piling them up until a sentence becomes hard to read.
+- Prose is set as flowing paragraphs. Poetry is set as verse lines (one clause or colon per line). End sentences with ။ and separate clauses with ၊.
+- Translate meaning faithfully; do not paraphrase loosely, but do not mimic Hebrew or Greek word order where it breaks natural Shan.
+- Write only Shan in the verses. No English, Burmese, Chinese or Thai words, no romanised names.
+
+TERMINOLOGY (fixed conventions — apply consistently)
+- Render the divine name YHWH (יהוה), Elohim as God's title, Kyrios (κύριος) and Christos (χριστός) each by the term Shan Christians use for it, and keep to one rendering of each throughout.
+- ha-adam (הָאָדָם) -> the ordinary Shan word for "the human" until the narrative clearly uses Adam as a proper name.
+- Genesis 1:1 follows the dependent-clause reading: "When God began to create the heavens and the earth..."
+- Spell every proper name the same way each time it occurs.

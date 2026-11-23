@@ -1,0 +1,21 @@
+{
+ "book": "Psalms",
+ "chapter": 8,
+ "lang": "en",
+ "verses": {
+  "1": "A song for David, to be sung over the Gittit.",
+  "2": "Holy God, our Lord! How magnificent is your name throughout all the earth! You have given your glory to the heavens.",
+  "3": "From my mouth come words of comfort and healing. You have established a way for your enemies to be punished and healed.",
+  "4": "For I see your names written on the tablets of your deeds, along with stars and constellations that you have created.",
+  "5": "What kind of person is it that remembers us? And what kind of human being is it that takes care of us?",
+  "6": "And he lost a little from God’s favor and blessing. May God restore him.",
+  "7": "May they be destroyed by your hands. All that they have will be destroyed beneath their feet.",
+  "8": "Thousands and thousands of them, as well as the animals in the fields.",
+  "9": "The stars in the sky and the fish in the sea cross over the seas.",
+  "10": "Yehovah, our God, how great is your name throughout all the earth!"
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

@@ -1,0 +1,21 @@
+{
+ "book": "Psalms",
+ "chapter": 112,
+ "lang": "en",
+ "verses": {
+  "1": "Hallelujah! Those who fear the LORD and obey His commandments, they truly desire to do so.",
+  "2": "A ruler who comes to this land will have a descendants who will live in righteousness and be blessed.",
+  "3": "He has many houses, and his righteousness stands forever.",
+  "4": "Light shone in the darkness for those who are righteous, kind, and compassionate.",
+  "5": "A good man is one who is wise and knows how to manage his affairs in a just manner.",
+  "6": "For ever, it will never be forgotten; it will always remain a good memory.",
+  "7": "He who hears bad news will not be afraid; his heart will not tremble in fear.",
+  "8": "His heart is not afraid, even when he sees his own hardships.",
+  "9": "He granted justice to the elderly; his righteousness stands forever. His kindness continues to benefit us.",
+  "10": "The wicked will be hated, and their anger will cause them to cry out in pain. The hatred of the wicked will lead to their destruction."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

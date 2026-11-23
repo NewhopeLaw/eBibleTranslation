@@ -1,0 +1,32 @@
+{
+ "book": "Psalms",
+ "chapter": 145,
+ "lang": "en",
+ "verses": {
+  "1": "A hymn for David, my king. May the Lord, your God, bless your name forever and ever.",
+  "2": "Every day, we bless and praise your name forever and ever.",
+  "3": "God is great and greatly praised; there is no limit to His greatness.",
+  "4": "From generation to generation, they will praise your deeds and your achievements.",
+  "5": "May your glory be praised, and may the words of your greatness be remembered forever.",
+  "6": "And those who see your glory will say, “Your greatness is indeed great!”",
+  "7": "May their remembrance of your great goodness be a reminder to them, and may your righteousness bless us.",
+  "8": "May Jehovah’s kindness and mercy extend to us, and may His grace be everlasting.",
+  "9": "May the Lord be good to all, and may His mercy be upon all His creations.",
+  "10": "May the LORD bless all your deeds and your followers.",
+  "11": "May your kingdom be praised, and may your power be known throughout the world.",
+  "12": "To inform the children of men about the glory of their king and the honor of his reign.",
+  "13": "Your kingdom is the kingdom of all worlds. You rule over everything in every age.",
+  "14": "May the LORD comfort all those who are fallen, and heal all those who are wounded.",
+  "15": "The eyes of all those who belong to you will be satisfied, and you will allow them to eat at that time.",
+  "16": "Open your hand and grant every living being its desires.",
+  "17": "The Lord is righteous in all His ways, and He is faithful in all His actions.",
+  "18": "The Lord is close to all those who call upon Him, to all who truly seek His help.",
+  "19": "His desires will be fulfilled, and he will hear their pleas and save them.",
+  "20": "The LORD will remember all His lovers, and He will destroy all the wicked.",
+  "21": "The voice of Jehovah will speak through me, and He will bless all those who are holy in His sight, forever and ever."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

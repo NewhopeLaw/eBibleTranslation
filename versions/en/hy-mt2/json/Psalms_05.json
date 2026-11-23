@@ -1,0 +1,24 @@
+{
+ "book": "Psalms",
+ "chapter": 5,
+ "lang": "en",
+ "verses": {
+  "1": "A song for David, to be sung to the children.",
+  "2": "May my words be heard by Jehovah in His wisdom.",
+  "3": "Listen to the voice of our king and gods, for they will give you peace.",
+  "4": "The LORD will hear my voice in the morning. I will call out to you in the morning, and I will wait for you.",
+  "5": "For I do not desire evil. You shall not harm me in any way.",
+  "6": "The wicked shall not stand before your eyes, O you who love all evil deeds.",
+  "7": "May the words of lies and deceit be destroyed. May bloodthirsty and deceitful people be hated by Jehovah.",
+  "8": "I come before your house in great trust, to bow down before your holy sanctuary in your sight.",
+  "9": "May the LORD grant me justice in your laws, so that my righteous actions may be pleasing to you.",
+  "10": "For in his mouth there is no venom; their sacrifices are not offensive. Their bodies are buried with honor, and they will be raised again.",
+  "11": "Let them be punished by God for their many sins. Let them be removed from their positions, because they have sinned against you.",
+  "12": "And all the people of Bethel shall rejoice forever. They will praise us, and they will bless us. My lovers will love you forever.",
+  "13": "For you will bless the righteous LORD, just as He desires. You will adorn us with His grace."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

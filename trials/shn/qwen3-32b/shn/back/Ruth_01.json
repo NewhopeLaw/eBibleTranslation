@@ -1,0 +1,8 @@
+{
+ "verses": {
+  "1": "Dinner is served in the dining room of the hotel. The restaurant is located on the first floor of the hotel.",
+  "2": "",
+  "3": ""
+ },
+ "engine": "nllb-200-distilled-1.3B, back into English"
+}

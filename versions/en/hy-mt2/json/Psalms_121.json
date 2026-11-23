@@ -1,0 +1,19 @@
+{
+ "book": "Psalms",
+ "chapter": 121,
+ "lang": "en",
+ "verses": {
+  "1": "A song for the mountains: I lift my eyes to the hills. From there, will come my help.",
+  "2": "Help me with the help of the LORD, who creates heaven and earth.",
+  "3": "Do not let the enemy take your feet; do not let them guard you.",
+  "4": "See, they will not sleep, nor will they rest in safety, for Israel.",
+  "5": "May the LORD protect you, O LORD! May He shield you with His right hand.",
+  "6": "The time of the sun will not cease to shine, and it will continue to fly through the night.",
+  "7": "May the LORD protect you from all evil. May He keep your soul safe.",
+  "8": "May the LORD protect your exits and entrances, from now on and forever."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

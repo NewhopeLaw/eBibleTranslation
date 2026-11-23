@@ -109,14 +109,14 @@
   "unit": "lexemes sorted",
   "note": "fields of meaning",
   "script": "build_domains.py",
-  "built": 1790791200.8219404
+  "built": 1795385257.6041875
  },
  "vectors": {
-  "count": 31152,
+  "count": 218064,
   "unit": "verse vectors",
   "note": "semantic search, with the topical lines",
   "script": "build_vectors.py",
-  "built": 1789988346.1297116
+  "built": 1793672582.4632592
  },
  "entries": {
   "count": 24708,
@@ -131,5 +131,12 @@
   "note": "the reader's own words, and the books' names",
   "script": "build_ui.py",
   "built": 1790302197.7169602
+ },
+ "encoder": {
+  "count": 218064,
+  "unit": "verse vectors",
+  "note": "search by meaning with the model on the phone (en, zh, es, th, nan, hak, ksw)",
+  "script": "build_encoder.py",
+  "built": 1793737077.8538425
  }
 }

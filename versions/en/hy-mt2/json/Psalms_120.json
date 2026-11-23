@@ -1,0 +1,18 @@
+{
+ "book": "Psalms",
+ "chapter": 120,
+ "lang": "en",
+ "verses": {
+  "1": "The song of praise to the LORD, in my times of trouble, I cried out to Him, and He answered me.",
+  "2": "May the LORD save my soul from the snare of deceitfulness, from the lies of hypocrisy.",
+  "3": "What will you be given, and what will be added to you as a reward?",
+  "4": "Half of the rulers are replaced by those who are capable of ruling.",
+  "5": "Oh, why have I lived in a place where I have to sleep with my tent.",
+  "6": "The rabbi who lived there brought peace to my soul with his kindness.",
+  "7": "I am at peace, and it is those who speak of war who are in trouble."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}

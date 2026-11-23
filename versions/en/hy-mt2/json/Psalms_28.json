@@ -1,0 +1,20 @@
+{
+ "book": "Psalms",
+ "chapter": 28,
+ "lang": "en",
+ "verses": {
+  "1": "To David, the LORD says: “I will call upon my covenant. Do not be afraid of me, for I will not harm you. I will not punish you along with your descendants.”",
+  "2": "Hear the sound of my cries in your presence. I raise my hands towards your holy place.",
+  "3": "Do not dwell with sinners. Do not speak kind words to those who do evil deeds. Have evil thoughts in their hearts.",
+  "4": "Give them what they deserve, and treat them as they should be. Let them have their own place to live in.",
+  "5": "For they will not understand the deeds of Jehovah, nor the works of His hands. They will not be able to build anything.",
+  "6": "Blessed is Jehovah, who has heard the cry of my prayer.",
+  "7": "Yehova, you are strong and mighty. I trust in you completely; I will rely on you. You will bless my heart, and I will sing praises to you.",
+  "8": "Yehova, grant him strength and deliver him from his troubles. His Messiah is indeed a savior.",
+  "9": "He will save your people, and bless your land. Then there will be peace and prosperity throughout the world."
+ },
+ "notes": "",
+ "raw": "",
+ "engine": "Hy-MT2 1.8B (Tencent), Q8_0",
+ "from": "the Hebrew and Greek"
+}
