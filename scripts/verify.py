@@ -62,7 +62,7 @@ SCRIPTS = {"th": (r"฀-๿", "Thai"), "ja": (HAN + KANA, "Japanese"), "ja-easy"
            "zh": (HAN, "Han"), "yue": (HAN, "Han"), "nan": (HAN, "Han"), "hak": (HAN, "Han"),
            "ksw": (MYANMAR, "Myanmar"), "my": (MYANMAR, "Myanmar")}
 OTHERS = r"฀-๿" + HAN + KANA + HANGUL + MYANMAR + r"Ѐ-ӿ؀-ۿऀ-ॿ"
-LATIN_WORD = re.compile(r"[A-Za-z]{4,}")
+LATIN_WORD = re.compile(r"\b[A-Za-z]{4,}\b")
 CAP_TOKEN = re.compile(r"\b[A-ZÁÉÍÓÚÑ][a-záéíóúñ]{2,}\b")
 
 # Common sentence-initial words that are not proper names (English + Spanish).
