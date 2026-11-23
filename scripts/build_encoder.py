@@ -44,6 +44,22 @@ in git, and these files are rebuilt whenever the text changes):
     vocab.tsv         the pruned vocabulary in id order: piece TAB unigram score
     proj.bin          the projection: "PROJ", in dims, out dims, mean, matrix (float32)
     vecm_<lang>.bin   the verses: "VECM", count, dims, scale, ids int32[], vectors int8[]
+    vecm_stories.bin  the passages: "VECS", count, dims, scale, first verse id int32[],
+                      last verse id int32[], vectors int8[]
+    vecm_stories_<lang>.bin  the same passages described in that language, where
+                      targets/search/stories/<lang>.jsonl has them translated
+
+A reader looking for a passage describes a story - "the man thrown to the
+lions" - and a verse is only a sentence of it: the den is in one verse, the
+lions in another, the stone over the mouth in a third. The chapter themes
+(scripts/build_themes.py, targets/themes/chapters.jsonl) already say, two to
+five times a chapter, what a run of verses is about in plain words. Each is
+embedded as a passage of its own, and a question that matches it raises every
+verse in its run (see Meaning.java). They are written in English. The model is
+multilingual, but measured (scripts/search_test.py) a Thai, Spanish or Chinese
+question gained nothing from English descriptions, where English questions
+gained a good deal; so a language whose descriptions have been translated
+(scripts/translate_stories.py) gets its own file, and the app reads that one.
 
 scripts/build_apk.py carries these when they are there. It wants torch,
 transformers, onnx and onnxruntime; a GPU makes the verses a few minutes'
@@ -66,6 +82,15 @@ from build_vectors import verses                                 # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "site" / "model"
 TEACHER = "intfloat/multilingual-e5-small"
+# The same model after scripts/train_search.py has taught it the Bible. Used
+# when it is there; its tokenizer is the teacher's, untouched.
+TAUGHT = Path(__file__).resolve().parent.parent / "models" / "e5-bible"
+
+
+def base_model(asked=""):
+    if asked:
+        return asked
+    return str(TAUGHT) if (TAUGHT / "config.json").exists() else TEACHER
 COMMON = 32000        # as in build_vectors.py: the low ids are every language's common subwords
 DIMS = 192
 MAXLEN = 128          # a verse with its topical line rarely passes this; a question never does
@@ -77,11 +102,11 @@ def need(what):
     raise SystemExit(2)
 
 
-def export(tok, keep, path):
+def export(tok, keep, path, base=TEACHER):
     """The model with its vocabulary cut to `keep`, pooling inside, as ONNX at float32."""
     import torch
     from transformers import AutoModel
-    model = AutoModel.from_pretrained(TEACHER, attn_implementation="eager").eval()
+    model = AutoModel.from_pretrained(base, attn_implementation="eager").eval()
     emb = model.embeddings.word_embeddings
     cut = torch.nn.Embedding(len(keep), emb.weight.shape[1], padding_idx=emb.padding_idx)
     cut.weight.data = emb.weight.data[torch.tensor(keep)].clone()
@@ -170,6 +195,9 @@ def main():
     ap.add_argument("--dims", type=int, default=DIMS, help=f"dimensions kept per verse (default {DIMS})")
     ap.add_argument("--probe", default="", help="ask what was built a question, as the phone would")
     ap.add_argument("--lang", default="en", help="the language --probe searches")
+    ap.add_argument("--base", default="", help=f"the model to carry (default: {TAUGHT.name} if trained, else {TEACHER})")
+    ap.add_argument("--stories-only", action="store_true",
+                    help="(re)make the passage vectors alone, with the encoder already built")
     a = ap.parse_args()
     try:
         import numpy as np
@@ -180,6 +208,11 @@ def main():
     tok = AutoTokenizer.from_pretrained(TEACHER)
     if a.probe:
         return probe(a.probe, a.lang, tok, np)
+    if a.stories_only:
+        run, mu, proj = built(tok, np)
+        langs = [c.strip() for c in a.langs.split(",") if c.strip()] or [
+            p.stem for p in sorted(STORY_TR.glob("*.jsonl"))]
+        return stories(run, mu, proj, np, langs)
     try:
         import onnx  # noqa: F401
         import torch  # noqa: F401
@@ -212,7 +245,9 @@ def main():
 
     # ---- the model
     raw = OUT / "encoder.fp32.onnx"
-    export(tok, keep, raw)
+    base = base_model(a.base)
+    print(f"model: {base}" + ("  (taught by scripts/train_search.py)" if base != TEACHER else ""))
+    export(tok, keep, raw, base)
     quantize(raw, OUT / "encoder.onnx")
     for p in OUT.glob("encoder.fp32.onnx*"):
         p.unlink()
@@ -234,20 +269,99 @@ def main():
         v /= np.linalg.norm(v, axis=1, keepdims=True)
         write_lang(c, [vid for vid, _ in rows], v)
 
+    stories(run, mu, proj, np, langs)
+
     manifest.record("encoder", sum(len(r) for r in corpus.values()), "verse vectors",
                     f"search by meaning with the model on the phone ({', '.join(langs)})", "build_encoder.py")
 
 
-def read_lang(code, np):
-    b = (OUT / f"vecm_{code}.bin").read_bytes()
-    assert b[:4] == b"VECM"
-    n, d, s = struct.unpack("<iif", b[4:16])
-    ids = np.frombuffer(b, "<i4", n, 16)
-    return ids, np.frombuffer(b, np.int8, n * d, 16 + 4 * n).reshape(n, d).astype(np.float32) * s
+STORIES = ROOT / "targets" / "themes" / "chapters.jsonl"
+STORY_TR = ROOT / "targets" / "search" / "stories"
 
 
-def probe(query, lang, tok, np):
-    """A question against the built files, the way the phone asks it."""
+def story_translations(lang):
+    """{English description: the same in lang}, from translate_stories.py."""
+    p = STORY_TR / f"{lang}.jsonl"
+    if not p.exists():
+        return {}
+    out = {}
+    for line in p.read_text(encoding="utf-8").splitlines():
+        if line.strip():
+            r = json.loads(line)
+            if r.get("tr", "").strip():
+                out[r["en"]] = r["tr"].strip()
+    return out
+
+
+def story_rows():
+    """-> [(first verse id, last verse id, text)] from the chapter themes.
+
+    A theme's verses can be several runs ("3-9, 14-18"); each run is a row of
+    its own with the same text, so a question matching the theme raises those
+    verses and not the ones between them.
+    """
+    if not STORIES.exists():
+        return []
+    bynum = {m["name"]: m["num"] for m in BOOKS.values()}
+    out = []
+    for line in STORIES.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        r = json.loads(line)
+        num = bynum.get(r["book"])
+        if not num:
+            continue
+        base = num * 1000000 + int(r["chapter"]) * 1000
+        for t in r.get("themes") or []:
+            text = f'{t.get("theme", "").strip()}. {t.get("what", "").strip()}'.strip(". ")
+            if not text:
+                continue
+            for run in str(t.get("verses", "")).split(","):
+                a, _, b = run.strip().partition("-")
+                if not a.strip().isdigit() or (b and not b.strip().isdigit()):
+                    continue
+                lo, hi = int(a), int(b or a)
+                if lo > hi:
+                    lo, hi = hi, lo
+                out.append((base + lo, base + hi, text))
+    return out
+
+
+def stories(run, mu, proj, np, langs=()):
+    rows = story_rows()
+    if not rows:
+        print("  no chapter themes (targets/themes/chapters.jsonl), so no passages")
+        return
+    write_stories(run, mu, proj, np, rows, "vecm_stories.bin")
+    for c in langs:
+        tr = story_translations(c)
+        if not tr:
+            continue
+        # A description not yet translated stays in English in that language's
+        # file, so a half-done translation still covers every passage.
+        done = sum(1 for _, _, t in rows if t in tr)
+        print(f"  {c}: {done} of {len(rows)} passage runs described in {c}")
+        write_stories(run, mu, proj, np, [(a, b, tr.get(t, t)) for a, b, t in rows], f"vecm_stories_{c}.bin")
+
+
+def write_stories(run, mu, proj, np, rows, name):
+    texts = sorted({t for _, _, t in rows})
+    print(f"  embedding {len(texts)} passage descriptions ({len(rows)} runs of verses)")
+    wide = dict(zip(texts, run([PASSAGE + t for t in texts])))
+    v = (np.stack([wide[t] for _, _, t in rows]) - mu) @ proj
+    v /= np.linalg.norm(v, axis=1, keepdims=True)
+    scale = float(np.abs(v).max()) or 1.0
+    q = np.clip(np.rint(v / scale * 127), -127, 127).astype(np.int8)
+    p = OUT / name
+    with open(p, "wb") as f:
+        f.write(b"VECS" + struct.pack("<iif", len(rows), v.shape[1], scale / 127))
+        f.write(np.asarray([a for a, _, _ in rows], dtype="<i4").tobytes())
+        f.write(np.asarray([b for _, b, _ in rows], dtype="<i4").tobytes() + q.tobytes())
+    print(f"  passages: {len(rows)} runs, {p.stat().st_size / 1e6:.1f} MB -> {p.name}")
+
+
+def built(tok, np):
+    """The encoder, the projection's mean and matrix, as they were written."""
     if not (OUT / "encoder.onnx").exists():
         raise SystemExit("nothing built yet — run scripts/build_encoder.py first")
     pieces = [ln.split("\t")[0] for ln in (OUT / "vocab.tsv").read_text(encoding="utf-8").splitlines()]
@@ -262,6 +376,36 @@ def probe(query, lang, tok, np):
     din, dout = struct.unpack("<ii", b[4:12])
     mu = np.frombuffer(b, "<f4", din, 12)
     proj = np.frombuffer(b, "<f4", din * dout, 12 + 4 * din).reshape(din, dout)
+    return run, mu, proj
+
+
+def read_stories(np, lang=""):
+    """-> (first ids, last ids, vectors) for a language, as the app picks them:
+    its own descriptions if there are any, else the English. None if neither."""
+    p = OUT / f"vecm_stories_{lang}.bin"
+    if not lang or not p.exists():
+        p = OUT / "vecm_stories.bin"
+    if not p.exists():
+        return None
+    b = p.read_bytes()
+    assert b[:4] == b"VECS"
+    n, d, s = struct.unpack("<iif", b[4:16])
+    lo = np.frombuffer(b, "<i4", n, 16)
+    hi = np.frombuffer(b, "<i4", n, 16 + 4 * n)
+    return lo, hi, np.frombuffer(b, np.int8, n * d, 16 + 8 * n).reshape(n, d).astype(np.float32) * s
+
+
+def read_lang(code, np):
+    b = (OUT / f"vecm_{code}.bin").read_bytes()
+    assert b[:4] == b"VECM"
+    n, d, s = struct.unpack("<iif", b[4:16])
+    ids = np.frombuffer(b, "<i4", n, 16)
+    return ids, np.frombuffer(b, np.int8, n * d, 16 + 4 * n).reshape(n, d).astype(np.float32) * s
+
+
+def probe(query, lang, tok, np):
+    """A question against the built files, the way the phone asks it."""
+    run, mu, proj = built(tok, np)
     q = (run([QUERY + query])[0] - mu) @ proj
     q /= np.linalg.norm(q)
     ids, vv = read_lang(lang, np)
