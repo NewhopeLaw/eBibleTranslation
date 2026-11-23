@@ -384,7 +384,6 @@ described once in `TARGETS` in `scripts/books.py`:
 | `hak` | Hakka, Han-character prose (Sixian, MOE characters) | `prompts/targets/hak.txt` | `targets/hak/` | `output/hak/` |
 | `vi` | Vietnamese | `prompts/targets/vi.txt` | `targets/vi/` | `output/vi/` |
 | `ko` | Korean | `prompts/targets/ko.txt` | `targets/ko/` | `output/ko/` |
-| `fa` | Persian (right-to-left) | `prompts/targets/fa.txt` | `targets/fa/` | `output/fa/` |
 | `tr` | Turkish | `prompts/targets/tr.txt` | `targets/tr/` | `output/tr/` |
 | `id` | Indonesian | `prompts/targets/id.txt` | `targets/id/` | `output/id/` |
 | `ms` | Malay | `prompts/targets/ms.txt` | `targets/ms/` | `output/ms/` |
@@ -392,8 +391,9 @@ described once in `TARGETS` in `scripts/books.py`:
 | `ksw` | Sgaw Karen — machine-translated from our English by MADLAD-400, see below | — | — | `output/ksw/` |
 
 Easy Japanese writes furigana as `{漢字|かんじ}`; the reader and dashboard
-render it as ruby text, the markdown output as 漢字（かんじ）. Persian is
-right-to-left: `"dir": "rtl"` in `TARGETS` sets the direction of its columns.
+render it as ruby text, the markdown output as 漢字（かんじ）. A right-to-left
+target would set `"dir": "rtl"` in `TARGETS` for the direction of its columns;
+Persian did, until the project kept to the languages of Asia and Southeast Asia.
 
 `prompts/system_prompt.txt` is the language-neutral core (the absolute rules,
 the notes format, the output shape); the per-target file supplies STYLE and

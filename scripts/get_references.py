@@ -15,8 +15,8 @@ CC BY, MIT or Apache, nothing share-alike and nothing unlicensed.
 
 eBible.org publishes a catalogue with the copyright of each edition stated,
 and a useful number of them are public domain and complete - the American
-Standard Version, the 新标点和合本, the Vietnamese Kinh Thánh of 1934, the
-Persian ترجمه قدیم. Those are real translations that readers actually know,
+Standard Version, the 新标点和合本, the Vietnamese Kinh Thánh of 1934.
+Those are real translations that readers actually know,
 which is the whole point: a name is a habit, and only a Bible people have
 read can testify to it.
 
@@ -51,7 +51,7 @@ DOWNLOAD = "https://ebible.org/Scriptures/{id}_usfm.zip"
 # Our target codes to the ISO 639-3 codes eBible files them under.
 ISO = {"en": ["eng"], "es": ["spa"], "zh": ["cmn"], "yue": ["yue"], "ja": ["jpn"],
        "ja-easy": ["jpn"], "ko": ["kor"], "th": ["tha"], "vi": ["vie"], "id": ["ind"],
-       "ms": ["zsm", "msa"], "fa": ["pes", "fas"], "tr": ["tur"], "nan": ["nan"],
+       "ms": ["zsm", "msa"], "tr": ["tur"], "nan": ["nan"],
        "hak": ["hak"]}
 # USFM book ids, in canon order, against our own book names.
 USFM = {"GEN": "Genesis", "EXO": "Exodus", "LEV": "Leviticus", "NUM": "Numbers",
