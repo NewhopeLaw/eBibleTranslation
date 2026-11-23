@@ -83,9 +83,15 @@ jobs:
           want=$(keytool -list -v -keystore "$key" -storepass android -alias androiddebugkey \
                  | sed -n 's/.*SHA256: *//p' | tr -d ':' | tr 'A-F' 'a-f')
           signer=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)/apksigner
-          got=$("$signer" verify --print-certs "$apk" | sed -n 's/^Signer #1 certificate SHA-256 digest: *//p')
+          certs=$("$signer" verify --print-certs "$apk")
+          # The runner's apksigner is newer than the PC's and does not always
+          # number its signers "Signer #1", which left this reading nothing and
+          # refusing an APK that may well have been right. Any line naming a
+          # certificate digest will do; there is only one key.
+          got=$(printf '%s\n' "$certs" | sed -n 's/.*certificate SHA-256 digest: *//p' | head -1)
           echo "key $want, APK $got"
           if [ -z "$want" ] || [ "$want" != "$got" ]; then
+            printf '%s\n' "$certs"
             echo "::error::the APK is not signed with the key in ANDROID_DEBUG_KEYSTORE, so it is not published"
             exit 1
           fi
