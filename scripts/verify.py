@@ -58,7 +58,7 @@ MARKS = re.compile(r"[֑-ׇ̀-ͯ]")   # Hebrew points/accents, Greek combining m
 HAN, KANA, HANGUL = r"一-鿿㐀-䶿豈-﫿", r"぀-ヿ", r"가-힯"
 MYANMAR = r"က-႟ꧠ-꧿ꩠ-ꩿ"   # the Myanmar block and its two extensions; Sgaw Karen's own tone letters sit in the first
 SCRIPTS = {"th": (r"฀-๿", "Thai"), "ja": (HAN + KANA, "Japanese"), "ja-easy": (HAN + KANA, "Japanese"),
-           "ko": (HANGUL + HAN, "Korean"), "fa": (r"؀-ۿ", "Arabic-script"),
+           "ko": (HANGUL + HAN, "Korean"),
            "zh": (HAN, "Han"), "yue": (HAN, "Han"), "nan": (HAN, "Han"), "hak": (HAN, "Han"),
            "ksw": (MYANMAR, "Myanmar"), "my": (MYANMAR, "Myanmar"), "shn": (MYANMAR, "Myanmar")}
 OTHERS = r"฀-๿" + HAN + KANA + HANGUL + MYANMAR + r"Ѐ-ӿ؀-ۿऀ-ॿ"

@@ -1809,7 +1809,6 @@ p.ov { margin:0 0 .5em; white-space:normal; }
 [lang="ja-easy"] { font-family:Georgia, "Noto Serif CJK JP", "Source Han Serif", "Yu Mincho", "MS Mincho", serif; line-height:2.3; }
 ruby rt { font-size:.55em; color:var(--muted); letter-spacing:0; }
 [lang="ko"] { font-family:"Noto Serif KR", "Batang", "Malgun Gothic", "Apple SD Gothic Neo", serif; line-height:1.9; }
-[lang="fa"] { font-family:"Vazirmatn", "Noto Naskh Arabic", "Tahoma", "Segoe UI", serif; line-height:2.1; font-size:1.06em; }
 [dir="rtl"] { text-align:right; }
 .chhead { display:flex; align-items:baseline; gap:.7rem; margin-bottom:.9rem; white-space:normal; }
 .chhead h2 { font:400 24px Georgia, serif; } .chhead small { color:var(--muted); font:13px system-ui; }

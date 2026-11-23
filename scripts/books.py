@@ -155,7 +155,6 @@ TARGETS = {
     "hak": {"name": "Hakka", "native": "客語", "latin": False, "ratio": 0.2, "note": "Han-character prose (Sixian), MOE recommended characters"},
     "vi": {"name": "Vietnamese", "native": "Tiếng Việt", "latin": True, "ratio": 0.8},
     "ko": {"name": "Korean", "native": "한국어", "latin": False, "ratio": 0.35},
-    "fa": {"name": "Persian", "native": "فارسی", "latin": False, "ratio": 0.5, "dir": "rtl"},
     "tr": {"name": "Turkish", "native": "Türkçe", "latin": True, "ratio": 0.7},
     "id": {"name": "Indonesian", "native": "Bahasa Indonesia", "latin": True, "ratio": 0.8},
     "ms": {"name": "Malay", "native": "Bahasa Melayu", "latin": True, "ratio": 0.8},

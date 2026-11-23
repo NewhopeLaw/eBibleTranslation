@@ -95,10 +95,30 @@ jobs:
             echo "::warning::no ANDROID_DEBUG_KEYSTORE secret, so the site goes up without the APK"
             exit 0
           fi
-          mkdir -p ~/.android
-          echo "$DEBUG_KEYSTORE" | base64 -d > ~/.android/debug.keystore
-          python scripts/build_apk.py
-          cp dist/eBible-reader-*-debug.apk site/eBible-reader.apk
+          key="$RUNNER_TEMP/debug.keystore"
+          echo "$DEBUG_KEYSTORE" | base64 -d > "$key"
+          EBIBLE_DEBUG_KEYSTORE="$key" python scripts/build_apk.py
+          apk=$(ls dist/eBible-reader-*-debug.apk)
+          # The first build here went out signed with a key Gradle made for
+          # itself, and nothing said so. An APK whose certificate is not the
+          # one in the secret would install over nothing already on a phone,
+          # so it is not published.
+          want=$(keytool -list -v -keystore "$key" -storepass android -alias androiddebugkey \
+                 | sed -n 's/.*SHA256: *//p' | tr -d ':' | tr 'A-F' 'a-f')
+          signer=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)/apksigner
+          certs=$("$signer" verify --print-certs "$apk")
+          # The runner's apksigner is newer than the PC's and does not always
+          # number its signers "Signer #1", which left this reading nothing and
+          # refusing an APK that may well have been right. Any line naming a
+          # certificate digest will do; there is only one key.
+          got=$(printf '%s\n' "$certs" | sed -n 's/.*certificate SHA-256 digest: *//p' | head -1)
+          echo "key $want, APK $got"
+          if [ -z "$want" ] || [ "$want" != "$got" ]; then
+            printf '%s\n' "$certs"
+            echo "::error::the APK is not signed with the key in ANDROID_DEBUG_KEYSTORE, so it is not published"
+            exit 1
+          fi
+          cp "$apk" site/eBible-reader.apk
 
       - name: Build the reader
         run: |
