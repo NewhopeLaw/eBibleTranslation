@@ -1,0 +1,16 @@
+{
+ "book": "Job",
+ "chapter": 25,
+ "lang": "tl",
+ "verses": {
+  "1": "Pagkatapos ay sumagot si Bildad na Suhita:",
+  "2": "“Nasa Kanya ang paghahari at ang sindak;\ngumagawa Siya ng kapayapaan sa Kanyang mga kaitaasan.",
+  "3": "May bilang ba ang Kanyang mga hukbo?\nKanino ba hindi sumisikat ang Kanyang liwanag?",
+  "4": "Paano magiging matuwid ang tao sa harap ng Diyos?\nPaano magiging malinis ang isinilang ng babae?",
+  "5": "Kung ang buwan ay hindi man lamang maliwanag,\nat ang mga bituin ay hindi dalisay sa Kanyang paningin,",
+  "6": "gaano pa kaya ang tao na isang uod,\nang anak ng tao na isang bulate!”"
+ },
+ "notes": "Notes: none.",
+ "raw": "[1] Pagkatapos ay sumagot si Bildad na Suhita:\n[2] “Nasa Kanya ang paghahari at ang sindak;\ngumagawa Siya ng kapayapaan sa Kanyang mga kaitaasan.\n[3] May bilang ba ang Kanyang mga hukbo?\nKanino ba hindi sumisikat ang Kanyang liwanag?\n[4] Paano magiging matuwid ang tao sa harap ng Diyos?\nPaano magiging malinis ang isinilang ng babae?\n[5] Kung ang buwan ay hindi man lamang maliwanag,\nat ang mga bituin ay hindi dalisay sa Kanyang paningin,\n[6] gaano pa kaya ang tao na isang uod,\nang anak ng tao na isang bulate!”\n---\nNotes: none.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

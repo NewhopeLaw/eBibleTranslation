@@ -1,0 +1,17 @@
+{
+ "book": "Psalms",
+ "chapter": 11,
+ "lang": "tl",
+ "verses": {
+  "1": "Para sa punong mang-aawit. Ni David.\nSa PANGINOON ako nanganganlong.\nPaano ninyo nasasabi sa akin,\n“Lumipad ka sa inyong bundok na parang ibon!",
+  "2": "Sapagkat masdan, binabaluktot ng masasama ang pana;\ninilagay na nila ang kanilang palaso sa bagting\nupang panain sa dilim ang mga matuwid ang puso.",
+  "3": "Kapag giniba ang mga pundasyon,\nano ang magagawa ng matuwid?”",
+  "4": "Ang PANGINOON ay nasa Kanyang banal na templo;\nang PANGINOON — nasa langit ang Kanyang trono.\nNagmamasid ang Kanyang mga mata;\nsinusuri ng Kanyang mga talukap ang mga anak ng tao.",
+  "5": "Sinusuri ng PANGINOON ang matuwid,\nngunit ang masama at ang mahilig sa karahasan ay kinapopootan Niya nang buong pagkatao.",
+  "6": "Magpapaulan Siya sa masasama ng mga baga, apoy at asupre;\nnakapapasong hangin ang magiging bahagi ng kanilang saro.",
+  "7": "Sapagkat matuwid ang PANGINOON; iniibig Niya ang mga matuwid na gawa;\nang mga tapat ay makakakita ng Kanyang mukha."
+ },
+ "notes": "Notes\n- v. 1: Ang \"nudi harkhem tsippor\" ay mahirap ang gramatika (pambabaeng isahan na utos, panlalaking maramihang \"inyong bundok\"); may pagbasang \"Lumipad ka sa bundok na parang ibon.\"\n- v. 1-3: Itinuring na kasama ng sinasabi ng mga tao ang v. 2-3; maaari ring ang mang-aawit na ang nagsasalita roon.\n- v. 3: Ang \"hashatot\" ay bihirang salita; isinalin na \"mga pundasyon.\"\n- v. 6: Ang \"pachim\" (literal: \"mga bitag\") ay binasang \"pachame\" (mga baga) ayon sa kahulugan ng talata.\n- v. 7: Ang \"yechezu fanemo\" ay maaari ring \"minamasdan ng Kanyang mukha ang tapat.\"",
+ "raw": "[1] Para sa punong mang-aawit. Ni David.\nSa PANGINOON ako nanganganlong.\nPaano ninyo nasasabi sa akin,\n“Lumipad ka sa inyong bundok na parang ibon!\n[2] Sapagkat masdan, binabaluktot ng masasama ang pana;\ninilagay na nila ang kanilang palaso sa bagting\nupang panain sa dilim ang mga matuwid ang puso.\n[3] Kapag giniba ang mga pundasyon,\nano ang magagawa ng matuwid?”\n[4] Ang PANGINOON ay nasa Kanyang banal na templo;\nang PANGINOON — nasa langit ang Kanyang trono.\nNagmamasid ang Kanyang mga mata;\nsinusuri ng Kanyang mga talukap ang mga anak ng tao.\n[5] Sinusuri ng PANGINOON ang matuwid,\nngunit ang masama at ang mahilig sa karahasan ay kinapopootan Niya nang buong pagkatao.\n[6] Magpapaulan Siya sa masasama ng mga baga, apoy at asupre;\nnakapapasong hangin ang magiging bahagi ng kanilang saro.\n[7] Sapagkat matuwid ang PANGINOON; iniibig Niya ang mga matuwid na gawa;\nang mga tapat ay makakakita ng Kanyang mukha.\n---\nNotes\n- v. 1: Ang \"nudi harkhem tsippor\" ay mahirap ang gramatika (pambabaeng isahan na utos, panlalaking maramihang \"inyong bundok\"); may pagbasang \"Lumipad ka sa bundok na parang ibon.\"\n- v. 1-3: Itinuring na kasama ng sinasabi ng mga tao ang v. 2-3; maaari ring ang mang-aawit na ang nagsasalita roon.\n- v. 3: Ang \"hashatot\" ay bihirang salita; isinalin na \"mga pundasyon.\"\n- v. 6: Ang \"pachim\" (literal: \"mga bitag\") ay binasang \"pachame\" (mga baga) ayon sa kahulugan ng talata.\n- v. 7: Ang \"yechezu fanemo\" ay maaari ring \"minamasdan ng Kanyang mukha ang tapat.\"\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

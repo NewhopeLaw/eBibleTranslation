@@ -1,0 +1,18 @@
+{
+ "book": "Psalms",
+ "chapter": 142,
+ "lang": "tl",
+ "verses": {
+  "1": "Maskil ni David, nang siya'y nasa loob ng yungib. Isang panalangin.",
+  "2": "Sa aking tinig ay dumaraing ako sa PANGINOON;\nsa aking tinig ay nagsusumamo ako sa PANGINOON.",
+  "3": "Ibinubuhos ko sa harap Niya ang aking hinaing;\nisinasalaysay ko sa harap Niya ang aking kagipitan.",
+  "4": "Kapag nanlulupaypay ang aking espiritu sa loob ko,\nIkaw ang nakaaalam ng aking landas.\nSa daang aking nilalakaran\nay naglagay sila ng bitag para sa akin.",
+  "5": "Tumingin Ka sa aking kanan at masdan Mo:\nwalang sinumang kumikilala sa akin.\nWala na akong matakbuhan;\nwalang sinumang nagmamalasakit sa aking buhay.",
+  "6": "Dumaing ako sa Iyo, PANGINOON;\nsinabi ko, “Ikaw ang aking kanlungan,\nang aking bahagi sa lupain ng mga buháy.”",
+  "7": "Pakinggan Mo ang aking daing,\nsapagkat lubha akong nanghihina.\nIligtas Mo ako sa mga umuusig sa akin,\nsapagkat sila'y mas malakas kaysa sa akin.",
+  "8": "Ilabas Mo ako mula sa bilangguan,\nupang ako'y magpasalamat sa Iyong pangalan.\nPalilibutan ako ng mga matuwid,\nsapagkat gagawan Mo ako ng mabuti."
+ },
+ "notes": "Notes\n- v. 1: Ang \"maskil\" ay di-tiyak na uri ng awit; iniwan ito bilang pamagat.\n- v. 4: Ang \"ruhi\" ay isinalin na \"espiritu\" sa diwa ng kalooban ng tao.\n- v. 5: Ang \"habet ... ure'eh\" ay anyong infinitive sa Hebreo; maraming nagbabasa bilang utos (\"Tumingin Ka\"), na siyang sinunod.\n- v. 8: Ang \"yakhtiru\" ay maaaring \"palilibutan ako\" o \"puputungan ako\" (magdiriwang dahil sa akin).",
+ "raw": "[1] Maskil ni David, nang siya'y nasa loob ng yungib. Isang panalangin.\n[2] Sa aking tinig ay dumaraing ako sa PANGINOON;\nsa aking tinig ay nagsusumamo ako sa PANGINOON.\n[3] Ibinubuhos ko sa harap Niya ang aking hinaing;\nisinasalaysay ko sa harap Niya ang aking kagipitan.\n[4] Kapag nanlulupaypay ang aking espiritu sa loob ko,\nIkaw ang nakaaalam ng aking landas.\nSa daang aking nilalakaran\nay naglagay sila ng bitag para sa akin.\n[5] Tumingin Ka sa aking kanan at masdan Mo:\nwalang sinumang kumikilala sa akin.\nWala na akong matakbuhan;\nwalang sinumang nagmamalasakit sa aking buhay.\n[6] Dumaing ako sa Iyo, PANGINOON;\nsinabi ko, “Ikaw ang aking kanlungan,\nang aking bahagi sa lupain ng mga buháy.”\n[7] Pakinggan Mo ang aking daing,\nsapagkat lubha akong nanghihina.\nIligtas Mo ako sa mga umuusig sa akin,\nsapagkat sila'y mas malakas kaysa sa akin.\n[8] Ilabas Mo ako mula sa bilangguan,\nupang ako'y magpasalamat sa Iyong pangalan.\nPalilibutan ako ng mga matuwid,\nsapagkat gagawan Mo ako ng mabuti.\n---\nNotes\n- v. 1: Ang \"maskil\" ay di-tiyak na uri ng awit; iniwan ito bilang pamagat.\n- v. 4: Ang \"ruhi\" ay isinalin na \"espiritu\" sa diwa ng kalooban ng tao.\n- v. 5: Ang \"habet ... ure'eh\" ay anyong infinitive sa Hebreo; maraming nagbabasa bilang utos (\"Tumingin Ka\"), na siyang sinunod.\n- v. 8: Ang \"yakhtiru\" ay maaaring \"palilibutan ako\" o \"puputungan ako\" (magdiriwang dahil sa akin).\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

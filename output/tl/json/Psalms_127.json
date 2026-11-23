@@ -1,0 +1,15 @@
+{
+ "book": "Psalms",
+ "chapter": 127,
+ "lang": "tl",
+ "verses": {
+  "1": "Awit ng Pag-akyat. Kay Solomon.\nKung hindi ang PANGINOON ang magtatayo ng bahay,\nwalang kabuluhan ang pagpapagal ng mga nagtatayo nito.\nKung hindi ang PANGINOON ang magbabantay sa lungsod,\nwalang kabuluhan ang pagpupuyat ng bantay.",
+  "2": "Walang kabuluhan para sa inyo ang maagang pagbangon\nat ang pagpupuyat hanggang hatinggabi,\nna kumakain ng tinapay ng pagpapagal;\nsapagkat binibigyan Niya ng tulog ang Kanyang minamahal.",
+  "3": "Tunay, ang mga anak ay pamana mula sa PANGINOON;\ngantimpala ang bunga ng sinapupunan.",
+  "4": "Gaya ng mga palaso sa kamay ng mandirigma\nang mga anak na isinilang sa kabataan.",
+  "5": "Mapalad ang taong pinuno ng mga ito ang kanyang lalagyan ng palaso!\nHindi sila mapapahiya\nkapag nakipagtalo sila sa mga kaaway sa pintuan ng lungsod."
+ },
+ "notes": "Notes\n- v. 2: Ang כֵּן יִתֵּן לִידִידוֹ שֵׁנָא ay maaaring \"ibinibigay Niya ito sa minamahal habang natutulog\" o \"binibigyan Niya ng tulog ang minamahal\"; pinili ang huli. May tunog-laro rin sa יְדִידוֹ at sa pangalang Jedidias ni Solomon.\n- v. 5: Ang \"nakipagtalo … sa pintuan\" ay tumutukoy sa usapin sa harap ng matatanda sa pintuang-bayan.",
+ "raw": "[1] Awit ng Pag-akyat. Kay Solomon.\nKung hindi ang PANGINOON ang magtatayo ng bahay,\nwalang kabuluhan ang pagpapagal ng mga nagtatayo nito.\nKung hindi ang PANGINOON ang magbabantay sa lungsod,\nwalang kabuluhan ang pagpupuyat ng bantay.\n[2] Walang kabuluhan para sa inyo ang maagang pagbangon\nat ang pagpupuyat hanggang hatinggabi,\nna kumakain ng tinapay ng pagpapagal;\nsapagkat binibigyan Niya ng tulog ang Kanyang minamahal.\n[3] Tunay, ang mga anak ay pamana mula sa PANGINOON;\ngantimpala ang bunga ng sinapupunan.\n[4] Gaya ng mga palaso sa kamay ng mandirigma\nang mga anak na isinilang sa kabataan.\n[5] Mapalad ang taong pinuno ng mga ito ang kanyang lalagyan ng palaso!\nHindi sila mapapahiya\nkapag nakipagtalo sila sa mga kaaway sa pintuan ng lungsod.\n---\nNotes\n- v. 2: Ang כֵּן יִתֵּן לִידִידוֹ שֵׁנָא ay maaaring \"ibinibigay Niya ito sa minamahal habang natutulog\" o \"binibigyan Niya ng tulog ang minamahal\"; pinili ang huli. May tunog-laro rin sa יְדִידוֹ at sa pangalang Jedidias ni Solomon.\n- v. 5: Ang \"nakipagtalo … sa pintuan\" ay tumutukoy sa usapin sa harap ng matatanda sa pintuang-bayan.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

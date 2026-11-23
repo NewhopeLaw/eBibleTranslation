@@ -1,0 +1,17 @@
+{
+ "book": "Psalms",
+ "chapter": 120,
+ "lang": "tl",
+ "verses": {
+  "1": "Awit ng Pag-akyat.\nSa PANGINOON ako tumawag sa aking kagipitan,\nat sinagot Niya ako.",
+  "2": "PANGINOON, iligtas Mo ang aking buhay sa mga labing sinungaling,\nsa dilang mapanlinlang.",
+  "3": "Ano ang ibibigay sa iyo, at ano pa ang idaragdag sa iyo,\nikaw na dilang mapanlinlang?",
+  "4": "Matatalas na palaso ng mandirigma,\nkasama ang nagbabagang uling ng punong retama!",
+  "5": "Kawawa ako, sapagkat nakikipamayan ako sa Mesec,\nnaninirahan ako sa piling ng mga tolda ng Cedar.",
+  "6": "Matagal nang naninirahan ang aking sarili\nkasama ng mga napopoot sa kapayapaan.",
+  "7": "Ako'y para sa kapayapaan,\nngunit kapag ako'y nagsasalita, sila'y para sa digmaan."
+ },
+ "notes": "Notes\n- v. 3: Hindi tiyak kung sino ang paksa ng \"ibibigay\"; maaaring ang Diyos ang magbibigay ng parusa sa dilang mapanlinlang. Isinalin nang malapit sa anyo ng Hebreo.\n- v. 4: Ang רְתָמִים ay punong retama (broom tree), na ang uling ay matagal magbaga.\n- v. 7: Sa Hebreo, \"Ako'y kapayapaan\" — ang ibig sabihin ay buong pagkatao niya'y nakatuon sa kapayapaan.",
+ "raw": "[1] Awit ng Pag-akyat.\nSa PANGINOON ako tumawag sa aking kagipitan,\nat sinagot Niya ako.\n[2] PANGINOON, iligtas Mo ang aking buhay sa mga labing sinungaling,\nsa dilang mapanlinlang.\n[3] Ano ang ibibigay sa iyo, at ano pa ang idaragdag sa iyo,\nikaw na dilang mapanlinlang?\n[4] Matatalas na palaso ng mandirigma,\nkasama ang nagbabagang uling ng punong retama!\n[5] Kawawa ako, sapagkat nakikipamayan ako sa Mesec,\nnaninirahan ako sa piling ng mga tolda ng Cedar.\n[6] Matagal nang naninirahan ang aking sarili\nkasama ng mga napopoot sa kapayapaan.\n[7] Ako'y para sa kapayapaan,\nngunit kapag ako'y nagsasalita, sila'y para sa digmaan.\n---\nNotes\n- v. 3: Hindi tiyak kung sino ang paksa ng \"ibibigay\"; maaaring ang Diyos ang magbibigay ng parusa sa dilang mapanlinlang. Isinalin nang malapit sa anyo ng Hebreo.\n- v. 4: Ang רְתָמִים ay punong retama (broom tree), na ang uling ay matagal magbaga.\n- v. 7: Sa Hebreo, \"Ako'y kapayapaan\" — ang ibig sabihin ay buong pagkatao niya'y nakatuon sa kapayapaan.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

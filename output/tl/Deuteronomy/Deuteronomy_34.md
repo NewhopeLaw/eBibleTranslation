@@ -1,0 +1,11 @@
+# Deuteronomy 34
+
+¹ Umakyat si Moises mula sa mga kapatagan ng Moab patungo sa Bundok Nebo, sa taluktok ng Pisga na nasa tapat ng Jerico. Doon ay ipinakita sa kanya ng PANGINOON ang buong lupain: ang Gilead hanggang sa Dan, ² ang buong Neftali, ang lupain ng Efraim at ng Manases, ang buong lupain ng Juda hanggang sa Dagat sa Kanluran, ³ ang Negeb, at ang kapatagan ng libis ng Jerico, ang lungsod ng mga palma, hanggang sa Zoar. ⁴ Sinabi sa kanya ng PANGINOON, “Ito ang lupaing ipinangako Ko kina Abraham, Isaac, at Jacob nang sabihin Ko, ‘Ibibigay Ko ito sa iyong mga inapo.’ Ipinakita Ko ito sa iyo upang makita mo ng sarili mong mga mata, ngunit hindi ka tatawid doon.” ⁵ Kaya namatay roon sa lupain ng Moab si Moises na lingkod ng PANGINOON, ayon sa salita ng PANGINOON. ⁶ Inilibing Niya siya sa libis sa lupain ng Moab, sa tapat ng Bet-peor, ngunit hanggang ngayon ay walang nakaaalam kung saan ang kanyang libingan. ⁷ Isandaan at dalawampung taon si Moises nang mamatay. Hindi lumabo ang kanyang paningin, at hindi nawala ang kanyang lakas. ⁸ Tatlumpung araw na iniyakan ng mga Israelita si Moises sa mga kapatagan ng Moab, hanggang sa matapos ang mga araw ng pagtangis at pagluluksa para kay Moises. ⁹ Si Josue na anak ni Nun ay puspos ng espiritu ng karunungan, sapagkat ipinatong ni Moises sa kanya ang kanyang mga kamay. Kaya sumunod sa kanya ang mga Israelita at ginawa nila ang iniutos ng PANGINOON kay Moises. ¹⁰ Mula noon ay wala nang lumitaw na propeta sa Israel na tulad ni Moises, na nakilala ng PANGINOON nang harapan— ¹¹ walang tulad niya sa lahat ng tanda at kababalaghang ipinagawa sa kanya ng PANGINOON sa lupain ng Egipto laban kay Faraon, sa lahat ng kanyang mga lingkod, at sa buong lupain niya, ¹² at sa lahat ng makapangyarihang gawa at kahanga-hangang bagay na ginawa ni Moises sa paningin ng buong Israel.
+
+---
+
+Notes
+- v. 1, 8: "Mga kapatagan ng Moab" ang salin ng עַרְבֹת מוֹאָב (Arboth Moab); isinalin bilang karaniwang pangngalan sa halip na pangalan.
+- v. 2: Ang "Dagat sa Kanluran" ay literal na "ang huling dagat," ang Dagat Mediteraneo.
+- v. 6: Hindi tahasang binanggit ang paksa ng "inilibing" (וַיִּקְבֹּר); ayon sa kontekso, ang PANGINOON. Maaari ring basahing "inilibing siya."
+- v. 7: Ang לֵחֹה ay bihirang salita, literal na "katas/sigla"; isinalin bilang "lakas."

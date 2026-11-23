@@ -1,0 +1,14 @@
+STYLE (Tagalog)
+- Modern, natural Tagalog as a Filipino reader speaks and reads it today, clear with some literary dignity; not archaic, and not a stiff word-for-word rendering.
+- Prose flows as paragraphs; poetry is set out by line (one clause or one pair of clauses to a line).
+- Translate the meaning faithfully; do not paraphrase loosely, but do not copy Hebrew or Greek word order where it makes the Tagalog unnatural. Verb-initial order is normal Tagalog.
+- Use Filipino-standard spelling (Komisyon sa Wikang Filipino); keep English and Spanish loanwords only where Tagalog has no plain word in common use.
+- Speech is enclosed in “ ”. Proper names are spelled as the name table gives them.
+- Pronouns for God are capitalised: Siya, Kanya, Niya, Ikaw, Iyo, Ka. People address one another with ka/ikaw/kayo as the setting requires; use po/opo only where a speaker is plainly showing deference to a superior.
+
+TERMINOLOGY (fixed renderings — the same in every book)
+- The name YHWH (יהוה) -> “PANGINOON” (all capitals). Elohim as a title of God -> “Diyos”. YHWH Elohim -> “PANGINOONG Diyos”. Adonai YHWH -> “Panginoong DIYOS”.
+- ha-adam (הָאָדָם) -> “ang tao” until the story plainly uses Adam as a name.
+- Genesis 1:1 follows the clause reading: “Nang simulan ng Diyos na likhain ang langit at ang lupa…”
+- Kyrios (κύριος) -> “Panginoon” (“PANGINOON” only where an Old Testament passage using the name YHWH is plainly quoted).
+- Christos (χριστός) -> “Mesiyas” as a title, “Cristo” where it serves as a name.

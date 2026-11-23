@@ -1,0 +1,19 @@
+{
+ "book": "Psalms",
+ "chapter": 4,
+ "lang": "tl",
+ "verses": {
+  "1": "Para sa punong mang-aawit: sa saliw ng mga instrumentong may kuwerdas. Awit ni David.",
+  "2": "Sagutin Mo ako kapag ako'y tumatawag, O Diyos ng aking katuwiran!\nSa aking kagipitan ay binigyan Mo ako ng kaluwagan;\nmaawa Ka sa akin at dinggin Mo ang aking panalangin.",
+  "3": "Mga tao, hanggang kailan ninyo gagawing kahihiyan ang aking karangalan?\nHanggang kailan ninyo iibigin ang walang kabuluhan at hahanapin ang kasinungalingan? Selah",
+  "4": "Alamin ninyo na ibinukod ng PANGINOON para sa Kanyang sarili ang tapat sa Kanya;\ndinirinig ako ng PANGINOON kapag ako'y tumatawag sa Kanya.",
+  "5": "Manginig kayo at huwag magkasala;\nmagnilay kayo sa inyong puso sa inyong higaan, at manahimik. Selah",
+  "6": "Maghandog kayo ng mga handog na matuwid,\nat magtiwala kayo sa PANGINOON.",
+  "7": "Marami ang nagsasabi, “Sino ang magpapakita sa atin ng mabuti?”\nItaas Mo sa amin ang liwanag ng Iyong mukha, PANGINOON.",
+  "8": "Naglagay Ka ng kagalakan sa aking puso,\nhigit pa sa kanilang kagalakan kapag sagana ang kanilang butil at bagong alak.",
+  "9": "Sa kapayapaan ako'y mahihiga at agad na makatutulog,\nsapagkat Ikaw lamang, PANGINOON, ang nagpapatahan sa akin nang ligtas."
+ },
+ "notes": "Notes\n- v. 4: Ang \"hifla\" ay ayon sa karaniwang teksto \"ibinukod\"; may mga manuskritong may \"hifli'\" (gumawa ng kahanga-hanga). Ang \"chasid\" ay isinalin na \"ang tapat sa Kanya.\"\n- v. 5: Ang \"rigzu\" ay maaaring \"manginig\" (sa takot) o \"magalit\"; pinili ang \"manginig.\"\n- v. 9: Ang \"levadad\" ay maaaring tumukoy sa PANGINOON (\"Ikaw lamang\") o sa nagsasalita (\"kahit nag-iisa\"); pinili ang una.",
+ "raw": "[1] Para sa punong mang-aawit: sa saliw ng mga instrumentong may kuwerdas. Awit ni David.\n[2] Sagutin Mo ako kapag ako'y tumatawag, O Diyos ng aking katuwiran!\nSa aking kagipitan ay binigyan Mo ako ng kaluwagan;\nmaawa Ka sa akin at dinggin Mo ang aking panalangin.\n[3] Mga tao, hanggang kailan ninyo gagawing kahihiyan ang aking karangalan?\nHanggang kailan ninyo iibigin ang walang kabuluhan at hahanapin ang kasinungalingan? Selah\n[4] Alamin ninyo na ibinukod ng PANGINOON para sa Kanyang sarili ang tapat sa Kanya;\ndinirinig ako ng PANGINOON kapag ako'y tumatawag sa Kanya.\n[5] Manginig kayo at huwag magkasala;\nmagnilay kayo sa inyong puso sa inyong higaan, at manahimik. Selah\n[6] Maghandog kayo ng mga handog na matuwid,\nat magtiwala kayo sa PANGINOON.\n[7] Marami ang nagsasabi, “Sino ang magpapakita sa atin ng mabuti?”\nItaas Mo sa amin ang liwanag ng Iyong mukha, PANGINOON.\n[8] Naglagay Ka ng kagalakan sa aking puso,\nhigit pa sa kanilang kagalakan kapag sagana ang kanilang butil at bagong alak.\n[9] Sa kapayapaan ako'y mahihiga at agad na makatutulog,\nsapagkat Ikaw lamang, PANGINOON, ang nagpapatahan sa akin nang ligtas.\n---\nNotes\n- v. 4: Ang \"hifla\" ay ayon sa karaniwang teksto \"ibinukod\"; may mga manuskritong may \"hifli'\" (gumawa ng kahanga-hanga). Ang \"chasid\" ay isinalin na \"ang tapat sa Kanya.\"\n- v. 5: Ang \"rigzu\" ay maaaring \"manginig\" (sa takot) o \"magalit\"; pinili ang \"manginig.\"\n- v. 9: Ang \"levadad\" ay maaaring tumukoy sa PANGINOON (\"Ikaw lamang\") o sa nagsasalita (\"kahit nag-iisa\"); pinili ang una.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

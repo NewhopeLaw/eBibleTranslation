@@ -1,0 +1,11 @@
+# Exodus 11
+
+¹ Sinabi ng PANGINOON kay Moises, “May isa pang salot na ipadadala ko kay Faraon at sa Egipto. Pagkatapos niyon ay papayaunin na niya kayo mula rito. Sa pagpapayaon niya sa inyo, talagang itataboy niya kayong lahat mula rito. ² Sabihin mo sa bayan na ang bawat lalaki ay humingi sa kanyang kapitbahay na lalaki, at ang bawat babae sa kanyang kapitbahay na babae, ng mga alahas na pilak at ginto.” ³ Pinagkalooban ng PANGINOON ang bayan ng paglingap sa paningin ng mga Egipcio. Bukod dito, si Moises ay lubhang iginagalang sa lupain ng Egipto, sa paningin ng mga lingkod ni Faraon at ng mga mamamayan. ⁴ Sinabi ni Moises, “Ganito ang sabi ng PANGINOON: ‘Sa hatinggabi ay dadaan ako sa gitna ng Egipto. ⁵ Mamamatay ang bawat panganay sa lupain ng Egipto, mula sa panganay ni Faraon na nakaupo sa kanyang trono hanggang sa panganay ng aliping babae na nagtatrabaho sa gilingan, pati ang lahat ng panganay ng mga hayop. ⁶ Magkakaroon ng malakas na panaghoy sa buong lupain ng Egipto, na hindi pa nangyari kailanman at hindi na mangyayari pang muli. ⁷ Ngunit sa lahat ng Israelita, tao man o hayop, ni aso ay hindi tatahol, upang malaman ninyo na ang PANGINOON ay gumagawa ng pagkakaiba sa pagitan ng Egipto at ng Israel.’ ⁸ Pagkatapos ay bababa sa akin ang lahat ng lingkod mong ito at yuyukod sa harap ko, at sasabihin nila, ‘Umalis ka, ikaw at ang buong bayang sumusunod sa iyo!’ Pagkatapos niyon ay aalis ako.” At galit na galit na umalis si Moises sa harap ni Faraon. ⁹ Sinabi ng PANGINOON kay Moises, “Hindi kayo pakikinggan ni Faraon, upang dumami pa ang aking mga kababalaghan sa lupain ng Egipto.” ¹⁰ Ginawa nina Moises at Aaron ang lahat ng kababalaghang ito sa harap ni Faraon, ngunit pinatigas ng PANGINOON ang puso ni Faraon, at hindi niya pinayaon ang mga Israelita mula sa kanyang lupain.
+
+---
+
+Notes
+- v. 1: “Kalah” ay maaaring “lubusan” (lubusang pagpapayaon) o “ang lahat”; pinili ang “kayong lahat” kasama ang diin ng “garesh yegaresh” (talagang itataboy).
+- v. 2: “Kelei kesef” ay mga kagamitan o alahas na pilak; pinili ang “alahas.”
+- v. 7: Literal na “hindi magpapatalas ang aso ng kanyang dila”; isinalin bilang “hindi tatahol.”
+- v. 8: Lumilipat ang salaysay mula sa pananalita ni Moises tungo sa pagsasalaysay sa huling pangungusap; ang “bochori af” (galit na galit) ay tumutukoy kay Moises.

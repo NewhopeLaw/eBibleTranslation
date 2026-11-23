@@ -1,0 +1,16 @@
+{
+ "book": "Psalms",
+ "chapter": 70,
+ "lang": "tl",
+ "verses": {
+  "1": "Para sa punong mang-aawit. Ni David. Upang ipaalaala.",
+  "2": "O Diyos, iligtas Mo ako;\nO PANGINOON, magmadali Kang tulungan ako.",
+  "3": "Mapahiya nawa at malito ang mga naghahangad sa aking buhay;\nmapaurong nawa at malagay sa kahihiyan ang mga nalulugod sa aking kapahamakan.",
+  "4": "Bumalik nawa dahil sa kanilang kahihiyan\nang mga nagsasabing, “Aha! Aha!”",
+  "5": "Magsaya nawa at magalak sa Iyo ang lahat ng naghahanap sa Iyo;\nat ang mga umiibig sa Iyong pagliligtas ay palagi nawang magsabi,\n“Dakila ang Diyos!”",
+  "6": "Ngunit ako ay dukha at nangangailangan;\nO Diyos, magmadali Ka sa akin.\nIkaw ang aking saklolo at aking tagapagligtas;\nO PANGINOON, huwag Kang magtagal."
+ },
+ "notes": "Notes\n- v. 1: Ang לְהַזְכִּיר ay maaaring \"upang ipaalaala\" o tumukoy sa isang uri ng handog na alaala.\n- v. 2: Walang pandiwa sa unang linya sa Hebreo (\"O Diyos, upang iligtas ako\"); idinagdag ang \"iligtas Mo ako\" mula sa kahulugan.",
+ "raw": "[1] Para sa punong mang-aawit. Ni David. Upang ipaalaala.\n[2] O Diyos, iligtas Mo ako;\nO PANGINOON, magmadali Kang tulungan ako.\n[3] Mapahiya nawa at malito ang mga naghahangad sa aking buhay;\nmapaurong nawa at malagay sa kahihiyan ang mga nalulugod sa aking kapahamakan.\n[4] Bumalik nawa dahil sa kanilang kahihiyan\nang mga nagsasabing, “Aha! Aha!”\n[5] Magsaya nawa at magalak sa Iyo ang lahat ng naghahanap sa Iyo;\nat ang mga umiibig sa Iyong pagliligtas ay palagi nawang magsabi,\n“Dakila ang Diyos!”\n[6] Ngunit ako ay dukha at nangangailangan;\nO Diyos, magmadali Ka sa akin.\nIkaw ang aking saklolo at aking tagapagligtas;\nO PANGINOON, huwag Kang magtagal.\n---\nNotes\n- v. 1: Ang לְהַזְכִּיר ay maaaring \"upang ipaalaala\" o tumukoy sa isang uri ng handog na alaala.\n- v. 2: Walang pandiwa sa unang linya sa Hebreo (\"O Diyos, upang iligtas ako\"); idinagdag ang \"iligtas Mo ako\" mula sa kahulugan.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

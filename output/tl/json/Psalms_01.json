@@ -1,0 +1,16 @@
+{
+ "book": "Psalms",
+ "chapter": 1,
+ "lang": "tl",
+ "verses": {
+  "1": "Mapalad ang taong hindi lumalakad sa payo ng masasama,\nhindi tumatayo sa daan ng mga makasalanan,\nat hindi umuupo sa upuan ng mga manunuya.",
+  "2": "Sa halip, ang kanyang kaluguran ay nasa kautusan ng PANGINOON,\nat ang kautusan Niya ang binubulay-bulay niya araw at gabi.",
+  "3": "Siya'y magiging tulad ng punong nakatanim sa tabi ng mga daluyan ng tubig,\nna namumunga sa kanyang kapanahunan,\nat ang mga dahon ay hindi nalalanta;\nat anumang kanyang gawin ay nagtatagumpay.",
+  "4": "Hindi gayon ang masasama;\nsila'y tulad ng ipa na tinatangay ng hangin.",
+  "5": "Kaya hindi makatatayo ang masasama sa paghuhukom,\nni ang mga makasalanan sa kapulungan ng mga matuwid.",
+  "6": "Sapagkat kinikilala ng PANGINOON ang daan ng mga matuwid,\nngunit ang daan ng masasama ay hahantong sa kapahamakan."
+ },
+ "notes": "Notes\n- v. 2: Ang \"torah\" ay isinalin na \"kautusan\"; maaari ring \"aral\" ng PANGINOON.\n- v. 6: Ang \"yodea\" (nakakaalam) ay isinalin na \"kinikilala,\" sapagkat ang pagkaalam dito ay pag-iingat at pagmamalasakit, hindi lamang kaalaman.",
+ "raw": "[1] Mapalad ang taong hindi lumalakad sa payo ng masasama,\nhindi tumatayo sa daan ng mga makasalanan,\nat hindi umuupo sa upuan ng mga manunuya.\n[2] Sa halip, ang kanyang kaluguran ay nasa kautusan ng PANGINOON,\nat ang kautusan Niya ang binubulay-bulay niya araw at gabi.\n[3] Siya'y magiging tulad ng punong nakatanim sa tabi ng mga daluyan ng tubig,\nna namumunga sa kanyang kapanahunan,\nat ang mga dahon ay hindi nalalanta;\nat anumang kanyang gawin ay nagtatagumpay.\n[4] Hindi gayon ang masasama;\nsila'y tulad ng ipa na tinatangay ng hangin.\n[5] Kaya hindi makatatayo ang masasama sa paghuhukom,\nni ang mga makasalanan sa kapulungan ng mga matuwid.\n[6] Sapagkat kinikilala ng PANGINOON ang daan ng mga matuwid,\nngunit ang daan ng masasama ay hahantong sa kapahamakan.\n---\nNotes\n- v. 2: Ang \"torah\" ay isinalin na \"kautusan\"; maaari ring \"aral\" ng PANGINOON.\n- v. 6: Ang \"yodea\" (nakakaalam) ay isinalin na \"kinikilala,\" sapagkat ang pagkaalam dito ay pag-iingat at pagmamalasakit, hindi lamang kaalaman.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

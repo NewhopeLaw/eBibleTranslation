@@ -1,0 +1,19 @@
+{
+ "book": "Psalms",
+ "chapter": 3,
+ "lang": "tl",
+ "verses": {
+  "1": "Awit ni David, nang tumakas siya mula kay Absalom na kanyang anak.",
+  "2": "PANGINOON, kay dami ng aking mga kaaway!\nMarami ang tumitindig laban sa akin.",
+  "3": "Marami ang nagsasabi tungkol sa akin,\n“Walang pagliligtas para sa kanya sa Diyos.” Selah",
+  "4": "Ngunit Ikaw, PANGINOON, ay kalasag na nakapalibot sa akin,\nang aking kaluwalhatian, at ang nagtataas ng aking ulo.",
+  "5": "Sa aking tinig ay tumatawag ako sa PANGINOON,\nat sinasagot Niya ako mula sa Kanyang banal na bundok. Selah",
+  "6": "Ako'y nahiga at natulog;\nako'y nagising, sapagkat inaalalayan ako ng PANGINOON.",
+  "7": "Hindi ako matatakot sa sampu-sampung libong tao\nna pumalibot at humanay laban sa akin.",
+  "8": "Bumangon Ka, PANGINOON! Iligtas Mo ako, Diyos ko!\nSapagkat sinampal Mo sa panga ang lahat ng aking mga kaaway;\nbinasag Mo ang ngipin ng masasama.",
+  "9": "Sa PANGINOON nagmumula ang pagliligtas.\nMapasa Iyong bayan nawa ang Iyong pagpapala. Selah"
+ },
+ "notes": "Notes\n- v. 3: Ang \"lenafshi\" ay isinalin na \"tungkol sa akin\" (nefesh bilang sarili); maaari ring \"sa aking kaluluwa,\" na parang tuwirang sinasabi sa kanya.\n- v. 3, 5, 9: Ang \"Selah\" ay iniwang di-isinalin; hindi tiyak ang kahulugan nito, marahil tanda sa musika o pagtigil.",
+ "raw": "[1] Awit ni David, nang tumakas siya mula kay Absalom na kanyang anak.\n[2] PANGINOON, kay dami ng aking mga kaaway!\nMarami ang tumitindig laban sa akin.\n[3] Marami ang nagsasabi tungkol sa akin,\n“Walang pagliligtas para sa kanya sa Diyos.” Selah\n[4] Ngunit Ikaw, PANGINOON, ay kalasag na nakapalibot sa akin,\nang aking kaluwalhatian, at ang nagtataas ng aking ulo.\n[5] Sa aking tinig ay tumatawag ako sa PANGINOON,\nat sinasagot Niya ako mula sa Kanyang banal na bundok. Selah\n[6] Ako'y nahiga at natulog;\nako'y nagising, sapagkat inaalalayan ako ng PANGINOON.\n[7] Hindi ako matatakot sa sampu-sampung libong tao\nna pumalibot at humanay laban sa akin.\n[8] Bumangon Ka, PANGINOON! Iligtas Mo ako, Diyos ko!\nSapagkat sinampal Mo sa panga ang lahat ng aking mga kaaway;\nbinasag Mo ang ngipin ng masasama.\n[9] Sa PANGINOON nagmumula ang pagliligtas.\nMapasa Iyong bayan nawa ang Iyong pagpapala. Selah\n---\nNotes\n- v. 3: Ang \"lenafshi\" ay isinalin na \"tungkol sa akin\" (nefesh bilang sarili); maaari ring \"sa aking kaluluwa,\" na parang tuwirang sinasabi sa kanya.\n- v. 3, 5, 9: Ang \"Selah\" ay iniwang di-isinalin; hindi tiyak ang kahulugan nito, marahil tanda sa musika o pagtigil.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

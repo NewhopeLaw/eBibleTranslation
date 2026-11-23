@@ -1,0 +1,16 @@
+{
+ "book": "Psalms",
+ "chapter": 128,
+ "lang": "tl",
+ "verses": {
+  "1": "Awit ng Pag-akyat.\nMapalad ang bawat may takot sa PANGINOON,\nna lumalakad sa Kanyang mga daan.",
+  "2": "Kakainin mo ang pinaghirapan ng iyong mga kamay;\nmapalad ka, at mabuti ang iyong kalagayan.",
+  "3": "Ang iyong asawa ay magiging gaya ng mabungang puno ng ubas\nsa kaloob-looban ng iyong bahay;\nang iyong mga anak ay gaya ng mga supling ng olibo\nsa palibot ng iyong hapag.",
+  "4": "Ganito nga pagpapalain\nang taong may takot sa PANGINOON.",
+  "5": "Pagpalain ka nawa ng PANGINOON mula sa Sion;\nmakita mo nawa ang kasaganaan ng Jerusalem\nsa lahat ng araw ng iyong buhay.",
+  "6": "Makita mo nawa ang mga anak ng iyong mga anak.\nKapayapaan nawa sa Israel!"
+ },
+ "notes": "Notes: none.",
+ "raw": "[1] Awit ng Pag-akyat.\nMapalad ang bawat may takot sa PANGINOON,\nna lumalakad sa Kanyang mga daan.\n[2] Kakainin mo ang pinaghirapan ng iyong mga kamay;\nmapalad ka, at mabuti ang iyong kalagayan.\n[3] Ang iyong asawa ay magiging gaya ng mabungang puno ng ubas\nsa kaloob-looban ng iyong bahay;\nang iyong mga anak ay gaya ng mga supling ng olibo\nsa palibot ng iyong hapag.\n[4] Ganito nga pagpapalain\nang taong may takot sa PANGINOON.\n[5] Pagpalain ka nawa ng PANGINOON mula sa Sion;\nmakita mo nawa ang kasaganaan ng Jerusalem\nsa lahat ng araw ng iyong buhay.\n[6] Makita mo nawa ang mga anak ng iyong mga anak.\nKapayapaan nawa sa Israel!\n---\nNotes: none.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

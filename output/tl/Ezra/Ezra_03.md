@@ -1,0 +1,19 @@
+# Ezra 3
+
+¹ Pagsapit ng ikapitong buwan, nang nasa kani-kanilang bayan na ang mga Israelita, nagtipon ang bayan sa Jerusalem na parang iisang tao. ² Tumindig si Jesua na anak ni Josadac at ang mga kapwa niya pari, at si Zorobabel na anak ni Salatiel at ang kanyang mga kapatid, at itinayo nila ang altar ng Diyos ng Israel upang mag-alay roon ng mga handog na sinusunog, ayon sa nakasulat sa kautusan ni Moises na lingkod ng Diyos. ³ Itinayo nila ang altar sa dati nitong pundasyon, sapagkat natatakot sila sa mga bayan ng mga lupain sa paligid, at nag-alay sila roon ng mga handog na sinusunog sa PANGINOON, mga handog na sinusunog sa umaga at sa gabi. ⁴ Ipinagdiwang nila ang Pista ng mga Kubol ayon sa nakasulat, at nag-alay sila ng mga handog na sinusunog araw-araw, ayon sa bilang na itinakda para sa bawat araw. ⁵ Pagkatapos noon, nag-alay sila ng palagiang handog na sinusunog, ng mga handog sa mga bagong buwan at sa lahat ng itinalagang banal na kapistahan ng PANGINOON, at ng handog ng bawat isang kusang-loob na naghahandog sa PANGINOON. ⁶ Mula sa unang araw ng ikapitong buwan ay nagsimula silang mag-alay ng mga handog na sinusunog sa PANGINOON, bagaman hindi pa nailalagay ang pundasyon ng templo ng PANGINOON. ⁷ Nagbigay sila ng salapi sa mga tagatabas ng bato at sa mga karpintero, at ng pagkain, inumin at langis sa mga Sidonio at mga Tirio, upang magdala ng mga troso ng sedro mula sa Libano sa dagat hanggang Joppe, ayon sa pahintulot na ibinigay sa kanila ni Ciro na hari ng Persia. ⁸ Nang ikalawang buwan ng ikalawang taon mula nang dumating sila sa bahay ng Diyos sa Jerusalem, nagsimula ang gawain. Sinimulan ito nina Zorobabel na anak ni Salatiel, ni Jesua na anak ni Josadac, at ng iba pa nilang mga kapatid—ang mga pari, ang mga Levita at ang lahat ng bumalik sa Jerusalem mula sa pagkabihag. Inatasan nila ang mga Levitang dalawampung taong gulang pataas upang mangasiwa sa gawain sa bahay ng PANGINOON. ⁹ Nagkaisang tumayo si Jesua kasama ang kanyang mga anak at mga kapatid, at si Cadmiel at ang kanyang mga anak, na mga anak ni Juda, upang mangasiwa sa mga gumagawa sa bahay ng Diyos, kasama ang mga anak ni Henadad, ang kanilang mga anak at mga kapatid, na mga Levita. ¹⁰ Nang ilagay ng mga manggagawa ang pundasyon ng templo ng PANGINOON, tumayo ang mga pari na nakasuot ng kanilang kasuotan at may mga trumpeta, at ang mga Levita na mga anak ni Asaf ay may mga pompiyang, upang purihin ang PANGINOON ayon sa itinakda ni David na hari ng Israel.
+
+¹¹ Nag-aawitan sila nang salitan, na nagpupuri at nagpapasalamat sa PANGINOON:  
+“Sapagkat Siya ay mabuti,  
+sapagkat ang tapat Niyang pag-ibig sa Israel ay magpakailanman.”  
+At ang buong bayan ay sumigaw nang malakas sa pagpupuri sa PANGINOON, sapagkat nailagay na ang pundasyon ng bahay ng PANGINOON.  
+
+¹² Ngunit marami sa mga pari, sa mga Levita at sa mga pinuno ng mga angkan—ang matatandang nakakita sa unang bahay—ay humagulgol nang malakas nang makita nila ang pundasyon ng bahay na ito, samantalang marami naman ang sumisigaw sa galak. ¹³ Hindi makilala ng mga tao ang ingay ng masayang sigawan sa ingay ng iyakan ng bayan, sapagkat ang bayan ay sumisigaw nang napakalakas, at ang ingay ay narinig hanggang sa malayo.
+
+---
+
+Notes
+- v. 3: Ang כִּי בְּאֵימָה עֲלֵיהֶם ay malabo ang balarila; isinalin bilang dahilan ng pagtatayo (“sapagkat natatakot sila”).
+- v. 9: Ang בְּנֵי־יְהוּדָה ay maaaring basahing “mga anak ni Hodavias” (tingnan 2:40); iniwan ang nakasulat na “Juda.”
+- v. 11: Ang וַיַּעֲנוּ ay isinaling “nag-aawitan nang salitan,” ibig sabihin, sagutang awit.
+- v. 12: Ang בְּיָסְדוֹ זֶה הַבַּיִת בְּעֵינֵיהֶם ay maaaring tumukoy sa pagkakita sa pundasyon ng bagong bahay o sa unang bahay noong nakatayo pa ito; pinili ang una.
+- Ang ישוע na anak ni Josadac ay isinulat na “Jesua” upang tumugma sa 2:2 at sa anyong ginamit sa buong bahaging ito.

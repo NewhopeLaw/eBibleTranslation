@@ -1,0 +1,18 @@
+{
+ "book": "Psalms",
+ "chapter": 121,
+ "lang": "tl",
+ "verses": {
+  "1": "Awit ng Pag-akyat.\nItinitingin ko ang aking mga mata sa mga bundok—\nsaan manggagaling ang aking saklolo?",
+  "2": "Ang aking saklolo ay mula sa PANGINOON,\nna lumikha ng langit at lupa.",
+  "3": "Hindi Niya hahayaang madulas ang iyong paa;\nhindi iidlip ang nagbabantay sa iyo.",
+  "4": "Tunay, hindi iidlip ni matutulog\nang nagbabantay sa Israel.",
+  "5": "Ang PANGINOON ang nagbabantay sa iyo;\nang PANGINOON ang iyong lilim sa iyong kanan.",
+  "6": "Sa araw ay hindi ka sasaktan ng araw,\nni ng buwan sa gabi.",
+  "7": "Iingatan ka ng PANGINOON sa lahat ng kasamaan;\niingatan Niya ang iyong buhay.",
+  "8": "Iingatan ng PANGINOON ang iyong paglabas at ang iyong pagpasok,\nmula ngayon at magpakailanman."
+ },
+ "notes": "Notes\n- v. 3: Ang אַל ay nagpapahayag ng pagnanais o katiyakan; maaari ring basahing \"Huwag nawa Niyang hayaan…\". Pinili ang pahayag ng katiyakan na kaayon ng v. 4.",
+ "raw": "[1] Awit ng Pag-akyat.\nItinitingin ko ang aking mga mata sa mga bundok—\nsaan manggagaling ang aking saklolo?\n[2] Ang aking saklolo ay mula sa PANGINOON,\nna lumikha ng langit at lupa.\n[3] Hindi Niya hahayaang madulas ang iyong paa;\nhindi iidlip ang nagbabantay sa iyo.\n[4] Tunay, hindi iidlip ni matutulog\nang nagbabantay sa Israel.\n[5] Ang PANGINOON ang nagbabantay sa iyo;\nang PANGINOON ang iyong lilim sa iyong kanan.\n[6] Sa araw ay hindi ka sasaktan ng araw,\nni ng buwan sa gabi.\n[7] Iingatan ka ng PANGINOON sa lahat ng kasamaan;\niingatan Niya ang iyong buhay.\n[8] Iingatan ng PANGINOON ang iyong paglabas at ang iyong pagpasok,\nmula ngayon at magpakailanman.\n---\nNotes\n- v. 3: Ang אַל ay nagpapahayag ng pagnanais o katiyakan; maaari ring basahing \"Huwag nawa Niyang hayaan…\". Pinili ang pahayag ng katiyakan na kaayon ng v. 4.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

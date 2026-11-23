@@ -1,0 +1,20 @@
+# Genesis 2
+
+¹ Sa gayon ay natapos ang langit at ang lupa at ang lahat ng naroroon. ² Pagsapit ng ikapitong araw ay natapos ng Diyos ang gawaing Kanyang ginagawa, at sa ikapitong araw ay namahinga Siya mula sa lahat ng Kanyang gawain. ³ Pinagpala ng Diyos ang ikapitong araw at itinalaga itong banal, sapagkat sa araw na iyon ay namahinga Siya mula sa lahat ng gawaing Kanyang nilikha at ginawa. ⁴ Ito ang kasaysayan ng langit at ng lupa nang likhain ang mga ito, noong araw na gawin ng PANGINOONG Diyos ang lupa at ang langit. ⁵ Wala pang anumang palumpong sa parang sa lupa, at wala pang anumang halaman sa parang na sumisibol, sapagkat hindi pa nagpapaulan ang PANGINOONG Diyos sa lupa, at wala pang taong magbubungkal ng lupa. ⁶ Ngunit may bukal na umaahon mula sa lupa at dinidilig ang buong ibabaw ng lupa. ⁷ Pagkatapos ay hinubog ng PANGINOONG Diyos ang tao mula sa alabok ng lupa, at hiningahan Niya ang kanyang ilong ng hininga ng buhay, at ang tao ay naging isang nilalang na may buhay. ⁸ Nagtanim ang PANGINOONG Diyos ng isang halamanan sa Eden, sa dakong silangan, at doon Niya inilagay ang taong Kanyang hinubog. ⁹ Pinatubo ng PANGINOONG Diyos mula sa lupa ang bawat punongkahoy na kaaya-ayang tingnan at mabuting kainin. Nasa gitna ng halamanan ang punongkahoy ng buhay, at ang punongkahoy ng pagkaalam ng mabuti at masama. ¹⁰ May isang ilog na umaagos mula sa Eden upang diligin ang halamanan, at mula roon ay nahahati ito at nagiging apat na sanga. ¹¹ Ang pangalan ng una ay Pison. Ito ang umaagos paikot sa buong lupain ng Havila, kung saan may ginto. ¹² Mabuti ang ginto ng lupaing iyon; naroon din ang bedelio at ang batong onix. ¹³ Ang pangalan ng ikalawang ilog ay Gihon. Ito ang umaagos paikot sa buong lupain ng Cus. ¹⁴ Ang pangalan ng ikatlong ilog ay Tigris. Ito ang umaagos sa silangan ng Asiria. At ang ikaapat na ilog ay ang Eufrates. ¹⁵ Kinuha ng PANGINOONG Diyos ang tao at inilagay sa halamanan ng Eden upang bungkalin ito at alagaan. ¹⁶ Inutusan ng PANGINOONG Diyos ang tao, “Malaya kang kumain mula sa alinmang punongkahoy sa halamanan, ¹⁷ ngunit huwag kang kakain mula sa punongkahoy ng pagkaalam ng mabuti at masama, sapagkat sa araw na kumain ka mula roon, tiyak na mamamatay ka.” ¹⁸ Pagkatapos ay sinabi ng PANGINOONG Diyos, “Hindi mabuti na nag-iisa ang tao. Gagawan Ko siya ng katuwang na angkop sa kanya.” ¹⁹ Kaya mula sa lupa ay hinubog ng PANGINOONG Diyos ang lahat ng mailap na hayop sa parang at ang lahat ng ibon sa himpapawid, at dinala Niya ang mga ito sa tao upang makita kung ano ang itatawag niya sa mga ito. Anuman ang itawag ng tao sa bawat nilalang na may buhay, iyon ang naging pangalan nito. ²⁰ Kaya binigyan ng tao ng pangalan ang lahat ng hayop na inaalagaan, ang mga ibon sa himpapawid, at ang lahat ng mailap na hayop sa parang. Ngunit para sa tao ay walang natagpuang katuwang na angkop sa kanya. ²¹ Kaya pinatulog ng PANGINOONG Diyos ang tao nang mahimbing, at habang siya ay natutulog, kinuha Niya ang isa sa kanyang mga tadyang at tinakpan ng laman ang pinagkunan nito. ²² Mula sa tadyang na kinuha Niya sa tao ay gumawa ang PANGINOONG Diyos ng isang babae, at dinala Niya ito sa tao.
+
+²³ Sinabi ng tao,  
+“Sa wakas, ito ay buto ng aking mga buto  
+at laman ng aking laman!  
+Siya ay tatawaging ‘babae,’  
+sapagkat mula sa lalaki siya kinuha.”  
+
+²⁴ Kaya iiwan ng lalaki ang kanyang ama at ina at makikipag-isa sa kanyang asawa, at sila ay magiging iisang laman. ²⁵ Kapwa sila hubad, ang lalaki at ang kanyang asawa, ngunit hindi sila nahihiya.
+
+---
+
+Notes
+- v. 6: Ang אֵד ay bihirang salita; maaaring "bukal" o "ulap/hamog." Pinili ang "bukal."
+- v. 12: Ang הַבְּדֹלַח at אֶבֶן הַשֹּׁהַם ay hindi tiyak ang kahulugan; isinaling "bedelio" (isang mabangong dagta) at "batong onix."
+- v. 18, 20: Ang עֵזֶר כְּנֶגְדּוֹ ay isinaling "katuwang na angkop sa kanya."
+- v. 20: Ang וּלְאָדָם ay maaaring basahing "para kay Adan" bilang pangalan; dito ay "para sa tao" pa rin, ayon sa tuntunin.
+- v. 23: Laro ng salita sa אִשָּׁה (babae) at אִישׁ (lalaki), na hindi maipakita sa Tagalog.

@@ -1,0 +1,16 @@
+{
+ "book": "Psalms",
+ "chapter": 23,
+ "lang": "tl",
+ "verses": {
+  "1": "Awit ni David.\nAng PANGINOON ang aking pastol; hindi ako magkukulang.",
+  "2": "Pinahihiga Niya ako sa luntiang pastulan;\ninaakay Niya ako sa tabi ng payapang tubig.",
+  "3": "Pinanunumbalik Niya ang aking kaluluwa;\npinapatnubayan Niya ako sa mga landas ng katuwiran\nalang-alang sa Kanyang pangalan.",
+  "4": "Kahit lumakad ako sa libis ng malalim na kadiliman,\nhindi ako matatakot sa anumang kasamaan,\nsapagkat Ikaw ay kasama ko;\nang Iyong pamalo at ang Iyong tungkod—ang mga ito ang umaaliw sa akin.",
+  "5": "Naghahanda Ka ng hapag para sa akin\nsa harap ng aking mga kaaway;\npinahiran Mo ng langis ang aking ulo;\numaapaw ang aking saro.",
+  "6": "Tiyak na kabutihan at tapat na pag-ibig ang susunod sa akin\nsa lahat ng araw ng aking buhay,\nat mananahan ako sa bahay ng PANGINOON\nhabang ako’y nabubuhay."
+ },
+ "notes": "Notes\n- v. 4: Ang “tsalmavet” ay maaaring basahing “anino ng kamatayan” o “malalim na kadiliman”; ang pangalawa ang sinunod.\n- v. 6: Ang “veshavti” sa tekstong Masoretiko ay “at babalik ako”; binasa itong “mananahan ako.” Ang “le'orekh yamim” ay literal na “sa haba ng mga araw.”",
+ "raw": "[1] Awit ni David.\nAng PANGINOON ang aking pastol; hindi ako magkukulang.\n[2] Pinahihiga Niya ako sa luntiang pastulan;\ninaakay Niya ako sa tabi ng payapang tubig.\n[3] Pinanunumbalik Niya ang aking kaluluwa;\npinapatnubayan Niya ako sa mga landas ng katuwiran\nalang-alang sa Kanyang pangalan.\n[4] Kahit lumakad ako sa libis ng malalim na kadiliman,\nhindi ako matatakot sa anumang kasamaan,\nsapagkat Ikaw ay kasama ko;\nang Iyong pamalo at ang Iyong tungkod—ang mga ito ang umaaliw sa akin.\n[5] Naghahanda Ka ng hapag para sa akin\nsa harap ng aking mga kaaway;\npinahiran Mo ng langis ang aking ulo;\numaapaw ang aking saro.\n[6] Tiyak na kabutihan at tapat na pag-ibig ang susunod sa akin\nsa lahat ng araw ng aking buhay,\nat mananahan ako sa bahay ng PANGINOON\nhabang ako’y nabubuhay.\n---\nNotes\n- v. 4: Ang “tsalmavet” ay maaaring basahing “anino ng kamatayan” o “malalim na kadiliman”; ang pangalawa ang sinunod.\n- v. 6: Ang “veshavti” sa tekstong Masoretiko ay “at babalik ako”; binasa itong “mananahan ako.” Ang “le'orekh yamim” ay literal na “sa haba ng mga araw.”\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

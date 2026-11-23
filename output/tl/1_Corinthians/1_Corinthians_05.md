@@ -1,0 +1,13 @@
+# 1 Corinthians 5
+
+¹ Laganap na ang balita na may pakikiapid sa inyo, at ganoong uri ng pakikiapid na hindi ginagawa kahit ng mga Hentil: may lalaking nakikisama sa asawa ng kanyang ama. ² At nagmamataas pa kayo! Hindi ba dapat ay nagdalamhati kayo, upang alisin sa gitna ninyo ang gumawa nito? ³ Ako, bagaman wala riyan sa katawan, ay naroon sa espiritu, at para bang naroon ako ay nahatulan ko na ang taong gumawa nito. ⁴ Kapag nagtipon kayo sa pangalan ng ating Panginoong Jesus, at kasama ninyo ang aking espiritu, kasama ang kapangyarihan ng ating Panginoong Jesus, ⁵ ibigay ninyo ang taong iyon kay Satanas upang mapuksa ang kanyang laman, upang ang kanyang espiritu ay maligtas sa araw ng Panginoon. ⁶ Hindi mabuti ang inyong pagmamalaki. Hindi ba ninyo alam na ang kaunting lebadura ay nagpapaalsa sa buong masa? ⁷ Linisin ninyo ang lumang lebadura upang kayo'y maging bagong masa, gaya ng tunay ninyong kalagayan na walang lebadura. Sapagkat si Cristo, ang ating kordero ng Paskuwa, ay naihandog na. ⁸ Kaya ipagdiwang natin ang pista, hindi sa lumang lebadura, ni sa lebadura ng masamang hangarin at kasamaan, kundi sa tinapay na walang lebadura, ang katapatan ng puso at ang katotohanan. ⁹ Isinulat ko sa inyo sa aking sulat na huwag kayong makisama sa mga mapakiapid. ¹⁰ Hindi ko tinutukoy ang lahat ng mapakiapid sa sanlibutang ito, o ang mga sakim at mga mandarambong, o ang mga sumasamba sa diyus-diyosan, sapagkat kung gayon ay kailangan na ninyong umalis sa sanlibutan. ¹¹ Ang isinusulat ko ngayon sa inyo ay huwag kayong makisama sa sinumang tinatawag na kapatid ngunit mapakiapid, sakim, sumasamba sa diyus-diyosan, mapanlait, lasenggo, o mandarambong. Huwag man lamang kayong makisalo sa ganoong tao. ¹² Sapagkat ano ang karapatan kong hatulan ang mga nasa labas? Hindi ba't ang mga nasa loob ang inyong hinahatulan, ¹³ samantalang ang mga nasa labas ay hahatulan ng Diyos? “Alisin ninyo sa gitna ninyo ang masamang tao.”
+
+---
+
+Notes
+- v. 1: Ang “asawa ng ama” ay malamang na madrasta, hindi ang sariling ina.
+- v. 3–4: Hindi tiyak kung ang “sa pangalan ng ating Panginoong Jesus” ay kaugnay ng “nahatulan ko na” o ng “kapag nagtipon kayo”; iniugnay sa pagtitipon.
+- v. 5: Ang “pagkapuksa ng laman” ay isinalin nang literal dahil malabo kung ang tinutukoy ay katawan o makasalanang pagkatao.
+- v. 7: Ang τὸ πάσχα ἡμῶν (“ang ating Paskuwa”) ay tumutukoy sa korderong inihahandog; isinalin bilang “ang ating kordero ng Paskuwa.”
+- v. 9: Ang “sulat” ay tumutukoy sa isang naunang liham, hindi sa liham na ito.
+- v. 13: Sinipi ang pananalita ng Deuteronomio (hal. 17:7), kaya inilagay sa panipi.

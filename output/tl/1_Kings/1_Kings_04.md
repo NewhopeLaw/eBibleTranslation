@@ -1,0 +1,13 @@
+# 1 Kings 4
+
+¹ Si Haring Solomon ay naghari sa buong Israel. ² Ito ang kanyang mga pangunahing opisyal: si Azarias na anak ni Sadoc, ang pari; ³ sina Elihoref at Ahias na mga anak ni Sisa, mga kalihim; si Josaphat na anak ni Ahilud, ang tagapagtala; ⁴ si Benaias na anak ni Joiada, pinuno ng hukbo; sina Sadoc at Abiathar, mga pari; ⁵ si Azarias na anak ni Natan, pinuno ng mga gobernador; si Zabud na anak ni Natan, pari at tagapayong kaibigan ng hari; ⁶ si Ahisar, tagapamahala ng palasyo; at si Adoniram na anak ni Abda, tagapamahala ng sapilitang paggawa. ⁷ May labindalawang gobernador si Solomon sa buong Israel na nagtutustos ng pagkain para sa hari at sa kanyang sambahayan. Bawat isa sa kanila ay may pananagutang magtustos sa loob ng isang buwan bawat taon. ⁸ Ito ang kanilang mga pangalan: si Ben-hur, sa kaburulan ng Efraim; ⁹ si Ben-deker, sa Macaz, Saalbim, Bet-semes, at Elon-bet-hanan; ¹⁰ si Ben-hesed, sa Arubboth; sakop niya ang Soco at ang buong lupain ng Hefer; ¹¹ si Ben-abinadab, sa buong kaburulan ng Dor; asawa niya si Tafat na anak ni Solomon; ¹² si Baana na anak ni Ahilud, sa Taanac at Megido, at sa buong Bet-san na malapit sa Zaretan sa ibaba ng Jezreel, mula Bet-san hanggang Abel-mehola, hanggang sa kabila ng Jokmeam; ¹³ si Ben-geber, sa Ramot de Galaad; sakop niya ang mga nayon ni Jair na anak ni Manases sa Galaad, at ang rehiyon ng Argob sa Basan, animnapung malalaking lungsod na may mga pader at mga halang na tanso; ¹⁴ si Ahinadab na anak ni Iddo, sa Mahanaim; ¹⁵ si Ahimaas, sa Neftali; napangasawa rin niya si Basemat na anak ni Solomon; ¹⁶ si Baana na anak ni Husai, sa Aser at sa Alot; ¹⁷ si Josaphat na anak ni Parua, sa Isacar; ¹⁸ si Simei na anak ni Ela, sa Benjamin; ¹⁹ si Geber na anak ni Uri, sa lupain ng Galaad, ang lupain ni Sehon na hari ng mga Amorreo at ni Og na hari ng Basan. May isa pang gobernador na nakatalaga sa lupain. ²⁰ Ang mga taga-Juda at taga-Israel ay kasindami ng buhangin sa tabing-dagat. Sila ay kumakain, umiinom, at nagsasaya.
+
+---
+
+Notes
+- v. 5: Ang “re‘eh ha-melekh” ay isang katungkulan sa palasyo; isinalin na “tagapayong kaibigan ng hari.”
+- v. 8–11: Ang mga “Ben-” ay iniwan bilang bahagi ng pangalan, sapagkat ang ama lamang ang binanggit sa Hebreo.
+- v. 11: Ang “Nafat Dor” ay di-tiyak; isinalin na “kaburulan ng Dor.”
+- v. 16: Ang “Be‘alot” ay maaaring basahing “sa Alot” o pangalang “Bealot”; pinili ang “sa Alot.”
+- v. 19: Ang huling sugnay (“isang gobernador na nasa lupain”) ay di-malinaw; maaaring tumukoy sa isang gobernador sa Juda o sa iisang gobernador ng buong rehiyong iyon.
+- v. 4: Ginamit ang “Abiathar” upang tumugma sa baybay sa mga naunang kabanata ng bahaging ito.

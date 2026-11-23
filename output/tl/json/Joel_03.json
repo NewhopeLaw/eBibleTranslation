@@ -1,0 +1,15 @@
+{
+ "book": "Joel",
+ "chapter": 3,
+ "lang": "tl",
+ "verses": {
+  "1": "Pagkatapos nito ay mangyayari\nna ibubuhos Ko ang Aking Espiritu sa lahat ng tao;\nmagpapahayag ng propesiya ang inyong mga anak na lalaki at babae,\nmananaginip ang inyong matatanda,\nat makakakita ng mga pangitain ang inyong mga kabataang lalaki.",
+  "2": "Pati sa mga aliping lalaki at babae\nay ibubuhos Ko ang Aking Espiritu sa mga araw na iyon.",
+  "3": "Magpapakita Ako ng mga kababalaghan sa langit at sa lupa:\ndugo, apoy at mga haligi ng usok.",
+  "4": "Magiging kadiliman ang araw,\nat magiging dugo ang buwan,\nbago dumating ang dakila at kakila-kilabot na araw ng PANGINOON.",
+  "5": "At mangyayari na ang bawat tumatawag sa pangalan ng PANGINOON ay maliligtas,\nsapagkat sa bundok ng Sion at sa Jerusalem\nay magkakaroon ng mga nakaligtas,\ngaya ng sinabi ng PANGINOON,\nkabilang ang mga natira na tinatawag ng PANGINOON."
+ },
+ "notes": "Notes\n- v. 1: Ang כָּל־בָּשָׂר ay literal na \"lahat ng laman\"; isinalin bilang \"lahat ng tao.\" Ang רוּחִי ay isinalin bilang \"Aking Espiritu\" ayon sa glosaryo (espiritu, sa kontekstong ito).\n- v. 5: Ang huling linya, וּבַשְּׂרִידִים, ay maaaring \"at kabilang sa mga natira\" o \"at sa mga natira\"; pinili ang \"kabilang ang mga natira.\"",
+ "raw": "[1] Pagkatapos nito ay mangyayari\nna ibubuhos Ko ang Aking Espiritu sa lahat ng tao;\nmagpapahayag ng propesiya ang inyong mga anak na lalaki at babae,\nmananaginip ang inyong matatanda,\nat makakakita ng mga pangitain ang inyong mga kabataang lalaki.\n[2] Pati sa mga aliping lalaki at babae\nay ibubuhos Ko ang Aking Espiritu sa mga araw na iyon.\n[3] Magpapakita Ako ng mga kababalaghan sa langit at sa lupa:\ndugo, apoy at mga haligi ng usok.\n[4] Magiging kadiliman ang araw,\nat magiging dugo ang buwan,\nbago dumating ang dakila at kakila-kilabot na araw ng PANGINOON.\n[5] At mangyayari na ang bawat tumatawag sa pangalan ng PANGINOON ay maliligtas,\nsapagkat sa bundok ng Sion at sa Jerusalem\nay magkakaroon ng mga nakaligtas,\ngaya ng sinabi ng PANGINOON,\nkabilang ang mga natira na tinatawag ng PANGINOON.\n---\nNotes\n- v. 1: Ang כָּל־בָּשָׂר ay literal na \"lahat ng laman\"; isinalin bilang \"lahat ng tao.\" Ang רוּחִי ay isinalin bilang \"Aking Espiritu\" ayon sa glosaryo (espiritu, sa kontekstong ito).\n- v. 5: Ang huling linya, וּבַשְּׂרִידִים, ay maaaring \"at kabilang sa mga natira\" o \"at sa mga natira\"; pinili ang \"kabilang ang mga natira.\"\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

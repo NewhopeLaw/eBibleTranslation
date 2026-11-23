@@ -1,0 +1,21 @@
+{
+ "book": "Psalms",
+ "chapter": 64,
+ "lang": "tl",
+ "verses": {
+  "1": "Para sa punong mang-aawit. Salmo ni David.",
+  "2": "Dinggin Mo, O Diyos, ang aking tinig sa aking pagdaing;\ningatan Mo ang aking buhay mula sa sindak sa kaaway.",
+  "3": "Ikubli Mo ako mula sa lihim na sabwatan ng masasama,\nmula sa maingay na pulutong ng mga gumagawa ng kasamaan,",
+  "4": "na naghahasa ng kanilang dila na parang tabak,\nat nag-uumang ng kanilang palaso — mapait na salita —",
+  "5": "upang panain mula sa mga taguan ang walang kapintasan;\nbigla nila siyang pinapana at hindi sila natatakot.",
+  "6": "Pinatitibay nila ang isa't isa sa masamang balak;\nnag-uusap sila kung paano itatago ang mga bitag;\nsinasabi nila, “Sino ang makakakita sa mga ito?”",
+  "7": "Naghahanap sila ng kasamaang magagawa:\n“Nabuo na namin ang isang lubos na pinag-isipang plano!”\nSapagkat malalim ang kalooban at puso ng tao.",
+  "8": "Ngunit papanain sila ng Diyos ng palaso;\nbiglang darating ang kanilang mga sugat.",
+  "9": "Ibabagsak sila ng sarili nilang dila;\niiling ang lahat ng nakakakita sa kanila.",
+  "10": "Matatakot ang lahat ng tao,\nat ipahahayag nila ang gawa ng Diyos,\nat uunawain nila ang Kanyang ginawa.",
+  "11": "Magagalak sa PANGINOON ang matuwid at manganganlong sa Kanya,\nat magpupuri ang lahat ng may matuwid na puso."
+ },
+ "notes": "Notes\n- v. 6: Ang לָמוֹ (\"sa kanila\") ay maaaring basahing \"sa amin\" (gaya ng ilang manuskrito); \"sa mga ito\" (ang mga bitag) ang napiling basa.\n- v. 7: Ang תַּמְנוּ ay mahirap; binasa bilang \"nabuo na namin\" (mula sa תמם). Ang buong talata ay maaaring sinasabi ng masasama o ng mang-aawit.\n- v. 9: Ang וַיַּכְשִׁילוּהוּ עָלֵימוֹ לְשׁוֹנָם ay malabo sa gramatika; isinalin ayon sa kahulugan: ang dila nila ang magpapabagsak sa kanila.",
+ "raw": "[1] Para sa punong mang-aawit. Salmo ni David.\n[2] Dinggin Mo, O Diyos, ang aking tinig sa aking pagdaing;\ningatan Mo ang aking buhay mula sa sindak sa kaaway.\n[3] Ikubli Mo ako mula sa lihim na sabwatan ng masasama,\nmula sa maingay na pulutong ng mga gumagawa ng kasamaan,\n[4] na naghahasa ng kanilang dila na parang tabak,\nat nag-uumang ng kanilang palaso — mapait na salita —\n[5] upang panain mula sa mga taguan ang walang kapintasan;\nbigla nila siyang pinapana at hindi sila natatakot.\n[6] Pinatitibay nila ang isa't isa sa masamang balak;\nnag-uusap sila kung paano itatago ang mga bitag;\nsinasabi nila, “Sino ang makakakita sa mga ito?”\n[7] Naghahanap sila ng kasamaang magagawa:\n“Nabuo na namin ang isang lubos na pinag-isipang plano!”\nSapagkat malalim ang kalooban at puso ng tao.\n[8] Ngunit papanain sila ng Diyos ng palaso;\nbiglang darating ang kanilang mga sugat.\n[9] Ibabagsak sila ng sarili nilang dila;\niiling ang lahat ng nakakakita sa kanila.\n[10] Matatakot ang lahat ng tao,\nat ipahahayag nila ang gawa ng Diyos,\nat uunawain nila ang Kanyang ginawa.\n[11] Magagalak sa PANGINOON ang matuwid at manganganlong sa Kanya,\nat magpupuri ang lahat ng may matuwid na puso.\n---\nNotes\n- v. 6: Ang לָמוֹ (\"sa kanila\") ay maaaring basahing \"sa amin\" (gaya ng ilang manuskrito); \"sa mga ito\" (ang mga bitag) ang napiling basa.\n- v. 7: Ang תַּמְנוּ ay mahirap; binasa bilang \"nabuo na namin\" (mula sa תמם). Ang buong talata ay maaaring sinasabi ng masasama o ng mang-aawit.\n- v. 9: Ang וַיַּכְשִׁילוּהוּ עָלֵימוֹ לְשׁוֹנָם ay malabo sa gramatika; isinalin ayon sa kahulugan: ang dila nila ang magpapabagsak sa kanila.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

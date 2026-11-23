@@ -1,0 +1,16 @@
+{
+ "book": "Psalms",
+ "chapter": 126,
+ "lang": "tl",
+ "verses": {
+  "1": "Awit ng Pag-akyat.\nNang ibalik ng PANGINOON ang mga bihag ng Sion,\npara kaming mga nananaginip.",
+  "2": "Noon ay napuno ng tawa ang aming bibig,\nat ng masasayang sigaw ang aming dila.\nNoon ay sinabi sa gitna ng mga bansa,\n“Dakila ang ginawa ng PANGINOON para sa kanila.”",
+  "3": "Dakila ang ginawa ng PANGINOON para sa amin;\nkami ay nagagalak.",
+  "4": "Ibalik Mo, PANGINOON, ang aming kapalaran,\ngaya ng mga batis sa Negeb.",
+  "5": "Ang mga naghahasik nang may luha\nay mag-aani nang may masayang sigaw.",
+  "6": "Ang humahayong umiiyak,\ndala ang binhing ihahasik,\nay tiyak na babalik nang may masayang sigaw,\ndala ang kanyang mga bigkis."
+ },
+ "notes": "Notes\n- v. 1: Ang שִׁיבַת צִיּוֹן ay maaaring \"ang mga bumalik/bihag ng Sion\" o \"ang kapalaran ng Sion\"; pinili ang \"mga bihag\".\n- v. 4: Ang שְׁבִיתֵנוּ ay maaaring \"aming pagkabihag\" o \"aming kapalaran\"; pinili ang \"kapalaran\".\n- v. 6: Ang מֶשֶׁךְ־הַזָּרַע ay bihirang parirala, marahil \"supot ng binhi\" o \"binhing ikakalat\".",
+ "raw": "[1] Awit ng Pag-akyat.\nNang ibalik ng PANGINOON ang mga bihag ng Sion,\npara kaming mga nananaginip.\n[2] Noon ay napuno ng tawa ang aming bibig,\nat ng masasayang sigaw ang aming dila.\nNoon ay sinabi sa gitna ng mga bansa,\n“Dakila ang ginawa ng PANGINOON para sa kanila.”\n[3] Dakila ang ginawa ng PANGINOON para sa amin;\nkami ay nagagalak.\n[4] Ibalik Mo, PANGINOON, ang aming kapalaran,\ngaya ng mga batis sa Negeb.\n[5] Ang mga naghahasik nang may luha\nay mag-aani nang may masayang sigaw.\n[6] Ang humahayong umiiyak,\ndala ang binhing ihahasik,\nay tiyak na babalik nang may masayang sigaw,\ndala ang kanyang mga bigkis.\n---\nNotes\n- v. 1: Ang שִׁיבַת צִיּוֹן ay maaaring \"ang mga bumalik/bihag ng Sion\" o \"ang kapalaran ng Sion\"; pinili ang \"mga bihag\".\n- v. 4: Ang שְׁבִיתֵנוּ ay maaaring \"aming pagkabihag\" o \"aming kapalaran\"; pinili ang \"kapalaran\".\n- v. 6: Ang מֶשֶׁךְ־הַזָּרַע ay bihirang parirala, marahil \"supot ng binhi\" o \"binhing ikakalat\".\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

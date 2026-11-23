@@ -1,0 +1,19 @@
+{
+ "book": "Psalms",
+ "chapter": 12,
+ "lang": "tl",
+ "verses": {
+  "1": "Para sa punong mang-aawit: ayon sa sheminit. Awit ni David.",
+  "2": "Iligtas Mo kami, PANGINOON, sapagkat wala nang taong tapat;\nnaglaho na ang mga mapagkakatiwalaan sa gitna ng mga anak ng tao.",
+  "3": "Kasinungalingan ang sinasabi ng bawat isa sa kanyang kapwa;\nmapang-akit na labi at pusong pabago-bago ang kanilang pananalita.",
+  "4": "Putulin nawa ng PANGINOON ang lahat ng mapang-akit na labi,\nang dilang nagsasalita nang may kayabangan,",
+  "5": "silang nagsasabi, “Sa pamamagitan ng aming dila ay mananaig kami;\namin ang aming mga labi — sino ang panginoon namin?”",
+  "6": "“Dahil sa pang-aapi sa mga dukha, dahil sa daing ng mga nangangailangan,\nngayon ay babangon Ako,” sabi ng PANGINOON;\n“ilalagay Ko sa kaligtasan ang sinumang inaalipusta.”",
+  "7": "Ang mga salita ng PANGINOON ay mga salitang dalisay,\npilak na dinalisay sa hurno sa lupa,\npitong ulit na pinadalisay.",
+  "8": "Ikaw, PANGINOON, ang mag-iingat sa kanila;\niingatan Mo kami mula sa salinlahing ito magpakailanman.",
+  "9": "Nagpapagala-gala sa paligid ang masasama\nkapag itinataas ang kabuktutan sa gitna ng mga anak ng tao."
+ },
+ "notes": "Notes\n- v. 3: Ang \"belev valev\" (literal: \"may puso at puso\") ay isinalin na \"pusong pabago-bago,\" ibig sabihin ay pakunwari.\n- v. 6: Ang \"yafiach lo\" ay hindi tiyak; maaaring \"ang hinihingahan niya (ng paghamak)\" o \"ang nananabik dito.\" Pinili ang una.\n- v. 7: Ang \"ba'alil la'arets\" ay mahirap; isinalin na \"sa hurno sa lupa.\"\n- v. 8: Magkaiba ang panghalip sa teksto (\"sila\" at \"siya/kami\"); isinalin na \"sila\" at \"kami\" ayon sa kahulugan.\n- v. 9: Ang \"kerum zullut\" ay hindi tiyak; isinalin na \"kapag itinataas ang kabuktutan.\"",
+ "raw": "[1] Para sa punong mang-aawit: ayon sa sheminit. Awit ni David.\n[2] Iligtas Mo kami, PANGINOON, sapagkat wala nang taong tapat;\nnaglaho na ang mga mapagkakatiwalaan sa gitna ng mga anak ng tao.\n[3] Kasinungalingan ang sinasabi ng bawat isa sa kanyang kapwa;\nmapang-akit na labi at pusong pabago-bago ang kanilang pananalita.\n[4] Putulin nawa ng PANGINOON ang lahat ng mapang-akit na labi,\nang dilang nagsasalita nang may kayabangan,\n[5] silang nagsasabi, “Sa pamamagitan ng aming dila ay mananaig kami;\namin ang aming mga labi — sino ang panginoon namin?”\n[6] “Dahil sa pang-aapi sa mga dukha, dahil sa daing ng mga nangangailangan,\nngayon ay babangon Ako,” sabi ng PANGINOON;\n“ilalagay Ko sa kaligtasan ang sinumang inaalipusta.”\n[7] Ang mga salita ng PANGINOON ay mga salitang dalisay,\npilak na dinalisay sa hurno sa lupa,\npitong ulit na pinadalisay.\n[8] Ikaw, PANGINOON, ang mag-iingat sa kanila;\niingatan Mo kami mula sa salinlahing ito magpakailanman.\n[9] Nagpapagala-gala sa paligid ang masasama\nkapag itinataas ang kabuktutan sa gitna ng mga anak ng tao.\n---\nNotes\n- v. 3: Ang \"belev valev\" (literal: \"may puso at puso\") ay isinalin na \"pusong pabago-bago,\" ibig sabihin ay pakunwari.\n- v. 6: Ang \"yafiach lo\" ay hindi tiyak; maaaring \"ang hinihingahan niya (ng paghamak)\" o \"ang nananabik dito.\" Pinili ang una.\n- v. 7: Ang \"ba'alil la'arets\" ay mahirap; isinalin na \"sa hurno sa lupa.\"\n- v. 8: Magkaiba ang panghalip sa teksto (\"sila\" at \"siya/kami\"); isinalin na \"sila\" at \"kami\" ayon sa kahulugan.\n- v. 9: Ang \"kerum zullut\" ay hindi tiyak; isinalin na \"kapag itinataas ang kabuktutan.\"\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

@@ -1,0 +1,15 @@
+{
+ "book": "Psalms",
+ "chapter": 15,
+ "lang": "tl",
+ "verses": {
+  "1": "Awit ni David.\nPANGINOON, sino ang makatitira sa Iyong tolda?\nSino ang makapananahan sa Iyong banal na bundok?",
+  "2": "Ang lumalakad nang walang kapintasan at gumagawa ng matuwid,\nat nagsasabi ng katotohanan mula sa kanyang puso;",
+  "3": "hindi naninirang-puri ang kanyang dila,\nhindi gumagawa ng masama sa kanyang kapwa,\nat hindi naglalagay ng kahihiyan sa kanyang kapitbahay;",
+  "4": "sa kanyang paningin ay hamak ang itinakwil,\nngunit pinararangalan niya ang mga may takot sa PANGINOON;\nsumusumpa siya kahit sa sarili niyang kapinsalaan at hindi niya binabago;",
+  "5": "hindi niya ipinauutang ang kanyang pilak nang may patubo,\nat hindi siya tumatanggap ng suhol laban sa walang sala.\nAng gumagawa ng mga ito ay hindi matitinag magpakailanman."
+ },
+ "notes": "Notes\n- v. 4: Ang “nibzeh be-einav nim'as” ay maaaring basahing “hamak sa kanyang paningin ang itinakwil (ng Diyos)” o “hamak at walang halaga siya sa sarili niyang paningin”; ang una ang sinunod.\n- v. 4: “Nishba' lehara'” — literal na “sumusumpa upang makapinsala”; binasa itong sumpang nakapipinsala sa sarili.",
+ "raw": "[1] Awit ni David.\nPANGINOON, sino ang makatitira sa Iyong tolda?\nSino ang makapananahan sa Iyong banal na bundok?\n[2] Ang lumalakad nang walang kapintasan at gumagawa ng matuwid,\nat nagsasabi ng katotohanan mula sa kanyang puso;\n[3] hindi naninirang-puri ang kanyang dila,\nhindi gumagawa ng masama sa kanyang kapwa,\nat hindi naglalagay ng kahihiyan sa kanyang kapitbahay;\n[4] sa kanyang paningin ay hamak ang itinakwil,\nngunit pinararangalan niya ang mga may takot sa PANGINOON;\nsumusumpa siya kahit sa sarili niyang kapinsalaan at hindi niya binabago;\n[5] hindi niya ipinauutang ang kanyang pilak nang may patubo,\nat hindi siya tumatanggap ng suhol laban sa walang sala.\nAng gumagawa ng mga ito ay hindi matitinag magpakailanman.\n---\nNotes\n- v. 4: Ang “nibzeh be-einav nim'as” ay maaaring basahing “hamak sa kanyang paningin ang itinakwil (ng Diyos)” o “hamak at walang halaga siya sa sarili niyang paningin”; ang una ang sinunod.\n- v. 4: “Nishba' lehara'” — literal na “sumusumpa upang makapinsala”; binasa itong sumpang nakapipinsala sa sarili.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

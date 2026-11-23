@@ -1,0 +1,13 @@
+{
+ "book": "Psalms",
+ "chapter": 133,
+ "lang": "tl",
+ "verses": {
+  "1": "Awit ng Pag-akyat. Kay David.\nTingnan ninyo, napakabuti at napakaligaya\nkapag ang magkakapatid ay namumuhay nang sama-sama!",
+  "2": "Gaya ito ng mabuting langis sa ulo,\nna umaagos pababa sa balbas,\nsa balbas ni Aaron,\nna umaagos pababa sa kuwelyo ng kanyang kasuotan.",
+  "3": "Gaya ito ng hamog ng Hermon\nna bumababa sa mga bundok ng Sion.\nSapagkat doon iniutos ng PANGINOON ang pagpapala:\nbuhay magpakailanman."
+ },
+ "notes": "Notes\n- v. 2: Ang עַל־פִּי מִדּוֹתָיו ay literal na \"sa bibig ng kanyang mga kasuotan\", ibig sabihin ang leeg o laylayan ng damit; pinili ang \"kuwelyo\".",
+ "raw": "[1] Awit ng Pag-akyat. Kay David.\nTingnan ninyo, napakabuti at napakaligaya\nkapag ang magkakapatid ay namumuhay nang sama-sama!\n[2] Gaya ito ng mabuting langis sa ulo,\nna umaagos pababa sa balbas,\nsa balbas ni Aaron,\nna umaagos pababa sa kuwelyo ng kanyang kasuotan.\n[3] Gaya ito ng hamog ng Hermon\nna bumababa sa mga bundok ng Sion.\nSapagkat doon iniutos ng PANGINOON ang pagpapala:\nbuhay magpakailanman.\n---\nNotes\n- v. 2: Ang עַל־פִּי מִדּוֹתָיו ay literal na \"sa bibig ng kanyang mga kasuotan\", ibig sabihin ang leeg o laylayan ng damit; pinili ang \"kuwelyo\".\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

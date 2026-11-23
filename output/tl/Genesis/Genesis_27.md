@@ -1,0 +1,39 @@
+# Genesis 27
+
+¹ Nang matanda na si Isaac at lumabo na ang kanyang mga mata kaya hindi na siya makakita, tinawag niya si Esau, ang kanyang panganay na anak, at sinabi sa kanya, “Anak ko.” Sumagot siya, “Narito po ako.” ² Sinabi ni Isaac, “Tingnan mo, matanda na ako, at hindi ko alam ang araw ng aking kamatayan. ³ Kaya ngayon, kunin mo ang iyong mga sandata, ang iyong lalagyan ng palaso at ang iyong pana, at lumabas ka sa parang at manghuli ka ng hayop para sa akin. ⁴ Ipagluto mo ako ng masarap na pagkain na gaya ng gusto ko, at dalhin mo sa akin upang makakain ako, nang sa gayon ay mabasbasan kita nang buong puso bago ako mamatay.” ⁵ Nakikinig noon si Rebeca habang kinakausap ni Isaac ang anak niyang si Esau. Kaya nang umalis si Esau papunta sa parang upang manghuli ng hayop at iuwi ito, ⁶ sinabi ni Rebeca sa anak niyang si Jacob, “Narinig ko ang iyong ama na nagsasabi sa kapatid mong si Esau, ⁷ ‘Dalhan mo ako ng hayop na huli at ipagluto mo ako ng masarap na pagkain upang makakain ako at mabasbasan kita sa harap ng PANGINOON bago ako mamatay.’ ⁸ Kaya ngayon, anak ko, makinig ka sa akin at gawin mo ang iniuutos ko sa iyo. ⁹ Pumunta ka sa kawan at kumuha ka roon ng dalawang magagandang batang kambing, at ipagluluto ko ang iyong ama ng masarap na pagkain na gaya ng gusto niya. ¹⁰ Pagkatapos ay dadalhin mo ito sa iyong ama upang kainin niya, nang sa gayon ay ikaw ang basbasan niya bago siya mamatay.” ¹¹ Sinabi ni Jacob kay Rebeca na kanyang ina, “Pero balbon po ang kapatid kong si Esau, at makinis naman ang balat ko. ¹² Baka hipuin ako ng aking ama, at lalabas akong manlilinlang sa paningin niya. Sumpa ang aanihin ko, hindi basbas.” ¹³ Sinabi sa kanya ng kanyang ina, “Sa akin na mapunta ang sumpa sa iyo, anak ko. Basta makinig ka lang sa akin; humayo ka at kunin mo ang mga iyon para sa akin.” ¹⁴ Kaya umalis siya, kinuha ang mga ito at dinala sa kanyang ina, at ipinagluto ng kanyang ina ng masarap na pagkain na gaya ng gusto ng kanyang ama. ¹⁵ Pagkatapos ay kinuha ni Rebeca ang pinakamagagandang damit ni Esau, ang kanyang panganay na anak, na nasa kanya sa bahay, at isinuot ang mga iyon kay Jacob, ang kanyang bunsong anak. ¹⁶ Ang mga balat ng batang kambing ay ibinalot niya sa mga kamay ni Jacob at sa makinis na bahagi ng kanyang leeg. ¹⁷ Saka niya iniabot kay Jacob na kanyang anak ang masarap na pagkain at ang tinapay na kanyang inihanda. ¹⁸ Lumapit si Jacob sa kanyang ama at nagsabi, “Ama ko.” Sumagot ito, “Narito ako. Sino ka, anak ko?” ¹⁹ Sinabi ni Jacob sa kanyang ama, “Ako po si Esau, ang inyong panganay. Ginawa ko na po ang sinabi ninyo sa akin. Bumangon po kayo, maupo at kumain ng aking huli, upang mabasbasan ninyo ako nang buong puso.” ²⁰ Sinabi ni Isaac sa kanyang anak, “Paano mo ito nakuha nang ganoon kabilis, anak ko?” Sumagot siya, “Dahil ang PANGINOON na inyong Diyos ang nagtulot na makatagpo ako agad.” ²¹ Sinabi ni Isaac kay Jacob, “Lumapit ka, anak ko, upang mahipo kita at malaman ko kung ikaw nga ang anak kong si Esau o hindi.” ²² Kaya lumapit si Jacob kay Isaac na kanyang ama, at hinipo siya nito at sinabi, “Ang tinig ay tinig ni Jacob, pero ang mga kamay ay mga kamay ni Esau.” ²³ Hindi siya nakilala ni Isaac, dahil balbon ang kanyang mga kamay na gaya ng mga kamay ni Esau na kanyang kapatid; kaya binasbasan niya siya. ²⁴ Sinabi niya, “Ikaw ba talaga ang anak kong si Esau?” Sumagot siya, “Ako nga po.” ²⁵ Sinabi ni Isaac, “Ilapit mo sa akin, at kakain ako ng huli ng aking anak, upang mabasbasan kita nang buong puso.” Inilapit ni Jacob ang pagkain at kumain siya; dinalhan din siya ng alak at uminom siya. ²⁶ Pagkatapos ay sinabi sa kanya ni Isaac na kanyang ama, “Lumapit ka at hagkan mo ako, anak ko.”
+
+²⁷ Kaya lumapit siya at hinagkan ang kanyang ama. Naamoy ni Isaac ang amoy ng kanyang mga damit, at binasbasan niya siya at sinabi,  
+“Ang amoy ng aking anak  
+ay gaya ng amoy ng parang na pinagpala ng PANGINOON.  
+
+²⁸ Bigyan ka nawa ng Diyos ng hamog mula sa langit  
+at ng katabaan ng lupa,  
+ng saganang trigo at bagong alak.  
+
+²⁹ Paglingkuran ka nawa ng mga bayan,  
+at yumukod sa iyo ang mga bansa.  
+Maging panginoon ka ng iyong mga kapatid,  
+at yumukod sa iyo ang mga anak ng iyong ina.  
+Sumpain ang bawat sumusumpa sa iyo,  
+at pagpalain ang bawat nagpapala sa iyo.”  
+
+³⁰ Katatapos pa lamang basbasan ni Isaac si Jacob, at kalalabas pa lamang ni Jacob mula sa harap ni Isaac na kanyang ama, nang dumating si Esau na kanyang kapatid mula sa pangangaso. ³¹ Nagluto rin siya ng masarap na pagkain at dinala ito sa kanyang ama. Sinabi niya sa kanyang ama, “Bumangon po kayo, ama ko, at kumain ng huli ng inyong anak, upang mabasbasan ninyo ako nang buong puso.” ³² Tinanong siya ni Isaac na kanyang ama, “Sino ka?” Sumagot siya, “Ako po ang inyong anak, ang inyong panganay, si Esau.” ³³ Nanginig nang matindi si Isaac at sinabi, “Kung gayon, sino ang nanghuli ng hayop at nagdala nito sa akin? Kinain ko ang lahat bago ka dumating, at binasbasan ko siya. At pagpapalain nga siya!” ³⁴ Nang marinig ni Esau ang mga sinabi ng kanyang ama, sumigaw siya nang malakas at napakapait, at sinabi sa kanyang ama, “Basbasan ninyo rin ako, ama ko!” ³⁵ Pero sinabi ni Isaac, “Dumating ang kapatid mo nang may pandaraya at kinuha ang basbas na para sa iyo.” ³⁶ Sinabi ni Esau, “Hindi ba tama lang na Jacob ang ipinangalan sa kanya? Dalawang beses na niya akong inagawan: kinuha niya ang aking karapatan bilang panganay, at ngayon naman ay kinuha niya ang aking basbas.” At sinabi niya, “Wala na ba kayong itinirang basbas para sa akin?” ³⁷ Sumagot si Isaac kay Esau, “Ginawa ko na siyang panginoon mo, at ibinigay ko na sa kanya ang lahat ng kanyang mga kapatid bilang mga alipin; tinustusan ko na siya ng trigo at bagong alak. Ano pa ang magagawa ko para sa iyo, anak ko?” ³⁸ Sinabi ni Esau sa kanyang ama, “Iisa lang ba ang basbas ninyo, ama ko? Basbasan ninyo rin ako, ama ko!” At humagulgol si Esau.
+
+³⁹ Sumagot si Isaac na kanyang ama at sinabi sa kanya,  
+“Malayo sa katabaan ng lupa ang iyong magiging tirahan,  
+at malayo sa hamog ng langit sa itaas.  
+
+⁴⁰ Sa iyong tabak ka mabubuhay,  
+at paglilingkuran mo ang iyong kapatid.  
+Pero kapag naghimagsik ka,  
+babaliin mo ang kanyang pamatok mula sa iyong leeg.”  
+
+⁴¹ Nagtanim ng galit si Esau kay Jacob dahil sa basbas na ibinigay sa kanya ng kanilang ama. Sinabi ni Esau sa kanyang sarili, “Malapit na ang mga araw ng pagluluksa para sa aking ama; pagkatapos ay papatayin ko ang kapatid kong si Jacob.” ⁴² Nang maibalita kay Rebeca ang mga sinabi ni Esau, ang kanyang panganay na anak, ipinatawag niya si Jacob, ang kanyang bunsong anak, at sinabi sa kanya, “Ang kapatid mong si Esau ay nagpapalubag ng loob sa pagbabalak na patayin ka. ⁴³ Kaya ngayon, anak ko, makinig ka sa akin. Tumakas ka agad papunta sa kapatid kong si Laban sa Haran. ⁴⁴ Manatili ka muna sa kanya nang ilang panahon hanggang sa humupa ang galit ng iyong kapatid, ⁴⁵ hanggang sa mawala ang poot ng iyong kapatid sa iyo at makalimutan niya ang ginawa mo sa kanya. Saka ako magpapasundo sa iyo mula roon. Bakit ko kayo mawawalang dalawa sa iisang araw?” ⁴⁶ Pagkatapos ay sinabi ni Rebeca kay Isaac, “Pagod na ako sa buhay ko dahil sa mga babaing anak ni Het. Kung mag-aasawa rin si Jacob ng isang babaing anak ni Het na gaya ng mga ito, isa sa mga babae sa lupaing ito, ano pa ang silbi ng buhay ko?”
+
+---
+
+Notes
+- v. 39: Ang “mi-” sa “mishmanne ha-arets” at “mittal” ay maaaring basahing “mula sa” (pagpapala) o “malayo sa” (paghihiwalay); pinili ang “malayo sa” dahil sa kaibahan nito sa basbas kay Jacob sa v. 28.
+- v. 40: Hindi tiyak ang pandiwang “tarid” (gumala, maging balisa, o maghimagsik); isinalin bilang “naghimagsik.”
+- v. 36: May laro ng salita sa “Ya'akov” (Jacob) at “vayya'qeveni” (inagawan ako / dinaya ako); hindi ito madadala sa Tagalog.
+- v. 42: Ang “mitnachem lekha” ay literal na “nagpapaginhawa ng sarili tungkol sa iyo”; isinalin bilang pagpapalubag-loob sa balak na pumatay.

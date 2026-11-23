@@ -1,0 +1,23 @@
+{
+ "book": "Psalms",
+ "chapter": 96,
+ "lang": "tl",
+ "verses": {
+  "1": "Umawit kayo sa PANGINOON ng bagong awit;\numawit kayo sa PANGINOON, buong daigdig!",
+  "2": "Umawit kayo sa PANGINOON, purihin ang Kanyang pangalan;\nibalita ninyo araw-araw ang Kanyang pagliligtas.",
+  "3": "Ipahayag ninyo sa mga bansa ang Kanyang kaluwalhatian,\nsa lahat ng bayan ang Kanyang mga kamangha-manghang gawa.",
+  "4": "Sapagkat dakila ang PANGINOON at lubhang karapat-dapat purihin;\ndapat Siyang katakutan nang higit sa lahat ng diyos.",
+  "5": "Sapagkat ang lahat ng diyos ng mga bayan ay mga diyus-diyosang walang kabuluhan,\nngunit ang PANGINOON ang gumawa ng langit.",
+  "6": "Karilagan at kamahalan ang nasa Kanyang harapan;\nkalakasan at kagandahan ang nasa Kanyang santuwaryo.",
+  "7": "Ibigay ninyo sa PANGINOON, kayong mga angkan ng mga bayan,\nibigay ninyo sa PANGINOON ang kaluwalhatian at kalakasan.",
+  "8": "Ibigay ninyo sa PANGINOON ang kaluwalhatiang nararapat sa Kanyang pangalan;\nmagdala kayo ng handog at pumasok sa Kanyang mga bulwagan.",
+  "9": "Sumamba kayo sa PANGINOON sa karilagan ng kabanalan;\nmanginig kayo sa Kanyang harapan, buong daigdig!",
+  "10": "Sabihin ninyo sa mga bansa, “Ang PANGINOON ay naghahari!”\nTunay na matatag ang sanlibutan; hindi ito matitinag.\nHahatulan Niya ang mga bayan nang may katarungan.",
+  "11": "Magalak ang langit at magsaya ang lupa;\numugong ang dagat at ang lahat ng naroon.",
+  "12": "Magdiwang ang parang at ang lahat ng naroon;\nkung magkagayon ay sisigaw sa galak ang lahat ng punungkahoy sa gubat",
+  "13": "sa harapan ng PANGINOON, sapagkat Siya'y dumarating,\nsapagkat Siya'y dumarating upang hatulan ang lupa.\nHahatulan Niya ang sanlibutan nang may katuwiran,\nat ang mga bayan ayon sa Kanyang katapatan."
+ },
+ "notes": "Notes\n- v. 5: May laro ng salita sa אֱלֹהִים (\"mga diyos\") at אֱלִילִים (\"mga walang kabuluhan\"); isinalin bilang \"mga diyus-diyosang walang kabuluhan\".\n- v. 9: Ang בְּהַדְרַת־קֹדֶשׁ ay maaaring \"sa karilagan ng kabanalan\" o \"sa banal na kasuotan\"; pinili ang una.",
+ "raw": "[1] Umawit kayo sa PANGINOON ng bagong awit;\numawit kayo sa PANGINOON, buong daigdig!\n[2] Umawit kayo sa PANGINOON, purihin ang Kanyang pangalan;\nibalita ninyo araw-araw ang Kanyang pagliligtas.\n[3] Ipahayag ninyo sa mga bansa ang Kanyang kaluwalhatian,\nsa lahat ng bayan ang Kanyang mga kamangha-manghang gawa.\n[4] Sapagkat dakila ang PANGINOON at lubhang karapat-dapat purihin;\ndapat Siyang katakutan nang higit sa lahat ng diyos.\n[5] Sapagkat ang lahat ng diyos ng mga bayan ay mga diyus-diyosang walang kabuluhan,\nngunit ang PANGINOON ang gumawa ng langit.\n[6] Karilagan at kamahalan ang nasa Kanyang harapan;\nkalakasan at kagandahan ang nasa Kanyang santuwaryo.\n[7] Ibigay ninyo sa PANGINOON, kayong mga angkan ng mga bayan,\nibigay ninyo sa PANGINOON ang kaluwalhatian at kalakasan.\n[8] Ibigay ninyo sa PANGINOON ang kaluwalhatiang nararapat sa Kanyang pangalan;\nmagdala kayo ng handog at pumasok sa Kanyang mga bulwagan.\n[9] Sumamba kayo sa PANGINOON sa karilagan ng kabanalan;\nmanginig kayo sa Kanyang harapan, buong daigdig!\n[10] Sabihin ninyo sa mga bansa, “Ang PANGINOON ay naghahari!”\nTunay na matatag ang sanlibutan; hindi ito matitinag.\nHahatulan Niya ang mga bayan nang may katarungan.\n[11] Magalak ang langit at magsaya ang lupa;\numugong ang dagat at ang lahat ng naroon.\n[12] Magdiwang ang parang at ang lahat ng naroon;\nkung magkagayon ay sisigaw sa galak ang lahat ng punungkahoy sa gubat\n[13] sa harapan ng PANGINOON, sapagkat Siya'y dumarating,\nsapagkat Siya'y dumarating upang hatulan ang lupa.\nHahatulan Niya ang sanlibutan nang may katuwiran,\nat ang mga bayan ayon sa Kanyang katapatan.\n---\nNotes\n- v. 5: May laro ng salita sa אֱלֹהִים (\"mga diyos\") at אֱלִילִים (\"mga walang kabuluhan\"); isinalin bilang \"mga diyus-diyosang walang kabuluhan\".\n- v. 9: Ang בְּהַדְרַת־קֹדֶשׁ ay maaaring \"sa karilagan ng kabanalan\" o \"sa banal na kasuotan\"; pinili ang una.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

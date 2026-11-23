@@ -1,0 +1,18 @@
+{
+ "book": "Psalms",
+ "chapter": 124,
+ "lang": "tl",
+ "verses": {
+  "1": "Awit ng Pag-akyat. Kay David.\nKung hindi pumanig sa atin ang PANGINOON—\nsabihin nga ngayon ng Israel—",
+  "2": "kung hindi pumanig sa atin ang PANGINOON\nnang bumangon laban sa atin ang mga tao,",
+  "3": "nilamon na sana nila tayo nang buhay\nnang mag-alab ang kanilang galit laban sa atin;",
+  "4": "tinangay na sana tayo ng tubig,\numapaw na sana sa atin ang agos;",
+  "5": "umapaw na sana sa atin\nang nagngangalit na tubig.",
+  "6": "Purihin ang PANGINOON,\nna hindi tayo ibinigay na maging biktima ng kanilang mga ngipin.",
+  "7": "Nakatakas ang ating buhay na parang ibon\nmula sa bitag ng mga nanghuhuli;\nnasira ang bitag,\nat tayo'y nakatakas.",
+  "8": "Ang ating saklolo ay nasa pangalan ng PANGINOON,\nna lumikha ng langit at lupa."
+ },
+ "notes": "Notes\n- v. 4–5: Ang עַל־נַפְשֵׁנוּ ay literal na \"sa ibabaw ng aming nephesh/lalamunan\"; isinalin bilang \"sa atin\" dahil ang larawan ay tubig na umaabot hanggang leeg.\n- v. 5: Ang הַזֵּידוֹנִים ay \"palalo/mapangahas\"; isinalin bilang \"nagngangalit\" na angkop sa tubig.",
+ "raw": "[1] Awit ng Pag-akyat. Kay David.\nKung hindi pumanig sa atin ang PANGINOON—\nsabihin nga ngayon ng Israel—\n[2] kung hindi pumanig sa atin ang PANGINOON\nnang bumangon laban sa atin ang mga tao,\n[3] nilamon na sana nila tayo nang buhay\nnang mag-alab ang kanilang galit laban sa atin;\n[4] tinangay na sana tayo ng tubig,\numapaw na sana sa atin ang agos;\n[5] umapaw na sana sa atin\nang nagngangalit na tubig.\n[6] Purihin ang PANGINOON,\nna hindi tayo ibinigay na maging biktima ng kanilang mga ngipin.\n[7] Nakatakas ang ating buhay na parang ibon\nmula sa bitag ng mga nanghuhuli;\nnasira ang bitag,\nat tayo'y nakatakas.\n[8] Ang ating saklolo ay nasa pangalan ng PANGINOON,\nna lumikha ng langit at lupa.\n---\nNotes\n- v. 4–5: Ang עַל־נַפְשֵׁנוּ ay literal na \"sa ibabaw ng aming nephesh/lalamunan\"; isinalin bilang \"sa atin\" dahil ang larawan ay tubig na umaabot hanggang leeg.\n- v. 5: Ang הַזֵּידוֹנִים ay \"palalo/mapangahas\"; isinalin bilang \"nagngangalit\" na angkop sa tubig.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

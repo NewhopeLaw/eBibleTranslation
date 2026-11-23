@@ -1,0 +1,25 @@
+# Jeremiah 16
+
+¹ Dumating sa akin ang salita ng PANGINOON: ² “Huwag kang mag-aasawa, at huwag kang magkakaroon ng mga anak na lalaki o babae sa lugar na ito. ³ Sapagkat ganito ang sabi ng PANGINOON tungkol sa mga anak na lalaki at babae na isinisilang sa lugar na ito, at tungkol sa mga inang nagsisilang sa kanila at sa mga amang nag-aanak sa kanila sa lupaing ito: ⁴ Mamamatay sila sa mga nakamamatay na sakit. Hindi sila iiyakan at hindi ililibing; magiging gaya sila ng dumi sa ibabaw ng lupa. Mapupuksa sila sa tabak at sa taggutom, at ang kanilang mga bangkay ay magiging pagkain ng mga ibon sa himpapawid at ng mga hayop sa lupa. ⁵ Sapagkat ganito ang sabi ng PANGINOON: Huwag kang papasok sa bahay na may handaan sa pagluluksa; huwag kang pupunta upang tumangis, at huwag kang makikiramay sa kanila, sapagkat binawi Ko na sa bayang ito ang Aking kapayapaan, sabi ng PANGINOON—ang Aking tapat na pag-ibig at ang Aking habag. ⁶ Mamamatay ang malalaki at maliliit sa lupaing ito. Hindi sila ililibing, at walang tatangis para sa kanila; walang maghihiwa ng sarili at walang magpapakalbo dahil sa kanila. ⁷ Walang maghahati ng tinapay para sa nagluluksa upang aliwin siya dahil sa namatay, at walang magpapainom sa kanila ng saro ng pang-aliw dahil sa kanyang ama o sa kanyang ina. ⁸ Huwag ka ring papasok sa bahay na may piging upang umupong kasama nila sa pagkain at pag-inom. ⁹ Sapagkat ganito ang sabi ng PANGINOON ng mga hukbo, ang Diyos ng Israel: Sa harap ng inyong mga mata at sa inyong kapanahunan ay patatahimikin Ko sa lugar na ito ang tinig ng kagalakan at ang tinig ng kasayahan, ang tinig ng lalaking ikakasal at ang tinig ng babaeng ikakasal. ¹⁰ At kapag sinabi mo sa bayang ito ang lahat ng salitang ito, at sinabi nila sa iyo, ‘Bakit ipinahayag ng PANGINOON laban sa amin ang lahat ng malaking kapahamakang ito? Ano ang aming kasamaan? Ano ang kasalanang nagawa namin laban sa PANGINOON na aming Diyos?’ ¹¹ sabihin mo sa kanila, ‘Dahil tinalikuran Ako ng inyong mga ninuno, sabi ng PANGINOON, at sumunod sila sa ibang mga diyos, at naglingkod at sumamba sa mga iyon. Ako'y kanilang tinalikuran, at hindi nila iningatan ang Aking kautusan. ¹² At kayo ay gumawa ng higit pang kasamaan kaysa sa inyong mga ninuno. Tingnan ninyo, bawat isa sa inyo ay sumusunod sa katigasan ng kanyang masamang puso, upang hindi makinig sa Akin. ¹³ Kaya itatapon Ko kayo mula sa lupaing ito patungo sa lupaing hindi ninyo nakilala, kayo man o ang inyong mga ninuno, at doon ay maglilingkod kayo sa ibang mga diyos araw at gabi, sapagkat hindi Ko kayo kaaawaan.’ ¹⁴ Kaya, narito, dumarating ang mga araw, sabi ng PANGINOON, na hindi na sasabihin, ‘Buháy ang PANGINOON na nag-ahon sa mga anak ni Israel mula sa lupain ng Egipto,’ ¹⁵ kundi, ‘Buháy ang PANGINOON na nag-ahon sa mga anak ni Israel mula sa lupain sa hilaga at mula sa lahat ng lupaing pinagtabuyan Niya sa kanila.’ Sapagkat ibabalik Ko sila sa kanilang lupain na ibinigay Ko sa kanilang mga ninuno. ¹⁶ Narito, magsusugo Ako ng maraming mangingisda, sabi ng PANGINOON, at huhulihin nila sila. Pagkatapos ay magsusugo Ako ng maraming mangangaso, at tutugisin nila sila sa bawat bundok, sa bawat burol, at sa mga siwang ng mga bato. ¹⁷ Sapagkat ang Aking mga mata ay nasa lahat ng kanilang lakad; hindi nakatago ang mga iyon sa Akin, at hindi natatago ang kanilang kasamaan sa Aking paningin. ¹⁸ Una sa lahat, pagbabayarin Ko sila nang doble sa kanilang kasamaan at kasalanan, dahil nilapastangan nila ang Aking lupain sa mga bangkay ng kanilang mga kasuklam-suklam na diyus-diyusan, at pinuno nila ang Aking mana ng kanilang mga karumal-dumal na bagay.”
+
+¹⁹ PANGINOON, aking lakas at aking muog,  
+aking kanlungan sa araw ng kagipitan,  
+sa Iyo darating ang mga bansa mula sa mga dulo ng lupa, at sasabihin nila,  
+“Kasinungalingan lamang ang minana ng aming mga ninuno,  
+mga walang kabuluhang bagay na walang anumang pakinabang.  
+
+²⁰ Makagagawa ba ang tao ng mga diyos para sa kanyang sarili?  
+Hindi naman mga diyos ang mga iyon!”  
+
+²¹ “Kaya, narito, ipakikilala Ko sa kanila,  
+sa pagkakataong ito ay ipakikilala Ko sa kanila  
+ang Aking kamay at ang Aking kapangyarihan,  
+at malalaman nila na ang pangalan Ko ay PANGINOON.”  
+
+---
+
+Notes
+- v. 5: Ang בֵּית מַרְזֵחַ ay isang uri ng piging o pagtitipon, dito para sa pagluluksa; isinalin bilang “bahay na may handaan sa pagluluksa.”
+- v. 7: Sinunod ang pagbasang לֶחֶם (“tinapay”) sa halip na לָהֶם (“para sa kanila”), dahil ang “maghahati … para sa nagluluksa” ay nangangailangan ng bagay na hinahati.
+- v. 18: Ang רִאשׁוֹנָה ay maaaring “una” (bago ang pagbabalik sa v. 15) o “gaya ng dati”; pinili ang “una sa lahat.”
+- v. 19–20: Maaaring ang v. 20 ay sinasabi pa ng mga bansa o ay tugon ng propeta; isinama sa sinasabi ng mga bansa.

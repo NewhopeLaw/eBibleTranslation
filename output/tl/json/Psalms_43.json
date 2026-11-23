@@ -1,0 +1,15 @@
+{
+ "book": "Psalms",
+ "chapter": 43,
+ "lang": "tl",
+ "verses": {
+  "1": "Ipagtanggol Mo ako, O Diyos, at ipaglaban Mo ang aking usapin\nlaban sa isang bansang walang katapatan;\niligtas Mo ako sa taong mandaraya at liko.",
+  "2": "Sapagkat Ikaw ang Diyos na aking kanlungan;\nbakit Mo ako itinakwil?\nBakit ako lumalakad na nagdadalamhati\ndahil sa paniniil ng kaaway?",
+  "3": "Ipadala Mo ang Iyong liwanag at ang Iyong katotohanan;\nsila ang aakay sa akin;\ndadalhin nila ako sa Iyong banal na bundok\nat sa Iyong mga tahanan.",
+  "4": "Sa gayon ay lalapit ako sa dambana ng Diyos,\nsa Diyos na aking lubos na kagalakan,\nat pupurihin Kita sa alpa, O Diyos, aking Diyos.",
+  "5": "Bakit ka nanlulumo, O aking kaluluwa,\nat bakit ka nababagabag sa loob ko?\nUmasa ka sa Diyos, sapagkat pupurihin ko pa Siya,\nang kaligtasan ng aking mukha at aking Diyos."
+ },
+ "notes": "Notes: none.",
+ "raw": "[1] Ipagtanggol Mo ako, O Diyos, at ipaglaban Mo ang aking usapin\nlaban sa isang bansang walang katapatan;\niligtas Mo ako sa taong mandaraya at liko.\n[2] Sapagkat Ikaw ang Diyos na aking kanlungan;\nbakit Mo ako itinakwil?\nBakit ako lumalakad na nagdadalamhati\ndahil sa paniniil ng kaaway?\n[3] Ipadala Mo ang Iyong liwanag at ang Iyong katotohanan;\nsila ang aakay sa akin;\ndadalhin nila ako sa Iyong banal na bundok\nat sa Iyong mga tahanan.\n[4] Sa gayon ay lalapit ako sa dambana ng Diyos,\nsa Diyos na aking lubos na kagalakan,\nat pupurihin Kita sa alpa, O Diyos, aking Diyos.\n[5] Bakit ka nanlulumo, O aking kaluluwa,\nat bakit ka nababagabag sa loob ko?\nUmasa ka sa Diyos, sapagkat pupurihin ko pa Siya,\nang kaligtasan ng aking mukha at aking Diyos.\n---\nNotes: none.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

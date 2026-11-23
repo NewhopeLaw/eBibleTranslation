@@ -1,0 +1,10 @@
+# 1 Chronicles 20
+
+¹ Pagsapit ng bagong taon, sa panahong karaniwang humahayo sa digmaan ang mga hari, pinangunahan ni Joab ang hukbo at winasak ang lupain ng mga Ammonita. Dumating siya at kinubkob ang Rabba, samantalang si David ay nanatili sa Jerusalem. Sinalakay ni Joab ang Rabba at giniba ito. ² Kinuha ni David ang korona ng kanilang hari mula sa ulo nito. Natuklasan niyang isang talentong ginto ang bigat nito, at may mamahaling bato ito. Isinuot ito sa ulo ni David. Napakaraming samsam ang inilabas niya mula sa lungsod. ³ Inilabas din niya ang mga taong naroon at pinagtrabaho sa mga lagari, sa mga piko na bakal, at sa mga palakol. Ganito ang ginawa ni David sa lahat ng lungsod ng mga Ammonita. Pagkatapos ay bumalik si David at ang buong hukbo sa Jerusalem. ⁴ Pagkaraan nito, sumiklab ang digmaan laban sa mga Filisteo sa Gazer. Noon pinatay ni Sibecai na Husatita si Sipai, na isa sa mga inapo ng mga Refaim, at nasupil ang mga Filisteo. ⁵ Nagkaroon pa ng digmaan laban sa mga Filisteo, at pinatay ni Elhanan na anak ni Jair si Lahmi na kapatid ni Goliat na Geteo; ang hawakan ng sibat nito ay kasinlaki ng panghabing biga ng manghahabi. ⁶ Nagkaroon pa ng digmaan sa Gat. Doon ay may isang lalaking napakatangkad na may anim na daliri sa bawat kamay at sa bawat paa, dalawampu't apat lahat. Siya rin ay inapo ng mga Refaim. ⁷ Nilait niya ang Israel, kaya pinatay siya ni Jonathan na anak ni Simea, na kapatid ni David. ⁸ Ang mga ito ay mga inapo ng mga Refaim sa Gat, at nasawi sila sa kamay ni David at ng kanyang mga lingkod.
+
+---
+
+Notes
+- v. 3: ang וַיָּשַׂר ay maaaring basahing “nilagari niya sila” (mula sa שׂור) o, ayon sa kaugnay na salaysay, “pinagtrabaho sila” (וַיָּשֶׂם); pinili ang pagpapatrabaho. Ang “mga lagari” (מְגֵרוֹת) sa dulo ay maaaring “mga palakol” (מַגְזְרוֹת) ayon sa ibang anyo ng teksto.
+- v. 4, 6, 8: ang הָרְפָאִים / הָרָפָא ay isinalin bilang “Refaim,” isang lahi ng mga higante; maaari rin itong isang ninunong nagngangalang Rafa.
+- v. 5: “Jair” ang nasa Hebreo rito (יָעִיר); hindi “Jaare” na nasa ibang salaysay.

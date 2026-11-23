@@ -1,0 +1,18 @@
+{
+ "book": "Psalms",
+ "chapter": 82,
+ "lang": "tl",
+ "verses": {
+  "1": "Salmo ni Asaf.\nAng Diyos ay tumatayo sa kapulungan ng Diyos;\nhumahatol Siya sa gitna ng mga diyos:",
+  "2": "“Hanggang kailan kayo hahatol nang walang katarungan,\nat kakampi sa masasama? Selah",
+  "3": "Ipagtanggol ninyo ang dukha at ang ulila;\nbigyan ninyo ng katarungan ang naaapi at ang salat.",
+  "4": "Sagipin ninyo ang dukha at ang nangangailangan;\niligtas ninyo sila mula sa kamay ng masasama.",
+  "5": "Wala silang alam at walang pang-unawa;\nnaglalakad sila sa kadiliman;\nnayayanig ang lahat ng saligan ng lupa.",
+  "6": "Sinabi Ko, ‘Kayo'y mga diyos,\nat kayong lahat ay mga anak ng Kataas-taasan.’",
+  "7": "Gayunman, mamamatay kayong gaya ng tao,\nat mabubuwal na gaya ng sinumang pinuno.”",
+  "8": "Tumindig Ka, O Diyos, hatulan Mo ang lupa,\nsapagkat Ikaw ang may-ari ng lahat ng bansa."
+ },
+ "notes": "Notes\n- v. 1: \"אֱלֹהִים\" ay ginamit nang dalawang ulit: una para sa Diyos (pang-isahang pandiwa), ikalawa para sa \"mga diyos\" na hinahatulan. Ang \"עֲדַת־אֵל\" ay \"kapulungan ng Diyos\" o \"kapulungang makalangit\".\n- v. 2: \"פְּנֵי ... תִּשְׂאוּ\" — literal na \"itataas ang mukha\", ibig sabihin ay pagkiling o pagkampi.",
+ "raw": "[1] Salmo ni Asaf.\nAng Diyos ay tumatayo sa kapulungan ng Diyos;\nhumahatol Siya sa gitna ng mga diyos:\n[2] “Hanggang kailan kayo hahatol nang walang katarungan,\nat kakampi sa masasama? Selah\n[3] Ipagtanggol ninyo ang dukha at ang ulila;\nbigyan ninyo ng katarungan ang naaapi at ang salat.\n[4] Sagipin ninyo ang dukha at ang nangangailangan;\niligtas ninyo sila mula sa kamay ng masasama.\n[5] Wala silang alam at walang pang-unawa;\nnaglalakad sila sa kadiliman;\nnayayanig ang lahat ng saligan ng lupa.\n[6] Sinabi Ko, ‘Kayo'y mga diyos,\nat kayong lahat ay mga anak ng Kataas-taasan.’\n[7] Gayunman, mamamatay kayong gaya ng tao,\nat mabubuwal na gaya ng sinumang pinuno.”\n[8] Tumindig Ka, O Diyos, hatulan Mo ang lupa,\nsapagkat Ikaw ang may-ari ng lahat ng bansa.\n---\nNotes\n- v. 1: \"אֱלֹהִים\" ay ginamit nang dalawang ulit: una para sa Diyos (pang-isahang pandiwa), ikalawa para sa \"mga diyos\" na hinahatulan. Ang \"עֲדַת־אֵל\" ay \"kapulungan ng Diyos\" o \"kapulungang makalangit\".\n- v. 2: \"פְּנֵי ... תִּשְׂאוּ\" — literal na \"itataas ang mukha\", ibig sabihin ay pagkiling o pagkampi.\n",
+ "engine": "Claude Opus 5.5, an agent in a Claude Code session, from the Hebrew and Greek"
+}

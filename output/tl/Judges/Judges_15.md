@@ -1,0 +1,20 @@
+# Judges 15
+
+¹ Pagkaraan ng ilang panahon, noong anihan ng trigo, dinalaw ni Samson ang kanyang asawa na may dalang batang kambing. Sinabi niya, “Papasok ako sa silid ng aking asawa.” Ngunit hindi siya pinapasok ng ama nito. ² Sinabi ng ama nito, “Akala ko talaga'y kinapootan mo na siya, kaya ibinigay ko siya sa iyong kasama. Hindi ba't mas maganda pa sa kanya ang kanyang nakababatang kapatid? Siya na lamang ang kunin mo kapalit niya.” ³ Sinabi sa kanila ni Samson, “Ngayon ay wala akong pananagutan sa mga Filisteo kapag ginawan ko sila ng masama.” ⁴ Kaya umalis si Samson at humuli ng tatlong daang sorra. Kumuha siya ng mga sulo, pinagtali-tali ang mga sorra nang buntot sa buntot, at nilagyan ng tig-isang sulo ang pagitan ng bawat dalawang buntot. ⁵ Sinindihan niya ang mga sulo at pinakawalan ang mga sorra sa nakatayong trigo ng mga Filisteo. Nasunog ang mga bigkis at ang nakatayong trigo, pati ang mga ubasan at mga taniman ng olibo. ⁶ Nagtanong ang mga Filisteo, “Sino ang gumawa nito?” Sinabi ng mga tao, “Si Samson, ang manugang ng Timneo, sapagkat kinuha nito ang kanyang asawa at ibinigay sa kanyang kasama.” Kaya umahon ang mga Filisteo at sinunog ang babae pati ang kanyang ama. ⁷ Sinabi sa kanila ni Samson, “Dahil ganito ang ginawa ninyo, hindi ako titigil hangga't hindi ako nakapaghihiganti sa inyo.” ⁸ Pinagpapatay niya sila nang walang awa, isang napakalaking pagpatay. Pagkatapos ay bumaba siya at nanirahan sa siwang ng bato sa Etam. ⁹ Umahon ang mga Filisteo, nagkampo sa Juda, at kumalat sa Lehi. ¹⁰ Nagtanong ang mga lalaki ng Juda, “Bakit kayo umahon laban sa amin?” Sumagot sila, “Umahon kami upang hulihin si Samson, at gawin sa kanya ang ginawa niya sa amin.” ¹¹ Kaya bumaba ang tatlong libong lalaki ng Juda sa siwang ng bato sa Etam at sinabi kay Samson, “Hindi mo ba alam na ang mga Filisteo ang namumuno sa atin? Ano itong ginawa mo sa amin?” Sinabi niya sa kanila, “Ginawa ko lamang sa kanila ang ginawa nila sa akin.” ¹² Sinabi nila sa kanya, “Bumaba kami upang gapusin ka at ibigay sa kamay ng mga Filisteo.” Sinabi sa kanila ni Samson, “Sumumpa kayo sa akin na hindi kayo mismo ang papatay sa akin.” ¹³ Sumagot sila, “Hindi; gagapusin ka lamang namin at ibibigay sa kanilang kamay, ngunit hindi ka namin papatayin.” Kaya ginapos nila siya ng dalawang bagong lubid at iniahon mula sa bato. ¹⁴ Pagdating niya sa Lehi, sinalubong siya ng mga Filisteo na nagsisigawan. Dumating nang may kapangyarihan sa kanya ang Espiritu ng PANGINOON, at ang mga lubid sa kanyang mga bisig ay naging parang linong natupok ng apoy, at nalaglag ang mga gapos mula sa kanyang mga kamay. ¹⁵ Nakakita siya ng isang sariwang panga ng asno. Dinampot niya ito at pinatay niya sa pamamagitan nito ang isang libong lalaki.
+
+¹⁶ Sinabi ni Samson,  
+“Sa panga ng asno,  
+bunton sa bunton ang aking pinatay;  
+sa panga ng asno,  
+isang libong lalaki ang aking pinabagsak.”  
+
+¹⁷ Nang matapos siyang magsalita, inihagis niya ang panga, at tinawag niya ang lugar na iyon na Ramat-lehi. ¹⁸ Labis siyang nauhaw, kaya tumawag siya sa PANGINOON, “Ibinigay Mo sa kamay ng Iyong lingkod ang dakilang tagumpay na ito. Ngayon ba ay mamamatay ako sa uhaw at mahuhulog sa kamay ng mga hindi tuli?” ¹⁹ Binuksan ng Diyos ang hukay na nasa Lehi, at lumabas doon ang tubig. Uminom siya, at nanumbalik ang kanyang lakas at siya'y sumigla. Kaya tinawag niya iyon na En-hakore; iyon ay nasa Lehi hanggang ngayon. ²⁰ Dalawampung taong hinatulan ni Samson ang Israel noong panahon ng mga Filisteo.
+
+---
+
+Notes
+- v. 4: שׁוּעָלִים — maaaring “sorra” o “asong-gubat” (jackal); pinili ang “sorra”.
+- v. 8: שׁוֹק עַל־יָרֵךְ — idyoma, literal na “binti sa hita”; isinalin bilang “nang walang awa”.
+- v. 16: Laro ng salita: חֲמוֹר (asno) at חֲמֹרָתָיִם (“dalawang bunton”); hindi maipapanatili ang tunog sa Tagalog. Isinaayos ang awit nang patula.
+- v. 17: Ang Ramat-lehi ay “burol ng panga”.
+- v. 19: הַמַּכְתֵּשׁ — “hukay” o “lusong” (isang hukay sa bato); ang לֶּחִי dito ay ang pangalan ng lugar, hindi ang panga. Ang En-hakore ay “bukal ng tumatawag”. Ang רוּחוֹ ay isinalin na “lakas” ayon sa konteksto.
