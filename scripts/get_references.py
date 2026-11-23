@@ -51,7 +51,7 @@ DOWNLOAD = "https://ebible.org/Scriptures/{id}_usfm.zip"
 # Our target codes to the ISO 639-3 codes eBible files them under.
 ISO = {"en": ["eng"], "es": ["spa"], "zh": ["cmn"], "yue": ["yue"], "ja": ["jpn"],
        "ja-easy": ["jpn"], "ko": ["kor"], "th": ["tha"], "vi": ["vie"], "id": ["ind"],
-       "ms": ["zsm", "msa"], "tr": ["tur"], "nan": ["nan"],
+       "ms": ["zsm", "msa"], "ug": ["uig"], "nan": ["nan"],
        "hak": ["hak"]}
 # USFM book ids, in canon order, against our own book names.
 USFM = {"GEN": "Genesis", "EXO": "Exodus", "LEV": "Leviticus", "NUM": "Numbers",
