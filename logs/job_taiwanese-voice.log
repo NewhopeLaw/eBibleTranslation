@@ -422,3 +422,40 @@ Numbers 1: 54 verses, 463s of audio in 871s
 Numbers 2: 34 verses, 280s of audio in 614s
 Numbers 3: 51 verses, 443s of audio in 927s
 Numbers 4: 49 verses, 471s of audio in 986s
+Numbers 5: 31 verses, 323s of audio in 656s
+Numbers 6: 27 verses, 279s of audio in 636s
+--- started by the dashboard 2026-11-22 13:35
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\module.py:1355: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:35.)
+  return t.to(
+Trainable Parameters: 4.481M
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\df\io.py:9: UserWarning: `torchaudio.backend.common.AudioMetaData` has been moved to `torchaudio.AudioMetaData`. Please update the import path.
+  from torchaudio.backend.common import AudioMetaData
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\module.py:1355: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:35.)
+  return t.to(
+Trainable Parameters: 4.481M
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\df\io.py:9: UserWarning: `torchaudio.backend.common.AudioMetaData` has been moved to `torchaudio.AudioMetaData`. Please update the import path.
+  from torchaudio.backend.common import AudioMetaData
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\module.py:1355: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:35.)
+  return t.to(
+Trainable Parameters: 4.481M
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\df\io.py:9: UserWarning: `torchaudio.backend.common.AudioMetaData` has been moved to `torchaudio.AudioMetaData`. Please update the import path.
+  from torchaudio.backend.common import AudioMetaData
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\torch\nn\modules\module.py:1355: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:35.)
+  return t.to(
+Trainable Parameters: 4.481M
+D:\Home\4. AI\eBibleTranslation\sources\taiwanese-tts\.venv\lib\site-packages\df\io.py:9: UserWarning: `torchaudio.backend.common.AudioMetaData` has been moved to `torchaudio.AudioMetaData`. Please update the import path.
+  from torchaudio.backend.common import AudioMetaData
+Numbers 8: 26 verses, 243s of audio in 476s
+Numbers 9: 23 verses, 250s of audio in 547s
+Numbers 10: 36 verses, 296s of audio in 647s
+Numbers 12: 16 verses, 163s of audio in 467s
+Numbers 11: 35 verses, 372s of audio in 3141s
+Numbers 13: 33 verses, 272s of audio in 3126s
+Numbers 7: 89 verses, 859s of audio in 4979s
+Numbers 14: 45 verses, 451s of audio in 3944s
+Numbers 15: 41 verses, 352s of audio in 3106s
+Numbers 16: 35 verses, 356s of audio in 3078s
+Numbers 17: 28 verses, 281s of audio in 2860s
+Numbers 19: 22 verses, 249s of audio in 1238s
+Numbers 18: 32 verses, 390s of audio in 3084s
+Numbers 20: 29 verses, 296s of audio in 1363s
